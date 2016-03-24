@@ -1,5 +1,5 @@
 var v = require('../voca'),
-  assert = require('chai').assert;
+  expect = require('chai').expect;
 
 describe('isString', function() {
 

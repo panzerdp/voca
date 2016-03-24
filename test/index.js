@@ -1,3 +1,3 @@
 //Query category
-require('./query/isString');
-require('./query/isAlpha');
+require('./query/is_string');
+require('./query/is_alpha');
