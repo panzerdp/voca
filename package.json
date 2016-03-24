@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/panzerdp/voca/issues"
   },
-  "homepage": "https://github.com/panzerdp/voca#readme"
+  "homepage": "https://github.com/panzerdp/voca#readme",
+  "devDependencies": {
+    "qunitjs": "^1.22.0",
+    "qunit-cli": "^0.2.0"
+  }
 }
