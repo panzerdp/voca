@@ -4,7 +4,7 @@
   "description": "Coming soon...",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test/index.js"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/panzerdp/voca#readme",
   "devDependencies": {
-    "qunitjs": "^1.22.0",
-    "qunit-cli": "^0.2.0"
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
   }
 }
