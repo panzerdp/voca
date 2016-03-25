@@ -4,6 +4,6 @@
  * @param value {string}
  * @returns {boolean}
  */
-module.exports = function (value) {
+export default function (value) {
   return typeof value === 'string';
-};
+}

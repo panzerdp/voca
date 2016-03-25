@@ -1,6 +1,9 @@
 var voca = {};
 
-voca.isString = require('./query/is_string');
-voca.isAlpha = require('./query/is_alpha');
+import isString from './query/is_string';
+import isAlpha from './query/is_alpha';
 
-module.exports = voca;
+voca.isString = isString;
+voca.isAlpha = isAlpha;
+
+export default voca;

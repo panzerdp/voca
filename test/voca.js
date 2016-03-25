@@ -1,1 +1,2 @@
-module.exports = require('../src/index');
+import voca from '../src/index';
+export default voca

@@ -1,5 +1,5 @@
-var v = require('../voca'),
-  expect = require('chai').expect;
+import v from '../voca'
+import {expect} from 'chai'
 
 describe('isAlpha', function() {
 
@@ -18,11 +18,6 @@ describe('isAlpha', function() {
   it('should return true for an alpha japanese string', function() {
     expect(v.isAlpha('こんにちは世界')).to.be.true;
     expect(v.isAlpha('ジャバスクリプト')).to.be.true;
-  });
-
-  it('should return true for an array with one alpha string item', function() {
-    expect(v.isAlpha(['HelloWorld'])).to.be.true;
-    expect(v.isAlpha(['ЯваСкрипт'])).to.be.true;
   });
 
   it('should return true for an array with one alpha string item', function() {

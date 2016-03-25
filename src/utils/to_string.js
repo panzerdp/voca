@@ -1,4 +1,4 @@
-var isString = require('../query/is_string');
+import isString from '../query/is_string';
 
 /**
  * Try to convert the value to a string
@@ -6,7 +6,7 @@ var isString = require('../query/is_string');
  * @param value {*}
  * @returns {string?} - Return the string or null if unable to convert
  */
-module.exports = function(value) {
+export default function(value) {
   var string = null;
   if (typeof value === 'undefined' || value === null) {
     return null;
@@ -15,4 +15,4 @@ module.exports = function(value) {
     return value;
   }
   return String(value);
-};
+}

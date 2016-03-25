@@ -1,5 +1,5 @@
-var v = require('../voca'),
-  expect = require('chai').expect;
+import v from '../voca';
+import {expect} from 'chai';
 
 describe('isString', function() {
 

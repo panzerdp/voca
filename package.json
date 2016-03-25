@@ -4,7 +4,7 @@
   "description": "Coming soon...",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/index.js"
+    "test": "mocha test/index.js --compilers js:babel-core/register"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/panzerdp/voca#readme",
   "devDependencies": {
+    "babel-core": "^6.7.4",
     "chai": "^3.5.0",
     "mocha": "^2.4.5"
-  }
+  },
+  "dependencies": {}
 }
