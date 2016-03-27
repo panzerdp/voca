@@ -7,7 +7,6 @@ import isString from '../query/is_string';
  * @returns {string?} - Return the string or null if unable to convert
  */
 export default function(value) {
-  var string = null;
   if (typeof value === 'undefined' || value === null) {
     return null;
   }
