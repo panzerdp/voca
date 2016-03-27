@@ -5,9 +5,8 @@
   "main": "index.js",
   "scripts": {
     "prebuild": "eslint src/index.js test/index.js",
-    "build": "rollup -c rollup.config.umd.js && rollup -c rollup.config.es6.js",
-    "pretest": "npm run build",
-    "test": "istanbul cover -x dist/voca.js _mocha -- -R spec build/test-bundle.js",
+    "build": "rollup -c rollup.config.umd.js && rollup -c rollup.config.es6.js && rollup -c rollup.config.test.js",
+    "test": "istanbul cover -x test/**/*.js _mocha -- -R spec test/index.js --compilers js:babel-register",
     "prepublish": "npm test"
   },
   "repository": {
@@ -24,6 +23,7 @@
     "babel-eslint": "^6.0.0",
     "babel-preset-es2015": "^6.6.0",
     "babel-preset-es2015-rollup": "^1.1.1",
+    "babel-register": "^6.7.2",
     "chai": "^3.5.0",
     "eslint": "^2.5.1",
     "istanbul": "^0.4.2",
