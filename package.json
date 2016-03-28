@@ -4,7 +4,7 @@
   "description": "Coming soon...",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint src/index.js test/index.js",
+    "eslint": "eslint src/**/*.js test/**/*.js",
     "build": "rollup -c rollup.config.umd.js && rollup -c rollup.config.es6.js",
     "test": "mocha test/index.js --compilers js:babel-register",
     "coverage": "istanbul cover _mocha -- test/index.js --compilers js:babel-register --reporter spec",

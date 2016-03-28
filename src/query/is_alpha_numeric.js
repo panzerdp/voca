@@ -11,10 +11,9 @@ var REGEX_ALPHA_NUMERIC = /^[0-9\u0041-\u005A\u0061-\u007A\u00AA\u00B5\u00BA\u00
 
 
 /**
- * Checks if value contains only letters and numbers
- *
- * @param value [string='']
- * @return {boolean}
+ * Checks if `value` contains only alphanumeric characters
+ * @param {string} [value=''] The string to verify
+ * @return {boolean} Returns `true` if `value` contains only alphanumeric characters, `false` otherwise
  */
 export default function(value) {
   value = undefinedDefault(value, '');

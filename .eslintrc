@@ -4,5 +4,8 @@
   "env": {
     "node": true,
     "mocha": true
+  },
+  "rules": {
+    "valid-jsdoc": [2]
   }
 }
