@@ -2,7 +2,7 @@ import toString from '../utils/to_string'
 import undefinedDefault from '../utils/undefined_default';
 
 /**
- * RegEx to match alpha chars in unicode
+ * RegEx to match alpha chars in unicode.
  *
  * @see http://stackoverflow.com/a/22075070/1894471
  * @type {RegExp}
@@ -11,9 +11,9 @@ var REGEX_ALPHA_NUMERIC = /^[0-9\u0041-\u005A\u0061-\u007A\u00AA\u00B5\u00BA\u00
 
 
 /**
- * Checks if `value` contains only alphanumeric characters
- * @param {string} [value=''] The string to verify
- * @return {boolean} Returns `true` if `value` contains only alphanumeric characters, `false` otherwise
+ * Checks if `value` contains only alphanumeric characters.
+ * @param {string} [value=''] The string to verify.
+ * @return {boolean} Returns `true` if `value` contains only alphanumeric characters, `false` otherwise.
  */
 export default function(value) {
   value = undefinedDefault(value, '');

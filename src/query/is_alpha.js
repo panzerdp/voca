@@ -11,9 +11,9 @@ var REGEX_ALPHA = /^[\u0041-\u005A\u0061-\u007A\u00AA\u00B5\u00BA\u00C0-\u00D6\u
 
 
 /**
- * Checks if `value` contains only alpha characters
- * @param {string} [value=''] The string to verify
- * @return {boolean} Return `true` if `value` contains only alpha characters, `false` otherwise
+ * Checks if `value` contains only alpha characters.
+ * @param {string} [value=''] The string to verify.
+ * @return {boolean} Return `true` if `value` contains only alpha characters, `false` otherwise.
  */
 export default function(value) {
   value = undefinedDefault(value, '');
