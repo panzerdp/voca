@@ -1,7 +1,7 @@
 import isString from '../query/is_string';
 
 /**
- * Convert the `value` to string.
+ * Converts the `value` to string.
  * If `value` is `null` or `undefined` return `null`.
  * @param {*} value The value to convert.
  * @return {String|null} Returns the string representation or `null`.
