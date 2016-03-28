@@ -5,7 +5,11 @@
     "node": true,
     "mocha": true
   },
+  "plugins": [
+    "require-jsdoc"
+  ],
   "rules": {
-    "valid-jsdoc": [2]
+    "valid-jsdoc": 2,
+    "require-jsdoc": 2
   }
 }
