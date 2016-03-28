@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "prebuild": "eslint src/index.js test/index.js",
-    "build": "rollup -c rollup.config.umd.js && rollup -c rollup.config.es6.js && rollup -c rollup.config.test.js",
+    "build": "rollup -c rollup.config.umd.js && rollup -c rollup.config.es6.js",
     "test": "mocha test/index.js --compilers js:babel-register",
-    "coverage": "istanbul cover -x test/index.js _mocha -- test/index.js --compilers js:babel-register --reporter spec",
+    "coverage": "istanbul cover _mocha -- test/index.js --compilers js:babel-register --reporter spec",
     "prepublish": "npm test"
   },
   "repository": {
