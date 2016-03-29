@@ -11,9 +11,9 @@ var REGEX_ALPHA_DIGIT = /^[0-9\u0041-\u005A\u0061-\u007A\u00AA\u00B5\u00BA\u00C0
 
 
 /**
- * Checks if `value` contains only alphanumeric characters.
+ * Checks if `value` contains only alpha and digit characters.
  * @param {string} [value=''] The string to verify.
- * @return {boolean} Returns `true` if `value` contains only alphanumeric characters, `false` otherwise.
+ * @return {boolean} Returns `true` if `value` contains only alpha and digit characters, `false` otherwise.
  */
 export default function(value) {
   value = undefinedDefault(value, '');

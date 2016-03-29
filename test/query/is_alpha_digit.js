@@ -3,7 +3,7 @@ import { expect } from 'chai'
 
 describe('isAlphaDigit', function() {
 
-  it('should return true for an alphanumeric ASCII string', function() {
+  it('should return true for an alpha and digit ASCII string', function() {
     expect(v.isAlphaDigit('helloworld')).to.be.true;
     expect(v.isAlphaDigit('hell0w0rld')).to.be.true;
     expect(v.isAlphaDigit('helloworld45')).to.be.true;
@@ -11,26 +11,26 @@ describe('isAlphaDigit', function() {
     expect(v.isAlphaDigit('12isAlpha')).to.be.true;
   });
 
-  it('should return true for an alphanumeric russian string', function() {
+  it('should return true for an alpha and digit russian string', function() {
     expect(v.isAlphaDigit('приветмир')).to.be.true;
     expect(v.isAlphaDigit('приветмир45')).to.be.true;
     expect(v.isAlphaDigit('Ява34Скрипт')).to.be.true;
     expect(v.isAlphaDigit('12этоАльфа')).to.be.true;
   });
 
-  it('should return true for an alphanumeric japanese string', function() {
+  it('should return true for an alpha and digit japanese string', function() {
     expect(v.isAlphaDigit('こんにちは世界')).to.be.true;
     expect(v.isAlphaDigit('こんにちは世界45')).to.be.true;
     expect(v.isAlphaDigit('12ジャバスクリプト')).to.be.true;
   });
 
-  it('should return true for an array with one alphanumeric string item', function() {
+  it('should return true for an array with one alpha and digit string item', function() {
     expect(v.isAlphaDigit(['HelloWorld'])).to.be.true;
     expect(v.isAlphaDigit(['HelloWorld45'])).to.be.true;
     expect(v.isAlphaDigit(['Ява34Скрипт'])).to.be.true;
   });
 
-  it('should return true for an object which string representation is an alphanumeric string', function() {
+  it('should return true for an object which string representation is an alpha and digit string', function() {
     expect(v.isAlphaDigit({
       toString: function() {
         return 'HelloWorld';
@@ -65,7 +65,7 @@ describe('isAlphaDigit', function() {
     expect(v.isAlphaDigit('0xFF')).to.be.true;
   });
 
-  it('should return false for a non-alphanumeric ASCII string', function() {
+  it('should return false for a non alpha and digit ASCII string', function() {
     expect(v.isAlphaDigit('hell0w0rld!')).to.be.false;
     expect(v.isAlphaDigit('hello world! 12')).to.be.false;
     expect(v.isAlphaDigit('\nhell0 w0rld!\n')).to.be.false;
@@ -73,7 +73,7 @@ describe('isAlphaDigit', function() {
     expect(v.isAlphaDigit('isAlpha(0)')).to.be.false;
   });
 
-  it('should return false for a non-alphanumeric russian string', function() {
+  it('should return false for a non alpha and digit russian string', function() {
     expect(v.isAlphaDigit('привет мир!')).to.be.false;
     expect(v.isAlphaDigit('привет мир 1000')).to.be.false;
     expect(v.isAlphaDigit('\nпривет-мир-9\n')).to.be.false;
@@ -81,17 +81,17 @@ describe('isAlphaDigit', function() {
     expect(v.isAlphaDigit('этоАльфа(0)')).to.be.false;
   });
 
-  it('should return false for a non-alphanumeric japanese string', function() {
+  it('should return false for a non alpha and digit japanese string', function() {
     expect(v.isAlphaDigit('こんにちは世界00!')).to.be.false;
     expect(v.isAlphaDigit('ジャバスクリプト 2015(2016)')).to.be.false;
   });
 
-  it('should return false for an array with a non-alphanumeric string item', function() {
+  it('should return false for an array with a non alpha and digit string item', function() {
     expect(v.isAlphaDigit(['Hell0 W0rld!'])).to.be.false;
     expect(v.isAlphaDigit(['Ява Скрипт, привет 0!'])).to.be.false;
   });
 
-  it('should return false for an object which string representation is an non-alphanumeric string', function() {
+  it('should return false for an object which string representation is an non alpha and digit string', function() {
     expect(v.isAlphaDigit({
       toString: function() {
         return 'Hello World! 007';
