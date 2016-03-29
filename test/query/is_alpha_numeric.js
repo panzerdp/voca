@@ -1,5 +1,5 @@
 import v from '../voca'
-import {expect} from 'chai'
+import { expect } from 'chai'
 
 describe('isAlphaNumeric', function() {
 
