@@ -9,7 +9,6 @@ describe('isNumeric', function() {
     expect(v.isNumeric(1000)).to.be.true;
     expect(v.isNumeric(-1000)).to.be.true;
     expect(v.isNumeric(0xFF)).to.be.true;
-    expect(v.isNumeric(-0xA0)).to.be.true;
     expect(v.isNumeric(1.56)).to.be.true;
     expect(v.isNumeric(-10.888)).to.be.true;
     expect(v.isNumeric(125e5)).to.be.true;
@@ -22,7 +21,6 @@ describe('isNumeric', function() {
     expect(v.isNumeric('1000')).to.be.true;
     expect(v.isNumeric('-1000')).to.be.true;
     expect(v.isNumeric('0xFF')).to.be.true;
-    expect(v.isNumeric('-0xA0')).to.be.true;
     expect(v.isNumeric('1.56')).to.be.true;
     expect(v.isNumeric('-10.888')).to.be.true;
     expect(v.isNumeric('125e5')).to.be.true;
