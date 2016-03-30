@@ -4,7 +4,7 @@ import undefinedDefault from '../utils/undefined_default';
 /**
  * Checks if `value` is empty, `null` or `undefined`
  * @param {string} [value=''] The string to verify.
- * @return {boolean} Returns `true` if `value` length is `0`, `null` or `undefined` and `false` otherwise
+ * @return {boolean} Returns `true` if `value` length is `0`, `null` or `undefined`, `false` otherwise
  */
 export default function(value) {
   value = undefinedDefault(value, '');
