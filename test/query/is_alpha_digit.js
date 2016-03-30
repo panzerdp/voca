@@ -7,16 +7,16 @@ describe('isAlphaDigit', function() {
     expect(v.isAlphaDigit('HelloWorld')).to.be.true;
     expect(v.isAlphaDigit('HelloWorld007')).to.be.true;
     expect(v.isAlphaDigit('JavaScript6')).to.be.true;
-    expect(v.isAlpha('AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz')).to.be.true;
-    expect(v.isAlpha('AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789')).to.be.true;
+    expect(v.isAlphaDigit('AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz')).to.be.true;
+    expect(v.isAlphaDigit('AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789')).to.be.true;
   });
 
   it('should return true for an alpha and digit russian string', function() {
     expect(v.isAlphaDigit('ПриветМир')).to.be.true;
     expect(v.isAlphaDigit('ПриветМир007')).to.be.true;
     expect(v.isAlphaDigit('ЯваСкрипт6')).to.be.true;
-    expect(v.isAlpha('АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя')).to.be.true;
-    expect(v.isAlpha('АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя0123456789')).to.be.true;
+    expect(v.isAlphaDigit('АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя')).to.be.true;
+    expect(v.isAlphaDigit('АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя0123456789')).to.be.true;
   });
 
   it('should return true for an alpha and digit japanese string', function() {
@@ -26,14 +26,14 @@ describe('isAlphaDigit', function() {
   });
 
   it('should return true for a string with diacritics', function() {
-    expect(v.isAlpha('áéèêëíîïóôúûýàòüçäöâùÿãõñ')).to.be.true;
-    expect(v.isAlpha('áéèêëíîïóôúûýàòüçäöâùÿãõñ0123456789')).to.be.true;
+    expect(v.isAlphaDigit('áéèêëíîïóôúûýàòüçäöâùÿãõñ')).to.be.true;
+    expect(v.isAlphaDigit('áéèêëíîïóôúûýàòüçäöâùÿãõñ0123456789')).to.be.true;
   });
 
   it('should return true for an array with one alpha and digit string item', function() {
     expect(v.isAlphaDigit(['HelloWorld'])).to.be.true;
     expect(v.isAlphaDigit(['HelloWorld007'])).to.be.true;
-    expect(v.isAlphaDigit(['ЯваСкрипт6.0'])).to.be.true;
+    expect(v.isAlphaDigit(['ЯваСкрипт6'])).to.be.true;
   });
 
   it('should return true for an object which string representation is an alpha and digit string', function() {
@@ -71,8 +71,8 @@ describe('isAlphaDigit', function() {
     expect(v.isAlphaDigit('0')).to.be.true;
     expect(v.isAlphaDigit('10')).to.be.true;
     expect(v.isAlphaDigit('0xFF')).to.be.true;
-    expect(v.isAlpha(NaN)).to.be.true;
-    expect(v.isAlpha(Infinity)).to.be.true;
+    expect(v.isAlphaDigit(NaN)).to.be.true;
+    expect(v.isAlphaDigit(Infinity)).to.be.true;
   });
 
   it('should return false for a non alpha and digit string', function() {
