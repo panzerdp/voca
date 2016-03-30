@@ -7,7 +7,7 @@ import isString from '../query/is_string';
  * @return {String|null} Returns the string representation or `null`.
  */
 export default function(value) {
-  if (typeof value === 'undefined' || value === null) {
+  if (value == null) {
     return null;
   }
   if (isString(value)) {

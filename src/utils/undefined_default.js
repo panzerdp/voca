@@ -5,8 +5,5 @@
  * @return {*} Returns `defaultValue` if `value` is `undefined`, otherwise `defaultValue`.
  */
 export default function (value, defaultValue) {
-  if (typeof value === 'undefined') {
-    return defaultValue;
-  }
-  return value;
+  return typeof value === 'undefined' ? defaultValue : value;
 }
