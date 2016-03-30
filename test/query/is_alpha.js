@@ -3,7 +3,7 @@ import { expect } from 'chai'
 
 describe('isAlpha', function() {
 
-  it('should return true for an alpha ASCII string', function() {
+  it('should return true for an alpha string', function() {
     expect(v.isAlpha('HelloWorld')).to.be.true;
     expect(v.isAlpha('JavaScript')).to.be.true;
     expect(v.isAlpha('AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz')).to.be.true;
@@ -47,18 +47,20 @@ describe('isAlpha', function() {
     expect(v.isAlpha(false)).to.be.true;
   });
 
-  it('should return true for a NaN and Infinity numbers', function() {
+  it('should return true for a NaN or Infinity number', function() {
     expect(v.isAlpha(NaN)).to.be.true;
     expect(v.isAlpha(Infinity)).to.be.true;
   });
 
-  it('should return false for a non-alpha ASCII string', function() {
+  it('should return false for a non-alpha string', function() {
     expect(v.isAlpha('Hello World!')).to.be.false;
     expect(v.isAlpha('\nHello World!\n')).to.be.false;
     expect(v.isAlpha('ECMAScript 5.1 (ECMA-262)')).to.be.false;
     expect(v.isAlpha(' ')).to.be.false;
     expect(v.isAlpha('\n')).to.be.false;
     expect(v.isAlpha('\t')).to.be.false;
+    expect(v.isAlpha('0123456789')).to.be.false;
+    expect(v.isAlpha('áéèêëíîïóôúûýàòüçäöâùÿãõñ 0123456789')).to.be.false;
   });
 
   it('should return false for a non-alpha russian string', function() {
