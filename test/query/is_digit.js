@@ -32,11 +32,6 @@ describe('isDigit', function() {
         return '00';
       }
     })).to.be.true;
-    expect(v.isDigit({
-      toString: function() {
-        return '00';
-      }
-    })).to.be.true;
   });
 
   it('should return true for a positive integer number', function() {
