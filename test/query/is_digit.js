@@ -95,9 +95,12 @@ describe('isDigit', function() {
     expect(v.isDigit('-12.05')).to.be.false;
   });
 
-  it('should return false for a NaN or Infinity number', function() {
-    expect(v.isDigit(NaN)).to.be.false;
+  it('should return false for an Infinity number', function() {
     expect(v.isDigit(Infinity)).to.be.false;
+  });
+
+  it('should return false for a NaN number', function() {
+    expect(v.isDigit(NaN)).to.be.false;
   });
 
   it('should return false for an empty string', function() {

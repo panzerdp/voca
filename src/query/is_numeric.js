@@ -7,8 +7,9 @@ import undefinedDefault from '../utils/undefined_default';
  * @return {boolean} Returns `true` if `value` is numeric, `false` otherwise.
  */
 export default function(value) {
-  if (value == null || value === Infinity || value === '') {
-    return false;
+  value = undefinedDefault(value, '');
+  if (typeof value === 'object') {
+    value = toString(value);
   }
-  return !isNaN(value);
+  return (typeof value === 'number' || typeof value === 'string') && !isNaN(value - parseFloat(value));
 }
