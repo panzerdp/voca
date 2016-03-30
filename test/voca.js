@@ -1,2 +1,2 @@
 import voca from '../src/index';
-export default voca
+export default voca;

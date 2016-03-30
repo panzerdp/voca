@@ -15,6 +15,7 @@ describe('isString', function() {
 
   it('should return false for an undefined', function() {
     expect(v.isString(undefined)).to.be.false;
+    expect(v.isString()).to.be.false;
   });
 
   it('should return false for a boolean', function() {
