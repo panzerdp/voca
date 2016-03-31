@@ -1,7 +1,7 @@
 import toString from '../utils/to_string'
 import undefinedDefault from '../utils/undefined_default';
 
-var REGEX_DIGIT = /^[0-9]+$/;
+var REGEX_DIGIT = /^\d+$/;
 
 /**
  * Checks if `string` contains only digit characters.
