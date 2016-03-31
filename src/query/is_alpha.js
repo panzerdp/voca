@@ -17,9 +17,9 @@ var REGEX_ALPHA = /^[\u0041-\u005A\u0061-\u007A\u00AA\u00B5\u00BA\u00C0-\u00D6\u
  */
 export default function(string) {
   string = undefinedDefault(string, '');
-  var stringValue = toString(string);
-  if (stringValue === null) {
+  var valueString = toString(string);
+  if (valueString === null) {
     return false;
   }
-  return REGEX_ALPHA.test(stringValue);
+  return REGEX_ALPHA.test(valueString);
 }

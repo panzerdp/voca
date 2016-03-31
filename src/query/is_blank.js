@@ -8,9 +8,9 @@ import undefinedDefault from '../utils/undefined_default';
  */
 export default function(string) {
   string = undefinedDefault(string, '');
-  var stringValue = toString(string);
-  if (stringValue === null) {
+  var valueString = toString(string);
+  if (valueString === null) {
     return true;
   }
-  return stringValue.trim().length === 0;
+  return valueString.trim().length === 0;
 }

@@ -6,4 +6,5 @@ import './query/is_digit';
 import './query/is_empty';
 import './query/is_ending_with';
 import './query/is_numeric';
+import './query/is_starting_with';
 import './query/is_string';

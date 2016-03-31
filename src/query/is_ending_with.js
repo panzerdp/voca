@@ -13,18 +13,18 @@ export default function(string, end, position) {
   if (end == null) {
     return false;
   }
-  var stringValue = toString(undefinedDefault(string, '')),
-    stringEnd = toString(end);
-  if (stringValue === null || stringEnd === null) {
+  var valueString = toString(undefinedDefault(string, '')),
+    endString = toString(end);
+  if (valueString === null || endString === null) {
     return false;
   }
   if (typeof position !== 'number'
     || !isFinite(position)
     || Math.floor(position) !== position
-    || position > stringValue.length) {
-    position = stringValue.length;
+    || position > valueString.length) {
+    position = valueString.length;
   }
-  position -= stringEnd.length;
-  var lastIndex = stringValue.indexOf(stringEnd, position);
+  position -= endString.length;
+  var lastIndex = valueString.indexOf(endString, position);
   return lastIndex !== -1 && lastIndex === position;
 }

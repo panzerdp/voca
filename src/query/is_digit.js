@@ -10,9 +10,9 @@ var REGEX_DIGIT = /^\d+$/;
  */
 export default function(string) {
   string = undefinedDefault(string, '');
-  var stringValue = toString(string);
-  if (stringValue === null) {
+  var valueString = toString(string);
+  if (valueString === null) {
     return false;
   }
-  return REGEX_DIGIT.test(stringValue);
+  return REGEX_DIGIT.test(valueString);
 }

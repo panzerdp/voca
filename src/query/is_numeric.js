@@ -7,10 +7,10 @@ import undefinedDefault from '../utils/undefined_default';
  * @return {boolean} Returns `true` if `string` is numeric, `false` otherwise.
  */
 export default function(string) {
-  var numericValue = string;
+  var valueNumeric = string;
   if (typeof string === 'object' && string != null) {
-    numericValue = Number(string);
+    valueNumeric = Number(string);
   }
-  return (typeof numericValue === 'number' || typeof numericValue === 'string')
-    && !isNaN(numericValue - parseFloat(numericValue));
+  return (typeof valueNumeric === 'number' || typeof valueNumeric === 'string')
+    && !isNaN(valueNumeric - parseFloat(valueNumeric));
 }
