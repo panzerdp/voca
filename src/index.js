@@ -4,6 +4,7 @@ import isAlpha from './query/is_alpha';
 import isAlphaDigit from './query/is_alpha_digit';
 import isBlank from './query/is_blank';
 import isDigit from './query/is_digit';
+import isEndingWith from './query/is_ending_with';
 import isEmpty from './query/is_empty';
 import isEndingWith from './query/is_ending_with';
 import isNumeric from './query/is_numeric';
