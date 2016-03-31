@@ -2,13 +2,15 @@ import toString from '../utils/to_string'
 import undefinedDefault from '../utils/undefined_default';
 
 /**
- * Checks if `value` is numeric.
- * @param {string} [value=''] The string to verify.
- * @return {boolean} Returns `true` if `value` is numeric, `false` otherwise.
+ * Checks if `string` is numeric.
+ * @param {string} [string=''] The string to verify.
+ * @return {boolean} Returns `true` if `string` is numeric, `false` otherwise.
  */
-export default function(value) {
-  if (typeof value === 'object' && value != null) {
-    value = Number(value);
+export default function(string) {
+  var numericValue = string;
+  if (typeof string === 'object' && string != null) {
+    numericValue = Number(string);
   }
-  return (typeof value === 'number' || typeof value === 'string') && !isNaN(value - parseFloat(value));
+  return (typeof numericValue === 'number' || typeof numericValue === 'string')
+    && !isNaN(numericValue - parseFloat(numericValue));
 }

@@ -2,15 +2,15 @@ import toString from '../utils/to_string';
 import undefinedDefault from '../utils/undefined_default';
 
 /**
- * Checks if `value` is empty
- * @param {string} [value=''] The string to verify.
- * @return {boolean} Returns `true` if `value` is empty, `false` otherwise
+ * Checks if `string` is empty
+ * @param {string} [string=''] The string to verify.
+ * @return {boolean} Returns `true` if `string` is empty, `false` otherwise
  */
-export default function(value) {
-  value = undefinedDefault(value, '');
-  var string = toString(value);
-  if (string === null) {
+export default function(string) {
+  string = undefinedDefault(string, '');
+  var stringValue = toString(string);
+  if (stringValue === null) {
     return true;
   }
-  return string.length === 0;
+  return stringValue.length === 0;
 }

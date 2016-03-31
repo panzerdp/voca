@@ -3,16 +3,16 @@ import undefinedDefault from '../utils/undefined_default';
 
 
 /**
- * Checks if `value` ends with `end`.
- * @param {string} [value=''] The string to verify.
+ * Checks if `string` ends with `end`.
+ * @param {string} [string=''] The string to verify.
  * @param {string} end The ending string.
- * @return {boolean} Returns `true` if `value` ends with `end`, `false` otherwise.
+ * @return {boolean} Returns `true` if `string` ends with `end`, `false` otherwise.
  */
-export default function(value, end) {
+export default function(string, end) {
   if (end == null) {
     return false;
   }
-  var stringValue = toString(undefinedDefault(value, '')),
+  var stringValue = toString(undefinedDefault(string, '')),
     stringEnd = toString(end);
   if (stringValue === null || stringEnd === null) {
     return false;
