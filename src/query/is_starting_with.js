@@ -2,7 +2,7 @@ import toString from '../utils/string/to_string'
 import undefinedDefault from '../utils/undefined/undefined_default';
 import clipNumber from '../utils/number/clip_number';
 import toInteger from '../utils/number/to_integer';
-
+import isNil from '../utils/object/is_nil';
 
 /**
  * Checks if `string` starts with `start`.
@@ -20,10 +20,6 @@ export default function(string, start, position) {
   if (startString === '') {
     return true;
   }
-  if (typeof position === 'undefined') {
-    position = 0;
-  } else {
-    position = clipNumber(toInteger(position), 0, valueString.length);
-  }
+  position = isNil(position) ? 0 : clipNumber(toInteger(position), 0, valueString.length);
   return valueString.substr(position, startString.length) === startString;
 }

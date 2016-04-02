@@ -1,4 +1,5 @@
 import isString from '../../query/is_string';
+import isNil from '../object/is_nil';
 
 /**
  * Get the string representation of the `value`
@@ -8,7 +9,7 @@ import isString from '../../query/is_string';
  * @return {string|null} Returns the string representation of `value`. Returns `null` if `value` is `null` or `undefined`.
  */
 export default function(value) {
-  if (value == null) {
+  if (isNil(value)) {
     return null;
   }
   if (isString(value)) {
