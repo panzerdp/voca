@@ -16,7 +16,7 @@ describe('isDigit', function() {
     expect(v.isDigit(['1234567890'])).to.be.true;
   });
 
-  it('should return true for an object which string representation is a digit string', function() {
+  it('should return true for a digit string representation of an object', function() {
     expect(v.isDigit({
       toString: function() {
         return '123';
@@ -62,7 +62,7 @@ describe('isDigit', function() {
     expect(v.isDigit(['0.0'])).to.be.false;
   });
 
-  it('should return false for an object which string representation is a non-digit string', function() {
+  it('should return false for a non digit string representation of an object', function() {
     expect(v.isDigit({
       toString: function() {
         return 'Hello World! 007';
@@ -86,8 +86,16 @@ describe('isDigit', function() {
 
   it('should return false for a negative number or negative numeric string', function() {
     expect(v.isDigit(-12)).to.be.false;
+    expect(v.isDigit(-100)).to.be.false;
     expect(v.isDigit(-12.05)).to.be.false;
+    expect(v.isDigit('-1')).to.be.false;
     expect(v.isDigit('-12.05')).to.be.false;
+  });
+
+  it('should return false for float numbers', function() {
+    expect(v.isDigit(0.5)).to.be.false;
+    expect(v.isDigit(12.05)).to.be.false;
+    expect(v.isDigit(100.001)).to.be.false;
   });
 
   it('should return false for an Infinity number', function() {

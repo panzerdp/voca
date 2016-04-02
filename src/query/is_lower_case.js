@@ -4,7 +4,7 @@ import undefinedDefault from '../utils/undefined_default';
 /**
  * Checks if `string` is lower case.
  * @param {string} [string=''] The string to verify.
- * @return {boolean} Return `true` if `string` is lower case, `false` otherwise.
+ * @return {boolean} Returns `true` if `string` is lower case, `false` otherwise.
  */
 export default function(string) {
   string = undefinedDefault(string, '');

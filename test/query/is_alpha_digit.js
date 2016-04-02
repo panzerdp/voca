@@ -36,7 +36,7 @@ describe('isAlphaDigit', function() {
     expect(v.isAlphaDigit(['ЯваСкрипт6'])).to.be.true;
   });
 
-  it('should return true for an object which string representation is an alpha and digit string', function() {
+  it('should return true for an alpha and digit string representation of an object', function() {
     expect(v.isAlphaDigit({
       toString: function() {
         return 'HelloWorld';
@@ -75,7 +75,7 @@ describe('isAlphaDigit', function() {
     expect(v.isAlphaDigit(Infinity)).to.be.true;
   });
 
-  it('should return false for a non alpha and digit string', function() {
+  it('should return false for a non alpha and non digit string', function() {
     expect(v.isAlphaDigit('Hello World!')).to.be.false;
     expect(v.isAlphaDigit('Hello World! It is 2016.')).to.be.false;
     expect(v.isAlphaDigit('\nHello World!\n')).to.be.false;
@@ -85,24 +85,24 @@ describe('isAlphaDigit', function() {
     expect(v.isAlphaDigit('\t')).to.be.false;
   });
 
-  it('should return false for a non alpha and digit russian string', function() {
+  it('should return false for a non alpha and non digit russian string', function() {
     expect(v.isAlphaDigit('привет мир!')).to.be.false;
     expect(v.isAlphaDigit('Привет Мир! Это 2016')).to.be.false;
     expect(v.isAlphaDigit('\nПривет-Мир\n')).to.be.false;
     expect(v.isAlphaDigit('ЯваСкрипт 2015')).to.be.false;
   });
 
-  it('should return false for a non alpha and digit japanese string', function() {
+  it('should return false for a non alpha and non digit japanese string', function() {
     expect(v.isAlphaDigit('こんにちは世界00!')).to.be.false;
     expect(v.isAlphaDigit('ジャバスクリプト 2015(2016)')).to.be.false;
   });
 
-  it('should return false for an array with a non alpha and digit string item', function() {
+  it('should return false for an array with a non alpha and non digit string item', function() {
     expect(v.isAlphaDigit(['Hello World!'])).to.be.false;
     expect(v.isAlphaDigit(['Ява Скрипт, привет!'])).to.be.false;
   });
 
-  it('should return false for an object which string representation is an non alpha and digit string', function() {
+  it('should return false for a non alpha and non digit string representation of an object', function() {
     expect(v.isAlphaDigit({
       toString: function() {
         return 'Hello World! How are you?';

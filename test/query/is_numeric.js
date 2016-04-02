@@ -28,7 +28,7 @@ describe('isNumeric', function() {
     expect(v.isNumeric('125e-3')).to.be.true;
   });
 
-  it('should return true for an object representation as a numeric string', function() {
+  it('should return true for a numeric string representation of an object', function() {
     expect(v.isNumeric([0])).to.be.true;
     expect(v.isNumeric(['0'])).to.be.true;
     expect(v.isNumeric(['0.0'])).to.be.true;
@@ -39,7 +39,7 @@ describe('isNumeric', function() {
     })).to.be.true;
   });
 
-  it('should return false for an non numeric string', function() {
+  it('should return false for a non numeric string', function() {
     expect(v.isNumeric('FF')).to.be.false;
     expect(v.isNumeric('0FF')).to.be.false;
     expect(v.isNumeric('Hello World!')).to.be.false;
@@ -50,7 +50,7 @@ describe('isNumeric', function() {
     expect(v.isNumeric(' ')).to.be.false;
   });
 
-  it('should return false for an object representation as a non-numeric string', function() {
+  it('should return false for a non numeric string representation of an object', function() {
     expect(v.isNumeric(['Hello World!'])).to.be.false;
     expect(v.isNumeric({
       toString: function() {

@@ -3,12 +3,12 @@ import { expect } from 'chai';
 
 describe('isBlank', function() {
 
-  it('should return false for a non-empty string', function() {
+  it('should return false for a non empty string', function() {
     expect(v.isBlank('Hello World!')).to.be.false;
     expect(v.isBlank('a')).to.be.false;
   });
 
-  it('should return false for a non-empty object string representation', function() {
+  it('should return false for a non empty string representation of an object', function() {
     expect(v.isBlank(['Hello world'])).to.be.false;
     expect(v.isBlank({
       toString: function() {
@@ -39,7 +39,7 @@ describe('isBlank', function() {
     expect(v.isBlank('\f\n\r\t\v')).to.be.true;
   });
 
-  it('should return true for an empty object string representation', function() {
+  it('should return true for an empty string string representation of an object', function() {
     expect(v.isBlank(['\n\n'])).to.be.true;
     expect(v.isBlank({
       toString: function() {

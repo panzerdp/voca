@@ -3,7 +3,7 @@ import { expect } from 'chai';
 
 describe('isStartingWith', function() {
 
-  it('should return true for valid starting string', function() {
+  it('should return true for a valid starting string', function() {
     expect(v.isStartingWith('Hello World!', '')).to.be.true;
     expect(v.isStartingWith('Hello World!', 'H')).to.be.true;
     expect(v.isStartingWith('Hello World!', 'He')).to.be.true;
@@ -21,7 +21,7 @@ describe('isStartingWith', function() {
     expect(v.isStartingWith('', '')).to.be.true;
   });
 
-  it('should return true for valid starting string and position', function() {
+  it('should return true for a valid starting string and position', function() {
     expect(v.isStartingWith('Hello World!', '', 0)).to.be.true;
     expect(v.isStartingWith('Hello World!', '!', 'Hello World!'.length - 1)).to.be.true;
     expect(v.isStartingWith('Hello World!', 'd!', 'Hello World!'.length - 2)).to.be.true;
@@ -38,13 +38,13 @@ describe('isStartingWith', function() {
     expect(v.isStartingWith('', '', 0)).to.be.true;
   });
 
-  it('should return true for valid starting number', function() {
+  it('should return true for a valid starting number', function() {
     expect(v.isStartingWith(1000, 100)).to.be.true;
     expect(v.isStartingWith(1250, 12)).to.be.true;
     expect(v.isStartingWith('916', 91)).to.be.true;
   });
 
-  it('should return true for a valid ending in an object string representation', function() {
+  it('should return true for a valid ending in a string representation of an object', function() {
     expect(v.isStartingWith(['Welcome to Earth'], 'Welcome')).to.be.true;
     expect(v.isStartingWith({
       toString: function() {
@@ -70,7 +70,7 @@ describe('isStartingWith', function() {
     expect(v.isStartingWith('They belong to me!', 'They belong', 100)).to.be.false;
   });
 
-  it('should return false for invalid starting number', function() {
+  it('should return false for an invalid starting number', function() {
     expect(v.isStartingWith(1000, 11)).to.be.false;
     expect(v.isStartingWith(1250, 10)).to.be.false;
     expect(v.isStartingWith('916', 90)).to.be.false;

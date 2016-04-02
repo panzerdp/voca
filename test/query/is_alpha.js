@@ -29,7 +29,7 @@ describe('isAlpha', function() {
     expect(v.isAlpha(['ПриветМир'])).to.be.true;
   });
 
-  it('should return true for an object which string representation is an alpha string', function() {
+  it('should return true for an alpha string representation of an object', function() {
     expect(v.isAlpha({
       toString: function() {
         return 'HelloWorld';
@@ -79,7 +79,7 @@ describe('isAlpha', function() {
     expect(v.isAlpha(['Привет Мир!'])).to.be.false;
   });
 
-  it('should return false for an object which string representation is an non-alpha string', function() {
+  it('should return false for a non-alpha string representation of an object', function() {
     expect(v.isAlpha({
       toString: function() {
         return 'Hello World!';

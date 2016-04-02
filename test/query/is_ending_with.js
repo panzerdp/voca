@@ -43,7 +43,7 @@ describe('isEndingWith', function() {
     expect(v.isEndingWith('916', 16)).to.be.true;
   });
 
-  it('should return true for a valid ending in an object string representation', function() {
+  it('should return true for a valid ending in a string representation of an object', function() {
     expect(v.isEndingWith(['Welcome to Earth'], 'Earth')).to.be.true;
     expect(v.isEndingWith({
       toString: function() {
@@ -69,7 +69,7 @@ describe('isEndingWith', function() {
     expect(v.isEndingWith('They belong to me!', 'belong to me!', -100)).to.be.false;
   });
 
-  it('should return false for invalid ending number', function() {
+  it('should return false for an invalid ending number', function() {
     expect(v.isEndingWith(1000, 10)).to.be.false;
     expect(v.isEndingWith(1250, 55)).to.be.false;
     expect(v.isEndingWith('916', 18)).to.be.false;
