@@ -44,7 +44,7 @@ describe('isEndingWith', function() {
     expect(v.isEndingWith('Hello World!', 'World!', Infinity)).to.be.true;
   });
 
-  it('should return true for an empty starting string', function() {
+  it('should return true for an empty ending string', function() {
     [0, 1, 100, Infinity, undefined, NaN, null].forEach(function(position) {
       expect(v.isEndingWith('Hello World!', '', position)).to.be.true;
     });
