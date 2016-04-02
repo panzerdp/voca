@@ -4,10 +4,7 @@
  * @return {boolean} Returns `true` if `string` is numeric, `false` otherwise.
  */
 export default function(string) {
-  var valueNumeric = string;
-  if (typeof string === 'object' && string != null) {
-    valueNumeric = Number(string);
-  }
+  var valueNumeric = typeof string === 'object' && string != null ? Number(string) : string;
   return (typeof valueNumeric === 'number' || typeof valueNumeric === 'string')
     && !isNaN(valueNumeric - parseFloat(valueNumeric));
 }

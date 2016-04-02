@@ -12,9 +12,6 @@ import toInteger from '../utils/number/to_integer';
  * @return {boolean} Returns `true` if `string` starts with `start`, `false` otherwise.
  */
 export default function(string, start, position) {
-  if (start == null) {
-    return false;
-  }
   var valueString = toString(undefinedDefault(string, '')),
     startString = toString(start);
   if (valueString === null || startString === null) {
