@@ -55,6 +55,7 @@ describe('isLowerCase', function() {
     expect(v.isLowerCase(-1500)).to.be.false;
     expect(v.isLowerCase(2017)).to.be.false;
     expect(v.isLowerCase('0')).to.be.false;
+    expect(v.isLowerCase('1998')).to.be.false;
   });
 
   it('should return false for a null', function() {
