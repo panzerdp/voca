@@ -1,5 +1,5 @@
-import toString from '../utils/to_string'
-import undefinedDefault from '../utils/undefined_default';
+import toString from '../utils/string/to_string'
+import undefinedDefault from '../utils/undefined/undefined_default';
 
 
 /**
