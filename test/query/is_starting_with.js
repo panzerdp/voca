@@ -36,9 +36,23 @@ describe('isStartingWith', function() {
     expect(v.isStartingWith('Hello World!', 'ello World!', 'Hello World!'.length - 11)).to.be.true;
     expect(v.isStartingWith('Hello World!', 'Hello World!', 0)).to.be.true;
     expect(v.isStartingWith('', '', 0)).to.be.true;
+    expect(v.isStartingWith('Hello World!', 'Hello', NaN)).to.be.true;
   });
 
-  it('should return true for a valid starting number', function() {
+  it('should return true for a correct downcast of the position', function() {
+    expect(v.isStartingWith('Hello World!', 'ello', '1')).to.be.true;
+    expect(v.isStartingWith('Hello World!', 'ello', 1.1)).to.be.true;
+    expect(v.isStartingWith('Hello World!', 'Hello', -1)).to.be.true;
+    expect(v.isStartingWith('Hello World!', 'Hello', -Infinity)).to.be.true;
+  });
+
+  it('should return true for an empty starting string', function() {
+    [0, 1, 100, Infinity, undefined, NaN, null].forEach(function(position) {
+      expect(v.isStartingWith('Hello World!', '', position)).to.be.true;
+    });
+  });
+
+  it('should return true for a valid starting as a number', function() {
     expect(v.isStartingWith(1000, 100)).to.be.true;
     expect(v.isStartingWith(1250, 12)).to.be.true;
     expect(v.isStartingWith('916', 91)).to.be.true;

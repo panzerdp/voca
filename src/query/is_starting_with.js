@@ -1,5 +1,7 @@
 import toString from '../utils/string/to_string'
 import undefinedDefault from '../utils/undefined/undefined_default';
+import clipNumber from '../utils/number/clip_number';
+import toInteger from '../utils/number/to_integer';
 
 
 /**
@@ -18,11 +20,13 @@ export default function(string, start, position) {
   if (valueString === null || startString === null) {
     return false;
   }
-  if (typeof position !== 'number'
-    || !isFinite(position)
-    || Math.floor(position) !== position
-    || position < 0) {
+  if (startString === '') {
+    return true;
+  }
+  if (typeof position === 'undefined') {
     position = 0;
+  } else {
+    position = clipNumber(toInteger(position), 0, valueString.length);
   }
   return valueString.substr(position, startString.length) === startString;
 }

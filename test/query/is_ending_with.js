@@ -37,6 +37,19 @@ describe('isEndingWith', function() {
     expect(v.isEndingWith('', '', 0)).to.be.true;
   });
 
+  it('should return true for a correct downcast of the position', function() {
+    expect(v.isEndingWith('Hello World!', 'ello', '5')).to.be.true;
+    expect(v.isEndingWith('Hello World!', 'ello', 5.1)).to.be.true;
+    expect(v.isEndingWith('Hello World!', 'World!', 30000)).to.be.true;
+    expect(v.isEndingWith('Hello World!', 'World!', Infinity)).to.be.true;
+  });
+
+  it('should return true for an empty starting string', function() {
+    [0, 1, 100, Infinity, undefined, NaN, null].forEach(function(position) {
+      expect(v.isEndingWith('Hello World!', '', position)).to.be.true;
+    });
+  });
+
   it('should return true for valid ending number', function() {
     expect(v.isEndingWith(1000, 0)).to.be.true;
     expect(v.isEndingWith(1250, 50)).to.be.true;
@@ -73,6 +86,10 @@ describe('isEndingWith', function() {
     expect(v.isEndingWith(1000, 10)).to.be.false;
     expect(v.isEndingWith(1250, 55)).to.be.false;
     expect(v.isEndingWith('916', 18)).to.be.false;
+  });
+
+  it('should return false for a NaN position', function() {
+    expect(v.isEndingWith('Hello World!', 'World!', NaN)).to.be.false;
   });
 
   it('should return false for undefined and null parameters', function() {
