@@ -1,5 +1,6 @@
 import toString from '../utils/to_string'
 import undefinedDefault from '../utils/undefined_default';
+import isAlpha from './is_alpha';
 
 /**
  * Checks if `string` is upper case.
@@ -12,5 +13,5 @@ export default function(string) {
   if (valueString === null) {
     return false;
   }
-  return valueString.toUpperCase() === valueString;
+  return isAlpha(valueString) && valueString.toUpperCase() === valueString;
 }
