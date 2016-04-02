@@ -1,6 +1,3 @@
-import toString from '../utils/to_string'
-import undefinedDefault from '../utils/undefined_default';
-
 /**
  * Checks if `string` is numeric.
  * @param {string} [string=''] The string to verify.
