@@ -1,6 +1,8 @@
 import toString from '../utils/string/to_string'
 import undefinedDefault from '../utils/undefined/undefined_default';
 import isNil from '../utils/object/is_nil';
+import trimLeft from './trim_left';
+import trimRight from './trim_right';
 
 /**
  * Removes the whitespaces from left and right parts of the `string`.
@@ -14,13 +16,12 @@ export default function(string, whitespace) {
   if (isNil(valueString)) {
     return '';
   }
-  if (whitespace === '') {
+  if (whitespace === '' || valueString === '') {
     return valueString;
   }
-  if (isNil(whitespace)) {
+  var whitespaceString = toString(whitespace);
+  if (isNil(whitespaceString)) {
     return valueString.trim();
   }
-  //return valueString.split(whitespace).reduce(function() {
-  //
-  //})
+  return trimRight(trimLeft(valueString, whitespaceString), whitespaceString);
 }

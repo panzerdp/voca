@@ -2,6 +2,8 @@ import toString from '../utils/string/to_string'
 import undefinedDefault from '../utils/undefined/undefined_default';
 import isNil from '../utils/object/is_nil';
 
+var REGEX_TRIM_LEFT = /^[\s\uFEFF\xA0]+/;
+
 /**
  * Removes the whitespaces from left and right parts of the `string`.
  * @param {string} [string=''] The string to trim.
