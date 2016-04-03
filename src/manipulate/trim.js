@@ -11,12 +11,16 @@ import isNil from '../utils/object/is_nil';
 export default function(string, whitespace) {
   string = undefinedDefault(string, '');
   var valueString = toString(string);
-  if (valueString === null) {
+  if (isNil(valueString)) {
     return '';
+  }
+  if (whitespace === '') {
+    return valueString;
   }
   if (isNil(whitespace)) {
     return valueString.trim();
   }
-  var whitespaceString = toString(undefinedDefault(whitespace, ''));
-
+  //return valueString.split(whitespace).reduce(function() {
+  //
+  //})
 }
