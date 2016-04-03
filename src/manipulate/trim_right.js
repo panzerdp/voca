@@ -37,7 +37,7 @@ export default function(string, whitespace) {
       if (index === 0) {
         result += item;
       } else {
-        result = item + whitespaceString + result;
+        result = whitespaceString + item + result;
       }
     }
     return result;
