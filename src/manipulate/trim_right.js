@@ -8,7 +8,7 @@ const REGEX_TRIM_RIGHT = /[\s\uFEFF\xA0]+$/;
  * Removes the whitespaces from the right part of the `string`.
  *
  * @param {string} [string=''] The string to trim.
- * @param {string} [whitespace=whitespace] The whitespaces to remove.
+ * @param {string} [whitespace=whitespace] The whitespace to remove.
  * @return {string} Returns the right trimmed string.
  */
 export default function(string, whitespace) {
