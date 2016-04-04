@@ -24,22 +24,18 @@ export default function(string, whitespace) {
   if (isNil(whitespaceString)) {
     return valueString.replace(REGEX_TRIM_RIGHT, '');
   }
-  /**
-   * Split the array into pieces by whiteSpace string.
-   * Then restore the string, but jump over the last sequence of empty strings.
-   */
-  var matchWhitespace = true;
-  return valueString.split(whitespaceString).reduceRight(function(result, item, index, array) {
-    if (item !== '') {
+  var matchWhitespace = true,
+    totalWhitespaceLength = 0,
+    whitespaceStringLength = whitespaceString.length,
+    valueStringLength = valueString.length,
+    position;
+  while(matchWhitespace) {
+    position = valueStringLength - totalWhitespaceLength - whitespaceStringLength;
+    if (valueString.indexOf(whitespaceString, position) === position) {
+      totalWhitespaceLength += whitespaceStringLength;
+    } else {
       matchWhitespace = false;
     }
-    if (!matchWhitespace) {
-      if (index === 0) {
-        result += item;
-      } else {
-        result = whitespaceString + item + result;
-      }
-    }
-    return result;
-  }, '');
+  }
+  return valueString.substring(0, valueStringLength - totalWhitespaceLength);
 }
