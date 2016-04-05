@@ -1,5 +1,7 @@
 /**
  * Checks if `string` is numeric.
+ *
+ * @function isNumeric
  * @param {string} [string=''] The string to verify.
  * @return {boolean} Returns `true` if `string` is numeric, `false` otherwise.
  */

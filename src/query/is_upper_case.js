@@ -4,6 +4,8 @@ import isAlpha from './is_alpha';
 
 /**
  * Checks if `string` is upper case.
+ *
+ * @function isUpperCase
  * @param {string} [string=''] The string to verify.
  * @return {boolean} Return `true` if `string` is upper case, `false` otherwise.
  */

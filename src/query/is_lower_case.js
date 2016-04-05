@@ -4,6 +4,8 @@ import isAlpha from './is_alpha';
 
 /**
  * Checks if `string` is lower case.
+ *
+ * @function isLowerCase
  * @param {string} [string=''] The string to verify.
  * @return {boolean} Returns `true` if `string` is lower case, `false` otherwise.
  */

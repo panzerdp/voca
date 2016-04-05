@@ -5,6 +5,8 @@ const REGEX_DIGIT = /^\d+$/;
 
 /**
  * Checks if `string` contains only digit characters.
+ *
+ * @function isDigit
  * @param {string} [string=''] The string to verify.
  * @return {boolean} Returns `true` if `string` contains only digit characters, `false` otherwise.
  */

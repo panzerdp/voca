@@ -4,6 +4,7 @@ import undefinedDefault from '../utils/undefined/undefined_default';
 /**
  * RegEx to match alpha chars in unicode.
  *
+ * @ignore
  * @see http://stackoverflow.com/a/22075070/1894471
  * @type {RegExp}
  */
@@ -11,6 +12,8 @@ const REGEX_ALPHA_DIGIT = /^[\d\u0041-\u005A\u0061-\u007A\u00AA\u00B5\u00BA\u00C
 
 /**
  * Checks if `string` contains only alpha and digit characters.
+ *
+ * @function isAlphaDigit
  * @param {string} [string=''] The string to verify.
  * @return {boolean} Returns `true` if `string` contains only alpha and digit characters, `false` otherwise.
  */
