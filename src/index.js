@@ -16,6 +16,9 @@ import trim from './manipulate/trim';
 import trimLeft from './manipulate/trim_left';
 import trimRight from './manipulate/trim_right';
 
+/**
+ * @namespace v
+ */
 var v = {
   endsWith: endsWith,
   isAlpha: isAlpha,

@@ -8,6 +8,9 @@ const REGEX_TRIM_RIGHT = /[\s\uFEFF\xA0]+$/;
  * Removes the whitespaces from the right part of the `string`.
  *
  * @function trimRight
+ * @static
+ * @memberOf v
+ * @category Manipulate
  * @param {string} [string=''] The string to trim.
  * @param {string} [whitespace=whitespace] The whitespace to remove.
  * @return {string} Returns the right trimmed string.

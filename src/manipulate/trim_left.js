@@ -8,6 +8,9 @@ const REGEX_TRIM_LEFT = /^[\s\uFEFF\xA0]+/;
  * Removes the whitespaces from the left part of the `string`.
  *
  * @function trimLeft
+ * @static
+ * @memberOf v
+ * @category Manipulate
  * @param {string} [string=''] The string to trim.
  * @param {string} [whitespace=whitespace] The whitespace to remove.
  * @return {string} Returns the left trimmed string.

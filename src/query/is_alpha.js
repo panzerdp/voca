@@ -15,6 +15,9 @@ const REGEX_ALPHA = /^[\u0041-\u005A\u0061-\u007A\u00AA\u00B5\u00BA\u00C0-\u00D6
  * Checks if `string` contains only alpha characters.
  *
  * @function isAlpha
+ * @static
+ * @memberOf v
+ * @category Query
  * @param {string} [string=''] The string to verify.
  * @return {boolean} Return `true` if `string` contains only alpha characters, `false` otherwise.
  */

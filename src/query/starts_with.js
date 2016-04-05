@@ -8,6 +8,9 @@ import isNil from '../utils/object/is_nil';
  * Checks if `string` starts with `start`.
  *
  * @function startsWith
+ * @static
+ * @memberOf v
+ * @category Query
  * @param {string} [string=''] The string to verify.
  * @param {string} [start] The starting string.
  * @param {int} [position=0] The position to start searching.

@@ -8,6 +8,9 @@ import isNil from '../utils/object/is_nil';
  * Checks if `string` ends with `end`.
  *
  * @function endsWith
+ * @static
+ * @memberOf v
+ * @category Query
  * @param {string} [string=''] The string to verify.
  * @param {string} [end] The ending string.
  * @param {int} [position=string.length] Search within `string` as if this string were only `position` long.

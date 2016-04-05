@@ -5,6 +5,9 @@ import undefinedDefault from '../utils/undefined/undefined_default';
  * Checks if `string` is empty or contains only whitespaces.
  *
  * @function isBlank
+ * @static
+ * @memberOf v
+ * @category Query
  * @param {string} [string=''] The string to verify.
  * @return {boolean} Returns `true` if `string` is empty or contains only whitespaces, `false` otherwise.
  */
