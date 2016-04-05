@@ -1,5 +1,8 @@
 /**
  * Clip the number to interval `downLimit` to `upLimit`
+ *
+ * @ignore
+ * @function clipNumber
  * @param {number} value The number to clip
  * @param {number} downLimit The down limit
  * @param {number} upLimit The upper limit
@@ -7,9 +10,6 @@
  */
 
 export default function(value, downLimit, upLimit) {
-  if (isNaN(value)) {
-    return value;
-  }
   if (value <= downLimit) {
     return downLimit;
   }
