@@ -179,6 +179,8 @@ function addSignatureTypes(f) {
 }
 
 function addAttribs(f) {
+    //change
+    return;
     var attribs = helper.getAttribs(f);
     var attribsString = buildAttribsString(attribs);
 
@@ -296,7 +298,12 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
         items.forEach(function(item) {
             var methods = find({kind:'function', memberof: item.longname});
             var members = find({kind:'member', memberof: item.longname});
-
+            //change
+            methods.forEach(function(method) {
+                if (method.memberof) {
+                    method.name = method.memberof + '.' + method.name;
+                }
+            });
             if ( !hasOwnProp.call(item, 'longname') ) {
                 itemsNav += '<li>' + linktoFn('', item.name);
                 itemsNav += '</li>';

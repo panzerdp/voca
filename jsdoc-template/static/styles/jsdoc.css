@@ -10,8 +10,8 @@ html, body {
 }
 
 body {
-  color: #4d4e53;
-  background-color: white;
+  color: #333;
+  background: #f6fafd;
   margin: 0 auto;
   padding: 0 20px;
   font-family: 'Helvetica Neue', Helvetica, sans-serif;
@@ -21,7 +21,7 @@ body {
 
 a,
 a:active {
-  color: #606;
+  color: #408BAA;
   text-decoration: none;
 }
 
@@ -75,16 +75,17 @@ h3 {
 h4 {
   font-size: 18px;
   margin: 1em 0 .2em;
-  color: #4d4e53;
+  color: #333;
 }
 
 h4.name {
   color: #fff;
-  background: #6d426d;
+  background: #2d5f73;
   box-shadow: 0 .25em .5em #d3d3d3;
   border-top: 1px solid #d3d3d3;
   border-bottom: 1px solid #d3d3d3;
-  margin: 1.5em 0 0.5em;
+  border-radius: 0.2em;
+  margin: 0.5em 0 0.5em;
   padding: .75em 0 .75em 10px;
 }
 
@@ -130,8 +131,16 @@ header {
 
 section {
   display: block;
-  background-color: #fff;
+  /*background-color: #fff;*/
   padding: 0 0 0 30px;
+}
+
+.method {
+  background-color: white;
+  padding: 0.5em 1em 0.5em 1em;
+  margin-bottom: 1em;
+  border-radius: 0.3em;
+  box-shadow: 0 0 0.5em #d5d7d8;
 }
 
 .variation {
@@ -140,7 +149,7 @@ section {
 
 .signature-attributes {
   font-size: 60%;
-  color: #eee;
+  color: #4bcaea;
   font-style: italic;
   font-weight: lighter;
 }
@@ -149,7 +158,7 @@ nav {
   float: left;
   display: block;
   width: 250px;
-  background: #fff;
+  /*background: #fff;*/
   overflow: auto;
   position: fixed;
   height: 100%;
@@ -187,7 +196,7 @@ nav ul a:active {
 
 nav a:hover,
 nav a:active {
-  color: #606;
+  color: #408BAA;
 }
 
 nav > ul {
@@ -195,7 +204,7 @@ nav > ul {
 }
 
 nav > ul > li > a {
-  color: #606;
+  color: #408BAA;
 }
 
 nav ul ul {
@@ -221,7 +230,7 @@ nav h2 {
 nav > h2 > a {
    display: block;
    margin: 10px 0 -10px;
-   color: #606 !important;
+   color: #408BAA !important;
 }
 
 footer {
@@ -255,7 +264,7 @@ footer {
 }
 
 .type-signature {
-  color: #CA79CA
+  color: white;
 }
 
 .type-signature:last-child {
@@ -267,7 +276,7 @@ footer {
 }
 
 .signature {
-    color: #fc83ff;
+    color: white;
 }
 
 .details {
@@ -333,7 +342,7 @@ footer {
   line-height: 18px;
   display: block;
   background-color: #0d152a;
-  color: #4D4E53;
+  color: #333;
 }
 
 .prettyprint > code {
@@ -391,7 +400,7 @@ footer {
 }
 
 .params td, .params .name, .props .name, .name code {
-   color: #4D4E53;
+   color: #333;
    font-family: Consolas, Monaco, 'Andale Mono', monospace;
    font-size: 100%;
 }
@@ -429,7 +438,7 @@ footer {
 }
 
 span.param-type, .params td .param-type, .param-type dd {
-   color: #606;
+   color: #408BAA;
   font-family: Consolas, Monaco, 'Andale Mono', monospace
 }
 

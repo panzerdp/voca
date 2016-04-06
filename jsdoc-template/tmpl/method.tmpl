@@ -2,6 +2,9 @@
 var data = obj;
 var self = this;
 ?>
+
+<div class="method">
+
 <?js if (data.kind !== 'module') { ?>
     <?js if (data.kind === 'class' && data.classdesc) { ?>
     <h2>Constructor</h2>
@@ -104,3 +107,4 @@ var self = this;
     <?js });
 } } ?>
 
+</div>
