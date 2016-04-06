@@ -90,7 +90,7 @@ h4.name {
 }
 
 h5, .container-overview .subsection-title {
-  font-size: 120%;
+  font-size: 110%;
   letter-spacing: -0.01em;
   margin: 8px 0 3px 0;
 }
@@ -141,6 +141,19 @@ section {
   margin-bottom: 1em;
   border-radius: 0.3em;
   box-shadow: 0 0 0.5em #d5d7d8;
+}
+
+.introduction {
+  padding: 0 0 0 30px;
+  margin-top: 1em;
+}
+
+.logo {
+  margin: 1em;
+}
+
+.logo img {
+  width: 250px;
 }
 
 .variation {
@@ -307,7 +320,7 @@ footer {
 }
 
 .details pre.prettyprint {
-   margin: 0
+   margin: 0;
 }
 
 .details .object-value {
@@ -328,6 +341,7 @@ footer {
 .prettyprint {
   font-size: 14px;
   overflow: auto;
+  border-radius: 0.2em;
 }
 
 .prettyprint.source {

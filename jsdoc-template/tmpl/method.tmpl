@@ -45,11 +45,6 @@ var self = this;
     <ul><li><?js= this.linkto(data['this'], data['this']) ?></li></ul>
 <?js } ?>
 
-<?js if (data.examples && examples.length) { ?>
-    <h5>Example<?js= examples.length > 1? 's':'' ?></h5>
-    <?js= this.partial('examples.tmpl', examples) ?>
-<?js } ?>
-
 <?js if (data.params && params.length) { ?>
     <h5>Parameters:</h5>
     <?js= this.partial('params.tmpl', params) ?>
@@ -106,5 +101,10 @@ var self = this;
         <?js= self.partial('returns.tmpl', r) ?>
     <?js });
 } } ?>
+
+<?js if (data.examples && examples.length) { ?>
+    <h5>Example<?js= examples.length > 1? 's':'' ?>:</h5>
+    <?js= this.partial('examples.tmpl', examples) ?>
+<?js } ?>
 
 </div>
