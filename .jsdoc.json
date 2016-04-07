@@ -6,10 +6,10 @@
     "include": "src/"
   },
   "plugins": [
-    "plugins/markdown"
+    "jsdoc/plugins/category"
   ],
   "opts": {
-    "template": "jsdoc-template",
+    "template": "jsdoc/template",
     "encoding": "utf8",
     "destination": "docs/",
     "recurse": true,
