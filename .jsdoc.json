@@ -6,7 +6,6 @@
     "include": "src/"
   },
   "plugins": [
-    "jsdoc/plugins/category"
   ],
   "opts": {
     "template": "jsdoc/template",

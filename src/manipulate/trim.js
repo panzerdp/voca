@@ -9,8 +9,7 @@ import trimRight from './trim_right';
  *
  * @function trim
  * @static
- * @memberOf v
- * @category Manipulate
+ * @memberOf Manipulate
  * @param {string} [string=''] The string to trim.
  * @param {string} [whitespace=whitespace] The whitespaces for trim.
  * @return {string} Returns the trimmed string.

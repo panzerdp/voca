@@ -3,8 +3,7 @@
  *
  * @function isString
  * @static
- * @memberOf v
- * @category Query
+ * @memberOf Query
  * @param {string} string The value to verify.
  * @return {boolean} Returns `true` if `string` is string primitive type, `false` otherwise.
  */

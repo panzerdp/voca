@@ -8,8 +8,7 @@ const REGEX_DIGIT = /^\d+$/;
  *
  * @function isDigit
  * @static
- * @memberOf v
- * @category Query
+ * @memberOf Query
  * @param {string} [string=''] The string to verify.
  * @return {boolean} Returns `true` if `string` contains only digit characters, `false` otherwise.
  */

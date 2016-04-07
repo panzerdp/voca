@@ -1,4 +1,7 @@
-//query
+/**
+ * Functions to query a string
+ * @namespace Query
+ */
 import endsWith from './query/ends_with';
 import isAlpha from './query/is_alpha';
 import isAlphaDigit from './query/is_alpha_digit';
@@ -11,14 +14,14 @@ import isString from './query/is_string';
 import isUpperCase from './query/is_upper_case';
 import startsWith from './query/starts_with';
 
-//manipulate
+/**
+ * Functions to manipulate a string
+ * @namespace Manipulate
+ */
 import trim from './manipulate/trim';
 import trimLeft from './manipulate/trim_left';
 import trimRight from './manipulate/trim_right';
 
-/**
- * @namespace v
- */
 var v = {
   endsWith: endsWith,
   isAlpha: isAlpha,

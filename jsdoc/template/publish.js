@@ -591,8 +591,8 @@ exports.publish = function(taffyData, opts, tutorials) {
     }
 
     // index page displays information from package.json and lists files
-    //var files = find({kind: 'file'});
-    //var packages = find({kind: 'package'});
+    var files = find({kind: 'file'});
+    var packages = find({kind: 'package'});
 
     //generate('', 'Home',
     //    packages.concat(
@@ -601,69 +601,69 @@ exports.publish = function(taffyData, opts, tutorials) {
     //indexUrl);
 
     // set up the lists that we'll use to generate pages
-    //var classes = taffy(members.classes);
-    //var modules = taffy(members.modules);
+    var classes = taffy(members.classes);
+    var modules = taffy(members.modules);
     var namespaces = taffy(members.namespaces);
-    //var mixins = taffy(members.mixins);
-    //var externals = taffy(members.externals);
-    //var interfaces = taffy(members.interfaces);
+    var mixins = taffy(members.mixins);
+    var externals = taffy(members.externals);
+    var interfaces = taffy(members.interfaces);
 
     Object.keys(helper.longnameToUrl).forEach(function(longname) {
-        //var myModules = helper.find(modules, {longname: longname});
-        //if (myModules.length) {
-        //    generate('Module', myModules[0].name, myModules, helper.longnameToUrl[longname]);
-        //}
-        //
-        //var myClasses = helper.find(classes, {longname: longname});
-        //if (myClasses.length) {
-        //    generate('Class', myClasses[0].name, myClasses, helper.longnameToUrl[longname]);
-        //}
+        var myModules = helper.find(modules, {longname: longname});
+        if (myModules.length) {
+            generate('Module', myModules[0].name, myModules, helper.longnameToUrl[longname]);
+        }
+
+        var myClasses = helper.find(classes, {longname: longname});
+        if (myClasses.length) {
+            generate('Class', myClasses[0].name, myClasses, helper.longnameToUrl[longname]);
+        }
 
         var myNamespaces = helper.find(namespaces, {longname: longname});
         if (myNamespaces.length) {
             generate('Namespace', myNamespaces[0].name, myNamespaces, 'index.html');//helper.longnameToUrl[longname]);
         }
-        //
-        //var myMixins = helper.find(mixins, {longname: longname});
-        //if (myMixins.length) {
-        //    generate('Mixin', myMixins[0].name, myMixins, helper.longnameToUrl[longname]);
-        //}
-        //
-        //var myExternals = helper.find(externals, {longname: longname});
-        //if (myExternals.length) {
-        //    generate('External', myExternals[0].name, myExternals, helper.longnameToUrl[longname]);
-        //}
-        //
-        //var myInterfaces = helper.find(interfaces, {longname: longname});
-        //if (myInterfaces.length) {
-        //    generate('Interface', myInterfaces[0].name, myInterfaces, helper.longnameToUrl[longname]);
-        //}
+
+        var myMixins = helper.find(mixins, {longname: longname});
+        if (myMixins.length) {
+            generate('Mixin', myMixins[0].name, myMixins, helper.longnameToUrl[longname]);
+        }
+
+        var myExternals = helper.find(externals, {longname: longname});
+        if (myExternals.length) {
+            generate('External', myExternals[0].name, myExternals, helper.longnameToUrl[longname]);
+        }
+
+        var myInterfaces = helper.find(interfaces, {longname: longname});
+        if (myInterfaces.length) {
+            generate('Interface', myInterfaces[0].name, myInterfaces, helper.longnameToUrl[longname]);
+        }
     });
 
     //// TODO: move the tutorial functions to templateHelper.js
-    //function generateTutorial(title, tutorial, filename) {
-    //    var tutorialData = {
-    //        title: title,
-    //        header: tutorial.title,
-    //        content: tutorial.parse(),
-    //        children: tutorial.children
-    //    };
-    //
-    //    var tutorialPath = path.join(outdir, filename);
-    //    var html = view.render('tutorial.tmpl', tutorialData);
-    //
-    //    // yes, you can use {@link} in tutorials too!
-    //    html = helper.resolveLinks(html); // turn {@link foo} into <a href="foodoc.html">foo</a>
-    //    fs.writeFileSync(tutorialPath, html, 'utf8');
-    //}
-    //
-    //// tutorials can have only one parent so there is no risk for loops
-    //function saveChildren(node) {
-    //    node.children.forEach(function(child) {
-    //        generateTutorial('Tutorial: ' + child.title, child, helper.tutorialToUrl(child.name));
-    //        saveChildren(child);
-    //    });
-    //}
-    //
-    //saveChildren(tutorials);
+    function generateTutorial(title, tutorial, filename) {
+        var tutorialData = {
+            title: title,
+            header: tutorial.title,
+            content: tutorial.parse(),
+            children: tutorial.children
+        };
+
+        var tutorialPath = path.join(outdir, filename);
+        var html = view.render('tutorial.tmpl', tutorialData);
+
+        // yes, you can use {@link} in tutorials too!
+        html = helper.resolveLinks(html); // turn {@link foo} into <a href="foodoc.html">foo</a>
+        fs.writeFileSync(tutorialPath, html, 'utf8');
+    }
+
+    // tutorials can have only one parent so there is no risk for loops
+    function saveChildren(node) {
+        node.children.forEach(function(child) {
+            generateTutorial('Tutorial: ' + child.title, child, helper.tutorialToUrl(child.name));
+            saveChildren(child);
+        });
+    }
+
+    saveChildren(tutorials);
 };

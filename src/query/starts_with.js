@@ -9,8 +9,7 @@ import isNil from '../utils/object/is_nil';
  *
  * @function startsWith
  * @static
- * @memberOf v
- * @category Query
+ * @memberOf Query
  * @param {string} [string=''] The string to verify.
  * @param {string} [start] The starting string.
  * @param {int} [position=0] The position to start searching.

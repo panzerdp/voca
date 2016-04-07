@@ -7,8 +7,7 @@ import isAlpha from './is_alpha';
  *
  * @function isUpperCase
  * @static
- * @memberOf v
- * @category Query
+ * @memberOf Query
  * @param {string} [string=''] The string to verify.
  * @return {boolean} Return `true` if `string` is upper case, `false` otherwise.
  */
