@@ -533,7 +533,7 @@ exports.publish = function(taffyData, opts, tutorials) {
         var url = helper.longnameToUrl[doclet.longname];
 
         if (url.indexOf('#') > -1) {
-            doclet.id = helper.longnameToUrl[doclet.longname].split(/#/).pop();
+            doclet.id = helper.longnameToUrl[doclet.longname].split(/#/).pop().replace(/^\./, '');
         }
         else {
             doclet.id = doclet.name;
