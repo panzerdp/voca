@@ -227,6 +227,7 @@ function generate(type, title, docs, filename, resolveLinks) {
 }
 
 function generateSourceFiles(sourceFiles, encoding) {
+    return;
     encoding = encoding || 'utf8';
     Object.keys(sourceFiles).forEach(function(file) {
         var source;
@@ -301,20 +302,20 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
             //change
             methods.forEach(function(method) {
                 if (method.memberof) {
-                    method.name = method.memberof + '.' + method.name;
+                    method.name = /*method.memberof*/ 'v.' + method.name;
                 }
             });
             if ( !hasOwnProp.call(item, 'longname') ) {
                 itemsNav += '<li>' + linktoFn('', item.name);
                 itemsNav += '</li>';
             } else if ( !hasOwnProp.call(itemsSeen, item.longname) ) {
-                itemsNav += '<li>' + linktoFn(item.longname, item.name.replace(/^module:/, ''));
+                itemsNav += '<li><h2>' + item.name + '</h2>';//linktoFn(item.longname, item.name.replace(/^module:/, ''));
                 if (methods.length) {
                     itemsNav += "<ul class='methods'>";
 
                     methods.forEach(function (method) {
                         itemsNav += "<li data-type='method'>";
-                        itemsNav += linkto(method.longname, method.name);
+                        itemsNav += "<a href='#" + method.name.replace('v.', '') + "'>" + method.name + "</a>";//linkto(method.longname, method.name);
                         itemsNav += "</li>";
                     });
 
@@ -326,7 +327,7 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
         });
 
         if (itemsNav !== '') {
-            nav += '<h3>' + itemHeading + '</h3><ul>' + itemsNav + '</ul>';
+            nav += /*'<h3>' + itemHeading + '</h3>'*/'<ul>' + itemsNav + '</ul>';
         }
     }
 
@@ -610,6 +611,14 @@ exports.publish = function(taffyData, opts, tutorials) {
 
     Object.keys(helper.longnameToUrl).forEach(function(longname) {
         var myModules = helper.find(modules, {longname: longname});
+
+        var myNamespaces = helper.find(namespaces, {longname: longname});
+        if (myNamespaces.length) {
+            generate('Namespace', myNamespaces[0].name, myNamespaces, 'index.html');//helper.longnameToUrl[longname]);
+        }
+
+        return;
+
         if (myModules.length) {
             generate('Module', myModules[0].name, myModules, helper.longnameToUrl[longname]);
         }
@@ -617,11 +626,6 @@ exports.publish = function(taffyData, opts, tutorials) {
         var myClasses = helper.find(classes, {longname: longname});
         if (myClasses.length) {
             generate('Class', myClasses[0].name, myClasses, helper.longnameToUrl[longname]);
-        }
-
-        var myNamespaces = helper.find(namespaces, {longname: longname});
-        if (myNamespaces.length) {
-            generate('Namespace', myNamespaces[0].name, myNamespaces, 'index.html');//helper.longnameToUrl[longname]);
         }
 
         var myMixins = helper.find(mixins, {longname: longname});

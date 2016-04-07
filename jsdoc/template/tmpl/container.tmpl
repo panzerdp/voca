@@ -41,7 +41,7 @@
 </header>
 
 <article>
-    <div class="container-overview">
+    <!-- <div class="container-overview">
     <?js if (doc.kind === 'module' && doc.modules) { ?>
         <?js if (doc.description) { ?>
             <div class="description"><?js= doc.description ?></div>
@@ -64,7 +64,7 @@
             <?js= self.partial('examples.tmpl', doc.examples) ?>
         <?js } ?>
     <?js } ?>
-    </div>
+    </div> -->
 
     <?js if (doc.augments && doc.augments.length) { ?>
         <h3 class="subsection-title">Extends</h3>
@@ -108,7 +108,7 @@
         var namespaces = self.find({kind: 'namespace', memberof: doc.longname});
         if (!isGlobalPage && namespaces && namespaces.length) {
     ?>
-        <h3 class="subsection-title">Namespaces</h3>
+        <!-- <h3 class="subsection-title">Namespaces</h3> -->
 
         <dl><?js namespaces.forEach(function(n) { ?>
             <dt><?js= self.linkto(n.longname, n.name) ?></dt>
@@ -138,7 +138,7 @@
         var methods = self.find({kind: 'function', memberof: isGlobalPage ? {isUndefined: true} : doc.longname});
         if (methods && methods.length && methods.forEach) {
     ?>
-        <h3 class="subsection-title">Methods</h3>
+        <!--<h3 class="subsection-title">Methods</h3> -->
 
         <?js methods.forEach(function(m) { ?>
             <?js= self.partial('method.tmpl', m) ?>
