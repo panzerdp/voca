@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700,600,400italic,600italic,700italic);
 
 * {
   box-sizing: border-box
@@ -14,8 +14,8 @@ body {
   background: #f6fafd;
   margin: 0 auto;
   padding: 0 20px;
-  font-family: 'Helvetica Neue', Helvetica, sans-serif;
-  font-size: 16px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1em;
   line-height: 160%;
 }
 
@@ -42,10 +42,6 @@ p, ul, ol, blockquote {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Montserrat', sans-serif;
-}
-
-h1, h2, h3, h4, h5, h6 {
   color: #000;
   font-weight: 400;
   margin: 0;
@@ -53,27 +49,27 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   font-weight: 300;
-  font-size: 48px;
+  font-size: 3em;
   margin: 1em 0 .5em;
 }
 
 h1.page-title {
-  font-size: 48px;
+  font-size: 3em;
   margin: 1em 30px;
 }
 
 h2 {
-  font-size: 24px;
+  font-size: 1.5em;
   margin: 1.5em 0 .3em;
 }
 
 h3 {
-  font-size: 24px;
+  font-size: 1.5em;
   margin: 1.2em 0 .3em;
 }
 
 h4 {
-  font-size: 18px;
+  font-size: 1.1em;
   margin: 1em 0 .2em;
   color: #333;
 }
@@ -167,7 +163,7 @@ section {
 
 .warning {
   font-weight: bold;
-  font-size: 17px;
+  font-size: 1em;
 }
 
 .variation {
@@ -193,7 +189,7 @@ nav {
 
 nav h3 {
   margin-top: 12px;
-  font-size: 13px;
+  font-size: 1em;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 700;
@@ -204,7 +200,7 @@ nav h3 {
 }
 
 nav ul {
-  font-family: 'Lucida Grande', 'Lucida Sans Unicode', arial, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 100%;
   line-height: 17px;
   padding: 0;
@@ -239,7 +235,7 @@ nav ul ul {
 }
 
 nav ul ul a {
-  font-size: 14px;
+  font-size: 1em;
   font-family: Consolas, Monaco, 'Andale Mono', monospace;
   /*color: hsl(207, 1%, 60%);*/
   /*border-left: 1px solid hsl(207, 10%, 86%);*/
@@ -251,12 +247,12 @@ nav ul ul a:active {
 }
 
 nav ul ul li {
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   margin-left: 10px;
 }
 
 nav h2 {
-  font-size: 18px;
+  font-size: 1.2em;
   margin: 0;
   padding: 0;
 }
@@ -322,7 +318,7 @@ footer {
   margin-top: 6px;
   border-left: 2px solid #DDD;
   line-height: 20px;
-  font-size: 14px;
+  font-size: 1em;
 }
 
 .details dt {
@@ -365,7 +361,7 @@ footer {
 }
 
 .prettyprint {
-  font-size: 14px;
+  font-size: 1em;
   overflow: auto;
   border-radius: 0.2em;
 }
@@ -435,7 +431,7 @@ footer {
   border-radius: 3px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   width: 100%;
-  font-size: 14px;
+  font-size: 1em;
   margin: 1em 0;
 }
 
