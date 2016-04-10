@@ -99,7 +99,7 @@ h6 {
 }
 
 tt, code, kbd, samp {
-  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+  font-family: Consolas, "Courier New", monospace;
   background: #f4f4f4;
   padding: 1px 5px;
 }
@@ -208,6 +208,11 @@ nav ul {
   list-style-type: none;
 }
 
+nav .main-name {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
 /*nav ul a,*/
 /*nav ul a:active {*/
   /*font-family: 'Montserrat', sans-serif;*/
@@ -236,7 +241,7 @@ nav ul ul {
 
 nav ul ul a {
   font-size: 1em;
-  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+  font-family: Consolas, "Courier New", monospace;
   /*color: hsl(207, 1%, 60%);*/
   /*border-left: 1px solid hsl(207, 10%, 86%);*/
 }
@@ -307,7 +312,7 @@ footer {
 }
 
 .name, .signature {
-  font-family: Consolas, Monaco, 'Andale Mono', monospace
+  font-family: Consolas, "Courier New", monospace;
 }
 
 .signature {
@@ -437,7 +442,7 @@ footer {
 
 .params td, .params .name, .props .name, .name code {
   color: #333;
-  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+  font-family: Consolas, "Courier New", monospace;
   font-size: 100%;
 }
 
@@ -475,11 +480,11 @@ footer {
 
 span.param-type, .params td .param-type, .param-type dd {
   color: #408BAA;
-  font-family: Consolas, Monaco, 'Andale Mono', monospace
+  font-family: Consolas, "Courier New", monospace;
 }
 
 .param-type dt, .param-type dd {
-  display: inline-block
+  display: inline-block;
 }
 
 .param-type {
@@ -488,6 +493,11 @@ span.param-type, .params td .param-type, .param-type dd {
 
 .disabled {
   color: #454545
+}
+
+.return-type {
+  float: left;
+  margin-right: 1em;
 }
 
 /* navicon button */
