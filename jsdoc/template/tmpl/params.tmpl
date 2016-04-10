@@ -50,6 +50,25 @@
     });
 ?>
 
+<table class="light-params">
+    <?js
+        var self = this;
+        params.forEach(function(param) {
+            if (!param) { return; }
+    ?>
+    <tr>
+        <?js if (params.hasName) {?>
+           <td class="name"><code><?js= param.name ?></code></td>
+        <?js } ?>
+
+        <td class="description last">
+            <?js= param.description ?>
+        </td>
+    </tr>
+    <?js }); ?>
+</table>
+
+<!--
 <table class="params">
     <thead>
     <tr>
@@ -78,47 +97,49 @@
             if (!param) { return; }
     ?>
 
-        <tr>
-            <?js if (params.hasName) {?>
-                <td class="name"><code><?js= param.name ?></code></td>
-            <?js } ?>
+    <tr>
+        <?js if (params.hasName) {?>
+        <td class="name"><code><?js= param.name ?></code></td>
+        <?js } ?>
 
-            <td class="type">
+        <td class="type">
             <?js if (param.type && param.type.names) {?>
-                <?js= self.partial('type.tmpl', param.type.names) ?>
+            <?js= self.partial('type.tmpl', param.type.names) ?>
             <?js } ?>
-            </td>
+        </td>
 
-            <?js if (params.hasAttributes) {?>
-                <td class="attributes">
-                <?js if (param.optional) { ?>
-                    &lt;optional><br>
-                <?js } ?>
-
-                <?js if (param.nullable) { ?>
-                    &lt;nullable><br>
-                <?js } ?>
-
-                <?js if (param.variable) { ?>
-                    &lt;repeatable><br>
-                <?js } ?>
-                </td>
+        <?js if (params.hasAttributes) {?>
+        <td class="attributes">
+            <?js if (param.optional) { ?>
+            &lt;optional><br>
             <?js } ?>
 
-            <?js if (params.hasDefault) {?>
-                <td class="default">
-                <?js if (typeof param.defaultvalue !== 'undefined') { ?>
-                    <?js= self.htmlsafe(param.defaultvalue) ?>
-                <?js } ?>
-                </td>
+            <?js if (param.nullable) { ?>
+            &lt;nullable><br>
             <?js } ?>
 
-            <td class="description last"><?js= param.description ?><?js if (param.subparams) { ?>
-                <h6>Properties</h6>
-                <?js= self.partial('params.tmpl', param.subparams) ?>
+            <?js if (param.variable) { ?>
+            &lt;repeatable><br>
+            <?js } ?>
+        </td>
+        <?js } ?>
+
+        <?js if (params.hasDefault) {?>
+        <td class="default">
+            <?js if (typeof param.defaultvalue !== 'undefined') { ?>
+            <?js= self.htmlsafe(param.defaultvalue) ?>
+            <?js } ?>
+        </td>
+        <?js } ?>
+
+        <td class="description last"><?js= param.description ?><?js if (param.subparams) { ?>
+            <h6>Properties</h6>
+            <?js= self.partial('params.tmpl', param.subparams) ?>
             <?js } ?></td>
-        </tr>
+    </tr>
 
     <?js }); ?>
     </tbody>
 </table>
+
+-->
