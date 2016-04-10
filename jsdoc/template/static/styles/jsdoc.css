@@ -655,14 +655,14 @@ span.param-type, .params td .param-type, .param-type dd {
 
   #main {
     width: 100%;
-    min-width: 360px;
+    min-width: 285px;
   }
 
   #main h1.page-title {
     margin: 1em 0;
   }
 
-  #main section {
+  #main section, .introduction {
     padding: 0;
   }
 
