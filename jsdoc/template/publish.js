@@ -611,7 +611,7 @@ exports.publish = function(taffyData, opts, tutorials) {
 
     var listOfNamespaces = namespaces().map(function(el) { return el; });
 
-    generate('Namespace', 'Voca documentation', listOfNamespaces, 'index.html');//helper.longnameToUrl[longname]);
+    generate('Namespace', 'Voca', listOfNamespaces, 'index.html');//helper.longnameToUrl[longname]);
     return;
 
     Object.keys(helper.longnameToUrl).forEach(function(longname) {

@@ -160,6 +160,16 @@ section {
   width: 250px;
 }
 
+.logo .logo-message {
+  color: #408BAA;
+  font-weight: bold;
+}
+
+.warning {
+  font-weight: bold;
+  font-size: 17px;
+}
+
 .variation {
   display: none
 }
