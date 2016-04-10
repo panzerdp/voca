@@ -12,7 +12,13 @@ const REGEX_TRIM_RIGHT = /[\s\uFEFF\xA0]+$/;
  * @memberOf Manipulate
  * @param {string} [string=''] The string to trim.
  * @param {string} [whitespace=whitespace] The whitespace to remove.
- * @return {string} Returns the right trimmed string.
+ * @return {string} Returns the trimmed string.
+ * @example
+ * v.trimRight('the fire rises   ');
+ * // => 'the fire rises'
+ *
+ * v.trimRight('do you feel in charge?---', '-');
+ * // => 'do you feel in charge?'
  */
 export default function(string, whitespace) {
   string = undefinedDefault(string, '');

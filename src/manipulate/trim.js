@@ -13,6 +13,12 @@ import trimRight from './trim_right';
  * @param {string} [string=''] The string to trim.
  * @param {string} [whitespace=whitespace] The whitespaces for trim.
  * @return {string} Returns the trimmed string.
+ * @example
+ * v.trim(' Mother nature ');
+ * // => 'Mother nature'
+ *
+ * v.trim('--Earth--', '-');
+ * // => 'Earth'
  */
 export default function(string, whitespace) {
   string = undefinedDefault(string, '');

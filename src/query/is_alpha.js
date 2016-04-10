@@ -18,10 +18,16 @@ const REGEX_ALPHA = /^[\u0041-\u005A\u0061-\u007A\u00AA\u00B5\u00BA\u00C0-\u00D6
  * @static
  * @memberOf Query
  * @param {string} [string=''] The string to verify.
- * @return {boolean} Return `true` if `string` contains only alpha characters or `false` otherwise.
+ * @return {boolean} Returns `true` if `string` contains only alpha characters or `false` otherwise.
  * @example
- * v.isAlpha('abc');
+ * v.isAlpha('bart');
  * // => true
+ *
+ * v.isAlpha('lisa!');
+ * // => false
+ *
+ * v.isAlpha('lisa and bart');
+ * // => false
  */
 export default function(string) {
   string = undefinedDefault(string, '');

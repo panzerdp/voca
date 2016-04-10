@@ -17,7 +17,16 @@ const REGEX_ALPHA_DIGIT = /^[\d\u0041-\u005A\u0061-\u007A\u00AA\u00B5\u00BA\u00C
  * @static
  * @memberOf Query
  * @param {string} [string=''] The string to verify.
- * @return {boolean} Returns `true` if `string` contains only alpha and digit characters, `false` otherwise.
+ * @return {boolean} Returns `true` if `string` contains only alpha and digit characters or `false` otherwise.
+ * @example
+ * v.isAlphaDigit('year2020');
+ * // => true
+ *
+ * v.isAlphaDigit('1448');
+ * // => true
+ *
+ * v.isAlphaDigit('40-20');
+ * // => false
  */
 export default function(string) {
   string = undefinedDefault(string, '');

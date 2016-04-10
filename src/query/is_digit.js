@@ -10,7 +10,16 @@ const REGEX_DIGIT = /^\d+$/;
  * @static
  * @memberOf Query
  * @param {string} [string=''] The string to verify.
- * @return {boolean} Returns `true` if `string` contains only digit characters, `false` otherwise.
+ * @return {boolean} Returns `true` if `string` contains only digit characters or `false` otherwise.
+ * @example
+ * v.isDigit('35');
+ * // => true
+ *
+ * v.isDigit('1.5');
+ * // => false
+ *
+ * v.isDigit('ten');
+ * // => false
  */
 export default function(string) {
   string = undefinedDefault(string, '');

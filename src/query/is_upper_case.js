@@ -9,7 +9,13 @@ import isAlpha from './is_alpha';
  * @static
  * @memberOf Query
  * @param {string} [string=''] The string to verify.
- * @return {boolean} Return `true` if `string` is upper case, `false` otherwise.
+ * @return {boolean} Return `true` if `string` is upper case or `false` otherwise.
+ * @example
+ * v.isUpperCase('ACDC');
+ * // => true
+ *
+ * v.isUpperCase('Morning');
+ * // => false
  */
 export default function(string) {
   string = undefinedDefault(string, '');

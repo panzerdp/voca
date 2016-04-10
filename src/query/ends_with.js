@@ -13,7 +13,16 @@ import isNil from '../utils/object/is_nil';
  * @param {string} [string=''] The string to verify.
  * @param {string} [end] The ending string.
  * @param {int} [position=string.length] Search within `string` as if this string were only `position` long.
- * @return {boolean} Returns `true` if `string` ends with `end`, `false` otherwise.
+ * @return {boolean} Returns `true` if `string` ends with `end` or `false` otherwise.
+ * @example
+ * v.endsWith('red alert', 'alert');
+ * // => true
+ *
+ * v.endsWith('metro south', 'metro');
+ * // => false
+ *
+ * v.endsWith('Murphy', 'ph', 5);
+ * // => true
  */
 export default function(string, end, position) {
   if (isNil(end)) {

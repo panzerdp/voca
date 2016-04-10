@@ -12,7 +12,13 @@ const REGEX_TRIM_LEFT = /^[\s\uFEFF\xA0]+/;
  * @memberOf Manipulate
  * @param {string} [string=''] The string to trim.
  * @param {string} [whitespace=whitespace] The whitespace to remove.
- * @return {string} Returns the left trimmed string.
+ * @return {string} Returns the trimmed string.
+ * @example
+ * v.trimLeft('  Starship Troopers');
+ * // => 'Starship Troopers'
+ *
+ * v.trim('***Mobile Infantry', '*');
+ * // => 'Mobile Infantry'
  */
 export default function(string, whitespace) {
   string = undefinedDefault(string, '');
