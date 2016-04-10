@@ -609,6 +609,11 @@ exports.publish = function(taffyData, opts, tutorials) {
     var externals = taffy(members.externals);
     var interfaces = taffy(members.interfaces);
 
+    var listOfNamespaces = namespaces().map(function(el) { return el; });
+
+    generate('Namespace', 'Voca documentation', listOfNamespaces, 'index.html');//helper.longnameToUrl[longname]);
+    return;
+
     Object.keys(helper.longnameToUrl).forEach(function(longname) {
         var myModules = helper.find(modules, {longname: longname});
 
@@ -616,8 +621,6 @@ exports.publish = function(taffyData, opts, tutorials) {
         if (myNamespaces.length) {
             generate('Namespace', myNamespaces[0].name, myNamespaces, 'index.html');//helper.longnameToUrl[longname]);
         }
-
-        return;
 
         if (myModules.length) {
             generate('Module', myModules[0].name, myModules, helper.longnameToUrl[longname]);
