@@ -479,6 +479,13 @@ footer {
 
 .light-params p {
   margin: 0;
+  display: inline;
+  margin-left: 10px;
+}
+
+.light-params .optional {
+  margin-left: 10px;
+  font-size: 0.85em;
 }
 
 .params td, .params .name, .props .name, .name code {
@@ -488,7 +495,7 @@ footer {
 }
 
 .params td, .params th, .props td, .props th {
-  margin: 0px;
+  margin: 0;
   text-align: left;
   vertical-align: top;
   padding: 10px;
@@ -536,10 +543,11 @@ span.param-type, .params td .param-type, .param-type dd {
   color: #454545
 }
 
-.return-type {
-  float: left;
-  margin-right: 1em;
+.param-desc p {
+  display: inline;
+  margin-left: 10px;
 }
+
 
 /* navicon button */
 .navicon-button {

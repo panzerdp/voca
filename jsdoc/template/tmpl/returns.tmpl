@@ -4,9 +4,7 @@ if (data.description) {
 ?>
 <div class="param-desc">
     <?js if (data.type && data.type.names) {?>
-      <div class="return-type">
-         <?js= this.partial('type.tmpl', data.type.names) ?>
-       </div>
+      <?js= this.partial('type.tmpl', data.type.names) ?>
     <?js } ?>
     <?js= description ?>
 </div>

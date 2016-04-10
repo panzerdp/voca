@@ -61,8 +61,18 @@
            <td class="name"><code><?js= param.name ?></code></td>
         <?js } ?>
 
-        <td class="description last">
+        <td class="description">
+            <?js if (param.type && param.type.names) {?>
+            <?js= self.partial('type.tmpl', param.type.names) ?>
+            <?js } ?>
+
             <?js= param.description ?>
+
+            <?js if (param.optional) { ?>
+              <span class="optional">
+              [optional<?js if (typeof param.defaultvalue !== 'undefined') { ?>=<?js= self.htmlsafe(param.defaultvalue) ?><?js } ?>]
+              </span>
+            <?js } ?>
         </td>
     </tr>
     <?js }); ?>
