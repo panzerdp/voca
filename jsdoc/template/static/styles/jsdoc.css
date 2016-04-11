@@ -587,7 +587,7 @@ span.param-type, .params td .param-type, .param-type dd {
   position: relative;
   width: 2.5em;
   height: .3125rem;
-  background: #000;
+  background: #2f4863;
   transition: 0.3s;
   border-radius: 2.5rem;
 }
@@ -596,7 +596,7 @@ span.param-type, .params td .param-type, .param-type dd {
   content: "";
   height: .3125rem;
   width: 2.5rem;
-  background: #000;
+  background: #2f4863;
   position: absolute;
   z-index: -1;
   transition: 0.3s 0.25s;
@@ -685,6 +685,7 @@ span.param-type, .params td .param-type, .param-type dd {
 
   .logo {
     margin: 0 auto;
+    max-width: 250px;
   }
 
   nav {
