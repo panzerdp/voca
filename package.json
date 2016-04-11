@@ -10,7 +10,8 @@
     "coverage": "istanbul cover _mocha -- test/index.js && opn coverage/lcov-report/index.html",
     "verify": "npm run eslint && npm run coverage",
     "prepublish": "npm test",
-    "jsdoc": "jsdoc --configure .jsdoc.json && opn docs/index.html"
+    "jsdoc": "jsdoc --configure .jsdoc.json && opn docs/index.html",
+    "deploy": "scp -r docs/* rainishere:/home/rainishere/webapps/voca_documentation"
   },
   "repository": {
     "type": "git",
