@@ -394,6 +394,7 @@ footer {
 
 .prettyprint > code {
   padding: 15px;
+  overflow-x: auto;
 }
 
 .prettyprint .linenums code {
