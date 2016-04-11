@@ -5,15 +5,15 @@ import toInteger from '../utils/number/to_integer';
 import isNil from '../utils/object/is_nil';
 
 /**
- * Checks if `string` ends with `end`.
+ * Checks if `subject` ends with `end`.
  *
  * @function endsWith
  * @static
  * @memberOf Query
- * @param {string} [string=''] The string to verify.
+ * @param {string} [subject=''] The string to verify.
  * @param {string} [end] The ending string.
- * @param {int} [position=string.length] Search within `string` as if this string were only `position` long.
- * @return {boolean} Returns `true` if `string` ends with `end` or `false` otherwise.
+ * @param {int} [position=string.length] Search within `subject` as if this string were only `position` long.
+ * @return {boolean} Returns `true` if `subject` ends with `end` or `false` otherwise.
  * @example
  * v.endsWith('red alert', 'alert');
  * // => true
@@ -24,20 +24,20 @@ import isNil from '../utils/object/is_nil';
  * v.endsWith('Murphy', 'ph', 5);
  * // => true
  */
-export default function(string, end, position) {
+export default function(subject, end, position) {
   if (isNil(end)) {
     return false;
   }
-  var valueString = toString(undefinedDefault(string, '')),
+  var subjectString = toString(undefinedDefault(subject, '')),
     endString = toString(end);
-  if (valueString === null || endString === null) {
+  if (subjectString === null || endString === null) {
     return false;
   }
   if (endString === '') {
     return true;
   }
-  position = isNil(position) ? valueString.length : clipNumber(toInteger(position), 0, valueString.length);
+  position = isNil(position) ? subjectString.length : clipNumber(toInteger(position), 0, subjectString.length);
   position -= endString.length;
-  var lastIndex = valueString.indexOf(endString, position);
+  var lastIndex = subjectString.indexOf(endString, position);
   return lastIndex !== -1 && lastIndex === position;
 }

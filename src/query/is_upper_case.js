@@ -3,13 +3,13 @@ import undefinedDefault from '../utils/undefined/undefined_default';
 import isAlpha from './is_alpha';
 
 /**
- * Checks if `string` is upper case.
+ * Checks if `subject` is upper case.
  *
  * @function isUpperCase
  * @static
  * @memberOf Query
- * @param {string} [string=''] The string to verify.
- * @return {boolean} Return `true` if `string` is upper case or `false` otherwise.
+ * @param {string} [subject=''] The string to verify.
+ * @return {boolean} Return `true` if `subject` is upper case or `false` otherwise.
  * @example
  * v.isUpperCase('ACDC');
  * // => true
@@ -17,11 +17,11 @@ import isAlpha from './is_alpha';
  * v.isUpperCase('Morning');
  * // => false
  */
-export default function(string) {
-  string = undefinedDefault(string, '');
-  var valueString = toString(string);
-  if (valueString === null) {
+export default function(subject) {
+  subject = undefinedDefault(subject, '');
+  var subjectString = toString(subject);
+  if (subjectString === null) {
     return false;
   }
-  return isAlpha(valueString) && valueString.toUpperCase() === valueString;
+  return isAlpha(subjectString) && subjectString.toUpperCase() === subjectString;
 }

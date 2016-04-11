@@ -5,12 +5,12 @@ import trimLeft from './trim_left';
 import trimRight from './trim_right';
 
 /**
- * Removes the whitespaces from left and right parts of the `string`.
+ * Removes the whitespaces from left and right parts of the `subject`.
  *
  * @function trim
  * @static
  * @memberOf Manipulate
- * @param {string} [string=''] The string to trim.
+ * @param {string} [subject=''] The string to trim.
  * @param {string} [whitespace=whitespace] The whitespaces for trim.
  * @return {string} Returns the trimmed string.
  * @example
@@ -20,18 +20,18 @@ import trimRight from './trim_right';
  * v.trim('--Earth--', '-');
  * // => 'Earth'
  */
-export default function(string, whitespace) {
-  string = undefinedDefault(string, '');
-  var valueString = toString(string);
-  if (isNil(valueString)) {
+export default function(subject, whitespace) {
+  subject = undefinedDefault(subject, '');
+  var subjectString = toString(subject);
+  if (isNil(subjectString)) {
     return '';
   }
-  if (whitespace === '' || valueString === '') {
-    return valueString;
+  if (whitespace === '' || subjectString === '') {
+    return subjectString;
   }
   var whitespaceString = toString(whitespace);
   if (isNil(whitespaceString)) {
-    return valueString.trim();
+    return subjectString.trim();
   }
-  return trimRight(trimLeft(valueString, whitespaceString), whitespaceString);
+  return trimRight(trimLeft(subjectString, whitespaceString), whitespaceString);
 }

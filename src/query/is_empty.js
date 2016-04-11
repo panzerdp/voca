@@ -2,13 +2,13 @@ import toString from '../utils/string/to_string';
 import undefinedDefault from '../utils/undefined/undefined_default';
 
 /**
- * Checks if `string` is empty.
+ * Checks if `subject` is empty.
  *
  * @function isEmpty
  * @static
  * @memberOf Query
- * @param {string} [string=''] The string to verify.
- * @return {boolean} Returns `true` if `string` is empty or `false` otherwise
+ * @param {string} [subject=''] The string to verify.
+ * @return {boolean} Returns `true` if `subject` is empty or `false` otherwise
  * @example
  * v.isEmpty('');
  * // => true
@@ -16,11 +16,11 @@ import undefinedDefault from '../utils/undefined/undefined_default';
  * v.isEmpty('  ');
  * // => false
  */
-export default function(string) {
-  string = undefinedDefault(string, '');
-  var valueString = toString(string);
-  if (valueString === null) {
+export default function(subject) {
+  subject = undefinedDefault(subject, '');
+  var subjectString = toString(subject);
+  if (subjectString === null) {
     return true;
   }
-  return valueString.length === 0;
+  return subjectString.length === 0;
 }

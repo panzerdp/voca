@@ -12,13 +12,13 @@ const REGEX_ALPHA = /^[\u0041-\u005A\u0061-\u007A\u00AA\u00B5\u00BA\u00C0-\u00D6
 
 
 /**
- * Checks if `string` contains only alpha characters.
+ * Checks if `subject` contains only alpha characters.
  *
  * @function isAlpha
  * @static
  * @memberOf Query
- * @param {string} [string=''] The string to verify.
- * @return {boolean} Returns `true` if `string` contains only alpha characters or `false` otherwise.
+ * @param {string} [subject=''] The string to verify.
+ * @return {boolean} Returns `true` if `subject` contains only alpha characters or `false` otherwise.
  * @example
  * v.isAlpha('bart');
  * // => true
@@ -29,11 +29,11 @@ const REGEX_ALPHA = /^[\u0041-\u005A\u0061-\u007A\u00AA\u00B5\u00BA\u00C0-\u00D6
  * v.isAlpha('lisa and bart');
  * // => false
  */
-export default function(string) {
-  string = undefinedDefault(string, '');
-  var valueString = toString(string);
-  if (valueString === null) {
+export default function(subject) {
+  subject = undefinedDefault(subject, '');
+  var subjectString = toString(subject);
+  if (subjectString === null) {
     return false;
   }
-  return REGEX_ALPHA.test(valueString);
+  return REGEX_ALPHA.test(subjectString);
 }

@@ -5,12 +5,12 @@ import isNil from '../utils/object/is_nil';
 const REGEX_TRIM_LEFT = /^[\s\uFEFF\xA0]+/;
 
 /**
- * Removes the whitespaces from the left part of the `string`.
+ * Removes the whitespaces from the left part of the `subject`.
  *
  * @function trimLeft
  * @static
  * @memberOf Manipulate
- * @param {string} [string=''] The string to trim.
+ * @param {string} [subject=''] The string to trim.
  * @param {string} [whitespace=whitespace] The whitespace to remove.
  * @return {string} Returns the trimmed string.
  * @example
@@ -20,9 +20,9 @@ const REGEX_TRIM_LEFT = /^[\s\uFEFF\xA0]+/;
  * v.trim('***Mobile Infantry', '*');
  * // => 'Mobile Infantry'
  */
-export default function(string, whitespace) {
-  string = undefinedDefault(string, '');
-  var valueString = toString(string);
+export default function(subject, whitespace) {
+  subject = undefinedDefault(subject, '');
+  var valueString = toString(subject);
   if (isNil(valueString)) {
     return '';
   }

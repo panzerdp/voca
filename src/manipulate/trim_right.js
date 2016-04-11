@@ -5,12 +5,12 @@ import isNil from '../utils/object/is_nil';
 const REGEX_TRIM_RIGHT = /[\s\uFEFF\xA0]+$/;
 
 /**
- * Removes the whitespaces from the right part of the `string`.
+ * Removes the whitespaces from the right part of the `subject`.
  *
  * @function trimRight
  * @static
  * @memberOf Manipulate
- * @param {string} [string=''] The string to trim.
+ * @param {string} [subject=''] The string to trim.
  * @param {string} [whitespace=whitespace] The whitespace to remove.
  * @return {string} Returns the trimmed string.
  * @example
@@ -20,31 +20,31 @@ const REGEX_TRIM_RIGHT = /[\s\uFEFF\xA0]+$/;
  * v.trimRight('do you feel in charge?---', '-');
  * // => 'do you feel in charge?'
  */
-export default function(string, whitespace) {
-  string = undefinedDefault(string, '');
-  var valueString = toString(string);
-  if (isNil(valueString)) {
+export default function(subject, whitespace) {
+  subject = undefinedDefault(subject, '');
+  var subjectString = toString(subject);
+  if (isNil(subjectString)) {
     return '';
   }
-  if (whitespace === '' || valueString === '') {
-    return valueString;
+  if (whitespace === '' || subjectString === '') {
+    return subjectString;
   }
   var whitespaceString = toString(whitespace);
   if (isNil(whitespaceString)) {
-    return valueString.replace(REGEX_TRIM_RIGHT, '');
+    return subjectString.replace(REGEX_TRIM_RIGHT, '');
   }
   var matchWhitespace = true,
     totalWhitespaceLength = 0,
     whitespaceStringLength = whitespaceString.length,
-    valueStringLength = valueString.length,
+    valueStringLength = subjectString.length,
     position;
   while(matchWhitespace) {
     position = valueStringLength - totalWhitespaceLength - whitespaceStringLength;
-    if (valueString.indexOf(whitespaceString, position) === position) {
+    if (subjectString.indexOf(whitespaceString, position) === position) {
       totalWhitespaceLength += whitespaceStringLength;
     } else {
       matchWhitespace = false;
     }
   }
-  return valueString.substring(0, valueStringLength - totalWhitespaceLength);
+  return subjectString.substring(0, valueStringLength - totalWhitespaceLength);
 }

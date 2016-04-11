@@ -3,13 +3,13 @@ import undefinedDefault from '../utils/undefined/undefined_default';
 import isAlpha from './is_alpha';
 
 /**
- * Checks if `string` is lower case.
+ * Checks if `subject` is lower case.
  *
  * @function isLowerCase
  * @static
  * @memberOf Query
- * @param {string} [string=''] The string to verify.
- * @return {boolean} Returns `true` if `string` is lower case or `false` otherwise.
+ * @param {string} [subject=''] The string to verify.
+ * @return {boolean} Returns `true` if `subject` is lower case or `false` otherwise.
  * @example
  * v.isLowerCase('motorcycle');
  * // => true
@@ -18,12 +18,11 @@ import isAlpha from './is_alpha';
  * // => false
  *
  * v.isLowerCase('T1000');
- *
  * // => false
  */
-export default function(string) {
-  string = undefinedDefault(string, '');
-  var valueString = toString(string);
+export default function(subject) {
+  subject = undefinedDefault(subject, '');
+  var valueString = toString(subject);
   if (valueString === null) {
     return false;
   }
