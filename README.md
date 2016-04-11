@@ -6,7 +6,7 @@
 
 **Warning(!) The library is a work in progress.**
 
-### Scope
+## Scope
 
 Voca provides the full set of methods for working with strings in JavaScript. The main benefits:  
 
@@ -15,10 +15,14 @@ Voca provides the full set of methods for working with strings in JavaScript. Th
 *  Comfortable documentation
 *  Provides modularity and clean code
 
-### Usage
+## Documentation
+
+See the detailed documentation on [vocajs.com](vocajs.com)
+
+## Usage
 Voca can be used in various environments.  
 
-##### Node.js, browserify or rollup
+#### Node.js, browserify or rollup
 Install the library using npm into your local modules directory:
 ```
 npm install --save voca
