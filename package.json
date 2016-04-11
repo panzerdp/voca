@@ -1,7 +1,7 @@
 {
   "name": "voca",
   "version": "0.0.1",
-  "description": "Coming soon...",
+  "description": "The ultimate JavaScript string library",
   "main": "index.js",
   "scripts": {
     "eslint": "eslint src/**/*.js test/**/*.js",
