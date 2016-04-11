@@ -154,10 +154,12 @@ section {
 
 .logo {
   margin: 1em;
+  width: 300px;
+  text-align: center;
 }
 
 .logo img {
-  width: 250px;
+  width: 100%;
 }
 
 .logo .logo-message {
@@ -678,6 +680,10 @@ span.param-type, .params td .param-type, .param-type dd {
 @media only screen and (min-width: 320px) and (max-width: 680px) {
   body {
     overflow-x: hidden;
+  }
+
+  .logo {
+    margin: 0 auto;
   }
 
   nav {

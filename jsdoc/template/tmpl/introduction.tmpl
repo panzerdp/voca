@@ -8,9 +8,11 @@
        </div>
      </div>
 
+     <span class="warning">Warning(!) The library is a work in progress.</span>
+
      <h3>Scope</h3>
 
-     <p>Voca provides the full set of methods for working with strings in JavaScript. The benefits:</p>
+     <p>Voca provides the full set of methods for working with strings in JavaScript. It offers the benefits:</p>
 
      <ul>
        <li>
@@ -27,15 +29,71 @@
        </li>
      </ul>
 
-     <span class="warning">Warning(!) The library is a work in progress. It cannot be used in production.</span>
-
      <h3>Usage</h3>
 
-     <p>Coming soon...</p>
+     <p>Voca can be used in various environments.</p>
 
-     <h3>Installation</h3>
+     <p><b>Node.js, browserify or rollup</b></p>
 
-     <p>Coming soon...</p>
+     Install the library using npm into your local modules directory:
+
+     <pre class="prettyprint"><code>npm install --save voca</code></pre>
+
+     Then use the commonjs format:
+
+<pre class="prettyprint">
+<code>// Get the entire library
+var v = require('voca');
+
+v.trim(' Hello World! ');
+// => 'Hello World!'
+
+// Get a single method (work in progress...)
+var isAlpha = require('voca/is_alpha');
+
+isAlpha('earth');
+// => true
+</code></pre>
+
+Or use the ECMAScript 6 import format:
+
+<pre class="prettyprint">
+<code>// Get the entire library
+import v from 'voca';
+
+v.trim(' Hello World! ');
+// => 'Hello World'
+
+// Get a list of methods
+import {trimLeft as tl, isDigit} from 'voca';
+
+tl(' moon');
+// => 'moon'
+isDigit('340');
+// => true
+
+// Get a single method (work in progress...)
+import isAlpha from 'voca/is_alpha';
+
+isAlpha('welcome');
+// => true
+</code></pre>
+
+<p><b>Browser</b></p>
+
+Use a <code>script</code> tag to load the library into a web page:
+
+<pre class="prettyprint"><code>&lt;script src=&quot;path-to-assets/voca.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</code></pre>
+
+Then a global variable <code>v</code> is exposed:
+
+<pre class="prettyprint">
+<code>&lt;script type=&quot;text/javascript&quot;&gt;
+  v.isBlank(&apos;  &apos;);
+  // =&gt; true
+&lt;/script&gt;
+</code>
+</pre>
 
    </div>
 </div>
