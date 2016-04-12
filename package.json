@@ -11,7 +11,7 @@
     "verify": "npm run eslint && npm run coverage",
     "prepublish": "npm test",
     "jsdoc": "jsdoc --configure .jsdoc.json && opn docs/index.html",
-    "deploy": "scp -r docs/* rainishere:/home/rainishere/webapps/voca_documentation"
+    "deploy": "scp -r docs/* rainishere:/home/rainishere/webapps/voca_docs"
   },
   "repository": {
     "type": "git",
