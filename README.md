@@ -1,6 +1,6 @@
 # Voca
 
-<img src="http://vocajs.com/images/voca-logo.png" width="250px"/>
+![Image](jsdoc/template/static/images/voca-logo250px.png)
 
 **The ultimate JavaScript string library.**
 
@@ -8,25 +8,27 @@
 
 ## Scope
 
-Voca provides the full set of methods for working with strings in JavaScript. The main benefits:  
+[Voca](http://vocajs.com) provides the full set of methods for working with strings in JavaScript. The main benefits:  
 
 *  Contains a complete set of methods for strings manipulation, format and query
 *  100% test coverage
-*  Comfortable documentation
+*  Comfortable [documentation](http://vocajs.com)
 *  Provides modularity and clean code
 
 ## Documentation
 
-See the detailed documentation on [vocajs.com](vocajs.com)
+See the detailed [documentation](http://vocajs.com) on [vocajs.com](http://vocajs.com)
 
 ## Usage
 Voca can be used in various environments.  
 
 #### Node.js, browserify or rollup
 Install the library using npm into your local modules directory:
+
 ```
 npm install --save voca
 ```
+
 Then use the commonjs format:
 ```
 // Get the entire library
@@ -41,7 +43,9 @@ var isAlpha = require('voca/is_alpha');
 isAlpha('earth');
 // => true
 ```
+
 Or use the ECMAScript 6 import format:
+
 ```
 // Get the entire library
 import v from 'voca';
@@ -66,10 +70,13 @@ isAlpha('welcome');
 
 #### Browser
 Use a `script` tag to load the library into a web page:
+
 ```
 <script src="path-to-scripts/voca.js" type="text/javascript"></script>
 ```
+
 Then a global variable `v` is exposed:
+
 ```
 <script type="text/javascript">
   v.isBlank('  ');
