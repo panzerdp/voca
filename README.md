@@ -1,6 +1,6 @@
 ![Image](jsdoc/template/static/images/voca-logo250px.png)
 
-**The ultimate JavaScript string library.**
+**The ultimate JavaScript string library**
 
 ## Work in progress
 

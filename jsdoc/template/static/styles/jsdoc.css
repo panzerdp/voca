@@ -119,6 +119,10 @@ tt, code, kbd, samp {
   margin: 0
 }
 
+.badges img {
+  margin-right: 8px;
+}
+
 #main {
   float: right;
   min-width: 360px;
