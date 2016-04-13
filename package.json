@@ -2,7 +2,8 @@
   "name": "voca",
   "version": "0.0.1",
   "description": "The ultimate JavaScript string library",
-  "main": "index.js",
+  "main": "dist/voca.js",
+  "jsnext:main": "dist/voca.js",
   "scripts": {
     "eslint": "eslint src/**/*.js test/**/*.js",
     "build": "rollup -c rollup.config.umd.js && rollup -c rollup.config.es6.js && rollup -c rollup.config.test.js",

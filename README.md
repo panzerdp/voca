@@ -4,11 +4,9 @@
 
 **The ultimate JavaScript string library.**
 
-**Warning(!) The library is a work in progress.**
-
 ## Scope
 
-[Voca](http://vocajs.com) provides the full set of methods for working with strings in JavaScript. The main benefits:  
+[Voca](http://vocajs.com) provides the full set of methods for working with **strings** in JavaScript. The main benefits:  
 
 *  Contains a complete set of methods for strings manipulation, format and query
 *  100% test coverage
@@ -83,3 +81,58 @@ Then a global variable `v` is exposed:
   // => true
 </script>
 ```
+
+## Bug report or question
+
+If you found a problem in the source code or documentation do not hesitate to create an [issue](https://github.com/panzerdp/voca/issues). 
+Before filling an issue make sure that someone didn't report it already.
+For general usage questions a better place is to ask on [StackOverflow](http://stackoverflow.com/questions/ask).
+
+## Contribution
+
+Contribution is always welcome. You can do this by:
+
+* Create a pull request with bug fixes or new features. Include the unit tests (of course library should pass them) and keep the coverage report at 100%
+* [Create an issue](https://github.com/panzerdp/voca/issues) with a bug report or improvement idea
+* Suggest better documentation
+
+## Development
+
+Clone the repo into your project directory.  
+Then install the development dependencies within Voca source directory:
+
+```
+npm install
+```
+
+Build the bundle into `dist/` folder. 
+`dist/voca.js` is an [UMD](https://github.com/umdjs/umd) build compatible with CommonJS, RequireJS and browser globals.   
+`dist/voca.es6.js` is an [ES6 module format](https://github.com/rollup/rollup/wiki/jsnext:main) build.  
+
+```
+npm run build
+```
+
+Unit test the library:
+```
+npm test
+```
+
+Verify the test coverage:
+```
+npm run coverage
+```
+
+Check the code using eslint tool:
+```
+npm run eslint
+``` 
+
+## Author
+
+[Dmitri Pavlutin](http://rainsoft.io/about-me/)
+
+## License
+
+Licensed under the [MIT License](LICENCE)
+
