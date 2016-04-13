@@ -25,12 +25,12 @@ Voca can be used in various environments.
 #### Node.js, browserify or rollup
 Install the library using npm into your local modules directory:
 
-```
+```bash
 npm install --save voca
 ```
 
 Then use the commonjs format:
-```
+```javascript
 // Get the entire library
 var v = require('voca');
 
@@ -46,7 +46,7 @@ isAlpha('earth');
 
 Or use the ECMAScript 6 import format:
 
-```
+```javascript
 // Get the entire library
 import v from 'voca';
 
@@ -71,13 +71,13 @@ isAlpha('welcome');
 #### Browser
 Use a `script` tag to load the library into a web page:
 
-```
+```html
 <script src="path-to-scripts/voca.js" type="text/javascript"></script>
 ```
 
 Then a global variable `v` is exposed:
 
-```
+```html
 <script type="text/javascript">
   v.isBlank('  ');
   // => true
@@ -103,7 +103,7 @@ Contribution is always welcome. You can do this by:
 Clone the repo into your project directory.  
 Then install the development dependencies within Voca source directory:
 
-```
+```bash
 npm install
 ```
 
@@ -111,22 +111,22 @@ Build the bundle into `dist/` folder.
 `dist/voca.js` is an [UMD](https://github.com/umdjs/umd) build compatible with CommonJS, RequireJS and browser globals.   
 `dist/voca.es6.js` is an [ES6 module format](https://github.com/rollup/rollup/wiki/jsnext:main) build.  
 
-```
+```bash
 npm run build
 ```
 
 Unit test the library:
-```
+```bash
 npm test
 ```
 
 Verify the test coverage:
-```
+```bash
 npm run coverage
 ```
 
 Check the code using eslint tool:
-```
+```bash
 npm run eslint
 ``` 
 
