@@ -85,7 +85,7 @@ Then a global variable `v` is exposed:
 ## Bug report or question
 
 If you found a problem in the source code or documentation do not hesitate to create an [issue](https://github.com/panzerdp/voca/issues). 
-Before filling an issue make sure that someone didn't report it already.
+Before filling an issue make sure that someone didn't report it already.  
 For general usage questions a better place is to ask on [StackOverflow](http://stackoverflow.com/questions/ask).
 
 ## Contribution
@@ -105,7 +105,7 @@ Then install the development dependencies within Voca source directory:
 npm install
 ```
 
-Build the bundle into `dist/` folder. 
+Build the bundle into `dist/` folder.  
 `dist/voca.js` is an [UMD](https://github.com/umdjs/umd) build compatible with CommonJS, RequireJS and browser globals.   
 `dist/voca.es6.js` is an [ES6 module format](https://github.com/rollup/rollup/wiki/jsnext:main) build.  
 
@@ -134,5 +134,5 @@ npm run eslint
 
 ## License
 
-Licensed under the [MIT License](LICENCE)
+Licensed under the [MIT License](./LICENCE)
 
