@@ -4,6 +4,10 @@
 
 **The ultimate JavaScript string library.**
 
+## Work in progress
+
+Voca is still in early design and development. Many important features are in progress or planned.  
+
 ## Scope
 
 [Voca](http://vocajs.com) provides the full set of methods for working with **strings** in JavaScript. The main benefits:  
