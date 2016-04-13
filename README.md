@@ -1,5 +1,3 @@
-# Voca
-
 ![Image](jsdoc/template/static/images/voca-logo250px.png)
 
 **The ultimate JavaScript string library.**
@@ -19,7 +17,7 @@ Voca is still in early design and development. Many important features are in pr
 
 ## Documentation
 
-See the detailed [documentation](http://vocajs.com) on [vocajs.com](http://vocajs.com)
+See the detailed API documentation on [vocajs.com](http://vocajs.com)
 
 ## Usage
 Voca can be used in various environments.  
@@ -138,5 +136,5 @@ npm run eslint
 
 ## License
 
-Licensed under the [MIT License](./LICENCE)
+Licensed under the [MIT License](https://github.com/panzerdp/voca/blob/master/LICENSE)
 
