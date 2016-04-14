@@ -6,7 +6,7 @@
   "jsnext:main": "dist/voca.es6.js",
   "scripts": {
     "eslint": "eslint src/**/*.js test/**/*.js",
-    "build": "rollup -c rollup.config.umd.js && rollup -c rollup.config.es6.js && rollup -c rollup.config.test.js",
+    "build": "rollup -c config/umd.js && rollup -c config/es6.js && rollup -c config/test.js",
     "test": "mocha test/index.js",
     "coverage": "istanbul cover _mocha -- test/index.js && opn coverage/lcov-report/index.html",
     "verify": "npm run eslint && npm run coverage",
