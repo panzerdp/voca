@@ -11,7 +11,7 @@ before_script:
   - npm prune
 script:
   - npm run eslint
-  - npm run test
   - npm run coverage
   - npm run build
 after_success:
+  - npm run report-coverage

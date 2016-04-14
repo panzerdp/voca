@@ -116,8 +116,8 @@ tt, code, kbd, samp {
   margin: 0
 }
 
-.badges img {
-  margin-right: 8px;
+.badges a {
+  margin-right: 4px;
 }
 
 #main {
