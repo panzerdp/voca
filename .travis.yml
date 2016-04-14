@@ -1,8 +1,4 @@
-sudo: false
 language: node_js
-cache:
-  directories:
-    - node_modules
 branches:
   only:
     - master
@@ -11,8 +7,6 @@ notifications:
 node_js:
   - "4.2"
   - "5.1"
-before_install:
-  - npm i -g npm@^2.0.0
 before_script:
   - npm prune
 script:

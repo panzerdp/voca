@@ -7,8 +7,8 @@
   "scripts": {
     "eslint": "eslint src/**/*.js test/**/*.js",
     "build": "rollup -c config/umd.js && rollup -c config/es6.js && rollup -c config/test.js",
-    "test": "mocha test/index.js",
-    "coverage": "istanbul cover _mocha -- test/index.js && opn coverage/lcov-report/index.html",
+    "test": "mocha test/index.js --reporter nyan",
+    "coverage": "istanbul cover _mocha -- test/index.js --reporter nyan",
     "verify": "npm run eslint && npm run coverage",
     "prepublish": "npm test",
     "jsdoc": "jsdoc --configure .jsdoc.json && opn docs/index.html",
