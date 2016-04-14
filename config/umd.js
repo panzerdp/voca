@@ -1,4 +1,4 @@
-import config from './rollup.config';
+import config from './config';
 
 config.format = 'umd';
 config.dest = 'dist/voca.js';
