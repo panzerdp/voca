@@ -1,5 +1,3 @@
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700,600,400italic,600italic,700italic);
-
 * {
   box-sizing: border-box
 }
@@ -14,7 +12,7 @@ body {
   background: #f6fafd;
   margin: 0 auto;
   padding: 0 20px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-size: 1em;
   line-height: 160%;
 }
@@ -210,7 +208,7 @@ nav h3 {
 }
 
 nav ul {
-  font-family: 'Open Sans', sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-size: 100%;
   line-height: 17px;
   padding: 0;
@@ -219,8 +217,9 @@ nav ul {
 }
 
 nav .main-name {
-  font-size: 1.5em;
-  font-weight: bold;
+  font-size: 1.8em;
+  font-weight: normal;
+  margin-top: 18px;
 }
 
 /*nav ul a,*/
@@ -232,6 +231,14 @@ nav .main-name {
   /*font-size: 12px;*/
 /*}*/
 
+nav li a {
+  color: #406887;
+}
+
+nav li h2 {
+  font-weight: normal;
+}
+
 nav a:hover,
 nav a:active {
   color: #2e4d66;
@@ -239,10 +246,6 @@ nav a:active {
 
 nav > ul {
   /*padding: 0 10px;*/
-}
-
-nav > ul > li > a {
-  color: #408BAA;
 }
 
 nav ul ul {
