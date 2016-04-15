@@ -21,11 +21,7 @@ const REGEX_TRIM_RIGHT = /[\s\uFEFF\xA0]+$/;
  * // => 'do you feel in charge?'
  */
 export default function(subject, whitespace) {
-  subject = undefinedDefault(subject, '');
-  var subjectString = toString(subject);
-  if (isNil(subjectString)) {
-    return '';
-  }
+  var subjectString = toString(undefinedDefault(subject, ''));
   if (whitespace === '' || subjectString === '') {
     return subjectString;
   }

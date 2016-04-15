@@ -25,15 +25,12 @@ export default function(subject, pattern, flags) {
   var subjectString = toString(undefinedDefault(subject, '')),
     flagsString = toString(undefinedDefault(flags, '')),
     patternString;
-  if (subjectString === null) {
-    return false;
-  }
   if (Object.prototype.toString.call(pattern) !== '[object RegExp]') {
     patternString = toString(pattern);
     if (patternString === null) {
       return false;
     }
-    pattern = new RegExp(patternString, flagsString === null ? undefined : flagsString);
+    pattern = new RegExp(patternString, flagsString);
   }
   return pattern.test(subjectString);
 }

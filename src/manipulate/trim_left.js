@@ -21,27 +21,23 @@ const REGEX_TRIM_LEFT = /^[\s\uFEFF\xA0]+/;
  * // => 'Mobile Infantry'
  */
 export default function(subject, whitespace) {
-  subject = undefinedDefault(subject, '');
-  var valueString = toString(subject);
-  if (isNil(valueString)) {
-    return '';
-  }
-  if (whitespace === '' || valueString === '') {
-    return valueString;
+  var subjectString = toString(undefinedDefault(subject, ''));
+  if (whitespace === '' || subjectString === '') {
+    return subjectString;
   }
   var whitespaceString = toString(whitespace);
   if (isNil(whitespaceString)) {
-    return valueString.replace(REGEX_TRIM_LEFT, '');
+    return subjectString.replace(REGEX_TRIM_LEFT, '');
   }
   var matchWhitespace = true,
     totalWhitespaceLength = 0,
     whitespaceStringLength = whitespaceString.length;
   while(matchWhitespace) {
-    if (valueString.indexOf(whitespaceString, totalWhitespaceLength) === totalWhitespaceLength) {
+    if (subjectString.indexOf(whitespaceString, totalWhitespaceLength) === totalWhitespaceLength) {
       totalWhitespaceLength += whitespaceStringLength;
     } else {
       matchWhitespace = false;
     }
   }
-  return valueString.substring(totalWhitespaceLength);
+  return subjectString.substring(totalWhitespaceLength);
 }

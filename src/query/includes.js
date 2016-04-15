@@ -25,7 +25,7 @@ export default function(subject, search, position) {
   subject = undefinedDefault(subject, '');
   var subjectString = toString(undefinedDefault(subject, '')),
     searchString = toString(search);
-  if (subjectString === null || searchString === null) {
+  if (searchString === null) {
     return false;
   }
   if (searchString === '') {

@@ -30,10 +30,6 @@ const REGEX_ALPHA = /^[\u0041-\u005A\u0061-\u007A\u00AA\u00B5\u00BA\u00C0-\u00D6
  * // => false
  */
 export default function(subject) {
-  subject = undefinedDefault(subject, '');
-  var subjectString = toString(subject);
-  if (subjectString === null) {
-    return false;
-  }
+  var subjectString = toString(undefinedDefault(subject, ''));
   return REGEX_ALPHA.test(subjectString);
 }

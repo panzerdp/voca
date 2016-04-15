@@ -22,10 +22,6 @@ const REGEX_DIGIT = /^\d+$/;
  * // => false
  */
 export default function(subject) {
-  subject = undefinedDefault(subject, '');
-  var subjectString = toString(subject);
-  if (subjectString === null) {
-    return false;
-  }
+  var subjectString = toString(undefinedDefault(subject, ''));
   return REGEX_DIGIT.test(subjectString);
 }

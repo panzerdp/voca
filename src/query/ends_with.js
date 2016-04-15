@@ -30,9 +30,6 @@ export default function(subject, end, position) {
   }
   var subjectString = toString(undefinedDefault(subject, '')),
     endString = toString(end);
-  if (subjectString === null || endString === null) {
-    return false;
-  }
   if (endString === '') {
     return true;
   }

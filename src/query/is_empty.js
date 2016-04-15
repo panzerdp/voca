@@ -17,10 +17,6 @@ import undefinedDefault from '../utils/undefined/undefined_default';
  * // => false
  */
 export default function(subject) {
-  subject = undefinedDefault(subject, '');
-  var subjectString = toString(subject);
-  if (subjectString === null) {
-    return true;
-  }
+  var subjectString = toString(undefinedDefault(subject, ''));
   return subjectString.length === 0;
 }

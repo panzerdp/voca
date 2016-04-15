@@ -21,11 +21,7 @@ import trimRight from './trim_right';
  * // => 'Earth'
  */
 export default function(subject, whitespace) {
-  subject = undefinedDefault(subject, '');
-  var subjectString = toString(subject);
-  if (isNil(subjectString)) {
-    return '';
-  }
+  var subjectString = toString(undefinedDefault(subject, ''));
   if (whitespace === '' || subjectString === '') {
     return subjectString;
   }

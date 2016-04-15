@@ -21,10 +21,6 @@ import isAlpha from './is_alpha';
  * // => false
  */
 export default function(subject) {
-  subject = undefinedDefault(subject, '');
-  var valueString = toString(subject);
-  if (valueString === null) {
-    return false;
-  }
+  var valueString = toString(undefinedDefault(subject, ''));
   return isAlpha(valueString) && valueString.toLowerCase() === valueString;
 }

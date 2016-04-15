@@ -18,10 +18,6 @@ import isAlpha from './is_alpha';
  * // => false
  */
 export default function(subject) {
-  subject = undefinedDefault(subject, '');
-  var subjectString = toString(subject);
-  if (subjectString === null) {
-    return false;
-  }
+  var subjectString = toString(undefinedDefault(subject, ''));
   return isAlpha(subjectString) && subjectString.toUpperCase() === subjectString;
 }

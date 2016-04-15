@@ -27,7 +27,7 @@ import isNil from '../utils/object/is_nil';
 export default function(subject, start, position) {
   var subjectString = toString(undefinedDefault(subject, '')),
     startString = toString(start);
-  if (subjectString === null || startString === null) {
+  if (startString === null) {
     return false;
   }
   if (startString === '') {
