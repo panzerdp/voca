@@ -5,6 +5,7 @@ branches:
 notifications:
   email: false
 node_js:
+  - "0.12"
   - "4.2"
   - "5.1"
 before_script:
