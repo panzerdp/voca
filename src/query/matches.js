@@ -1,6 +1,5 @@
 import toString from '../utils/string/to_string'
 import undefinedDefault from '../utils/undefined/undefined_default';
-import isNil from '../utils/object/is_nil';
 
 /**
  * Checks if `subject` matches the regular expression `pattern`
