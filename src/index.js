@@ -3,6 +3,7 @@
  * @namespace Query
  */
 import endsWith from './query/ends_with';
+import includes from './query/includes';
 import isAlpha from './query/is_alpha';
 import isAlphaDigit from './query/is_alpha_digit';
 import isBlank from './query/is_blank';
@@ -24,6 +25,7 @@ import trimRight from './manipulate/trim_right';
 
 var v = {
   endsWith: endsWith,
+  includes: includes,
   isAlpha: isAlpha,
   isAlphaDigit: isAlphaDigit,
   isBlank: isBlank,
