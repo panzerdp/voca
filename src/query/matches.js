@@ -2,13 +2,13 @@ import toString from '../utils/string/to_string'
 import undefinedDefault from '../utils/undefined/undefined_default';
 
 /**
- * Checks if `subject` matches the regular expression `pattern`
+ * Checks if `subject` matches the regular expression `pattern`.
  *
  * @function matches
  * @static
  * @memberOf Query
  * @param {string} [subject=''] The string to verify.
- * @param {RegExp|string} pattern The pattern to match. `string` type is converted to `RegExp` object with `flags` as flags.
+ * @param {RegExp|string} pattern The pattern to match.
  * @param {string} [flags=''] The regular expression flags. Applies when `pattern` is `string` type.
  * @return {boolean} Returns `true` if `subject` matches `pattern` or `false` otherwise.
  * @example
