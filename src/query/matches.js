@@ -22,7 +22,6 @@ import undefinedDefault from '../utils/undefined/undefined_default';
  * // => false
  */
 export default function(subject, pattern, flags) {
-  subject = undefinedDefault(subject, '');
   var subjectString = toString(undefinedDefault(subject, '')),
     flagsString = toString(undefinedDefault(flags, '')),
     patternString;
