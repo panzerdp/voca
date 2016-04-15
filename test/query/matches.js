@@ -7,6 +7,7 @@ describe('matches', function() {
     expect(v.matches('pacific ocean', /ocean/)).to.be.true;
     expect(v.matches('pacific ocean', /^pacific ocean$/)).to.be.true;
     expect(v.matches(undefined, /.?/)).to.be.true;
+    expect(v.matches(null, /.?/)).to.be.true;
   });
 
   it('should return true for a string that matches a regular expression string', function() {
@@ -15,6 +16,7 @@ describe('matches', function() {
     expect(v.matches('pacific ocean', 'PACIFIC', 'i')).to.be.true;
     expect(v.matches('pacific ocean', '\\s')).to.be.true;
     expect(v.matches(undefined, '.?')).to.be.true;
+    expect(v.matches(null, '.?')).to.be.true;
   });
 
   it('should return true for a string that matches a string representation of an object', function() {
