@@ -13,6 +13,7 @@ import isLowerCase from './query/is_lower_case';
 import isNumeric from './query/is_numeric';
 import isString from './query/is_string';
 import isUpperCase from './query/is_upper_case';
+import matches from './query/matches';
 import startsWith from './query/starts_with';
 
 /**
@@ -35,6 +36,7 @@ var v = {
   isNumeric: isNumeric,
   isString: isString,
   isUpperCase: isUpperCase,
+  matches: matches,
   startsWith: startsWith,
 
   trim: trim,

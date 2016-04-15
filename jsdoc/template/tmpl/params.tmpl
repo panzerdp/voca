@@ -70,7 +70,7 @@
 
             <?js if (param.optional) { ?>
               <span class="optional">
-              [optional<?js if (typeof param.defaultvalue !== 'undefined') { ?>=<?js= self.htmlsafe(param.defaultvalue) ?><?js } ?>]
+              [optional<?js if (typeof param.defaultvalue !== 'undefined') { ?>=<code><?js= self.htmlsafe(param.defaultvalue) ?></code><?js } ?>]
               </span>
             <?js } ?>
         </td>

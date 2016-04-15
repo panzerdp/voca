@@ -497,6 +497,10 @@ footer {
   font-size: 0.85em;
 }
 
+.code-separator {
+  color: #3e607f;
+}
+
 .params td, .params .name, .props .name, .name code {
   color: #333;
   font-family: Consolas, "Courier New", monospace;

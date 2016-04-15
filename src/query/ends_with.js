@@ -11,8 +11,8 @@ import isNil from '../utils/object/is_nil';
  * @static
  * @memberOf Query
  * @param {string} [subject=''] The string to verify.
- * @param {string} [end] The ending string.
- * @param {int} [position=string.length] Search within `subject` as if this string were only `position` long.
+ * @param {string} end The ending string.
+ * @param {int} [position=subject.length] Search within `subject` as if this string were only `position` long.
  * @return {boolean} Returns `true` if `subject` ends with `end` or `false` otherwise.
  * @example
  * v.endsWith('red alert', 'alert');

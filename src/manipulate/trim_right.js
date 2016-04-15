@@ -11,7 +11,7 @@ const REGEX_TRIM_RIGHT = /[\s\uFEFF\xA0]+$/;
  * @static
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to trim.
- * @param {string} [whitespace=whitespace] The whitespace to remove.
+ * @param {string} [whitespace=whitespace] The whitespace characters to trim.
  * @return {string} Returns the trimmed string.
  * @example
  * v.trimRight('the fire rises   ');

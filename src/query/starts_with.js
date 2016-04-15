@@ -11,7 +11,7 @@ import isNil from '../utils/object/is_nil';
  * @static
  * @memberOf Query
  * @param {string} [subject=''] The string to verify.
- * @param {string} [start] The starting string.
+ * @param {string} start The starting string.
  * @param {int} [position=0] The position to start searching.
  * @return {boolean} Returns `true` if `subject` starts with `start` or `false` otherwise.
  * @example
