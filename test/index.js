@@ -10,6 +10,7 @@ import './query/is_lower_case';
 import './query/is_numeric';
 import './query/is_string';
 import './query/is_upper_case';
+import './query/matches';
 import './query/starts_with';
 
 //manipulate
