@@ -1,5 +1,5 @@
 import toString from '../utils/string/to_string'
-import undefinedDefault from '../utils/undefined/undefined_default';
+import nilDefault from '../utils/undefined/nil_default';
 import isNil from '../utils/object/is_nil';
 import clipNumber from '../utils/number/clip_number';
 import toInteger from '../utils/number/to_integer';
@@ -22,8 +22,8 @@ import toInteger from '../utils/number/to_integer';
  * // => false
  */
 export default function(subject, search, position) {
-  subject = undefinedDefault(subject, '');
-  var subjectString = toString(undefinedDefault(subject, '')),
+  subject = nilDefault(subject, '');
+  var subjectString = toString(nilDefault(subject, '')),
     searchString = toString(search);
   if (searchString === null) {
     return false;

@@ -1,5 +1,5 @@
 import toString from '../utils/string/to_string'
-import undefinedDefault from '../utils/undefined/undefined_default';
+import nilDefault from '../utils/undefined/nil_default';
 
 /**
  * Checks if `subject` matches the regular expression `pattern`.
@@ -22,8 +22,8 @@ import undefinedDefault from '../utils/undefined/undefined_default';
  * // => false
  */
 export default function(subject, pattern, flags) {
-  var subjectString = toString(undefinedDefault(subject, '')),
-    flagsString = toString(undefinedDefault(flags, '')),
+  var subjectString = toString(nilDefault(subject, '')),
+    flagsString = toString(nilDefault(flags, '')),
     patternString;
   if (Object.prototype.toString.call(pattern) !== '[object RegExp]') {
     patternString = toString(pattern);

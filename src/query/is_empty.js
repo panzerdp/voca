@@ -1,5 +1,5 @@
 import toString from '../utils/string/to_string';
-import undefinedDefault from '../utils/undefined/undefined_default';
+import nilDefault from '../utils/undefined/nil_default';
 
 /**
  * Checks if `subject` is empty.
@@ -17,6 +17,6 @@ import undefinedDefault from '../utils/undefined/undefined_default';
  * // => false
  */
 export default function(subject) {
-  var subjectString = toString(undefinedDefault(subject, ''));
+  var subjectString = toString(nilDefault(subject, ''));
   return subjectString.length === 0;
 }

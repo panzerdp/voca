@@ -1,5 +1,5 @@
 import toString from '../utils/string/to_string'
-import undefinedDefault from '../utils/undefined/undefined_default';
+import nilDefault from '../utils/undefined/nil_default';
 
 const REGEX_DIGIT = /^\d+$/;
 
@@ -22,6 +22,6 @@ const REGEX_DIGIT = /^\d+$/;
  * // => false
  */
 export default function(subject) {
-  var subjectString = toString(undefinedDefault(subject, ''));
+  var subjectString = toString(nilDefault(subject, ''));
   return REGEX_DIGIT.test(subjectString);
 }

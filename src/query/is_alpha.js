@@ -1,5 +1,5 @@
 import toString from '../utils/string/to_string'
-import undefinedDefault from '../utils/undefined/undefined_default';
+import nilDefault from '../utils/undefined/nil_default';
 
 /**
  * RegEx to match alpha chars in unicode
@@ -30,6 +30,6 @@ const REGEX_ALPHA = /^[\u0041-\u005A\u0061-\u007A\u00AA\u00B5\u00BA\u00C0-\u00D6
  * // => false
  */
 export default function(subject) {
-  var subjectString = toString(undefinedDefault(subject, ''));
+  var subjectString = toString(nilDefault(subject, ''));
   return REGEX_ALPHA.test(subjectString);
 }

@@ -1,5 +1,5 @@
 import toString from '../utils/string/to_string'
-import undefinedDefault from '../utils/undefined/undefined_default';
+import nilDefault from '../utils/undefined/nil_default';
 import isAlpha from './is_alpha';
 
 /**
@@ -18,6 +18,6 @@ import isAlpha from './is_alpha';
  * // => false
  */
 export default function(subject) {
-  var subjectString = toString(undefinedDefault(subject, ''));
+  var subjectString = toString(nilDefault(subject, ''));
   return isAlpha(subjectString) && subjectString.toUpperCase() === subjectString;
 }

@@ -1,5 +1,5 @@
 import toString from '../utils/string/to_string'
-import undefinedDefault from '../utils/undefined/undefined_default';
+import nilDefault from '../utils/undefined/nil_default';
 import clipNumber from '../utils/number/clip_number';
 import toInteger from '../utils/number/to_integer';
 import isNil from '../utils/object/is_nil';
@@ -28,7 +28,7 @@ export default function(subject, end, position) {
   if (isNil(end)) {
     return false;
   }
-  var subjectString = toString(undefinedDefault(subject, '')),
+  var subjectString = toString(nilDefault(subject, '')),
     endString = toString(end);
   if (endString === '') {
     return true;

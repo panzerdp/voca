@@ -1,5 +1,5 @@
 import toString from '../utils/string/to_string'
-import undefinedDefault from '../utils/undefined/undefined_default';
+import nilDefault from '../utils/undefined/nil_default';
 import isNil from '../utils/object/is_nil';
 
 const REGEX_TRIM_LEFT = /^[\s\uFEFF\xA0]+/;
@@ -21,7 +21,7 @@ const REGEX_TRIM_LEFT = /^[\s\uFEFF\xA0]+/;
  * // => 'Mobile Infantry'
  */
 export default function(subject, whitespace) {
-  var subjectString = toString(undefinedDefault(subject, ''));
+  var subjectString = toString(nilDefault(subject, ''));
   if (whitespace === '' || subjectString === '') {
     return subjectString;
   }

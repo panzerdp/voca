@@ -1,5 +1,5 @@
 import toString from '../utils/string/to_string';
-import undefinedDefault from '../utils/undefined/undefined_default';
+import nilDefault from '../utils/undefined/nil_default';
 
 /**
  * Checks if `subject` is empty or contains only whitespaces.
@@ -20,6 +20,6 @@ import undefinedDefault from '../utils/undefined/undefined_default';
  * // => false
  */
 export default function(subject) {
-  var subjectString = toString(undefinedDefault(subject, ''));
+  var subjectString = toString(nilDefault(subject, ''));
   return subjectString.trim().length === 0;
 }
