@@ -14,6 +14,7 @@ import './query/matches';
 import './query/starts_with';
 
 //manipulate
+import './manipulate/reverse';
 import './manipulate/trim';
 import './manipulate/trim_left';
 import './manipulate/trim_right';
