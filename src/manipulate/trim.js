@@ -11,7 +11,7 @@ import trimRight from './trim_right';
  * @static
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to trim.
- * @param {string} [whitespace=whitespace] The whitespace characters for trim.
+ * @param {string} [whitespace=whitespace] The whitespace characters to trim.
  * @return {string} Returns the trimmed string.
  * @example
  * v.trim(' Mother nature ');
