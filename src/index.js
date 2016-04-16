@@ -20,6 +20,7 @@ import startsWith from './query/starts_with';
  * Functions to manipulate a string
  * @namespace Manipulate
  */
+import reverse from './manipulate/reverse';
 import trim from './manipulate/trim';
 import trimLeft from './manipulate/trim_left';
 import trimRight from './manipulate/trim_right';
@@ -39,6 +40,7 @@ var v = {
   matches: matches,
   startsWith: startsWith,
 
+  reverse: reverse,
   trim: trim,
   trimLeft: trimLeft,
   trimRight: trimRight
