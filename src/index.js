@@ -23,6 +23,7 @@ import startsWith from './query/starts_with';
 import repeat from './manipulate/repeat';
 import reverse from './manipulate/reverse';
 import substr from './manipulate/substr';
+import substring from './manipulate/substring';
 import trim from './manipulate/trim';
 import trimLeft from './manipulate/trim_left';
 import trimRight from './manipulate/trim_right';

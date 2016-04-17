@@ -16,5 +16,6 @@ import nilDefault from '../utils/undefined/nil_default';
  */
 export default function(subject) {
   var subjectString = toString(nilDefault(subject, ''));
+  //@TODO implement an unicode aware algorithm
   return subjectString.split('').reverse().join('');
 }
