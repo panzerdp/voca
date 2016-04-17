@@ -22,6 +22,7 @@ import startsWith from './query/starts_with';
  */
 import repeat from './manipulate/repeat';
 import reverse from './manipulate/reverse';
+import substr from './manipulate/substr';
 import trim from './manipulate/trim';
 import trimLeft from './manipulate/trim_left';
 import trimRight from './manipulate/trim_right';
@@ -43,6 +44,7 @@ var v = {
 
   repeat: repeat,
   reverse: reverse,
+  substr: substr,
   trim: trim,
   trimLeft: trimLeft,
   trimRight: trimRight

@@ -16,7 +16,7 @@ import clipNumber from '../utils/number/clip_number';
  * @example
  * v.repeat('w', 3);
  * // => 'www'
- * 
+ *
  * v.repeat('world', 0);
  * // => ''
  */

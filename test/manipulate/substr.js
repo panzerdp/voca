@@ -1,46 +1,34 @@
 import v from '../voca'
 import { expect } from 'chai'
 
-describe('repeat', function() {
+describe('substr', function() {
 
-  it('should repeat a string', function() {
-    expect(v.repeat('paradise', 2)).to.be.equal('paradiseparadise');
-    expect(v.repeat('w', 3)).to.be.equal('www');
-    expect(v.repeat('the world is yours', 1)).to.be.equal('the world is yours');
-    expect(v.repeat('', 10)).to.be.equal('');
+  it('should substract a string', function() {
+    expect(v.substr('infinite loop', 9)).to.be.equal('loop');
+    expect(v.substr('infinite loop', 0)).to.be.equal('infinite loop');
+    expect(v.substr('infinite loop')).to.be.equal('infinite loop');
+    expect(v.substr('infinite loop', 1)).to.be.equal('nfinite loop');
+    expect(v.substr('infinite loop', -4)).to.be.equal('loop');
   });
 
-  it('should return an empty string for 0 repeat times', function() {
-    expect(v.repeat('the world is yours', 0)).to.be.equal('');
-    expect(v.repeat('', 0)).to.be.equal('');
+  it('should substract a string with a length', function() {
+    expect(v.substr('infinite loop', 9, 3)).to.be.equal('loo');
+    expect(v.substr('infinite loop', 0, 'infinite loop'.length)).to.be.equal('infinite loop');
+    expect(v.substr('infinite loop', 1, 1)).to.be.equal('n');
+    expect(v.substr('infinite loop', -4, 1)).to.be.equal('l');
   });
 
-  it('should return the same string when the number of times is null or undefined', function() {
-    expect(v.repeat('the world is yours')).to.be.equal('the world is yours');
-    expect(v.repeat('the world is yours', null)).to.be.equal('the world is yours');
-    expect(v.repeat('the world is yours', undefined)).to.be.equal('the world is yours');
-  });
-
-  it('should repeat a number', function() {
-    expect(v.repeat(123, 2)).to.be.equal('123123');
-    expect(v.repeat(0, 5)).to.be.equal('00000');
-    expect(v.repeat(-1.5, 2)).to.be.equal('-1.5-1.5');
-  });
-
-  it('should repeat a string representation of an object', function() {
-    expect(v.repeat(['paradise'], 2)).to.be.equal('paradiseparadise');
-    expect(v.repeat({
+  it('should substract a string representation of an object', function() {
+    expect(v.substr(['infinite loop'], 10)).to.be.equal('oop');
+    expect(v.substr({
       toString: function() {
-        return 'Tony';
+        return 'loop'
       }
-    }, 2)).to.be.equal('TonyTony');
+    }, 0, 3)).to.be.equal('loo');
   });
 
-  it('should return an empty string for null or undefined string to be repeated', function() {
-    expect(v.repeat()).to.be.equal('');
-    expect(v.repeat(null)).to.be.equal('');
-    expect(v.repeat(undefined)).to.be.equal('');
-    expect(v.repeat(undefined, 10)).to.be.equal('');
+  it('should substract a string from a number', function() {
+    expect(v.substr(12345, 3)).to.be.equal('45');
+    expect(v.substr(987, 1, 1)).to.be.equal('8');
   });
-
 });

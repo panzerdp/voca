@@ -9,7 +9,7 @@ import isAlpha from './is_alpha';
  * @static
  * @memberOf Query
  * @param {string} [subject=''] The string to verify.
- * @return {boolean} Return `true` if `subject` is upper case or `false` otherwise.
+ * @return {boolean} Returns `true` if `subject` is upper case or `false` otherwise.
  * @example
  * v.isUpperCase('ACDC');
  * // => true
