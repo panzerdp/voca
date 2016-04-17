@@ -16,7 +16,7 @@ import nilDefault from '../utils/undefined/nil_default';
  * v.substring('beach', 1);
  * // => 'each'
  *
- * v.substring('ocean', 1, 2);
+ * v.substring('ocean', 1, 3);
  * // => 'ea'
  */
 export default function(subject, start, end) {
