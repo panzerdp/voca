@@ -9,13 +9,12 @@ import nilDefault from '../utils/undefined/nil_default';
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to reverse.
  * @return {string} Returns the reversed string.
+ * @note For an unicode aware implementation use https://github.com/mathiasbynens/esrever
  * @example
  * v.reverse('winter');
  * // => 'retniw'
  */
 export default function(subject) {
   var subjectString = toString(nilDefault(subject, ''));
-  return Array.prototype.reduceRight.call(subjectString, function(reversedString, currentCharacter) {
-    return reversedString + currentCharacter;
-  }, '');
+  return subjectString.split('').reverse().join('');
 }

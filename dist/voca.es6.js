@@ -58,16 +58,16 @@ function toString (value) {
 }
 
 /**
- * Verifies if `value` is `undefined` and returns `defaultValue`. In other case returns `value`.
+ * Verifies if `value` is `undefined` or `null` and returns `defaultValue`. In other case returns `value`.
  *
  * @ignore
- * @function undefinedDefault
+ * @function nilDefault
  * @param {*} value The value to verify.
  * @param {*} defaultValue The default value.
- * @return {*} Returns `defaultValue` if `value` is `undefined`, otherwise `defaultValue`.
+ * @return {*} Returns `defaultValue` if `value` is `undefined` or `null`, otherwise `defaultValue`.
  */
-function undefinedDefault (value, defaultValue) {
-  return typeof value === 'undefined' ? defaultValue : value;
+function nilDefault (value, defaultValue) {
+  return value == null ? defaultValue : value;
 }
 
 /**
@@ -116,8 +116,8 @@ function toInteger (value) {
  * @static
  * @memberOf Query
  * @param {string} [subject=''] The string to verify.
- * @param {string} [end] The ending string.
- * @param {int} [position=string.length] Search within `subject` as if this string were only `position` long.
+ * @param {string} end The ending string.
+ * @param {int} [position=subject.length] Search within `subject` as if this string were only `position` long.
  * @return {boolean} Returns `true` if `subject` ends with `end` or `false` otherwise.
  * @example
  * v.endsWith('red alert', 'alert');
@@ -133,11 +133,8 @@ function endsWith (subject, end, position) {
   if (isNil(end)) {
     return false;
   }
-  var subjectString = toString(undefinedDefault(subject, '')),
+  var subjectString = toString(nilDefault(subject, '')),
       endString = toString(end);
-  if (subjectString === null || endString === null) {
-    return false;
-  }
   if (endString === '') {
     return true;
   }
@@ -145,6 +142,37 @@ function endsWith (subject, end, position) {
   position -= endString.length;
   var lastIndex = subjectString.indexOf(endString, position);
   return lastIndex !== -1 && lastIndex === position;
+}
+
+/**
+ * Checks if `subject` includes `search` starting from `position`
+ *
+ * @function includes
+ * @static
+ * @memberOf Query
+ * @param {string} [subject=''] The string where to search.
+ * @param {string} search The string to search.
+ * @param {int} [position=0] The position to start searching.
+ * @return {boolean} Returns `true` if `subject` includes `search` or `false` otherwise.
+ * @example
+ * v.includes('starship', 'star');
+ * // => true
+ *
+ * v.includes('galaxy', 'g', 1);
+ * // => false
+ */
+function includes (subject, search, position) {
+  subject = nilDefault(subject, '');
+  var subjectString = toString(nilDefault(subject, '')),
+      searchString = toString(search);
+  if (searchString === null) {
+    return false;
+  }
+  if (searchString === '') {
+    return true;
+  }
+  position = isNil(position) ? 0 : clipNumber(toInteger(position), 0, subjectString.length);
+  return subjectString.indexOf(searchString, position) !== -1;
 }
 
 /**
@@ -175,11 +203,7 @@ var REGEX_ALPHA = /^[\u0041-\u005A\u0061-\u007A\u00AA\u00B5\u00BA\u00C0-\u00D6\u
  * // => false
  */
 function isAlpha (subject) {
-  subject = undefinedDefault(subject, '');
-  var subjectString = toString(subject);
-  if (subjectString === null) {
-    return false;
-  }
+  var subjectString = toString(nilDefault(subject, ''));
   return REGEX_ALPHA.test(subjectString);
 }
 
@@ -211,11 +235,7 @@ var REGEX_ALPHA_DIGIT = /^[\d\u0041-\u005A\u0061-\u007A\u00AA\u00B5\u00BA\u00C0-
  * // => false
  */
 function isAlphaDigit (subject) {
-  subject = undefinedDefault(subject, '');
-  var subjectString = toString(subject);
-  if (subjectString === null) {
-    return false;
-  }
+  var subjectString = toString(nilDefault(subject, ''));
   return REGEX_ALPHA_DIGIT.test(subjectString);
 }
 
@@ -238,11 +258,7 @@ function isAlphaDigit (subject) {
  * // => false
  */
 function isBlank (subject) {
-  subject = undefinedDefault(subject, '');
-  var subjectString = toString(subject);
-  if (subjectString === null) {
-    return true;
-  }
+  var subjectString = toString(nilDefault(subject, ''));
   return subjectString.trim().length === 0;
 }
 
@@ -267,11 +283,7 @@ var REGEX_DIGIT = /^\d+$/;
  * // => false
  */
 function isDigit (subject) {
-  subject = undefinedDefault(subject, '');
-  var subjectString = toString(subject);
-  if (subjectString === null) {
-    return false;
-  }
+  var subjectString = toString(nilDefault(subject, ''));
   return REGEX_DIGIT.test(subjectString);
 }
 
@@ -291,11 +303,7 @@ function isDigit (subject) {
  * // => false
  */
 function isEmpty (subject) {
-  subject = undefinedDefault(subject, '');
-  var subjectString = toString(subject);
-  if (subjectString === null) {
-    return true;
-  }
+  var subjectString = toString(nilDefault(subject, ''));
   return subjectString.length === 0;
 }
 
@@ -318,11 +326,7 @@ function isEmpty (subject) {
  * // => false
  */
 function isLowerCase (subject) {
-  subject = undefinedDefault(subject, '');
-  var valueString = toString(subject);
-  if (valueString === null) {
-    return false;
-  }
+  var valueString = toString(nilDefault(subject, ''));
   return isAlpha(valueString) && valueString.toLowerCase() === valueString;
 }
 
@@ -365,12 +369,42 @@ function isNumeric (subject) {
  * // => false
  */
 function isUpperCase (subject) {
-  subject = undefinedDefault(subject, '');
-  var subjectString = toString(subject);
-  if (subjectString === null) {
-    return false;
-  }
+  var subjectString = toString(nilDefault(subject, ''));
   return isAlpha(subjectString) && subjectString.toUpperCase() === subjectString;
+}
+
+/**
+ * Checks if `subject` matches the regular expression `pattern`.
+ *
+ * @function matches
+ * @static
+ * @memberOf Query
+ * @param {string} [subject=''] The string to verify.
+ * @param {RegExp|string} pattern The pattern to match.
+ * @param {string} [flags=''] The regular expression flags. Applies when `pattern` is `string` type.
+ * @return {boolean} Returns `true` if `subject` matches `pattern` or `false` otherwise.
+ * @example
+ * v.matches('pluto', /plus?/);
+ * // => true
+ *
+ * v.matches('sun', 'S', 'i');
+ * // => true
+ *
+ * v.matches('apollo 11', '^\\w+$');
+ * // => false
+ */
+function matches (subject, pattern, flags) {
+  var subjectString = toString(nilDefault(subject, '')),
+      flagsString = toString(nilDefault(flags, '')),
+      patternString;
+  if (Object.prototype.toString.call(pattern) !== '[object RegExp]') {
+    patternString = toString(pattern);
+    if (patternString === null) {
+      return false;
+    }
+    pattern = new RegExp(patternString, flagsString);
+  }
+  return pattern.test(subjectString);
 }
 
 /**
@@ -380,7 +414,7 @@ function isUpperCase (subject) {
  * @static
  * @memberOf Query
  * @param {string} [subject=''] The string to verify.
- * @param {string} [start] The starting string.
+ * @param {string} start The starting string.
  * @param {int} [position=0] The position to start searching.
  * @return {boolean} Returns `true` if `subject` starts with `start` or `false` otherwise.
  * @example
@@ -394,9 +428,9 @@ function isUpperCase (subject) {
  * // => false
  */
 function startsWith (subject, start, position) {
-  var subjectString = toString(undefinedDefault(subject, '')),
+  var subjectString = toString(nilDefault(subject, '')),
       startString = toString(start);
-  if (subjectString === null || startString === null) {
+  if (startString === null) {
     return false;
   }
   if (startString === '') {
@@ -404,6 +438,56 @@ function startsWith (subject, start, position) {
   }
   position = isNil(position) ? 0 : clipNumber(toInteger(position), 0, subjectString.length);
   return subjectString.substr(position, startString.length) === startString;
+}
+
+/**
+ * Repeats the `subject` number of `times`.
+ *
+ * @function repeat
+ * @static
+ * @memberOf Manipulate
+ * @param {string} [subject=''] The string to repeat.
+ * @param {int} [times=1] The number of times to repeat.
+ * @return {string} Returns the repeated string.
+ * @example
+ * v.repeat('w', 3);
+ * // => 'www'
+ * 
+ * v.repeat('world', 0);
+ * // => ''
+ */
+function repeat (subject, times) {
+  var subjectString = toString(nilDefault(subject, '')),
+      timesInt = isNil(times) ? 1 : clipNumber(toInteger(times), 0, Number.MAX_SAFE_INTEGER);
+  var repeatString = '';
+  while (timesInt) {
+    if (timesInt & 1) {
+      repeatString += subjectString;
+    }
+    if (timesInt > 1) {
+      subjectString += subjectString;
+    }
+    timesInt >>= 1;
+  }
+  return repeatString;
+}
+
+/**
+ * Reverse the `subject`.
+ *
+ * @function reverse
+ * @static
+ * @memberOf Manipulate
+ * @param {string} [subject=''] The string to reverse.
+ * @return {string} Returns the reversed string.
+ * @note For an unicode aware implementation use https://github.com/mathiasbynens/esrever
+ * @example
+ * v.reverse('winter');
+ * // => 'retniw'
+ */
+function reverse (subject) {
+  var subjectString = toString(nilDefault(subject, ''));
+  return subjectString.split('').reverse().join('');
 }
 
 var REGEX_TRIM_LEFT = /^[\s\uFEFF\xA0]+/;
@@ -415,7 +499,7 @@ var REGEX_TRIM_LEFT = /^[\s\uFEFF\xA0]+/;
  * @static
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to trim.
- * @param {string} [whitespace=whitespace] The whitespace to remove.
+ * @param {string} [whitespace=whitespace] The whitespace characters to trim.
  * @return {string} Returns the trimmed string.
  * @example
  * v.trimLeft('  Starship Troopers');
@@ -425,29 +509,25 @@ var REGEX_TRIM_LEFT = /^[\s\uFEFF\xA0]+/;
  * // => 'Mobile Infantry'
  */
 function trimLeft (subject, whitespace) {
-  subject = undefinedDefault(subject, '');
-  var valueString = toString(subject);
-  if (isNil(valueString)) {
-    return '';
-  }
-  if (whitespace === '' || valueString === '') {
-    return valueString;
+  var subjectString = toString(nilDefault(subject, ''));
+  if (whitespace === '' || subjectString === '') {
+    return subjectString;
   }
   var whitespaceString = toString(whitespace);
   if (isNil(whitespaceString)) {
-    return valueString.replace(REGEX_TRIM_LEFT, '');
+    return subjectString.replace(REGEX_TRIM_LEFT, '');
   }
   var matchWhitespace = true,
       totalWhitespaceLength = 0,
       whitespaceStringLength = whitespaceString.length;
   while (matchWhitespace) {
-    if (valueString.indexOf(whitespaceString, totalWhitespaceLength) === totalWhitespaceLength) {
+    if (subjectString.indexOf(whitespaceString, totalWhitespaceLength) === totalWhitespaceLength) {
       totalWhitespaceLength += whitespaceStringLength;
     } else {
       matchWhitespace = false;
     }
   }
-  return valueString.substring(totalWhitespaceLength);
+  return subjectString.substring(totalWhitespaceLength);
 }
 
 var REGEX_TRIM_RIGHT = /[\s\uFEFF\xA0]+$/;
@@ -459,7 +539,7 @@ var REGEX_TRIM_RIGHT = /[\s\uFEFF\xA0]+$/;
  * @static
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to trim.
- * @param {string} [whitespace=whitespace] The whitespace to remove.
+ * @param {string} [whitespace=whitespace] The whitespace characters to trim.
  * @return {string} Returns the trimmed string.
  * @example
  * v.trimRight('the fire rises   ');
@@ -469,11 +549,7 @@ var REGEX_TRIM_RIGHT = /[\s\uFEFF\xA0]+$/;
  * // => 'do you feel in charge?'
  */
 function trimRight (subject, whitespace) {
-  subject = undefinedDefault(subject, '');
-  var subjectString = toString(subject);
-  if (isNil(subjectString)) {
-    return '';
-  }
+  var subjectString = toString(nilDefault(subject, ''));
   if (whitespace === '' || subjectString === '') {
     return subjectString;
   }
@@ -504,7 +580,7 @@ function trimRight (subject, whitespace) {
  * @static
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to trim.
- * @param {string} [whitespace=whitespace] The whitespaces for trim.
+ * @param {string} [whitespace=whitespace] The whitespace characters to trim.
  * @return {string} Returns the trimmed string.
  * @example
  * v.trim(' Mother nature ');
@@ -514,11 +590,7 @@ function trimRight (subject, whitespace) {
  * // => 'Earth'
  */
 function trim (subject, whitespace) {
-  subject = undefinedDefault(subject, '');
-  var subjectString = toString(subject);
-  if (isNil(subjectString)) {
-    return '';
-  }
+  var subjectString = toString(nilDefault(subject, ''));
   if (whitespace === '' || subjectString === '') {
     return subjectString;
   }
@@ -531,6 +603,7 @@ function trim (subject, whitespace) {
 
 var v = {
   endsWith: endsWith,
+  includes: includes,
   isAlpha: isAlpha,
   isAlphaDigit: isAlphaDigit,
   isBlank: isBlank,
@@ -540,12 +613,14 @@ var v = {
   isNumeric: isNumeric,
   isString: isString,
   isUpperCase: isUpperCase,
+  matches: matches,
   startsWith: startsWith,
 
+  repeat: repeat,
+  reverse: reverse,
   trim: trim,
   trimLeft: trimLeft,
   trimRight: trimRight
 };
 
 export default v;
-//# sourceMappingURL=voca.es6.js.map

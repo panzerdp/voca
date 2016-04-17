@@ -64,16 +64,16 @@ function toString (value) {
 }
 
 /**
- * Verifies if `value` is `undefined` and returns `defaultValue`. In other case returns `value`.
+ * Verifies if `value` is `undefined` or `null` and returns `defaultValue`. In other case returns `value`.
  *
  * @ignore
- * @function undefinedDefault
+ * @function nilDefault
  * @param {*} value The value to verify.
  * @param {*} defaultValue The default value.
- * @return {*} Returns `defaultValue` if `value` is `undefined`, otherwise `defaultValue`.
+ * @return {*} Returns `defaultValue` if `value` is `undefined` or `null`, otherwise `defaultValue`.
  */
-function undefinedDefault (value, defaultValue) {
-  return typeof value === 'undefined' ? defaultValue : value;
+function nilDefault (value, defaultValue) {
+  return value == null ? defaultValue : value;
 }
 
 /**
@@ -122,8 +122,8 @@ function toInteger (value) {
  * @static
  * @memberOf Query
  * @param {string} [subject=''] The string to verify.
- * @param {string} [end] The ending string.
- * @param {int} [position=string.length] Search within `subject` as if this string were only `position` long.
+ * @param {string} end The ending string.
+ * @param {int} [position=subject.length] Search within `subject` as if this string were only `position` long.
  * @return {boolean} Returns `true` if `subject` ends with `end` or `false` otherwise.
  * @example
  * v.endsWith('red alert', 'alert');
@@ -139,11 +139,8 @@ function endsWith (subject, end, position) {
   if (isNil(end)) {
     return false;
   }
-  var subjectString = toString(undefinedDefault(subject, '')),
+  var subjectString = toString(nilDefault(subject, '')),
       endString = toString(end);
-  if (subjectString === null || endString === null) {
-    return false;
-  }
   if (endString === '') {
     return true;
   }
@@ -151,6 +148,37 @@ function endsWith (subject, end, position) {
   position -= endString.length;
   var lastIndex = subjectString.indexOf(endString, position);
   return lastIndex !== -1 && lastIndex === position;
+}
+
+/**
+ * Checks if `subject` includes `search` starting from `position`
+ *
+ * @function includes
+ * @static
+ * @memberOf Query
+ * @param {string} [subject=''] The string where to search.
+ * @param {string} search The string to search.
+ * @param {int} [position=0] The position to start searching.
+ * @return {boolean} Returns `true` if `subject` includes `search` or `false` otherwise.
+ * @example
+ * v.includes('starship', 'star');
+ * // => true
+ *
+ * v.includes('galaxy', 'g', 1);
+ * // => false
+ */
+function includes (subject, search, position) {
+  subject = nilDefault(subject, '');
+  var subjectString = toString(nilDefault(subject, '')),
+      searchString = toString(search);
+  if (searchString === null) {
+    return false;
+  }
+  if (searchString === '') {
+    return true;
+  }
+  position = isNil(position) ? 0 : clipNumber(toInteger(position), 0, subjectString.length);
+  return subjectString.indexOf(searchString, position) !== -1;
 }
 
 /**
@@ -181,11 +209,7 @@ var REGEX_ALPHA = /^[\u0041-\u005A\u0061-\u007A\u00AA\u00B5\u00BA\u00C0-\u00D6\u
  * // => false
  */
 function isAlpha (subject) {
-  subject = undefinedDefault(subject, '');
-  var subjectString = toString(subject);
-  if (subjectString === null) {
-    return false;
-  }
+  var subjectString = toString(nilDefault(subject, ''));
   return REGEX_ALPHA.test(subjectString);
 }
 
@@ -217,11 +241,7 @@ var REGEX_ALPHA_DIGIT = /^[\d\u0041-\u005A\u0061-\u007A\u00AA\u00B5\u00BA\u00C0-
  * // => false
  */
 function isAlphaDigit (subject) {
-  subject = undefinedDefault(subject, '');
-  var subjectString = toString(subject);
-  if (subjectString === null) {
-    return false;
-  }
+  var subjectString = toString(nilDefault(subject, ''));
   return REGEX_ALPHA_DIGIT.test(subjectString);
 }
 
@@ -244,11 +264,7 @@ function isAlphaDigit (subject) {
  * // => false
  */
 function isBlank (subject) {
-  subject = undefinedDefault(subject, '');
-  var subjectString = toString(subject);
-  if (subjectString === null) {
-    return true;
-  }
+  var subjectString = toString(nilDefault(subject, ''));
   return subjectString.trim().length === 0;
 }
 
@@ -273,11 +289,7 @@ var REGEX_DIGIT = /^\d+$/;
  * // => false
  */
 function isDigit (subject) {
-  subject = undefinedDefault(subject, '');
-  var subjectString = toString(subject);
-  if (subjectString === null) {
-    return false;
-  }
+  var subjectString = toString(nilDefault(subject, ''));
   return REGEX_DIGIT.test(subjectString);
 }
 
@@ -297,11 +309,7 @@ function isDigit (subject) {
  * // => false
  */
 function isEmpty (subject) {
-  subject = undefinedDefault(subject, '');
-  var subjectString = toString(subject);
-  if (subjectString === null) {
-    return true;
-  }
+  var subjectString = toString(nilDefault(subject, ''));
   return subjectString.length === 0;
 }
 
@@ -324,11 +332,7 @@ function isEmpty (subject) {
  * // => false
  */
 function isLowerCase (subject) {
-  subject = undefinedDefault(subject, '');
-  var valueString = toString(subject);
-  if (valueString === null) {
-    return false;
-  }
+  var valueString = toString(nilDefault(subject, ''));
   return isAlpha(valueString) && valueString.toLowerCase() === valueString;
 }
 
@@ -371,12 +375,42 @@ function isNumeric (subject) {
  * // => false
  */
 function isUpperCase (subject) {
-  subject = undefinedDefault(subject, '');
-  var subjectString = toString(subject);
-  if (subjectString === null) {
-    return false;
-  }
+  var subjectString = toString(nilDefault(subject, ''));
   return isAlpha(subjectString) && subjectString.toUpperCase() === subjectString;
+}
+
+/**
+ * Checks if `subject` matches the regular expression `pattern`.
+ *
+ * @function matches
+ * @static
+ * @memberOf Query
+ * @param {string} [subject=''] The string to verify.
+ * @param {RegExp|string} pattern The pattern to match.
+ * @param {string} [flags=''] The regular expression flags. Applies when `pattern` is `string` type.
+ * @return {boolean} Returns `true` if `subject` matches `pattern` or `false` otherwise.
+ * @example
+ * v.matches('pluto', /plus?/);
+ * // => true
+ *
+ * v.matches('sun', 'S', 'i');
+ * // => true
+ *
+ * v.matches('apollo 11', '^\\w+$');
+ * // => false
+ */
+function matches (subject, pattern, flags) {
+  var subjectString = toString(nilDefault(subject, '')),
+      flagsString = toString(nilDefault(flags, '')),
+      patternString;
+  if (Object.prototype.toString.call(pattern) !== '[object RegExp]') {
+    patternString = toString(pattern);
+    if (patternString === null) {
+      return false;
+    }
+    pattern = new RegExp(patternString, flagsString);
+  }
+  return pattern.test(subjectString);
 }
 
 /**
@@ -386,7 +420,7 @@ function isUpperCase (subject) {
  * @static
  * @memberOf Query
  * @param {string} [subject=''] The string to verify.
- * @param {string} [start] The starting string.
+ * @param {string} start The starting string.
  * @param {int} [position=0] The position to start searching.
  * @return {boolean} Returns `true` if `subject` starts with `start` or `false` otherwise.
  * @example
@@ -400,9 +434,9 @@ function isUpperCase (subject) {
  * // => false
  */
 function startsWith (subject, start, position) {
-  var subjectString = toString(undefinedDefault(subject, '')),
+  var subjectString = toString(nilDefault(subject, '')),
       startString = toString(start);
-  if (subjectString === null || startString === null) {
+  if (startString === null) {
     return false;
   }
   if (startString === '') {
@@ -410,6 +444,56 @@ function startsWith (subject, start, position) {
   }
   position = isNil(position) ? 0 : clipNumber(toInteger(position), 0, subjectString.length);
   return subjectString.substr(position, startString.length) === startString;
+}
+
+/**
+ * Repeats the `subject` number of `times`.
+ *
+ * @function repeat
+ * @static
+ * @memberOf Manipulate
+ * @param {string} [subject=''] The string to repeat.
+ * @param {int} [times=1] The number of times to repeat.
+ * @return {string} Returns the repeated string.
+ * @example
+ * v.repeat('w', 3);
+ * // => 'www'
+ * 
+ * v.repeat('world', 0);
+ * // => ''
+ */
+function repeat (subject, times) {
+  var subjectString = toString(nilDefault(subject, '')),
+      timesInt = isNil(times) ? 1 : clipNumber(toInteger(times), 0, Number.MAX_SAFE_INTEGER);
+  var repeatString = '';
+  while (timesInt) {
+    if (timesInt & 1) {
+      repeatString += subjectString;
+    }
+    if (timesInt > 1) {
+      subjectString += subjectString;
+    }
+    timesInt >>= 1;
+  }
+  return repeatString;
+}
+
+/**
+ * Reverse the `subject`.
+ *
+ * @function reverse
+ * @static
+ * @memberOf Manipulate
+ * @param {string} [subject=''] The string to reverse.
+ * @return {string} Returns the reversed string.
+ * @note For an unicode aware implementation use https://github.com/mathiasbynens/esrever
+ * @example
+ * v.reverse('winter');
+ * // => 'retniw'
+ */
+function reverse (subject) {
+  var subjectString = toString(nilDefault(subject, ''));
+  return subjectString.split('').reverse().join('');
 }
 
 var REGEX_TRIM_LEFT = /^[\s\uFEFF\xA0]+/;
@@ -421,7 +505,7 @@ var REGEX_TRIM_LEFT = /^[\s\uFEFF\xA0]+/;
  * @static
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to trim.
- * @param {string} [whitespace=whitespace] The whitespace to remove.
+ * @param {string} [whitespace=whitespace] The whitespace characters to trim.
  * @return {string} Returns the trimmed string.
  * @example
  * v.trimLeft('  Starship Troopers');
@@ -431,29 +515,25 @@ var REGEX_TRIM_LEFT = /^[\s\uFEFF\xA0]+/;
  * // => 'Mobile Infantry'
  */
 function trimLeft (subject, whitespace) {
-  subject = undefinedDefault(subject, '');
-  var valueString = toString(subject);
-  if (isNil(valueString)) {
-    return '';
-  }
-  if (whitespace === '' || valueString === '') {
-    return valueString;
+  var subjectString = toString(nilDefault(subject, ''));
+  if (whitespace === '' || subjectString === '') {
+    return subjectString;
   }
   var whitespaceString = toString(whitespace);
   if (isNil(whitespaceString)) {
-    return valueString.replace(REGEX_TRIM_LEFT, '');
+    return subjectString.replace(REGEX_TRIM_LEFT, '');
   }
   var matchWhitespace = true,
       totalWhitespaceLength = 0,
       whitespaceStringLength = whitespaceString.length;
   while (matchWhitespace) {
-    if (valueString.indexOf(whitespaceString, totalWhitespaceLength) === totalWhitespaceLength) {
+    if (subjectString.indexOf(whitespaceString, totalWhitespaceLength) === totalWhitespaceLength) {
       totalWhitespaceLength += whitespaceStringLength;
     } else {
       matchWhitespace = false;
     }
   }
-  return valueString.substring(totalWhitespaceLength);
+  return subjectString.substring(totalWhitespaceLength);
 }
 
 var REGEX_TRIM_RIGHT = /[\s\uFEFF\xA0]+$/;
@@ -465,7 +545,7 @@ var REGEX_TRIM_RIGHT = /[\s\uFEFF\xA0]+$/;
  * @static
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to trim.
- * @param {string} [whitespace=whitespace] The whitespace to remove.
+ * @param {string} [whitespace=whitespace] The whitespace characters to trim.
  * @return {string} Returns the trimmed string.
  * @example
  * v.trimRight('the fire rises   ');
@@ -475,11 +555,7 @@ var REGEX_TRIM_RIGHT = /[\s\uFEFF\xA0]+$/;
  * // => 'do you feel in charge?'
  */
 function trimRight (subject, whitespace) {
-  subject = undefinedDefault(subject, '');
-  var subjectString = toString(subject);
-  if (isNil(subjectString)) {
-    return '';
-  }
+  var subjectString = toString(nilDefault(subject, ''));
   if (whitespace === '' || subjectString === '') {
     return subjectString;
   }
@@ -510,7 +586,7 @@ function trimRight (subject, whitespace) {
  * @static
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to trim.
- * @param {string} [whitespace=whitespace] The whitespaces for trim.
+ * @param {string} [whitespace=whitespace] The whitespace characters to trim.
  * @return {string} Returns the trimmed string.
  * @example
  * v.trim(' Mother nature ');
@@ -520,11 +596,7 @@ function trimRight (subject, whitespace) {
  * // => 'Earth'
  */
 function trim (subject, whitespace) {
-  subject = undefinedDefault(subject, '');
-  var subjectString = toString(subject);
-  if (isNil(subjectString)) {
-    return '';
-  }
+  var subjectString = toString(nilDefault(subject, ''));
   if (whitespace === '' || subjectString === '') {
     return subjectString;
   }
@@ -537,6 +609,7 @@ function trim (subject, whitespace) {
 
 var v = {
   endsWith: endsWith,
+  includes: includes,
   isAlpha: isAlpha,
   isAlphaDigit: isAlphaDigit,
   isBlank: isBlank,
@@ -546,8 +619,11 @@ var v = {
   isNumeric: isNumeric,
   isString: isString,
   isUpperCase: isUpperCase,
+  matches: matches,
   startsWith: startsWith,
 
+  repeat: repeat,
+  reverse: reverse,
   trim: trim,
   trimLeft: trimLeft,
   trimRight: trimRight
@@ -656,6 +732,79 @@ describe('endsWith', function () {
     chai.expect(v.endsWith(null, null, null)).to.be.false;
     chai.expect(v.endsWith(null, null, 0)).to.be.false;
     chai.expect(v.endsWith(null, 'Hello World!')).to.be.false;
+  });
+});
+
+describe('includes', function () {
+
+  it('should return true for an included string', function () {
+    chai.expect(v.includes('mobile infantry', 'mobile')).to.be.true;
+    chai.expect(v.includes('mobile infantry', 'infantry')).to.be.true;
+    chai.expect(v.includes('mobile infantry', 'mobile infantry')).to.be.true;
+    chai.expect(v.includes('mobile infantry', ' ')).to.be.true;
+    chai.expect(v.includes('mobile infantry', '')).to.be.true;
+    chai.expect(v.includes('', '')).to.be.true;
+    chai.expect(v.includes(undefined, '')).to.be.true;
+    chai.expect(v.includes('\nwelcome', '\n')).to.be.true;
+  });
+
+  it('should return true for an included string and position', function () {
+    chai.expect(v.includes('mobile infantry', 'mobile', 0)).to.be.true;
+    chai.expect(v.includes('mobile infantry', 'infantry', 7)).to.be.true;
+    chai.expect(v.includes('mobile infantry', 'mobile infantry', 0)).to.be.true;
+    chai.expect(v.includes('mobile infantry', ' ', 6)).to.be.true;
+    chai.expect(v.includes('mobile infantry', '', 0)).to.be.true;
+    chai.expect(v.includes('mobile infantry', '', 6)).to.be.true;
+    chai.expect(v.includes('', '', 0)).to.be.true;
+    chai.expect(v.includes('', '', 6)).to.be.true;
+  });
+
+  it('should return true for an included string representation of an object', function () {
+    chai.expect(v.includes(['mobile infantry'], 'mobile')).to.be.true;
+    chai.expect(v.includes({
+      toString: function toString() {
+        return 'mobile infantry';
+      }
+    }, 'infantry')).to.be.true;
+    chai.expect(v.includes(['mobile infantry'], ['mobile infantry'])).to.be.true;
+  });
+
+  it('should return true for an included number', function () {
+    chai.expect(v.includes(155, 55));
+    chai.expect(v.includes('1078', 78));
+    chai.expect(v.includes(0, 0));
+    chai.expect(v.includes(80, ''));
+  });
+
+  it('should return false for a not included string', function () {
+    chai.expect(v.includes('mobile infantry', 'be mobile')).to.be.false;
+    chai.expect(v.includes('mobile infantry', 'infantry ')).to.be.false;
+    chai.expect(v.includes('mobile infantry', ' mobile infantry ')).to.be.false;
+    chai.expect(v.includes('mobile infantry', '!')).to.be.false;
+    chai.expect(v.includes('', 'mobile')).to.be.false;
+    chai.expect(v.includes('\nwelcome', '\t')).to.be.false;
+  });
+
+  it('should return false for a not included string and position', function () {
+    chai.expect(v.includes('mobile infantry', 'mobile', 1)).to.be.false;
+    chai.expect(v.includes('mobile infantry', 'infantry', 8)).to.be.false;
+    chai.expect(v.includes('mobile infantry', 'mobile infantry', 2)).to.be.false;
+    chai.expect(v.includes('mobile infantry', ' ', 7)).to.be.false;
+  });
+
+  it('should return false for a not included string representation of an object', function () {
+    chai.expect(v.includes(['mobile infantry'], 'mobile number')).to.be.false;
+    chai.expect(v.includes({
+      toString: function toString() {
+        return 'mobile infantry';
+      }
+    }, 'motorized infantry')).to.be.false;
+    chai.expect(v.includes(['mobile infantry'], ['mobile infantry'], 1)).to.be.false;
+  });
+
+  it('should return false for a undefined or null search string', function () {
+    chai.expect(v.includes('mobile infantry', undefined)).to.be.false;
+    chai.expect(v.includes('mobile infantry', null)).to.be.false;
   });
 });
 
@@ -1371,6 +1520,66 @@ describe('isUpperCase', function () {
   });
 });
 
+describe('matches', function () {
+
+  it('should return true for a string that matches a regular expression object', function () {
+    chai.expect(v.matches('pacific ocean', /ocean/)).to.be.true;
+    chai.expect(v.matches('pacific ocean', /^pacific ocean$/)).to.be.true;
+    chai.expect(v.matches(undefined, /.?/)).to.be.true;
+    chai.expect(v.matches(null, /.?/)).to.be.true;
+  });
+
+  it('should return true for a string that matches a regular expression string', function () {
+    chai.expect(v.matches('pacific ocean', 'ocean')).to.be.true;
+    chai.expect(v.matches('pacific ocean', '^pacific ocean$')).to.be.true;
+    chai.expect(v.matches('pacific ocean', 'PACIFIC', 'i')).to.be.true;
+    chai.expect(v.matches('pacific ocean', '\\s')).to.be.true;
+    chai.expect(v.matches(undefined, '.?')).to.be.true;
+    chai.expect(v.matches(null, '.?')).to.be.true;
+  });
+
+  it('should return true for a string that matches a string representation of an object', function () {
+    chai.expect(v.matches(['atlantic ocean'], /atlantic/)).to.be.true;
+    chai.expect(v.matches('pacific ocean', ['^pacific ocean$'])).to.be.true;
+    chai.expect(v.matches({
+      toString: function toString() {
+        return 'pacific ocean';
+      }
+    }, 'PACIFIC', 'i')).to.be.true;
+    chai.expect(v.matches(['pacific ocean'], ['\\s'])).to.be.true;
+  });
+
+  it('should return true for a number that matches a regular expression', function () {
+    chai.expect(v.matches(1500, /\d/)).to.be.true;
+    chai.expect(v.matches(685, 68)).to.be.true;
+    chai.expect(v.matches(-1.5, /^\-1\.5$/)).to.be.true;
+  });
+
+  it('should return true for a boolean that matches a regular expression', function () {
+    chai.expect(v.matches(true, /true/)).to.be.true;
+    chai.expect(v.matches(false, 'false')).to.be.true;
+  });
+
+  it('should return false for a string that does not match a regular expression object', function () {
+    chai.expect(v.matches('pacific ocean', /^ocean/)).to.be.false;
+    chai.expect(v.matches('pacific ocean', /^atlantic ocean$/)).to.be.false;
+    chai.expect(v.matches(undefined, /a/)).to.be.false;
+  });
+
+  it('should return false for a string that does not match a regular expression string', function () {
+    chai.expect(v.matches('pacific ocean', 'sea')).to.be.false;
+    chai.expect(v.matches('pacific ocean', '^atlantic ocean$')).to.be.false;
+    chai.expect(v.matches('pacific ocean', 'PACIFIC')).to.be.false;
+    chai.expect(v.matches('pacific ocean', '\\n')).to.be.false;
+    chai.expect(v.matches(undefined, '\s')).to.be.false;
+  });
+
+  it('should return false for a null or undefined pattern', function () {
+    chai.expect(v.matches('pacific ocean', undefined)).to.be.false;
+    chai.expect(v.matches('pacific ocean', null)).to.be.false;
+  });
+});
+
 describe('startsWith', function () {
 
   it('should return true for a valid starting string', function () {
@@ -1472,6 +1681,80 @@ describe('startsWith', function () {
     chai.expect(v.startsWith(null, null, null)).to.be.false;
     chai.expect(v.startsWith(null, null, 0)).to.be.false;
     chai.expect(v.startsWith(null, 'Hello World!')).to.be.false;
+  });
+});
+
+describe('repeat', function () {
+
+  it('should repeat a string', function () {
+    chai.expect(v.repeat('paradise', 2)).to.be.equal('paradiseparadise');
+    chai.expect(v.repeat('w', 3)).to.be.equal('www');
+    chai.expect(v.repeat('the world is yours', 1)).to.be.equal('the world is yours');
+    chai.expect(v.repeat('', 10)).to.be.equal('');
+  });
+
+  it('should return an empty string for 0 repeat times', function () {
+    chai.expect(v.repeat('the world is yours', 0)).to.be.equal('');
+    chai.expect(v.repeat('', 0)).to.be.equal('');
+  });
+
+  it('should return the same string when the number of times is null or undefined', function () {
+    chai.expect(v.repeat('the world is yours')).to.be.equal('the world is yours');
+    chai.expect(v.repeat('the world is yours', null)).to.be.equal('the world is yours');
+    chai.expect(v.repeat('the world is yours', undefined)).to.be.equal('the world is yours');
+  });
+
+  it('should repeat a number', function () {
+    chai.expect(v.repeat(123, 2)).to.be.equal('123123');
+    chai.expect(v.repeat(0, 5)).to.be.equal('00000');
+    chai.expect(v.repeat(-1.5, 2)).to.be.equal('-1.5-1.5');
+  });
+
+  it('should repeat a string representation of an object', function () {
+    chai.expect(v.repeat(['paradise'], 2)).to.be.equal('paradiseparadise');
+    chai.expect(v.repeat({
+      toString: function toString() {
+        return 'Tony';
+      }
+    }, 2)).to.be.equal('TonyTony');
+  });
+
+  it('should return an empty string for null or undefined string to be repeated', function () {
+    chai.expect(v.repeat()).to.be.equal('');
+    chai.expect(v.repeat(null)).to.be.equal('');
+    chai.expect(v.repeat(undefined)).to.be.equal('');
+    chai.expect(v.repeat(undefined, 10)).to.be.equal('');
+  });
+});
+
+describe('reverse', function () {
+
+  it('should reverse a string', function () {
+    chai.expect(v.reverse('green tree')).to.be.equal('eert neerg');
+    chai.expect(v.reverse('o')).to.be.equal('o');
+    chai.expect(v.reverse('\n\t')).to.be.equal('\t\n');
+    chai.expect(v.reverse('')).to.be.equal('');
+  });
+
+  it('should reverse a number', function () {
+    chai.expect(v.reverse(123)).to.be.equal('321');
+    chai.expect(v.reverse(0)).to.be.equal('0');
+    chai.expect(v.reverse(-1.5)).to.be.equal('5.1-');
+  });
+
+  it('should reverse a string representation of an object', function () {
+    chai.expect(v.reverse(['flower'])).to.be.equal('rewolf');
+    chai.expect(v.reverse({
+      toString: function toString() {
+        return 'flower';
+      }
+    })).to.be.equal('rewolf');
+  });
+
+  it('should return an empty string for null or undefined', function () {
+    chai.expect(v.reverse()).to.be.equal('');
+    chai.expect(v.reverse(null)).to.be.equal('');
+    chai.expect(v.reverse(undefined)).to.be.equal('');
   });
 });
 
