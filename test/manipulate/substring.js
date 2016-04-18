@@ -10,7 +10,7 @@ describe('substring', function() {
     expect(v.substring('infinite loop', 1)).to.be.equal('nfinite loop');
   });
 
-  it('should substring a string with a length', function() {
+  it('should substring a string with an end position', function() {
     expect(v.substring('infinite loop', 9, 12)).to.be.equal('loo');
     expect(v.substring('infinite loop', 0, 'infinite loop'.length)).to.be.equal('infinite loop');
     expect(v.substring('infinite loop', 1, 2)).to.be.equal('n');

@@ -506,7 +506,30 @@ function reverse(subject) {
 }
 
 /**
- * Extract from `subject` beginning from `start` position a number of `length` characters.
+ * Extracts from `subject` a string from `start` position up to (but not including) `end` position.
+ *
+ * @function slice
+ * @static
+ * @memberOf Manipulate
+ * @param {string} [subject=''] The string to extract from.
+ * @param {int} start The position to start extracting. If negative use it as `subject.length + start`.
+ * @param {int} [end=subject.length - 1] The position to end extracting. If negative use it as `subject.length + end`.
+ * @return {string} Returns the extracted string.
+ * @note Uses native `String.prototype.slice()`
+ * @example
+ * v.slice('miami', 1);
+ * // => 'iami'
+ *
+ * v.slice('florida', -4);
+ * // => 'rida'
+ */
+function slice (subject, start, end) {
+  var subjectString = toString(nilDefault(subject, ''));
+  return subjectString.slice(start, end);
+}
+
+/**
+ * Extracts from `subject` a string from `start` position a number of `length` characters.
  *
  * @function substr
  * @static
@@ -526,6 +549,29 @@ function reverse(subject) {
 function substr (subject, start, length) {
   var subjectString = toString(nilDefault(subject, ''));
   return subjectString.substr(start, length);
+}
+
+/**
+ * Extract from `subject` a string from `start` position up to (but not include) `end` position.
+ *
+ * @function substring
+ * @static
+ * @memberOf Manipulate
+ * @param {string} [subject=''] The string to extract from.
+ * @param {int} start The position to start extracting.
+ * @param {int} [end=subject.length] The position to end extracting. The character at `end` position is not included.
+ * @return {string} Returns the extracted string.
+ * @note Uses native `String.prototype.substring()`
+ * @example
+ * v.substring('beach', 1);
+ * // => 'each'
+ *
+ * v.substring('ocean', 1, 3);
+ * // => 'ea'
+ */
+function substring (subject, start, end) {
+  var subjectString = toString(nilDefault(subject, ''));
+  return subjectString.substring(start, end);
 }
 
 var REGEX_TRIM_LEFT = /^[\s\uFEFF\xA0]+/;
@@ -656,7 +702,9 @@ var v = {
 
   repeat: repeat,
   reverse: reverse,
+  slice: slice,
   substr: substr,
+  substring: substring,
   trim: trim,
   trimLeft: trimLeft,
   trimRight: trimRight
@@ -1794,6 +1842,36 @@ describe('reverse', function () {
   });
 });
 
+describe('slice', function () {
+
+  it('should slice a string', function () {
+    chai.expect(v.slice('infinite loop', 9)).to.be.equal('loop');
+    chai.expect(v.slice('infinite loop', 0)).to.be.equal('infinite loop');
+    chai.expect(v.slice('infinite loop')).to.be.equal('infinite loop');
+    chai.expect(v.slice('infinite loop', 1)).to.be.equal('nfinite loop');
+  });
+
+  it('should slice a string with an end position', function () {
+    chai.expect(v.slice('infinite loop', 9, 12)).to.be.equal('loo');
+    chai.expect(v.slice('infinite loop', 0, 'infinite loop'.length)).to.be.equal('infinite loop');
+    chai.expect(v.slice('infinite loop', 1, 2)).to.be.equal('n');
+  });
+
+  it('should slice a string representation of an object', function () {
+    chai.expect(v.slice(['infinite loop'], 10)).to.be.equal('oop');
+    chai.expect(v.slice({
+      toString: function toString() {
+        return 'loop';
+      }
+    }, 0, 3)).to.be.equal('loo');
+  });
+
+  it('should slice a string from a number', function () {
+    chai.expect(v.slice(12345, 3)).to.be.equal('45');
+    chai.expect(v.slice(987, 1, 2)).to.be.equal('8');
+  });
+});
+
 describe('substr', function () {
 
   it('should substract a string', function () {
@@ -1823,6 +1901,36 @@ describe('substr', function () {
   it('should substract a string from a number', function () {
     chai.expect(v.substr(12345, 3)).to.be.equal('45');
     chai.expect(v.substr(987, 1, 1)).to.be.equal('8');
+  });
+});
+
+describe('substring', function () {
+
+  it('should substring a string', function () {
+    chai.expect(v.substring('infinite loop', 9)).to.be.equal('loop');
+    chai.expect(v.substring('infinite loop', 0)).to.be.equal('infinite loop');
+    chai.expect(v.substring('infinite loop')).to.be.equal('infinite loop');
+    chai.expect(v.substring('infinite loop', 1)).to.be.equal('nfinite loop');
+  });
+
+  it('should substring a string with an end position', function () {
+    chai.expect(v.substring('infinite loop', 9, 12)).to.be.equal('loo');
+    chai.expect(v.substring('infinite loop', 0, 'infinite loop'.length)).to.be.equal('infinite loop');
+    chai.expect(v.substring('infinite loop', 1, 2)).to.be.equal('n');
+  });
+
+  it('should substring a string representation of an object', function () {
+    chai.expect(v.substring(['infinite loop'], 10)).to.be.equal('oop');
+    chai.expect(v.substring({
+      toString: function toString() {
+        return 'loop';
+      }
+    }, 0, 3)).to.be.equal('loo');
+  });
+
+  it('should substring a string from a number', function () {
+    chai.expect(v.substring(12345, 3)).to.be.equal('45');
+    chai.expect(v.substring(987, 1, 2)).to.be.equal('8');
   });
 });
 

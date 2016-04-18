@@ -2,7 +2,7 @@ import toString from '../utils/string/to_string'
 import nilDefault from '../utils/undefined/nil_default';
 
 /**
- * Extract from `subject` beginning from `start` position a number of `length` characters.
+ * Extracts from `subject` a string from `start` position a number of `length` characters.
  *
  * @function substr
  * @static

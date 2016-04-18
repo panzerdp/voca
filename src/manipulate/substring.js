@@ -2,7 +2,7 @@ import toString from '../utils/string/to_string'
 import nilDefault from '../utils/undefined/nil_default';
 
 /**
- * Extract from `subject` beginning from `start` position up to `end`.
+ * Extract from `subject` a string from `start` position up to (but not include) `end` position.
  *
  * @function substring
  * @static
