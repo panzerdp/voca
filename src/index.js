@@ -46,6 +46,7 @@ var v = {
   repeat: repeat,
   reverse: reverse,
   substr: substr,
+  substring: substring,
   trim: trim,
   trimLeft: trimLeft,
   trimRight: trimRight

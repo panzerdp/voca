@@ -17,6 +17,7 @@ import './query/starts_with';
 import './manipulate/repeat';
 import './manipulate/reverse';
 import './manipulate/substr';
+import './manipulate/substring';
 import './manipulate/trim';
 import './manipulate/trim_left';
 import './manipulate/trim_right';
