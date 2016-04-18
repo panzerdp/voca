@@ -9,7 +9,7 @@ import nilDefault from '../utils/undefined/nil_default';
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to extract from.
  * @param {int} start The position to start extracting.
- * @param {int} [end=subject.length] The position to end extracting. The character at `end` position is not included.
+ * @param {int} [end=subject.length] The position to end extracting.
  * @return {string} Returns the extracted string.
  * @note Uses native `String.prototype.substring()`
  * @example

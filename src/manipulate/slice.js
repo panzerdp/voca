@@ -9,7 +9,7 @@ import nilDefault from '../utils/undefined/nil_default';
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to extract from.
  * @param {int} start The position to start extracting. If negative use it as `subject.length + start`.
- * @param {int} [end=subject.length - 1] The position to end extracting. If negative use it as `subject.length + end`.
+ * @param {int} [end=subject.length] The position to end extracting. If negative use it as `subject.length + end`.
  * @return {string} Returns the extracted string.
  * @note Uses native `String.prototype.slice()`
  * @example
