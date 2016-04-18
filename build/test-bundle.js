@@ -86,7 +86,6 @@ function nilDefault (value, defaultValue) {
  * @param {number} upLimit The upper limit
  * @return {number} The clip result number
  */
-
 function clipNumber (value, downLimit, upLimit) {
   if (value <= downLimit) {
     return downLimit;
@@ -366,7 +365,7 @@ function isNumeric (subject) {
  * @static
  * @memberOf Query
  * @param {string} [subject=''] The string to verify.
- * @return {boolean} Return `true` if `subject` is upper case or `false` otherwise.
+ * @return {boolean} Returns `true` if `subject` is upper case or `false` otherwise.
  * @example
  * v.isUpperCase('ACDC');
  * // => true
@@ -458,7 +457,7 @@ function startsWith (subject, start, position) {
  * @example
  * v.repeat('w', 3);
  * // => 'www'
- * 
+ *
  * v.repeat('world', 0);
  * // => ''
  */
@@ -478,6 +477,8 @@ function repeat (subject, times) {
   return repeatString;
 }
 
+var REGEXP_COMBINING_MARKS = /([\0-\u02FF\u0370-\u1AAF\u1B00-\u1DBF\u1E00-\u20CF\u2100-\uD7FF\uE000-\uFE1F\uFE30-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])([\u0300-\u036F\u1AB0-\u1AFF\u1DC0-\u1DFF\u20D0-\u20FF\uFE20-\uFE2F]+)/g;
+var REGEXP_SURROGATE_PAIRS = /([\uD800-\uDBFF])([\uDC00-\uDFFF])/g;
 /**
  * Reverse the `subject`.
  *
@@ -486,14 +487,45 @@ function repeat (subject, times) {
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to reverse.
  * @return {string} Returns the reversed string.
- * @note For an unicode aware implementation use https://github.com/mathiasbynens/esrever
  * @example
  * v.reverse('winter');
  * // => 'retniw'
  */
-function reverse (subject) {
+function reverse(subject) {
   var subjectString = toString(nilDefault(subject, ''));
-  return subjectString.split('').reverse().join('');
+  // @see https://github.com/mathiasbynens/esrever
+  subjectString = subjectString.replace(REGEXP_COMBINING_MARKS, function ($0, $1, $2) {
+    return reverse($2) + $1;
+  }).replace(REGEXP_SURROGATE_PAIRS, '$2$1');
+  var reversedString = '',
+      index = subjectString.length;
+  while (index--) {
+    reversedString += subjectString.charAt(index);
+  }
+  return reversedString;
+}
+
+/**
+ * Extract from `subject` beginning from `start` position a number of `length` characters.
+ *
+ * @function substr
+ * @static
+ * @memberOf Manipulate
+ * @param {string} [subject=''] The string to extract from.
+ * @param {int} start The position to start extracting.
+ * @param {int} [length=subject.endOfString] The number of characters to extract. If omitted, extract to the end of `subject`.
+ * @return {string} Returns the extracted string.
+ * @note Uses native `String.prototype.substr()`
+ * @example
+ * v.substr('infinite loop', 9);
+ * // => 'loop'
+ *
+ * v.substr('dreams', 2, 2);
+ * // => 'ea'
+ */
+function substr (subject, start, length) {
+  var subjectString = toString(nilDefault(subject, ''));
+  return subjectString.substr(start, length);
 }
 
 var REGEX_TRIM_LEFT = /^[\s\uFEFF\xA0]+/;
@@ -624,6 +656,7 @@ var v = {
 
   repeat: repeat,
   reverse: reverse,
+  substr: substr,
   trim: trim,
   trimLeft: trimLeft,
   trimRight: trimRight
@@ -1731,6 +1764,9 @@ describe('reverse', function () {
 
   it('should reverse a string', function () {
     chai.expect(v.reverse('green tree')).to.be.equal('eert neerg');
+    chai.expect(v.reverse('ma\xF1ana')).to.be.equal('ana\xF1am');
+    chai.expect(v.reverse('mañana')).to.be.equal('anañam');
+    chai.expect(v.reverse('foõ͜͝͞bar')).to.be.equal('rabõ͜͝͞of');
     chai.expect(v.reverse('o')).to.be.equal('o');
     chai.expect(v.reverse('\n\t')).to.be.equal('\t\n');
     chai.expect(v.reverse('')).to.be.equal('');
@@ -1755,6 +1791,38 @@ describe('reverse', function () {
     chai.expect(v.reverse()).to.be.equal('');
     chai.expect(v.reverse(null)).to.be.equal('');
     chai.expect(v.reverse(undefined)).to.be.equal('');
+  });
+});
+
+describe('substr', function () {
+
+  it('should substract a string', function () {
+    chai.expect(v.substr('infinite loop', 9)).to.be.equal('loop');
+    chai.expect(v.substr('infinite loop', 0)).to.be.equal('infinite loop');
+    chai.expect(v.substr('infinite loop')).to.be.equal('infinite loop');
+    chai.expect(v.substr('infinite loop', 1)).to.be.equal('nfinite loop');
+    chai.expect(v.substr('infinite loop', -4)).to.be.equal('loop');
+  });
+
+  it('should substract a string with a length', function () {
+    chai.expect(v.substr('infinite loop', 9, 3)).to.be.equal('loo');
+    chai.expect(v.substr('infinite loop', 0, 'infinite loop'.length)).to.be.equal('infinite loop');
+    chai.expect(v.substr('infinite loop', 1, 1)).to.be.equal('n');
+    chai.expect(v.substr('infinite loop', -4, 1)).to.be.equal('l');
+  });
+
+  it('should substract a string representation of an object', function () {
+    chai.expect(v.substr(['infinite loop'], 10)).to.be.equal('oop');
+    chai.expect(v.substr({
+      toString: function toString() {
+        return 'loop';
+      }
+    }, 0, 3)).to.be.equal('loo');
+  });
+
+  it('should substract a string from a number', function () {
+    chai.expect(v.substr(12345, 3)).to.be.equal('45');
+    chai.expect(v.substr(987, 1, 1)).to.be.equal('8');
   });
 });
 
