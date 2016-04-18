@@ -3,8 +3,9 @@
 **The ultimate JavaScript string library**
 
 [![travis build](https://img.shields.io/travis/panzerdp/voca.svg)](https://travis-ci.org/panzerdp/voca)
-[![dependencies](https://david-dm.org/panzerdp/voca.svg)](https://david-dm.org/panzerdp/voca)
 [![code coverage](https://img.shields.io/codecov/c/github/panzerdp/voca.svg)](https://codecov.io/github/panzerdp/voca)
+[![documentation](http://inch-ci.org/github/panzerdp/voca.svg?branch=master&style=shields)](https://inch-ci.org/github/panzerdp/voca)
+[![dependencies](https://david-dm.org/panzerdp/voca.svg)](https://david-dm.org/panzerdp/voca)
 
 ## Work in progress
 
