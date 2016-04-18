@@ -8,7 +8,7 @@ import nilDefault from '../utils/undefined/nil_default';
  * @static
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to extract from.
- * @param {int} start The position to start extracting.
+ * @param {int} start The position to start extraction.
  * @param {int} [length=subject.endOfString] The number of characters to extract. If omitted, extract to the end of `subject`.
  * @return {string} Returns the extracted string.
  * @note Uses native `String.prototype.substr()`

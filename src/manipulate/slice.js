@@ -2,14 +2,14 @@ import toString from '../utils/string/to_string'
 import nilDefault from '../utils/undefined/nil_default';
 
 /**
- * Extracts from `subject` a string from `start` position up to (but not including) `end` position.
+ * Extracts from `subject` a string from `start` position to `end` position.
  *
  * @function slice
  * @static
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to extract from.
- * @param {int} start The position to start extracting. If negative use it as `subject.length + start`.
- * @param {int} [end=subject.length] The position to end extracting. If negative use it as `subject.length + end`.
+ * @param {int} start The position to start extraction. If negative use `subject.length + start`.
+ * @param {int} [end=subject.length] The position to end extraction. If negative use `subject.length + end`.
  * @return {string} Returns the extracted string.
  * @note Uses native `String.prototype.slice()`
  * @example

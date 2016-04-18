@@ -2,14 +2,14 @@ import toString from '../utils/string/to_string'
 import nilDefault from '../utils/undefined/nil_default';
 
 /**
- * Extract from `subject` a string from `start` position up to (but not include) `end` position.
+ * Extract from `subject` a string from `start` position to `end` position.
  *
  * @function substring
  * @static
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to extract from.
- * @param {int} start The position to start extracting.
- * @param {int} [end=subject.length] The position to end extracting.
+ * @param {int} start The position to start extraction.
+ * @param {int} [end=subject.length] The position to end extraction.
  * @return {string} Returns the extracted string.
  * @note Uses native `String.prototype.substring()`
  * @example
