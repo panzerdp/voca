@@ -8,7 +8,6 @@
  * @param {number} upLimit The upper limit
  * @return {number} The clip result number
  */
-
 export default function(value, downLimit, upLimit) {
   if (value <= downLimit) {
     return downLimit;
