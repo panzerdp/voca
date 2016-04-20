@@ -27,6 +27,7 @@ import startsWith from './query/starts_with';
  * Functions to manipulate a string
  * @namespace Manipulate
  */
+import capitalize from './manipulate/capitalize';
 import repeat from './manipulate/repeat';
 import reverse from './manipulate/reverse';
 import reverseCodePoint from './manipulate/reverse_code_point';
@@ -55,6 +56,7 @@ var v = {
   matches: matches,
   startsWith: startsWith,
 
+  capitalize: capitalize,
   repeat: repeat,
   reverseCodePoint: reverseCodePoint,
   reverse: reverse,

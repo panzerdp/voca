@@ -233,11 +233,6 @@ nav li h2 {
   font-weight: normal;
 }
 
-nav a:hover,
-nav a:active {
-  color: #2e4d66;
-}
-
 nav > ul {
   /*padding: 0 10px;*/
 }
