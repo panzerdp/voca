@@ -1,4 +1,11 @@
 /**
+ * Functions to count characters in a string
+ * @namespace Count
+ */
+import length from './count/length';
+import lengthCodePoint from './count/length_code_point';
+
+/**
  * Functions to query a string
  * @namespace Query
  */
@@ -31,6 +38,9 @@ import trimLeft from './manipulate/trim_left';
 import trimRight from './manipulate/trim_right';
 
 var v = {
+  length: length,
+  lengthCodePoint: lengthCodePoint,
+
   endsWith: endsWith,
   includes: includes,
   isAlpha: isAlpha,

@@ -1,5 +1,6 @@
 import toString from '../utils/string/to_string'
 import nilDefault from '../utils/undefined/nil_default';
+import { REGEXP_COMBINING_MARKS, REGEXP_SURROGATE_PAIRS } from '../utils/regexp';
 
 /**
  * Counts the number of characters in `subject` which contains
@@ -22,5 +23,8 @@ import nilDefault from '../utils/undefined/nil_default';
  * // => 4
  */
 export default function(subject) {
-  return toString(nilDefault(subject, '')).length;
+  return toString(nilDefault(subject, ''))
+    .replace(REGEXP_COMBINING_MARKS, '*')
+    .replace(REGEXP_SURROGATE_PAIRS, '*')
+    .length;
 }

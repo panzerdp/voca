@@ -1,3 +1,7 @@
+//count
+import './count/length';
+import './count/length_code_point';
+
 //query
 import './query/ends_with';
 import './query/includes';
