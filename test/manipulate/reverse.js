@@ -5,9 +5,6 @@ describe('reverse', function() {
 
   it('should reverse a string', function() {
     expect(v.reverse('green tree')).to.be.equal('eert neerg');
-    expect(v.reverse('ma\xF1ana')).to.be.equal('ana\xF1am');
-    expect(v.reverse('man\u0303ana')).to.be.equal('anan\u0303am');
-    expect(v.reverse('foo\u0303\u035C\u035D\u035Ebar')).to.be.equal('rabo\u0303\u035C\u035D\u035Eof');
     expect(v.reverse('o')).to.be.equal('o');
     expect(v.reverse('\n\t')).to.be.equal('\t\n');
     expect(v.reverse('')).to.be.equal('');

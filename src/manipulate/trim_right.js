@@ -1,8 +1,7 @@
 import toString from '../utils/string/to_string'
 import nilDefault from '../utils/undefined/nil_default';
 import isNil from '../utils/object/is_nil';
-
-const REGEX_TRIM_RIGHT = /[\s\uFEFF\xA0]+$/;
+import { REGEX_TRIM_RIGHT } from '../utils/regexp';
 
 /**
  * Removes the whitespaces from the right part of the `subject`.

@@ -22,6 +22,7 @@ import startsWith from './query/starts_with';
  */
 import repeat from './manipulate/repeat';
 import reverse from './manipulate/reverse';
+import reverseCodePoint from './manipulate/reverse_code_point';
 import slice from './manipulate/slice';
 import substr from './manipulate/substr';
 import substring from './manipulate/substring';
@@ -45,6 +46,7 @@ var v = {
   startsWith: startsWith,
 
   repeat: repeat,
+  reverseCodePoint: reverseCodePoint,
   reverse: reverse,
   slice: slice,
   substr: substr,

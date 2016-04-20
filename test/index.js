@@ -16,6 +16,7 @@ import './query/starts_with';
 //manipulate
 import './manipulate/repeat';
 import './manipulate/reverse';
+import './manipulate/reverse_code_point';
 import './manipulate/slice';
 import './manipulate/substr';
 import './manipulate/substring';

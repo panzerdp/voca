@@ -1,7 +1,6 @@
 import toString from '../utils/string/to_string'
 import nilDefault from '../utils/undefined/nil_default';
-
-const REGEX_DIGIT = /^\d+$/;
+import { REGEXP_DIGIT } from '../utils/regexp';
 
 /**
  * Checks if `subject` contains only digit characters.
@@ -23,5 +22,5 @@ const REGEX_DIGIT = /^\d+$/;
  */
 export default function(subject) {
   var subjectString = toString(nilDefault(subject, ''));
-  return REGEX_DIGIT.test(subjectString);
+  return REGEXP_DIGIT.test(subjectString);
 }
