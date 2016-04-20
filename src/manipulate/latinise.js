@@ -23,11 +23,8 @@ function removeDiacritics(character) {
  * @param {string} [subject=''] The string to latinise.
  * @return {string} Returns the latinised string.
  * @example
- * v.latinise('APPLE');
- * // => 'Apple'
- *
- * v.capitalize('mAC', false);
- * // => 'MAC'
+ * v.latinise('cafe\u0301'); // or 'café'
+ * // => 'cafe'
  */
 export default function(subject) {
   var subjectString = toString(nilDefault(subject, ''));
