@@ -19,6 +19,7 @@ import './query/starts_with';
 
 //manipulate
 import './manipulate/capitalize';
+import './manipulate/latinise';
 import './manipulate/repeat';
 import './manipulate/reverse';
 import './manipulate/reverse_code_point';

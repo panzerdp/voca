@@ -1,7 +1,7 @@
 var diacritics = null;
 
 /**
- * Returns the latin equivalent of a character with diacritic.
+ * Clears a charcater from diacritic.
  * @ignore
  * @param {string} character The character which contains a diacritic.
  * @returns {string|undefined} Returns the latin character.

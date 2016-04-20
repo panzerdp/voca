@@ -28,6 +28,7 @@ import startsWith from './query/starts_with';
  * @namespace Manipulate
  */
 import capitalize from './manipulate/capitalize';
+import latinise from './manipulate/latinise';
 import repeat from './manipulate/repeat';
 import reverse from './manipulate/reverse';
 import reverseCodePoint from './manipulate/reverse_code_point';
@@ -57,6 +58,7 @@ var v = {
   startsWith: startsWith,
 
   capitalize: capitalize,
+  latinise: latinise,
   repeat: repeat,
   reverseCodePoint: reverseCodePoint,
   reverse: reverse,

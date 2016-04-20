@@ -57,3 +57,11 @@ export var REGEXP_ALPHA_DIGIT = /^[\d\u0041-\u005A\u0061-\u007A\u00AA\u00B5\u00B
  * @ignore
  */
 export var REGEXP_DIGIT = /^\d+$/;
+
+/**
+ * Regular expression to match non basic latin characters
+ *
+ * @type {RegExp}
+ * @ignore
+ */
+export var REGEXP_NOT_BASIC_LATIN = /[^\u0000-\u007E]/g;
