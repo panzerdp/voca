@@ -17,22 +17,17 @@ body {
   line-height: 160%;
 }
 
-a,
-a:active {
+a {
   color: #408BAA;
   text-decoration: none;
 }
 
-a:hover {
+a:hover, a:active {
+  text-decoration: underline;
+}
+
+a.no-decoration:hover, a.no-decoration:active {
   text-decoration: none;
-}
-
-article a {
-  border-bottom: 1px solid #ddd;
-}
-
-article a:hover, article a:active {
-  border-bottom-color: #408BAA;
 }
 
 p, ul, ol, blockquote {
