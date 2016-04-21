@@ -4,17 +4,30 @@ import { expect } from 'chai'
 describe('latinise', function() {
 
   it('should latinise the first character in a string', function() {
-    expect(v.latinise('apple')).to.be.equal('apple');
-
+    expect(v.latinise('')).to.be.equal('');
+    expect(v.latinise('moldova')).to.be.equal('moldova');
+    expect(v.latinise('colecção cópias críticos é tão')).to.be.equal('coleccao copias criticos e tao');
+    expect(v.latinise('književnošću čuvanje')).to.be.equal('knjizevnoscu cuvanje');
+    expect(v.latinise('anglikonų šiurkščios užrašinėti')).to.be.equal('anglikonu siurkscios uzrasineti');
+    expect(v.latinise('Schuß für Pfarrerstöchter')).to.be.equal('Schus fur Pfarrerstochter');
+    expect(v.latinise('publicó éxito nació María')).to.be.equal('publico exito nacio Maria');
+    expect(v.latinise('Charlotte Brontë')).to.be.equal('Charlotte Bronte');
+    expect(v.latinise('vecākā no māsām Brontē')).to.be.equal('vecaka no masam Bronte');
+    expect(v.latinise('Şarlotta Brontenin özü')).to.be.equal('Sarlotta Brontenin ozu');
+    expect(v.latinise('Wkrótce po ślubie pisarka zaszła w ciążę')).to.be.equal('Wkrotce po slubie pisarka zaszla w ciaze');
+    expect(v.latinise("Dès l'enfance, Charlotte, comme Emily et probablement plus fortement Branwell, est influencée par certaines sources d'inspiration"))
+      .to.be.equal("Des l'enfance, Charlotte, comme Emily et probablement plus fortement Branwell, est influencee par certaines sources d'inspiration");
+    expect(v.latinise('Există peste 13.800 de localități în România'))
+      .to.be.equal('Exista peste 13.800 de localitati in Romania');
   });
 
   it('should latinise the first character in a string representation of an object', function() {
-    //expect(v.latinise(['grape'])).to.be.equal('Grape');
-    //expect(v.latinise({
-    //  toString: function() {
-    //    return 'oRaNgE';
-    //  }
-    //}, false)).to.be.equal('ORaNgE');
+    expect(v.latinise(['María'])).to.be.equal('Maria');
+    expect(v.latinise({
+      toString: function() {
+        return 'sacó';
+      }
+    })).to.be.equal('saco');
   });
 
   it('should not modify numbers', function() {

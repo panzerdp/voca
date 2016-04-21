@@ -11,7 +11,8 @@ body {
   color: #333;
   background: #f6fafd;
   margin: 0 auto;
-  padding: 0 20px;
+  padding-right: 10px;
+  padding-left: 20px;
   font-family: Helvetica, Arial, sans-serif;
   font-size: 1em;
   line-height: 160%;
@@ -145,7 +146,7 @@ section {
 
 .introduction {
   padding: 0 0 0 30px;
-  margin-top: 1em;
+  margin-top: 10px;
 }
 
 .logo {
@@ -182,7 +183,7 @@ section {
 nav {
   float: left;
   display: block;
-  width: 250px;
+  width: 260px;
   /*background: #fff;*/
   overflow: auto;
   position: fixed;
@@ -681,22 +682,23 @@ span.param-type, .params td .param-type, .param-type dd {
 @media only screen and (min-width: 320px) and (max-width: 680px) {
   body {
     overflow-x: hidden;
+    padding-left: 10px;
   }
 
   .logo {
     margin: 0 auto;
-    max-width: 250px;
+    max-width: 260px;
   }
 
   nav {
     background: #FFF;
-    width: 250px;
+    width: 260px;
     height: 100%;
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
-    left: -250px;
+    left: -260px;
     z-index: 3;
     padding: 0 10px;
     transition: left 0.2s;
