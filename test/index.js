@@ -1,6 +1,7 @@
 //count
 import './count/length';
 import './count/length_code_point';
+import './count/length_where';
 
 //query
 import './query/ends_with';

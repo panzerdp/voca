@@ -4,6 +4,7 @@
  */
 import length from './count/length';
 import lengthCodePoint from './count/length_code_point';
+import lengthWhere from './count/length_where';
 
 /**
  * Functions to query a string
@@ -42,6 +43,7 @@ import trimRight from './manipulate/trim_right';
 var v = {
   length: length,
   lengthCodePoint: lengthCodePoint,
+  lengthWhere: lengthWhere,
 
   endsWith: endsWith,
   includes: includes,

@@ -3,7 +3,7 @@ import nilDefault from '../utils/undefined/nil_default';
 import { REGEXP_COMBINING_MARKS, REGEXP_SURROGATE_PAIRS } from '../utils/regexp';
 
 /**
- * Counts the number of characters in `subject` which contains
+ * Counts the number of characters in `subject` taking care of
  * <a href="http://www.unicode.org/faq/utf_bom.html#utf16-2">surrogate pairs</a> and
  * <a href="http://unicode.org/faq/char_combmark.html">combining marks</a>.
  *
