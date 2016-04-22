@@ -7,6 +7,10 @@ describe('latinise', function() {
     expect(v.latinise('')).to.be.equal('');
     expect(v.latinise('moldova')).to.be.equal('moldova');
     expect(v.latinise('cafe\u0301')).to.be.equal('cafe');
+    expect(v.latinise('ma\xF1ana')).to.be.equal('manana');
+    expect(v.latinise('man\u0303ana')).to.be.equal('manana');
+    expect(v.latinise('foo\u0303\u035C\u035D\u035Ebar')).to.be.equal('foobar');
+    expect(v.latinise('cafe\u0301')).to.be.equal('cafe');
     expect(v.latinise('colecção cópias críticos é tão')).to.be.equal('coleccao copias criticos e tao');
     expect(v.latinise('književnošću čuvanje')).to.be.equal('knjizevnoscu cuvanje');
     expect(v.latinise('anglikonų šiurkščios užrašinėti')).to.be.equal('anglikonu siurkscios uzrasineti');

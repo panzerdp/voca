@@ -38,7 +38,7 @@ function removeCombiningMarks(character, cleanCharacter) {
  * // => 'cafe'
  *
  * v.latinise('août décembre');
- * // => 'le calendrier republicain francais'
+ * // => 'aout decembre'
  */
 export default function(subject) {
   var subjectString = toString(nilDefault(subject, ''));
