@@ -19,6 +19,7 @@ import './query/matches';
 import './query/starts_with';
 
 //manipulate
+import './manipulate/decapitalize';
 import './manipulate/capitalize';
 import './manipulate/latinise';
 import './manipulate/repeat';
