@@ -1,8 +1,7 @@
 import toString from '../utils/string/to_string';
 import nilDefault from '../utils/undefined/nil_default';
-import getCharWithoutDiacritic from '../utils/string/clear_diacritic';
-import { REGEXP_NOT_BASIC_LATIN } from '../utils/regexp';
-
+import diacriticMap from '../utils/string/diacritics_map';
+import { REGEXP_NOT_BASIC_LATIN, REGEXP_COMBINING_MARKS } from '../utils/regexp';
 
 /**
  * Removes the diacritics from `character`.
@@ -11,8 +10,19 @@ import { REGEXP_NOT_BASIC_LATIN } from '../utils/regexp';
  * @returns {string} Returns the character without diacritics.
  */
 function removeDiacritics(character) {
-  var characterWithoutDiacritic = getCharWithoutDiacritic(character);
+  var characterWithoutDiacritic = diacriticMap[character];
   return characterWithoutDiacritic ? characterWithoutDiacritic : character;
+}
+
+/**
+ * Returns the `cleanCharacter` from combining marks regular expression match.
+ * @ignore
+ * @param character {string} The character with combining marks
+ * @param cleanCharacter {string} The character without combining marks.
+ * @return {string} The character without combining marks.
+ */
+function removeCombiningMarks(character, cleanCharacter) {
+   return cleanCharacter;
 }
 
 /**
@@ -32,5 +42,7 @@ export default function(subject) {
   if (subjectString === '') {
     return subjectString;
   }
-  return subjectString.replace(REGEXP_NOT_BASIC_LATIN, removeDiacritics);
+  return subjectString
+    .replace(REGEXP_NOT_BASIC_LATIN, removeDiacritics)
+    .replace(REGEXP_COMBINING_MARKS, removeCombiningMarks);
 }

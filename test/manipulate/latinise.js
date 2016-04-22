@@ -6,6 +6,7 @@ describe('latinise', function() {
   it('should latinise the first character in a string', function() {
     expect(v.latinise('')).to.be.equal('');
     expect(v.latinise('moldova')).to.be.equal('moldova');
+    expect(v.latinise('cafe\u0301')).to.be.equal('cafe');
     expect(v.latinise('colecção cópias críticos é tão')).to.be.equal('coleccao copias criticos e tao');
     expect(v.latinise('književnošću čuvanje')).to.be.equal('knjizevnoscu cuvanje');
     expect(v.latinise('anglikonų šiurkščios užrašinėti')).to.be.equal('anglikonu siurkscios uzrasineti');
@@ -19,6 +20,8 @@ describe('latinise', function() {
       .to.be.equal("Des l'enfance, Charlotte, comme Emily et probablement plus fortement Branwell, est influencee par certaines sources d'inspiration");
     expect(v.latinise('Există peste 13.800 de localități în România'))
       .to.be.equal('Exista peste 13.800 de localitati in Romania');
+    expect(v.latinise('\t\n')).to.be.equal('\t\n');
+    expect(v.latinise('\u2047')).to.be.equal('\u2047');
   });
 
   it('should latinise the first character in a string representation of an object', function() {
