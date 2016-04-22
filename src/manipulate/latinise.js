@@ -17,8 +17,8 @@ function removeDiacritics(character) {
 /**
  * Returns the `cleanCharacter` from combining marks regular expression match.
  * @ignore
- * @param character {string} The character with combining marks
- * @param cleanCharacter {string} The character without combining marks.
+ * @param {string} character The character with combining marks
+ * @param {string} cleanCharacter The character without combining marks.
  * @return {string} The character without combining marks.
  */
 function removeCombiningMarks(character, cleanCharacter) {
@@ -36,6 +36,9 @@ function removeCombiningMarks(character, cleanCharacter) {
  * @example
  * v.latinise('cafe\u0301'); // or 'café'
  * // => 'cafe'
+ *
+ * v.latinise('août décembre');
+ * // => 'le calendrier republicain francais'
  */
 export default function(subject) {
   var subjectString = toString(nilDefault(subject, ''));
