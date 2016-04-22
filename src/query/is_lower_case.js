@@ -5,19 +5,19 @@ import isAlpha from './is_alpha';
 /**
  * Checks if `subject` has only lower case characters.
  *
- * @function isAllLowerCase
+ * @function isLowerCase
  * @static
  * @memberOf Query
  * @param {string} [subject=''] The string to verify.
  * @return {boolean} Returns `true` if `subject` is lower case or `false` otherwise.
  * @example
- * v.isAllLowerCase('motorcycle');
+ * v.isLowerCase('motorcycle');
  * // => true
  *
- * v.isAllLowerCase('John');
+ * v.isLowerCase('John');
  * // => false
  *
- * v.isAllLowerCase('T1000');
+ * v.isLowerCase('T1000');
  * // => false
  */
 export default function(subject) {

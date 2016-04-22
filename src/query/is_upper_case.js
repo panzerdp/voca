@@ -5,16 +5,16 @@ import isAlpha from './is_alpha';
 /**
  * Checks if `subject` has only upper case characters.
  *
- * @function isAllUpperCase
+ * @function isUpperCase
  * @static
  * @memberOf Query
  * @param {string} [subject=''] The string to verify.
  * @return {boolean} Returns `true` if `subject` is upper case or `false` otherwise.
  * @example
- * v.isAllUpperCase('ACDC');
+ * v.isUpperCase('ACDC');
  * // => true
  *
- * v.isAllUpperCase('Morning');
+ * v.isUpperCase('Morning');
  * // => false
  */
 export default function(subject) {
