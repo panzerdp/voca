@@ -9,7 +9,7 @@ import nilDefault from '../utils/undefined/nil_default';
  * @static
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to capitalize.
- * @param {boolean} [restToLowerCase=true] Convert the rest of `subject` to lower case.
+ * @param {boolean} [restToLowerCase=false] Convert the rest of `subject` to lower case.
  * @return {string} Returns the capitalized string.
  * @example
  * v.capitalize('APPLE');
@@ -20,7 +20,7 @@ import nilDefault from '../utils/undefined/nil_default';
  */
 export default function(subject, restToLowerCase) {
   var subjectString = toString(nilDefault(subject, '')),
-    restToLowerCaseBoolean = toBoolean(nilDefault(restToLowerCase, true));
+    restToLowerCaseBoolean = toBoolean(nilDefault(restToLowerCase, false));
   if (subjectString === '') {
     return subjectString;
   }

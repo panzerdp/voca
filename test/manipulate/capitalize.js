@@ -4,22 +4,22 @@ import { expect } from 'chai';
 describe('capitalize', function() {
 
   it('should capitalize the first character in a string', function() {
+    expect(v.capitalize('APPLE')).to.be.equal('APPLE');
     expect(v.capitalize('apple')).to.be.equal('Apple');
-    expect(v.capitalize('APPLE')).to.be.equal('Apple');
-    expect(v.capitalize('яблоко')).to.be.equal('Яблоко');
+    expect(v.capitalize('macBook')).to.be.equal('MacBook');
     expect(v.capitalize('f')).to.be.equal('F');
     expect(v.capitalize('')).to.be.equal('');
-    expect(v.capitalize('100')).to.be.equal('100');
-    expect(v.capitalize('  ')).to.be.equal('  ');
+    expect(v.capitalize('*apple')).to.be.equal('*apple');
   });
 
   it('should capitalize the first character in a string and keep the rest unmodified', function() {
-    expect(v.capitalize('APPLE', false)).to.be.equal('APPLE');
-    expect(v.capitalize('apple', false)).to.be.equal('Apple');
-    expect(v.capitalize('macBook', false)).to.be.equal('MacBook');
-    expect(v.capitalize('f', false)).to.be.equal('F');
-    expect(v.capitalize('', false)).to.be.equal('');
-    expect(v.capitalize('*apple', false)).to.be.equal('*apple');
+    expect(v.capitalize('apple', true)).to.be.equal('Apple');
+    expect(v.capitalize('APPLE', true)).to.be.equal('Apple');
+    expect(v.capitalize('яблоко', true)).to.be.equal('Яблоко');
+    expect(v.capitalize('f', true)).to.be.equal('F');
+    expect(v.capitalize('', true)).to.be.equal('');
+    expect(v.capitalize('100', true)).to.be.equal('100');
+    expect(v.capitalize('  ', true)).to.be.equal('  ');
   });
 
   it('should capitalize the first character in a string representation of an object', function() {
