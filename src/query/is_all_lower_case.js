@@ -3,9 +3,9 @@ import nilDefault from '../utils/undefined/nil_default';
 import isAlpha from './is_alpha';
 
 /**
- * Checks if `subject` is lower case.
+ * Checks if `subject` has only lower case characters.
  *
- * @function isLowerCase
+ * @function isAllLowerCase
  * @static
  * @memberOf Query
  * @param {string} [subject=''] The string to verify.

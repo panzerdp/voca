@@ -2,7 +2,7 @@ import toString from '../utils/string/to_string'
 import nilDefault from '../utils/undefined/nil_default';
 
 /**
- * Counts the number of characters in `subject`. Equivalent to `subject.length`.
+ * Counts the characters in `subject`. Equivalent to `subject.length`.
  *
  * @function length
  * @static

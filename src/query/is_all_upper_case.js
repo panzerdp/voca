@@ -3,9 +3,9 @@ import nilDefault from '../utils/undefined/nil_default';
 import isAlpha from './is_alpha';
 
 /**
- * Checks if `subject` is upper case.
+ * Checks if `subject` has only upper case characters.
  *
- * @function isUpperCase
+ * @function isAllUpperCase
  * @static
  * @memberOf Query
  * @param {string} [subject=''] The string to verify.

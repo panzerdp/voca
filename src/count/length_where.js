@@ -2,7 +2,7 @@ import toString from '../utils/string/to_string'
 import nilDefault from '../utils/undefined/nil_default';
 
 /**
- * Counts the number of characters in `subject` where `predicate` returns truthy.
+ * Counts the characters in `subject` where `predicate` returns truthy.
  *
  * @function lengthWhere
  * @static
@@ -21,7 +21,7 @@ import nilDefault from '../utils/undefined/nil_default';
  */
 export default function(subject, predicate) {
   var subjectString = toString(nilDefault(subject, ''));
-  if (typeof predicate !== 'function' || subjectString === '') {
+  if (subjectString === '' || typeof predicate !== 'function') {
     return 0;
   }
   return Array.prototype.reduce.call(subjectString, function(count, character) {
