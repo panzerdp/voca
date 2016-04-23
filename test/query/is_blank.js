@@ -1,11 +1,13 @@
 import v from '../voca';
 import { expect } from 'chai';
+import { PRINTABLE_ASCII } from '../utils/string/ascii';
 
 describe('isBlank', function() {
 
   it('should return false for a non empty string', function() {
     expect(v.isBlank('Hello World!')).to.be.false;
     expect(v.isBlank('a')).to.be.false;
+    expect(v.isBlank(PRINTABLE_ASCII)).to.be.false;
   });
 
   it('should return false for a non empty string representation of an object', function() {

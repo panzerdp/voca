@@ -1,5 +1,6 @@
 import v from '../voca';
 import { expect } from 'chai';
+import { PRINTABLE_ASCII } from '../utils/string/ascii';
 
 describe('lengthCodePoint', function() {
 
@@ -13,6 +14,7 @@ describe('lengthCodePoint', function() {
     expect(v.lengthCodePoint('cafe\u0301')).to.be.equal(4);
     expect(v.lengthCodePoint('foo\u0303\u035C\u035D\u035Ebar')).to.be.equal(6);
     expect(v.lengthCodePoint('foo\uD834\uDF06\u0303\u035C\u035D\u035Ebar')).to.be.equal(7);
+    expect(v.lengthCodePoint(PRINTABLE_ASCII)).to.be.equal(PRINTABLE_ASCII.length);
   });
 
   it('should return the number of characters in a number', function() {

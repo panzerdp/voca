@@ -22,7 +22,7 @@ function removeDiacritics(character) {
  * @return {string} The character without combining marks.
  */
 function removeCombiningMarks(character, cleanCharacter) {
-   return cleanCharacter;
+  return cleanCharacter;
 }
 
 /**

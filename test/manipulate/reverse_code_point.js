@@ -1,5 +1,6 @@
 import v from '../voca';
 import { expect } from 'chai';
+import { PRINTABLE_ASCII, REVERSED_PRINTABLE_ASCII } from '../utils/string/ascii';
 
 describe('reverseCodePoint', function() {
 
@@ -12,6 +13,7 @@ describe('reverseCodePoint', function() {
     expect(v.reverseCodePoint('o')).to.be.equal('o');
     expect(v.reverseCodePoint('\n\t')).to.be.equal('\t\n');
     expect(v.reverseCodePoint('')).to.be.equal('');
+    expect(v.reverseCodePoint(PRINTABLE_ASCII)).to.be.equal(REVERSED_PRINTABLE_ASCII);
   });
 
   it('should reverseCodePoint a number', function() {

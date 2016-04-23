@@ -1,5 +1,6 @@
 import v from '../voca';
 import { expect } from 'chai';
+import { PRINTABLE_ASCII } from '../utils/string/ascii';
 
 describe('endsWith', function() {
 
@@ -18,6 +19,7 @@ describe('endsWith', function() {
     expect(v.endsWith('Hello World!', 'Hello World!')).to.be.true;
     expect(v.endsWith('Привет Мир!', 'Мир!')).to.be.true;
     expect(v.endsWith('', '')).to.be.true;
+    expect(v.endsWith(PRINTABLE_ASCII, '~')).to.be.true;
   });
 
   it('should return true for valid ending string and position', function() {

@@ -1,5 +1,6 @@
 import v from '../voca';
 import { expect } from 'chai';
+import { PRINTABLE_ASCII } from '../utils/string/ascii';
 
 describe('includes', function() {
 
@@ -12,6 +13,7 @@ describe('includes', function() {
     expect(v.includes('', '')).to.be.true;
     expect(v.includes(undefined, '')).to.be.true;
     expect(v.includes('\nwelcome', '\n')).to.be.true;
+    expect(v.includes(PRINTABLE_ASCII, '+')).to.be.true;
   });
 
   it('should return true for an included string and position', function() {

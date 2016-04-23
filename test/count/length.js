@@ -1,5 +1,6 @@
 import v from '../voca';
 import { expect } from 'chai';
+import { PRINTABLE_ASCII } from '../utils/string/ascii';
 
 describe('length', function() {
 
@@ -7,6 +8,7 @@ describe('length', function() {
     expect(v.length('rain')).to.be.equal(4);
     expect(v.length('')).to.be.equal(0);
     expect(v.length('rainbow')).to.be.equal(7);
+    expect(v.length(PRINTABLE_ASCII)).to.be.equal(PRINTABLE_ASCII.length);
   });
 
   it('should return the number of characters in a number', function() {

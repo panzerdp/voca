@@ -1,5 +1,6 @@
 import v from '../voca';
 import { expect } from 'chai';
+import { PRINTABLE_ASCII } from '../utils/string/ascii';
 
 describe('decapitalize', function() {
 
@@ -10,6 +11,7 @@ describe('decapitalize', function() {
     expect(v.decapitalize('f')).to.be.equal('f');
     expect(v.decapitalize('')).to.be.equal('');
     expect(v.decapitalize('*light')).to.be.equal('*light');
+    expect(v.decapitalize(PRINTABLE_ASCII)).to.be.equal(PRINTABLE_ASCII);
   });
 
   it('should decapitalize the first character in a string representation of an object', function() {

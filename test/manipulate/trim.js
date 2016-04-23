@@ -1,5 +1,6 @@
 import v from '../voca';
 import { expect } from 'chai';
+import { PRINTABLE_ASCII } from '../utils/string/ascii';
 
 describe('trim', function() {
 
@@ -11,6 +12,7 @@ describe('trim', function() {
     expect(v.trim('\n\f\t Yes. The fire rises.')).to.be.equal('Yes. The fire rises.');
     expect(v.trim('\n\f\t Yes. The fire rises.', null)).to.be.equal('Yes. The fire rises.');
     expect(v.trim('\n\f\t Yes. The fire rises.', undefined)).to.be.equal('Yes. The fire rises.');
+    expect(v.trim(PRINTABLE_ASCII)).to.be.equal(PRINTABLE_ASCII.substr(1));
   });
 
   it('should return the trimmed string with custom whitespaces', function() {

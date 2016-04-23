@@ -9,7 +9,13 @@
     "require-jsdoc"
   ],
   "rules": {
-    "valid-jsdoc": 2,
-    "require-jsdoc": 2
+    "valid-jsdoc": "error",
+    "require-jsdoc": "error",
+    "indent": ["error", 2],
+    "brace-style": ["error", "1tbs"],
+    "camelcase": ["error", {"properties": "never"}],
+    "comma-spacing": ["error", {"before": false, "after": true}],
+    "comma-style": ["error", "last"],
+    "space-before-blocks": ["error", { "functions": "always", "keywords": "always", "classes": "always" }]
   }
 }

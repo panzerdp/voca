@@ -1,5 +1,6 @@
 import v from '../voca';
 import { expect } from 'chai';
+import { PRINTABLE_ASCII } from '../utils/string/ascii';
 
 describe('latinise', function() {
 
@@ -27,6 +28,7 @@ describe('latinise', function() {
     expect(v.latinise('août décembre')).to.be.equal('aout decembre');
     expect(v.latinise('\t\n')).to.be.equal('\t\n');
     expect(v.latinise('\u2047')).to.be.equal('\u2047');
+    expect(v.latinise(PRINTABLE_ASCII)).to.be.equal(PRINTABLE_ASCII);
   });
 
   it('should latinise the first character in a string representation of an object', function() {

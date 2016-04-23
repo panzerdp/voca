@@ -1,5 +1,6 @@
 import v from '../voca';
 import { expect } from 'chai';
+import { PRINTABLE_ASCII } from '../utils/string/ascii';
 
 describe('substring', function() {
 
@@ -8,6 +9,7 @@ describe('substring', function() {
     expect(v.substring('infinite loop', 0)).to.be.equal('infinite loop');
     expect(v.substring('infinite loop')).to.be.equal('infinite loop');
     expect(v.substring('infinite loop', 1)).to.be.equal('nfinite loop');
+    expect(v.substring(PRINTABLE_ASCII, 0)).to.be.equal(PRINTABLE_ASCII);
   });
 
   it('should substring a string with an end position', function() {

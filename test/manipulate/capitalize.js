@@ -1,5 +1,6 @@
 import v from '../voca';
 import { expect } from 'chai';
+import { PRINTABLE_ASCII } from '../utils/string/ascii';
 
 describe('capitalize', function() {
 
@@ -10,6 +11,7 @@ describe('capitalize', function() {
     expect(v.capitalize('f')).to.be.equal('F');
     expect(v.capitalize('')).to.be.equal('');
     expect(v.capitalize('*apple')).to.be.equal('*apple');
+    expect(v.capitalize(PRINTABLE_ASCII)).to.be.equal(PRINTABLE_ASCII);
   });
 
   it('should capitalize the first character in a string and keep the rest unmodified', function() {

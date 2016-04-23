@@ -1,5 +1,6 @@
 import v from '../voca';
 import { expect } from 'chai';
+import { PRINTABLE_ASCII } from '../utils/string/ascii';
 
 describe('substr', function() {
 
@@ -9,6 +10,7 @@ describe('substr', function() {
     expect(v.substr('infinite loop')).to.be.equal('infinite loop');
     expect(v.substr('infinite loop', 1)).to.be.equal('nfinite loop');
     expect(v.substr('infinite loop', -4)).to.be.equal('loop');
+    expect(v.substr(PRINTABLE_ASCII, 0)).to.be.equal(PRINTABLE_ASCII);
   });
 
   it('should substract a string with a length', function() {

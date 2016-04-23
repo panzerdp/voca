@@ -1,5 +1,6 @@
 import v from '../voca';
 import { expect } from 'chai';
+import { PRINTABLE_ASCII } from '../utils/string/ascii';
 
 describe('isDigit', function() {
 
@@ -55,6 +56,7 @@ describe('isDigit', function() {
     expect(v.isDigit('привет0мир!1200')).to.be.false;
     expect(v.isDigit('12.0')).to.be.false;
     expect(v.isDigit('-1')).to.be.false;
+    expect(v.isDigit(PRINTABLE_ASCII)).to.be.false;
   });
 
   it('should return false for an array with a non-digit string item', function() {

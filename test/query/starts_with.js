@@ -1,5 +1,6 @@
 import v from '../voca';
 import { expect } from 'chai';
+import { PRINTABLE_ASCII } from '../utils/string/ascii';
 
 describe('startsWith', function() {
 
@@ -19,6 +20,7 @@ describe('startsWith', function() {
     expect(v.startsWith('Hello World!', 'Hello World!')).to.be.true;
     expect(v.startsWith('Привет Мир!', 'Привет')).to.be.true;
     expect(v.startsWith('', '')).to.be.true;
+    expect(v.startsWith(PRINTABLE_ASCII, ' ')).to.be.true;
   });
 
   it('should return true for a valid starting string and position', function() {

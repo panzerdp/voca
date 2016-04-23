@@ -1,5 +1,6 @@
 import v from '../voca';
 import { expect } from 'chai';
+import { PRINTABLE_ASCII } from '../utils/string/ascii';
 
 describe('isNumeric', function() {
 
@@ -48,6 +49,7 @@ describe('isNumeric', function() {
     expect(v.isNumeric('Infinity')).to.be.false;
     expect(v.isNumeric('NaN')).to.be.false;
     expect(v.isNumeric(' ')).to.be.false;
+    expect(v.isNumeric(PRINTABLE_ASCII)).to.be.false;
   });
 
   it('should return false for a non numeric string representation of an object', function() {

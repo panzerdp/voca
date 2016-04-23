@@ -1,5 +1,6 @@
 import v from '../voca';
 import { expect } from 'chai';
+import { PRINTABLE_ASCII } from '../utils/string/ascii';
 
 describe('isString', function() {
 
@@ -7,6 +8,7 @@ describe('isString', function() {
     expect(v.isString('Hello World!')).to.be.true;
     expect(v.isString('')).to.be.true;
     expect(v.isString('\n')).to.be.true;
+    expect(v.isString(PRINTABLE_ASCII)).to.be.true;
   });
 
   it('should return false for a null', function() {

@@ -1,5 +1,6 @@
 import v from '../voca';
 import { expect } from 'chai';
+import { PRINTABLE_ASCII } from '../utils/string/ascii';
 
 describe('isAlphaDigit', function() {
 
@@ -83,6 +84,7 @@ describe('isAlphaDigit', function() {
     expect(v.isAlphaDigit(' ')).to.be.false;
     expect(v.isAlphaDigit('\n')).to.be.false;
     expect(v.isAlphaDigit('\t')).to.be.false;
+    expect(v.isAlphaDigit(PRINTABLE_ASCII)).to.be.false;
   });
 
   it('should return false for a non alpha and non digit russian string', function() {

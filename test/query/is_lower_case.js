@@ -1,5 +1,6 @@
 import v from '../voca';
 import { expect } from 'chai';
+import { PRINTABLE_ASCII } from '../utils/string/ascii';
 
 describe('isLowerCase', function() {
 
@@ -39,6 +40,7 @@ describe('isLowerCase', function() {
     expect(v.isLowerCase('\t')).to.be.false;
     expect(v.isLowerCase(' ')).to.be.false;
     expect(v.isLowerCase('')).to.be.false;
+    expect(v.isLowerCase(PRINTABLE_ASCII)).to.be.false;
   });
 
   it('should return false for a non lower case string representation of an object', function() {

@@ -1,5 +1,6 @@
 import v from '../voca';
 import { expect } from 'chai';
+import { PRINTABLE_ASCII } from '../utils/string/ascii';
 
 describe('matches', function() {
 
@@ -17,6 +18,7 @@ describe('matches', function() {
     expect(v.matches('pacific ocean', '\\s')).to.be.true;
     expect(v.matches(undefined, '.?')).to.be.true;
     expect(v.matches(null, '.?')).to.be.true;
+    expect(v.matches(PRINTABLE_ASCII, '\s')).to.be.true;
   });
 
   it('should return true for a string that matches a string representation of an object', function() {

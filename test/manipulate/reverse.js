@@ -1,5 +1,6 @@
 import v from '../voca';
 import { expect } from 'chai';
+import { PRINTABLE_ASCII, REVERSED_PRINTABLE_ASCII } from '../utils/string/ascii';
 
 describe('reverse', function() {
 
@@ -8,6 +9,7 @@ describe('reverse', function() {
     expect(v.reverse('o')).to.be.equal('o');
     expect(v.reverse('\n\t')).to.be.equal('\t\n');
     expect(v.reverse('')).to.be.equal('');
+    expect(v.reverse(PRINTABLE_ASCII)).to.be.equal(REVERSED_PRINTABLE_ASCII);
   });
 
   it('should reverse a number', function() {
