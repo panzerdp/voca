@@ -35,7 +35,7 @@ describe('trimRight', function() {
     expect(v.trimRight(['Yes. The fire rises. '])).to.be.equal('Yes. The fire rises.');
     expect(v.trimRight({
       toString: function() {
-        return 'Yes. The fire rises.\n\n'
+        return 'Yes. The fire rises.\n\n';
       }
     })).to.be.equal('Yes. The fire rises.');
     expect(v.trimRight(['You\'re a big guy!****'], ['*'])).to.be.equal('You\'re a big guy!');

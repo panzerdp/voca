@@ -22,7 +22,7 @@ describe('substring', function() {
     expect(v.substring(['infinite loop'], 10)).to.be.equal('oop');
     expect(v.substring({
       toString: function() {
-        return 'loop'
+        return 'loop';
       }
     }, 0, 3)).to.be.equal('loo');
   });

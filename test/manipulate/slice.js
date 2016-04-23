@@ -24,7 +24,7 @@ describe('slice', function() {
     expect(v.slice(['infinite loop'], 10)).to.be.equal('oop');
     expect(v.slice({
       toString: function() {
-        return 'loop'
+        return 'loop';
       }
     }, 0, 3)).to.be.equal('loo');
   });

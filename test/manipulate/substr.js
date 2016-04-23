@@ -24,7 +24,7 @@ describe('substr', function() {
     expect(v.substr(['infinite loop'], 10)).to.be.equal('oop');
     expect(v.substr({
       toString: function() {
-        return 'loop'
+        return 'loop';
       }
     }, 0, 3)).to.be.equal('loo');
   });

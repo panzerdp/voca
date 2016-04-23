@@ -1,4 +1,4 @@
-import toString from '../utils/string/to_string'
+import toString from '../utils/string/to_string';
 import nilDefault from '../utils/undefined/nil_default';
 import { REGEXP_ALPHA_DIGIT } from '../utils/regexp';
 

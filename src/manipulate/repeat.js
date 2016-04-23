@@ -1,4 +1,4 @@
-import toString from '../utils/string/to_string'
+import toString from '../utils/string/to_string';
 import nilDefault from '../utils/undefined/nil_default';
 import isNil from '../utils/object/is_nil';
 import toInteger from '../utils/number/to_integer';

@@ -16,6 +16,7 @@
     "camelcase": ["error", {"properties": "never"}],
     "comma-spacing": ["error", {"before": false, "after": true}],
     "comma-style": ["error", "last"],
-    "space-before-blocks": ["error", { "functions": "always", "keywords": "always", "classes": "always" }]
+    "space-before-blocks": ["error", { "functions": "always", "keywords": "always", "classes": "always" }],
+    "semi": ["error", "always"]
   }
 }
