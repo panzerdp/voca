@@ -23,6 +23,7 @@ import './manipulate/decapitalize';
 import './manipulate/capitalize';
 import './manipulate/latinise';
 import './manipulate/repeat';
+import './manipulate/replace';
 import './manipulate/reverse';
 import './manipulate/reverse_code_point';
 import './manipulate/slice';

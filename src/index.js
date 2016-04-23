@@ -32,6 +32,7 @@ import capitalize from './manipulate/capitalize';
 import decapitalize from './manipulate/decapitalize';
 import latinise from './manipulate/latinise';
 import repeat from './manipulate/repeat';
+import replace from './manipulate/replace';
 import reverse from './manipulate/reverse';
 import reverseCodePoint from './manipulate/reverse_code_point';
 import slice from './manipulate/slice';
@@ -64,6 +65,7 @@ var v = {
   capitalize: capitalize,
   latinise: latinise,
   repeat: repeat,
+  replace: replace,
   reverseCodePoint: reverseCodePoint,
   reverse: reverse,
   slice: slice,
