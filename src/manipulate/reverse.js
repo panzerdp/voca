@@ -2,7 +2,7 @@ import toString from '../utils/string/to_string';
 import nilDefault from '../utils/undefined/nil_default';
 
 /**
- * Reverse the `subject`.
+ * Reverses the `subject`.
  *
  * @function reverse
  * @static

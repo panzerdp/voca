@@ -5,6 +5,7 @@ import { REGEXP_NOT_BASIC_LATIN, REGEXP_COMBINING_MARKS } from '../utils/regexp'
 
 /**
  * Removes the diacritics from `character`.
+ *
  * @ignore
  * @param {string} character The character with diacritics.
  * @returns {string} Returns the character without diacritics.

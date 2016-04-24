@@ -29,6 +29,8 @@ import './manipulate/reverse_code_point';
 import './manipulate/slice';
 import './manipulate/substr';
 import './manipulate/substring';
+import './manipulate/to_lower_case';
+import './manipulate/to_upper_case';
 import './manipulate/trim';
 import './manipulate/trim_left';
 import './manipulate/trim_right';

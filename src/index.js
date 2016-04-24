@@ -38,6 +38,8 @@ import reverseCodePoint from './manipulate/reverse_code_point';
 import slice from './manipulate/slice';
 import substr from './manipulate/substr';
 import substring from './manipulate/substring';
+import toLowerCase from './manipulate/to_lower_case';
+import toUpperCase from './manipulate/to_upper_case';
 import trim from './manipulate/trim';
 import trimLeft from './manipulate/trim_left';
 import trimRight from './manipulate/trim_right';
@@ -71,6 +73,8 @@ var v = {
   slice: slice,
   substr: substr,
   substring: substring,
+  toLowerCase: toLowerCase,
+  toUpperCase: toUpperCase,
   trim: trim,
   trimLeft: trimLeft,
   trimRight: trimRight
