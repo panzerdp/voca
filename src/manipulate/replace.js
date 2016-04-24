@@ -12,14 +12,16 @@ import nilDefault from '../utils/undefined/nil_default';
  * @param {string|Function} replacement The string that replaces `pattern` match or a function which invocation result replaces `pattern` match.
  * @return {string} Returns the replacement result.
  * @example
- * v.matches('pluto', /plus?/);
- * // => true
+ * v.replace('swan', 'wa', 'u');
+ * // => 'sun'
  *
- * v.matches('sun', 'S', 'i');
- * // => true
+ * v.replace('domestic duck', /domestic\s/, '');
+ * // => 'duck'
  *
- * v.matches('apollo 11', '^\\w+$');
- * // => false
+ * v.replace('nice duck', /(nice)(duck)/, function(match, nice, duck) {
+ *   return 'the ' + duck + ' is ' + nice;
+ * });
+ * // => 'the duck is nice'
  */
 export default function(subject, pattern, replacement) {
   var subjectString = toString(nilDefault(subject, ''));

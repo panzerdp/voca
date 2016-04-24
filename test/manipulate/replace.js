@@ -32,7 +32,7 @@ describe('replace', function() {
     expect(v.replace(['duck'], 'duck', 'swan')).to.be.equal('swan');
     expect(v.replace({
       toString: function() {
-        return 'mandarin duck'
+        return 'mandarin duck';
       }
     }, /mandarin\s/, '')).to.be.equal('duck');
   });
