@@ -4,7 +4,7 @@ import { PRINTABLE_ASCII } from '../utils/string/ascii';
 
 describe('latinise', function() {
 
-  it('should latinise the first character in a string', function() {
+  it('should latinise a string', function() {
     expect(v.latinise('')).to.be.equal('');
     expect(v.latinise('moldova')).to.be.equal('moldova');
     expect(v.latinise('cafe\u0301')).to.be.equal('cafe');
@@ -31,7 +31,7 @@ describe('latinise', function() {
     expect(v.latinise(PRINTABLE_ASCII)).to.be.equal(PRINTABLE_ASCII);
   });
 
-  it('should latinise the first character in a string representation of an object', function() {
+  it('should latinise a string representation of an object', function() {
     expect(v.latinise(['María'])).to.be.equal('Maria');
     expect(v.latinise({
       toString: function() {
