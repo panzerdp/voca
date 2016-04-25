@@ -8,17 +8,17 @@ import nilDefault from '../utils/undefined/nil_default';
  * @static
  * @memberOf Query
  * @param {string} [subject=''] The string to verify.
- * @param {RegExp|string} pattern The pattern to match. A non RegExp value is transformed to `new RegExp(pattern)`.
+ * @param {RegExp|string} pattern The pattern to match. A non RegExp value is transformed to `new RegExp(pattern, flags)`.
  * @param {string} [flags=''] The regular expression flags. Applies when `pattern` is `string` type.
  * @return {boolean} Returns `true` if `subject` matches `pattern` or `false` otherwise.
  * @example
- * v.matches('pluto', /plus?/);
+ * v.matches('pluto', /plu.{2}/);
  * // => true
  *
  * v.matches('sun', 'S', 'i');
  * // => true
  *
- * v.matches('apollo 11', '^\\w+$');
+ * v.matches('apollo 11', '\\d{3}');
  * // => false
  */
 export default function(subject, pattern, flags) {

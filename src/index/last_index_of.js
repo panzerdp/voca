@@ -2,7 +2,7 @@ import toString from '../utils/string/to_string';
 import nilDefault from '../utils/undefined/nil_default';
 
 /**
- * Returns the last occurrence index of `searchValue` in `subject`.
+ * Returns the last occurrence index of `search` in `subject`.
  *
  * @function lastIndexOf
  * @static
