@@ -16,7 +16,7 @@ import { REGEX_TRIM_LEFT } from '../utils/regexp';
  * v.trimLeft('  Starship Troopers');
  * // => 'Starship Troopers'
  *
- * v.trim('***Mobile Infantry', '*');
+ * v.trimLeft('***Mobile Infantry', '*');
  * // => 'Mobile Infantry'
  */
 export default function(subject, whitespace) {

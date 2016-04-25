@@ -3,6 +3,11 @@ import './count/length';
 import './count/length_code_point';
 import './count/length_where';
 
+//index
+import './index/index_of';
+import './index/last_index_of';
+import './index/search';
+
 //query
 import './query/ends_with';
 import './query/includes';

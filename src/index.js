@@ -7,6 +7,14 @@ import lengthCodePoint from './count/length_code_point';
 import lengthWhere from './count/length_where';
 
 /**
+ * Functions to find index
+ * @namespace Index
+ */
+import indexOf from './index/index_of';
+import lastIndexOf from './index/last_index_of';
+import search from './index/search';
+
+/**
  * Functions to query a string
  * @namespace Query
  */
@@ -48,6 +56,10 @@ var v = {
   length: length,
   lengthCodePoint: lengthCodePoint,
   lengthWhere: lengthWhere,
+
+  indexOf: indexOf,
+  lastIndexOf: lastIndexOf,
+  search: search,
 
   endsWith: endsWith,
   includes: includes,

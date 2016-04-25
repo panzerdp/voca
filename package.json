@@ -39,7 +39,7 @@
     "jsdoc": "^3.4.0",
     "mocha": "^2.4.5",
     "opn-cli": "^3.1.0",
-    "rollup": "^0.25.6",
+    "rollup": "^0.26.0",
     "rollup-plugin-babel": "^2.4.0",
     "rollup-plugin-multi-entry": "^1.2.0",
     "source-map-support": "^0.4.0"
