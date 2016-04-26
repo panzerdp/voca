@@ -3,6 +3,9 @@ import './count/length';
 import './count/length_code_point';
 import './count/length_where';
 
+//escape
+import './escape/escape_reg_exp';
+
 //index
 import './index/index_of';
 import './index/last_index_of';

@@ -65,3 +65,10 @@ export var REGEXP_DIGIT = /^\d+$/;
  * @ignore
  */
 export var REGEXP_NOT_BASIC_LATIN = /[^\u0000-\u007E]/g;
+
+/**
+ * Regular expression to match regular expression special characters
+ * @type {RegExp}
+ * @ignore
+ */
+export var REGEXP_SPECIAL_CHARACTERS = /[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g;

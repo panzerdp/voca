@@ -7,6 +7,12 @@ import lengthCodePoint from './count/length_code_point';
 import lengthWhere from './count/length_where';
 
 /**
+ * Functions to escape RegExp special characters
+ * @namespace Escape
+ */
+import escapeRegExp from './escape/escape_reg_exp';
+
+/**
  * Functions to find index
  * @namespace Index
  */
@@ -56,6 +62,8 @@ var v = {
   length: length,
   lengthCodePoint: lengthCodePoint,
   lengthWhere: lengthWhere,
+
+  escapeRegExp: escapeRegExp,
 
   indexOf: indexOf,
   lastIndexOf: lastIndexOf,
