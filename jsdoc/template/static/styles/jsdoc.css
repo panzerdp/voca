@@ -322,6 +322,11 @@ footer {
   color: white;
 }
 
+.signature code {
+  font-style: normal;
+  background-color: transparent;
+}
+
 .details {
   margin-top: 6px;
   border-left: 2px solid #DDD;
