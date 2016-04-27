@@ -5,13 +5,6 @@ import { PRINTABLE_ASCII } from '../utils/string/ascii';
 describe('words', function() {
 
   it('should split the string into words', function() {
-    expect(v.words('')).to.eql([]);
-    expect(v.words(' ')).to.eql([]);
-    expect(v.words('     ')).to.eql([]);
-    expect(v.words('\n')).to.eql([]);
-    expect(v.words('***')).to.eql([]);
-    expect(v.words('***---')).to.eql([]);
-    expect(v.words('***---')).to.eql([]);
     expect(v.words('123')).to.eql(['123']);
     expect(v.words('hello')).to.eql(['hello']);
     expect(v.words('  hello   ')).to.eql(['hello']);
@@ -31,6 +24,14 @@ describe('words', function() {
     expect(v.words('Newton\'s third law')).to.eql(['Newton', 's', 'third', 'law']);
     expect(v.words('Newton\'s thIrd lAw')).to.eql(['Newton', 's', 'th', 'Ird', 'l', 'Aw']);
     expect(v.words(PRINTABLE_ASCII)).to.eql(['0123456789', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz']);
+    expect(v.words('')).to.eql([]);
+    expect(v.words()).to.eql([]);
+    expect(v.words(' ')).to.eql([]);
+    expect(v.words('     ')).to.eql([]);
+    expect(v.words('\n')).to.eql([]);
+    expect(v.words('***')).to.eql([]);
+    expect(v.words('***---')).to.eql([]);
+    expect(v.words('***---')).to.eql([]);
   });
 
   it('should split the string with diacritics and non-latin characters into words', function() {
@@ -47,6 +48,18 @@ describe('words', function() {
         return 'Gr4v1ty';
       }
     })).to.eql(['Gr', '4', 'v', '1', 'ty']);
+  });
+
+  it('should split the string into words using a pattern', function() {
+    expect(v.words('1234567890', /\d/g)).to.eql(['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']);
+    expect(v.words('gravity', /\w{1,2}/g)).to.eql(['gr', 'av', 'it', 'y']);
+    expect(v.words('gravity can cross dimensions', '\\w+(?=\\s?)', 'g')).to.eql(['gravity', 'can', 'cross', 'dimensions']);
+    expect(v.words('1234567890', /\s/g)).to.eql([]);
+  });
+
+  it('should split the string with default pattern for null and undefined', function() {
+    expect(v.words('gravity_can_cross_dimensions', null)).to.eql(['gravity', 'can', 'cross', 'dimensions']);
+    expect(v.words('gravity_can_cross_dimensions', undefined)).to.eql(['gravity', 'can', 'cross', 'dimensions']);
   });
   
 });

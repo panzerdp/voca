@@ -25,7 +25,7 @@ export default function(subject, pattern, flags) {
   var subjectString = toString(nilDefault(subject, '')),
     flagsString = toString(nilDefault(flags, '')),
     patternString;
-  if (Object.prototype.toString.call(pattern) !== '[object RegExp]') {
+  if (!(pattern instanceof RegExp)) {
     patternString = toString(pattern);
     if (patternString === null) {
       return false;
