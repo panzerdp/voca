@@ -8,8 +8,8 @@ import nilDefault from '../utils/undefined/nil_default';
  * @static
  * @memberOf Query
  * @param {string} [subject=''] The string to verify.
- * @param {RegExp|string} pattern The pattern to match. A non RegExp value is transformed to `new RegExp(pattern, flags)`.
- * @param {string} [flags=''] The regular expression flags. Applies when `pattern` is `string` type.
+ * @param {RegExp|string} pattern The pattern to match.
+ * @param {string} [flags=''] The regular expression flags. Applies when `pattern` is string type.
  * @return {boolean} Returns `true` if `subject` matches `pattern` or `false` otherwise.
  * @example
  * v.matches('pluto', /plu.{2}/);
