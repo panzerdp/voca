@@ -9,8 +9,8 @@ import nilDefault from '../utils/undefined/nil_default';
  * @memberOf Index
  * @param {string} [subject=''] The string where to search.
  * @param {string} search The string to search.
- * @param {int} [fromIndex=0] The index to start searching.
- * @return {int} Returns the first occurrence index or `-1` if not found.
+ * @param {number} [fromIndex=0] The index to start searching.
+ * @return {number} Returns the first occurrence index or `-1` if not found.
  * @example
  * v.indexOf('morning', 'n');
  * // => 3

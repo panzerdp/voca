@@ -10,7 +10,7 @@ import nilDefault from '../utils/undefined/nil_default';
  * @param {string} [subject=''] The string to count characters.
  * @param {Function} predicate The predicate function invoked on each character with parameters `(character, index, string)`.
  * @param {Object} [context] The context to invoke the `predicate`.
- * @return {int} Returns the number of characters.
+ * @return {number} Returns the number of characters.
  * @example
  * v.lengthWhere('hola!', v.isAlpha);
  * // => 4

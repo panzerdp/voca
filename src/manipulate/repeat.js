@@ -11,7 +11,7 @@ import clipNumber from '../utils/number/clip_number';
  * @static
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to repeat.
- * @param {int} [times=1] The number of times to repeat.
+ * @param {number} [times=1] The number of times to repeat.
  * @return {string} Returns the repeated string.
  * @example
  * v.repeat('w', 3);

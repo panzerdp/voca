@@ -12,7 +12,7 @@ import toInteger from '../utils/number/to_integer';
  * @memberOf Query
  * @param {string} [subject=''] The string where to search.
  * @param {string} search The string to search.
- * @param {int} [position=0] The position to start searching.
+ * @param {number} [position=0] The position to start searching.
  * @return {boolean} Returns `true` if `subject` includes `search` or `false` otherwise.
  * @example
  * v.includes('starship', 'star');

@@ -92,7 +92,7 @@ function updateItemName(item) {
 
   if (attributes && attributes.length) {
     var defaultAttribute = '';
-    if (item.defaultvalue) {
+    if (item.defaultvalue != null) {
       defaultAttribute = util.format('=%s', item.defaultvalue);
     }
     itemName = util.format('%s<span class="signature-attributes">%s%s</span>', itemName,

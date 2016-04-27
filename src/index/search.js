@@ -12,8 +12,8 @@ import isNil from '../utils/object/is_nil';
  * @memberOf Index
  * @param {string} [subject=''] The string where to search.
  * @param {string|RegExp} pattern The pattern to match. A non RegExp value is transformed to `new RegExp(pattern)`.
- * @param {int} [fromIndex=0] The index to start searching.
- * @return {int} Returns the first match index or `-1` if not found.
+ * @param {number} [fromIndex=0] The index to start searching.
+ * @return {number} Returns the first match index or `-1` if not found.
  * @example
  * v.search('morning', /rn/);
  * // => 2

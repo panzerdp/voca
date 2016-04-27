@@ -8,7 +8,7 @@ import nilDefault from '../utils/undefined/nil_default';
  * @static
  * @memberOf Count
  * @param {string} [subject=''] The string to count characters.
- * @return {int} Returns the number of characters in `subject`.
+ * @return {number} Returns the number of characters in `subject`.
  * @example
  * v.length('rain');
  * // => 4

@@ -11,7 +11,7 @@ import { REGEXP_COMBINING_MARKS, REGEXP_SURROGATE_PAIRS } from '../utils/regexp'
  * @static
  * @memberOf Count
  * @param {string} [subject=''] The string to count characters.
- * @return {int} Returns the number of characters in `subject`.
+ * @return {number} Returns the number of characters in `subject`.
  * @example
  * v.lengthCodePoint('rain');
  * // => 4
