@@ -112,3 +112,14 @@ export var REGEXP_NOT_BASIC_LATIN = /[^\u0000-\u007E]/g;
  * @ignore
  */
 export var REGEXP_SPECIAL_CHARACTERS = /[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g;
+
+/**
+ * Regular expression to match words
+ * @type {RegExp}
+ * @ignore
+ */
+export var REGEXP_WORD = new RegExp([
+  '([' + alphaLowerCase + ']+)',
+  '([' + alphaUpperCase + '](?:[' + alphaUpperCase + ']+)?)',
+  '([' + digit + ']+)'
+].join('|'), 'g');
