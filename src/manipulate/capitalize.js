@@ -12,7 +12,7 @@ import nilDefault from '../utils/undefined/nil_default';
  * @param {boolean} [restToLowerCase=false] Convert the rest of `subject` to lower case.
  * @return {string} Returns the capitalized string.
  * @example
- * v.capitalize('APPLE');
+ * v.capitalize('apple');
  * // => 'Apple'
  *
  * v.capitalize('mAC', false);
