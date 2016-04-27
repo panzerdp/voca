@@ -9,7 +9,7 @@ import { REGEXP_WORD } from '../utils/regexp';
  * @static
  * @memberOf Split
  * @param {string} [subject=''] The string to split into words.
- * @return {[{string}]} Returns the array of words.
+ * @return {string[]} Returns the array of words.
  * @example
  * v.words('gravity can cross dimensions');
  * // => ['gravity', 'can', 'cross', 'dimensions']

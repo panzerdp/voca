@@ -119,7 +119,8 @@ export var REGEXP_SPECIAL_CHARACTERS = /[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g;
  * @ignore
  */
 export var REGEXP_WORD = new RegExp([
+  '([' + alphaUpperCase + '][' + alphaLowerCase + ']+)',
   '([' + alphaLowerCase + ']+)',
-  '([' + alphaUpperCase + '](?:[' + alphaUpperCase + ']+)?)',
+  '([' + alphaUpperCase + ']+(?![' + alphaLowerCase + ']+))',
   '([' + digit + ']+)'
 ].join('|'), 'g');
