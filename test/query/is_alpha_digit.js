@@ -10,6 +10,8 @@ describe('isAlphaDigit', function() {
     expect(v.isAlphaDigit('JavaScript6')).to.be.true;
     expect(v.isAlphaDigit('AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz')).to.be.true;
     expect(v.isAlphaDigit('AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789')).to.be.true;
+    expect(v.isAlphaDigit('man\u0303ana')).to.be.true;
+    expect(v.isAlphaDigit('foo\u0303\u035C\u035D\u035Ebar')).to.be.true;
   });
 
   it('should return true for an alpha and digit russian string', function() {

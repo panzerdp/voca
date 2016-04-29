@@ -32,7 +32,10 @@ describe('words', function() {
     expect(v.words('***')).to.eql([]);
     expect(v.words('***---')).to.eql([]);
     expect(v.words('***---')).to.eql([]);
-    //expect(v.words('man\u0303ana')).to.eql(['man\u0303ana']);
+    expect(v.words('man\u0303ana')).to.eql(['man\u0303ana']);
+    expect(v.words('maN\u0303ana')).to.eql(['ma', 'N\u0303ana']);
+    expect(v.words('foo\u0303\u035C\u035D\u035E bar')).to.eql(['foo\u0303\u035C\u035D\u035E', 'bar']);
+    expect(v.words('fo-O-O\u0303\u035C\u035D\u035E-bar')).to.eql(['fo', 'O', 'O\u0303\u035C\u035D\u035E', 'bar']);
   });
 
   it('should split the string with diacritics and non-latin characters into words', function() {

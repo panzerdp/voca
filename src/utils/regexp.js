@@ -180,6 +180,6 @@ export var REGEXP_SPECIAL_CHARACTERS = /[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g;
  * @ignore
  */
 export var REGEXP_WORD = new RegExp(
-'([' + upLetter + ']?[' + lowLetter + ']+)|\
-([' + upLetter + ']+(?![' + lowLetter + ']+))|\
+'((?:[' + upLetter + '][' + diacriticalMark + ']*)?(?:[' + lowLetter + '][' + diacriticalMark + ']*)+)|\
+((?:[' + upLetter + '][' + diacriticalMark + ']*)+(?![' + lowLetter + ']))|\
 ([' + digit + ']+)', 'g');
