@@ -21,7 +21,9 @@ import { REGEXP_COMBINING_MARKS, REGEXP_SURROGATE_PAIRS } from '../utils/regexp'
  */
 export default function reverseCodePoint(subject) {
   var subjectString = toString(nilDefault(subject, ''));
-  // @see https://github.com/mathiasbynens/esrever
+  /**
+   * @see https://github.com/mathiasbynens/esrever
+   */
   subjectString = subjectString
     .replace(REGEXP_COMBINING_MARKS, function($0, $1, $2) {
       return reverseCodePoint($2) + $1;
