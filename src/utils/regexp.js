@@ -82,6 +82,7 @@ var whitespace = '\\s\\uFEFF\\xA0';
  * A regular expression matching high surrogate
  *
  * @type {string}
+ * @ignore
  */
 var highSurrogate = '\\uD800-\\uDBFF';
 
@@ -89,6 +90,7 @@ var highSurrogate = '\\uD800-\\uDBFF';
  * A regular expression matching low surrogate
  *
  * @type {string}
+ * @ignore
  */
 var lowSurrogate = '\\uDC00-\\uDFFF';
 
@@ -96,6 +98,7 @@ var lowSurrogate = '\\uDC00-\\uDFFF';
  * A regulat expression matching diacritical mark
  *
  * @type {string}
+ * @ignore
  */
 var diacriticalMark = '\\u0300-\\u036F\\u1AB0-\\u1AFF\\u1DC0-\\u1DFF\\u20D0-\\u20FF\\uFE20-\\uFE2F';
 

@@ -9,7 +9,7 @@ describe('repeat', function() {
     expect(v.repeat('w', 3)).to.be.equal('www');
     expect(v.repeat('the world is yours', 1)).to.be.equal('the world is yours');
     expect(v.repeat('', 10)).to.be.equal('');
-    expect(v.repeat(PRINTABLE_ASCII, 1)).to.be.equal(PRINTABLE_ASCII);
+    expect(v.repeat(PRINTABLE_ASCII, 2)).to.be.equal(PRINTABLE_ASCII + PRINTABLE_ASCII);
   });
 
   it('should return an empty string for 0 repeat times', function() {

@@ -12,7 +12,7 @@ import { REGEXP_WORD } from '../utils/regexp';
  * @param {string} [subject=''] The string to split into words.
  * @param {string|RegExp} [pattern] The pattern to watch words.
  * @param {string} [flags=''] The regular expression flags. Applies when `pattern` is string type.
- * @return {string[]} Returns the array of words.
+ * @return {array} Returns the array of words.
  * @example
  * v.words('gravity can cross dimensions');
  * // => ['gravity', 'can', 'cross', 'dimensions']
