@@ -1,6 +1,5 @@
 import toString from '../utils/string/to_string';
 import nilDefault from '../utils/undefined/nil_default';
-import isNil from '../utils/object/is_nil';
 
 /**
  * Splits `subject` into an array of chunks by `separator`.
