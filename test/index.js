@@ -44,4 +44,7 @@ import './query/matches';
 import './query/starts_with';
 
 //split
+import './split/chars';
+import './split/chars_code_point';
+import './split/split';
 import './split/words';
