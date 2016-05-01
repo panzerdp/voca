@@ -11,7 +11,7 @@ import isNil from '../utils/object/is_nil';
  * @static
  * @memberOf Index
  * @param {string} [subject=''] The string where to search.
- * @param {string|RegExp} pattern The pattern to match.
+ * @param {string|RegExp} pattern The pattern to match. If `pattern` is not RegExp, it is transformed to `new RegExp(pattern)`.
  * @param {number} [fromIndex=0] The index to start searching.
  * @return {number} Returns the first match index or `-1` if not found.
  * @example

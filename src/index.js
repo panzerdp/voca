@@ -62,6 +62,9 @@ import startsWith from './query/starts_with';
  * Functions to split a string
  * @namespace Split
  */
+import chars from './split/chars';
+import charsCodePoint from './split/chars_code_point';
+import split from './split/split';
 import words from './split/words';
 
 var v = {
@@ -105,6 +108,9 @@ var v = {
   matches: matches,
   startsWith: startsWith,
 
+  chars: chars,
+  charsCodePoint: charsCodePoint,
+  split: split,
   words: words
 };
 

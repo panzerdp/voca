@@ -1,11 +1,13 @@
 //import toString from '../utils/string/to_string';
 //import nilDefault from '../utils/undefined/nil_default';
-//import isNil from '../utils/object/is_nil';
+//import { REGEXP_COMBINING_MARKS, REGEXP_SURROGATE_PAIRS } from '../utils/regexp';
 //
 ///**
-// * Splits `subject` into an array of chunks by `separator`.
+// * Splits `subject` into an array of characters taking care of
+// * <a href="http://www.unicode.org/faq/utf_bom.html#utf16-2">surrogate pairs</a> and
+// * <a href="http://unicode.org/faq/char_combmark.html">combining marks</a>.
 // *
-// * @function split
+// * @function charsCodePoint
 // * @static
 // * @memberOf Split
 // * @param {string} [subject=''] The string to split into characters.

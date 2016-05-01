@@ -8,7 +8,7 @@ import nilDefault from '../utils/undefined/nil_default';
  * @static
  * @memberOf Query
  * @param {string} [subject=''] The string to verify.
- * @param {RegExp|string} pattern The pattern to match.
+ * @param {RegExp|string} pattern The pattern to match. If `pattern` is not RegExp, it is transformed to `new RegExp(pattern, flags)`.
  * @param {string} [flags=''] The regular expression flags. Applies when `pattern` is string type.
  * @return {boolean} Returns `true` if `subject` matches `pattern` or `false` otherwise.
  * @example

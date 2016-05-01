@@ -8,8 +8,8 @@ import nilDefault from '../utils/undefined/nil_default';
  * @static
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to verify.
- * @param {string|RegExp} pattern The pattern which match is replaced with `replacement`.
- * @param {string|Function} replacement The string that replaces `pattern` match or a function which invocation result replaces `pattern` match.
+ * @param {string|RegExp} pattern The pattern which match is replaced with `replacement`. If `pattern` is string, a simple string match is evaluated.
+ * @param {string|Function} replacement The string or a function which invocation result replaces `pattern` match.
  * @return {string} Returns the replacement result.
  * @example
  * v.replace('swan', 'wa', 'u');
