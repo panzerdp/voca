@@ -2,6 +2,7 @@
  * Functions to count characters in a string
  * @namespace Count
  */
+import count from './count/count';
 import length from './count/length';
 import lengthCodePoint from './count/length_code_point';
 import lengthWhere from './count/length_where';
@@ -68,6 +69,7 @@ import split from './split/split';
 import words from './split/words';
 
 var v = {
+  count: count,
   length: length,
   lengthCodePoint: lengthCodePoint,
   lengthWhere: lengthWhere,

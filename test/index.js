@@ -1,4 +1,5 @@
 //count
+import './count/count';
 import './count/length';
 import './count/length_code_point';
 import './count/length_where';
