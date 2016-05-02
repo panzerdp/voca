@@ -43,6 +43,7 @@ import replace from './manipulate/replace';
 import reverse from './manipulate/reverse';
 import reverseCodePoint from './manipulate/reverse_code_point';
 import slice from './manipulate/slice';
+import slugify from './manipulate/slugify';
 import substr from './manipulate/substr';
 import substring from './manipulate/substring';
 import trim from './manipulate/trim';
@@ -102,6 +103,7 @@ var v = {
   reverseCodePoint: reverseCodePoint,
   reverse: reverse,
   slice: slice,
+  slugify: slugify,
   substr: substr,
   substring: substring,
   trim: trim,

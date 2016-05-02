@@ -28,6 +28,7 @@ import './manipulate/replace';
 import './manipulate/reverse';
 import './manipulate/reverse_code_point';
 import './manipulate/slice';
+import './manipulate/slugify';
 import './manipulate/substr';
 import './manipulate/substring';
 import './manipulate/trim';
