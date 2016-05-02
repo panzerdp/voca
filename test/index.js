@@ -1,7 +1,8 @@
 //case
 import './case/camel_case';
-import './case/decapitalize';
 import './case/capitalize';
+import './case/decapitalize';
+import './case/kebab_case';
 import './case/lower_case';
 import './case/upper_case';
 

@@ -5,6 +5,18 @@ import capitalize from '../case/capitalize';
 import lowerCase from '../case/lower_case';
 
 /**
+ * Transforms the `word` into camel case chunk.
+ *
+ * @param {string} word The word string
+ * @param {number} index The index of the word in phrase.
+ * @returns {string} The transformed word.
+ * @ignore
+ */
+function wordToCamel(word, index) {
+  return index === 0 ? lowerCase(word) : capitalize(word, true);
+}
+
+/**
  * Converts the `subject` to <a href="https://en.wikipedia.org/wiki/CamelCase">camel case</a>.
  *
  * @function camelCase
@@ -27,7 +39,5 @@ export default function(subject) {
   if (subjectString === '') {
     return '';
   }
-  return words(subjectString).map(function(word, index) {
-    return index === 0 ? lowerCase(word) : capitalize(word, true);
-  }).join('');
+  return words(subjectString).map(wordToCamel).join('');
 }

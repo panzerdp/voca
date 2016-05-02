@@ -5,6 +5,7 @@
 import camelCase from './case/camel_case';
 import capitalize from './case/capitalize';
 import decapitalize from './case/decapitalize';
+import kebabCase from './case/kebab_case';
 import lowerCase from './case/lower_case';
 import upperCase from './case/upper_case';
 
@@ -78,6 +79,7 @@ var v = {
   camelCase: camelCase,
   capitalize: capitalize,
   decapitalize: decapitalize,
+  kebabCase: kebabCase,
   lowerCase: lowerCase,
   upperCase: upperCase,
 
