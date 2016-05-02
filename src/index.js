@@ -7,6 +7,7 @@ import capitalize from './case/capitalize';
 import decapitalize from './case/decapitalize';
 import kebabCase from './case/kebab_case';
 import lowerCase from './case/lower_case';
+import snakeCase from './case/snake_case';
 import upperCase from './case/upper_case';
 
 /**
@@ -81,6 +82,7 @@ var v = {
   decapitalize: decapitalize,
   kebabCase: kebabCase,
   lowerCase: lowerCase,
+  snakeCase: snakeCase,
   upperCase: upperCase,
 
   count: count,
