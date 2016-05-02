@@ -2,6 +2,9 @@
  * Functions to change the case
  * @namespace Case
  */
+import camelCase from './case/camel_case';
+import capitalize from './case/capitalize';
+import decapitalize from './case/decapitalize';
 import lowerCase from './case/lower_case';
 import upperCase from './case/upper_case';
 
@@ -32,8 +35,6 @@ import search from './index/search';
  * Functions to manipulate a string
  * @namespace Manipulate
  */
-import capitalize from './manipulate/capitalize';
-import decapitalize from './manipulate/decapitalize';
 import latinise from './manipulate/latinise';
 import repeat from './manipulate/repeat';
 import replace from './manipulate/replace';
@@ -74,6 +75,9 @@ import split from './split/split';
 import words from './split/words';
 
 var v = {
+  camelCase: camelCase,
+  capitalize: capitalize,
+  decapitalize: decapitalize,
   lowerCase: lowerCase,
   upperCase: upperCase,
 
@@ -88,8 +92,6 @@ var v = {
   lastIndexOf: lastIndexOf,
   search: search,
 
-  decapitalize: decapitalize,
-  capitalize: capitalize,
   latinise: latinise,
   repeat: repeat,
   replace: replace,

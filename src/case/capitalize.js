@@ -7,7 +7,7 @@ import nilDefault from '../utils/undefined/nil_default';
  *
  * @function capitalize
  * @static
- * @memberOf Manipulate
+ * @memberOf Case
  * @param {string} [subject=''] The string to capitalize.
  * @param {boolean} [restToLowerCase=false] Convert the rest of `subject` to lower case.
  * @return {string} Returns the capitalized string.
@@ -22,7 +22,7 @@ export default function(subject, restToLowerCase) {
   var subjectString = toString(nilDefault(subject, '')),
     restToLowerCaseBoolean = toBoolean(nilDefault(restToLowerCase, false));
   if (subjectString === '') {
-    return subjectString;
+    return '';
   }
   if (restToLowerCaseBoolean) {
     subjectString = subjectString.toLowerCase();

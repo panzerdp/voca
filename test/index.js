@@ -1,4 +1,7 @@
 //case
+import './case/camel_case';
+import './case/decapitalize';
+import './case/capitalize';
 import './case/lower_case';
 import './case/upper_case';
 
@@ -17,8 +20,6 @@ import './index/last_index_of';
 import './index/search';
 
 //manipulate
-import './manipulate/decapitalize';
-import './manipulate/capitalize';
 import './manipulate/latinise';
 import './manipulate/repeat';
 import './manipulate/replace';
