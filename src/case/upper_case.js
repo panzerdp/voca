@@ -4,13 +4,13 @@ import nilDefault from '../utils/undefined/nil_default';
 /**
  * Converts the `subject` to upper case.
  *
- * @function toUpperCase
+ * @function upperCase
  * @static
- * @memberOf Manipulate
+ * @memberOf Case
  * @param {string} [subject=''] The string to convert to upper case.
  * @return {string} The upper case string.
  * @example
- * v.toUpperCase('school');
+ * v.upperCase('school');
  * // => 'SCHOOL'
  */
 export default function(subject) {

@@ -4,13 +4,13 @@ import nilDefault from '../utils/undefined/nil_default';
 /**
  * Converts the `subject` to lower case.
  *
- * @function toLowerCase
+ * @function lowerCase
  * @static
- * @memberOf Manipulate
+ * @memberOf Case
  * @param {string} [subject=''] The string to convert to lower case.
  * @return {string} The lower case string.
  * @example
- * v.toLowerCase('Green');
+ * v.lowerCase('Green');
  * // => 'green'
  */
 export default function(subject) {
