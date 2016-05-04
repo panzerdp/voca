@@ -176,3 +176,11 @@ export var REGEXP_NON_LATIN = /[\W]/g;
  * @ignore
  */
 export var REGEXP_HTML_SPECIAL_CHARACTERS = /[<>&"'`]/g;
+
+/**
+ * Regular expression to match HTML entities of the escaped special characters.
+ *
+ * @type {RegExp}
+ * @ignore
+ */
+export var REGEXP_HTML_ESCAPED_SPECIAL_CHARACTERS = /f/g;
