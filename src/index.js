@@ -23,6 +23,7 @@ import lengthWhere from './count/length_where';
  * Functions to escape RegExp special characters
  * @namespace Escape
  */
+import escapeHtml from './escape/escape_html';
 import escapeRegExp from './escape/escape_reg_exp';
 
 /**
@@ -91,6 +92,7 @@ var v = {
   lengthCodePoint: lengthCodePoint,
   lengthWhere: lengthWhere,
 
+  escapeHtml: escapeHtml,
   escapeRegExp: escapeRegExp,
 
   indexOf: indexOf,

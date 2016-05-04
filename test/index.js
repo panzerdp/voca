@@ -14,6 +14,7 @@ import './count/length_code_point';
 import './count/length_where';
 
 //escape
+import './escape/escape_html';
 import './escape/escape_reg_exp';
 
 //index

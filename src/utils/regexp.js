@@ -168,3 +168,11 @@ export var REGEXP_WORD = new RegExp(
  * @ignore
  */
 export var REGEXP_NON_LATIN = /[\W]/g;
+
+/**
+ * Regular expression to match HTML special characters.
+ *
+ * @type {RegExp}
+ * @ignore
+ */
+export var REGEXP_HTML_SPECIAL_CHARACTERS = /[<>&"'`]/g;
