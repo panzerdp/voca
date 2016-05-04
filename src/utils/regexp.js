@@ -143,14 +143,22 @@ export var REGEXP_NON_BASIC_LATIN = /[^\u0000-\u007E]/g;
 export var REGEXP_SPECIAL_CHARACTERS = /[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g;
 
 /**
+ * A regular expression string that matches a class of lower case letters.
+ *
+ * @type {string}
+ * @ignore
+ */
+var lowerCaseLetterClass = '(?![' + upLetter + '])[^' + nonLetter + ']';
+
+/**
  * Regular expression to match words
  *
  * @type {RegExp}
  * @ignore
  */
 export var REGEXP_WORD = new RegExp(
-'((?:[' + upLetter + '][' + diacriticalMark + ']*)?(?:(?![' + upLetter + '])[^' + nonLetter + '][' + diacriticalMark + ']*)+)|\
-((?:[' + upLetter + '][' + diacriticalMark + ']*)+(?!(?![' + upLetter + '])[^' + nonLetter + ']))|\
+'((?:[' + upLetter + '][' + diacriticalMark + ']*)?(?:' + lowerCaseLetterClass + '[' + diacriticalMark + ']*)+)|\
+((?:[' + upLetter + '][' + diacriticalMark + ']*)+(?!' + lowerCaseLetterClass + '))|\
 ([' + digit + ']+)', 'g');
 
 /**
