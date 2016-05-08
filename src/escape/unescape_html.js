@@ -8,7 +8,7 @@ var unescapeCharactersMap = {
   '&': /(&amp;)|(&#x0*26;)|(&#0*38;)/gi,
   '"': /(&quot;)|(&#x0*22;)|(&#0*34;)/gi,
   "'": /(&#x0*27;)|(&#0*39;)/gi,
-  '`': /(&#x0*60);|(&#0*96;)/gi
+  '`': /(&#x0*60;)|(&#0*96;)/gi
 },
  characters = Object.keys(unescapeCharactersMap);
 
@@ -24,9 +24,8 @@ function reduceUnescapedString(string, key) {
 }
 
 /**
- * Unescapes HTML special characters from <code>&lt; &gt; &amp; &quot; &#x27; &#x60;<code> to corresponding <code>< > & ' " `</code> in <code>subject</code>.
+ * Unescapes HTML special characters from <code>&amp;lt; &amp;gt; &amp;amp; &amp;quot; &amp;#x27; &amp;#x60;</code> to corresponding <code>< > & ' " `</code> in <code>subject</code>.
  *
- * @ignore
  * @function unescapeHtml
  * @static
  * @memberOf Escape
