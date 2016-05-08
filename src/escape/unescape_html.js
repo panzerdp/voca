@@ -15,6 +15,7 @@ var unescapeCharactersMap = {
 /**
  * Replaces the HTML entities with corresponding characters.
  *
+ * @ignore
  * @param {string} string The accumulator string.
  * @param {string} key The character.
  * @return {string} The string with replaced HTML entity

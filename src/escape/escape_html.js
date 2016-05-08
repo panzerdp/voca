@@ -14,8 +14,9 @@ var escapeCharactersMap = {
 /**
  * Return the escaped version of `character`.
  *
+ * @ignore
  * @param {string} character The character to be escape.
- * @returns {string} The escaped version of character.
+ * @return {string} The escaped version of character.
  */
 function replaceSpecialCharacter(character) {
   return escapeCharactersMap[character];
