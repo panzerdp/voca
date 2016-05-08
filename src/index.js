@@ -25,6 +25,7 @@ import lengthWhere from './count/length_where';
  */
 import escapeHtml from './escape/escape_html';
 import escapeRegExp from './escape/escape_reg_exp';
+import unescapeHtml from './escape/unescape_html';
 
 /**
  * Functions to find index
@@ -94,6 +95,7 @@ var v = {
 
   escapeHtml: escapeHtml,
   escapeRegExp: escapeRegExp,
+  unescapeHtml: unescapeHtml,
 
   indexOf: indexOf,
   lastIndexOf: lastIndexOf,
