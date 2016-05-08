@@ -26,6 +26,7 @@ function reduceUnescapedString(string, key) {
 /**
  * Unescapes HTML special characters from <code>&lt; &gt; &amp; &quot; &#x27; &#x60;<code> to corresponding <code>< > & ' " `</code> in <code>subject</code>.
  *
+ * @ignore
  * @function unescapeHtml
  * @static
  * @memberOf Escape
