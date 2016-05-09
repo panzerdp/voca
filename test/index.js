@@ -16,6 +16,7 @@ import './count/length_where';
 //escape
 import './escape/escape_html';
 import './escape/escape_reg_exp';
+import './escape/unescape_html';
 
 //index
 import './index/index_of';

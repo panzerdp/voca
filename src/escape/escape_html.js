@@ -2,7 +2,7 @@ import toString from '../utils/string/to_string';
 import nilDefault from '../utils/undefined/nil_default';
 import { REGEXP_HTML_SPECIAL_CHARACTERS } from '../utils/regexp';
 
-var escapeCharacters = {
+var escapeCharactersMap = {
   '<': '&lt;',
   '>': '&gt;',
   '&': '&amp;',
@@ -14,11 +14,12 @@ var escapeCharacters = {
 /**
  * Return the escaped version of `character`.
  *
+ * @ignore
  * @param {string} character The character to be escape.
- * @returns {string} The escaped version of character.
+ * @return {string} The escaped version of character.
  */
 function replaceSpecialCharacter(character) {
-  return escapeCharacters[character];
+  return escapeCharactersMap[character];
 }
 
 /**

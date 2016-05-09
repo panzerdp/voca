@@ -2,27 +2,30 @@
 import toString from '../utils/string/to_string';
 import nilDefault from '../utils/undefined/nil_default';
 
-var unescapeCharacters = {
-  '<': /(&lt;)|(&#x0*3c)|(&#0*60)/ig,
-  '>': '&gt;',
-  '&': '&amp;',
-  '"': '&quot;',
-  "'": '&#x27;',
-  '`': '&#x60;'
-};
+var unescapeCharactersMap = {
+  '<': /(&lt;)|(&#x0*3c;)|(&#0*60;)/gi,
+  '>': /(&gt;)|(&#x0*3e;)|(&#0*62;)/gi,
+  '&': /(&amp;)|(&#x0*26;)|(&#0*38;)/gi,
+  '"': /(&quot;)|(&#x0*22;)|(&#0*34;)/gi,
+  "'": /(&#x0*27;)|(&#0*39;)/gi,
+  '`': /(&#x0*60;)|(&#0*96;)/gi
+},
+ characters = Object.keys(unescapeCharactersMap);
 
 /**
- * Return the escaped version of `character`.
+ * Replaces the HTML entities with corresponding characters.
  *
- * @param {string} character The character to be escape.
- * @returns {string} The escaped version of character.
+ * @ignore
+ * @param {string} string The accumulator string.
+ * @param {string} key The character.
+ * @return {string} The string with replaced HTML entity
  */
-function replaceEscapedSpecialCharacter(character) {
-  return unescapeCharacters[character];
+function reduceUnescapedString(string, key) {
+  return string.replace(unescapeCharactersMap[key], key);
 }
 
 /**
- * Unescapes HTML special characters from <code>&lt; &gt; &amp; &quot; &#x27; &#x60;<code> to corresponding <code>< > & ' " `</code> in <code>subject</code>.
+ * Unescapes HTML special characters from <code>&amp;lt; &amp;gt; &amp;amp; &amp;quot; &amp;#x27; &amp;#x60;</code> to corresponding <code>< > & ' " `</code> in <code>subject</code>.
  *
  * @function unescapeHtml
  * @static
@@ -35,5 +38,5 @@ function replaceEscapedSpecialCharacter(character) {
  */
 export default function(subject) {
   var subjectString = toString(nilDefault(subject, ''));
-  return subjectString.replace(REGEXP_HTML_ESCAPED_SPECIAL_CHARACTERS, replaceEscapedSpecialCharacter);
+  return characters.reduce(reduceUnescapedString, subjectString);
 }
