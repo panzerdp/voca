@@ -25,6 +25,9 @@ import './index/search';
 //manipulate
 import './manipulate/latinise';
 import './manipulate/repeat';
+import './manipulate/pad';
+import './manipulate/pad_left';
+import './manipulate/pad_right';
 import './manipulate/replace';
 import './manipulate/reverse';
 import './manipulate/reverse_code_point';

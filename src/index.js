@@ -39,6 +39,9 @@ import search from './index/search';
  * @namespace Manipulate
  */
 import latinise from './manipulate/latinise';
+import pad from './manipulate/pad';
+import padLeft from './manipulate/pad_left';
+import padRight from './manipulate/pad_right';
 import repeat from './manipulate/repeat';
 import replace from './manipulate/replace';
 import reverse from './manipulate/reverse';
@@ -100,6 +103,9 @@ var v = {
   search: search,
 
   latinise: latinise,
+  pad: pad,
+  padLeft: padLeft,
+  padRight: padRight,
   repeat: repeat,
   replace: replace,
   reverseCodePoint: reverseCodePoint,
