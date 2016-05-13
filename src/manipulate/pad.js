@@ -10,7 +10,7 @@ import nilDefault from '../utils/undefined/nil_default';
  * @static
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to pad.
- * @param {int} [length=1] The new string length. If `length` is less than `subject.length`, no changes are made.
+ * @param {int} [length=0] The padded string length. If `length` is less than `subject.length`, no changes are made.
  * @param {string} [padString=' '] The string to be used for padding.
  * @return {string} Returns the padded string.
  * @example

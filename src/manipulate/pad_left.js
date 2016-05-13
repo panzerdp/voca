@@ -1,7 +1,9 @@
 /*eslint-disable */
 import toString from '../utils/string/to_string';
 import nilDefault from '../utils/undefined/nil_default';
-
+import isNil from '../utils/object/is_nil';
+import clipNumber from '../utils/number/clip_number';
+import toInteger from '../utils/number/to_integer';
 
 /**
  * Pads `subject` from left to a new `length`.
@@ -10,7 +12,7 @@ import nilDefault from '../utils/undefined/nil_default';
  * @static
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to pad.
- * @param {int} [length=1] The new string length. If `length` is less than `subject.length`, no changes are made.
+ * @param {int} [length=0] The padded string length. If `length` is less than `subject.length`, no changes are made.
  * @param {string} [padString=' '] The string to be used for padding.
  * @return {string} Returns the left padded string.
  * @example
@@ -18,6 +20,11 @@ import nilDefault from '../utils/undefined/nil_default';
  * // => '00FF'
  */
 export default function(subject, length, padString) {
-  var subjectString = toString(nilDefault(subject, ''));
+  var subjectString = toString(nilDefault(subject, '')),
+    lengthInt = isNil(length) ? 1 : clipNumber(toInteger(length), 0, Number.MAX_SAFE_INTEGER);
+  padString = toString(nilDefault(padString, ' '));
+  if (lengthInt <= subjectString.length) {
+    return subjectString;
+  }
   return subjectString;
 }
