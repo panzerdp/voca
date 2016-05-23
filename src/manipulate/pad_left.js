@@ -12,12 +12,15 @@ import repeat from './repeat';
  * @static
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to pad.
- * @param {int} [length=0] The padded string length. If `length` is less than `subject.length`, no changes are made.
+ * @param {int} [length=0] The padded string length. No changes are made if `length` is less than `subject.length`.
  * @param {string} [padString=' '] The string to be used for padding.
  * @return {string} Returns the left padded string.
  * @example
- * v.padLeft('FF', '0', 4);
- * // => '00FF'
+ * v.padLeft('word', 6, '-');
+ * // => '--word'
+ *
+ * v.padLeft('hi', 4);
+ * // => ' hi'
  */
 export default function(subject, length, padString) {
   var subjectString = toString(nilDefault(subject, '')),

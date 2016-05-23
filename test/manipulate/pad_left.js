@@ -2,7 +2,7 @@ import v from '../voca';
 import { expect } from 'chai';
 import { PRINTABLE_ASCII } from '../utils/string/ascii';
 
-describe('leftPad', function() {
+describe('padLeft', function() {
 
   it('should left pad a string', function() {
     expect(v.padLeft('FF', 4, '0')).to.be.equal('00FF');
