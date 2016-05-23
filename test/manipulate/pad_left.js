@@ -7,12 +7,13 @@ describe('padLeft', function() {
   it('should left pad a string', function() {
     expect(v.padLeft('FF', 4, '0')).to.be.equal('00FF');
     expect(v.padLeft('00FF', 4, '0')).to.be.equal('00FF');
-    expect(v.padLeft('ab', 10, '012')).to.be.equal('12012012ab');
+    expect(v.padLeft('ab', 10, '012')).to.be.equal('01201201ab');
     expect(v.padLeft('0', 5, '0')).to.be.equal('00000');
     expect(v.padLeft('', 10, '01')).to.be.equal('0101010101');
     expect(v.padLeft('Hello World')).to.be.equal('Hello World');
     expect(v.padLeft('Hello World', 20, '')).to.be.equal('Hello World');
     expect(v.padLeft('Welcome', 10)).to.be.equal('   Welcome');
+    expect(v.padLeft('Alien', 10, '-=')).to.be.equal('-=-=-Alien');
     expect(v.padLeft(PRINTABLE_ASCII)).to.be.equal(PRINTABLE_ASCII);
     expect(v.padLeft(PRINTABLE_ASCII, PRINTABLE_ASCII.length + 3, '--')).to.be.equal('---' + PRINTABLE_ASCII);
     expect(v.padLeft('')).to.be.equal('');

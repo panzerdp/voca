@@ -24,13 +24,14 @@ import repeat from './repeat';
  */
 export default function(subject, length, padString) {
   var subjectString = toString(nilDefault(subject, '')),
+    subjectStringLength = subjectString.length,
     lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, Number.MAX_SAFE_INTEGER);
   padString = toString(nilDefault(padString, ' '));
   if (lengthInt <= subjectString.length) {
     return subjectString;
   }
-  var padStringRepeat = ~~((lengthInt - subjectString.length) / padString.length),
-    padStringRest = (lengthInt - subjectString.length) % padString.length,
-    paddedString = repeat(padString, padStringRepeat + padStringRest) + subjectString;
-  return paddedString.substr(-lengthInt);
+  var padStringRepeat = ~~((lengthInt - subjectStringLength) / padString.length),
+    padStringRest = (lengthInt - subjectStringLength) % padString.length,
+    pad = repeat(padString, padStringRepeat + padStringRest).substr(0, lengthInt - subjectStringLength);
+  return pad + subjectString;
 }

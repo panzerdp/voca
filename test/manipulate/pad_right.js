@@ -13,6 +13,7 @@ describe('padRight', function() {
     expect(v.padRight('Hello World')).to.be.equal('Hello World');
     expect(v.padRight('Hello World', 20, '')).to.be.equal('Hello World');
     expect(v.padRight('Welcome', 10)).to.be.equal('Welcome   ');
+    expect(v.padRight('123', 6, '_-')).to.be.equal('123_-_');
     expect(v.padRight(PRINTABLE_ASCII)).to.be.equal(PRINTABLE_ASCII);
     expect(v.padRight(PRINTABLE_ASCII, PRINTABLE_ASCII.length + 3, '--')).to.be.equal(PRINTABLE_ASCII + '---');
     expect(v.padRight('')).to.be.equal('');
