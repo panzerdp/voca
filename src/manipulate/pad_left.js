@@ -1,9 +1,9 @@
-/*eslint-disable */
 import toString from '../utils/string/to_string';
 import nilDefault from '../utils/undefined/nil_default';
 import isNil from '../utils/object/is_nil';
 import clipNumber from '../utils/number/clip_number';
 import toInteger from '../utils/number/to_integer';
+import repeat from './repeat';
 
 /**
  * Pads `subject` from left to a new `length`.
@@ -21,10 +21,13 @@ import toInteger from '../utils/number/to_integer';
  */
 export default function(subject, length, padString) {
   var subjectString = toString(nilDefault(subject, '')),
-    lengthInt = isNil(length) ? 1 : clipNumber(toInteger(length), 0, Number.MAX_SAFE_INTEGER);
+    lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, Number.MAX_SAFE_INTEGER);
   padString = toString(nilDefault(padString, ' '));
   if (lengthInt <= subjectString.length) {
     return subjectString;
   }
-  return subjectString;
+  var padStringRepeat = ~~((lengthInt - subjectString.length) / padString.length),
+    padStringRest = (lengthInt - subjectString.length) % padString.length,
+    paddedString = repeat(padString, padStringRepeat + padStringRest) + subjectString;
+  return paddedString.substr(-lengthInt);
 }
