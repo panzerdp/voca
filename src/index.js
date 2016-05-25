@@ -43,6 +43,7 @@ import latinise from './manipulate/latinise';
 import pad from './manipulate/pad';
 import padLeft from './manipulate/pad_left';
 import padRight from './manipulate/pad_right';
+import prune from './manipulate/prune';
 import repeat from './manipulate/repeat';
 import replace from './manipulate/replace';
 import reverse from './manipulate/reverse';
@@ -109,6 +110,7 @@ var v = {
   pad: pad,
   padLeft: padLeft,
   padRight: padRight,
+  prune: prune,
   repeat: repeat,
   replace: replace,
   reverseCodePoint: reverseCodePoint,
