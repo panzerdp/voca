@@ -12,8 +12,8 @@ import buildPadding from '../utils/string/build_padding';
  * @static
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to pad.
- * @param {int} [length=0] The padded string length. No changes are made if `length` is less than `subject.length`.
- * @param {string} [padString=' '] The string to be used for padding.
+ * @param {int} [length=0] The length to right pad the string. No changes are made if `length` is less than `subject.length`.
+ * @param {string} [pad=' '] The string to be used for padding.
  * @return {string} Returns the right padded string.
  * @example
  * v.padRight('word', 6, '-');
@@ -22,10 +22,10 @@ import buildPadding from '../utils/string/build_padding';
  * v.padRight('hi', 5, '-=');
  * // => 'hi-=-'
  */
-export default function(subject, length, padString) {
+export default function(subject, length, pad) {
   var subjectString = toString(nilDefault(subject, '')),
-    lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, Number.MAX_SAFE_INTEGER);
-  padString = toString(nilDefault(padString, ' '));
+    lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, Number.MAX_SAFE_INTEGER),
+    padString = toString(nilDefault(pad, ' '));
   if (lengthInt <= subjectString.length) {
     return subjectString;
   }

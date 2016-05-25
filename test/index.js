@@ -39,6 +39,7 @@ import './manipulate/substring';
 import './manipulate/trim';
 import './manipulate/trim_left';
 import './manipulate/trim_right';
+import './manipulate/truncate';
 
 //query
 import './query/ends_with';

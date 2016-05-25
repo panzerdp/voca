@@ -54,6 +54,7 @@ import substring from './manipulate/substring';
 import trim from './manipulate/trim';
 import trimLeft from './manipulate/trim_left';
 import trimRight from './manipulate/trim_right';
+import truncate from './manipulate/truncate';
 
 /**
  * Functions to query a string
@@ -119,6 +120,7 @@ var v = {
   trim: trim,
   trimLeft: trimLeft,
   trimRight: trimRight,
+  truncate: truncate,
 
   endsWith: endsWith,
   includes: includes,
