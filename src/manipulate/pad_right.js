@@ -3,7 +3,7 @@ import nilDefault from '../utils/undefined/nil_default';
 import isNil from '../utils/object/is_nil';
 import clipNumber from '../utils/number/clip_number';
 import toInteger from '../utils/number/to_integer';
-import repeat from './repeat';
+import buildPadding from '../utils/string/build_padding';
 
 /**
  * Pads `subject` from right to a new `length`.
@@ -29,8 +29,5 @@ export default function(subject, length, padString) {
   if (lengthInt <= subjectString.length) {
     return subjectString;
   }
-  var padStringRepeat = ~~((lengthInt - subjectString.length) / padString.length),
-    padStringRest = (lengthInt - subjectString.length) % padString.length,
-    paddedString = subjectString + repeat(padString, padStringRepeat + padStringRest);
-  return paddedString.substr(0, lengthInt);
+  return subjectString + buildPadding(padString, lengthInt - subjectString.length);
 }
