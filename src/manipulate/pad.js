@@ -24,11 +24,14 @@ import buildPadding from '../utils/string/build_padding';
  */
 export default function(subject, length, padString) {
   var subjectString = toString(nilDefault(subject, '')),
-    subjectStringLength = subjectString.length,
     lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, Number.MAX_SAFE_INTEGER);
   padString = toString(nilDefault(padString, ' '));
   if (lengthInt <= subjectString.length) {
     return subjectString;
   }
-  return buildPadding(padString, lengthInt - subjectStringLength) + subjectString;
+  var paddingLength = lengthInt - subjectString.length,
+    paddingSideLength = toInteger(paddingLength / 2),
+    paddingSideRemainingLength = paddingLength % 2;
+  return buildPadding(padString, paddingSideLength) + subjectString +
+      buildPadding(padString, paddingSideLength + paddingSideRemainingLength);
 }
