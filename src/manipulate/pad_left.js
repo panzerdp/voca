@@ -19,8 +19,8 @@ import buildPadding from '../utils/string/build_padding';
  * v.padLeft('word', 6, '-');
  * // => '--word'
  *
- * v.padLeft('hi', 4);
- * // => ' hi'
+ * v.padLeft('hi', 5, '-=');
+ * // => '-=-hi'
  */
 export default function(subject, length, padString) {
   var subjectString = toString(nilDefault(subject, '')),
