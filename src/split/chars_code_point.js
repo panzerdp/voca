@@ -1,6 +1,6 @@
 import toString from '../utils/string/to_string';
 import nilDefault from '../utils/undefined/nil_default';
-import { REGEXP_UNICODE_CHARACTER } from '../utils/regexp';
+import { REGEXP_UNICODE_CHARACTER } from '../utils/string/regexp';
 
 /**
  * Splits `subject` into an array of characters taking care of

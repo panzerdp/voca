@@ -1,7 +1,7 @@
 import toString from '../utils/string/to_string';
 import nilDefault from '../utils/undefined/nil_default';
 import isNil from '../utils/object/is_nil';
-import { REGEX_TRIM_LEFT } from '../utils/regexp';
+import { REGEX_TRIM_LEFT } from '../utils/string/regexp';
 
 /**
  * Removes the whitespaces from the left part of the `subject`.

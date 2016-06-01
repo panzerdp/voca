@@ -3,7 +3,7 @@ import nilDefault from '../utils/undefined/nil_default';
 import isNil from '../utils/object/is_nil';
 import clipNumber from '../utils/number/clip_number';
 import toInteger from '../utils/number/to_integer';
-import { REGEXP_WORD } from '../utils/regexp';
+import { REGEXP_WORD } from '../utils/string/regexp';
 
 /**
  * Truncates `subject` to a new `length` and does not break the words. Guarantees that truncated string will be no longer than `length`.

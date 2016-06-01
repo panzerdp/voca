@@ -1,7 +1,7 @@
 import toString from '../utils/string/to_string';
 import nilDefault from '../utils/undefined/nil_default';
 import diacriticMap from '../utils/string/diacritics_map';
-import { REGEXP_NON_BASIC_LATIN, REGEXP_COMBINING_MARKS } from '../utils/regexp';
+import { REGEXP_NON_BASIC_LATIN, REGEXP_COMBINING_MARKS } from '../utils/string/regexp';
 
 /**
  * Removes the diacritics from `character`.
