@@ -29,6 +29,7 @@ import './manipulate/repeat';
 import './manipulate/pad';
 import './manipulate/pad_left';
 import './manipulate/pad_right';
+import './manipulate/prune';
 import './manipulate/replace';
 import './manipulate/reverse';
 import './manipulate/reverse_code_point';

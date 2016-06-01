@@ -157,9 +157,9 @@ var lowerCaseLetterClass = '(?![' + upLetter + '])[^' + nonLetter + ']';
  * @ignore
  */
 export var REGEXP_WORD = new RegExp(
-'((?:[' + upLetter + '][' + diacriticalMark + ']*)?(?:' + lowerCaseLetterClass + '[' + diacriticalMark + ']*)+)|\
-((?:[' + upLetter + '][' + diacriticalMark + ']*)+(?!' + lowerCaseLetterClass + '))|\
-([' + digit + ']+)', 'g');
+'(?:(?:[' + upLetter + '][' + diacriticalMark + ']*)?(?:' + lowerCaseLetterClass + '[' + diacriticalMark + ']*)+)|\
+(?:(?:[' + upLetter + '][' + diacriticalMark + ']*)+(?!' + lowerCaseLetterClass + '))|\
+(?:[' + digit + ']+)', 'g');
 
 /**
  * Regular expression to match not latin characters
