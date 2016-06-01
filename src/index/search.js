@@ -5,7 +5,7 @@ import toInteger from '../utils/number/to_integer';
 import isNil from '../utils/object/is_nil';
 
 /**
- * Returns the first match index of `pattern` in `subject`.
+ * Returns the first index of a `pattern` match in `subject`.
  *
  * @function search
  * @static
