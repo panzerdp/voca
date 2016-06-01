@@ -20,6 +20,12 @@ import lengthCodePoint from './count/length_code_point';
 import lengthWhere from './count/length_where';
 
 /**
+ * Functions to format
+ * @namespace Format
+ */
+import sprintf from './format/sprintf';
+
+/**
  * Functions to escape RegExp special characters
  * @namespace Escape
  */
@@ -101,6 +107,8 @@ var v = {
   escapeHtml: escapeHtml,
   escapeRegExp: escapeRegExp,
   unescapeHtml: unescapeHtml,
+
+  sprintf: sprintf,
 
   indexOf: indexOf,
   lastIndexOf: lastIndexOf,
