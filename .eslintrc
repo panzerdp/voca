@@ -6,11 +6,10 @@
     "mocha": true
   },
   "plugins": [
-    "require-jsdoc"
+
   ],
   "rules": {
     "valid-jsdoc": "error",
-    "require-jsdoc": "error",
     "indent": ["error", 2],
     "brace-style": ["error", "1tbs"],
     "camelcase": ["error", {"properties": "never"}],

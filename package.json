@@ -33,7 +33,6 @@
     "chai": "3.5.0",
     "codecov.io": "0.1.6",
     "eslint": "2.8.0",
-    "eslint-plugin-require-jsdoc": "1.0.4",
     "ghooks": "1.2.1",
     "istanbul": "1.0.0-alpha.2",
     "jsdoc": "3.4.0",

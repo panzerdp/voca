@@ -565,6 +565,33 @@ function lengthWhere (subject, predicate, context) {
   }, 0);
 }
 
+//const INTEGER_BINARY = 'b',
+//  INTEGER_ASCII_CHARACTER = 'c',
+//  INTEGER_DECIMAL = 'd',
+//  FLOAT_SCIENTIFIC = 'e',
+//  FLOAT_SCIENTIFIC_UPPERCASE = 'E';
+
+/**
+ * Formats `subject`.
+ *
+ * @function sprintf
+ * @static
+ * @memberOf Format
+ * @param {string} [subject=''] The format string that contains zero or more directives.
+ * @param {...*} args The arguments for formatting.
+ * @return {string} Returns the formatted string.
+ * @example
+ * v.sprintf('%d', 1);
+ * // => '1'
+ */
+function sprintf (subject) {
+  var subjectString = toString(nilDefault(subject, ''));
+  if (subjectString === '' || arguments.length - 1 === 0) {
+    return subjectString;
+  }
+  return subjectString;
+}
+
 var escapeCharactersMap = {
   '<': '&lt;',
   '>': '&gt;',
@@ -2559,6 +2586,8 @@ var v = {
   escapeHtml: escapeHtml,
   escapeRegExp: escapeRegExp,
   unescapeHtml: unescapeHtml,
+
+  sprintf: sprintf,
 
   indexOf: indexOf,
   lastIndexOf: lastIndexOf,
