@@ -1,13 +1,14 @@
+/* eslint-disable */
 import toString from '../utils/string/to_string';
 import nilDefault from '../utils/undefined/nil_default';
 
-/* const INTEGER_BINARY = 'b',
+const INTEGER_BINARY = 'b',
   INTEGER_ASCII_CHARACTER = 'c',
   INTEGER_DECIMAL = 'd',
   FLOAT_SCIENTIFIC = 'e',
-  FLOAT_SCIENTIFIC_UPPERCASE = 'E';
-  */
-
+  FLOAT_SCIENTIFIC_UPPERCASE = 'E',
+  FLOAT = 'f',
+  
 
 /**
  * Formats `subject`.
