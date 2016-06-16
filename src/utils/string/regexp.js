@@ -182,4 +182,4 @@ export var REGEXP_HTML_SPECIAL_CHARACTERS = /[<>&"'`]/g;
  *
  * @type {RegExp}
  */
-export var REGEXP_SPRINTF_FORMAT = /%(?:\d+\$)?[+-]?(?:[ 0]|'.{1})?-?\d*(?:\.\d+)?[bcdeEufFgGosxX]/;
+export var REGEXP_CONVERSION_SPECIFICATION = /%(?:\d+\$)?[+-]?(?:[ 0]|'.{1})?-?\d*(?:\.\d+)?[bcdouxXeEfgGs]/;
