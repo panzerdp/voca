@@ -6,7 +6,7 @@ import toInteger from '../utils/number/to_integer';
 import { REGEXP_WORD } from '../utils/string/regexp';
 
 /**
- * Truncates `subject` to a new `length` and does not break the words. Guarantees that truncated string will be no longer than `length`.
+ * Truncates `subject` to a new `length` and does not break the words. Guarantees that the truncated string will be no longer than `length`.
  *
  * @function prune
  * @static

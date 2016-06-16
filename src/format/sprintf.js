@@ -20,22 +20,39 @@ const INTEGER_BINARY = 'b',
   PERCENT_CHARACTER = '%';
 
 /**
- * Formats `subject`.
+ * Replace the matched conversion specification with argument value
+ * @param {string} replacement The string to replace the converion specification
+ * @param {string} conversionSpecification The conversion specification
+ * @return {string} The transformed string
+ */
+function replaceConversionSpecification(replacement, conversionSpecification) {
+  return replacement;
+}
+
+/**
+ * Produces a string according to the formatting of `subject`.
  *
  * @function sprintf
  * @static
  * @memberOf Format
- * @param {string} [subject=''] The format string that contains zero or more directives.
+ * @param {string} [format=''] The format string.
  * @param {...*} args The arguments for formatting.
- * @return {string} Returns the formatted string.
+ * @return {string} Returns the produced string.
  * @example
  * v.sprintf('%d', 1);
  * // => '1'
  */
-export default function(subject, ...args) {
-  var subjectString = toString(nilDefault(subject, ''));
-  if (subjectString === '' || args.length === 0) {
-    return subjectString;
+export default function(format, ...args) {
+  var formatString = toString(nilDefault(format, '')),
+    argsLength = args.length;
+  if (formatString === '' || argsLength === 0) {
+    return formatString;
   }
-  return subjectString;
+  var index = 0;
+  return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, function(conversionSpecification) {
+    if (index < argsLength) {
+      return replaceConversionSpecification(args[index++], conversionSpecification);
+    }
+    return conversionSpecification;
+  });
 }
