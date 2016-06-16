@@ -13,6 +13,7 @@ describe('sprintf', function() {
   it('should return an unmodified string for missing formatting', function() {
     expect(v.sprintf('Without formatting')).to.be.equal('Without formatting');
     expect(v.sprintf('')).to.be.equal('');
+    expect(v.sprintf(PRINTABLE_ASCII)).to.be.equal(PRINTABLE_ASCII);
   });
 
 });
