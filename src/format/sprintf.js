@@ -2,42 +2,50 @@
 import toString from '../utils/string/to_string';
 import nilDefault from '../utils/undefined/nil_default';
 import { REGEXP_CONVERSION_SPECIFICATION } from '../utils/string/regexp';
-
-// Type specifiers list
-const INTEGER_BINARY = 'b',
-  INTEGER_ASCII_CHARACTER = 'c',
-  INTEGER_DECIMAL = 'd',
-  INTEGER_OCTAL = 'o',
-  INTEGER_UNSIGNED_DECIMAL = 'u',
-  INTEGER_HEXADECIMAL = 'x',
-  INTEGER_HEXADECIMAL_UPPERCASE = 'X',
-  FLOAT_SCIENTIFIC = 'e',
-  FLOAT_SCIENTIFIC_UPPERCASE = 'E',
-  FLOAT = 'f',
-  FLOAT_SHORT = 'g',
-  FLOAT_SHORT_UPPERCASE = 'G',
-  STRING = 's',
-  PERCENT_CHARACTER = '%';
+import { Type, PERCENT_CHARACTER } from './formatter/const';
+import formatterString from './formatter/string';
 
 /**
- * Replace the matched conversion specification with argument value
- * @param {string} replacement The string to replace the converion specification
- * @param {string} conversionSpecification The conversion specification
- * @return {string} The transformed string
+ * Return the computated string based on format specifier
+ *
+ * @ignore
+ * @param  {number} matchIndex              The index of the matched specifier.
+ * @param  {[*]}    args                    The array of arguments to replace specifiers.
+ * @param  {string} conversionSpecification The conversion specifier.
+ * @param  {number} position                The position modifier.
+ * @param  {string} signSpecifier           The sign specifier to force a sign to be used on a number.
+ * @param  {string} paddingSpecifier        The padding specifier that says what padding character will be used.
+ * @param  {string} alignmentSpecifier      The alignment specifier that says if the result should be left-justified or right-justified.
+ * @param  {number} widthSpecifier          The width specifier how many characters this conversion should result in.
+ * @param  {number} precisionSpecifier      The precision specifier says how many decimal digits should be displayed for floating-point numbers.
+ * @param  {string} typeSpecifier           The type specifier says what type the argument data should be treated as.
+ * @return {string}                         The computated string.
  */
-function replaceConversionSpecification(replacement, conversionSpecification) {
-  return replacement;
+function replaceConversionSpecification(matchIndex, args, conversionSpecification, position, signSpecifier,
+  paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
+  if (matchIndex >= args.length) {
+    return conversionSpecification;
+  }
+  var replacement = args[matchIndex],
+    computatedReplacement = replacement,
+    formatterArguments = [signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier];
+  switch (typeSpecifier) {
+    case Type.STRING:
+      computatedReplacement = formatterString(replacement, ...formatterArguments);
+      break;
+  }
+  return computatedReplacement;
 }
 
 /**
- * Produces a string according to the formatting of `subject`.
+ * Produces a string according to the formatting of `format`.
  *
  * @function sprintf
  * @static
  * @memberOf Format
- * @param {string} [format=''] The format string.
- * @param {...*} args The arguments for formatting.
- * @return {string} Returns the produced string.
+ * @param  {string} [format=''] The format string.
+ * @param  {...*}               args The arguments to produce the string.
+ * @return {string}             Returns the produced string.
  * @example
  * v.sprintf('%d', 1);
  * // => '1'
@@ -49,10 +57,7 @@ export default function(format, ...args) {
     return formatString;
   }
   var index = 0;
-  return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, function(conversionSpecification) {
-    if (index < argsLength) {
-      return replaceConversionSpecification(args[index++], conversionSpecification);
-    }
-    return conversionSpecification;
+  return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, function(...specifiers) {
+    return replaceConversionSpecification(index++, args, ...specifiers);
   });
 }
