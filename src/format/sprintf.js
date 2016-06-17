@@ -1,16 +1,18 @@
 /* eslint-disable */
 import toString from '../utils/string/to_string';
+import toNumber from '../utils/number/to_number';
 import nilDefault from '../utils/undefined/nil_default';
 import { REGEXP_CONVERSION_SPECIFICATION } from '../utils/string/regexp';
-import { Type, PERCENT_CHARACTER } from './formatter/const';
-import formatterString from './formatter/string';
+import { Type, CHARACTER_PERCENT } from './formatter/const';
+import formatString from './formatter/format_string';
+import paddingCharacter from './formatter/padding_character';
 
 /**
- * Return the computated string based on format specifier
+ * Return the computated string based on format specifiers.
  *
  * @ignore
  * @param  {number} matchIndex              The index of the matched specifier.
- * @param  {[*]}    args                    The array of arguments to replace specifiers.
+ * @param  {*[]}    args                    The array of arguments to replace specifiers.
  * @param  {string} conversionSpecification The conversion specifier.
  * @param  {number} position                The position modifier.
  * @param  {string} signSpecifier           The sign specifier to force a sign to be used on a number.
@@ -19,7 +21,7 @@ import formatterString from './formatter/string';
  * @param  {number} widthSpecifier          The width specifier how many characters this conversion should result in.
  * @param  {number} precisionSpecifier      The precision specifier says how many decimal digits should be displayed for floating-point numbers.
  * @param  {string} typeSpecifier           The type specifier says what type the argument data should be treated as.
- * @return {string}                         The computated string.
+ * @return {string}                         Returns the computated string.
  */
 function replaceConversionSpecification(matchIndex, args, conversionSpecification, position, signSpecifier,
   paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
@@ -28,10 +30,11 @@ function replaceConversionSpecification(matchIndex, args, conversionSpecificatio
   }
   var replacement = args[matchIndex],
     computatedReplacement = replacement,
-    formatterArguments = [signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier];
+    formatterArguments = [replacement, signSpecifier, paddingCharacter(paddingSpecifier), alignmentSpecifier,
+      toNumber(widthSpecifier), toNumber(precisionSpecifier)];
   switch (typeSpecifier) {
     case Type.STRING:
-      computatedReplacement = formatterString(replacement, ...formatterArguments);
+      computatedReplacement = formatString(...formatterArguments);
       break;
   }
   return computatedReplacement;

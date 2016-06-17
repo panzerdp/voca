@@ -17,4 +17,10 @@ var Type = {
 Object.freeze(Type);
 export { Type };
 
-export var PERCENT_CHARACTER = '%';
+export var CHARACTER_PERCENT = '%';
+
+export var CHARACTER_SINGLE_QUOTE = '\'';
+
+export var CHARACTER_PLUS = '+';
+
+export var CHARACTER_MINUS = '-';

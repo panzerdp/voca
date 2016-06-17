@@ -8,13 +8,13 @@ import { REGEXP_WORD } from '../utils/string/regexp';
 /**
  * Truncates `subject` to a new `length` and does not break the words. Guarantees that the truncated string will be no longer than `length`.
  *
- * @function prune
  * @static
+ * @function prune
  * @memberOf Manipulate
- * @param {string} [subject=''] The string to prune.
- * @param {int} length The length to prune the string.
- * @param {string} [end='...'] The string to be added at the end.
- * @return {string} Returns the pruned string.
+ * @param    {string} [subject=''] The string to prune.
+ * @param    {int}    length       The length to prune the string.
+ * @param    {string} [end='...']  The string to be added at the end.
+ * @return   {string}              Returns the pruned string.
  * @example
  * v.prune('Once upon a time', 6);
  * // => 'Once...'

@@ -1,0 +1,17 @@
+import { CHARACTER_SINGLE_QUOTE } from './const';
+import nilDefault from '../../utils/undefined/nil_default';
+
+/**
+ * Get the padding character from padding specifier.
+ *
+ * @ignore
+ * @param  {string=} paddingSpecifier The padding specifier.
+ * @return {string}                   Returns the padding character.
+ */
+export default function(paddingSpecifier) {
+  var paddingCharacter = nilDefault(paddingSpecifier, ' ');
+  if (paddingCharacter[0] === CHARACTER_SINGLE_QUOTE && paddingCharacter.length === 2) {
+    paddingCharacter = paddingCharacter[1];
+  }
+  return paddingCharacter;
+}

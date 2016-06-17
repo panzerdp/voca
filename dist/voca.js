@@ -252,6 +252,13 @@
   var REGEXP_HTML_SPECIAL_CHARACTERS = /[<>&"'`]/g;
 
   /**
+   * Regular expression to match sprintf format string
+   *
+   * @type {RegExp}
+   */
+  var REGEXP_CONVERSION_SPECIFICATION = /%(?:(\d+)\$)?([+-])?([ 0]|'.{1})?(-)?(\d+)?(?:\.(\d+))?([bcdouxXeEfgGs])/g;
+
+  /**
    * Splits `subject` into an array of words.
    *
    * @function words
@@ -571,31 +578,104 @@
     }, 0);
   }
 
-  //const INTEGER_BINARY = 'b',
-  //  INTEGER_ASCII_CHARACTER = 'c',
-  //  INTEGER_DECIMAL = 'd',
-  //  FLOAT_SCIENTIFIC = 'e',
-  //  FLOAT_SCIENTIFIC_UPPERCASE = 'E';
+  // Type specifiers list
+  var Type = {
+    INTEGER_BINARY: 'b',
+    INTEGER_ASCII_CHARACTER: 'c',
+    INTEGER_DECIMAL: 'd',
+    INTEGER_OCTAL: 'o',
+    INTEGER_UNSIGNED_DECIMAL: 'u',
+    INTEGER_HEXADECIMAL: 'x',
+    INTEGER_HEXADECIMAL_UPPERCASE: 'X',
+    FLOAT_SCIENTIFIC: 'e',
+    FLOAT_SCIENTIFIC_UPPERCASE: 'E',
+    FLOAT: 'f',
+    FLOAT_SHORT: 'g',
+    FLOAT_SHORT_UPPERCASE: 'G',
+    STRING: 's'
+  };
+  Object.freeze(Type);
 
   /**
-   * Formats `subject`.
+   * Make a string formatting.
+   *
+   * @ignore
+   * @param  {string} replacement             The string to be formatted.
+   * @param  {string} signSpecifier           The sign specifier to force a sign to be used on a number.
+   * @param  {string} paddingCharacter        The padding character.
+   * @param  {string} alignmentSpecifier      The alignment specifier that says if the result should be left-justified or right-justified.
+   * @param  {number} widthSpecifier          The width specifier how many characters this conversion should result in.
+   * @param  {number} precisionSpecifier      The precision specifier says how many decimal digits should be displayed for floating-point numbers.
+   * @param  {string} typeSpecifier           The type specifier says what type the argument data should be treated as.
+   * @return {string}                         The formatted string.
+   */
+
+  function formatterString (replacement, signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
+    return replacement;
+  }
+
+  /**
+   * Return the computated string based on format specifier
+   *
+   * @ignore
+   * @param  {number} matchIndex              The index of the matched specifier.
+   * @param  {[*]}    args                    The array of arguments to replace specifiers.
+   * @param  {string} conversionSpecification The conversion specifier.
+   * @param  {number} position                The position modifier.
+   * @param  {string} signSpecifier           The sign specifier to force a sign to be used on a number.
+   * @param  {string} paddingSpecifier        The padding specifier that says what padding character will be used.
+   * @param  {string} alignmentSpecifier      The alignment specifier that says if the result should be left-justified or right-justified.
+   * @param  {number} widthSpecifier          The width specifier how many characters this conversion should result in.
+   * @param  {number} precisionSpecifier      The precision specifier says how many decimal digits should be displayed for floating-point numbers.
+   * @param  {string} typeSpecifier           The type specifier says what type the argument data should be treated as.
+   * @return {string}                         The computated string.
+   */
+  function replaceConversionSpecification(matchIndex, args, conversionSpecification, position, signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
+    if (matchIndex >= args.length) {
+      return conversionSpecification;
+    }
+    var replacement = args[matchIndex],
+        computatedReplacement = replacement,
+        formatterArguments = [signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier];
+    switch (typeSpecifier) {
+      case Type.STRING:
+        computatedReplacement = formatterString.apply(undefined, [replacement].concat(formatterArguments));
+        break;
+    }
+    return computatedReplacement;
+  }
+
+  /**
+   * Produces a string according to the formatting of `format`.
    *
    * @function sprintf
    * @static
    * @memberOf Format
-   * @param {string} [subject=''] The format string that contains zero or more directives.
-   * @param {...*} args The arguments for formatting.
-   * @return {string} Returns the formatted string.
+   * @param  {string} [format=''] The format string.
+   * @param  {...*}               args The arguments to produce the string.
+   * @return {string}             Returns the produced string.
    * @example
    * v.sprintf('%d', 1);
    * // => '1'
    */
-  function sprintf (subject) {
-    var subjectString = toString(nilDefault(subject, ''));
-    if (subjectString === '' || arguments.length - 1 === 0) {
-      return subjectString;
+  function sprintf (format) {
+    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
     }
-    return subjectString;
+
+    var formatString = toString(nilDefault(format, '')),
+        argsLength = args.length;
+    if (formatString === '' || argsLength === 0) {
+      return formatString;
+    }
+    var index = 0;
+    return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, function () {
+      for (var _len2 = arguments.length, specifiers = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        specifiers[_key2] = arguments[_key2];
+      }
+
+      return replaceConversionSpecification.apply(undefined, [index++, args].concat(specifiers));
+    });
   }
 
   var escapeCharactersMap = {
@@ -1860,7 +1940,7 @@
   }
 
   /**
-   * Truncates `subject` to a new `length` and does not break the words. Guarantees that truncated string will be no longer than `length`.
+   * Truncates `subject` to a new `length` and does not break the words. Guarantees that the truncated string will be no longer than `length`.
    *
    * @function prune
    * @static
