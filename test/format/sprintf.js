@@ -15,15 +15,21 @@ describe('sprintf', function() {
     expect(v.sprintf('%s%s%s%s%s', 'Alexander', ' ', 'the', ' ', 'Great')).to.be.equal('Alexander the Great');
     expect(v.sprintf('Alexander the %08s', 'Great')).to.be.equal('Alexander the 000Great');
     expect(v.sprintf('Alexander the % 8s', 'Great')).to.be.equal('Alexander the    Great');
-    expect(v.sprintf('%\'-10s the %s', 'Alexander', 'Great')).to.be.equal('-Alexander the Great');
-    expect(v.sprintf('%\'.12s the %09s', 'Alexander', 'Great')).to.be.equal('...Alexander the 0000Great');
+    expect(v.sprintf("%'-10s the %s", 'Alexander', 'Great')).to.be.equal('-Alexander the Great');
+    expect(v.sprintf("%'.12s the %09s", 'Alexander', 'Great')).to.be.equal('...Alexander the 0000Great');
+    expect(v.sprintf('%-12s', 'Alexander')).to.be.equal('Alexander   ');
+    expect(v.sprintf('%+-12s', 'Alexander')).to.be.equal('Alexander   ');
     expect(v.sprintf('%.4s the Great', 'Alexander')).to.be.equal('Alex the Great');
     expect(v.sprintf('%.9s the Great', 'Alexander')).to.be.equal('Alexander the Great');
     expect(v.sprintf('%.0s the Great', 'Alexander')).to.be.equal(' the Great');
+    expect(v.sprintf('%10.8s the Great', 'Alexander')).to.be.equal('  Alexande the Great');
+    expect(v.sprintf('%\'-10.6s %\'1-12.4s', 'Persian', 'Empire')).to.be.equal('----Persia Empi11111111');
   });
 
   it('should throw exceptions when the formatter is not valid or not enough arguments', function shouldThrowException() {
     expect(v.sprintf.bind(v, '%s')).to.throw(Error, 'sprintf(): Too few arguments');
+    expect(v.sprintf.bind(v, '%s %s', 'Alexander')).to.throw(Error, 'sprintf(): Too few arguments');
+    expect(v.sprintf.bind(v, '%2$s %1$s', 'Alexander')).to.throw(Error, 'sprintf(): Too few arguments');
   });
 
   it('should return an unmodified string for missing formatting specifiers', function shouldNotModifyString() {

@@ -16,9 +16,9 @@ import alignAndPad from './align_and_pad';
  */
 
 export default function(replacement, signSpecifier, paddingCharacter, alignmentSpecifier, width, precision) {
-  var formattedReplacement = alignAndPad(replacement, paddingCharacter, alignmentSpecifier, width);
+  var formattedReplacement = replacement;
   if (!isNil(precision) && formattedReplacement.length > precision) {
     formattedReplacement = truncate(formattedReplacement, precision, '');
   }
-  return formattedReplacement;
+  return alignAndPad(formattedReplacement, paddingCharacter, alignmentSpecifier, width);
 }
