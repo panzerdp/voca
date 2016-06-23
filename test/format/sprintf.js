@@ -4,7 +4,7 @@ import { PRINTABLE_ASCII } from '../utils/string/ascii';
 
 describe('sprintf', function() {
 
-  it('should return a string according to string type formatting', function() {
+  it('should return a string according to string type formatting', function shouldReturnStringBasedOnFormatting() {
     expect(v.sprintf('%s', 'string')).to.be.equal('string');
     expect(v.sprintf('Hello %s!', 'World')).to.be.equal('Hello World!');
     expect(v.sprintf('%s %s!', 'Hello', 'World')).to.be.equal('Hello World!');
@@ -20,10 +20,13 @@ describe('sprintf', function() {
     expect(v.sprintf('%.4s the Great', 'Alexander')).to.be.equal('Alex the Great');
     expect(v.sprintf('%.9s the Great', 'Alexander')).to.be.equal('Alexander the Great');
     expect(v.sprintf('%.0s the Great', 'Alexander')).to.be.equal(' the Great');
-
   });
 
-  it('should return an unmodified string for missing formatting specifiers', function() {
+  it('should throw exceptions when the formatter is not valid or not enough arguments', function shouldThrowException() {
+    expect(v.sprintf.bind(v, '%s')).to.throw(Error, 'sprintf(): Too few arguments');
+  });
+
+  it('should return an unmodified string for missing formatting specifiers', function shouldNotModifyString() {
     expect(v.sprintf('Without formatting')).to.be.equal('Without formatting');
     expect(v.sprintf('')).to.be.equal('');
     expect(v.sprintf(PRINTABLE_ASCII)).to.be.equal(PRINTABLE_ASCII);
