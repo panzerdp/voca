@@ -28,8 +28,15 @@ describe('sprintf', function() {
 
   it('should throw exceptions when the formatter is not valid or not enough arguments', function shouldThrowException() {
     expect(v.sprintf.bind(v, '%s')).to.throw(Error, 'sprintf(): Too few arguments');
+    expect(v.sprintf.bind(v, '%s %s')).to.throw(Error, 'sprintf(): Too few arguments');
     expect(v.sprintf.bind(v, '%s %s', 'Alexander')).to.throw(Error, 'sprintf(): Too few arguments');
     expect(v.sprintf.bind(v, '%2$s %1$s', 'Alexander')).to.throw(Error, 'sprintf(): Too few arguments');
+    expect(v.sprintf.bind(v, '%2$s %1$s', 'Alexander')).to.throw(Error, 'sprintf(): Too few arguments');
+  });
+
+  it('should ignore specifiers with double percent characters', function shouldIgnoreSpecifiersWithDoublePercent() {
+    // expect(v.sprintf('%%s')).to.be.equal('%%s');
+    // expect(v.sprintf('%%s %s', 'Persian')).to.be.equal('%%s Persian');
   });
 
   it('should return an unmodified string for missing formatting specifiers', function shouldNotModifyString() {
