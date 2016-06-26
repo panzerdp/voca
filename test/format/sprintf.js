@@ -35,14 +35,13 @@ describe('sprintf', function() {
   });
 
   it('should ignore specifiers with double percent characters', function shouldIgnoreSpecifiersWithDoublePercent() {
-    // expect(v.sprintf('%%s')).to.be.equal('%%s');
-    // expect(v.sprintf('%%s %s', 'Persian')).to.be.equal('%%s Persian');
+    expect(v.sprintf('%%s')).to.be.equal('%s');
+    expect(v.sprintf('%%s %s', 'Persian')).to.be.equal('%s Persian');
   });
 
   it('should return an unmodified string for missing formatting specifiers', function shouldNotModifyString() {
     expect(v.sprintf('Without formatting')).to.be.equal('Without formatting');
     expect(v.sprintf('')).to.be.equal('');
-    expect(v.sprintf(PRINTABLE_ASCII)).to.be.equal(PRINTABLE_ASCII);
   });
 
 });

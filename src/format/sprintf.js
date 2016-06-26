@@ -15,6 +15,7 @@ import validateFormat from './formatter/validate_format';
  * @param  {number}   matchIndex              The index of the matched specifier.
  * @param  {Object[]} args                    The array of arguments to replace specifiers.
  * @param  {string}   conversionSpecification The conversion specifier.
+ * @param  {string}   percent                 The percent chracters.
  * @param  {number}   position                The position modifier.
  * @param  {string}   signSpecifier           The sign specifier to force a sign to be used on a number.
  * @param  {string}   paddingSpecifier        The padding specifier that says what padding character will be used.
@@ -24,9 +25,9 @@ import validateFormat from './formatter/validate_format';
  * @param  {string}   typeSpecifier           The type specifier says what type the argument data should be treated as.
  * @return {string}                           Returns the computated string.
  */
-function replaceConversionSpecification(matchIndex, args, conversionSpecification, position, signSpecifier,
+function replaceConversionSpecification(matchIndex, args, conversionSpecification, percent, position, signSpecifier,
   paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
-  if (!validateFormat(matchIndex, args, position)) {
+  if (!validateFormat(matchIndex, args, position, typeSpecifier)) {
     return conversionSpecification;
   }
   var replacement = args[matchIndex],
@@ -60,7 +61,10 @@ export default function(format, ...args) {
     return formatString;
   }
   var index = 0;
-  return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, function(...specifiers) {
-    return replaceConversionSpecification(index++, args, ...specifiers);
+  return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, function(conversionSpecification, percent, ...specifiers) {
+    if (percent === (CHARACTER_PERCENT + CHARACTER_PERCENT)) {
+      return conversionSpecification.slice(1);
+    }
+    return replaceConversionSpecification(index++, args, conversionSpecification, percent , ...specifiers);
   });
 }

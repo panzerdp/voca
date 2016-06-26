@@ -181,5 +181,6 @@ export var REGEXP_HTML_SPECIAL_CHARACTERS = /[<>&"'`]/g;
  * Regular expression to match sprintf format string
  *
  * @type {RegExp}
+ * @ignore
  */
-export var REGEXP_CONVERSION_SPECIFICATION = /%(?:(\d+)\$)?(\+)?([ 0]|'.{1})?(-)?(\d+)?(?:\.(\d+))?([bcdouxXeEfgGs])/g;
+export var REGEXP_CONVERSION_SPECIFICATION = /(%{1,2})(?:(\d+)\$)?(\+)?([ 0]|'.{1})?(-)?(\d+)?(?:\.(\d+))?([bcdouxXeEfgGs])?/g;
