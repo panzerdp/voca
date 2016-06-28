@@ -5,6 +5,7 @@ import nilDefault from '../utils/undefined/nil_default';
 import { REGEXP_CONVERSION_SPECIFICATION } from '../utils/string/regexp';
 import { Type, CHARACTER_PERCENT } from './formatter/const';
 import formatString from './formatter/format_string';
+import formatIntegerDecimal from './formatter/format_integer_decimal';
 import paddingCharacter from './formatter/padding_character';
 import validateFormat from './formatter/validate_format';
 import isNil from '../utils/object/is_nil';
@@ -34,6 +35,9 @@ function replaceConversionSpecification(index, args, conversionSpecification, pe
   switch (typeSpecifier) {
     case Type.STRING:
       return formatString(...formatterArguments);
+    case Type.INTEGER_DECIMAL:
+    case Type.INTEGER:
+      return formatIntegerDecimal(...formatterArguments);
   }
 }
 
@@ -61,12 +65,7 @@ export default function(format, ...args) {
     if (percent === (CHARACTER_PERCENT + CHARACTER_PERCENT)) {
       return conversionSpecification.slice(1);
     }
-    var argumentIndex;
-    if (isNil(position)) {
-      argumentIndex = index++;
-    } else {
-      argumentIndex = position - 1;
-    }
+    var argumentIndex = isNil(position) ? index++ : position - 1;
     return replaceConversionSpecification(argumentIndex, args, conversionSpecification, percent , ...specifiers);
   });
 }

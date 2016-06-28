@@ -1,5 +1,6 @@
 // Type specifiers list
 var Type = {
+  INTEGER: 'i',
   INTEGER_BINARY: 'b',
   INTEGER_ASCII_CHARACTER: 'c',
   INTEGER_DECIMAL: 'd',
