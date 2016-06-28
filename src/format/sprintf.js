@@ -7,6 +7,7 @@ import { Type, CHARACTER_PERCENT } from './formatter/const';
 import formatString from './formatter/format_string';
 import paddingCharacter from './formatter/padding_character';
 import validateFormat from './formatter/validate_format';
+import isNil from '../utils/object/is_nil';
 
 /**
  * Return the computated string based on format specifiers.
@@ -30,16 +31,22 @@ function replaceConversionSpecification(matchIndex, args, conversionSpecificatio
   if (!validateFormat(matchIndex, args, position, typeSpecifier)) {
     return conversionSpecification;
   }
-  var replacement = args[matchIndex],
-    computatedReplacement = replacement,
-    formatterArguments = [replacement, signSpecifier, paddingCharacter(paddingSpecifier), alignmentSpecifier,
+  var replacement;
+  if (isNil(position)) {
+    replacement = args[matchIndex];
+  } else {
+    replacement = args[position - 1];
+  }
+  var formatterArguments = [replacement, signSpecifier, paddingCharacter(paddingSpecifier), alignmentSpecifier,
       toNumber(widthSpecifier), toNumber(precisionSpecifier)];
   switch (typeSpecifier) {
     case Type.STRING:
-      computatedReplacement = formatString(...formatterArguments);
+      return formatString(...formatterArguments);
+      break;
+    default:
+      throw new Error('sprintf(): Not implemented type specifier');
       break;
   }
-  return computatedReplacement;
 }
 
 /**

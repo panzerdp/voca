@@ -19,9 +19,14 @@ export default function(matchIndex, args, position, typeSpecifier) {
     throw new Error('sprintf(): Too few arguments');
     return false;
   }
-  if (!isNil(position) || position > args.length - 1) {
-    throw new Error('sprintf(): Too few arguments');
-    return false;
+  if (!isNil(position)) {
+    if (position > args.length) {
+      throw new Error('sprintf(): Too few arguments');
+      return false;
+    } else if (position < 1) {
+      throw new Error('sprintf(): Argument number must be greater than zero');
+      return false;
+    }
   }
   return true;
 }

@@ -1,6 +1,6 @@
 import v from '../voca';
 import { expect } from 'chai';
-import { PRINTABLE_ASCII } from '../utils/string/ascii';
+//import { PRINTABLE_ASCII } from '../utils/string/ascii';
 
 describe('sprintf', function() {
 
@@ -24,6 +24,10 @@ describe('sprintf', function() {
     expect(v.sprintf('%.0s the Great', 'Alexander')).to.be.equal(' the Great');
     expect(v.sprintf('%10.8s the Great', 'Alexander')).to.be.equal('  Alexande the Great');
     expect(v.sprintf('%\'-10.6s %\'1-12.4s', 'Persian', 'Empire')).to.be.equal('----Persia Empi11111111');
+    expect(v.sprintf('%2$s the %1$s', 'Great', 'Alexander')).to.be.equal('Alexander the Great');
+    expect(v.sprintf('%2$s', 'Great', 'Alexander')).to.be.equal('Alexander');
+    expect(v.sprintf('%2$\'012s the %1$.4s', 'Great', 'Alexander')).to.be.equal('000Alexander the Grea');
+    expect(v.sprintf('%%%1$\'q-12.4s%%s', 'Alexander')).to.be.equal('%Alexqqqqqqqq%s');
   });
 
   it('should ignore specifiers with double percent characters', function shouldIgnoreSpecifiersWithDoublePercent() {
