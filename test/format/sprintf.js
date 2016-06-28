@@ -28,6 +28,8 @@ describe('sprintf', function() {
     expect(v.sprintf('%2$s', 'Great', 'Alexander')).to.be.equal('Alexander');
     expect(v.sprintf('%2$\'012s the %1$.4s', 'Great', 'Alexander')).to.be.equal('000Alexander the Grea');
     expect(v.sprintf('%%%1$\'q-12.4s%%s', 'Alexander')).to.be.equal('%Alexqqqqqqqq%s');
+    expect(v.sprintf('%2$s the %s', 'Great', 'Alexander')).to.be.equal('Alexander the Great');
+    expect(v.sprintf('%1$s the %s', 'Great')).to.be.equal('Great the Great');
   });
 
   it('should ignore specifiers with double percent characters', function shouldIgnoreSpecifiersWithDoublePercent() {

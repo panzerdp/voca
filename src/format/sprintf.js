@@ -13,11 +13,10 @@ import isNil from '../utils/object/is_nil';
  * Return the computated string based on format specifiers.
  *
  * @ignore
- * @param  {number}   matchIndex              The index of the matched specifier.
+ * @param  {number}   index                   The index of the matched specifier.
  * @param  {Object[]} args                    The array of arguments to replace specifiers.
  * @param  {string}   conversionSpecification The conversion specifier.
  * @param  {string}   percent                 The percent chracters.
- * @param  {number}   position                The position modifier.
  * @param  {string}   signSpecifier           The sign specifier to force a sign to be used on a number.
  * @param  {string}   paddingSpecifier        The padding specifier that says what padding character will be used.
  * @param  {string}   alignmentSpecifier      The alignment specifier that says if the result should be left-justified or right-justified.
@@ -26,15 +25,10 @@ import isNil from '../utils/object/is_nil';
  * @param  {string}   typeSpecifier           The type specifier says what type the argument data should be treated as.
  * @return {string}                           Returns the computated string.
  */
-function replaceConversionSpecification(matchIndex, args, conversionSpecification, percent, position, signSpecifier,
-  paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
-  validateFormat(matchIndex, args, position, typeSpecifier);
-  var replacement;
-  if (isNil(position)) {
-    replacement = args[matchIndex];
-  } else {
-    replacement = args[position - 1];
-  }
+function replaceConversionSpecification(index, args, conversionSpecification, percent, signSpecifier, paddingSpecifier,
+  alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
+  validateFormat(index, args, typeSpecifier);
+  var replacement = args[index];
   var formatterArguments = [replacement, signSpecifier, paddingCharacter(paddingSpecifier), alignmentSpecifier,
       toNumber(widthSpecifier), toNumber(precisionSpecifier)];
   switch (typeSpecifier) {
@@ -62,10 +56,17 @@ export default function(format, ...args) {
     return formatString;
   }
   var index = 0;
-  return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, function(conversionSpecification, percent, ...specifiers) {
+  return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, function(conversionSpecification, percent, position,
+    ...specifiers) {
     if (percent === (CHARACTER_PERCENT + CHARACTER_PERCENT)) {
       return conversionSpecification.slice(1);
     }
-    return replaceConversionSpecification(index++, args, conversionSpecification, percent , ...specifiers);
+    var argumentIndex;
+    if (isNil(position)) {
+      argumentIndex = index++;
+    } else {
+      argumentIndex = position - 1;
+    }
+    return replaceConversionSpecification(argumentIndex, args, conversionSpecification, percent , ...specifiers);
   });
 }
