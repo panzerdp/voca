@@ -18,6 +18,9 @@ import './escape/escape_html';
 import './escape/escape_reg_exp';
 import './escape/unescape_html';
 
+//format
+import './format/sprintf';
+
 //index
 import './index/index_of';
 import './index/last_index_of';

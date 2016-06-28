@@ -28,9 +28,7 @@ import isNil from '../utils/object/is_nil';
  */
 function replaceConversionSpecification(matchIndex, args, conversionSpecification, percent, position, signSpecifier,
   paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
-  if (!validateFormat(matchIndex, args, position, typeSpecifier)) {
-    return conversionSpecification;
-  }
+  validateFormat(matchIndex, args, position, typeSpecifier);
   var replacement;
   if (isNil(position)) {
     replacement = args[matchIndex];
@@ -42,10 +40,6 @@ function replaceConversionSpecification(matchIndex, args, conversionSpecificatio
   switch (typeSpecifier) {
     case Type.STRING:
       return formatString(...formatterArguments);
-      break;
-    default:
-      throw new Error('sprintf(): Not implemented type specifier');
-      break;
   }
 }
 

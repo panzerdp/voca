@@ -15,6 +15,7 @@ export default function(value) {
   if (isNil(value)) {
     return null;
   }
+  /* istanbul ignore if  */
   if (typeof value === 'number') {
     return value;
   }

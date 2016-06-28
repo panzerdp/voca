@@ -47,6 +47,7 @@ describe('sprintf', function() {
     expect(v.sprintf.bind(v, '%s the %y', 'Alexander', 'Great')).to.throw(Error, 'sprintf(): Unknown type specifier');
     expect(v.sprintf.bind(v, '%', 'Alexander')).to.throw(Error, 'sprintf(): Unknown type specifier');
     expect(v.sprintf.bind(v, '%%%%% %%', 'Alexander')).to.throw(Error, 'sprintf(): Unknown type specifier');
+    expect(v.sprintf.bind(v, '%0$s', 'Alexander')).to.throw(Error, 'sprintf(): Argument number must be greater than zero');
   });
 
   it('should return an unmodified string for missing formatting specifiers', function shouldNotModifyString() {
