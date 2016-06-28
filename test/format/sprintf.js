@@ -26,17 +26,23 @@ describe('sprintf', function() {
     expect(v.sprintf('%\'-10.6s %\'1-12.4s', 'Persian', 'Empire')).to.be.equal('----Persia Empi11111111');
   });
 
+  it('should ignore specifiers with double percent characters', function shouldIgnoreSpecifiersWithDoublePercent() {
+    expect(v.sprintf('%%s')).to.be.equal('%s');
+    expect(v.sprintf('%%s %s', 'Persian')).to.be.equal('%s Persian');
+    expect(v.sprintf('%% %%')).to.be.equal('% %');
+    expect(v.sprintf('%%%% %%%%%s', 'Babylon')).to.be.equal('%% %%Babylon');
+  });
+
   it('should throw exceptions when the formatter is not valid or not enough arguments', function shouldThrowException() {
     expect(v.sprintf.bind(v, '%s')).to.throw(Error, 'sprintf(): Too few arguments');
     expect(v.sprintf.bind(v, '%s %s')).to.throw(Error, 'sprintf(): Too few arguments');
     expect(v.sprintf.bind(v, '%s %s', 'Alexander')).to.throw(Error, 'sprintf(): Too few arguments');
     expect(v.sprintf.bind(v, '%2$s %1$s', 'Alexander')).to.throw(Error, 'sprintf(): Too few arguments');
     expect(v.sprintf.bind(v, '%2$s %1$s', 'Alexander')).to.throw(Error, 'sprintf(): Too few arguments');
-  });
-
-  it('should ignore specifiers with double percent characters', function shouldIgnoreSpecifiersWithDoublePercent() {
-    expect(v.sprintf('%%s')).to.be.equal('%s');
-    expect(v.sprintf('%%s %s', 'Persian')).to.be.equal('%s Persian');
+    expect(v.sprintf.bind(v, '%a', 'Alexander')).to.throw(Error, 'sprintf(): Unknown type specifier');
+    expect(v.sprintf.bind(v, '%s the %y', 'Alexander', 'Great')).to.throw(Error, 'sprintf(): Unknown type specifier');
+    expect(v.sprintf.bind(v, '%', 'Alexander')).to.throw(Error, 'sprintf(): Unknown type specifier');
+    expect(v.sprintf.bind(v, '%%%%% %%', 'Alexander')).to.throw(Error, 'sprintf(): Unknown type specifier');
   });
 
   it('should return an unmodified string for missing formatting specifiers', function shouldNotModifyString() {
