@@ -3,6 +3,7 @@ import truncate from '../../manipulate/truncate';
 import alignAndPad from './align_and_pad';
 import toNumber from '../../utils/number/to_number';
 import toInteger from '../../utils/number/to_integer';
+import { CHARACTER_MINUS, CHARACTER_PLUS } from './const';
 
 /**
  * Formats a decimal integer type according to specifiers.
@@ -13,7 +14,7 @@ import toInteger from '../../utils/number/to_integer';
  * @param  {string} paddingCharacter     The padding character.
  * @param  {string} [alignmentSpecifier] The alignment specifier that says if the result should be left-justified or right-justified.
  * @param  {number} [width]              The width how many characters this conversion should result in.
- * @param  {number} [precision]          The precision sets a maximum character limit to the string.
+ * @param  {number} [precision]          The precision.
  * @return {string}                      Returns the formatted string.
  */
 
@@ -24,11 +25,9 @@ export default function(replacement, signSpecifier, paddingCharacter, alignmentS
   } else {
     integer = toInteger(integer);
   }
-
-  // var formattedReplacement = replacement;
-  // if (!isNil(precision) && formattedReplacement.length > precision) {
-  //   formattedReplacement = truncate(formattedReplacement, precision, '');
-  // }
-  // return alignAndPad(formattedReplacement, paddingCharacter, alignmentSpecifier, width);
+  if (signSpecifier === CHARACTER_PLUS && integer >= 0) {
+    integer = CHARACTER_PLUS + integer;
+  }
+  integer = alignAndPad(integer, paddingCharacter, alignmentSpecifier, width);
   return integer;
 }

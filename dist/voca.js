@@ -255,8 +255,9 @@
    * Regular expression to match sprintf format string
    *
    * @type {RegExp}
+   * @ignore
    */
-  var REGEXP_CONVERSION_SPECIFICATION = /%(?:(\d+)\$)?([+-])?([ 0]|'.{1})?(-)?(\d+)?(?:\.(\d+))?([bcdouxXeEfgGs])/g;
+  var REGEXP_CONVERSION_SPECIFICATION = /(%{1,2})(?:(\d+)\$)?(\+)?([ 0]|'.{1})?(-)?(\d+)?(?:\.(\d+))?([bcdiouxXeEfgGs])?/g;
 
   /**
    * Splits `subject` into an array of words.
@@ -578,8 +579,30 @@
     }, 0);
   }
 
+  /**
+   * Get the number representation of the `value`.
+   * Converts the `value` to a number.
+   * If `value` is `null` or `undefined`, return `null`.
+   *
+   * @ignore
+   * @function toNumber
+   * @param {*} value The value to convert.
+   * @return {number|null} Returns the number representation of `value`. Returns `null` if `value` is `null` or `undefined`.
+   */
+  function toNumber (value) {
+    if (isNil(value)) {
+      return null;
+    }
+    /* istanbul ignore if  */
+    if (typeof value === 'number') {
+      return value;
+    }
+    return Number(value);
+  }
+
   // Type specifiers list
   var Type = {
+    INTEGER: 'i',
     INTEGER_BINARY: 'b',
     INTEGER_ASCII_CHARACTER: 'c',
     INTEGER_DECIMAL: 'd',
@@ -595,54 +618,314 @@
     STRING: 's'
   };
   Object.freeze(Type);
+  var CHARACTER_PERCENT = '%';
+
+  var CHARACTER_SINGLE_QUOTE = '\'';
+
+  var CHARACTER_PLUS = '+';
+
+  var CHARACTER_MINUS = '-';
 
   /**
-   * Make a string formatting.
+   * Clip the number to interval `downLimit` to `upLimit`.
    *
    * @ignore
-   * @param  {string} replacement             The string to be formatted.
-   * @param  {string} signSpecifier           The sign specifier to force a sign to be used on a number.
-   * @param  {string} paddingCharacter        The padding character.
-   * @param  {string} alignmentSpecifier      The alignment specifier that says if the result should be left-justified or right-justified.
-   * @param  {number} widthSpecifier          The width specifier how many characters this conversion should result in.
-   * @param  {number} precisionSpecifier      The precision specifier says how many decimal digits should be displayed for floating-point numbers.
-   * @param  {string} typeSpecifier           The type specifier says what type the argument data should be treated as.
-   * @return {string}                         The formatted string.
+   * @function clipNumber
+   * @param {number} value The number to clip
+   * @param {number} downLimit The down limit
+   * @param {number} upLimit The upper limit
+   * @return {number} The clipped number
    */
-
-  function formatterString (replacement, signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
-    return replacement;
+  function clipNumber (value, downLimit, upLimit) {
+    if (value <= downLimit) {
+      return downLimit;
+    }
+    if (value >= upLimit) {
+      return upLimit;
+    }
+    return value;
   }
 
   /**
-   * Return the computated string based on format specifier
+   * Transforms `value` to an integer.
    *
    * @ignore
-   * @param  {number} matchIndex              The index of the matched specifier.
-   * @param  {[*]}    args                    The array of arguments to replace specifiers.
-   * @param  {string} conversionSpecification The conversion specifier.
-   * @param  {number} position                The position modifier.
-   * @param  {string} signSpecifier           The sign specifier to force a sign to be used on a number.
-   * @param  {string} paddingSpecifier        The padding specifier that says what padding character will be used.
-   * @param  {string} alignmentSpecifier      The alignment specifier that says if the result should be left-justified or right-justified.
-   * @param  {number} widthSpecifier          The width specifier how many characters this conversion should result in.
-   * @param  {number} precisionSpecifier      The precision specifier says how many decimal digits should be displayed for floating-point numbers.
-   * @param  {string} typeSpecifier           The type specifier says what type the argument data should be treated as.
-   * @return {string}                         The computated string.
+   * @function toInteger
+   * @param {number} value The number to transform.
+   * @returns {number} Returns the transformed integer.
    */
-  function replaceConversionSpecification(matchIndex, args, conversionSpecification, position, signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
-    if (matchIndex >= args.length) {
-      return conversionSpecification;
+  function toInteger (value) {
+    if (value === Infinity) {
+      return Number.MAX_SAFE_INTEGER;
     }
-    var replacement = args[matchIndex],
-        computatedReplacement = replacement,
-        formatterArguments = [signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier];
+    if (value === -Infinity) {
+      return -Number.MAX_SAFE_INTEGER;
+    }
+    return ~ ~value;
+  }
+
+  /**
+   * Truncates `subject` to a new `length`.
+   *
+   * @function truncate
+   * @static
+   * @memberOf Manipulate
+   * @param {string} [subject=''] The string to truncate.
+   * @param {int} length The length to truncate the string.
+   * @param {string} [end='...'] The string to be added at the end.
+   * @return {string} Returns the truncated string.
+   * @example
+   * v.truncate('Once upon a time', 9);
+   * // => 'Once upon...'
+   *
+   * v.truncate('Good day, Little Red Riding Hood', 8, ' (read more)');
+   * // => 'Good day (read more)'
+   *
+   * v.truncate('Once upon', 10);
+   * // => 'Once upon'
+   */
+  function truncate (subject, length, end) {
+    var subjectString = toString(nilDefault(subject, '')),
+        lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, Number.MAX_SAFE_INTEGER),
+        endString = toString(nilDefault(end, '...'));
+    if (lengthInt >= subjectString.length) {
+      return subjectString;
+    }
+    return subjectString.substr(0, length) + endString;
+  }
+
+  /**
+   * Repeats the `subject` number of `times`.
+   *
+   * @function repeat
+   * @static
+   * @memberOf Manipulate
+   * @param {string} [subject=''] The string to repeat.
+   * @param {number} [times=1] The number of times to repeat.
+   * @return {string} Returns the repeated string.
+   * @example
+   * v.repeat('w', 3);
+   * // => 'www'
+   *
+   * v.repeat('world', 0);
+   * // => ''
+   */
+  function repeat (subject, times) {
+    var subjectString = toString(nilDefault(subject, '')),
+        timesInt = isNil(times) ? 1 : clipNumber(toInteger(times), 0, Number.MAX_SAFE_INTEGER);
+    var repeatString = '';
+    while (timesInt) {
+      if (timesInt & 1) {
+        repeatString += subjectString;
+      }
+      if (timesInt > 1) {
+        subjectString += subjectString;
+      }
+      timesInt >>= 1;
+    }
+    return repeatString;
+  }
+
+  /**
+   * Creates the padding string.
+   *
+   * @ignore
+   * @param {string} padCharacters The characters to create padding string.
+   * @param {number} length The padding string length.
+   * @return {string} The padding string.
+   */
+  function buildPadding (padCharacters, length) {
+    var padStringRepeat = toInteger(length / padCharacters.length),
+        padStringRest = length % padCharacters.length;
+    return repeat(padCharacters, padStringRepeat + padStringRest).substr(0, length);
+  }
+
+  /**
+   * Pads `subject` from right to a new `length`.
+   *
+   * @function padRight
+   * @static
+   * @memberOf Manipulate
+   * @param {string} [subject=''] The string to pad.
+   * @param {int} [length=0] The length to right pad the string. No changes are made if `length` is less than `subject.length`.
+   * @param {string} [pad=' '] The string to be used for padding.
+   * @return {string} Returns the right padded string.
+   * @example
+   * v.padRight('word', 6, '-');
+   * // => 'word--'
+   *
+   * v.padRight('hi', 5, '-=');
+   * // => 'hi-=-'
+   */
+  function padRight (subject, length, pad) {
+    var subjectString = toString(nilDefault(subject, '')),
+        lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, Number.MAX_SAFE_INTEGER),
+        padString = toString(nilDefault(pad, ' '));
+    if (lengthInt <= subjectString.length) {
+      return subjectString;
+    }
+    return subjectString + buildPadding(padString, lengthInt - subjectString.length);
+  }
+
+  /**
+   * Pads `subject` from left to a new `length`.
+   *
+   * @function padLeft
+   * @static
+   * @memberOf Manipulate
+   * @param {string} [subject=''] The string to pad.
+   * @param {int} [length=0] The length to left pad the string. No changes are made if `length` is less than `subject.length`.
+   * @param {string} [pad=' '] The string to be used for padding.
+   * @return {string} Returns the left padded string.
+   * @example
+   * v.padLeft('word', 6, '-');
+   * // => '--word'
+   *
+   * v.padLeft('hi', 5, '-=');
+   * // => '-=-hi'
+   */
+  function padLeft (subject, length, pad) {
+    var subjectString = toString(nilDefault(subject, '')),
+        lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, Number.MAX_SAFE_INTEGER),
+        padString = toString(nilDefault(pad, ' '));
+    if (lengthInt <= subjectString.length) {
+      return subjectString;
+    }
+    return buildPadding(padString, lengthInt - subjectString.length) + subjectString;
+  }
+
+  /**
+   * Aligns and pads `subject` string.
+   *
+   * @ignore
+   * @param  {string} subject              The subject string.
+   * @param  {string} paddingCharacter     The padding character.
+   * @param  {string} [alignmentSpecifier] The alignment specifier that says if the result should be left-justified or right-justified.
+   * @param  {number} [width]              The width how many characters this conversion should result in.
+   * @return {string}                      Returns the aligned and padded string.
+   */
+  function alignAndPad (subject, paddingCharacter, alignmentSpecifier, width) {
+    if (!isNil(width) && subject.length < width) {
+      if (alignmentSpecifier === CHARACTER_MINUS) {
+        return padRight(subject, width, paddingCharacter);
+      } else {
+        return padLeft(subject, width, paddingCharacter);
+      }
+    }
+    return subject;
+  }
+
+  /**
+   * Formats a string type according to specifiers.
+   *
+   * @ignore
+   * @param  {string} replacement          The string to be formatted.
+   * @param  {string} [signSpecifier]      The sign specifier to force a sign to be used on a number.
+   * @param  {string} paddingCharacter     The padding character.
+   * @param  {string} [alignmentSpecifier] The alignment specifier that says if the result should be left-justified or right-justified.
+   * @param  {number} [width]              The width how many characters this conversion should result in.
+   * @param  {number} [precision]          The precision sets a maximum character limit to the string.
+   * @return {string}                      Returns the formatted string.
+   */
+
+  function formatString (replacement, signSpecifier, paddingCharacter, alignmentSpecifier, width, precision) {
+    var formattedReplacement = replacement;
+    if (!isNil(precision) && formattedReplacement.length > precision) {
+      formattedReplacement = truncate(formattedReplacement, precision, '');
+    }
+    return alignAndPad(formattedReplacement, paddingCharacter, alignmentSpecifier, width);
+  }
+
+  /**
+   * Formats a decimal integer type according to specifiers.
+   *
+   * @ignore
+   * @param  {string} replacement          The string to be formatted.
+   * @param  {string} [signSpecifier]      The sign specifier to force a sign to be used on a number.
+   * @param  {string} paddingCharacter     The padding character.
+   * @param  {string} [alignmentSpecifier] The alignment specifier that says if the result should be left-justified or right-justified.
+   * @param  {number} [width]              The width how many characters this conversion should result in.
+   * @param  {number} [precision]          The precision.
+   * @return {string}                      Returns the formatted string.
+   */
+
+  function formatIntegerDecimal (replacement, signSpecifier, paddingCharacter, alignmentSpecifier, width, precision) {
+    var integer = toNumber(replacement);
+    if (isNaN(integer)) {
+      integer = 0;
+    } else {
+      integer = toInteger(integer);
+    }
+    if (signSpecifier === CHARACTER_PLUS && integer >= 0) {
+      integer = CHARACTER_PLUS + integer;
+    }
+    integer = alignAndPad(integer, paddingCharacter, alignmentSpecifier, width);
+    return integer;
+  }
+
+  /**
+   * Get the padding character from padding specifier.
+   *
+   * @ignore
+   * @param  {string=} paddingSpecifier The padding specifier.
+   * @return {string}                   Returns the padding character.
+   */
+  function paddingCharacter (paddingSpecifier) {
+    var paddingCharacter = nilDefault(paddingSpecifier, ' ');
+    if (paddingCharacter[0] === CHARACTER_SINGLE_QUOTE && paddingCharacter.length === 2) {
+      paddingCharacter = paddingCharacter[1];
+    }
+    return paddingCharacter;
+  }
+
+  /**
+   * Validates the formatter string.
+   *
+   * @ignore
+   * @param  {number}   index    The index of the matched specifier.
+   * @param  {Object[]} args          The array of arguments to replace specifiers.
+   * @param  {number}   position      The position modifier.
+   * @param  {string}   typeSpecifier The type specifier says what type the argument data should be treated as.
+   */
+  function validateFormat (index, args, typeSpecifier) {
+    if (isNil(typeSpecifier)) {
+      throw new Error('sprintf(): Unknown type specifier');
+    }
+    if (index > args.length - 1) {
+      throw new Error('sprintf(): Too few arguments');
+    }
+    if (index < 0) {
+      throw new Error('sprintf(): Argument number must be greater than zero');
+    }
+  }
+
+  /**
+   * Return the computated string based on format specifiers.
+   *
+   * @ignore
+   * @param  {number}   index                   The index of the matched specifier.
+   * @param  {Object[]} args                    The array of arguments to replace specifiers.
+   * @param  {string}   conversionSpecification The conversion specifier.
+   * @param  {string}   percent                 The percent chracters.
+   * @param  {string}   signSpecifier           The sign specifier to force a sign to be used on a number.
+   * @param  {string}   paddingSpecifier        The padding specifier that says what padding character will be used.
+   * @param  {string}   alignmentSpecifier      The alignment specifier that says if the result should be left-justified or right-justified.
+   * @param  {number}   widthSpecifier          The width specifier how many characters this conversion should result in.
+   * @param  {number}   precisionSpecifier      The precision specifier says how many decimal digits should be displayed for floating-point numbers.
+   * @param  {string}   typeSpecifier           The type specifier says what type the argument data should be treated as.
+   * @return {string}                           Returns the computated string.
+   */
+  function replaceConversionSpecification(index, args, conversionSpecification, percent, signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
+    validateFormat(index, args, typeSpecifier);
+    var replacement = args[index];
+    var formatterArguments = [replacement, signSpecifier, paddingCharacter(paddingSpecifier), alignmentSpecifier, toNumber(widthSpecifier), toNumber(precisionSpecifier)];
     switch (typeSpecifier) {
       case Type.STRING:
-        computatedReplacement = formatterString.apply(undefined, [replacement].concat(formatterArguments));
-        break;
+        return formatString.apply(undefined, formatterArguments);
+      case Type.INTEGER_DECIMAL:
+      case Type.INTEGER:
+        return formatIntegerDecimal.apply(undefined, formatterArguments);
     }
-    return computatedReplacement;
   }
 
   /**
@@ -663,18 +946,22 @@
       args[_key - 1] = arguments[_key];
     }
 
-    var formatString = toString(nilDefault(format, '')),
-        argsLength = args.length;
-    if (formatString === '' || argsLength === 0) {
+    var formatString = toString(nilDefault(format, ''));
+    if (formatString === '') {
       return formatString;
     }
     var index = 0;
-    return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, function () {
-      for (var _len2 = arguments.length, specifiers = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-        specifiers[_key2] = arguments[_key2];
+    return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, function (conversionSpecification, percent, position) {
+      if (percent === CHARACTER_PERCENT + CHARACTER_PERCENT) {
+        return conversionSpecification.slice(1);
+      }
+      var argumentIndex = isNil(position) ? index++ : position - 1;
+
+      for (var _len2 = arguments.length, specifiers = Array(_len2 > 3 ? _len2 - 3 : 0), _key2 = 3; _key2 < _len2; _key2++) {
+        specifiers[_key2 - 3] = arguments[_key2];
       }
 
-      return replaceConversionSpecification.apply(undefined, [index++, args].concat(specifiers));
+      return replaceConversionSpecification.apply(undefined, [argumentIndex, args, conversionSpecification, percent].concat(specifiers));
     });
   }
 
@@ -812,44 +1099,6 @@
   function lastIndexOf (subject, search, fromIndex) {
     var subjectString = toString(nilDefault(subject, ''));
     return subjectString.lastIndexOf(search, fromIndex);
-  }
-
-  /**
-   * Clip the number to interval `downLimit` to `upLimit`.
-   *
-   * @ignore
-   * @function clipNumber
-   * @param {number} value The number to clip
-   * @param {number} downLimit The down limit
-   * @param {number} upLimit The upper limit
-   * @return {number} The clipped number
-   */
-  function clipNumber (value, downLimit, upLimit) {
-    if (value <= downLimit) {
-      return downLimit;
-    }
-    if (value >= upLimit) {
-      return upLimit;
-    }
-    return value;
-  }
-
-  /**
-   * Transforms `value` to an integer.
-   *
-   * @ignore
-   * @function toInteger
-   * @param {number} value The number to transform.
-   * @returns {number} Returns the transformed integer.
-   */
-  function toInteger (value) {
-    if (value === Infinity) {
-      return Number.MAX_SAFE_INTEGER;
-    }
-    if (value === -Infinity) {
-      return -Number.MAX_SAFE_INTEGER;
-    }
-    return ~ ~value;
   }
 
   /**
@@ -1810,52 +2059,6 @@
   }
 
   /**
-   * Repeats the `subject` number of `times`.
-   *
-   * @function repeat
-   * @static
-   * @memberOf Manipulate
-   * @param {string} [subject=''] The string to repeat.
-   * @param {number} [times=1] The number of times to repeat.
-   * @return {string} Returns the repeated string.
-   * @example
-   * v.repeat('w', 3);
-   * // => 'www'
-   *
-   * v.repeat('world', 0);
-   * // => ''
-   */
-  function repeat (subject, times) {
-    var subjectString = toString(nilDefault(subject, '')),
-        timesInt = isNil(times) ? 1 : clipNumber(toInteger(times), 0, Number.MAX_SAFE_INTEGER);
-    var repeatString = '';
-    while (timesInt) {
-      if (timesInt & 1) {
-        repeatString += subjectString;
-      }
-      if (timesInt > 1) {
-        subjectString += subjectString;
-      }
-      timesInt >>= 1;
-    }
-    return repeatString;
-  }
-
-  /**
-   * Creates the padding string.
-   *
-   * @ignore
-   * @param {string} padCharacters The characters to create padding string.
-   * @param {number} length The padding string length.
-   * @return {string} The padding string.
-   */
-  function buildPadding (padCharacters, length) {
-    var padStringRepeat = toInteger(length / padCharacters.length),
-        padStringRest = length % padCharacters.length;
-    return repeat(padCharacters, padStringRepeat + padStringRest).substr(0, length);
-  }
-
-  /**
    * Pads `subject` to a new `length`.
    *
    * @function pad
@@ -1886,69 +2089,15 @@
   }
 
   /**
-   * Pads `subject` from left to a new `length`.
-   *
-   * @function padLeft
-   * @static
-   * @memberOf Manipulate
-   * @param {string} [subject=''] The string to pad.
-   * @param {int} [length=0] The length to left pad the string. No changes are made if `length` is less than `subject.length`.
-   * @param {string} [pad=' '] The string to be used for padding.
-   * @return {string} Returns the left padded string.
-   * @example
-   * v.padLeft('word', 6, '-');
-   * // => '--word'
-   *
-   * v.padLeft('hi', 5, '-=');
-   * // => '-=-hi'
-   */
-  function padLeft (subject, length, pad) {
-    var subjectString = toString(nilDefault(subject, '')),
-        lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, Number.MAX_SAFE_INTEGER),
-        padString = toString(nilDefault(pad, ' '));
-    if (lengthInt <= subjectString.length) {
-      return subjectString;
-    }
-    return buildPadding(padString, lengthInt - subjectString.length) + subjectString;
-  }
-
-  /**
-   * Pads `subject` from right to a new `length`.
-   *
-   * @function padRight
-   * @static
-   * @memberOf Manipulate
-   * @param {string} [subject=''] The string to pad.
-   * @param {int} [length=0] The length to right pad the string. No changes are made if `length` is less than `subject.length`.
-   * @param {string} [pad=' '] The string to be used for padding.
-   * @return {string} Returns the right padded string.
-   * @example
-   * v.padRight('word', 6, '-');
-   * // => 'word--'
-   *
-   * v.padRight('hi', 5, '-=');
-   * // => 'hi-=-'
-   */
-  function padRight (subject, length, pad) {
-    var subjectString = toString(nilDefault(subject, '')),
-        lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, Number.MAX_SAFE_INTEGER),
-        padString = toString(nilDefault(pad, ' '));
-    if (lengthInt <= subjectString.length) {
-      return subjectString;
-    }
-    return subjectString + buildPadding(padString, lengthInt - subjectString.length);
-  }
-
-  /**
    * Truncates `subject` to a new `length` and does not break the words. Guarantees that the truncated string will be no longer than `length`.
    *
-   * @function prune
    * @static
+   * @function prune
    * @memberOf Manipulate
-   * @param {string} [subject=''] The string to prune.
-   * @param {int} length The length to prune the string.
-   * @param {string} [end='...'] The string to be added at the end.
-   * @return {string} Returns the pruned string.
+   * @param    {string} [subject=''] The string to prune.
+   * @param    {int}    length       The length to prune the string.
+   * @param    {string} [end='...']  The string to be added at the end.
+   * @return   {string}              Returns the pruned string.
    * @example
    * v.prune('Once upon a time', 6);
    * // => 'Once...'
@@ -2251,36 +2400,6 @@
       return subjectString.trim();
     }
     return trimRight(trimLeft(subjectString, whitespaceString), whitespaceString);
-  }
-
-  /**
-   * Truncates `subject` to a new `length`.
-   *
-   * @function truncate
-   * @static
-   * @memberOf Manipulate
-   * @param {string} [subject=''] The string to truncate.
-   * @param {int} length The length to truncate the string.
-   * @param {string} [end='...'] The string to be added at the end.
-   * @return {string} Returns the truncated string.
-   * @example
-   * v.truncate('Once upon a time', 9);
-   * // => 'Once upon...'
-   *
-   * v.truncate('Good day, Little Red Riding Hood', 8, ' (read more)');
-   * // => 'Good day (read more)'
-   *
-   * v.truncate('Once upon', 10);
-   * // => 'Once upon'
-   */
-  function truncate (subject, length, end) {
-    var subjectString = toString(nilDefault(subject, '')),
-        lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, Number.MAX_SAFE_INTEGER),
-        endString = toString(nilDefault(end, '...'));
-    if (lengthInt >= subjectString.length) {
-      return subjectString;
-    }
-    return subjectString.substr(0, length) + endString;
   }
 
   /**

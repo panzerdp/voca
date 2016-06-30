@@ -32,6 +32,14 @@ describe('sprintf', function() {
     expect(v.sprintf('%1$s the %s', 'Great')).to.be.equal('Great the Great');
   });
 
+  it('should return a string according to decimal integer type formatting', function shouldReturnDecimalIntegerBasedOnFormatting() {
+    expect(v.sprintf('%d', 1)).to.be.equal('1');
+    expect(v.sprintf('%i', 1)).to.be.equal('1');
+    expect(v.sprintf('%d %d %d', 1, 0, -100)).to.be.equal('1 0 -100');
+    expect(v.sprintf('%+d %+d', 10, -10)).to.be.equal('+10 -10');
+    expect(v.sprintf('%+\'t4d %4d', 9, 0)).to.be.equal('tt+9    0');
+  });
+
   it('should ignore specifiers with double percent characters', function shouldIgnoreSpecifiersWithDoublePercent() {
     expect(v.sprintf('%%s')).to.be.equal('%s');
     expect(v.sprintf('%%s %s', 'Persian')).to.be.equal('%s Persian');
