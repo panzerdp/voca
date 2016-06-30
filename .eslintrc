@@ -10,7 +10,7 @@
   ],
   "rules": {
     "valid-jsdoc": "error",
-    "indent": ["error", 2],
+    "indent": ["error", 2, {"SwitchCase": 1}],
     "brace-style": ["error", "1tbs"],
     "camelcase": ["error", {"properties": "never"}],
     "comma-spacing": ["error", {"before": false, "after": true}],

@@ -1,9 +1,7 @@
-import isNil from '../../utils/object/is_nil';
-import truncate from '../../manipulate/truncate';
-import alignAndPad from './align_and_pad';
-import toNumber from '../../utils/number/to_number';
-import toInteger from '../../utils/number/to_integer';
-import { CHARACTER_MINUS, CHARACTER_PLUS } from './const';
+import alignAndPad from '../align_and_pad';
+import toNumber from '../../../utils/number/to_number';
+import toInteger from '../../../utils/number/to_integer';
+import { CHARACTER_PLUS } from '../const';
 
 /**
  * Formats a decimal integer type according to specifiers.

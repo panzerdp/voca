@@ -1,7 +1,7 @@
 import isNil from '../../utils/object/is_nil';
 
 /**
- * Validates the formatter string.
+ * Validates the utils string.
  *
  * @ignore
  * @param  {number}   index    The index of the matched specifier.

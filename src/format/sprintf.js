@@ -1,13 +1,12 @@
-/* eslint-disable */
 import toString from '../utils/string/to_string';
 import toNumber from '../utils/number/to_number';
 import nilDefault from '../utils/undefined/nil_default';
 import { REGEXP_CONVERSION_SPECIFICATION } from '../utils/string/regexp';
-import { Type, CHARACTER_PERCENT } from './formatter/const';
-import formatString from './formatter/format_string';
-import formatIntegerDecimal from './formatter/format_integer_decimal';
-import paddingCharacter from './formatter/padding_character';
-import validateFormat from './formatter/validate_format';
+import { Type, CHARACTER_PERCENT } from './sprintf_utils/const';
+import formatString from './sprintf_utils/type/format_string';
+import formatIntegerDecimal from './sprintf_utils/type/format_integer_decimal';
+import paddingCharacter from './sprintf_utils/padding_character';
+import validateFormat from './sprintf_utils/validate_format';
 import isNil from '../utils/object/is_nil';
 
 /**
@@ -66,6 +65,6 @@ export default function(format, ...args) {
       return conversionSpecification.slice(1);
     }
     var argumentIndex = isNil(position) ? index++ : position - 1;
-    return replaceConversionSpecification(argumentIndex, args, conversionSpecification, percent , ...specifiers);
+    return replaceConversionSpecification(argumentIndex, args, conversionSpecification, percent, ...specifiers);
   });
 }

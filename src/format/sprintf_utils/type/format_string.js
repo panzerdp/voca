@@ -1,6 +1,6 @@
-import isNil from '../../utils/object/is_nil';
-import truncate from '../../manipulate/truncate';
-import alignAndPad from './align_and_pad';
+import isNil from '../../../utils/object/is_nil';
+import truncate from '../../../manipulate/truncate';
+import alignAndPad from '../align_and_pad';
 
 /**
  * Formats a string type according to specifiers.
