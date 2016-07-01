@@ -1,13 +1,14 @@
+import { REGEXP_CONVERSION_SPECIFICATION } from '../utils/string/regexp';
+import { Type, CHARACTER_PERCENT } from './sprintf_utils/const';
 import toString from '../utils/string/to_string';
 import toNumber from '../utils/number/to_number';
 import nilDefault from '../utils/undefined/nil_default';
-import { REGEXP_CONVERSION_SPECIFICATION } from '../utils/string/regexp';
-import { Type, CHARACTER_PERCENT } from './sprintf_utils/const';
-import formatString from './sprintf_utils/type/format_string';
-import formatIntegerDecimal from './sprintf_utils/type/format_integer_decimal';
+import isNil from '../utils/object/is_nil';
 import paddingCharacter from './sprintf_utils/padding_character';
 import validateFormat from './sprintf_utils/validate_format';
-import isNil from '../utils/object/is_nil';
+import formatIntegerBase from './sprintf_utils/type/format_integer_base';
+import formatIntegerDecimal from './sprintf_utils/type/format_integer_decimal';
+import formatString from './sprintf_utils/type/format_string';
 
 /**
  * Return the computated string based on format specifiers.
@@ -37,6 +38,11 @@ function replaceConversionSpecification(index, args, conversionSpecification, pe
     case Type.INTEGER_DECIMAL:
     case Type.INTEGER:
       return formatIntegerDecimal(...formatterArguments);
+    case Type.INTEGER_BINARY:
+    case Type.INTEGER_HEXADECIMAL:
+    case Type.INTEGER_HEXADECIMAL_UPPERCASE:
+    case Type.INTEGER_OCTAL:
+      return formatIntegerBase(...formatterArguments, typeSpecifier);
   }
 }
 
@@ -61,7 +67,7 @@ export default function(format, ...args) {
   var index = 0;
   return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, function(conversionSpecification, percent, position,
     ...specifiers) {
-    if (percent === (CHARACTER_PERCENT + CHARACTER_PERCENT)) {
+    if (percent === CHARACTER_PERCENT + CHARACTER_PERCENT) {
       return conversionSpecification.slice(1);
     }
     var argumentIndex = isNil(position) ? index++ : position - 1;

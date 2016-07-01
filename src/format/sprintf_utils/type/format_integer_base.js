@@ -1,0 +1,28 @@
+import alignAndPad from '../align_and_pad';
+import toString from '../../../utils/string/to_string';
+import { CHARACTER_PLUS } from '../const';
+
+/**
+ * Formats a decimal integer type according to specifiers.
+ *
+ * @ignore
+ * @param  {string} replacement          The string to be formatted.
+ * @param  {string} [signSpecifier]      The sign specifier to force a sign to be used on a number.
+ * @param  {string} paddingCharacter     The padding character.
+ * @param  {string} [alignmentSpecifier] The alignment specifier that says if the result should be left-justified or right-justified.
+ * @param  {number} [width]              The width how many characters this conversion should result in.
+ * @param  {number} [precision]          The precision.
+ * @param  {string} typeSpecifier           The type specifier says what type the argument data should be treated as.
+ * @return {string}                      Returns the formatted string.
+ */
+
+export default function(replacement, signSpecifier, paddingCharacter, alignmentSpecifier, width, precision, typeSpecifier) {
+  var integer = parseInt(replacement);
+  if (isNaN(integer)) {
+    integer = 0;
+  }
+  if (signSpecifier === CHARACTER_PLUS && integer >= 0) {
+    integer = CHARACTER_PLUS + integer;
+  }
+  return alignAndPad(toString(integer), paddingCharacter, alignmentSpecifier, width);
+}

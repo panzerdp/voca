@@ -1,6 +1,6 @@
 import v from '../voca';
 import { expect } from 'chai';
-//import { PRINTABLE_ASCII } from '../utils/string/ascii';
+import { PRINTABLE_ASCII } from '../utils/string/ascii';
 
 describe('sprintf', function() {
 
@@ -66,6 +66,7 @@ describe('sprintf', function() {
     expect(v.sprintf.bind(v, '%2$s %1$s', 'Alexander')).to.throw(Error, 'sprintf(): Too few arguments');
     expect(v.sprintf.bind(v, '%2$s %1$s', 'Alexander')).to.throw(Error, 'sprintf(): Too few arguments');
     expect(v.sprintf.bind(v, '%a', 'Alexander')).to.throw(Error, 'sprintf(): Unknown type specifier');
+    expect(v.sprintf.bind(v, PRINTABLE_ASCII, 'Alexander')).to.throw(Error, 'sprintf(): Unknown type specifier');
     expect(v.sprintf.bind(v, '%s the %y', 'Alexander', 'Great')).to.throw(Error, 'sprintf(): Unknown type specifier');
     expect(v.sprintf.bind(v, '%', 'Alexander')).to.throw(Error, 'sprintf(): Unknown type specifier');
     expect(v.sprintf.bind(v, '%%%%% %%', 'Alexander')).to.throw(Error, 'sprintf(): Unknown type specifier');
