@@ -43,6 +43,13 @@ describe('sprintf', function() {
     expect(v.sprintf("%d+%d=%d", 9, 1, 10)).to.be.equal('9+1=10');
     expect(v.sprintf("%3$04d-%2$04d=%1$04d", 9, 1, 10)).to.be.equal('0010-0001=0009');
     expect(v.sprintf("%+'T-5d", 15)).to.be.equal('+15TT');
+    expect(v.sprintf("%d", 1.5e+3)).to.be.equal('1500');
+    expect(v.sprintf("%d", '15NN')).to.be.equal('15');
+    expect(v.sprintf("%d", '1.6')).to.be.equal('1');
+    expect(v.sprintf("%d", '1.5e+3')).to.be.equal('1');
+    expect(v.sprintf("%d", 'NN15')).to.be.equal('0');
+    expect(v.sprintf("%d %d", '', 15)).to.be.equal('0 15');
+    expect(v.sprintf("%d", '+')).to.be.equal('0');
   });
 
   it('should ignore specifiers with double percent characters', function shouldIgnoreSpecifiersWithDoublePercent() {

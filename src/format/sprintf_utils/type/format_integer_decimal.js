@@ -1,6 +1,4 @@
 import alignAndPad from '../align_and_pad';
-import toNumber from '../../../utils/number/to_number';
-import toInteger from '../../../utils/number/to_integer';
 import toString from '../../../utils/string/to_string';
 import { CHARACTER_PLUS } from '../const';
 
@@ -18,11 +16,9 @@ import { CHARACTER_PLUS } from '../const';
  */
 
 export default function(replacement, signSpecifier, paddingCharacter, alignmentSpecifier, width, precision) {
-  var integer = toNumber(replacement);
+  var integer = parseInt(replacement);
   if (isNaN(integer)) {
     integer = 0;
-  } else {
-    integer = toInteger(integer);
   }
   if (signSpecifier === CHARACTER_PLUS && integer >= 0) {
     integer = CHARACTER_PLUS + integer;
