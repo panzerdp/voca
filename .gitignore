@@ -4,3 +4,4 @@ coverage
 npm-debug.log
 docs
 /index.js
+.tern-project

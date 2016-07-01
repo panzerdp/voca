@@ -37,7 +37,12 @@ describe('sprintf', function() {
     expect(v.sprintf('%i', 1)).to.be.equal('1');
     expect(v.sprintf('%d %d %d', 1, 0, -100)).to.be.equal('1 0 -100');
     expect(v.sprintf('%+d %+d', 10, -10)).to.be.equal('+10 -10');
-    //expect(v.sprintf('%+\'t4d %4d', 9, 0)).to.be.equal('tt+9    0');
+    expect(v.sprintf("%+'t4d %4d", 9, 0)).to.be.equal('tt+9    0');
+    expect(v.sprintf("%010i", 90)).to.be.equal('0000000090');
+    expect(v.sprintf("%+ 8d", 88)).to.be.equal('     +88');
+    expect(v.sprintf("%d+%d=%d", 9, 1, 10)).to.be.equal('9+1=10');
+    expect(v.sprintf("%3$04d-%2$04d=%1$04d", 9, 1, 10)).to.be.equal('0010-0001=0009');
+    expect(v.sprintf("%+'T-5d", 15)).to.be.equal('+15TT');
   });
 
   it('should ignore specifiers with double percent characters', function shouldIgnoreSpecifiersWithDoublePercent() {

@@ -1,6 +1,7 @@
 import alignAndPad from '../align_and_pad';
 import toNumber from '../../../utils/number/to_number';
 import toInteger from '../../../utils/number/to_integer';
+import toString from '../../../utils/string/to_string';
 import { CHARACTER_PLUS } from '../const';
 
 /**
@@ -26,6 +27,5 @@ export default function(replacement, signSpecifier, paddingCharacter, alignmentS
   if (signSpecifier === CHARACTER_PLUS && integer >= 0) {
     integer = CHARACTER_PLUS + integer;
   }
-  integer = alignAndPad(integer, paddingCharacter, alignmentSpecifier, width);
-  return integer;
+  return alignAndPad(toString(integer), paddingCharacter, alignmentSpecifier, width);
 }
