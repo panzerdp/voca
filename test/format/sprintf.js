@@ -112,7 +112,7 @@ describe('sprintf', function() {
     expect(v.sprintf("%x %x", -1, -10)).to.be.equal('ffffffff fffffff6');
   });
 
-  it('should return a string according to unisgned decimal integer type formatting', function shouldReturnUnsignedDecimalIntegerBasedOnFormatting() {
+  it('should return a string according to unsigned decimal integer type formatting', function shouldReturnUnsignedDecimalIntegerBasedOnFormatting() {
     expect(v.sprintf('%u-%u', 1, 14)).to.be.equal('1-14');
     expect(v.sprintf('%u %u %u', 1, 0, 20)).to.be.equal('1 0 20');
     expect(v.sprintf('%+u %+u', 10, 50)).to.be.equal('10 50');
@@ -130,6 +130,21 @@ describe('sprintf', function() {
     expect(v.sprintf("%u %u", '', 15)).to.be.equal('0 15');
     expect(v.sprintf("%u", '+')).to.be.equal('0');
     expect(v.sprintf("%u %u", -1, -10)).to.be.equal('4294967295 4294967286');
+  });
+
+  it('should return a string according to float type formatting', function shouldReturnFloatBasedOnFormatting() {
+    expect(v.sprintf('%f %f', 1, 0)).to.be.equal('1.000000 0.000000');
+    expect(v.sprintf('%+f+%+f', 50.123456789, 0)).to.be.equal('+50.123457++0.000000');
+    expect(v.sprintf('%1$.0f %1$.1f %1$.2f', 1.57)).to.be.equal('2 1.6 1.57');
+    expect(v.sprintf('%.2f %0.2f', 0, 0)).to.be.equal('0.00 0.00');
+    expect(v.sprintf('%4f %05.2f', -15.789, 1.27)).to.be.equal('-15.789000 01.27');
+    expect(v.sprintf("%'f10f", 1.5)).to.be.equal('ff1.500000');
+    expect(v.sprintf("%+'s-15.10f", 9.7654321)).to.be.equal('+9.7654321000ss');
+    expect(v.sprintf("%06.2f", 8)).to.be.equal('008.00');
+    expect(v.sprintf('%f %.1f', '34.111', '-15.67')).to.be.equal('34.111000 -15.7');
+    expect(v.sprintf('%.3f %.2f', '1.123456e+0', '1.3e+2')).to.be.equal('1.123 130.00');
+    expect(v.sprintf('%f %f', '1FF', '-15.67TUU')).to.be.equal('1.000000 -15.670000');
+    expect(v.sprintf('%f %f %f', 'FF', '', '+')).to.be.equal('0.000000 0.000000 0.000000');
   });
 
   it('should ignore specifiers with double percent characters', function shouldIgnoreSpecifiersWithDoublePercent() {
