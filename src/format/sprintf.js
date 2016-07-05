@@ -42,6 +42,7 @@ function replaceConversionSpecification(index, args, conversionSpecification, pe
     case Type.INTEGER_OCTAL:
     case Type.INTEGER_HEXADECIMAL:
     case Type.INTEGER_HEXADECIMAL_UPPERCASE:
+    case Type.INTEGER_UNSIGNED_DECIMAL:
       return formatIntegerBase(...formatterArguments, typeSpecifier);
   }
 }

@@ -112,6 +112,26 @@ describe('sprintf', function() {
     expect(v.sprintf("%x %x", -1, -10)).to.be.equal('ffffffff fffffff6');
   });
 
+  it('should return a string according to unisgned decimal integer type formatting', function shouldReturnUnsignedDecimalIntegerBasedOnFormatting() {
+    expect(v.sprintf('%u-%u', 1, 14)).to.be.equal('1-14');
+    expect(v.sprintf('%u %u %u', 1, 0, 20)).to.be.equal('1 0 20');
+    expect(v.sprintf('%+u %+u', 10, 50)).to.be.equal('10 50');
+    expect(v.sprintf("%+'t6u %4u", 30, 0)).to.be.equal('tttt30    0');
+    expect(v.sprintf("%010u", 90)).to.be.equal('0000000090');
+    expect(v.sprintf("%+ 8u", 88)).to.be.equal('      88');
+    expect(v.sprintf("%u+%u=%u", 90, 10, 100)).to.be.equal('90+10=100');
+    expect(v.sprintf("%3$04u-%2$04u=%1$04u", 35, 5, 40)).to.be.equal('0040-0005=0035');
+    expect(v.sprintf("%+'T-5u", 15)).to.be.equal('15TTT');
+    expect(v.sprintf("%1$u %1$u", 1.5e+3)).to.be.equal('1500 1500');
+    expect(v.sprintf("%u", '15NN')).to.be.equal('15');
+    expect(v.sprintf("%u", '1.6')).to.be.equal('1');
+    expect(v.sprintf("%u", '1.5e+3')).to.be.equal('1');
+    expect(v.sprintf("%u", 'NN15')).to.be.equal('0');
+    expect(v.sprintf("%u %u", '', 15)).to.be.equal('0 15');
+    expect(v.sprintf("%u", '+')).to.be.equal('0');
+    expect(v.sprintf("%u %u", -1, -10)).to.be.equal('4294967295 4294967286');
+  });
+
   it('should ignore specifiers with double percent characters', function shouldIgnoreSpecifiersWithDoublePercent() {
     expect(v.sprintf('%%s')).to.be.equal('%s');
     expect(v.sprintf('%%s %s', 'Persian')).to.be.equal('%s Persian');
