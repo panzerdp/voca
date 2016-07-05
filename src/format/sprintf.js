@@ -11,7 +11,7 @@ import formatIntegerDecimal from './sprintf_utils/type/format_integer_decimal';
 import formatString from './sprintf_utils/type/format_string';
 
 /**
- * Return the computated string based on format specifiers.
+ * Return the computed string based on format specifiers.
  *
  * @ignore
  * @param  {number}   index                   The index of the matched specifier.
@@ -24,7 +24,7 @@ import formatString from './sprintf_utils/type/format_string';
  * @param  {number}   widthSpecifier          The width specifier how many characters this conversion should result in.
  * @param  {number}   precisionSpecifier      The precision specifier says how many decimal digits should be displayed for floating-point numbers.
  * @param  {string}   typeSpecifier           The type specifier says what type the argument data should be treated as.
- * @return {string}                           Returns the computated string.
+ * @return {string}                           Returns the computed string.
  */
 function replaceConversionSpecification(index, args, conversionSpecification, percent, signSpecifier, paddingSpecifier,
   alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
@@ -39,9 +39,9 @@ function replaceConversionSpecification(index, args, conversionSpecification, pe
     case Type.INTEGER:
       return formatIntegerDecimal(...formatterArguments);
     case Type.INTEGER_BINARY:
+    case Type.INTEGER_OCTAL:
     case Type.INTEGER_HEXADECIMAL:
     case Type.INTEGER_HEXADECIMAL_UPPERCASE:
-    case Type.INTEGER_OCTAL:
       return formatIntegerBase(...formatterArguments, typeSpecifier);
   }
 }
