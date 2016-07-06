@@ -2,6 +2,7 @@ import alignAndPad from '../align_and_pad';
 import { CHARACTER_PLUS, Type } from '../const';
 import nilDefault from '../../../utils/undefined/nil_default';
 import toNumber from '../../../utils/number/to_number';
+import { REGEXP_TRAILING_ZEROS } from '../../../utils/string/regexp';
 
 /**
  * Formats a float type according to specifiers.
@@ -38,13 +39,13 @@ export default function(replacement, signSpecifier, paddingCharacter, alignmentS
       if (precision === 0) {
         precision = 1;
       }
-      float = float.toPrecision(precision);
+      float = float.toPrecision(precision).replace(REGEXP_TRAILING_ZEROS, '');
       break;
     case Type.FLOAT_SHORT_UPPERCASE:
       if (precision === 0) {
         precision = 1;
       }
-      float = float.toPrecision(precision).toUpperCase();
+      float = float.toPrecision(precision).toUpperCase().replace(REGEXP_TRAILING_ZEROS, '');
       break;
   }
   if (showPlusSign) {

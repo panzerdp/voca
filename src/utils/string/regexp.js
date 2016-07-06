@@ -184,3 +184,11 @@ export var REGEXP_HTML_SPECIAL_CHARACTERS = /[<>&"'`]/g;
  * @ignore
  */
 export var REGEXP_CONVERSION_SPECIFICATION = /(%{1,2})(?:(\d+)\$)?(\+)?([ 0]|'.{1})?(-)?(\d+)?(?:\.(\d+))?([bcdiouxXeEfgGs])?/g;
+
+/**
+ * Regular expression to match trailing zeros in a number
+ *
+ * @type {RegExp}
+ * @ignore
+ */
+export var REGEXP_TRAILING_ZEROS = /\.?0+$/g;

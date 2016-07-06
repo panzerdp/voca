@@ -4,7 +4,7 @@ import { PRINTABLE_ASCII } from '../utils/string/ascii';
 
 describe('sprintf', function() {
 
-  it('should return a string according to string type formatting', function shouldReturnStringBasedOnFormatting() {
+  it('should return a string according to string type formatting', function () {
     expect(v.sprintf('%s', 'string')).to.be.equal('string');
     expect(v.sprintf('Hello %s!', 'World')).to.be.equal('Hello World!');
     expect(v.sprintf('%s %s!', 'Hello', 'World')).to.be.equal('Hello World!');
@@ -32,7 +32,7 @@ describe('sprintf', function() {
     expect(v.sprintf('%1$s the %s', 'Great')).to.be.equal('Great the Great');
   });
 
-  it('should return a string according to decimal integer type formatting', function shouldReturnDecimalIntegerBasedOnFormatting() {
+  it('should return a string according to decimal integer type formatting', function () {
     expect(v.sprintf('%d', 1)).to.be.equal('1');
     expect(v.sprintf('%i', 1)).to.be.equal('1');
     expect(v.sprintf('%d %d %d', 1, 0, -100)).to.be.equal('1 0 -100');
@@ -52,7 +52,7 @@ describe('sprintf', function() {
     expect(v.sprintf("%d", '+')).to.be.equal('0');
   });
 
-  it('should return a string according to binary integer type formatting', function shouldReturnBinaryIntegerBasedOnFormatting() {
+  it('should return a string according to binary integer type formatting', function () {
     expect(v.sprintf('%b', 1)).to.be.equal('1');
     expect(v.sprintf('%b %b 0b%b', 1, 0, 10)).to.be.equal('1 0 0b1010');
     expect(v.sprintf('%+b %+b', 10, 10)).to.be.equal('1010 1010');
@@ -72,7 +72,7 @@ describe('sprintf', function() {
     expect(v.sprintf("%b %b", -1, -10)).to.be.equal('11111111111111111111111111111111 11111111111111111111111111110110');
   });
 
-  it('should return a string according to octal integer type formatting', function shouldReturnOctalIntegerBasedOnFormatting() {
+  it('should return a string according to octal integer type formatting', function () {
     expect(v.sprintf('%o', 1)).to.be.equal('1');
     expect(v.sprintf('%o %o 0%o', 1, 0, 10)).to.be.equal('1 0 012');
     expect(v.sprintf('%+o %+o', 10, 10)).to.be.equal('12 12');
@@ -92,7 +92,7 @@ describe('sprintf', function() {
     expect(v.sprintf("%o %o", -1, -10)).to.be.equal('37777777777 37777777766');
   });
 
-  it('should return a string according to hexadecimal integer type formatting', function shouldReturnHexadecimalIntegerBasedOnFormatting() {
+  it('should return a string according to hexadecimal integer type formatting', function () {
     expect(v.sprintf('%x-%X', 1, 14)).to.be.equal('1-E');
     expect(v.sprintf('%x %x 0X%x', 1, 0, 20)).to.be.equal('1 0 0X14');
     expect(v.sprintf('%+x %+x', 10, 50)).to.be.equal('a 32');
@@ -112,7 +112,7 @@ describe('sprintf', function() {
     expect(v.sprintf("%x %x", -1, -10)).to.be.equal('ffffffff fffffff6');
   });
 
-  it('should return a string according to unsigned decimal integer type formatting', function shouldReturnUnsignedDecimalIntegerBasedOnFormatting() {
+  it('should return a string according to unsigned decimal integer type formatting', function () {
     expect(v.sprintf('%u-%u', 1, 14)).to.be.equal('1-14');
     expect(v.sprintf('%u %u %u', 1, 0, 20)).to.be.equal('1 0 20');
     expect(v.sprintf('%+u %+u', 10, 50)).to.be.equal('10 50');
@@ -132,7 +132,7 @@ describe('sprintf', function() {
     expect(v.sprintf("%u %u", -1, -10)).to.be.equal('4294967295 4294967286');
   });
 
-  it('should return a string according to float type formatting', function shouldReturnFloatBasedOnFormatting() {
+  it('should return a string according to float type formatting', function () {
     expect(v.sprintf('%f %f', 1, 0)).to.be.equal('1.000000 0.000000');
     expect(v.sprintf('%+f+%+f', 50.123456789, 0)).to.be.equal('+50.123457++0.000000');
     expect(v.sprintf('%1$.0f %1$.1f %1$.2f', 1.57)).to.be.equal('2 1.6 1.57');
@@ -149,7 +149,7 @@ describe('sprintf', function() {
     expect(v.sprintf('%f %f %f', 'FF', '', '+')).to.be.equal('0.000000 0.000000 0.000000');
   });
 
-  it('should return a string according to scientific float type formatting', function shouldReturnScientificFloatBasedOnFormatting() {
+  it('should return a string according to scientific float type formatting', function () {
     expect(v.sprintf('%e %e %E', 100, 0, .1)).to.be.equal('1.000000e+2 0.000000e+0 1.000000E-1');
     expect(v.sprintf('%+e+%+e', 50.123456789, 0)).to.be.equal('+5.012346e+1++0.000000e+0');
     expect(v.sprintf('%1$.0e %1$.1e %1$.2e', 1.57)).to.be.equal('2e+0 1.6e+0 1.57e+0');
@@ -167,14 +167,34 @@ describe('sprintf', function() {
     expect(v.sprintf('%e %e %e', 'FF', '', '+')).to.be.equal('0.000000e+0 0.000000e+0 0.000000e+0');
   });
 
-  it('should ignore specifiers with double percent characters', function shouldIgnoreSpecifiersWithDoublePercent() {
+  it('should return a string according to short float type formatting', function () {
+    expect(v.sprintf('%g %g %g', 100, 0, .1)).to.be.equal('100 0 0.1');
+    expect(v.sprintf('%+g+%+g', 50.123456789, 0)).to.be.equal('+50.1235++0');
+    expect(v.sprintf('%1$.0g %1$.1g %1$.2g', 1.57)).to.be.equal('2 2 1.6');
+    expect(v.sprintf('%.2g %0.2g', 0, 0)).to.be.equal('0 0');
+    //expect(v.sprintf('%.0g', 0)).to.be.equal('0');
+    //expect(v.sprintf('%.0g %.0g', 0, 15.7)).to.be.equal('0 2.0e+1');
+
+    // expect(v.sprintf('%4e %08.2e', -15.789, 1.27)).to.be.equal('-1.578900e+1 01.27e+0');
+    // expect(v.sprintf("%'f15e", 0.105)).to.be.equal('ffff1.050000e-1');
+    // expect(v.sprintf("%+-14e", 101.101)).to.be.equal('+1.011010e+2  ');
+    // expect(v.sprintf("%+'s-20.10e", 0.097654321)).to.be.equal('+9.7654321000e-2ssss');
+    // expect(v.sprintf("%08.2e", 8)).to.be.equal('08.00e+0');
+    // expect(v.sprintf('%e %.1e', '34.111', '-15.67')).to.be.equal('3.411100e+1 -1.6e+1');
+    // expect(v.sprintf('%.3E %.2E', '1.123456e+0', '1.3E+2')).to.be.equal('1.123E+0 1.30E+2');
+    // expect(v.sprintf('%.4e', '-567.123456e+6')).to.be.equal('-5.6712e+8');
+    // expect(v.sprintf('%e %e %e', '1FF', '-15.67TUU', '.1')).to.be.equal('1.000000e+0 -1.567000e+1 1.000000e-1');
+    // expect(v.sprintf('%e %e %e', 'FF', '', '+')).to.be.equal('0.000000e+0 0.000000e+0 0.000000e+0');
+  });
+
+  it('should ignore specifiers with double percent characters', function () {
     expect(v.sprintf('%%s')).to.be.equal('%s');
     expect(v.sprintf('%%s %s', 'Persian')).to.be.equal('%s Persian');
     expect(v.sprintf('%% %%')).to.be.equal('% %');
     expect(v.sprintf('%%%% %%%%%s', 'Babylon')).to.be.equal('%% %%Babylon');
   });
 
-  it('should throw exceptions when the formatter is not valid or not enough arguments', function shouldThrowException() {
+  it('should throw exceptions when the formatter is not valid or not enough arguments', function () {
     expect(v.sprintf.bind(v, '%s')).to.throw(Error, 'sprintf(): Too few arguments');
     expect(v.sprintf.bind(v, '%s %s')).to.throw(Error, 'sprintf(): Too few arguments');
     expect(v.sprintf.bind(v, '%s %s', 'Alexander')).to.throw(Error, 'sprintf(): Too few arguments');
@@ -188,7 +208,7 @@ describe('sprintf', function() {
     expect(v.sprintf.bind(v, '%0$s', 'Alexander')).to.throw(Error, 'sprintf(): Argument number must be greater than zero');
   });
 
-  it('should return an unmodified string for missing formatting specifiers', function shouldNotModifyString() {
+  it('should return an unmodified string for missing formatting specifiers', function () {
     expect(v.sprintf('Without formatting')).to.be.equal('Without formatting');
     expect(v.sprintf('')).to.be.equal('');
   });
