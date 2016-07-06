@@ -7,6 +7,7 @@ import isNil from '../utils/object/is_nil';
 import paddingCharacter from './sprintf_utils/padding_character';
 import validateFormat from './sprintf_utils/validate_format';
 import formatFloat from './sprintf_utils/type/format_float';
+import formatFloatScientific from './sprintf_utils/type/format_float_scientific';
 import formatIntegerBase from './sprintf_utils/type/format_integer_base';
 import formatIntegerDecimal from './sprintf_utils/type/format_integer_decimal';
 import formatString from './sprintf_utils/type/format_string';
@@ -45,6 +46,9 @@ function replaceConversionSpecification(index, args, signSpecifier, paddingSpeci
       return formatIntegerBase(...formatterArguments, typeSpecifier);
     case Type.FLOAT:
       return formatFloat(...formatterArguments);
+    case Type.FLOAT_SCIENTIFIC:
+    case Type.FLOAT_SCIENTIFIC_UPPERCASE:
+      return formatFloatScientific(...formatterArguments, typeSpecifier);
   }
 }
 
