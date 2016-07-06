@@ -98,7 +98,7 @@ For general usage questions a better place is to ask on [StackOverflow](http://s
 
 Contribution is always welcome. You can do this by:
 
-* Create a pull request with bug fixes or new features. Include the unit tests (of course library should pass them) and keep the coverage report at 100%
+* Create a pull request containing bug fixes or new features. Include unit tests (of course library should pass them) and keep the coverage report at 100%
 * [Create an issue](https://github.com/panzerdp/voca/issues) with a bug report or improvement idea
 * Suggest better documentation
 
