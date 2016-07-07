@@ -172,19 +172,19 @@ describe('sprintf', function() {
     expect(v.sprintf('%+g+%+g', 50.123456789, 0)).to.be.equal('+50.1235++0');
     expect(v.sprintf('%1$.0g %1$.1g %1$.2g', 1.57)).to.be.equal('2 2 1.6');
     expect(v.sprintf('%.2g %0.2g', 0, 0)).to.be.equal('0 0');
-    //expect(v.sprintf('%.0g', 0)).to.be.equal('0');
-    //expect(v.sprintf('%.0g %.0g', 0, 15.7)).to.be.equal('0 2.0e+1');
-
-    // expect(v.sprintf('%4e %08.2e', -15.789, 1.27)).to.be.equal('-1.578900e+1 01.27e+0');
-    // expect(v.sprintf("%'f15e", 0.105)).to.be.equal('ffff1.050000e-1');
-    // expect(v.sprintf("%+-14e", 101.101)).to.be.equal('+1.011010e+2  ');
-    // expect(v.sprintf("%+'s-20.10e", 0.097654321)).to.be.equal('+9.7654321000e-2ssss');
-    // expect(v.sprintf("%08.2e", 8)).to.be.equal('08.00e+0');
-    // expect(v.sprintf('%e %.1e', '34.111', '-15.67')).to.be.equal('3.411100e+1 -1.6e+1');
-    // expect(v.sprintf('%.3E %.2E', '1.123456e+0', '1.3E+2')).to.be.equal('1.123E+0 1.30E+2');
-    // expect(v.sprintf('%.4e', '-567.123456e+6')).to.be.equal('-5.6712e+8');
-    // expect(v.sprintf('%e %e %e', '1FF', '-15.67TUU', '.1')).to.be.equal('1.000000e+0 -1.567000e+1 1.000000e-1');
-    // expect(v.sprintf('%e %e %e', 'FF', '', '+')).to.be.equal('0.000000e+0 0.000000e+0 0.000000e+0');
+    expect(v.sprintf('%.0g', 0)).to.be.equal('0');
+    expect(v.sprintf('%.0g %.0g', 0, 15.7)).to.be.equal('0 2e+1');
+    expect(v.sprintf('%4g %08.2g', -15.789, 1.27)).to.be.equal('-15.789 000001.3');
+    expect(v.sprintf("%'f15g", 0.105)).to.be.equal('ffffffffff0.105');
+    expect(v.sprintf("%+-14g", 101.101)).to.be.equal('+101.101      ');
+    expect(v.sprintf("%+'s-20.10g", 0.0976543216)).to.be.equal('+0.0976543216sssssss');
+    expect(v.sprintf("%+'s-20.8g", 0.0976543216)).to.be.equal('+0.097654322ssssssss');
+    expect(v.sprintf("%08.2g", 8)).to.be.equal('00000008');
+    expect(v.sprintf('%g %.1G', '34.111', '-15.67')).to.be.equal('34.111 -2E+1');
+    expect(v.sprintf('_%.3G_%.2G_!1234567890*', '1.123456e+0', '1.3E+2')).to.be.equal('_1.12_1.3E+2_!1234567890*');
+    expect(v.sprintf('%.4g', '-567.123456e+6')).to.be.equal('-5.671e+8');
+    expect(v.sprintf('%g %G %g', '1FF', '-15.67TUU', '.1')).to.be.equal('1 -15.67 0.1');
+    expect(v.sprintf('%g %G %g', 'FF', '', '+')).to.be.equal('0 0 0');
   });
 
   it('should ignore specifiers with double percent characters', function () {

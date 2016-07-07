@@ -36,16 +36,15 @@ export default function(replacement, signSpecifier, paddingCharacter, alignmentS
       float = float.toExponential(precision).toUpperCase();
       break;
     case Type.FLOAT_SHORT:
-      if (precision === 0) {
-        precision = 1;
-      }
-      float = float.toPrecision(precision).replace(REGEXP_TRAILING_ZEROS, '');
-      break;
     case Type.FLOAT_SHORT_UPPERCASE:
-      if (precision === 0) {
-        precision = 1;
+      if (float === 0) {
+        float = '0';
+        break;
       }
-      float = float.toPrecision(precision).toUpperCase().replace(REGEXP_TRAILING_ZEROS, '');
+      float = float.toPrecision(precision === 0 ? 1 : precision).replace(REGEXP_TRAILING_ZEROS, '');
+      if (typeSpecifier === Type.FLOAT_SHORT_UPPERCASE) {
+        float = float.toUpperCase();
+      }
       break;
   }
   if (showPlusSign) {
