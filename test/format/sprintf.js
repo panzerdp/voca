@@ -132,6 +132,14 @@ describe('sprintf', function() {
     expect(v.sprintf("%u %u", -1, -10)).to.be.equal('4294967295 4294967286');
   });
 
+  it('should return a string according to ascii integer type formatting', function () {
+    expect(v.sprintf('%c %c %c', 65, 0x0020, 48)).to.be.equal('A   0');
+    expect(v.sprintf('%5c', 65)).to.be.equal('    A');
+    expect(v.sprintf('%02c', 65)).to.be.equal('0A');
+    expect(v.sprintf('%-5c', 65)).to.be.equal('A    ');
+    expect(v.sprintf('%+\'t-4c', '110')).to.be.equal('nttt');
+  });
+
   it('should return a string according to float type formatting', function () {
     expect(v.sprintf('%f %f', 1, 0)).to.be.equal('1.000000 0.000000');
     expect(v.sprintf('%+f+%+f', 50.123456789, 0)).to.be.equal('+50.123457++0.000000');

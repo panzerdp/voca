@@ -23,6 +23,9 @@ export default function(replacement, signSpecifier, paddingCharacter, alignmentS
   }
   integer = integer >>> 0;
   switch (typeSpecifier) {
+    case Type.INTEGER_ASCII_CHARACTER:
+      integer = String.fromCharCode(integer);
+      break;
     case Type.INTEGER_BINARY:
       integer = integer.toString(2);
       break;

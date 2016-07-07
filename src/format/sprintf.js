@@ -37,6 +37,7 @@ function replaceConversionSpecification(index, args, signSpecifier, paddingSpeci
     case Type.INTEGER_DECIMAL:
     case Type.INTEGER:
       return formatIntegerDecimal(...formatterArguments);
+    case Type.INTEGER_ASCII_CHARACTER:
     case Type.INTEGER_BINARY:
     case Type.INTEGER_OCTAL:
     case Type.INTEGER_HEXADECIMAL:
