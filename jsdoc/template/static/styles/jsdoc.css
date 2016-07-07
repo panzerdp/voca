@@ -78,6 +78,7 @@ h4.name {
   border-radius: 0.2em;
   margin: 0.5em 0 0.5em;
   padding: .75em 0 .6em 10px;
+  word-break: break-word;
 }
 
 h5, .container-overview .subsection-title {
@@ -363,6 +364,7 @@ footer {
 .description {
   margin-bottom: 1em;
   margin-top: 1em;
+  word-break: break-word;
 }
 
 .code-caption {
@@ -459,7 +461,7 @@ footer {
 }
 
 .light-params tr:first-child > td {
-  border-top: 0;
+  border-top: 0
 }
 
 .light-params tr>td:last-child {
