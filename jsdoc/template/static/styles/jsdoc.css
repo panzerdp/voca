@@ -461,7 +461,7 @@ footer {
 }
 
 .light-params tr:first-child > td {
-  border-top: 0
+  border-top: 0;
 }
 
 .light-params tr>td:last-child {
