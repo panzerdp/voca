@@ -6,7 +6,6 @@ import isNil from '../../utils/object/is_nil';
  * @ignore
  * @param  {number}   index    The index of the matched specifier.
  * @param  {Object[]} args          The array of arguments to replace specifiers.
- * @param  {number}   position      The position modifier.
  * @param  {string}   typeSpecifier The type specifier says what type the argument data should be treated as.
  */
 export default function(index, args, typeSpecifier) {

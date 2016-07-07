@@ -54,7 +54,23 @@ function replaceConversionSpecification(index, args, signSpecifier, paddingSpeci
 }
 
 /**
- * Produces a string according to the formatting of `format`.
+ * Produces a string according to `format`.
+ *
+ * The format string contains characters, beginning and ending in its initial shift state, if any. The format
+ * string is composed of zero or more directives: ordinary characters (not <code>%</code>), which are  copied  unchanged
+ * to  the  output stream; and conversion specifications, each of which results in fetching zero or more subsequent
+ * arguments. Each conversion specification is introduced by the character <code>%</code>, and ends with a <b>conversion
+ * specifier</b>. In between there may be (in this order) <b>zero or more flags</b>, an optional <b>minimum field width</b>, an
+ * optional <b>precision</b> and an optional <b>length modifier</b>.
+ *
+ * <b>The flag characters</b><br/>
+ * The character <code>%</code> is followed by zero or more of the following flags:<br/>
+ * <code>0</code> The value should be zero padded.<br/>
+ * <code>-</code> The converted value is to be left adjusted on the field boundary (the default is right justification).<br/>
+ * <code>' '</code> (a space) The value should be space padded.<br/>
+ * <code>+</code> A  sign (<code>+</code> or <code>-</code>) should always be placed before a number produced by a
+ * signed conversion. By default a sign is used only for negative numbers.<br/>
+ * <code>'</code> Indicates that the immediately following character is used for padding.<br/>
  *
  * @function sprintf
  * @static
