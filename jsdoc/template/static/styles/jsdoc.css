@@ -492,6 +492,17 @@ footer {
   font-size: 0.85em;
 }
 
+.smaller {
+  font-size: 0.85em;
+  line-height: 140%;
+}
+
+.smaller .light-params td:first-child {
+  width: 50px;
+  text-align: center;
+  vertical-align: top;
+}
+
 .code-separator {
   color: #3e607f;
 }
