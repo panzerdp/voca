@@ -57,15 +57,14 @@ function replaceConversionSpecification(index, args, signSpecifier, paddingSpeci
  * Produces a string according to `format`.
  *
  * <div class="smaller">
- * `format` string contains characters, beginning and ending in its initial shift state, if any. The format
- * string is composed of zero or more directives: ordinary characters (not <code>%</code>), which are  copied  unchanged
- * to  the  output string and conversion specifications, each of which results in fetching zero or more subsequent
- * arguments. Each conversion specification is introduced by the character <code>%</code>, and ends with a <b>conversion
+ * `format` string is composed of zero or more directives: ordinary characters (not <code>%</code>), which are  copied  unchanged
+ * to  the  output string and <i>conversion specifications</i>, each of which results in fetching zero or more subsequent
+ * arguments. Each <b>conversion specification</b> is introduced by the character <code>%</code>, and ends with a <b>conversion
  * specifier</b>. In between there may be (in this order) zero or more <b>flags</b>, an optional <b>minimum field width</b>
  * and an optional <b>precision</b>.<br/>
- * By default, the arguments are used in the order given.<br/>
- * For argument numbering and swapping, write `%m$` (where `m` is a number indicating the argument order)
- * instead of `%` to specify explicitly which argument is taken.<br/><br/>
+ * By default, the arguments are used in the given order.<br/>
+ * For argument numbering and swapping, `%m$` (where `m` is a number indicating the argument order)
+ * is used instead of `%` to specify explicitly which argument is taken.<br/><br/>
  *
  * <b>The flag characters</b><br/>
  * The character <code>%</code> is followed by zero or more of the following flags:<br/>
@@ -144,7 +143,7 @@ function replaceConversionSpecification(index, args, signSpecifier, paddingSpeci
  *     <td>
  *       The float argument is rounded and converted in the style `[-]d.ddde±dd`, where there is one digit
  *       before the decimal-point character and the number of digits after it is equal to the precision. If
- *       the precision is missing, it is taken as 6; if the precision is zero, no decimal-point character
+ *       the precision is missing, it is taken as `6`; if the precision is zero, no decimal-point character
  *       appears. An `E` conversion uses the letter `E` (rather than `e`) to introduce the exponent.
  *     </td>
  *   </tr>
@@ -152,9 +151,9 @@ function replaceConversionSpecification(index, args, signSpecifier, paddingSpeci
  *     <td>`g` `G`</td>
  *     <td>
  *       The double argument is converted in style `f` or `e` (or `F` or `E` for `G` conversions). The precision specifies
- *       the number of significant digits. If the precision is missing, 6 digits are given; if the
- *       precision is zero, it is treated as 1. Style `e` is used if the exponent from its conversion is less
- *       than -6 or greater than or equal to the precision. Trailing zeros are removed from the fractional
+ *       the number of significant digits. If the precision is missing, `6` digits are given; if the
+ *       precision is zero, it is treated as `1`. Style `e` is used if the exponent from its conversion is less
+ *       than `-6` or greater than or equal to the precision. Trailing zeros are removed from the fractional
  *       part of the result; a decimal point appears only if it is followed by at least one digit.
  *     </td>
  *   </tr>
@@ -173,8 +172,27 @@ function replaceConversionSpecification(index, args, signSpecifier, paddingSpeci
  * @param  {...*}               args The arguments to produce the string.
  * @return {string}             Returns the produced string.
  * @example
- * v.sprintf('%d', 1);
- * // => '1'
+ * v.sprintf('Hello %s!', 'World');
+ * // => 'Hello World!'
+ *
+ * v.sprintf("%.4s the %'!-8s", 'Alexander', 'Great');
+ * // => 'Alex the Great!!!'
+ *
+ * v.sprintf('%2$s the %1$s', 'Great', 'Alexander');
+ * // => 'Alexander the Great'
+ *
+ * v.sprintf('%d %i %+d', 15, -2, 25);
+ * // => '15 -2 +25'
+ *
+ * v.sprintf('0b%b 0%o 0x%x', 12, 9, 15);
+ * // => '0b1100 011 0xf'
+ *
+ * v.sprintf('%.1f %06.2f', 1.46, 8.7);
+ * // => '1.5 008.70'
+ *
+ * v.sprintf('%.2e %g', 100.5, 0.455);
+ * // => '1.01e+2 0.455'
+ * 
  */
 export default function(format, ...args) {
   var formatString = toString(nilDefault(format, ''));
