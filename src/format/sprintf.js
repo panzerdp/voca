@@ -8,7 +8,7 @@ import replaceConversionSpecification from './sprintf_utils/replace_conversion_s
 /**
  * Produces a string according to `format`.
  *
- * <div class="smaller">
+ * <div id="sprintf-format" class="smaller">
  * `format` string is composed of zero or more directives: ordinary characters (not <code>%</code>), which are  copied  unchanged
  * to  the  output string and <i>conversion specifications</i>, each of which results in fetching zero or more subsequent
  * arguments. Each <b>conversion specification</b> is introduced by the character <code>%</code>, and ends with a <b>conversion

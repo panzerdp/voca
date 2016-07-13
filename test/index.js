@@ -20,6 +20,7 @@ import './escape/unescape_html';
 
 //format
 import './format/sprintf';
+import './format/vprintf';
 
 //index
 import './index/index_of';

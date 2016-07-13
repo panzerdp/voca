@@ -24,6 +24,7 @@ import lengthWhere from './count/length_where';
  * @namespace Format
  */
 import sprintf from './format/sprintf';
+import vprintf from './format/vprintf';
 
 /**
  * Functions to escape RegExp special characters
@@ -109,6 +110,7 @@ var v = {
   unescapeHtml: unescapeHtml,
 
   sprintf: sprintf,
+  vprintf: vprintf,
 
   indexOf: indexOf,
   lastIndexOf: lastIndexOf,
