@@ -91,6 +91,15 @@ import replaceConversionSpecification from './sprintf_utils/replace_conversion_s
  *     conversions; the letters `ABCDEF` are used for `X` conversions.</td>
  *   </tr>
  *   <tr>
+ *     <td>`f`</td>
+ *     <td>
+ *      The float argument is rounded and converted to decimal notation in the style `[-]ddd.ddd`, where the number of
+ *      digits after the decimal-point character is equal to the precision specification. If the precision is missing,
+ *      it is taken as 6; if the precision is explicitly zero, no decimal-point character appears.
+ *      If a decimal point appears, at least one digit appears before it.
+ *     </td>
+ *   </tr>
+ *   <tr>
  *     <td>`e` `E`</td>
  *     <td>
  *       The float argument is rounded and converted in the style `[-]d.ddde±dd`, where there is one digit
@@ -102,7 +111,7 @@ import replaceConversionSpecification from './sprintf_utils/replace_conversion_s
  *   <tr>
  *     <td>`g` `G`</td>
  *     <td>
- *       The double argument is converted in style `f` or `e` (or `F` or `E` for `G` conversions). The precision specifies
+ *       The float argument is converted in style `f` or `e` (or `F` or `E` for `G` conversions). The precision specifies
  *       the number of significant digits. If the precision is missing, `6` digits are given; if the
  *       precision is zero, it is treated as `1`. Style `e` is used if the exponent from its conversion is less
  *       than `-6` or greater than or equal to the precision. Trailing zeros are removed from the fractional

@@ -195,6 +195,15 @@ describe('sprintf', function() {
     expect(v.sprintf('%g %G %g', 'FF', '', '+')).to.be.equal('0 0 0');
   });
 
+  it('should return a string according to format', function () {
+    expect(v.sprintf('%s costs $%.2f', 'Coffee', 2)).to.be.equal('Coffee costs $2.00');
+    expect(v.sprintf('%%s like %s', 'Coffee')).to.be.equal('%s like Coffee');
+    expect(v.sprintf("Full format: %'*10s %+d %i %04b %c %o %u %X %.0f %e %g %%",
+      'string', 18, -5, 4, 65, 8, 401, 255, 8.9, 50.12, 10.123456789
+    )).to.be.equal('Full format: ****string +18 -5 0100 A 10 401 FF 9 5.012000e+1 10.1235 %');
+    expect(v.sprintf('%s%d%%%s', 'word', 10, 'word')).to.be.equal('word10%word');
+  });
+
   it('should ignore specifiers with double percent characters', function () {
     expect(v.sprintf('%%s')).to.be.equal('%s');
     expect(v.sprintf('%%s %s', 'Persian')).to.be.equal('%s Persian');
@@ -219,6 +228,9 @@ describe('sprintf', function() {
   it('should return an unmodified string for missing formatting specifiers', function () {
     expect(v.sprintf('Without formatting')).to.be.equal('Without formatting');
     expect(v.sprintf('')).to.be.equal('');
+    expect(v.sprintf()).to.be.equal('');
+    expect(v.sprintf(undefined)).to.be.equal('');
+    expect(v.sprintf(null)).to.be.equal('');
   });
 
 });
