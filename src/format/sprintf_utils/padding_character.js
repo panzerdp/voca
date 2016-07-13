@@ -1,5 +1,5 @@
 import { CHARACTER_SINGLE_QUOTE } from './const';
-import nilDefault from '../../utils/undefined/nil_default';
+import nilDefault from '../../utilities/undefined/nil_default';
 
 /**
  * Get the padding character from padding specifier.

@@ -1,4 +1,4 @@
-import isNil from '../../utils/object/is_nil';
+import isNil from '../../utilities/object/is_nil';
 import { CHARACTER_MINUS } from './const';
 import padRight from '../../manipulate/pad_right';
 import padLeft from '../../manipulate/pad_left';

@@ -1,5 +1,5 @@
 import alignAndPad from '../align_and_pad';
-import toString from '../../../utils/string/to_string';
+import toString from '../../../utilities/string/to_string';
 import { Type } from '../const';
 
 /**

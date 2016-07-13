@@ -1,5 +1,5 @@
 import { Type } from './const';
-import toNumber from '../../utils/number/to_number';
+import toNumber from '../../utilities/number/to_number';
 import paddingCharacter from './padding_character';
 import validateFormat from './validate_format';
 import formatFloat from './type/format_float';

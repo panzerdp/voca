@@ -1,8 +1,8 @@
-import toString from '../utils/string/to_string';
-import nilDefault from '../utils/undefined/nil_default';
-import isNil from '../utils/object/is_nil';
-import toInteger from '../utils/number/to_integer';
-import clipNumber from '../utils/number/clip_number';
+import toString from '../utilities/string/to_string';
+import nilDefault from '../utilities/undefined/nil_default';
+import isNil from '../utilities/object/is_nil';
+import toInteger from '../utilities/number/to_integer';
+import clipNumber from '../utilities/number/clip_number';
 
 /**
  * Repeats the `subject` number of `times`.

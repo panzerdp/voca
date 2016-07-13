@@ -1,7 +1,7 @@
-import toString from '../utils/string/to_string';
-import nilDefault from '../utils/undefined/nil_default';
-import isNil from '../utils/object/is_nil';
-import { REGEX_TRIM_RIGHT } from '../utils/string/regexp';
+import toString from '../utilities/string/to_string';
+import nilDefault from '../utilities/undefined/nil_default';
+import isNil from '../utilities/object/is_nil';
+import { REGEX_TRIM_RIGHT } from '../utilities/string/regexp';
 
 /**
  * Removes the whitespaces from the right part of the `subject`.

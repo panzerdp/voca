@@ -1,8 +1,8 @@
 import alignAndPad from '../align_and_pad';
 import { CHARACTER_PLUS, Type } from '../const';
-import nilDefault from '../../../utils/undefined/nil_default';
-import toNumber from '../../../utils/number/to_number';
-import { REGEXP_TRAILING_ZEROS } from '../../../utils/string/regexp';
+import nilDefault from '../../../utilities/undefined/nil_default';
+import toNumber from '../../../utilities/number/to_number';
+import { REGEXP_TRAILING_ZEROS } from '../../../utilities/string/regexp';
 
 /**
  * Formats a float type according to specifiers.

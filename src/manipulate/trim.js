@@ -1,6 +1,6 @@
-import toString from '../utils/string/to_string';
-import nilDefault from '../utils/undefined/nil_default';
-import isNil from '../utils/object/is_nil';
+import toString from '../utilities/string/to_string';
+import nilDefault from '../utilities/undefined/nil_default';
+import isNil from '../utilities/object/is_nil';
 import trimLeft from './trim_left';
 import trimRight from './trim_right';
 

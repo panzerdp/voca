@@ -1,5 +1,5 @@
-import toString from '../utils/string/to_string';
-import nilDefault from '../utils/undefined/nil_default';
+import toString from '../utilities/string/to_string';
+import nilDefault from '../utilities/undefined/nil_default';
 
 /**
  * Counts the characters in `subject`. Equivalent to `subject.length`.

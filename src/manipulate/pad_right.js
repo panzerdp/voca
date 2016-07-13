@@ -1,9 +1,9 @@
-import toString from '../utils/string/to_string';
-import nilDefault from '../utils/undefined/nil_default';
-import isNil from '../utils/object/is_nil';
-import clipNumber from '../utils/number/clip_number';
-import toInteger from '../utils/number/to_integer';
-import buildPadding from '../utils/string/build_padding';
+import toString from '../utilities/string/to_string';
+import nilDefault from '../utilities/undefined/nil_default';
+import isNil from '../utilities/object/is_nil';
+import clipNumber from '../utilities/number/clip_number';
+import toInteger from '../utilities/number/to_integer';
+import buildPadding from '../utilities/string/build_padding';
 
 /**
  * Pads `subject` from right to a new `length`.

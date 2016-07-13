@@ -1,6 +1,6 @@
-import toString from '../utils/string/to_string';
-import nilDefault from '../utils/undefined/nil_default';
-import { REGEXP_HTML_SPECIAL_CHARACTERS } from '../utils/string/regexp';
+import toString from '../utilities/string/to_string';
+import nilDefault from '../utilities/undefined/nil_default';
+import { REGEXP_HTML_SPECIAL_CHARACTERS } from '../utilities/string/regexp';
 
 var escapeCharactersMap = {
   '<': '&lt;',

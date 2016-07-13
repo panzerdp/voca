@@ -1,6 +1,6 @@
-import toString from '../utils/string/to_string';
-import nilDefault from '../utils/undefined/nil_default';
-import { REGEXP_ALPHA } from '../utils/string/regexp';
+import toString from '../utilities/string/to_string';
+import nilDefault from '../utilities/undefined/nil_default';
+import { REGEXP_ALPHA } from '../utilities/string/regexp';
 
 /**
  * Checks if `subject` contains only alpha characters.

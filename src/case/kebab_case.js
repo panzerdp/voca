@@ -1,5 +1,5 @@
-import toString from '../utils/string/to_string';
-import nilDefault from '../utils/undefined/nil_default';
+import toString from '../utilities/string/to_string';
+import nilDefault from '../utilities/undefined/nil_default';
 import words from '../split/words';
 import lowerCase from '../case/lower_case';
 

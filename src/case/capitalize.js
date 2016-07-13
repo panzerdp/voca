@@ -1,6 +1,6 @@
-import toString from '../utils/string/to_string';
-import toBoolean from '../utils/boolean/to_boolean';
-import nilDefault from '../utils/undefined/nil_default';
+import toString from '../utilities/string/to_string';
+import toBoolean from '../utilities/boolean/to_boolean';
+import nilDefault from '../utilities/undefined/nil_default';
 
 /**
  * Converts the first character of `subject` to upper case and the rest to lower case.

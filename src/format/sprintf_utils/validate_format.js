@@ -1,4 +1,4 @@
-import isNil from '../../utils/object/is_nil';
+import isNil from '../../utilities/object/is_nil';
 
 /**
  * Validates the utils string.

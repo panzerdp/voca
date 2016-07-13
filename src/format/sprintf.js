@@ -1,8 +1,8 @@
-import { REGEXP_CONVERSION_SPECIFICATION } from '../utils/string/regexp';
+import { REGEXP_CONVERSION_SPECIFICATION } from '../utilities/string/regexp';
 import { CHARACTER_PERCENT } from './sprintf_utils/const';
-import toString from '../utils/string/to_string';
-import nilDefault from '../utils/undefined/nil_default';
-import isNil from '../utils/object/is_nil';
+import toString from '../utilities/string/to_string';
+import nilDefault from '../utilities/undefined/nil_default';
+import isNil from '../utilities/object/is_nil';
 import replaceConversionSpecification from './sprintf_utils/replace_conversion_specification';
 
 /**
