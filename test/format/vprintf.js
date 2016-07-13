@@ -34,6 +34,7 @@ describe('vprintf', function() {
     expect(v.vprintf('Without formatting', [])).to.be.equal('Without formatting');
     expect(v.vprintf('Without formatting', [undefined])).to.be.equal('Without formatting');
     expect(v.vprintf('')).to.be.equal('');
+    expect(v.vprintf(' ')).to.be.equal(' ');
     expect(v.vprintf()).to.be.equal('');
     expect(v.vprintf(undefined)).to.be.equal('');
     expect(v.vprintf(null)).to.be.equal('');
