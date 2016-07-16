@@ -12,16 +12,16 @@ Voca is still in early design and development. Many important features are in pr
 
 ## Scope
 
-[Voca](http://vocajs.com) provides the full set of methods for working with **strings** in JavaScript. The main benefits:  
+[Voca](https://vocajs.com) provides the full set of methods for working with **strings** in JavaScript. The main benefits:
 
 *  Contains a complete set of methods for strings manipulation, format and query
 *  100% test coverage
-*  Comfortable [documentation](http://vocajs.com)
+*  Comfortable [documentation](https://vocajs.com)
 *  Provides modularity and clean code
 
 ## Documentation
 
-See the detailed API documentation on [vocajs.com](http://vocajs.com)
+See the detailed API documentation on [vocajs.com](https://vocajs.com)
 
 ## Usage
 Voca can be used in various environments.  
@@ -136,7 +136,7 @@ npm run eslint
 
 ## Author
 
-[Dmitri Pavlutin](http://rainsoft.io/about-me/)
+[Dmitri Pavlutin](https://rainsoft.io/about-me/)
 
 ## License
 
