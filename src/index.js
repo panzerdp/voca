@@ -91,6 +91,13 @@ import charsCodePoint from './split/chars_code_point';
 import split from './split/split';
 import words from './split/words';
 
+/**
+ * Util functions and properties
+ * @namespace Util
+ */
+import noConflict from './util/no_conflict';
+import version from './util/version';
+
 var v = {
   camelCase: camelCase,
   capitalize: capitalize,
@@ -151,7 +158,10 @@ var v = {
   chars: chars,
   charsCodePoint: charsCodePoint,
   split: split,
-  words: words
+  words: words,
+
+  version: version,
+  noConflict: noConflict
 };
 
 export default v;

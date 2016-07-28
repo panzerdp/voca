@@ -135,7 +135,7 @@ section {
   padding: 0 0 0 30px;
 }
 
-.method {
+.method, .member {
   background-color: white;
   padding: 0.5em 1em 0.5em 1em;
   margin-bottom: 1em;

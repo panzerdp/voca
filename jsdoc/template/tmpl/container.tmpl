@@ -117,6 +117,17 @@
     <?js } ?>
 
     <?js
+        var methods = self.find({kind: 'function', memberof: isGlobalPage ? {isUndefined: true} : doc.longname});
+        if (methods && methods.length && methods.forEach) {
+    ?>
+        <!--<h3 class="subsection-title">Methods</h3> -->
+
+        <?js methods.forEach(function(m) { ?>
+            <?js= self.partial('method.tmpl', m) ?>
+        <?js }); ?>
+    <?js } ?>
+
+    <?js
         var members = self.find({kind: 'member', memberof: isGlobalPage ? {isUndefined: true} : doc.longname});
 
         // symbols that are assigned to module.exports are not globals, even though they're not a memberof anything
@@ -127,21 +138,10 @@
         }
         if (members && members.length && members.forEach) {
     ?>
-        <h3 class="subsection-title">Members</h3>
+        <!-- <h3 class="subsection-title">Members</h3> -->
 
         <?js members.forEach(function(p) { ?>
             <?js= self.partial('members.tmpl', p) ?>
-        <?js }); ?>
-    <?js } ?>
-
-    <?js
-        var methods = self.find({kind: 'function', memberof: isGlobalPage ? {isUndefined: true} : doc.longname});
-        if (methods && methods.length && methods.forEach) {
-    ?>
-        <!--<h3 class="subsection-title">Methods</h3> -->
-
-        <?js methods.forEach(function(m) { ?>
-            <?js= self.partial('method.tmpl', m) ?>
         <?js }); ?>
     <?js } ?>
 

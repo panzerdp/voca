@@ -308,7 +308,7 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
       var methods = find({kind: 'function', memberof: item.longname});
       var members = find({kind: 'member', memberof: item.longname});
       //change
-      methods.forEach(function (method) {
+      members.concat(methods).forEach(function (method) {
         if (method.memberof) {
           method.name = /*method.memberof*/ 'v.' + method.name;
         }
@@ -317,18 +317,20 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
         itemsNav += '<li>' + linktoFn('', item.name);
         itemsNav += '</li>';
       } else if (!hasOwnProp.call(itemsSeen, item.longname)) {
-        itemsNav += '<li><h2>' + item.name + '</h2>';//linktoFn(item.longname, item.name.replace(/^module:/, ''));
-        if (methods.length) {
-          itemsNav += "<ul class='methods'>";
-
-          methods.forEach(function (method) {
-            itemsNav += "<li data-type='method'>";
-            itemsNav += "<a href='#" + method.name.replace('v.', '') + "'>" + method.name + "</a>";//linkto(method.longname, method.name);
-            itemsNav += "</li>";
-          });
-
-          itemsNav += "</ul>";
-        }
+        itemsNav += '<li><h2>' + item.name + '</h2>';
+        itemsNav += "<ul class='methods'>";
+        methods.forEach(function (method) {
+          itemsNav += "<li data-type='method'>";
+          itemsNav += "<a href='#" + method.name.replace('v.', '') + "'>" + method.name + "</a>";
+          itemsNav += "</li>";
+        });
+        members.forEach(function (member) {
+          if (!member.scope === 'static') return;
+          itemsNav += "<li data-type='member'>";
+          itemsNav += "<a href='#" + member.name.replace('v.', '') + "'>" + member.name + "</a>";
+          itemsNav += "</li>";
+        });
+        itemsNav += "</ul>";
         itemsNav += '</li>';
         itemsSeen[item.longname] = true;
       }
