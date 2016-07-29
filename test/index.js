@@ -66,3 +66,7 @@ import './split/chars';
 import './split/chars_code_point';
 import './split/split';
 import './split/words';
+
+//util
+import './util/no_conflict';
+import './util/version';

@@ -1,5 +1,5 @@
 /**
- * A property that contains the library version.
+ * A property that contains the library <a href="http://semver.org/">semantic version number</a>.
  * @name version
  * @static
  * @memberOf Util

@@ -1,3 +1,7 @@
+import globalObject from '../utilities/object/global';
+
+var previousV = globalObject.v;
+
 /**
  * Restores `v` variable to previous value and returns Voca library instance.
  *
@@ -11,5 +15,8 @@
  * // => true
  */
 export default function () {
-  return {};
+  if (this === globalObject.v) {
+    globalObject.v = previousV;
+  }
+  return this;
 }

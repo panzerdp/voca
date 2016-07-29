@@ -160,8 +160,9 @@ var v = {
   split: split,
   words: words,
 
-  version: version,
-  noConflict: noConflict
+  version: version
 };
+
+v.noConflict = noConflict.bind(v);
 
 export default v;

@@ -41,6 +41,7 @@
     "rollup": "0.33.0",
     "rollup-plugin-babel": "2.6.1",
     "rollup-plugin-multi-entry": "1.4.0",
+    "semver-regex": "1.0.0",
     "source-map-support": "0.4.1"
   },
   "dependencies": {},
