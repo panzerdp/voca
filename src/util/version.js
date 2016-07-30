@@ -3,6 +3,7 @@
  * @name version
  * @static
  * @memberOf Util
+ * @type string
  * @example
  * v.version
  * // => '1.0.0'

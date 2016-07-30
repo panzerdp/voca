@@ -3,7 +3,7 @@ var data = obj;
 var self = this;
 ?>
 <div class="member">
-    <h4 class="name" id="<?js= id ?>"><?js= data.attribs + name + (data.signature ? data.signature : '') ?></h4>
+    <h4 class="name" id="<?js= id ?>"><?js= data.attribs + name /*+ (data.signature ? data.signature : '') */ ?></h4>
 
     <?js if (data.summary) { ?>
     <p class="summary"><?js= summary ?></p>
@@ -19,11 +19,9 @@ var self = this;
 
     <?js if (data.type && data.type.names) {?>
         <h5>Type:</h5>
-        <ul>
-            <li>
-                <?js= self.partial('type.tmpl', data.type.names) ?>
-            </li>
-        </ul>
+        <div>
+          <?js= self.partial('type.tmpl', data.type.names) ?>
+        </div>
     <?js } ?>
 
     <?js if (data.fires && fires.length) { ?>
