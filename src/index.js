@@ -1,3 +1,5 @@
+//import Voca from './constructor/voca';
+
 /**
  * Functions to change the case
  * @namespace Case
@@ -98,7 +100,7 @@ import words from './split/words';
 import noConflict from './util/no_conflict';
 import version from './util/version';
 
-var v = {
+var vocaFunctions = {
   camelCase: camelCase,
   capitalize: capitalize,
   decapitalize: decapitalize,
@@ -163,6 +165,10 @@ var v = {
   version: version
 };
 
-v.noConflict = noConflict.bind(v);
+vocaFunctions.noConflict = noConflict.bind(vocaFunctions);
 
-export default v;
+// Object.keys(vocaFunctions).forEach(function(functionName) {
+//   Voca[functionName] = vocaFunctions[functionName];
+// });
+
+export default vocaFunctions;
