@@ -4,14 +4,14 @@ import nilDefault from '../utilities/undefined/nil_default';
 /**
  * Counts the number of `substring` appearances in `subject`.
  *
- * @function count
+ * @function countSubstring
  * @static
  * @memberOf Count
  * @param {string} [subject=''] The subject string.
  * @param {string} substring The substring to be counted.
  * @return {number} Returns the number of `substring` appearances.
  * @example
- * v.count('bad boys, bad boys whatcha gonna do?', 'boys');
+ * v.countSubstring('bad boys, bad boys whatcha gonna do?', 'boys');
  * // => 2
  */
 export default function(subject, substring) {

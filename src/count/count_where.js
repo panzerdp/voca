@@ -4,7 +4,7 @@ import nilDefault from '../utilities/undefined/nil_default';
 /**
  * Counts the characters in `subject` where `predicate` returns truthy.
  *
- * @function lengthWhere
+ * @function  countWhere
  * @static
  * @memberOf Count
  * @param {string} [subject=''] The string to count characters.
@@ -12,10 +12,10 @@ import nilDefault from '../utilities/undefined/nil_default';
  * @param {Object} [context] The context to invoke the `predicate`.
  * @return {number} Returns the number of characters.
  * @example
- * v.lengthWhere('hola!', v.isAlpha);
+ * v.countWhere('hola!', v.isAlpha);
  * // => 4
  *
- * v.lengthWhere('2022', function(character, index, str) {
+ * v.countWhere('2022', function(character, index, str) {
  *   return character === '2';
  * });
  * // => 3

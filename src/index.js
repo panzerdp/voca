@@ -16,10 +16,10 @@ import upperCase from './case/upper_case';
  * Functions to count characters in a string
  * @namespace Count
  */
-import count from './count/count';
-import length from './count/length';
-import lengthCodePoint from './count/length_code_point';
-import lengthWhere from './count/length_where';
+import countChars from './count/count_chars';
+import countCodePoint from './count/count_code_point';
+import countSubstring from './count/count_substring';
+import countWhere from './count/count_where';
 
 /**
  * Functions to format
@@ -109,10 +109,10 @@ var vocaFunctions = {
   snakeCase: snakeCase,
   upperCase: upperCase,
 
-  count: count,
-  length: length,
-  lengthCodePoint: lengthCodePoint,
-  lengthWhere: lengthWhere,
+  countChars: countChars,
+  countCodePoint: countCodePoint,
+  countSubstring: countSubstring,
+  countWhere: countWhere,
 
   escapeHtml: escapeHtml,
   escapeRegExp: escapeRegExp,

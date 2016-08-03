@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 class Voca {
   constructor(value) {
     if (value instanceof Voca) {
@@ -14,7 +12,7 @@ class Voca {
 
   /**
    * 
-   * @returns {string}
+   * @return {string}
    */
   value() {
     return this._wrappedValue;
@@ -22,7 +20,7 @@ class Voca {
 
   /**
    * @ignore
-   * @returns {string}
+   * @return {string}
    */
   valueOf() {
     return this.value();
@@ -30,7 +28,7 @@ class Voca {
 
   /**
    * @ignore
-   * @returns {string}
+   * @return {string}
    */
   toJSON() {
     return this.value();
@@ -38,7 +36,7 @@ class Voca {
 
   /**
    * @ignore
-   * @returns {string}
+   * @return {string}
    */
   toString() {
     return '' + this.value();

@@ -7,19 +7,19 @@ import { REGEXP_COMBINING_MARKS, REGEXP_SURROGATE_PAIRS } from '../utilities/str
  * <a href="http://unicode.org/glossary/#surrogate_pair">surrogate pairs</a> and
  * <a href="http://unicode.org/glossary/#combining_mark">combining marks</a>.
  *
- * @function lengthCodePoint
+ * @function  countCodePoint
  * @static
  * @memberOf Count
  * @param {string} [subject=''] The string to count characters.
  * @return {number} Returns the number of characters in `subject`.
  * @example
- * v.lengthCodePoint('rain');
+ * v.countCodePoint('rain');
  * // => 4
  *
- * v.lengthCodePoint('\uD835\uDC00\uD835\uDC01'); // or '𝐀𝐁'
+ * v.countCodePoint('\uD835\uDC00\uD835\uDC01'); // or '𝐀𝐁'
  * // => 2
  *
- * v.lengthCodePoint('cafe\u0301'); // or 'café'
+ * v.countCodePoint('cafe\u0301'); // or 'café'
  * // => 4
  */
 export default function(subject) {

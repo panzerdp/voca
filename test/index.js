@@ -8,10 +8,10 @@ import './case/snake_case';
 import './case/upper_case';
 
 //count
-import './count/count';
-import './count/length';
-import './count/length_code_point';
-import './count/length_where';
+import './count/count_chars';
+import './count/count_code_point';
+import './count/count_substring';
+import './count/count_where';
 
 //escape
 import './escape/escape_html';
