@@ -310,8 +310,20 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
       //change
       members.concat(methods).forEach(function (method) {
         if (method.memberof) {
-          method.name = /*method.memberof*/ 'v.' + method.name;
+          method.name = method.name === 'v' ? 'v' : 'v.' + method.name;  /*method.memberof*/
         }
+      });
+      methods = methods.sort(function (a, b) {
+        var methodA = a.name,
+          methodB = b.name;
+        if (methodA > methodB) {
+          return 1;
+        }
+        if (methodA < methodB) {
+          return -1;
+        }
+        // a must be equal to b
+        return 0;
       });
       if (!hasOwnProp.call(item, 'longname')) {
         itemsNav += '<li>' + linktoFn('', item.name);
