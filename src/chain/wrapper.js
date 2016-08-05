@@ -1,76 +1,80 @@
-/* eslint-disable */
-
-import functions from './functions';
+import functions from '../functions';
 
 /**
- * Creates a chain object that wraps `subject`, enabling explicit chain sequences. Equivalent to `v.chain(subject)`.<br/>
- * Use `v.prototype.value()` to unwrap the result.
+ * The chain wrapper constructor.
  *
- * @memberOf Chain
- * @function v
- * @param {string} subject The string to wrap.
- * @return {Object}        Returns voca wrapper object.
- * @example
- * v('Back to School')
- *  .lowerCase()
- *  .words()
- *  .value()
- * // => ['back', 'to', 'school']
+ * @ignore
+ * @param  {string} subject The string to be wrapped.
+ * @param  {boolean} [explicitChain=false] A boolean that indicates if the chain sequence is explicit or implicit.
+ * @return {ChainWrapper} Returns a new instance of `ChainWrapper`
+ * @constructor
  */
-function ChainWrapper(subject) {
+function ChainWrapper(subject, explicitChain = true) {
   if (subject instanceof ChainWrapper) {
     return subject;
   }
   if (!(this instanceof ChainWrapper)) {
     // Make sure to create a new object
-    return new ChainWrapper(subject);
+    return new ChainWrapper(subject, explicitChain);
   }
   this._wrappedValue = subject;
+  this._explicitChain = explicitChain;
 }
 
+Object.keys(functions).forEach(function(name) {
+  var vocaFunction = functions[name];
+  ChainWrapper.prototype[name] = function(...args) {
+    var result = vocaFunction(this._wrappedValue, ...args);
+    if (!this._explicitChain && typeof result !== 'string') {
+      return result;
+    } else {
+      return new ChainWrapper(result, this._explicitChain);
+    }
+  };
+});
+
 /**
+ * Returns the wrapped value.
  * @ignore
- * @return {*}
+ * @return {*} Returns the wrapped value.
  */
 ChainWrapper.prototype.value = function value() {
   return this._wrappedValue;
 };
 
 /**
+ * Override the default object valueOf().
  * @ignore
- * @return {string}
+ * @return {*} Returns the wrapped value.
  */
 ChainWrapper.prototype.valueOf = function valueOf() {
   return this.value();
 };
 
 /**
+ * Returns the wrapped value to be used in JSON.stringify().
  * @ignore
- * @return {string}
+ * @return {*} Returns the wrapped value.
  */
 ChainWrapper.prototype.toJSON = function toJSON() {
   return this.value();
 };
 
 /**
+ * Returns the string representation of the wrapped value.
  * @ignore
- * @return {string}
+ * @return {string} Returns the string representation.
  */
 ChainWrapper.prototype.toString = function toString() {
   return String(this.value);
 };
 
 /**
+ * A boolean that indicates if the chain sequence is explicit or implicit.
  * @ignore
  * @type {boolean}
  * @private
  */
-ChainWrapper.prototype._wrappedExplicit = true;
+ChainWrapper.prototype._explicitChain = true;
 
-Object.keys(functions).forEach(function(name) {
-  var vocaFunction = functions[name];
-  ChainWrapper[name] = vocaFunction;
-  ChainWrapper.prototype[name] = function(...args) {
-    return new this.constructor(vocaFunction(this._wrappedValue, ...args));
-  };
-});
+export default ChainWrapper;
