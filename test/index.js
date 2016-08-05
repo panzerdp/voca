@@ -7,6 +7,8 @@ import './case/lower_case';
 import './case/snake_case';
 import './case/upper_case';
 
+import './chain/chain';
+
 //count
 import './count/count_chars';
 import './count/count_code_point';

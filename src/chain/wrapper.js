@@ -1,4 +1,4 @@
-import functions from '../functions';
+// import functions from '../functions';
 
 /**
  * The chain wrapper constructor.
@@ -21,22 +21,39 @@ function ChainWrapper(subject, explicitChain = true) {
   this._explicitChain = explicitChain;
 }
 
-Object.keys(functions).forEach(function(name) {
-  var vocaFunction = functions[name];
-  ChainWrapper.prototype[name] = function(...args) {
-    var result = vocaFunction(this._wrappedValue, ...args);
-    if (!this._explicitChain && typeof result !== 'string') {
-      return result;
-    } else {
-      return new ChainWrapper(result, this._explicitChain);
-    }
-  };
-});
+// Object.keys(functions).forEach(function(name) {
+//   var vocaFunction = functions[name];
+//   ChainWrapper.prototype[name] = function(...args) {
+//     var result = vocaFunction(this._wrappedValue, ...args);
+//     if (!this._explicitChain && typeof result !== 'string') {
+//       return result;
+//     } else {
+//       return new ChainWrapper(result, this._explicitChain);
+//     }
+//   };
+// });
 
 /**
- * Returns the wrapped value.
- * @ignore
- * @return {*} Returns the wrapped value.
+ * Unwraps the chain sequence value.
+ *
+ * @memberof Chain
+ * @function __proto__value
+ * @return {Object} Returns the unwrapped value.
+ * @example
+ * v
+ *  .chain('Hello world')
+ *  .replace('Hello', 'Hi')
+ *  .lowerCase()
+ *  .slugify()
+ *  .value()
+ * // => 'hi-world'
+ *
+ * v(" Space travel ")
+ *  .chain()
+ *  .trim()
+ *  .truncate(5)
+ *  .value()
+ * // => 'Space...'
  */
 ChainWrapper.prototype.value = function value() {
   return this._wrappedValue;

@@ -11,6 +11,12 @@ import snakeCase from './case/snake_case';
 import upperCase from './case/upper_case';
 
 /**
+ * Chain functions
+ * @namespace Chain
+ */
+import chain from './chain/chain';
+
+/**
  * Functions to count characters in a string
  * @namespace Count
  */
@@ -98,11 +104,6 @@ import words from './split/words';
 import noConflict from './util/no_conflict';
 import version from './util/version';
 
-/**
- * Chain functions
- * @namespace Chain
- */
-
 var vocaFunctions = {
   camelCase: camelCase,
   capitalize: capitalize,
@@ -111,6 +112,8 @@ var vocaFunctions = {
   lowerCase: lowerCase,
   snakeCase: snakeCase,
   upperCase: upperCase,
+
+  chain: chain,
 
   countChars: countChars,
   countCodePoint: countCodePoint,
