@@ -9,17 +9,18 @@ import ChainWrapper from './chain/wrapper';
  * @memberOf Chain
  * @function v
  * @param {string} subject The string to wrap.
- * @return {Object}        Returns voca wrapper object.
+ * @return {Object}  Returns the new wrapper object.
  * @example
  * v('Back to School')
  *  .lowerCase()
  *  .words()
  * // => ['back', 'to', 'school']
- * v(" It's a long way to the top ")
+ *
+ * v(" Back to School ")
  *  .trim()
- *  .prune(8)
+ *  .truncate(4)
  *  .value()
- * // => ['back', 'to', 'school']
+ * // => 'Back...'
  */
 function Voca(subject) {
   return new ChainWrapper(subject, false);

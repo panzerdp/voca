@@ -70,6 +70,34 @@ ChainWrapper.prototype.toString = function toString() {
 };
 
 /**
+ * Creates a new chain object that enables <i>explicit</i> chain sequences.
+ * Use `v.prototype.value()` to unwrap the result. <br/>
+ * Does not modify the wrapped value.
+ *
+ * @memberof Chain
+ * @function __proto__chain
+ * @return {Object} Returns the new wrapper object.
+ * @example
+ * v('Back to School')
+ *  .chain()
+ *  .lowerCase()
+ *  .words()
+ *  .value()
+ * // => ['back', 'to', 'school']
+ *
+ * v(" Back to School ")
+ *  .chain()
+ *  .trim()
+ *  .truncate(4)
+ *  .value()
+ * // => 'Back...'
+ */
+
+ChainWrapper.prototype.chain = function() {
+  return new ChainWrapper(this._wrappedValue, true);
+};
+
+/**
  * A boolean that indicates if the chain sequence is explicit or implicit.
  * @ignore
  * @type {boolean}

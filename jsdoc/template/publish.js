@@ -310,7 +310,10 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
       //change
       members.concat(methods).forEach(function (method) {
         if (method.memberof) {
-          method.name = method.name === 'v' ? 'v' : 'v.' + method.name;  /*method.memberof*/
+          method.orig_name = method.name;
+          var methodName = method.name;
+          methodName = methodName.replace('__proto__', 'prototype.');
+          method.name = methodName === 'v' ? 'v' : 'v.' + methodName;  /*method.memberof*/
         }
       });
       methods = methods.sort(function (a, b) {
@@ -333,13 +336,13 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
         itemsNav += "<ul class='methods'>";
         methods.forEach(function (method) {
           itemsNav += "<li data-type='method'>";
-          itemsNav += "<a href='#" + method.name.replace('v.', '') + "'>" + method.name + "</a>";
+          itemsNav += "<a href='#" + method.orig_name + "'>" + method.name + "</a>";
           itemsNav += "</li>";
         });
         members.forEach(function (member) {
           if (!member.scope === 'static') return;
           itemsNav += "<li data-type='member'>";
-          itemsNav += "<a href='#" + member.name.replace('v.', '') + "'>" + member.name + "</a>";
+          itemsNav += "<a href='#" + member.orig_name + "'>" + member.name + "</a>";
           itemsNav += "</li>";
         });
         itemsNav += "</ul>";
