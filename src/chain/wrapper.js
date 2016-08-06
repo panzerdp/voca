@@ -48,7 +48,7 @@ Object.keys(functions).forEach(function(name) {
  *  .value()
  * // => 'hi-world'
  *
- * v(" Space travel ")
+ * v(' Space travel ')
  *  .chain()
  *  .trim()
  *  .truncate(5)
