@@ -44,7 +44,9 @@
     "semver-regex": "1.0.0",
     "source-map-support": "0.4.1"
   },
-  "dependencies": {},
+  "dependencies": {
+    "babel-plugin-transform-object-assign": "6.8.0"
+  },
   "config": {
     "ghooks": {
       "pre-commit": "npm run eslint && npm run test"

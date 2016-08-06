@@ -5,6 +5,7 @@ export default {
   //sourceMap: true,
   plugins: [babel({
     presets: ['es2015-rollup'],
+    plugins: ["transform-object-assign"],
     babelrc: false
   })]
 };

@@ -1,7 +1,6 @@
 import functions from './functions';
-import { getChainWrapper } from './chain/wrapper';
-
-var ChainWrapper = getChainWrapper(functions);
+import ChainWrapper from './chain/wrapper';
+import chain from './chain/chain'; // include chain here to resolve af circular reference
 
 /**
  * Creates a chain object that wraps `subject`, enabling <i>implicit</i> chain sequences.<br/>
@@ -28,8 +27,8 @@ function Voca(subject) {
   return new ChainWrapper(subject, false);
 }
 
-Object.keys(functions).forEach(function(name) {
-  Voca[name] = functions[name];
+Object.assign(Voca, functions, {
+  chain: chain
 });
 
 export default Voca;

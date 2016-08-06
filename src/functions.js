@@ -14,7 +14,6 @@ import upperCase from './case/upper_case';
  * Chain functions
  * @namespace Chain
  */
-import chain from './chain/chain';
 
 /**
  * Functions to count characters in a string
@@ -104,7 +103,7 @@ import words from './split/words';
 import noConflict from './util/no_conflict';
 import version from './util/version';
 
-var vocaFunctions = {
+export default {
   camelCase: camelCase,
   capitalize: capitalize,
   decapitalize: decapitalize,
@@ -112,8 +111,6 @@ var vocaFunctions = {
   lowerCase: lowerCase,
   snakeCase: snakeCase,
   upperCase: upperCase,
-
-  chain: chain,
 
   countChars: countChars,
   countCodePoint: countCodePoint,
@@ -171,5 +168,3 @@ var vocaFunctions = {
   noConflict: noConflict,
   version: version
 };
-
-export default vocaFunctions;
