@@ -1,4 +1,4 @@
-import ChainWrapper from './wrapper';
+import { ChainWrapper } from './wrapper';
 
 /**
  * Creates a chain object that wraps `subject`, enabling <i>explicit</i> chain sequences. <br/>

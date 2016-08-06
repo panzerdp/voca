@@ -1,5 +1,3 @@
-// import functions from '../functions';
-
 /**
  * The chain wrapper constructor.
  *
@@ -20,18 +18,6 @@ function ChainWrapper(subject, explicitChain = true) {
   this._wrappedValue = subject;
   this._explicitChain = explicitChain;
 }
-
-// Object.keys(functions).forEach(function(name) {
-//   var vocaFunction = functions[name];
-//   ChainWrapper.prototype[name] = function(...args) {
-//     var result = vocaFunction(this._wrappedValue, ...args);
-//     if (!this._explicitChain && typeof result !== 'string') {
-//       return result;
-//     } else {
-//       return new ChainWrapper(result, this._explicitChain);
-//     }
-//   };
-// });
 
 /**
  * Unwraps the chain sequence value.
@@ -83,7 +69,7 @@ ChainWrapper.prototype.toJSON = function toJSON() {
  * @return {string} Returns the string representation.
  */
 ChainWrapper.prototype.toString = function toString() {
-  return String(this.value);
+  return String(this.value());
 };
 
 /**
@@ -122,4 +108,22 @@ ChainWrapper.prototype.chain = function() {
  */
 ChainWrapper.prototype._explicitChain = true;
 
-export default ChainWrapper;
+function getChainWrapper(functionsList) {
+  Object.keys(functionsList).forEach(function(name) {
+    if (name === 'chain') {
+      return;
+    }
+    var vocaFunction = functionsList[name];
+    ChainWrapper.prototype[name] = function(...args) {
+      var result = vocaFunction(this._wrappedValue, ...args);
+      if (!this._explicitChain && typeof result !== 'string') {
+        return result;
+      } else {
+        return new ChainWrapper(result, this._explicitChain);
+      }
+    };
+  });
+  return ChainWrapper;
+}
+
+export { ChainWrapper, getChainWrapper };

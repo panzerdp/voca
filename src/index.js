@@ -1,5 +1,7 @@
 import functions from './functions';
-import ChainWrapper from './chain/wrapper';
+import { getChainWrapper } from './chain/wrapper';
+
+var ChainWrapper = getChainWrapper(functions);
 
 /**
  * Creates a chain object that wraps `subject`, enabling <i>implicit</i> chain sequences.<br/>
