@@ -1,6 +1,7 @@
-import globalObject from '../utilities/object/global';
+import getGlobalObject from '../utilities/object/get_global';
 
-var previousV = globalObject.v;
+var globalObject = getGlobalObject(),
+  previousV = globalObject.v;
 
 /**
  * Restores `v` variable to previous value and returns Voca library instance.
