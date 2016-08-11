@@ -32,4 +32,11 @@ describe('chain', function() {
     ).to.equal('HI WORLD');
   });
 
+  it('should calculate the result using implicit chaining', function() {
+    expect(
+      v('Hello world')
+        .words()
+    ).to.eql(['Hello', 'world']);
+  });
+
 });

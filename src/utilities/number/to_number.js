@@ -1,4 +1,3 @@
-import isString from '../../query/is_string';
 import isNil from '../object/is_nil';
 
 /**
@@ -14,10 +13,6 @@ import isNil from '../object/is_nil';
 export default function(value) {
   if (isNil(value)) {
     return null;
-  }
-  /* istanbul ignore if  */
-  if (typeof value === 'number') {
-    return value;
   }
   return Number(value);
 }
