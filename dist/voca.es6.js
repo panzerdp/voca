@@ -1263,15 +1263,16 @@ function escapeRegExp (subject) {    var subjectString = toString(nilDefault(sub
     return subjectString.replace(REGEXP_SPECIAL_CHARACTERS, '\\$&');
   }
 
-var   var unescapeCharactersMap = {
-;    '<': /(&lt;)|(&#x0*3c;)|(&#0*60;)/gi,
+var unescapeCharactersMap = {
+    '<': /(&lt;)|(&#x0*3c;)|(&#0*60;)/gi,
     '>': /(&gt;)|(&#x0*3e;)|(&#0*62;)/gi,
     '&': /(&amp;)|(&#x0*26;)|(&#0*38;)/gi,
     '"': /(&quot;)|(&#x0*22;)|(&#0*34;)/gi,
     "'": /(&#x0*27;)|(&#0*39;)/gi,
     '`': /(&#x0*60;)|(&#0*96;)/gi
   };
-var   var characters = Object.keys(unescapeCharactersMap);;
+  var characters = Object.keys(unescapeCharactersMap);
+
   /**
    * Replaces the HTML entities with corresponding characters.
    *
@@ -3005,8 +3006,9 @@ var globalObject$1 = null;
     return globalObject$1;
   }
 
-var   var globalObject = getGlobalObject();;
-var   var previousV = globalObject.v;;
+var globalObject = getGlobalObject();
+  var previousV = globalObject.v;
+
   /**
    * Restores `v` variable to previous value and returns Voca library instance.
    *

@@ -1314,6 +1314,7 @@
     '`': /(&#x0*60;)|(&#0*96;)/gi
   };
   var characters = Object.keys(unescapeCharactersMap);
+
   /**
    * Replaces the HTML entities with corresponding characters.
    *
@@ -3081,6 +3082,7 @@
 
   var globalObject = getGlobalObject();
   var previousV = globalObject.v;
+
   /**
    * Restores `v` variable to previous value and returns Voca library instance.
    *

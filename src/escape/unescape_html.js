@@ -1,4 +1,3 @@
-/*eslint-disable */
 import toString from '../utilities/string/to_string';
 import nilDefault from '../utilities/undefined/nil_default';
 
@@ -9,8 +8,8 @@ var unescapeCharactersMap = {
   '"': /(&quot;)|(&#x0*22;)|(&#0*34;)/gi,
   "'": /(&#x0*27;)|(&#0*39;)/gi,
   '`': /(&#x0*60;)|(&#0*96;)/gi
-},
- characters = Object.keys(unescapeCharactersMap);
+};
+var characters = Object.keys(unescapeCharactersMap);
 
 /**
  * Replaces the HTML entities with corresponding characters.
