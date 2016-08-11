@@ -4,6 +4,8 @@ function getGlobalObject() {
   if (globalObject !== null) {
     return globalObject;
   }
+  /* istanbul ignore next */
+  // It's hard to mock the global variables. This code surely works fine. I hope :)
   if (typeof global === 'object' && global.Object === Object) {
     // NodeJS global object
     globalObject = global;
