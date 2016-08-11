@@ -19,7 +19,7 @@ import upperCase from './case/upper_case';
  * Functions to count characters in a string
  * @namespace Count
  */
-import countChars from './count/count_chars';
+import count from './count/count';
 import countCodePoint from './count/count_code_point';
 import countSubstring from './count/count_substring';
 import countWhere from './count/count_where';
@@ -112,7 +112,7 @@ export default {
   snakeCase: snakeCase,
   upperCase: upperCase,
 
-  countChars: countChars,
+  count: count,
   countCodePoint: countCodePoint,
   countSubstring: countSubstring,
   countWhere: countWhere,

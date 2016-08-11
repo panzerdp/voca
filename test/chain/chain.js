@@ -1,5 +1,5 @@
-/* eslint-disable */
 import v from '../voca';
+import ChainWrapper from '../../src/chain/wrapper';
 import { expect } from 'chai';
 
 describe('chain', function() {
@@ -35,8 +35,54 @@ describe('chain', function() {
   it('should calculate the result using implicit chaining', function() {
     expect(
       v('Hello world')
+        .lowerCase()
         .words()
-    ).to.eql(['Hello', 'world']);
+    ).to.eql(['hello', 'world']);
+    expect(
+      v('  Hello world  ')
+        .trimLeft()
+        .count()
+    ).to.equal(13);
+    expect(
+      v('7 days')
+        .replace(/\sdays/, '')
+        .isDigit()
+    ).to.equal(true);
+    expect(
+      v('7 days')
+        .replace(/\sdays/, '')
+        .value()
+    ).to.equal('7');
+  });
+
+  it('should transform implicit into explicit chaining', function() {
+    expect(
+      v('Hello world')
+        .chain()
+        .lowerCase()
+        .words()
+        .value()
+    ).to.eql(['hello', 'world']);
+    expect(
+      v('15')
+        .chain()
+        .isNumeric()
+        .value()
+    ).to.equal(true);
+    expect(
+      v('15')
+        .chain()
+        .isNumeric()
+    ).to.be.instanceof(ChainWrapper);
+  });
+
+  it('wrapper object should coerce to a primitive', function() {
+    expect('nice' + v.chain(' evening ').trimRight()).to.be.equal('nice evening');
+   // expect('nice ' + v.chain('hello world').words()).to.be.equal('nice hello,world');
+  });
+
+  it('wrapper object should coerce to a string', function() {
+   // expect(v.chain(' evening ').trimRight().toString()).to.be.equal('nice evening');
   });
 
 });

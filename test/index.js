@@ -10,7 +10,7 @@ import './case/upper_case';
 import './chain/chain';
 
 //count
-import './count/count_chars';
+import './count/count';
 import './count/count_code_point';
 import './count/count_substring';
 import './count/count_where';
