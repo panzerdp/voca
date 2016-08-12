@@ -1,5 +1,4 @@
 import functions from '../functions';
-import nilDefault from '../utilities/undefined/nil_default';
 
 /**
  * Chain wrapper class.
@@ -108,7 +107,6 @@ class ChainWrapper {
    * @return {Object} Returns the new wrapper object.
    * @example
    * v('sun is shining')
-   *  .lowerCase()
    *  .words()
    *  .thru(function(words) {
    *    return words[0];
