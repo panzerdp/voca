@@ -78,11 +78,16 @@ describe('chain', function() {
 
   it('wrapper object should coerce to a primitive', function() {
     expect('nice' + v.chain(' evening ').trimRight()).to.be.equal('nice evening');
-   // expect('nice ' + v.chain('hello world').words()).to.be.equal('nice hello,world');
+    expect('nice ' + v.chain('hello world').words()).to.be.equal('nice hello,world');
   });
 
   it('wrapper object should coerce to a string', function() {
-   // expect(v.chain(' evening ').trimRight().toString()).to.be.equal('nice evening');
+    expect(v.chain(' evening ').trimLeft().toString()).to.be.equal('evening ');
+    expect(v.chain('morning').count().toString()).to.be.equal('7');
+  });
+
+  it('wrapper object should provide toJSON method', function() {
+    expect(JSON.stringify(v.chain('happy coding').upperCase().split(' '))).to.be.equal('["HAPPY","CODING"]');
   });
 
 });

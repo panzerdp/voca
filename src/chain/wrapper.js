@@ -14,7 +14,7 @@ class ChainWrapper {
    * @return {ChainWrapper} Returns a new instance of `ChainWrapper`
    * @constructor
    */
-  constructor(subject, explicitChain = true) {
+  constructor(subject, explicitChain) {
     this._wrappedValue = subject;
     this._explicitChain = explicitChain;
   }
@@ -69,7 +69,7 @@ class ChainWrapper {
    * @return {string} Returns the string representation.
    */
   toString() {
-    return String(this.value);
+    return String(this.value());
   }
 
   /**
