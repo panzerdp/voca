@@ -24,7 +24,7 @@ class ChainWrapper {
    *
    * @memberof Chain
    * @function __proto__value
-   * @return {Object} Returns the unwrapped value.
+   * @return {*} Returns the unwrapped value.
    * @example
    * v
    *  .chain('Hello world')
