@@ -4,7 +4,7 @@ import chain from './chain/chain'; // include chain here to resolve af circular 
 
 /**
  * Creates a chain object that wraps `subject`, enabling <i>implicit</i> chain sequences.<br/>
- * The functions that return `number`, `boolean` or `array` <i>terminates</i> the chain sequence and return the unwrapped value.
+ * A function that returns `number`, `boolean` or `array` type <i>terminates</i> the chain sequence and returns the unwrapped value.
  * Otherwise use `v.prototype.value()` to unwrap the result.
  *
  * @memberOf Chain

@@ -1,4 +1,5 @@
 import functions from '../functions';
+import nilDefault from '../utilities/undefined/nil_default';
 
 /**
  * Chain wrapper class.
@@ -96,6 +97,31 @@ class ChainWrapper {
    */
   chain() {
     return new ChainWrapper(this._wrappedValue, true);
+  }
+
+  /**
+   * Modifies the wrapped value with the invocation result of `changer` function.
+   *
+   * @memberof Chain
+   * @function __proto__thru
+   * @param {Function} changer The function to invoke.
+   * @return {Object} Returns the new wrapper object.
+   * @example
+   * v('sun is shining')
+   *  .lowerCase()
+   *  .words()
+   *  .thru(function(words) {
+   *    return words[0];
+   *  })
+   *  .value()
+   * // => 'sun'
+   *
+   */
+  thru(changer) {
+    if (typeof changer === 'function') {
+      return new ChainWrapper(changer(this._wrappedValue), this._explicitChain);
+    }
+    return this;
   }
 }
 

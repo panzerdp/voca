@@ -76,6 +76,27 @@ describe('chain', function() {
     ).to.be.instanceof(ChainWrapper);
   });
 
+  it('should allow to pass thru the wrapped value', function() {
+    expect(
+      v('Hello world')
+        .chain()
+        .lowerCase()
+        .words()
+        .thru(function(words) {
+          return words[0];
+        })
+        .value()
+    ).to.equal('hello');
+    expect(
+      v.chain('15')
+        .isNumeric()
+        .thru()
+        .value()
+    ).to.equal(true);
+  });
+
+
+
   it('wrapper object should coerce to a primitive', function() {
     expect('nice' + v.chain(' evening ').trimRight()).to.be.equal('nice evening');
     expect('nice ' + v.chain('hello world').words()).to.be.equal('nice hello,world');
