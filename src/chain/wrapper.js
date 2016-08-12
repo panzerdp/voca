@@ -35,7 +35,6 @@ class ChainWrapper {
    * // => 'hi-world'
    *
    * v(' Space travel ')
-   *  .chain()
    *  .trim()
    *  .truncate(5)
    *  .value()
