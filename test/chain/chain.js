@@ -1,5 +1,4 @@
 import v from '../voca';
-import ChainWrapper from '../../src/chain/wrapper';
 import { expect } from 'chai';
 
 describe('chain', function() {
@@ -73,7 +72,9 @@ describe('chain', function() {
       v('15')
         .chain()
         .isNumeric()
-    ).to.be.instanceof(ChainWrapper);
+        .constructor
+        .name
+    ).to.be.equal('ChainWrapper');
   });
 
   it('should allow to pass thru the wrapped value', function() {
@@ -95,20 +96,28 @@ describe('chain', function() {
     ).to.equal(true);
   });
 
-
-
   it('wrapper object should coerce to a primitive', function() {
-    expect('nice' + v.chain(' evening ').trimRight()).to.be.equal('nice evening');
-    expect('nice ' + v.chain('hello world').words()).to.be.equal('nice hello,world');
+    expect(
+      'nice' + v.chain(' evening ').trimRight()
+    ).to.be.equal('nice evening');
+    expect(
+      v('clouds').upperCase() == 'CLOUDS'
+    ).to.be.true;
   });
 
   it('wrapper object should coerce to a string', function() {
-    expect(v.chain(' evening ').trimLeft().toString()).to.be.equal('evening ');
-    expect(v.chain('morning').count().toString()).to.be.equal('7');
+    expect(
+      'nice ' + v.chain('hello world').words()
+    ).to.be.equal('nice hello,world');
+    expect(
+      v('green tree').split(' ') == 'green,tree'
+    ).to.be.true;
   });
 
   it('wrapper object should provide toJSON method', function() {
-    expect(JSON.stringify(v.chain('happy coding').upperCase().split(' '))).to.be.equal('["HAPPY","CODING"]');
+    expect(
+      JSON.stringify(v.chain('happy coding').upperCase().split(' '))
+    ).to.be.equal('["HAPPY","CODING"]');
   });
 
 });
