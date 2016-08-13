@@ -11,11 +11,10 @@ import { CHARACTER_PLUS } from '../const';
  * @param  {string} paddingCharacter     The padding character.
  * @param  {string} [alignmentSpecifier] The alignment specifier that says if the result should be left-justified or right-justified.
  * @param  {number} [width]              The width how many characters this conversion should result in.
- * @param  {number} [precision]          The precision.
  * @return {string}                      Returns the formatted string.
  */
 
-export default function(replacement, signSpecifier, paddingCharacter, alignmentSpecifier, width, precision) {
+export default function(replacement, signSpecifier, paddingCharacter, alignmentSpecifier, width) {
   var integer = parseInt(replacement);
   if (isNaN(integer)) {
     integer = 0;

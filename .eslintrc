@@ -3,7 +3,8 @@
   "extends": "eslint:recommended",
   "env": {
     "node": true,
-    "mocha": true
+    "mocha": true,
+    "browser": true
   },
   "plugins": [
 
@@ -16,6 +17,7 @@
     "comma-spacing": ["error", {"before": false, "after": true}],
     "comma-style": ["error", "last"],
     "space-before-blocks": ["error", { "functions": "always", "keywords": "always", "classes": "always" }],
-    "semi": ["error", "always"]
+    "semi": ["error", "always"],
+    "no-undef": "error"
   }
 }

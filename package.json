@@ -5,7 +5,7 @@
   "main": "dist/voca.js",
   "jsnext:main": "dist/voca.es6.js",
   "scripts": {
-    "eslint": "eslint src/**/*.js test/**/*.js",
+    "eslint": "eslint . --ext .js",
     "build": "rollup -c",
     "test": "mocha test/index.js --reporter dot",
     "coverage": "istanbul cover _mocha -- test/index.js --reporter spec",
