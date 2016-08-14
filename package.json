@@ -41,10 +41,8 @@
     "jsdoc": "3.4.0",
     "mocha": "3.0.2",
     "opn-cli": "3.1.0",
-    "rewire": "2.5.2",
     "rollup": "0.34.7",
     "rollup-plugin-babel": "2.6.1",
-    "semver-regex": "1.0.0",
     "source-map-support": "0.4.2"
   },
   "dependencies": {},
