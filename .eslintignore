@@ -2,3 +2,4 @@ coverage
 dist
 docs
 jsdoc
+test_runner

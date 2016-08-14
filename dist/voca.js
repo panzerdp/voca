@@ -478,16 +478,16 @@
   /**
    * Counts the characters in `subject`. Equivalent to `subject.length`.
    *
-   * @function countChars
+   * @function count
    * @static
    * @memberOf Count
    * @param {string} [subject=''] The string to count characters.
    * @return {number} Returns the number of characters in `subject`.
    * @example
-   * v.countChars('rain');
+   * v.count('rain');
    * // => 4
    */
-  function countChars (subject) {
+  function count (subject) {
     return toString(nilDefault(subject, '')).length;
   }
 
@@ -619,10 +619,6 @@
     if (isNil(value)) {
       return null;
     }
-    /* istanbul ignore if  */
-    if (typeof value === 'number') {
-      return value;
-    }
     return Number(value);
   }
 
@@ -648,6 +644,7 @@
    * @param  {number}   index         The index of the matched specifier.
    * @param  {Object[]} args          The array of arguments to replace specifiers.
    * @param  {string}   typeSpecifier The type specifier says what type the argument data should be treated as.
+   * @return {undefined}
    */
   function validateFormat (index, args, typeSpecifier) {
     if (isNil(typeSpecifier)) {
@@ -918,11 +915,10 @@
    * @param  {string} paddingCharacter     The padding character.
    * @param  {string} [alignmentSpecifier] The alignment specifier that says if the result should be left-justified or right-justified.
    * @param  {number} [width]              The width how many characters this conversion should result in.
-   * @param  {number} [precision]          The precision.
    * @return {string}                      Returns the formatted string.
    */
 
-  function formatIntegerDecimal (replacement, signSpecifier, paddingCharacter, alignmentSpecifier, width, precision) {
+  function formatIntegerDecimal (replacement, signSpecifier, paddingCharacter, alignmentSpecifier, width) {
     var integer = parseInt(replacement);
     if (isNaN(integer)) {
       integer = 0;
@@ -1204,6 +1200,30 @@
   } : function (obj) {
     return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
   };
+
+  var classCallCheck = function (instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  };
+
+  var createClass = function () {
+    function defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }
+
+    return function (Constructor, protoProps, staticProps) {
+      if (protoProps) defineProperties(Constructor.prototype, protoProps);
+      if (staticProps) defineProperties(Constructor, staticProps);
+      return Constructor;
+    };
+  }();
 
   var _extends = Object.assign || function (target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -2697,7 +2717,7 @@
    * @memberOf Query
    * @param {string} [subject=''] The string to verify.
    * @param {string} end The ending string.
-   * @param {number} [position=subject.length] Search within `subject` as if this string were only `position` long.
+   * @param {number} [position=subject.length] Search within `subject` as if the string were only `position` long.
    * @return {boolean} Returns `true` if `subject` ends with `end` or `false` otherwise.
    * @example
    * v.endsWith('red alert', 'alert');
@@ -3067,6 +3087,8 @@
     if (globalObject$1 !== null) {
       return globalObject$1;
     }
+    /* istanbul ignore next */
+    // It's hard to mock the global variables. This code surely works fine. I hope :)
     if ((typeof global === 'undefined' ? 'undefined' : _typeof(global)) === 'object' && global.Object === Object) {
       // NodeJS global object
       globalObject$1 = global;
@@ -3123,7 +3145,7 @@
     snakeCase: snakeCase,
     upperCase: upperCase,
 
-    countChars: countChars,
+    count: count,
     countCodePoint: countCodePoint,
     countSubstring: countSubstring,
     countWhere: countWhere,
@@ -3181,27 +3203,161 @@
   };
 
   /**
-   * The chain wrapper constructor.
-   *
+   * Chain wrapper class.
    * @ignore
-   * @param  {string} subject The string to be wrapped.
-   * @param  {boolean} [explicitChain=false] A boolean that indicates if the chain sequence is explicit or implicit.
-   * @return {ChainWrapper} Returns a new instance of `ChainWrapper`
-   * @constructor
    */
-  function ChainWrapper(subject) {
-    var explicitChain = arguments.length <= 1 || arguments[1] === undefined ? true : arguments[1];
 
-    if (subject instanceof ChainWrapper) {
-      return subject;
+  var ChainWrapper = function () {
+    /**
+     * The chain wrapper constructor.
+     *
+     * @ignore
+     * @param  {string} subject The string to be wrapped.
+     * @param  {boolean} [explicitChain=false] A boolean that indicates if the chain sequence is explicit or implicit.
+     * @return {ChainWrapper} Returns a new instance of `ChainWrapper`
+     * @constructor
+     */
+    function ChainWrapper(subject, explicitChain) {
+      classCallCheck(this, ChainWrapper);
+
+      this._wrappedValue = subject;
+      this._explicitChain = explicitChain;
     }
-    if (!(this instanceof ChainWrapper)) {
-      // Make sure to create a new object
-      return new ChainWrapper(subject, explicitChain);
-    }
-    this._wrappedValue = subject;
-    this._explicitChain = explicitChain;
-  }
+
+    /**
+     * Unwraps the chain sequence value.
+     *
+     * @memberof Chain
+     * @function __proto__value
+     * @return {*} Returns the unwrapped value.
+     * @example
+     * v
+     *  .chain('Hello world')
+     *  .replace('Hello', 'Hi')
+     *  .lowerCase()
+     *  .slugify()
+     *  .value()
+     * // => 'hi-world'
+     *
+     * v(' Space travel ')
+     *  .trim()
+     *  .truncate(5)
+     *  .value()
+     * // => 'Space...'
+     */
+
+
+    createClass(ChainWrapper, [{
+      key: 'value',
+      value: function value() {
+        return this._wrappedValue;
+      }
+
+      /**
+       * Override the default object valueOf().
+       * @ignore
+       * @return {*} Returns the wrapped value.
+       */
+
+    }, {
+      key: 'valueOf',
+      value: function valueOf() {
+        return this.value();
+      }
+
+      /**
+       * Returns the wrapped value to be used in JSON.stringify().
+       * @ignore
+       * @return {*} Returns the wrapped value.
+       */
+
+    }, {
+      key: 'toJSON',
+      value: function toJSON() {
+        return this.value();
+      }
+
+      /**
+       * Returns the string representation of the wrapped value.
+       * @ignore
+       * @return {string} Returns the string representation.
+       */
+
+    }, {
+      key: 'toString',
+      value: function toString() {
+        return String(this.value());
+      }
+
+      /**
+       * Creates a new chain object that enables <i>explicit</i> chain sequences.
+       * Use `v.prototype.value()` to unwrap the result. <br/>
+       * Does not modify the wrapped value.
+       *
+       * @memberof Chain
+       * @function __proto__chain
+       * @return {Object} Returns the new wrapper object.
+       * @example
+       * v('Back to School')
+       *  .chain()
+       *  .lowerCase()
+       *  .words()
+       *  .value()
+       * // => ['back', 'to', 'school']
+       *
+       * v(" Back to School ")
+       *  .chain()
+       *  .trim()
+       *  .truncate(4)
+       *  .value()
+       * // => 'Back...'
+       */
+
+    }, {
+      key: 'chain',
+      value: function chain() {
+        return new ChainWrapper(this._wrappedValue, true);
+      }
+
+      /**
+       * Modifies the wrapped value with the invocation result of `changer` function.
+       *
+       * @memberof Chain
+       * @function __proto__thru
+       * @param {Function} changer The function to invoke.
+       * @return {Object} Returns the new wrapper object.
+       * @example
+       * v('sun is shining')
+       *  .words()
+       *  .thru(function(words) {
+       *    return words[0];
+       *  })
+       *  .value()
+       * // => 'sun'
+       *
+       */
+
+    }, {
+      key: 'thru',
+      value: function thru(changer) {
+        if (typeof changer === 'function') {
+          return new ChainWrapper(changer(this._wrappedValue), this._explicitChain);
+        }
+        return this;
+      }
+    }]);
+    return ChainWrapper;
+  }();
+
+  /**
+   * A boolean that indicates if the chain sequence is explicit or implicit.
+   * @ignore
+   * @type {boolean}
+   * @private
+   */
+
+
+  ChainWrapper.prototype._explicitChain = true;
 
   Object.keys(functions).forEach(function (name) {
     var vocaFunction = functions[name];
@@ -3218,95 +3374,6 @@
       }
     };
   });
-
-  /**
-   * Unwraps the chain sequence value.
-   *
-   * @memberof Chain
-   * @function __proto__value
-   * @return {Object} Returns the unwrapped value.
-   * @example
-   * v
-   *  .chain('Hello world')
-   *  .replace('Hello', 'Hi')
-   *  .lowerCase()
-   *  .slugify()
-   *  .value()
-   * // => 'hi-world'
-   *
-   * v(' Space travel ')
-   *  .chain()
-   *  .trim()
-   *  .truncate(5)
-   *  .value()
-   * // => 'Space...'
-   */
-  ChainWrapper.prototype.value = function value() {
-    return this._wrappedValue;
-  };
-
-  /**
-   * Override the default object valueOf().
-   * @ignore
-   * @return {*} Returns the wrapped value.
-   */
-  ChainWrapper.prototype.valueOf = function valueOf() {
-    return this.value();
-  };
-
-  /**
-   * Returns the wrapped value to be used in JSON.stringify().
-   * @ignore
-   * @return {*} Returns the wrapped value.
-   */
-  ChainWrapper.prototype.toJSON = function toJSON() {
-    return this.value();
-  };
-
-  /**
-   * Returns the string representation of the wrapped value.
-   * @ignore
-   * @return {string} Returns the string representation.
-   */
-  ChainWrapper.prototype.toString = function toString() {
-    return String(this.value);
-  };
-
-  /**
-   * Creates a new chain object that enables <i>explicit</i> chain sequences.
-   * Use `v.prototype.value()` to unwrap the result. <br/>
-   * Does not modify the wrapped value.
-   *
-   * @memberof Chain
-   * @function __proto__chain
-   * @return {Object} Returns the new wrapper object.
-   * @example
-   * v('Back to School')
-   *  .chain()
-   *  .lowerCase()
-   *  .words()
-   *  .value()
-   * // => ['back', 'to', 'school']
-   *
-   * v(" Back to School ")
-   *  .chain()
-   *  .trim()
-   *  .truncate(4)
-   *  .value()
-   * // => 'Back...'
-   */
-
-  ChainWrapper.prototype.chain = function () {
-    return new ChainWrapper(this._wrappedValue, true);
-  };
-
-  /**
-   * A boolean that indicates if the chain sequence is explicit or implicit.
-   * @ignore
-   * @type {boolean}
-   * @private
-   */
-  ChainWrapper.prototype._explicitChain = true;
 
   /**
    * Creates a chain object that wraps `subject`, enabling <i>explicit</i> chain sequences. <br/>
@@ -3332,7 +3399,7 @@
 
   /**
    * Creates a chain object that wraps `subject`, enabling <i>implicit</i> chain sequences.<br/>
-   * The functions that return `number`, `boolean` or `array` <i>terminates</i> the chain sequence and return the unwrapped value.
+   * A function that returns `number`, `boolean` or `array` type <i>terminates</i> the chain sequence and returns the unwrapped value.
    * Otherwise use `v.prototype.value()` to unwrap the result.
    *
    * @memberOf Chain
