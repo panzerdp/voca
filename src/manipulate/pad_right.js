@@ -4,6 +4,7 @@ import isNil from '../utilities/object/is_nil';
 import clipNumber from '../utilities/number/clip_number';
 import toInteger from '../utilities/number/to_integer';
 import buildPadding from '../utilities/string/build_padding';
+import { MAX_SAFE_INTEGER } from '../utilities/number/const';
 
 /**
  * Pads `subject` from right to a new `length`.
@@ -24,7 +25,7 @@ import buildPadding from '../utilities/string/build_padding';
  */
 export default function(subject, length, pad) {
   var subjectString = toString(nilDefault(subject, '')),
-    lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, Number.MAX_SAFE_INTEGER),
+    lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
     padString = toString(nilDefault(pad, ' '));
   if (lengthInt <= subjectString.length) {
     return subjectString;

@@ -4,6 +4,7 @@ import isNil from '../utilities/object/is_nil';
 import clipNumber from '../utilities/number/clip_number';
 import toInteger from '../utilities/number/to_integer';
 import { REGEXP_WORD } from '../utilities/string/regexp';
+import { MAX_SAFE_INTEGER } from '../utilities/number/const';
 
 /**
  * Truncates `subject` to a new `length` and does not break the words. Guarantees that the truncated string will be no longer than `length`.
@@ -27,7 +28,7 @@ import { REGEXP_WORD } from '../utilities/string/regexp';
  */
 export default function(subject, length, end) {
   var subjectString = toString(nilDefault(subject, '')),
-    lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, Number.MAX_SAFE_INTEGER),
+    lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
     endString = toString(nilDefault(end, '...'));
   if (lengthInt >= subjectString.length) {
     return subjectString;

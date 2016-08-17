@@ -39,7 +39,7 @@ describe('isDigit', function() {
     expect(v.isDigit(0)).to.be.true;
     expect(v.isDigit(1000)).to.be.true;
     expect(v.isDigit(0xFF)).to.be.true;
-    expect(v.isDigit(Number.MAX_SAFE_INTEGER)).to.be.true;
+    expect(v.isDigit(0x1fffffffffffff)).to.be.true;
   });
 
   it('should return false for a boolean', function() {

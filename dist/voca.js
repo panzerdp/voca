@@ -679,6 +679,14 @@
   }
 
   /**
+   * Max save integer value
+   *
+   * @ignore
+   * @type {number}
+   */
+  var MAX_SAFE_INTEGER = 0x1fffffffffffff;
+
+  /**
    * Transforms `value` to an integer.
    *
    * @ignore
@@ -688,10 +696,10 @@
    */
   function toInteger (value) {
     if (value === Infinity) {
-      return Number.MAX_SAFE_INTEGER;
+      return MAX_SAFE_INTEGER;
     }
     if (value === -Infinity) {
-      return -Number.MAX_SAFE_INTEGER;
+      return -MAX_SAFE_INTEGER;
     }
     return ~~value;
   }
@@ -714,7 +722,7 @@
    */
   function repeat (subject, times) {
     var subjectString = toString(nilDefault(subject, '')),
-        timesInt = isNil(times) ? 1 : clipNumber(toInteger(times), 0, Number.MAX_SAFE_INTEGER);
+        timesInt = isNil(times) ? 1 : clipNumber(toInteger(times), 0, MAX_SAFE_INTEGER);
     var repeatString = '';
     while (timesInt) {
       if (timesInt & 1) {
@@ -761,7 +769,7 @@
    */
   function padRight (subject, length, pad) {
     var subjectString = toString(nilDefault(subject, '')),
-        lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, Number.MAX_SAFE_INTEGER),
+        lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
         padString = toString(nilDefault(pad, ' '));
     if (lengthInt <= subjectString.length) {
       return subjectString;
@@ -788,7 +796,7 @@
    */
   function padLeft (subject, length, pad) {
     var subjectString = toString(nilDefault(subject, '')),
-        lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, Number.MAX_SAFE_INTEGER),
+        lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
         padString = toString(nilDefault(pad, ' '));
     if (lengthInt <= subjectString.length) {
       return subjectString;
@@ -951,7 +959,7 @@
    */
   function truncate (subject, length, end) {
     var subjectString = toString(nilDefault(subject, '')),
-        lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, Number.MAX_SAFE_INTEGER),
+        lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
         endString = toString(nilDefault(end, '...'));
     if (lengthInt >= subjectString.length) {
       return subjectString;
@@ -2384,7 +2392,7 @@
    */
   function pad (subject, length, pad) {
     var subjectString = toString(nilDefault(subject, '')),
-        lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, Number.MAX_SAFE_INTEGER),
+        lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
         padString = toString(nilDefault(pad, ' '));
     if (lengthInt <= subjectString.length) {
       return subjectString;
@@ -2417,7 +2425,7 @@
    */
   function prune (subject, length, end) {
     var subjectString = toString(nilDefault(subject, '')),
-        lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, Number.MAX_SAFE_INTEGER),
+        lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
         endString = toString(nilDefault(end, '...'));
     if (lengthInt >= subjectString.length) {
       return subjectString;

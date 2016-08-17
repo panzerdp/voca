@@ -1,3 +1,5 @@
+import { MAX_SAFE_INTEGER } from './const';
+
 /**
  * Transforms `value` to an integer.
  *
@@ -8,10 +10,10 @@
  */
 export default function(value) {
   if (value === Infinity) {
-    return Number.MAX_SAFE_INTEGER;
+    return MAX_SAFE_INTEGER;
   }
   if (value === -Infinity) {
-    return - Number.MAX_SAFE_INTEGER;
+    return - MAX_SAFE_INTEGER;
   }
   return ~~value;
 }
