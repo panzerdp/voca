@@ -38,12 +38,20 @@ module.exports = function (grunt) {
   }, {
     // Safari
     browserName: 'safari',
+    platform: 'OS X 10.9',
+    version: '7'
+  }, {
+    browserName: 'safari',
     platform: 'OS X 10.10',
     version: '8'
   }, {
     browserName: 'safari',
     platform: 'OS X 10.11',
     version: '9'
+  }, {
+    browserName: 'Android',
+    platform: 'Linux',
+    version: '5.1'
   }];
 
   var buildId = process.env.TRAVIS_JOB_ID ? process.env.TRAVIS_JOB_ID : Math.floor(Math.random() * 10000);

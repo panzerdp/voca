@@ -3748,7 +3748,9 @@
     it('should transform implicit into explicit chaining', function () {
       chai.expect(Voca('Hello world').chain().lowerCase().words().value()).to.eql(['hello', 'world']);
       chai.expect(Voca('15').chain().isNumeric().value()).to.equal(true);
-      chai.expect(Voca('15').chain().isNumeric().constructor.name).to.be.equal('ChainWrapper');
+      chai.expect(Voca('15').chain().isNumeric().thru(function (isNumeric) {
+        return isNumeric ? 1 : 0;
+      }).value()).to.be.equal(1);
     });
 
     it('should allow to pass thru the wrapped value', function () {
