@@ -10,7 +10,6 @@ env:
   global:
     - DETAILED=false
   matrix:
-    -
     - DETAILED=true
 matrix:
   include:
