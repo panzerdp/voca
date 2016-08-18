@@ -72,9 +72,11 @@ describe('chain', function() {
       v('15')
         .chain()
         .isNumeric()
-        .constructor
-        .name
-    ).to.be.equal('ChainWrapper');
+        .thru(function(isNumeric) {
+          return isNumeric ? 1 : 0;
+        })
+        .value()
+    ).to.be.equal(1);
   });
 
   it('should allow to pass thru the wrapped value', function() {
