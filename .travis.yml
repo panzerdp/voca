@@ -5,15 +5,27 @@ branches:
 notifications:
   email: false
 node_js:
-  - "0.12"
-  - "4"
-  - "5"
   - "6"
+env:
+  global:
+    - DETAILED=false
+  matrix:
+    -
+    - DETAILED=true
+matrix:
+  include:
+    - node_js: "0.12"
+      env:
+    - node_js: "4"
+      env:
+    - node_js: "5"
+      env:
 before_script:
   - npm prune
 script:
   - npm run eslint
   - npm run coverage
   - npm run build
+  - "[ $DETAILED == true ] || npm run test-sl"
 after_success:
-  - npm run report-coverage
+  - "[ $DETAILED == true ] || npm run report-coverage"
