@@ -6,14 +6,14 @@
   "jsnext:main": "dist/voca.es6.js",
   "scripts": {
     "eslint": "eslint . --ext .js",
-    "build": "rollup -c rollup.config.js && rollup -c rollup.test.config.js && cp dist/voca.js docs/scripts",
+    "build": "rollup -c rollup.config.js && rollup -c rollup.test.config.js",
     "test": "mocha test/index.js --reporter dot",
     "test-sl": "grunt --gruntfile ./test_runner/gruntfile.js --base .",
     "coverage": "istanbul cover _mocha -- test/index.js --reporter spec",
     "report-coverage": "cat ./coverage/lcov.info | codecov",
     "verify": "npm run eslint && npm run coverage",
     "prepublish": "npm test",
-    "jsdoc": "jsdoc --configure .jsdoc.json && opn docs/index.html",
+    "jsdoc": "jsdoc --configure .jsdoc.json && opn docs/index.html && rollup -c rollup.config.js && cp dist/voca.js docs/scripts",
     "deploy": "scp -r docs/* rainishere:/home/rainishere/webapps/voca_docs"
   },
   "repository": {
