@@ -6,7 +6,7 @@
   "jsnext:main": "dist/voca.es6.js",
   "scripts": {
     "eslint": "eslint . --ext .js",
-    "build": "rollup -c rollup.config.js && rollup -c rollup.test.config.js",
+    "build": "rollup -c rollup.config.js && rollup -c rollup.test.config.js && cp dist/voca.js docs/scripts",
     "test": "mocha test/index.js --reporter dot",
     "test-sl": "grunt --gruntfile ./test_runner/gruntfile.js --base .",
     "coverage": "istanbul cover _mocha -- test/index.js --reporter spec",
