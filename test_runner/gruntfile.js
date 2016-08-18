@@ -31,6 +31,11 @@ module.exports = function (grunt) {
     platform: 'Windows 10',
     version: '11'
   }, {
+    // Edge
+    browserName: 'MicrosoftEdge',
+    platform: 'Windows 10',
+    version: '13.10586'
+  }, {
     // Safari
     browserName: 'safari',
     platform: 'OS X 10.10',
@@ -40,6 +45,8 @@ module.exports = function (grunt) {
     platform: 'OS X 10.11',
     version: '9'
   }];
+
+  var buildId = process.env.TRAVIS_JOB_ID ? process.env.TRAVIS_JOB_ID : Math.floor(Math.random() * 10000);
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -59,7 +66,7 @@ module.exports = function (grunt) {
             'http://127.0.0.1:9999/test_runner/index.html'
           ],
           browsers: browsers,
-          build: Math.floor(Math.random() * 10000), //process.env.TRAVIS_JOB_ID,
+          build: buildId,
           testname: 'mocha tests',
           throttled: 3,
           sauceConfig: {
