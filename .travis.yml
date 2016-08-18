@@ -26,6 +26,6 @@ script:
   - npm run eslint
   - npm run coverage
   - npm run build
-  - "[ $DETAILED == true ] || npm run test-sl"
+  - "[ $DETAILED == false ] || npm run test-sl"
 after_success:
-  - "[ $DETAILED == true ] || npm run report-coverage"
+  - "[ $DETAILED == false ] || npm run report-coverage"
