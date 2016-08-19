@@ -29,6 +29,8 @@ describe('slugify', function() {
     expect(v.slugify('zborul păsării')).to.be.equal('zborul-pasarii');
     expect(v.slugify('fuerza de sustentación')).to.be.equal('fuerza-de-sustentacion');
     expect(v.slugify('skrzydło ptaka składa się')).to.be.equal('skrzydlo-ptaka-sklada-sie');
+    expect(v.slugify('Україна розташована в південно-східній частині Європи'))
+      .to.be.equal('ukrayina-roztashovana-v-pivdenno-shidnij-chastini-yevropi');
     expect(v.slugify('man\u0303ana')).to.be.equal('manana');
     expect(v.slugify('foo\u0303\u035C\u035D\u035E bar')).to.be.equal('foo-bar');
   });

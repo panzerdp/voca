@@ -26,6 +26,8 @@ describe('latinise', function() {
     expect(v.latinise('Există peste 13.800 de localități în România'))
       .to.be.equal('Exista peste 13.800 de localitati in Romania');
     expect(v.latinise('août décembre')).to.be.equal('aout decembre');
+    expect(v.latinise('Україна розташована в південно-східній частині Європи'))
+      .to.be.equal('Ukrayina roztashovana v pivdenno-shidnij chastini Yevropi');
     expect(v.latinise('\t\n')).to.be.equal('\t\n');
     expect(v.latinise('\u2047')).to.be.equal('\u2047');
     expect(v.latinise(PRINTABLE_ASCII)).to.be.equal(PRINTABLE_ASCII);
