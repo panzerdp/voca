@@ -41,6 +41,9 @@ function removeCombiningMarks(character, cleanCharacter) {
  *
  * v.latinise('août décembre');
  * // => 'aout decembre'
+ *
+ * v.latinise('как прекрасен этот мир');
+ * // => 'kak prekrasen etot mir'
  */
 export default function(subject) {
   var subjectString = toString(nilDefault(subject, ''));

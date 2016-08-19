@@ -2533,6 +2533,9 @@ function removeCombiningMarks(character, cleanCharacter) {
  *
  * v.latinise('août décembre');
  * // => 'aout decembre'
+ *
+ * v.latinise('как прекрасен этот мир');
+ * // => 'kak prekrasen etot mir'
  */
 function latinise (subject) {
   var subjectString = toString(nilDefault(subject, ''));
@@ -2730,6 +2733,9 @@ function slice (subject, start, end) {
  *
  * v.slugify('café latté');
  * // => 'caffe-latte'
+ *
+ * v.slugify('хорошая погода');
+ * // => 'horoshaya-pogoda'
  */
 function slugify (subject) {
   var subjectString = toString(nilDefault(subject, ''));

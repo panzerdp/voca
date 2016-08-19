@@ -19,6 +19,9 @@ import { REGEXP_NON_LATIN } from '../utilities/string/regexp.js';
  *
  * v.slugify('café latté');
  * // => 'caffe-latte'
+ *
+ * v.slugify('хорошая погода');
+ * // => 'horoshaya-pogoda'
  */
 export default function(subject) {
   var subjectString = toString(nilDefault(subject, ''));

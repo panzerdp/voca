@@ -18,9 +18,9 @@ import { MAX_SAFE_INTEGER } from '../utilities/number/const';
  * @return {string} Returns the truncated string.
  * @example
  * v.truncate('Once upon a time', 9);
- * // => 'Once upon...'
+ * // => 'Once u...'
  *
- * v.truncate('Good day, Little Red Riding Hood', 8, ' (read more)');
+ * v.truncate('Good day, Little Red Riding Hood', 20, ' (read more)');
  * // => 'Good day (read more)'
  *
  * v.truncate('Once upon', 10);
@@ -33,5 +33,5 @@ export default function(subject, length, end) {
   if (lengthInt >= subjectString.length) {
     return subjectString;
   }
-  return subjectString.substr(0, length) + endString;
+  return subjectString.substr(0, length - endString.length) + endString;
 }
