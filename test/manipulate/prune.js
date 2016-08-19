@@ -5,11 +5,11 @@ import { PRINTABLE_ASCII } from '../utilities/string/ascii';
 describe('prune', function() {
 
   it('should prune a string', function() {
-    expect(v.prune('Once upon a time there lived in a certain village a little country girl', 6)).to.be.equal('Once...');
-    expect(v.prune('I\'ll go this way and go you that', 9, ' (read more)')).to.be.equal('I\'ll go (read more)');
-    expect(v.prune('Little Red Riding Hood', 6, '...')).to.be.equal('Little...');
+    expect(v.prune('Once upon a time there lived in a certain village a little country girl', 7)).to.be.equal('Once...');
+    expect(v.prune('I\'ll go this way and go you that', 19, ' (read more)')).to.be.equal('I\'ll go (read more)');
+    expect(v.prune('Little Red Riding Hood', 6, '...')).to.be.equal('...');
     expect(v.prune('Little Red Riding Hood', 9, '...')).to.be.equal('Little...');
-    expect(v.prune('Little Red Riding Hood', 11, '...')).to.be.equal('Little Red...');
+    expect(v.prune('Little Red Riding Hood', 11, '...')).to.be.equal('Little...');
     expect(v.prune('Little Red Riding Hood', 20, '...')).to.be.equal('Little Red Riding...');
     expect(v.prune('Little Red Riding Hood', 22, '...')).to.be.equal('Little Red Riding Hood');
     expect(v.prune('Little Red Riding Hood', 1, '...')).to.be.equal('...');
@@ -31,7 +31,7 @@ describe('prune', function() {
       toString: function() {
         return 'Have a nice day';
       }
-    }, 4, '..')).to.be.equal('Have..');
+    }, 6, '..')).to.be.equal('Have..');
   });
 
   it('should return an empty string for null or undefined', function() {

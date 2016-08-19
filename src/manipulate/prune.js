@@ -18,11 +18,11 @@ import { MAX_SAFE_INTEGER } from '../utilities/number/const';
  * @param    {string} [end='...']  The string to be added at the end.
  * @return   {string}              Returns the pruned string.
  * @example
- * v.prune('Once upon a time', 6);
+ * v.prune('Once upon a time', 7);
  * // => 'Once...'
  *
- * v.prune('Good day, Little Red Riding Hood', 8, ' (read more)');
- * // => 'Good day (read more)'
+ * v.prune('Good day, Little Red Riding Hood', 16, ' (more)');
+ * // => 'Good day (more)'
  *
  * v.prune('Once upon', 10);
  * // => 'Once upon'
@@ -37,7 +37,7 @@ export default function(subject, length, end) {
   var truncatedString = '';
   subjectString.replace(REGEXP_WORD, function(word, offset) {
     var wordInsertLength = offset + word.length;
-    if (wordInsertLength <= length) {
+    if (wordInsertLength <= lengthInt - endString.length) {
       truncatedString = subjectString.substr(0, wordInsertLength);
     }
   });
