@@ -8,6 +8,7 @@ import chain from './chain/chain'; // include chain here to resolve af circular 
  * Otherwise use `v.prototype.value()` to unwrap the result.
  *
  * @memberOf Chain
+ * @since 1.0.0
  * @function v
  * @param {string} subject The string to wrap.
  * @return {Object}  Returns the new wrapper object.

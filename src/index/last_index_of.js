@@ -6,6 +6,7 @@ import nilDefault from '../utilities/undefined/nil_default';
  *
  * @function lastIndexOf
  * @static
+ * @since 1.0.0
  * @memberOf Index
  * @param {string} [subject=''] The string where to search.
  * @param {string} search The string to search.

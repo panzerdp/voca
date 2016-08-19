@@ -6,6 +6,7 @@ import nilDefault from '../utilities/undefined/nil_default';
  *
  * @function replace
  * @static
+ * @since 1.0.0
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to verify.
  * @param {string|RegExp} pattern The pattern which match is replaced with `replacement`. If `pattern` is string, a simple string match is evaluated.

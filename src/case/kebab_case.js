@@ -9,6 +9,7 @@ import lowerCase from '../case/lower_case';
  *
  * @function kebabCase
  * @static
+ * @since 1.0.0
  * @memberOf Case
  * @param {string} [subject=''] The string to convert to kebab case.
  * @return {string} The kebab case string.

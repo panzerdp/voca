@@ -8,6 +8,7 @@ import nilDefault from '../utilities/undefined/nil_default';
  *
  * @function vprintf
  * @static
+ * @since 1.0.0
  * @memberOf Format
  * @param  {string}                [format=''] The format string.
  * @param  {Array.<number|string>} values      The array of values to produce the string.

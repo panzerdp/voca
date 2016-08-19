@@ -27,6 +27,7 @@ function replaceSpecialCharacter(character) {
  *
  * @function escapeHtml
  * @static
+ * @since 1.0.0         
  * @memberOf Escape
  * @param {string} [subject=''] The string to escape.
  * @return {string} Returns the escaped string.

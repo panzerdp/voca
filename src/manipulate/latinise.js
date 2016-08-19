@@ -31,6 +31,7 @@ function removeCombiningMarks(character, cleanCharacter) {
  *
  * @function latinise
  * @static
+ * @since 1.0.0
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to latinise.
  * @return {string} Returns the latinised string.

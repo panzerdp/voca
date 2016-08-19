@@ -102,6 +102,13 @@ var self = this;
     <?js });
 } } ?>
 
+<?js if (data.since) { ?>
+<h5>Availability:</h5>
+<div>
+  <?js= data.since ?>
+</div>
+<?js } ?>
+
 <?js if (data.examples && examples.length) { ?>
     <h5>Example<?js= examples.length > 1? 's':'' ?>:</h5>
     <?js= this.partial('examples.tmpl', examples) ?>

@@ -6,6 +6,7 @@ import nilDefault from '../utilities/undefined/nil_default';
  *
  * @function countSubstring
  * @static
+ * @since 1.0.0
  * @memberOf Count
  * @param {string} [subject=''] The subject string.
  * @param {string} substring The substring to be counted.

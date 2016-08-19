@@ -24,10 +24,7 @@ if (data.defaultvalue && (data.defaultvaluetype === 'object' || data.defaultvalu
     <dd class="tag-version"><ul class="dummy"><li><?js= version ?></li></ul></dd>
     <?js } ?>
 
-    <?js if (data.since) {?>
-    <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li><?js= since ?></li></ul></dd>
-    <?js } ?>
+
 
     <?js if (data.inherited && data.inherits && !data.overrides) { ?>
     <dt class="inherited-from">Inherited From:</dt>

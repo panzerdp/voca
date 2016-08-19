@@ -9,6 +9,7 @@ import toInteger from '../utilities/number/to_integer';
  *
  * @function includes
  * @static
+ * @since 1.0.0
  * @memberOf Query
  * @param {string} [subject=''] The string where to search.
  * @param {string} search The string to search.

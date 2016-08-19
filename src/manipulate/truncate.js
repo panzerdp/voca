@@ -10,6 +10,7 @@ import { MAX_SAFE_INTEGER } from '../utilities/number/const';
  *
  * @function truncate
  * @static
+ * @since 1.0.0
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to truncate.
  * @param {int} length The length to truncate the string.

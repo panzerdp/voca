@@ -28,6 +28,7 @@ function reduceUnescapedString(string, key) {
  *
  * @function unescapeHtml
  * @static
+ * @since 1.0.0
  * @memberOf Escape
  * @param {string} [subject=''] The string to unescape.
  * @return {string} Returns the unescaped string.

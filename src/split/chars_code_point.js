@@ -9,6 +9,7 @@ import { REGEXP_UNICODE_CHARACTER } from '../utilities/string/regexp';
  *
  * @function charsCodePoint
  * @static
+ * @since 1.0.0
  * @memberOf Split
  * @param {string} [subject=''] The string to split into characters.
  * @return {Array} Returns the array of characters.

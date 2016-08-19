@@ -128,6 +128,7 @@ import replaceConversionSpecification from './sprintf_utils/replace_conversion_s
  *
  * @function sprintf
  * @static
+ * @since 1.0.0
  * @memberOf Format
  * @param  {string} [format=''] The format string.
  * @param  {...*}               args The arguments to produce the string.

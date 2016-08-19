@@ -9,6 +9,7 @@ import { REGEXP_NON_LATIN } from '../utilities/string/regexp.js';
  *
  * @function slugify
  * @static
+ * @since 1.0.0
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to slugify.
  * @return {string} The slugified string.

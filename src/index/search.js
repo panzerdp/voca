@@ -9,6 +9,7 @@ import isNil from '../utilities/object/is_nil';
  *
  * @function search
  * @static
+ * @since 1.0.0
  * @memberOf Index
  * @param {string} [subject=''] The string where to search.
  * @param {string|RegExp} pattern The pattern to match. If `pattern` is not RegExp, it is transformed to `new RegExp(pattern)`.

@@ -6,6 +6,7 @@ import nilDefault from '../utilities/undefined/nil_default';
  *
  * @function chars
  * @static
+ * @since 1.0.0
  * @memberOf Split
  * @param {string} [subject=''] The string to split into characters.
  * @return {Array} Returns the array of characters.

@@ -9,6 +9,7 @@ import isNil from '../utilities/object/is_nil';
  *
  * @function endsWith
  * @static
+ * @since 1.0.0
  * @memberOf Query
  * @param {string} [subject=''] The string to verify.
  * @param {string} end The ending string.

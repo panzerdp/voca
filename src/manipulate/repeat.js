@@ -10,6 +10,7 @@ import { MAX_SAFE_INTEGER } from '../utilities/number/const';
  *
  * @function repeat
  * @static
+ * @since 1.0.0
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to repeat.
  * @param {number} [times=1] The number of times to repeat.

@@ -6,6 +6,7 @@ import nilDefault from '../utilities/undefined/nil_default';
  *
  * @function upperCase
  * @static
+ * @since 1.0.0
  * @memberOf Case
  * @param {string} [subject=''] The string to convert to upper case.
  * @return {string} The upper case string.

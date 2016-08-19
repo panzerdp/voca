@@ -8,6 +8,7 @@ import { REGEXP_WORD } from '../utilities/string/regexp';
  *
  * @function words
  * @static
+ * @since 1.0.0
  * @memberOf Split
  * @param {string} [subject=''] The string to split into words.
  * @param {string|RegExp} [pattern] The pattern to watch words. If `pattern` is not RegExp, it is transformed to `new RegExp(pattern, flags)`.

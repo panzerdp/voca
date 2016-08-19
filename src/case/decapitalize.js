@@ -6,6 +6,7 @@ import nilDefault from '../utilities/undefined/nil_default';
  *
  * @function decapitalize
  * @static
+ * @since 1.0.0
  * @memberOf Case
  * @param {string} [subject=''] The string to decapitalize.
  * @return {string} Returns the decapitalized string.

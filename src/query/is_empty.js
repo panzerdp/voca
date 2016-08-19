@@ -6,6 +6,7 @@ import nilDefault from '../utilities/undefined/nil_default';
  *
  * @function isEmpty
  * @static
+ * @since 1.0.0
  * @memberOf Query
  * @param {string} [subject=''] The string to verify.
  * @return {boolean} Returns `true` if `subject` is empty or `false` otherwise

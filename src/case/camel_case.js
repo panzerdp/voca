@@ -21,6 +21,7 @@ function wordToCamel(word, index) {
  *
  * @function camelCase
  * @static
+ * @since 1.0.0
  * @memberOf Case
  * @param {string} [subject=''] The string to convert to camel case.
  * @return {string} The camel case string.

@@ -23,6 +23,7 @@ class ChainWrapper {
    * Unwraps the chain sequence value.
    *
    * @memberof Chain
+   * @since 1.0.0
    * @function __proto__value
    * @return {*} Returns the unwrapped value.
    * @example
@@ -77,6 +78,7 @@ class ChainWrapper {
    * Does not modify the wrapped value.
    *
    * @memberof Chain
+   * @since 1.0.0
    * @function __proto__chain
    * @return {Object} Returns the new wrapper object.
    * @example
@@ -102,6 +104,7 @@ class ChainWrapper {
    * Modifies the wrapped value with the invocation result of `changer` function.
    *
    * @memberof Chain
+   * @since 1.0.0
    * @function __proto__thru
    * @param {Function} changer The function to invoke.
    * @return {Object} Returns the new wrapper object.

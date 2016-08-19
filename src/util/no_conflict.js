@@ -8,6 +8,7 @@ var previousV = globalObject.v;
  *
  * @function noConflict
  * @static
+ * @since 1.0.0
  * @memberOf Util
  * @return {Object} Returns Voca library instance.
  * @example

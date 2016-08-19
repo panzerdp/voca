@@ -6,6 +6,7 @@ import nilDefault from '../utilities/undefined/nil_default';
  *
  * @function lowerCase
  * @static
+ * @since 1.0.0
  * @memberOf Case
  * @param {string} [subject=''] The string to convert to lower case.
  * @return {string} The lower case string.

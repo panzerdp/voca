@@ -7,6 +7,7 @@ import nilDefault from '../utilities/undefined/nil_default';
  *
  * @function capitalize
  * @static
+ * @since 1.0.0
  * @memberOf Case
  * @param {string} [subject=''] The string to capitalize.
  * @param {boolean} [restToLowerCase=false] Convert the rest of `subject` to lower case.

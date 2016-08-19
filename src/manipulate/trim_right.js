@@ -8,6 +8,7 @@ import { REGEX_TRIM_RIGHT } from '../utilities/string/regexp';
  *
  * @function trimRight
  * @static
+ * @since 1.0.0
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to trim.
  * @param {string} [whitespace=whitespace] The whitespace characters to trim.

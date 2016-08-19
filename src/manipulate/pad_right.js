@@ -11,6 +11,7 @@ import { MAX_SAFE_INTEGER } from '../utilities/number/const';
  *
  * @function padRight
  * @static
+ * @since 1.0.0
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to pad.
  * @param {int} [length=0] The length to right pad the string. No changes are made if `length` is less than `subject.length`.

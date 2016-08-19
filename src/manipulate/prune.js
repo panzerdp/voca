@@ -11,6 +11,7 @@ import { MAX_SAFE_INTEGER } from '../utilities/number/const';
  *
  * @static
  * @function prune
+ * @since 1.0.0
  * @memberOf Manipulate
  * @param    {string} [subject=''] The string to prune.
  * @param    {int}    length       The length to prune the string.
