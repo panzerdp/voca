@@ -31,6 +31,7 @@ import './index/search';
 
 //manipulate
 import './manipulate/latinise';
+import './manipulate/left';
 import './manipulate/repeat';
 import './manipulate/pad';
 import './manipulate/pad_left';

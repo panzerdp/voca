@@ -25,7 +25,7 @@ import { MAX_SAFE_INTEGER } from '../utilities/number/const';
 export default function(subject, length) {
   var subjectString = toString(nilDefault(subject, '')),
     lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
-  if (lengthInt <= subjectString.length) {
+  if (subjectString.length <= lengthInt) {
     return subjectString;
   }
   return subjectString.substr(0, lengthInt);
