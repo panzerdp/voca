@@ -9,7 +9,7 @@ import nilDefault from '../utilities/undefined/nil_default';
  * @since 1.0.0
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to verify.
- * @param {string|RegExp} pattern The pattern which match is replaced with `replacement`. If `pattern` is string, a simple string match is evaluated.
+ * @param {string|RegExp} pattern The pattern which match is replaced with `replacement`. If `pattern` is a string, a simple string match is evaluated.
  * @param {string|Function} replacement The string or a function which invocation result replaces `pattern` match.
  * @return {string} Returns the replacement result.
  * @example

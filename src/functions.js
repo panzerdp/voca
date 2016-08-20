@@ -52,6 +52,7 @@ import search from './index/search';
  * @namespace Manipulate
  */
 import latinise from './manipulate/latinise';
+import left from './manipulate/left';
 import pad from './manipulate/pad';
 import padLeft from './manipulate/pad_left';
 import padRight from './manipulate/pad_right';
@@ -129,6 +130,7 @@ export default {
   search,
 
   latinise,
+  left,
   pad,
   padLeft,
   padRight,
