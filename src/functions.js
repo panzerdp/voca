@@ -9,11 +9,23 @@ import kebabCase from './case/kebab_case';
 import lowerCase from './case/lower_case';
 import snakeCase from './case/snake_case';
 import upperCase from './case/upper_case';
+import truncate from './cut/truncate';
 
 /**
  * Chain functions
  * @namespace Chain
  */
+
+/**
+ * Functions to cut a string
+ * @namespace Cut
+ */
+import left from './cut/left';
+import prune from './cut/prune';
+import right from './cut/right';
+import slice from './cut/slice';
+import substr from './cut/substr';
+import substring from './cut/substring';
 
 /**
  * Functions to count characters in a string
@@ -52,24 +64,17 @@ import search from './index/search';
  * @namespace Manipulate
  */
 import latinise from './manipulate/latinise';
-import left from './manipulate/left';
 import pad from './manipulate/pad';
 import padLeft from './manipulate/pad_left';
 import padRight from './manipulate/pad_right';
-import prune from './manipulate/prune';
 import repeat from './manipulate/repeat';
 import replace from './manipulate/replace';
 import reverse from './manipulate/reverse';
 import reverseCodePoint from './manipulate/reverse_code_point';
-import right from './manipulate/right';
-import slice from './manipulate/slice';
 import slugify from './manipulate/slugify';
-import substr from './manipulate/substr';
-import substring from './manipulate/substring';
 import trim from './manipulate/trim';
 import trimLeft from './manipulate/trim_left';
 import trimRight from './manipulate/trim_right';
-import truncate from './manipulate/truncate';
 
 /**
  * Functions to query a string

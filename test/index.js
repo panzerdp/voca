@@ -7,7 +7,17 @@ import './case/lower_case';
 import './case/snake_case';
 import './case/upper_case';
 
+//chain
 import './chain/chain';
+
+//cut
+import './cut/left';
+import './cut/prune';
+import './cut/right';
+import './cut/slice';
+import './cut/substr';
+import './cut/substring';
+import './cut/truncate';
 
 //count
 import './count/count';
@@ -31,24 +41,17 @@ import './index/search';
 
 //manipulate
 import './manipulate/latinise';
-import './manipulate/left';
 import './manipulate/repeat';
 import './manipulate/pad';
 import './manipulate/pad_left';
 import './manipulate/pad_right';
-import './manipulate/prune';
 import './manipulate/replace';
 import './manipulate/reverse';
 import './manipulate/reverse_code_point';
-import './manipulate/right';
-import './manipulate/slice';
 import './manipulate/slugify';
-import './manipulate/substr';
-import './manipulate/substring';
 import './manipulate/trim';
 import './manipulate/trim_left';
 import './manipulate/trim_right';
-import './manipulate/truncate';
 
 //query
 import './query/ends_with';

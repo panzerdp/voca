@@ -6,20 +6,20 @@ import toInteger from '../utilities/number/to_integer';
 import { MAX_SAFE_INTEGER } from '../utilities/number/const';
 
 /**
- * Extract the rightmost `length` characters from `subject`.
+ * Extract the leftmost `length` characters from `subject`.
  *
- * @function right
+ * @function left
  * @static
  * @since 1.0.0
- * @memberOf Manipulate
+ * @memberOf Cut
  * @param {string} [subject=''] The string to extract from.
  * @param {int} [length=subject.length] The number of characters to extract.
- * @return {string} Returns the rightmost extracted string.
+ * @return {string} Returns the leftmost extracted string.
  * @example
- * v.right('vehicle', 2);
- * // => 'cle'
+ * v.left('vehicle', 2);
+ * // => 've'
  *
- * v.right('car', 5);
+ * v.left('car', 5);
  * // => 'car'
  */
 export default function(subject, length) {
@@ -28,5 +28,5 @@ export default function(subject, length) {
   if (subjectString.length <= lengthInt) {
     return subjectString;
   }
-  return subjectString.substr(subjectString.length - lengthInt, lengthInt);
+  return subjectString.substr(0, lengthInt);
 }

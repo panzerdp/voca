@@ -1,5 +1,5 @@
 import isNil from '../../../utilities/object/is_nil';
-import truncate from '../../../manipulate/truncate';
+import truncate from '../../../cut/truncate';
 import alignAndPad from '../align_and_pad';
 
 /**

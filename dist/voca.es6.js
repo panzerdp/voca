@@ -466,6 +466,236 @@ function upperCase (subject) {    var subjectString = toString(nilDefault(subjec
   }
 
 /**
+   * Clip the number to interval `downLimit` to `upLimit`.
+   *
+   * @ignore
+   * @function clipNumber
+   * @param {number} value The number to clip
+   * @param {number} downLimit The down limit
+   * @param {number} upLimit The upper limit
+   * @return {number} The clipped number
+   */
+function clipNumber (value, downLimit, upLimit) {    if (value <= downLimit) {
+      return downLimit;
+    }
+    if (value >= upLimit) {
+      return upLimit;
+    }
+    return value;
+  }
+
+/**
+   * Max save integer value
+   *
+   * @ignore
+   * @type {number}
+   */
+  var MAX_SAFE_INTEGER = 0x1fffffffffffff;
+
+/**
+   * Transforms `value` to an integer.
+   *
+   * @ignore
+   * @function toInteger
+   * @param {number} value The number to transform.
+   * @returns {number} Returns the transformed integer.
+   */
+function toInteger (value) {    if (value === Infinity) {
+      return MAX_SAFE_INTEGER;
+    }
+    if (value === -Infinity) {
+      return -MAX_SAFE_INTEGER;
+    }
+    return ~~value;
+  }
+
+/**
+   * Truncates `subject` to a new `length`.
+   *
+   * @function truncate
+   * @static
+   * @since 1.0.0
+   * @memberOf Cut
+   * @param {string} [subject=''] The string to truncate.
+   * @param {int} length The length to truncate the string.
+   * @param {string} [end='...'] The string to be added at the end.
+   * @return {string} Returns the truncated string.
+   * @example
+   * v.truncate('Once upon a time', 9);
+   * // => 'Once u...'
+   *
+   * v.truncate('Good day, Little Red Riding Hood', 20, ' (read more)');
+   * // => 'Good day (read more)'
+   *
+   * v.truncate('Once upon', 10);
+   * // => 'Once upon'
+   */
+function truncate (subject, length, end) {    var subjectString = toString(nilDefault(subject, '')),
+        lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
+        endString = toString(nilDefault(end, '...'));
+    if (lengthInt >= subjectString.length) {
+      return subjectString;
+    }
+    return subjectString.substr(0, length - endString.length) + endString;
+  }
+
+/**
+   * Extract the leftmost `length` characters from `subject`.
+   *
+   * @function left
+   * @static
+   * @since 1.0.0
+   * @memberOf Cut
+   * @param {string} [subject=''] The string to extract from.
+   * @param {int} [length=subject.length] The number of characters to extract.
+   * @return {string} Returns the leftmost extracted string.
+   * @example
+   * v.left('vehicle', 2);
+   * // => 've'
+   *
+   * v.left('car', 5);
+   * // => 'car'
+   */
+function left (subject, length) {    var subjectString = toString(nilDefault(subject, '')),
+        lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
+    if (subjectString.length <= lengthInt) {
+      return subjectString;
+    }
+    return subjectString.substr(0, lengthInt);
+  }
+
+/**
+   * Truncates `subject` to a new `length` and does not break the words. Guarantees that the truncated string will be no longer than `length`.
+   *
+   * @static
+   * @function prune
+   * @since 1.0.0
+   * @memberOf Cut
+   * @param    {string} [subject=''] The string to prune.
+   * @param    {int}    length       The length to prune the string.
+   * @param    {string} [end='...']  The string to be added at the end.
+   * @return   {string}              Returns the pruned string.
+   * @example
+   * v.prune('Once upon a time', 7);
+   * // => 'Once...'
+   *
+   * v.prune('Good day, Little Red Riding Hood', 16, ' (more)');
+   * // => 'Good day (more)'
+   *
+   * v.prune('Once upon', 10);
+   * // => 'Once upon'
+   */
+function prune (subject, length, end) {    var subjectString = toString(nilDefault(subject, '')),
+        lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
+        endString = toString(nilDefault(end, '...'));
+    if (lengthInt >= subjectString.length) {
+      return subjectString;
+    }
+    var truncatedString = '';
+    subjectString.replace(REGEXP_WORD, function (word, offset) {
+      var wordInsertLength = offset + word.length;
+      if (wordInsertLength <= lengthInt - endString.length) {
+        truncatedString = subjectString.substr(0, wordInsertLength);
+      }
+    });
+    return truncatedString + endString;
+  }
+
+/**
+   * Extract the rightmost `length` characters from `subject`.
+   *
+   * @function right
+   * @static
+   * @since 1.0.0
+   * @memberOf Cut
+   * @param {string} [subject=''] The string to extract from.
+   * @param {int} [length=subject.length] The number of characters to extract.
+   * @return {string} Returns the rightmost extracted string.
+   * @example
+   * v.right('vehicle', 2);
+   * // => 'cle'
+   *
+   * v.right('car', 5);
+   * // => 'car'
+   */
+function right (subject, length) {    var subjectString = toString(nilDefault(subject, '')),
+        lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
+    if (subjectString.length <= lengthInt) {
+      return subjectString;
+    }
+    return subjectString.substr(subjectString.length - lengthInt, lengthInt);
+  }
+
+/**
+   * Extracts from `subject` a string from `start` position to `end` position.
+   *
+   * @function slice
+   * @static
+   * @since 1.0.0
+   * @memberOf Cut
+   * @param {string} [subject=''] The string to extract from.
+   * @param {number} start The position to start extraction. If negative use `subject.length + start`.
+   * @param {number} [end=subject.length] The position to end extraction. If negative use `subject.length + end`.
+   * @return {string} Returns the extracted string.
+   * @note Uses native `String.prototype.slice()`
+   * @example
+   * v.slice('miami', 1);
+   * // => 'iami'
+   *
+   * v.slice('florida', -4);
+   * // => 'rida'
+   */
+function slice (subject, start, end) {    var subjectString = toString(nilDefault(subject, ''));
+    return subjectString.slice(start, end);
+  }
+
+/**
+   * Extracts from `subject` a string from `start` position a number of `length` characters.
+   *
+   * @function substr
+   * @static
+   * @since 1.0.0
+   * @memberOf Cut
+   * @param {string} [subject=''] The string to extract from.
+   * @param {number} start The position to start extraction.
+   * @param {number} [length=subject.endOfString] The number of characters to extract. If omitted, extract to the end of `subject`.
+   * @return {string} Returns the extracted string.
+   * @note Uses native `String.prototype.substr()`
+   * @example
+   * v.substr('infinite loop', 9);
+   * // => 'loop'
+   *
+   * v.substr('dreams', 2, 2);
+   * // => 'ea'
+   */
+function substr (subject, start, length) {    var subjectString = toString(nilDefault(subject, ''));
+    return subjectString.substr(start, length);
+  }
+
+/**
+   * Extracts from `subject` a string from `start` position to `end` position.
+   *
+   * @function substring
+   * @static
+   * @since 1.0.0
+   * @memberOf Cut
+   * @param {string} [subject=''] The string to extract from.
+   * @param {number} start The position to start extraction.
+   * @param {number} [end=subject.length] The position to end extraction.
+   * @return {string} Returns the extracted string.
+   * @note Uses native `String.prototype.substring()`
+   * @example
+   * v.substring('beach', 1);
+   * // => 'each'
+   *
+   * v.substring('ocean', 1, 3);
+   * // => 'ea'
+   */
+function substring (subject, start, end) {    var subjectString = toString(nilDefault(subject, ''));
+    return subjectString.substring(start, end);
+  }
+
+/**
    * Counts the characters in `subject`. Equivalent to `subject.length`.
    *
    * @function count
@@ -643,50 +873,6 @@ function validateFormat (index, args, typeSpecifier) {    if (isNil(typeSpecifie
     if (index < 0) {
       throw new Error('sprintf(): Argument number must be greater than zero');
     }
-  }
-
-/**
-   * Clip the number to interval `downLimit` to `upLimit`.
-   *
-   * @ignore
-   * @function clipNumber
-   * @param {number} value The number to clip
-   * @param {number} downLimit The down limit
-   * @param {number} upLimit The upper limit
-   * @return {number} The clipped number
-   */
-function clipNumber (value, downLimit, upLimit) {    if (value <= downLimit) {
-      return downLimit;
-    }
-    if (value >= upLimit) {
-      return upLimit;
-    }
-    return value;
-  }
-
-/**
-   * Max save integer value
-   *
-   * @ignore
-   * @type {number}
-   */
-  var MAX_SAFE_INTEGER = 0x1fffffffffffff;
-
-/**
-   * Transforms `value` to an integer.
-   *
-   * @ignore
-   * @function toInteger
-   * @param {number} value The number to transform.
-   * @returns {number} Returns the transformed integer.
-   */
-function toInteger (value) {    if (value === Infinity) {
-      return MAX_SAFE_INTEGER;
-    }
-    if (value === -Infinity) {
-      return -MAX_SAFE_INTEGER;
-    }
-    return ~~value;
   }
 
 /**
@@ -915,36 +1101,6 @@ function formatIntegerDecimal (replacement, signSpecifier, paddingCharacter, ali
       integer = CHARACTER_PLUS + integer;
     }
     return alignAndPad(toString(integer), paddingCharacter, alignmentSpecifier, width);
-  }
-
-/**
-   * Truncates `subject` to a new `length`.
-   *
-   * @function truncate
-   * @static
-   * @since 1.0.0
-   * @memberOf Manipulate
-   * @param {string} [subject=''] The string to truncate.
-   * @param {int} length The length to truncate the string.
-   * @param {string} [end='...'] The string to be added at the end.
-   * @return {string} Returns the truncated string.
-   * @example
-   * v.truncate('Once upon a time', 9);
-   * // => 'Once u...'
-   *
-   * v.truncate('Good day, Little Red Riding Hood', 20, ' (read more)');
-   * // => 'Good day (read more)'
-   *
-   * v.truncate('Once upon', 10);
-   * // => 'Once upon'
-   */
-function truncate (subject, length, end) {    var subjectString = toString(nilDefault(subject, '')),
-        lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
-        endString = toString(nilDefault(end, '...'));
-    if (lengthInt >= subjectString.length) {
-      return subjectString;
-    }
-    return subjectString.substr(0, length - endString.length) + endString;
   }
 
 /**
@@ -2504,31 +2660,6 @@ function latinise (subject) {    var subjectString = toString(nilDefault(subject
   }
 
 /**
-   * Extract the leftmost `length` characters from `subject`.
-   *
-   * @function left
-   * @static
-   * @since 1.0.0
-   * @memberOf Manipulate
-   * @param {string} [subject=''] The string to extract from.
-   * @param {int} [length=subject.length] The number of characters to extract.
-   * @return {string} Returns the leftmost extracted string.
-   * @example
-   * v.left('vehicle', 2);
-   * // => 've'
-   *
-   * v.left('car', 5);
-   * // => 'car'
-   */
-function left (subject, length) {    var subjectString = toString(nilDefault(subject, '')),
-        lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
-    if (lengthInt <= subjectString.length) {
-      return subjectString;
-    }
-    return subjectString.substr(0, lengthInt);
-  }
-
-/**
    * Pads `subject` to a new `length`.
    *
    * @function pad
@@ -2556,43 +2687,6 @@ function pad (subject, length, pad) {    var subjectString = toString(nilDefault
         paddingSideLength = toInteger(paddingLength / 2),
         paddingSideRemainingLength = paddingLength % 2;
     return buildPadding(padString, paddingSideLength) + subjectString + buildPadding(padString, paddingSideLength + paddingSideRemainingLength);
-  }
-
-/**
-   * Truncates `subject` to a new `length` and does not break the words. Guarantees that the truncated string will be no longer than `length`.
-   *
-   * @static
-   * @function prune
-   * @since 1.0.0
-   * @memberOf Manipulate
-   * @param    {string} [subject=''] The string to prune.
-   * @param    {int}    length       The length to prune the string.
-   * @param    {string} [end='...']  The string to be added at the end.
-   * @return   {string}              Returns the pruned string.
-   * @example
-   * v.prune('Once upon a time', 7);
-   * // => 'Once...'
-   *
-   * v.prune('Good day, Little Red Riding Hood', 16, ' (more)');
-   * // => 'Good day (more)'
-   *
-   * v.prune('Once upon', 10);
-   * // => 'Once upon'
-   */
-function prune (subject, length, end) {    var subjectString = toString(nilDefault(subject, '')),
-        lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
-        endString = toString(nilDefault(end, '...'));
-    if (lengthInt >= subjectString.length) {
-      return subjectString;
-    }
-    var truncatedString = '';
-    subjectString.replace(REGEXP_WORD, function (word, offset) {
-      var wordInsertLength = offset + word.length;
-      if (wordInsertLength <= lengthInt - endString.length) {
-        truncatedString = subjectString.substr(0, wordInsertLength);
-      }
-    });
-    return truncatedString + endString;
   }
 
 /**
@@ -2673,29 +2767,6 @@ function reverse (subject) {    var subjectString = toString(nilDefault(subject,
   }
 
 /**
-   * Extracts from `subject` a string from `start` position to `end` position.
-   *
-   * @function slice
-   * @static
-   * @since 1.0.0
-   * @memberOf Manipulate
-   * @param {string} [subject=''] The string to extract from.
-   * @param {number} start The position to start extraction. If negative use `subject.length + start`.
-   * @param {number} [end=subject.length] The position to end extraction. If negative use `subject.length + end`.
-   * @return {string} Returns the extracted string.
-   * @note Uses native `String.prototype.slice()`
-   * @example
-   * v.slice('miami', 1);
-   * // => 'iami'
-   *
-   * v.slice('florida', -4);
-   * // => 'rida'
-   */
-function slice (subject, start, end) {    var subjectString = toString(nilDefault(subject, ''));
-    return subjectString.slice(start, end);
-  }
-
-/**
    * Slugify the `subject`. Cleans the `subject` by replacing diacritics with corresponding latin characters.
    *
    * @function slugify
@@ -2720,52 +2791,6 @@ function slugify (subject) {    var subjectString = toString(nilDefault(subject,
     }
     var cleanSubjectString = latinise(subjectString).replace(REGEXP_NON_LATIN, '-');
     return kebabCase(cleanSubjectString);
-  }
-
-/**
-   * Extracts from `subject` a string from `start` position a number of `length` characters.
-   *
-   * @function substr
-   * @static
-   * @since 1.0.0
-   * @memberOf Manipulate
-   * @param {string} [subject=''] The string to extract from.
-   * @param {number} start The position to start extraction.
-   * @param {number} [length=subject.endOfString] The number of characters to extract. If omitted, extract to the end of `subject`.
-   * @return {string} Returns the extracted string.
-   * @note Uses native `String.prototype.substr()`
-   * @example
-   * v.substr('infinite loop', 9);
-   * // => 'loop'
-   *
-   * v.substr('dreams', 2, 2);
-   * // => 'ea'
-   */
-function substr (subject, start, length) {    var subjectString = toString(nilDefault(subject, ''));
-    return subjectString.substr(start, length);
-  }
-
-/**
-   * Extracts from `subject` a string from `start` position to `end` position.
-   *
-   * @function substring
-   * @static
-   * @since 1.0.0
-   * @memberOf Manipulate
-   * @param {string} [subject=''] The string to extract from.
-   * @param {number} start The position to start extraction.
-   * @param {number} [end=subject.length] The position to end extraction.
-   * @return {string} Returns the extracted string.
-   * @note Uses native `String.prototype.substring()`
-   * @example
-   * v.substring('beach', 1);
-   * // => 'each'
-   *
-   * v.substring('ocean', 1, 3);
-   * // => 'ea'
-   */
-function substring (subject, start, end) {    var subjectString = toString(nilDefault(subject, ''));
-    return subjectString.substring(start, end);
   }
 
 /**
@@ -3337,6 +3362,7 @@ var functions = {    camelCase: camelCase,
     repeat: repeat,
     replace: replace,
     reverseCodePoint: reverseCodePoint,
+    right: right,
     reverse: reverse,
     slice: slice,
     slugify: slugify,

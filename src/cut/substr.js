@@ -7,7 +7,7 @@ import nilDefault from '../utilities/undefined/nil_default';
  * @function substr
  * @static
  * @since 1.0.0
- * @memberOf Manipulate
+ * @memberOf Cut
  * @param {string} [subject=''] The string to extract from.
  * @param {number} start The position to start extraction.
  * @param {number} [length=subject.endOfString] The number of characters to extract. If omitted, extract to the end of `subject`.
