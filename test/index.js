@@ -40,6 +40,7 @@ import './manipulate/prune';
 import './manipulate/replace';
 import './manipulate/reverse';
 import './manipulate/reverse_code_point';
+import './manipulate/right';
 import './manipulate/slice';
 import './manipulate/slugify';
 import './manipulate/substr';

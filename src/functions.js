@@ -61,6 +61,7 @@ import repeat from './manipulate/repeat';
 import replace from './manipulate/replace';
 import reverse from './manipulate/reverse';
 import reverseCodePoint from './manipulate/reverse_code_point';
+import right from './manipulate/right';
 import slice from './manipulate/slice';
 import slugify from './manipulate/slugify';
 import substr from './manipulate/substr';
@@ -138,6 +139,7 @@ export default {
   repeat,
   replace,
   reverseCodePoint,
+  right,
   reverse,
   slice,
   slugify,
