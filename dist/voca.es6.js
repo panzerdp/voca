@@ -540,7 +540,7 @@ function truncate (subject, length, end) {    var subjectString = toString(nilDe
   }
 
 /**
-   * Extract the leftmost `length` characters from `subject`.
+   * Extracts the leftmost `length` characters from `subject`.
    *
    * @function left
    * @static
@@ -602,7 +602,7 @@ function prune (subject, length, end) {    var subjectString = toString(nilDefau
   }
 
 /**
-   * Extract the rightmost `length` characters from `subject`.
+   * Extracts the rightmost `length` characters from `subject`.
    *
    * @function right
    * @static
@@ -613,7 +613,7 @@ function prune (subject, length, end) {    var subjectString = toString(nilDefau
    * @return {string} Returns the rightmost extracted string.
    * @example
    * v.right('vehicle', 2);
-   * // => 'cle'
+   * // => 'le'
    *
    * v.right('car', 5);
    * // => 'car'
@@ -696,7 +696,7 @@ function substring (subject, start, end) {    var subjectString = toString(nilDe
   }
 
 /**
-   * Counts the characters in `subject`. Equivalent to `subject.length`.
+   * Counts the characters in `subject`.<br/>
    *
    * @function count
    * @static
@@ -2690,14 +2690,15 @@ function pad (subject, length, pad) {    var subjectString = toString(nilDefault
   }
 
 /**
-   * Returns a new string where the matches of `pattern` are replaced with `replacement`.
+   * Returns a new string where the matches of `pattern` are replaced with `replacement`. <br/>
    *
    * @function replace
    * @static
    * @since 1.0.0
    * @memberOf Manipulate
    * @param {string} [subject=''] The string to verify.
-   * @param {string|RegExp} pattern The pattern which match is replaced with `replacement`. If `pattern` is a string, a simple string match is evaluated.
+   * @param {string|RegExp} pattern The pattern which match is replaced with `replacement`. If `pattern` is a string,
+   * a simple string match is evaluated and only the first occurrence replaced.
    * @param {string|Function} replacement The string or a function which invocation result replaces `pattern` match.
    * @return {string} Returns the replacement result.
    * @example

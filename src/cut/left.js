@@ -6,7 +6,7 @@ import toInteger from '../utilities/number/to_integer';
 import { MAX_SAFE_INTEGER } from '../utilities/number/const';
 
 /**
- * Extract the leftmost `length` characters from `subject`.
+ * Extracts the leftmost `length` characters from `subject`.
  *
  * @function left
  * @static
