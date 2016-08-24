@@ -4,7 +4,7 @@ import toString from '../utilities/string/to_string';
 import nilDefault from '../utilities/undefined/nil_default';
 import isNil from '../utilities/object/is_nil';
 import replaceConversionSpecification from './sprintf_utils/replace_conversion_specification';
-import validateSprintfFormat from './sprintf_utils/validate_format';
+import validateFormat from './sprintf_utils/validate_format';
 
 /**
  * Produces a string according to `format`.
@@ -176,7 +176,7 @@ export default function(format, ...replacements) {
     } else {
       actualReplacementIndex = position - 1;
     }
-    validateSprintfFormat(actualReplacementIndex, replacementsLength, typeSpecifier);
+    validateFormat(actualReplacementIndex, replacementsLength, typeSpecifier);
     return replaceConversionSpecification(replacements[actualReplacementIndex], signSpecifier, paddingSpecifier,
       alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier);
   });

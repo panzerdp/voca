@@ -1,10 +1,10 @@
 import C from './const';
 import toNumber from '../../utilities/number/to_number';
-import paddingCharacter from './padding_character';
-import formatFloat from './type/format_float';
-import formatIntegerBase from './type/format_integer_base';
-import formatIntegerDecimal from './type/format_integer_decimal';
-import formatString from './type/format_string';
+import getPaddingCharacter from './get_padding_character';
+import formatFloat from './type_format/float';
+import formatIntegerBase from './type_format/integer_base';
+import formatIntegerDecimal from './type_format/integer_decimal';
+import formatString from './type_format/string';
 
 /**
  * Returns the computed string based on format specifiers.
@@ -21,8 +21,8 @@ import formatString from './type/format_string';
  * @return {string}                           Returns the computed string.
  */
 export default function (replacement, signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier,
-                                        precisionSpecifier, typeSpecifier) {
-  var formatterArguments = [replacement, signSpecifier, paddingCharacter(paddingSpecifier), alignmentSpecifier,
+  precisionSpecifier, typeSpecifier) {
+  var formatterArguments = [replacement, signSpecifier, getPaddingCharacter(paddingSpecifier), alignmentSpecifier,
     toNumber(widthSpecifier), toNumber(precisionSpecifier)];
   switch (typeSpecifier) {
     case C.TYPE_STRING:
