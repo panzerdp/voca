@@ -1,4 +1,4 @@
-import C from './const';
+import Const from './const';
 import toNumber from '../../utilities/number/to_number';
 import getPaddingCharacter from './get_padding_character';
 import formatFloat from './type_format/float';
@@ -25,23 +25,23 @@ export default function (replacement, signSpecifier, paddingSpecifier, alignment
   var formatterArguments = [replacement, signSpecifier, getPaddingCharacter(paddingSpecifier), alignmentSpecifier,
     toNumber(widthSpecifier), toNumber(precisionSpecifier)];
   switch (typeSpecifier) {
-    case C.TYPE_STRING:
+    case Const.TYPE_STRING:
       return formatString(...formatterArguments);
-    case C.TYPE_INTEGER_DECIMAL:
-    case C.TYPE_INTEGER:
+    case Const.TYPE_INTEGER_DECIMAL:
+    case Const.TYPE_INTEGER:
       return formatIntegerDecimal(...formatterArguments);
-    case C.TYPE_INTEGER_ASCII_CHARACTER:
-    case C.TYPE_INTEGER_BINARY:
-    case C.TYPE_INTEGER_OCTAL:
-    case C.TYPE_INTEGER_HEXADECIMAL:
-    case C.TYPE_INTEGER_HEXADECIMAL_UPPERCASE:
-    case C.TYPE_INTEGER_UNSIGNED_DECIMAL:
+    case Const.TYPE_INTEGER_ASCII_CHARACTER:
+    case Const.TYPE_INTEGER_BINARY:
+    case Const.TYPE_INTEGER_OCTAL:
+    case Const.TYPE_INTEGER_HEXADECIMAL:
+    case Const.TYPE_INTEGER_HEXADECIMAL_UPPERCASE:
+    case Const.TYPE_INTEGER_UNSIGNED_DECIMAL:
       return formatIntegerBase(...formatterArguments, typeSpecifier);
-    case C.TYPE_FLOAT:
-    case C.TYPE_FLOAT_SCIENTIFIC:
-    case C.TYPE_FLOAT_SCIENTIFIC_UPPERCASE:
-    case C.TYPE_FLOAT_SHORT:
-    case C.TYPE_FLOAT_SHORT_UPPERCASE:
+    case Const.TYPE_FLOAT:
+    case Const.TYPE_FLOAT_SCIENTIFIC:
+    case Const.TYPE_FLOAT_SCIENTIFIC_UPPERCASE:
+    case Const.TYPE_FLOAT_SHORT:
+    case Const.TYPE_FLOAT_SHORT_UPPERCASE:
       return formatFloat(...formatterArguments, typeSpecifier);
   }
 }

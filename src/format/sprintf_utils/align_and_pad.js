@@ -1,5 +1,5 @@
 import isNil from '../../utilities/object/is_nil';
-import C from './const';
+import Const from './const';
 import padRight from '../../manipulate/pad_right';
 import padLeft from '../../manipulate/pad_left';
 
@@ -15,7 +15,7 @@ import padLeft from '../../manipulate/pad_left';
  */
 export default function(subject, paddingCharacter, alignmentSpecifier, width) {
   if (!isNil(width) && subject.length < width) {
-    if (alignmentSpecifier === C.LITERAL_MINUS) {
+    if (alignmentSpecifier === Const.LITERAL_MINUS) {
       return padRight(subject, width, paddingCharacter);
     } else {
       return padLeft(subject, width, paddingCharacter);

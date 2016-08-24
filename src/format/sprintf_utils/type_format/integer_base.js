@@ -1,6 +1,6 @@
 import alignAndPad from '../align_and_pad';
 import toString from '../../../utilities/string/to_string';
-import C from '../const';
+import Const from '../const';
 
 /**
  * Formats an integer type according to specifiers.
@@ -23,20 +23,20 @@ export default function(replacement, signSpecifier, paddingCharacter, alignmentS
   }
   integer = integer >>> 0;
   switch (typeSpecifier) {
-    case C.TYPE_INTEGER_ASCII_CHARACTER:
+    case Const.TYPE_INTEGER_ASCII_CHARACTER:
       integer = String.fromCharCode(integer);
       break;
-    case C.TYPE_INTEGER_BINARY:
-      integer = integer.toString(C.RADIX_BINARY);
+    case Const.TYPE_INTEGER_BINARY:
+      integer = integer.toString(Const.RADIX_BINARY);
       break;
-    case C.TYPE_INTEGER_OCTAL:
-      integer = integer.toString(C.RADIX_OCTAL);
+    case Const.TYPE_INTEGER_OCTAL:
+      integer = integer.toString(Const.RADIX_OCTAL);
       break;
-    case C.TYPE_INTEGER_HEXADECIMAL:
-      integer = integer.toString(C.RADIX_HEXADECIMAL);
+    case Const.TYPE_INTEGER_HEXADECIMAL:
+      integer = integer.toString(Const.RADIX_HEXADECIMAL);
       break;
-    case C.TYPE_INTEGER_HEXADECIMAL_UPPERCASE:
-      integer = integer.toString(C.RADIX_HEXADECIMAL).toUpperCase();
+    case Const.TYPE_INTEGER_HEXADECIMAL_UPPERCASE:
+      integer = integer.toString(Const.RADIX_HEXADECIMAL).toUpperCase();
       break;
   }
   return alignAndPad(toString(integer), paddingCharacter, alignmentSpecifier, width);

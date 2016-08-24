@@ -1,5 +1,5 @@
 import alignAndPad from '../align_and_pad';
-import C from '../const';
+import Const from '../const';
 import nilDefault from '../../../utilities/undefined/nil_default';
 import toNumber from '../../../utilities/number/to_number';
 import toString from '../../../utilities/string/to_string';
@@ -27,29 +27,29 @@ export default function(replacement, signSpecifier, paddingCharacter, alignmentS
   }
   precision = toNumber(nilDefault(precision, 6));
   switch (typeSpecifier) {
-    case C.TYPE_FLOAT:
+    case Const.TYPE_FLOAT:
       formattedReplacement = replacementNumber.toFixed(precision);
       break;
-    case C.TYPE_FLOAT_SCIENTIFIC:
+    case Const.TYPE_FLOAT_SCIENTIFIC:
       formattedReplacement = replacementNumber.toExponential(precision);
       break;
-    case C.TYPE_FLOAT_SCIENTIFIC_UPPERCASE:
+    case Const.TYPE_FLOAT_SCIENTIFIC_UPPERCASE:
       formattedReplacement = replacementNumber.toExponential(precision).toUpperCase();
       break;
-    case C.TYPE_FLOAT_SHORT:
-    case C.TYPE_FLOAT_SHORT_UPPERCASE:
+    case Const.TYPE_FLOAT_SHORT:
+    case Const.TYPE_FLOAT_SHORT_UPPERCASE:
       if (replacementNumber === 0) {
         formattedReplacement = 0;
         break;
       }
       formattedReplacement = replacementNumber.toPrecision(precision === 0 ? 1 : precision).replace(REGEXP_TRAILING_ZEROS, '');
-      if (typeSpecifier === C.TYPE_FLOAT_SHORT_UPPERCASE) {
+      if (typeSpecifier === Const.TYPE_FLOAT_SHORT_UPPERCASE) {
         formattedReplacement = formattedReplacement.toUpperCase();
       }
       break;
   }
-  if (signSpecifier === C.LITERAL_PLUS && replacementNumber >= 0) {
-    formattedReplacement = C.LITERAL_PLUS + formattedReplacement;
+  if (signSpecifier === Const.LITERAL_PLUS && replacementNumber >= 0) {
+    formattedReplacement = Const.LITERAL_PLUS + formattedReplacement;
   }
   return alignAndPad(toString(formattedReplacement), paddingCharacter, alignmentSpecifier, width);
 }
