@@ -1,4 +1,4 @@
-import toString from '../utilities/string/to_string';
+import toString from '../utilities/string/coerce_to_string';
 import nilDefault from '../utilities/undefined/nil_default';
 import clipNumber from '../utilities/number/clip_number';
 import toInteger from '../utilities/number/to_integer';

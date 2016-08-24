@@ -1,5 +1,5 @@
-import toString from '../utilities/string/to_string';
-import toBoolean from '../utilities/boolean/to_boolean';
+import coerceToString from '../utilities/string/coerce_to_string';
+import toBoolean from '../utilities/boolean/coerce_to_boolean';
 import nilDefault from '../utilities/undefined/nil_default';
 
 /**
@@ -20,7 +20,7 @@ import nilDefault from '../utilities/undefined/nil_default';
  * // => 'MAC'
  */
 export default function(subject, restToLowerCase) {
-  var subjectString = toString(nilDefault(subject, '')),
+  var subjectString = coerceToString(subject),
     restToLowerCaseBoolean = toBoolean(nilDefault(restToLowerCase, false));
   if (subjectString === '') {
     return '';

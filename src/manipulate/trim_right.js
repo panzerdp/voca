@@ -1,4 +1,4 @@
-import toString from '../utilities/string/to_string';
+import toString from '../utilities/string/coerce_to_string';
 import nilDefault from '../utilities/undefined/nil_default';
 import isNil from '../utilities/object/is_nil';
 import { REGEX_TRIM_RIGHT } from '../utilities/string/regexp';

@@ -1,6 +1,6 @@
 import { REGEXP_CONVERSION_SPECIFICATION } from '../utilities/string/regexp';
 import C from './sprintf_utils/const';
-import toString from '../utilities/string/to_string';
+import toString from '../utilities/string/coerce_to_string';
 import nilDefault from '../utilities/undefined/nil_default';
 import isNil from '../utilities/object/is_nil';
 import replaceConversionSpecification from './sprintf_utils/replace_conversion_specification';
