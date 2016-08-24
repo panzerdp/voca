@@ -1,7 +1,8 @@
 import alignAndPad from '../align_and_pad';
-import { CHARACTER_PLUS, Type } from '../const';
+import C from '../const';
 import nilDefault from '../../../utilities/undefined/nil_default';
 import toNumber from '../../../utilities/number/to_number';
+import toString from '../../../utilities/string/to_string';
 import { REGEXP_TRAILING_ZEROS } from '../../../utilities/string/regexp';
 
 /**
@@ -19,36 +20,36 @@ import { REGEXP_TRAILING_ZEROS } from '../../../utilities/string/regexp';
  */
 
 export default function(replacement, signSpecifier, paddingCharacter, alignmentSpecifier, width, precision, typeSpecifier) {
-  var float = parseFloat(replacement);
-  precision = toNumber(nilDefault(precision, 6));
-  if (isNaN(float)) {
-    float = 0;
+  var replacementNumber = parseFloat(replacement),
+    formattedReplacement;
+  if (isNaN(replacementNumber)) {
+    replacementNumber = 0;
   }
-  var showPlusSign = signSpecifier === CHARACTER_PLUS && float >= 0;
+  precision = toNumber(nilDefault(precision, 6));
   switch (typeSpecifier) {
-    case Type.FLOAT:
-      float = float.toFixed(precision);
+    case C.TYPE_FLOAT:
+      formattedReplacement = replacementNumber.toFixed(precision);
       break;
-    case Type.FLOAT_SCIENTIFIC:
-      float = float.toExponential(precision);
+    case C.TYPE_FLOAT_SCIENTIFIC:
+      formattedReplacement = replacementNumber.toExponential(precision);
       break;
-    case Type.FLOAT_SCIENTIFIC_UPPERCASE:
-      float = float.toExponential(precision).toUpperCase();
+    case C.TYPE_FLOAT_SCIENTIFIC_UPPERCASE:
+      formattedReplacement = replacementNumber.toExponential(precision).toUpperCase();
       break;
-    case Type.FLOAT_SHORT:
-    case Type.FLOAT_SHORT_UPPERCASE:
-      if (float === 0) {
-        float = '0';
+    case C.TYPE_FLOAT_SHORT:
+    case C.TYPE_FLOAT_SHORT_UPPERCASE:
+      if (replacementNumber === 0) {
+        formattedReplacement = 0;
         break;
       }
-      float = float.toPrecision(precision === 0 ? 1 : precision).replace(REGEXP_TRAILING_ZEROS, '');
-      if (typeSpecifier === Type.FLOAT_SHORT_UPPERCASE) {
-        float = float.toUpperCase();
+      formattedReplacement = replacementNumber.toPrecision(precision === 0 ? 1 : precision).replace(REGEXP_TRAILING_ZEROS, '');
+      if (typeSpecifier === C.TYPE_FLOAT_SHORT_UPPERCASE) {
+        formattedReplacement = formattedReplacement.toUpperCase();
       }
       break;
   }
-  if (showPlusSign) {
-    float = CHARACTER_PLUS + float;
+  if (signSpecifier === C.LITERAL_PLUS && replacementNumber >= 0) {
+    formattedReplacement = C.LITERAL_PLUS + formattedReplacement;
   }
-  return alignAndPad(float, paddingCharacter, alignmentSpecifier, width);
+  return alignAndPad(toString(formattedReplacement), paddingCharacter, alignmentSpecifier, width);
 }

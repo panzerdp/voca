@@ -1,9 +1,10 @@
 import { REGEXP_CONVERSION_SPECIFICATION } from '../utilities/string/regexp';
-import { CHARACTER_PERCENT } from './sprintf_utils/const';
+import C from './sprintf_utils/const';
 import toString from '../utilities/string/to_string';
 import nilDefault from '../utilities/undefined/nil_default';
 import isNil from '../utilities/object/is_nil';
 import replaceConversionSpecification from './sprintf_utils/replace_conversion_specification';
+import validateSprintfFormat from './sprintf_utils/validate_format';
 
 /**
  * Produces a string according to `format`.
@@ -131,7 +132,7 @@ import replaceConversionSpecification from './sprintf_utils/replace_conversion_s
  * @since 1.0.0
  * @memberOf Format
  * @param  {string} [format=''] The format string.
- * @param  {...*}               args The arguments to produce the string.
+ * @param  {...*}               replacements The replacements to produce the string.
  * @return {string}             Returns the produced string.
  * @example
  * v.sprintf('Hello %s!', 'World');
@@ -156,18 +157,27 @@ import replaceConversionSpecification from './sprintf_utils/replace_conversion_s
  * // => '1.01e+2 0.455'
  * 
  */
-export default function(format, ...args) {
+export default function(format, ...replacements) {
   var formatString = toString(nilDefault(format, ''));
   if (formatString === '') {
     return formatString;
   }
-  var index = 0;
+  var replacementMatchIndex = 0,
+    replacementsLength = replacements.length;
   return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, function(conversionSpecification, percent, position,
-    ...specifiers) {
-    if (percent === CHARACTER_PERCENT + CHARACTER_PERCENT) {
+    signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
+    var actualReplacementIndex;
+    if (percent === C.LITERAL_PERCENT_SPECIFIER) {
       return conversionSpecification.slice(1);
     }
-    var argumentIndex = isNil(position) ? index++ : position - 1;
-    return replaceConversionSpecification(argumentIndex, args, ...specifiers);
+    if (isNil(position)) {
+      actualReplacementIndex = replacementMatchIndex;
+      replacementMatchIndex++;
+    } else {
+      actualReplacementIndex = position - 1;
+    }
+    validateSprintfFormat(actualReplacementIndex, replacementsLength, typeSpecifier);
+    return replaceConversionSpecification(replacements[actualReplacementIndex], signSpecifier, paddingSpecifier,
+      alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier);
   });
 }

@@ -10,9 +10,9 @@ import nilDefault from '../utilities/undefined/nil_default';
  * @static
  * @since 1.0.0
  * @memberOf Format
- * @param  {string}                [format=''] The format string.
- * @param  {Array.<number|string>} values      The array of values to produce the string.
- * @return {string}                            Returns the produced string.
+ * @param  {string}                [format='']  The format string.
+ * @param  {Array.<number|string>} replacements The array of replacements to produce the string.
+ * @return {string}                             Returns the produced string.
  * @example
  * vprintf('%s', ['Welcome'])
  * // => 'Welcome'
@@ -20,6 +20,6 @@ import nilDefault from '../utilities/undefined/nil_default';
  * vprintf('%s costs $%.2f', ['Coffee', 1.5]);
  * // => 'Coffee costs $1.50'
  */
-export default function(format, values) {
-  return sprintf(format, ...nilDefault(values, []));
+export default function(format, replacements) {
+  return sprintf(format, ...nilDefault(replacements, []));
 }

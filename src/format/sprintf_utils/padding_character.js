@@ -1,4 +1,4 @@
-import { CHARACTER_SINGLE_QUOTE } from './const';
+import C from './const';
 import nilDefault from '../../utilities/undefined/nil_default';
 
 /**
@@ -10,7 +10,7 @@ import nilDefault from '../../utilities/undefined/nil_default';
  */
 export default function(paddingSpecifier) {
   var paddingCharacter = nilDefault(paddingSpecifier, ' ');
-  if (paddingCharacter[0] === CHARACTER_SINGLE_QUOTE && paddingCharacter.length === 2) {
+  if (paddingCharacter[0] === C.LITERAL_SINGLE_QUOTE && paddingCharacter.length === 2) {
     paddingCharacter = paddingCharacter[1];
   }
   return paddingCharacter;

@@ -1,6 +1,6 @@
 import alignAndPad from '../align_and_pad';
 import toString from '../../../utilities/string/to_string';
-import { CHARACTER_PLUS } from '../const';
+import C from '../const';
 
 /**
  * Formats a decimal integer type according to specifiers.
@@ -19,8 +19,8 @@ export default function(replacement, signSpecifier, paddingCharacter, alignmentS
   if (isNaN(integer)) {
     integer = 0;
   }
-  if (signSpecifier === CHARACTER_PLUS && integer >= 0) {
-    integer = CHARACTER_PLUS + integer;
+  if (signSpecifier === C.LITERAL_PLUS && integer >= 0) {
+    integer = C.LITERAL_PLUS + integer;
   }
   return alignAndPad(toString(integer), paddingCharacter, alignmentSpecifier, width);
 }
