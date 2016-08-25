@@ -1,3 +1,5 @@
+import isNil from '../utilities/object/is_nil';
+
 /**
  * Checks if `subject` is numeric.
  *
@@ -18,7 +20,7 @@
  * // => false
  */
 export default function(subject) {
-  var valueNumeric = typeof subject === 'object' && subject != null ? Number(subject) : subject;
+  var valueNumeric = typeof subject === 'object' && !isNil(subject) ? Number(subject) : subject;
   return (typeof valueNumeric === 'number' || typeof valueNumeric === 'string')
     && !isNaN(valueNumeric - parseFloat(valueNumeric));
 }

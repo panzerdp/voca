@@ -1,5 +1,4 @@
-import toString from '../utilities/string/coerce_to_string';
-import nilDefault from '../utilities/undefined/nil_default';
+import coerceToString from '../utilities/string/coerce_to_string';
 import { REGEXP_DIGIT } from '../utilities/string/regexp';
 
 /**
@@ -22,6 +21,6 @@ import { REGEXP_DIGIT } from '../utilities/string/regexp';
  * // => false
  */
 export default function(subject) {
-  var subjectString = toString(nilDefault(subject, ''));
+  var subjectString = coerceToString(subject);
   return REGEXP_DIGIT.test(subjectString);
 }

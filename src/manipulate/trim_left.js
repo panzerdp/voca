@@ -1,5 +1,5 @@
-import toString from '../utilities/string/coerce_to_string';
-import nilDefault from '../utilities/undefined/nil_default';
+import coerceToString from '../utilities/string/coerce_to_string';
+import toString from '../utilities/string/to_string';
 import isNil from '../utilities/object/is_nil';
 import { REGEX_TRIM_LEFT } from '../utilities/string/regexp';
 
@@ -21,7 +21,7 @@ import { REGEX_TRIM_LEFT } from '../utilities/string/regexp';
  * // => 'Mobile Infantry'
  */
 export default function(subject, whitespace) {
-  var subjectString = toString(nilDefault(subject, ''));
+  var subjectString = coerceToString(subject);
   if (whitespace === '' || subjectString === '') {
     return subjectString;
   }

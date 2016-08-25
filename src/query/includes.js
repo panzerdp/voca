@@ -1,5 +1,5 @@
-import toString from '../utilities/string/coerce_to_string';
-import nilDefault from '../utilities/undefined/nil_default';
+import coerceToString from '../utilities/string/coerce_to_string';
+import toString from '../utilities/string/to_string';
 import isNil from '../utilities/object/is_nil';
 import clipNumber from '../utilities/number/clip_number';
 import toInteger from '../utilities/number/to_integer';
@@ -23,8 +23,7 @@ import toInteger from '../utilities/number/to_integer';
  * // => false
  */
 export default function(subject, search, position) {
-  subject = nilDefault(subject, '');
-  var subjectString = toString(nilDefault(subject, '')),
+  var subjectString = coerceToString(subject),
     searchString = toString(search);
   if (searchString === null) {
     return false;

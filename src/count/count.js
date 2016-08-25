@@ -1,5 +1,4 @@
-import toString from '../utilities/string/coerce_to_string';
-import nilDefault from '../utilities/undefined/nil_default';
+import coerceToString from '../utilities/string/coerce_to_string';
 
 /**
  * Counts the characters in `subject`.<br/>
@@ -15,5 +14,5 @@ import nilDefault from '../utilities/undefined/nil_default';
  * // => 4
  */
 export default function(subject) {
-  return toString(nilDefault(subject, '')).length;
+  return coerceToString(subject).length;
 }

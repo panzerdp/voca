@@ -1,5 +1,4 @@
-import toString from '../utilities/string/coerce_to_string';
-import nilDefault from '../utilities/undefined/nil_default';
+import coerceToString from '../utilities/string/coerce_to_string';
 
 /**
  * Converts the first character of `subject` to lower case.
@@ -15,7 +14,7 @@ import nilDefault from '../utilities/undefined/nil_default';
  * // => 'sun'
  */
 export default function(subject) {
-  var subjectString = toString(nilDefault(subject, ''));
+  var subjectString = coerceToString(subject);
   if (subjectString === '') {
     return subjectString;
   }

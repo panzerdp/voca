@@ -1,5 +1,4 @@
-import toString from '../utilities/string/coerce_to_string';
-import nilDefault from '../utilities/undefined/nil_default';
+import coerceToString from '../utilities/string/coerce_to_string';
 import { REGEXP_SPECIAL_CHARACTERS } from '../utilities/string/regexp';
 
 /**
@@ -16,6 +15,6 @@ import { REGEXP_SPECIAL_CHARACTERS } from '../utilities/string/regexp';
  * // => '\(hours\)\[minutes\]\{seconds\}'
  */
 export default function(subject) {
-  var subjectString = toString(nilDefault(subject, ''));
+  var subjectString = coerceToString(subject);
   return subjectString.replace(REGEXP_SPECIAL_CHARACTERS, '\\$&');
 }

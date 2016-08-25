@@ -1,5 +1,4 @@
-import toString from '../utilities/string/coerce_to_string';
-import nilDefault from '../utilities/undefined/nil_default';
+import coerceToString from '../utilities/string/coerce_to_string';
 
 /**
  * Reverses the `subject`.
@@ -15,6 +14,6 @@ import nilDefault from '../utilities/undefined/nil_default';
  * // => 'retniw'
  */
 export default function(subject) {
-  var subjectString = toString(nilDefault(subject, ''));
-  return subjectString.split('').reverse().join('');
+  var subjectString = coerceToString(subject);
+  return [...subjectString].reverse().join('');
 }

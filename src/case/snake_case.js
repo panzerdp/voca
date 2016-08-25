@@ -1,5 +1,4 @@
-import toString from '../utilities/string/coerce_to_string';
-import nilDefault from '../utilities/undefined/nil_default';
+import coerceToString from '../utilities/string/coerce_to_string';
 import words from '../split/words';
 import lowerCase from '../case/lower_case';
 
@@ -23,7 +22,7 @@ import lowerCase from '../case/lower_case';
  * // => 'learning_to_fly'
  */
 export default function(subject) {
-  var subjectString = toString(nilDefault(subject, ''));
+  var subjectString = coerceToString(subject);
   if (subjectString === '') {
     return '';
   }

@@ -1,5 +1,4 @@
-import toString from '../utilities/string/coerce_to_string';
-import nilDefault from '../utilities/undefined/nil_default';
+import coerceToString from '../utilities/string/coerce_to_string';
 import kebabCase from '../case/kebab_case';
 import latinise from '../manipulate/latinise';
 import { REGEXP_NON_LATIN } from '../utilities/string/regexp.js';
@@ -24,7 +23,7 @@ import { REGEXP_NON_LATIN } from '../utilities/string/regexp.js';
  * // => 'horoshaya-pogoda'
  */
 export default function(subject) {
-  var subjectString = toString(nilDefault(subject, ''));
+  var subjectString = coerceToString(subject);
   if (subjectString === '') {
     return '';
   }

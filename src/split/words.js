@@ -1,4 +1,5 @@
-import toString from '../utilities/string/coerce_to_string';
+import coerceToString from '../utilities/string/coerce_to_string';
+import toString from '../utilities/string/to_string';
 import nilDefault from '../utilities/undefined/nil_default';
 import isNil from '../utilities/object/is_nil';
 import { REGEXP_WORD } from '../utilities/string/regexp';
@@ -22,7 +23,7 @@ import { REGEXP_WORD } from '../utilities/string/regexp';
  * // => ['gr', 'av', 'it', 'y']
  */
 export default function(subject, pattern, flags) {
-  var subjectString = toString(nilDefault(subject, '')),
+  var subjectString = coerceToString(subject),
     patternRegExp;
   if (isNil(pattern)) {
     patternRegExp = REGEXP_WORD;

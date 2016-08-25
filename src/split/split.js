@@ -1,5 +1,4 @@
-import toString from '../utilities/string/coerce_to_string';
-import nilDefault from '../utilities/undefined/nil_default';
+import coerceToString from '../utilities/string/coerce_to_string';
 
 /**
  * Splits `subject` into an array of chunks by `separator`.
@@ -20,6 +19,6 @@ import nilDefault from '../utilities/undefined/nil_default';
  * // => ['the', 'dying', 'of']
  */
 export default function(subject, separator, limit) {
-  var subjectString = toString(nilDefault(subject, ''));
+  var subjectString = coerceToString(subject);
   return subjectString.split(separator, limit);
 }

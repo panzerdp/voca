@@ -1,5 +1,4 @@
-import toString from '../utilities/string/coerce_to_string';
-import nilDefault from '../utilities/undefined/nil_default';
+import coerceToString from '../utilities/string/coerce_to_string';
 import isNil from '../utilities/object/is_nil';
 import toInteger from '../utilities/number/to_integer';
 import clipNumber from '../utilities/number/clip_number';
@@ -23,7 +22,7 @@ import { MAX_SAFE_INTEGER } from '../utilities/number/const';
  * // => ''
  */
 export default function(subject, times) {
-  var subjectString = toString(nilDefault(subject, '')),
+  var subjectString = coerceToString(subject),
     timesInt = isNil(times) ? 1 : clipNumber(toInteger(times), 0, MAX_SAFE_INTEGER);
   var repeatString = '';
   while (timesInt) {

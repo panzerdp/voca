@@ -1,4 +1,4 @@
-import toString from '../utilities/string/coerce_to_string';
+import coerceToString from '../utilities/string/coerce_to_string';
 import nilDefault from '../utilities/undefined/nil_default';
 import { REGEXP_UNICODE_CHARACTER } from '../utilities/string/regexp';
 
@@ -21,6 +21,6 @@ import { REGEXP_UNICODE_CHARACTER } from '../utilities/string/regexp';
  * // => ['c', 'a', 'f', 'e\u0301']
  */
 export default function(subject) {
-  var subjectString = toString(nilDefault(subject, ''));
+  var subjectString = coerceToString(subject);
   return nilDefault(subjectString.match(REGEXP_UNICODE_CHARACTER), []);
 }

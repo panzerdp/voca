@@ -1,5 +1,4 @@
-import toString from '../utilities/string/coerce_to_string';
-import nilDefault from '../utilities/undefined/nil_default';
+import coerceToString from '../utilities/string/coerce_to_string';
 
 /**
  * Splits `subject` into an array of characters.
@@ -15,6 +14,6 @@ import nilDefault from '../utilities/undefined/nil_default';
  * // => ['c', 'l', 'o', 'u', 'd']
  */
 export default function(subject) {
-  var subjectString = toString(nilDefault(subject, ''));
+  var subjectString = coerceToString(subject);
   return subjectString.split('');
 }

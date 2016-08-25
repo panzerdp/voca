@@ -1,5 +1,4 @@
-import toString from '../utilities/string/coerce_to_string';
-import nilDefault from '../utilities/undefined/nil_default';
+import coerceToString from '../utilities/string/coerce_to_string';
 
 var unescapeCharactersMap = {
   '<': /(&lt;)|(&#x0*3c;)|(&#0*60;)/gi,
@@ -37,6 +36,6 @@ function reduceUnescapedString(string, key) {
  * // => '<p>wonderful world</p>'
  */
 export default function(subject) {
-  var subjectString = toString(nilDefault(subject, ''));
+  var subjectString = coerceToString(subject);
   return characters.reduce(reduceUnescapedString, subjectString);
 }

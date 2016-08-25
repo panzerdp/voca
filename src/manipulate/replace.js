@@ -1,5 +1,4 @@
-import toString from '../utilities/string/coerce_to_string';
-import nilDefault from '../utilities/undefined/nil_default';
+import coerceToString from '../utilities/string/coerce_to_string';
 
 /**
  * Returns a new string where the matches of `pattern` are replaced with `replacement`. <br/>
@@ -26,6 +25,6 @@ import nilDefault from '../utilities/undefined/nil_default';
  * // => 'the duck is nice'
  */
 export default function(subject, pattern, replacement) {
-  var subjectString = toString(nilDefault(subject, ''));
+  var subjectString = coerceToString(subject);
   return subjectString.replace(pattern, replacement);
 }

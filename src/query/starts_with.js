@@ -1,5 +1,5 @@
-import toString from '../utilities/string/coerce_to_string';
-import nilDefault from '../utilities/undefined/nil_default';
+import coerceToString from '../utilities/string/coerce_to_string';
+import toString from '../utilities/string/to_string';
 import clipNumber from '../utilities/number/clip_number';
 import toInteger from '../utilities/number/to_integer';
 import isNil from '../utilities/object/is_nil';
@@ -26,7 +26,7 @@ import isNil from '../utilities/object/is_nil';
  * // => false
  */
 export default function(subject, start, position) {
-  var subjectString = toString(nilDefault(subject, '')),
+  var subjectString = coerceToString(subject),
     startString = toString(start);
   if (startString === null) {
     return false;

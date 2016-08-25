@@ -1,5 +1,4 @@
-import toString from '../utilities/string/coerce_to_string';
-import nilDefault from '../utilities/undefined/nil_default';
+import coerceToString from '../utilities/string/coerce_to_string';
 
 /**
  * Returns the first occurrence index of `search` in `subject`.
@@ -20,6 +19,6 @@ import nilDefault from '../utilities/undefined/nil_default';
  * // => -1
  */
 export default function(subject, search, fromIndex) {
-  var subjectString = toString(nilDefault(subject, ''));
+  var subjectString = coerceToString(subject);
   return subjectString.indexOf(search, fromIndex);
 }

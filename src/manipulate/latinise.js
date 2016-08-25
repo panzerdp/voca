@@ -1,5 +1,4 @@
-import toString from '../utilities/string/coerce_to_string';
-import nilDefault from '../utilities/undefined/nil_default';
+import coerceToString from '../utilities/string/coerce_to_string';
 import diacriticMap from '../utilities/string/diacritics_map';
 import { REGEXP_NON_BASIC_LATIN, REGEXP_COMBINING_MARKS } from '../utilities/string/regexp';
 
@@ -46,7 +45,7 @@ function removeCombiningMarks(character, cleanCharacter) {
  * // => 'kak prekrasen etot mir'
  */
 export default function(subject) {
-  var subjectString = toString(nilDefault(subject, ''));
+  var subjectString = coerceToString(subject);
   if (subjectString === '') {
     return subjectString;
   }

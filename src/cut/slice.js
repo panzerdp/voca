@@ -1,5 +1,4 @@
-import toString from '../utilities/string/coerce_to_string';
-import nilDefault from '../utilities/undefined/nil_default';
+import coerceToString from '../utilities/string/coerce_to_string';
 
 /**
  * Extracts from `subject` a string from `start` position to `end` position.
@@ -21,6 +20,6 @@ import nilDefault from '../utilities/undefined/nil_default';
  * // => 'rida'
  */
 export default function(subject, start, end) {
-  var subjectString = toString(nilDefault(subject, ''));
+  var subjectString = coerceToString(subject);
   return subjectString.slice(start, end);
 }

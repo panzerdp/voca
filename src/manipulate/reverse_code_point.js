@@ -1,5 +1,4 @@
-import toString from '../utilities/string/coerce_to_string';
-import nilDefault from '../utilities/undefined/nil_default';
+import coerceToString from '../utilities/string/coerce_to_string';
 import { REGEXP_COMBINING_MARKS, REGEXP_SURROGATE_PAIRS } from '../utilities/string/regexp';
 
 /**
@@ -21,7 +20,7 @@ import { REGEXP_COMBINING_MARKS, REGEXP_SURROGATE_PAIRS } from '../utilities/str
  * // => 'anañam anañam rab 𝌆'
  */
 export default function reverseCodePoint(subject) {
-  var subjectString = toString(nilDefault(subject, ''));
+  var subjectString = coerceToString(subject);
   /**
    * @see https://github.com/mathiasbynens/esrever
    */

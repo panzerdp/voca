@@ -1,7 +1,6 @@
 import { REGEXP_CONVERSION_SPECIFICATION } from '../utilities/string/regexp';
 import C from './sprintf_utils/const';
-import toString from '../utilities/string/coerce_to_string';
-import nilDefault from '../utilities/undefined/nil_default';
+import coerceToString from '../utilities/string/coerce_to_string';
 import isNil from '../utilities/object/is_nil';
 import replaceConversionSpecification from './sprintf_utils/replace_conversion_specification';
 import validateFormat from './sprintf_utils/validate_format';
@@ -158,10 +157,11 @@ import validateFormat from './sprintf_utils/validate_format';
  * 
  */
 export default function(format, ...replacements) {
-  var formatString = toString(nilDefault(format, ''));
+  var formatString = coerceToString(format);
   if (formatString === '') {
     return formatString;
   }
+  // @TODO review these vars names
   var replacementMatchIndex = 0,
     replacementsLength = replacements.length;
   return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, function(conversionSpecification, percent, position,

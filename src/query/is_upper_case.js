@@ -1,5 +1,4 @@
-import toString from '../utilities/string/coerce_to_string';
-import nilDefault from '../utilities/undefined/nil_default';
+import coerceToString from '../utilities/string/coerce_to_string';
 import isAlpha from './is_alpha';
 
 /**
@@ -19,6 +18,6 @@ import isAlpha from './is_alpha';
  * // => false
  */
 export default function(subject) {
-  var subjectString = toString(nilDefault(subject, ''));
+  var subjectString = coerceToString(subject);
   return isAlpha(subjectString) && subjectString.toUpperCase() === subjectString;
 }

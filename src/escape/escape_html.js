@@ -1,5 +1,4 @@
-import toString from '../utilities/string/coerce_to_string';
-import nilDefault from '../utilities/undefined/nil_default';
+import coerceToString from '../utilities/string/coerce_to_string';
 import { REGEXP_HTML_SPECIAL_CHARACTERS } from '../utilities/string/regexp';
 
 var escapeCharactersMap = {
@@ -36,6 +35,6 @@ function replaceSpecialCharacter(character) {
  * // => '&lt;p&gt;wonderful world&lt;/p&gt;'
  */
 export default function(subject) {
-  var subjectString = toString(nilDefault(subject, ''));
+  var subjectString = coerceToString(subject);
   return subjectString.replace(REGEXP_HTML_SPECIAL_CHARACTERS, replaceSpecialCharacter);
 }

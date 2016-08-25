@@ -1,5 +1,4 @@
-import toString from '../utilities/string/coerce_to_string';
-import nilDefault from '../utilities/undefined/nil_default';
+import coerceToString from '../utilities/string/coerce_to_string';
 
 /**
  * Counts the number of `substring` appearances in `subject`.
@@ -16,8 +15,8 @@ import nilDefault from '../utilities/undefined/nil_default';
  * // => 2
  */
 export default function(subject, substring) {
-  var subjectString = toString(nilDefault(subject, '')),
-    substringString = toString(nilDefault(substring, '')),
+  var subjectString = coerceToString(subject),
+    substringString = coerceToString(substring),
     count = 0,
     matchIndex = 0,
     substringLength = substringString.length;

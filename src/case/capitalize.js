@@ -1,6 +1,5 @@
 import coerceToString from '../utilities/string/coerce_to_string';
-import toBoolean from '../utilities/boolean/coerce_to_boolean';
-import nilDefault from '../utilities/undefined/nil_default';
+import coerceToBoolean from '../utilities/boolean/coerce_to_boolean';
 
 /**
  * Converts the first character of `subject` to upper case and the rest to lower case.
@@ -21,7 +20,7 @@ import nilDefault from '../utilities/undefined/nil_default';
  */
 export default function(subject, restToLowerCase) {
   var subjectString = coerceToString(subject),
-    restToLowerCaseBoolean = toBoolean(nilDefault(restToLowerCase, false));
+    restToLowerCaseBoolean = coerceToBoolean(restToLowerCase);
   if (subjectString === '') {
     return '';
   }

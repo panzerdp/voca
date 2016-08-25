@@ -1,5 +1,4 @@
-import toString from '../utilities/string/coerce_to_string';
-import nilDefault from '../utilities/undefined/nil_default';
+import coerceToString from '../utilities/string/coerce_to_string';
 import { REGEXP_COMBINING_MARKS, REGEXP_SURROGATE_PAIRS } from '../utilities/string/regexp';
 
 /**
@@ -24,7 +23,7 @@ import { REGEXP_COMBINING_MARKS, REGEXP_SURROGATE_PAIRS } from '../utilities/str
  * // => 4
  */
 export default function(subject) {
-  return toString(nilDefault(subject, ''))
+  return coerceToString(subject)
     .replace(REGEXP_COMBINING_MARKS, '*')
     .replace(REGEXP_SURROGATE_PAIRS, '*')
     .length;

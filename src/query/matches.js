@@ -1,5 +1,5 @@
-import toString from '../utilities/string/coerce_to_string';
-import nilDefault from '../utilities/undefined/nil_default';
+import coerceToString from '../utilities/string/coerce_to_string';
+import toString from '../utilities/string/to_string';
 
 /**
  * Checks if `subject` matches the regular expression `pattern`.
@@ -23,8 +23,8 @@ import nilDefault from '../utilities/undefined/nil_default';
  * // => false
  */
 export default function(subject, pattern, flags) {
-  var subjectString = toString(nilDefault(subject, '')),
-    flagsString = toString(nilDefault(flags, '')),
+  var subjectString = coerceToString(subject),
+    flagsString = coerceToString(flags),
     patternString;
   if (!(pattern instanceof RegExp)) {
     patternString = toString(pattern);
