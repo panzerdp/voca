@@ -25,7 +25,7 @@ export default function(subject, predicate, context) {
   if (subjectString === '' || typeof predicate !== 'function') {
     return 0;
   }
-  return [...subjectString].reduce(function(count, character, index) {
+  return Array.prototype.reduce.call(subjectString, function(count, character, index) {
     if (predicate.call(context, character, index, subjectString)) {
       count++;
     }

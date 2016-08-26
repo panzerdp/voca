@@ -15,5 +15,5 @@ import coerceToString from '../helper/string/coerce_to_string';
  */
 export default function(subject) {
   var subjectString = coerceToString(subject);
-  return [...subjectString].reverse().join('');
+  return subjectString.split('').reverse().join('');
 }
