@@ -8,7 +8,7 @@ import coerceToString from '../helper/string/coerce_to_string';
  * @since 1.0.0
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to verify.
- * @param {string|RegExp} pattern The pattern which match is replaced with `replacement`. If `pattern` is a string,
+ * @param {string|RegExp} pattern The pattern which match is replaced. If `pattern` is a string,
  * a simple string match is evaluated and only the first occurrence replaced.
  * @param {string|Function} replacement The string or a function which invocation result replaces `pattern` match.
  * @return {string} Returns the replacement result.

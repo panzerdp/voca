@@ -29,14 +29,36 @@ function isString (subject) {    return typeof subject === 'string';
   }
 
 /**
-   * Get the string representation of the `value`
+   * Get the string representation of the `value`.
    * Converts the `value` to string.
-   * If `value` is `null` or `undefined`, return `null`.
+   * If `value` is `null` or `undefined`, return `defaultValue`.
    *
    * @ignore
    * @function toString
-   * @param {*} value The value to convert.
-   * @return {string|null} Returns the string representation of `value`. Returns `null` if `value` is `null` or `undefined`.
+   * @param {*} value             The value to convert.
+   * @param {*} [defaultValue=''] The default value to return.
+   * @return {string|null}        Returns the string representation of `value`. Returns `defaultValue` if `value` is
+   *                              `null` or `undefined`.
+   */
+function coerceToString (value) {    var defaultValue = arguments.length <= 1 || arguments[1] === undefined ? '' : arguments[1];
+
+    if (isNil(value)) {
+      return defaultValue;
+    }
+    if (isString(value)) {
+      return value;
+    }
+    return String(value);
+  }
+
+/**
+   * Get the string representation of the `value`.
+   * Converts the `value` to string.
+   *
+   * @ignore
+   * @function toString
+   * @param {*} value             The value to convert.
+   * @return {string|null}        Returns the string representation of `value`.
    */
 function toString (value) {    if (isNil(value)) {
       return null;
@@ -268,7 +290,7 @@ function nilDefault (value, defaultValue) {    return value == null ? defaultVal
    * v.words('gravity', /\w{1,2}/g);
    * // => ['gr', 'av', 'it', 'y']
    */
-function words (subject, pattern, flags) {    var subjectString = toString(nilDefault(subject, '')),
+function words (subject, pattern, flags) {    var subjectString = coerceToString(subject),
         patternRegExp;
     if (isNil(pattern)) {
       patternRegExp = REGEXP_WORD;
@@ -282,14 +304,20 @@ function words (subject, pattern, flags) {    var subjectString = toString(nilDe
   }
 
 /**
-   * Converts the `value` to a boolean.
+   * Converts the `value` to a boolean. If `value` is `undefined` or `null`, returns `defaultValue`.
    *
    * @ignore
    * @function toBoolean
    * @param {*} value The value to convert.
-   * @return {boolean} Returns `true` if `value` is truthy or `false` otherwise.
+   * @param {boolean} [defaultValue=false] The default value.
+   * @return {boolean} Returns the coercion to boolean.
    */
-function toBoolean (value) {    return !!value;
+function coerceToBoolean (value) {    var defaultValue = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
+
+    if (isNil(value)) {
+      return defaultValue;
+    }
+    return Boolean(value);
   }
 
 /**
@@ -309,8 +337,8 @@ function toBoolean (value) {    return !!value;
    * v.capitalize('mAC', false);
    * // => 'MAC'
    */
-function capitalize (subject, restToLowerCase) {    var subjectString = toString(nilDefault(subject, '')),
-        restToLowerCaseBoolean = toBoolean(nilDefault(restToLowerCase, false));
+function capitalize (subject, restToLowerCase) {    var subjectString = coerceToString(subject),
+        restToLowerCaseBoolean = coerceToBoolean(restToLowerCase);
     if (subjectString === '') {
       return '';
     }
@@ -333,7 +361,7 @@ function capitalize (subject, restToLowerCase) {    var subjectString = toString
    * v.lowerCase('Green');
    * // => 'green'
    */
-function lowerCase (subject) {    var subjectString = toString(nilDefault(subject, ''));
+function lowerCase (subject) {    var subjectString = coerceToString(subject, '');
     return subjectString.toLowerCase();
   }
 
@@ -368,7 +396,7 @@ function lowerCase (subject) {    var subjectString = toString(nilDefault(subjec
    * v.camelCase('-BIRD-FLIGHT-');
    * // => 'birdFlight'
    */
-function camelCase (subject) {    var subjectString = toString(nilDefault(subject, ''));
+function camelCase (subject) {    var subjectString = coerceToString(subject);
     if (subjectString === '') {
       return '';
     }
@@ -388,7 +416,7 @@ function camelCase (subject) {    var subjectString = toString(nilDefault(subjec
    * v.decapitalize('Sun');
    * // => 'sun'
    */
-function decapitalize (subject) {    var subjectString = toString(nilDefault(subject, ''));
+function decapitalize (subject) {    var subjectString = coerceToString(subject);
     if (subjectString === '') {
       return subjectString;
     }
@@ -415,7 +443,7 @@ function decapitalize (subject) {    var subjectString = toString(nilDefault(sub
    * v.kebabCase('-Goodbye-Blue-Sky-');
    * // => 'goodbye-blue-sky'
    */
-function kebabCase (subject) {    var subjectString = toString(nilDefault(subject, ''));
+function kebabCase (subject) {    var subjectString = coerceToString(subject);
     if (subjectString === '') {
       return '';
     }
@@ -441,7 +469,7 @@ function kebabCase (subject) {    var subjectString = toString(nilDefault(subjec
    * v.snakeCase('-Learning-To-Fly-');
    * // => 'learning_to_fly'
    */
-function snakeCase (subject) {    var subjectString = toString(nilDefault(subject, ''));
+function snakeCase (subject) {    var subjectString = coerceToString(subject);
     if (subjectString === '') {
       return '';
     }
@@ -461,7 +489,7 @@ function snakeCase (subject) {    var subjectString = toString(nilDefault(subjec
    * v.upperCase('school');
    * // => 'SCHOOL'
    */
-function upperCase (subject) {    var subjectString = toString(nilDefault(subject, ''));
+function upperCase (subject) {    var subjectString = coerceToString(subject);
     return subjectString.toUpperCase();
   }
 
@@ -530,9 +558,9 @@ function toInteger (value) {    if (value === Infinity) {
    * v.truncate('Once upon', 10);
    * // => 'Once upon'
    */
-function truncate (subject, length, end) {    var subjectString = toString(nilDefault(subject, '')),
+function truncate (subject, length, end) {    var subjectString = coerceToString(subject),
         lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
-        endString = toString(nilDefault(end, '...'));
+        endString = coerceToString(end, '...');
     if (lengthInt >= subjectString.length) {
       return subjectString;
     }
@@ -540,28 +568,59 @@ function truncate (subject, length, end) {    var subjectString = toString(nilDe
   }
 
 /**
-   * Extracts the leftmost `length` characters from `subject`.
+   * Extracts the first `length` characters from `subject`.
    *
-   * @function left
+   * @function first
    * @static
    * @since 1.0.0
    * @memberOf Cut
    * @param {string} [subject=''] The string to extract from.
-   * @param {int} [length=subject.length] The number of characters to extract.
-   * @return {string} Returns the leftmost extracted string.
+   * @param {int} [length=1] The number of characters to extract.
+   * @return {string} Returns the first characters string.
    * @example
-   * v.left('vehicle', 2);
+   * v.first('helicopter');
+   * // => 'h'
+   *
+   * v.first('vehicle', 2);
    * // => 've'
    *
-   * v.left('car', 5);
+   * v.first('car', 5);
    * // => 'car'
    */
-function left (subject, length) {    var subjectString = toString(nilDefault(subject, '')),
-        lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
+function first (subject, length) {    var subjectString = coerceToString(subject),
+        lengthInt = isNil(length) ? 1 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
     if (subjectString.length <= lengthInt) {
       return subjectString;
     }
     return subjectString.substr(0, lengthInt);
+  }
+
+/**
+   * Extracts the last `length` characters from `subject`.
+   *
+   * @function last
+   * @static
+   * @since 1.0.0
+   * @memberOf Cut
+   * @param {string} [subject=''] The string to extract from.
+   * @param {int} [length=1] The number of characters to extract.
+   * @return {string} Returns the last characters string.
+   * @example
+   * v.last('helicopter');
+   * // => 'r'
+   *
+   * v.last('vehicle', 2);
+   * // => 'le'
+   *
+   * v.last('car', 5);
+   * // => 'car'
+   */
+function last (subject, length) {    var subjectString = coerceToString(subject),
+        lengthInt = isNil(length) ? 1 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
+    if (subjectString.length <= lengthInt) {
+      return subjectString;
+    }
+    return subjectString.substr(subjectString.length - lengthInt, lengthInt);
   }
 
 /**
@@ -585,9 +644,9 @@ function left (subject, length) {    var subjectString = toString(nilDefault(sub
    * v.prune('Once upon', 10);
    * // => 'Once upon'
    */
-function prune (subject, length, end) {    var subjectString = toString(nilDefault(subject, '')),
+function prune (subject, length, end) {    var subjectString = coerceToString(subject),
         lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
-        endString = toString(nilDefault(end, '...'));
+        endString = coerceToString(end, '...');
     if (lengthInt >= subjectString.length) {
       return subjectString;
     }
@@ -599,31 +658,6 @@ function prune (subject, length, end) {    var subjectString = toString(nilDefau
       }
     });
     return truncatedString + endString;
-  }
-
-/**
-   * Extracts the rightmost `length` characters from `subject`.
-   *
-   * @function right
-   * @static
-   * @since 1.0.0
-   * @memberOf Cut
-   * @param {string} [subject=''] The string to extract from.
-   * @param {int} [length=subject.length] The number of characters to extract.
-   * @return {string} Returns the rightmost extracted string.
-   * @example
-   * v.right('vehicle', 2);
-   * // => 'le'
-   *
-   * v.right('car', 5);
-   * // => 'car'
-   */
-function right (subject, length) {    var subjectString = toString(nilDefault(subject, '')),
-        lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
-    if (subjectString.length <= lengthInt) {
-      return subjectString;
-    }
-    return subjectString.substr(subjectString.length - lengthInt, lengthInt);
   }
 
 /**
@@ -645,7 +679,7 @@ function right (subject, length) {    var subjectString = toString(nilDefault(su
    * v.slice('florida', -4);
    * // => 'rida'
    */
-function slice (subject, start, end) {    var subjectString = toString(nilDefault(subject, ''));
+function slice (subject, start, end) {    var subjectString = coerceToString(subject);
     return subjectString.slice(start, end);
   }
 
@@ -668,7 +702,7 @@ function slice (subject, start, end) {    var subjectString = toString(nilDefaul
    * v.substr('dreams', 2, 2);
    * // => 'ea'
    */
-function substr (subject, start, length) {    var subjectString = toString(nilDefault(subject, ''));
+function substr (subject, start, length) {    var subjectString = coerceToString(subject);
     return subjectString.substr(start, length);
   }
 
@@ -691,7 +725,7 @@ function substr (subject, start, length) {    var subjectString = toString(nilDe
    * v.substring('ocean', 1, 3);
    * // => 'ea'
    */
-function substring (subject, start, end) {    var subjectString = toString(nilDefault(subject, ''));
+function substring (subject, start, end) {    var subjectString = coerceToString(subject);
     return subjectString.substring(start, end);
   }
 
@@ -708,7 +742,7 @@ function substring (subject, start, end) {    var subjectString = toString(nilDe
    * v.count('rain');
    * // => 4
    */
-function count (subject) {    return toString(nilDefault(subject, '')).length;
+function count (subject) {    return coerceToString(subject).length;
   }
 
 /**
@@ -732,7 +766,7 @@ function count (subject) {    return toString(nilDefault(subject, '')).length;
    * v.countCodePoint('cafe\u0301'); // or 'café'
    * // => 4
    */
-function countCodePoint (subject) {    return toString(nilDefault(subject, '')).replace(REGEXP_COMBINING_MARKS, '*').replace(REGEXP_SURROGATE_PAIRS, '*').length;
+function countCodePoint (subject) {    return coerceToString(subject).replace(REGEXP_COMBINING_MARKS, '*').replace(REGEXP_SURROGATE_PAIRS, '*').length;
   }
 
 /**
@@ -749,8 +783,8 @@ function countCodePoint (subject) {    return toString(nilDefault(subject, '')).
    * v.countSubstring('bad boys, bad boys whatcha gonna do?', 'boys');
    * // => 2
    */
-function countSubstring (subject, substring) {    var subjectString = toString(nilDefault(subject, '')),
-        substringString = toString(nilDefault(substring, '')),
+function countSubstring (subject, substring) {    var subjectString = coerceToString(subject),
+        substringString = coerceToString(substring),
         count = 0,
         matchIndex = 0,
         substringLength = substringString.length;
@@ -787,7 +821,7 @@ function countSubstring (subject, substring) {    var subjectString = toString(n
    * });
    * // => 3
    */
-function countWhere (subject, predicate, context) {    var subjectString = toString(nilDefault(subject, ''));
+function countWhere (subject, predicate, context) {    var subjectString = coerceToString(subject);
     if (subjectString === '' || typeof predicate !== 'function') {
       return 0;
     }
@@ -799,31 +833,35 @@ function countWhere (subject, predicate, context) {    var subjectString = toStr
     }, 0);
   }
 
-// Type specifiers list
-  var Type = {
-    INTEGER: 'i',
-    INTEGER_BINARY: 'b',
-    INTEGER_ASCII_CHARACTER: 'c',
-    INTEGER_DECIMAL: 'd',
-    INTEGER_OCTAL: 'o',
-    INTEGER_UNSIGNED_DECIMAL: 'u',
-    INTEGER_HEXADECIMAL: 'x',
-    INTEGER_HEXADECIMAL_UPPERCASE: 'X',
-    FLOAT_SCIENTIFIC: 'e',
-    FLOAT_SCIENTIFIC_UPPERCASE: 'E',
-    FLOAT: 'f',
-    FLOAT_SHORT: 'g',
-    FLOAT_SHORT_UPPERCASE: 'G',
-    STRING: 's'
-  };
-  Object.freeze(Type);
-  var CHARACTER_PERCENT = '%';
+var Const = Object.freeze({    // Type specifiers
+    TYPE_INTEGER: 'i',
+    TYPE_INTEGER_BINARY: 'b',
+    TYPE_INTEGER_ASCII_CHARACTER: 'c',
+    TYPE_INTEGER_DECIMAL: 'd',
+    TYPE_INTEGER_OCTAL: 'o',
+    TYPE_INTEGER_UNSIGNED_DECIMAL: 'u',
+    TYPE_INTEGER_HEXADECIMAL: 'x',
+    TYPE_INTEGER_HEXADECIMAL_UPPERCASE: 'X',
+    TYPE_FLOAT_SCIENTIFIC: 'e',
+    TYPE_FLOAT_SCIENTIFIC_UPPERCASE: 'E',
+    TYPE_FLOAT: 'f',
+    TYPE_FLOAT_SHORT: 'g',
+    TYPE_FLOAT_SHORT_UPPERCASE: 'G',
+    TYPE_STRING: 's',
 
-  var CHARACTER_SINGLE_QUOTE = '\'';
+    // Simple literals
+    LITERAL_PERCENT: '%',
+    LITERAL_SINGLE_QUOTE: "'",
+    LITERAL_PLUS: '+',
+    LITERAL_MINUS: '-',
+    LITERAL_PERCENT_SPECIFIER: '%%',
 
-  var CHARACTER_PLUS = '+';
-
-  var CHARACTER_MINUS = '-';
+    // Radix constants to format numbers
+    RADIX_BINARY: 2,
+    RADIX_OCTAL: 8,
+    RADIX_DECIMAL: 10,
+    RADIX_HEXADECIMAL: 16
+  });
 
 /**
    * Get the number representation of the `value`.
@@ -832,8 +870,8 @@ function countWhere (subject, predicate, context) {    var subjectString = toStr
    *
    * @ignore
    * @function toNumber
-   * @param {*} value The value to convert.
-   * @return {number|null} Returns the number representation of `value`. Returns `null` if `value` is `null` or `undefined`.
+   * @param  {*} value            The value to convert.
+   * @return {number|null}        Returns the number representation of `value` or `null` if `value` is `null` or `undefined`.
    */
 function toNumber (value) {    if (isNil(value)) {
       return null;
@@ -848,31 +886,11 @@ function toNumber (value) {    if (isNil(value)) {
    * @param  {string=} paddingSpecifier The padding specifier.
    * @return {string}                   Returns the padding character.
    */
-function paddingCharacter (paddingSpecifier) {    var paddingCharacter = nilDefault(paddingSpecifier, ' ');
-    if (paddingCharacter[0] === CHARACTER_SINGLE_QUOTE && paddingCharacter.length === 2) {
+function getPaddingCharacter (paddingSpecifier) {    var paddingCharacter = nilDefault(paddingSpecifier, ' ');
+    if (paddingCharacter[0] === Const.LITERAL_SINGLE_QUOTE && paddingCharacter.length === 2) {
       paddingCharacter = paddingCharacter[1];
     }
     return paddingCharacter;
-  }
-
-/**
-   * Validates the utils string.
-   *
-   * @ignore
-   * @param  {number}   index         The index of the matched specifier.
-   * @param  {Object[]} args          The array of arguments to replace specifiers.
-   * @param  {string}   typeSpecifier The type specifier says what type the argument data should be treated as.
-   * @return {undefined}
-   */
-function validateFormat (index, args, typeSpecifier) {    if (isNil(typeSpecifier)) {
-      throw new Error('sprintf(): Unknown type specifier');
-    }
-    if (index > args.length - 1) {
-      throw new Error('sprintf(): Too few arguments');
-    }
-    if (index < 0) {
-      throw new Error('sprintf(): Argument number must be greater than zero');
-    }
   }
 
 /**
@@ -892,7 +910,7 @@ function validateFormat (index, args, typeSpecifier) {    if (isNil(typeSpecifie
    * v.repeat('world', 0);
    * // => ''
    */
-function repeat (subject, times) {    var subjectString = toString(nilDefault(subject, '')),
+function repeat (subject, times) {    var subjectString = coerceToString(subject),
         timesInt = isNil(times) ? 1 : clipNumber(toInteger(times), 0, MAX_SAFE_INTEGER);
     var repeatString = '';
     while (timesInt) {
@@ -938,9 +956,9 @@ function buildPadding (padCharacters, length) {    var padStringRepeat = toInteg
    * v.padRight('hi', 5, '-=');
    * // => 'hi-=-'
    */
-function padRight (subject, length, pad) {    var subjectString = toString(nilDefault(subject, '')),
+function padRight (subject, length, pad) {    var subjectString = coerceToString(subject),
         lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
-        padString = toString(nilDefault(pad, ' '));
+        padString = coerceToString(pad, ' ');
     if (lengthInt <= subjectString.length) {
       return subjectString;
     }
@@ -965,9 +983,9 @@ function padRight (subject, length, pad) {    var subjectString = toString(nilDe
    * v.padLeft('hi', 5, '-=');
    * // => '-=-hi'
    */
-function padLeft (subject, length, pad) {    var subjectString = toString(nilDefault(subject, '')),
+function padLeft (subject, length, pad) {    var subjectString = coerceToString(subject),
         lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
-        padString = toString(nilDefault(pad, ' '));
+        padString = coerceToString(pad, ' ');
     if (lengthInt <= subjectString.length) {
       return subjectString;
     }
@@ -985,7 +1003,7 @@ function padLeft (subject, length, pad) {    var subjectString = toString(nilDef
    * @return {string}                      Returns the aligned and padded string.
    */
 function alignAndPad (subject, paddingCharacter, alignmentSpecifier, width) {    if (!isNil(width) && subject.length < width) {
-      if (alignmentSpecifier === CHARACTER_MINUS) {
+      if (alignmentSpecifier === Const.LITERAL_MINUS) {
         return padRight(subject, width, paddingCharacter);
       } else {
         return padLeft(subject, width, paddingCharacter);
@@ -1008,39 +1026,39 @@ function alignAndPad (subject, paddingCharacter, alignmentSpecifier, width) {   
    * @return {string}                      Returns the formatted string.
    */
 
-function formatFloat (replacement, signSpecifier, paddingCharacter, alignmentSpecifier, width, precision, typeSpecifier) {    var float = parseFloat(replacement);
-    precision = toNumber(nilDefault(precision, 6));
-    if (isNaN(float)) {
-      float = 0;
+function formatFloat (replacement, signSpecifier, paddingCharacter, alignmentSpecifier, width, precision, typeSpecifier) {
+    var replacementNumber = parseFloat(replacement),
+        formattedReplacement;
+    if (isNaN(replacementNumber)) {
+      replacementNumber = 0;
     }
-    var showPlusSign = signSpecifier === CHARACTER_PLUS && float >= 0;
+    precision = toNumber(nilDefault(precision, 6));
     switch (typeSpecifier) {
-      case Type.FLOAT:
-        float = float.toFixed(precision);
+      case Const.TYPE_FLOAT:
+        formattedReplacement = replacementNumber.toFixed(precision);
         break;
-      case Type.FLOAT_SCIENTIFIC:
-        float = float.toExponential(precision);
+      case Const.TYPE_FLOAT_SCIENTIFIC:
+        formattedReplacement = replacementNumber.toExponential(precision);
         break;
-      case Type.FLOAT_SCIENTIFIC_UPPERCASE:
-        float = float.toExponential(precision).toUpperCase();
+      case Const.TYPE_FLOAT_SCIENTIFIC_UPPERCASE:
+        formattedReplacement = replacementNumber.toExponential(precision).toUpperCase();
         break;
-      case Type.FLOAT_SHORT:
-      case Type.FLOAT_SHORT_UPPERCASE:
-        if (float === 0) {
-          float = '0';
+      case Const.TYPE_FLOAT_SHORT:
+      case Const.TYPE_FLOAT_SHORT_UPPERCASE:
+        if (replacementNumber === 0) {
+          formattedReplacement = 0;
           break;
         }
-        float = float.toPrecision(precision === 0 ? 1 : precision).replace(REGEXP_TRAILING_ZEROS, '');
-        if (typeSpecifier === Type.FLOAT_SHORT_UPPERCASE) {
-          float = float.toUpperCase();
+        formattedReplacement = replacementNumber.toPrecision(precision === 0 ? 1 : precision).replace(REGEXP_TRAILING_ZEROS, '');
+        if (typeSpecifier === Const.TYPE_FLOAT_SHORT_UPPERCASE) {
+          formattedReplacement = formattedReplacement.toUpperCase();
         }
         break;
     }
-    if (showPlusSign) {
-      float = CHARACTER_PLUS + float;
+    if (signSpecifier === Const.LITERAL_PLUS && replacementNumber >= 0) {
+      formattedReplacement = Const.LITERAL_PLUS + formattedReplacement;
     }
-    return alignAndPad(float, paddingCharacter, alignmentSpecifier, width);
-  }
+    return alignAndPad(coerceToString(formattedReplacement), paddingCharacter, alignmentSpecifier, width);  }
 
 /**
    * Formats an integer type according to specifiers.
@@ -1056,30 +1074,30 @@ function formatFloat (replacement, signSpecifier, paddingCharacter, alignmentSpe
    * @return {string}                      Returns the formatted string.
    */
 
-function formatIntegerBase (replacement, signSpecifier, paddingCharacter, alignmentSpecifier, width, precision, typeSpecifier) {    var integer = parseInt(replacement);
+function formatIntegerBase (replacement, signSpecifier, paddingCharacter, alignmentSpecifier, width, precision, typeSpecifier) {
+    var integer = parseInt(replacement);
     if (isNaN(integer)) {
       integer = 0;
     }
     integer = integer >>> 0;
     switch (typeSpecifier) {
-      case Type.INTEGER_ASCII_CHARACTER:
+      case Const.TYPE_INTEGER_ASCII_CHARACTER:
         integer = String.fromCharCode(integer);
         break;
-      case Type.INTEGER_BINARY:
-        integer = integer.toString(2);
+      case Const.TYPE_INTEGER_BINARY:
+        integer = integer.toString(Const.RADIX_BINARY);
         break;
-      case Type.INTEGER_OCTAL:
-        integer = integer.toString(8);
+      case Const.TYPE_INTEGER_OCTAL:
+        integer = integer.toString(Const.RADIX_OCTAL);
         break;
-      case Type.INTEGER_HEXADECIMAL:
-        integer = integer.toString(16);
+      case Const.TYPE_INTEGER_HEXADECIMAL:
+        integer = integer.toString(Const.RADIX_HEXADECIMAL);
         break;
-      case Type.INTEGER_HEXADECIMAL_UPPERCASE:
-        integer = integer.toString(16).toUpperCase();
+      case Const.TYPE_INTEGER_HEXADECIMAL_UPPERCASE:
+        integer = integer.toString(Const.RADIX_HEXADECIMAL).toUpperCase();
         break;
     }
-    return alignAndPad(toString(integer), paddingCharacter, alignmentSpecifier, width);
-  }
+    return alignAndPad(coerceToString(integer), paddingCharacter, alignmentSpecifier, width);  }
 
 /**
    * Formats a decimal integer type according to specifiers.
@@ -1097,8 +1115,8 @@ function formatIntegerDecimal (replacement, signSpecifier, paddingCharacter, ali
     if (isNaN(integer)) {
       integer = 0;
     }
-    if (signSpecifier === CHARACTER_PLUS && integer >= 0) {
-      integer = CHARACTER_PLUS + integer;
+    if (signSpecifier === Const.LITERAL_PLUS && integer >= 0) {
+      integer = Const.LITERAL_PLUS + integer;
     }
     return alignAndPad(toString(integer), paddingCharacter, alignmentSpecifier, width);
   }
@@ -1124,12 +1142,11 @@ function formatString (replacement, signSpecifier, paddingCharacter, alignmentSp
   }
 
 /**
-   * Return the computed string based on format specifiers.
+   * Returns the computed string based on format specifiers.
    *
    * @ignore
    * @name replaceConversionSpecification
-   * @param  {number}   index                   The index of the matched specifier.
-   * @param  {Object[]} args                    The array of arguments to replace specifiers.
+   * @param  {string}   replacement             The replacement value.
    * @param  {string}   signSpecifier           The sign specifier to force a sign to be used on a number.
    * @param  {string}   paddingSpecifier        The padding specifier that says what padding character will be used.
    * @param  {string}   alignmentSpecifier      The alignment specifier that says if the result should be left-justified or right-justified.
@@ -1138,28 +1155,46 @@ function formatString (replacement, signSpecifier, paddingCharacter, alignmentSp
    * @param  {string}   typeSpecifier           The type specifier says what type the argument data should be treated as.
    * @return {string}                           Returns the computed string.
    */
-function replaceConversionSpecification (index, args, signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {    validateFormat(index, args, typeSpecifier);
-    var replacement = args[index];
-    var formatterArguments = [replacement, signSpecifier, paddingCharacter(paddingSpecifier), alignmentSpecifier, toNumber(widthSpecifier), toNumber(precisionSpecifier)];
+function replaceConversionSpecification (replacement, signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {    var formatterArguments = [replacement, signSpecifier, getPaddingCharacter(paddingSpecifier), alignmentSpecifier, toNumber(widthSpecifier), toNumber(precisionSpecifier)];
     switch (typeSpecifier) {
-      case Type.STRING:
+      case Const.TYPE_STRING:
         return formatString.apply(undefined, formatterArguments);
-      case Type.INTEGER_DECIMAL:
-      case Type.INTEGER:
+      case Const.TYPE_INTEGER_DECIMAL:
+      case Const.TYPE_INTEGER:
         return formatIntegerDecimal.apply(undefined, formatterArguments);
-      case Type.INTEGER_ASCII_CHARACTER:
-      case Type.INTEGER_BINARY:
-      case Type.INTEGER_OCTAL:
-      case Type.INTEGER_HEXADECIMAL:
-      case Type.INTEGER_HEXADECIMAL_UPPERCASE:
-      case Type.INTEGER_UNSIGNED_DECIMAL:
+      case Const.TYPE_INTEGER_ASCII_CHARACTER:
+      case Const.TYPE_INTEGER_BINARY:
+      case Const.TYPE_INTEGER_OCTAL:
+      case Const.TYPE_INTEGER_HEXADECIMAL:
+      case Const.TYPE_INTEGER_HEXADECIMAL_UPPERCASE:
+      case Const.TYPE_INTEGER_UNSIGNED_DECIMAL:
         return formatIntegerBase.apply(undefined, formatterArguments.concat([typeSpecifier]));
-      case Type.FLOAT:
-      case Type.FLOAT_SCIENTIFIC:
-      case Type.FLOAT_SCIENTIFIC_UPPERCASE:
-      case Type.FLOAT_SHORT:
-      case Type.FLOAT_SHORT_UPPERCASE:
+      case Const.TYPE_FLOAT:
+      case Const.TYPE_FLOAT_SCIENTIFIC:
+      case Const.TYPE_FLOAT_SCIENTIFIC_UPPERCASE:
+      case Const.TYPE_FLOAT_SHORT:
+      case Const.TYPE_FLOAT_SHORT_UPPERCASE:
         return formatFloat.apply(undefined, formatterArguments.concat([typeSpecifier]));
+    }
+  }
+
+/**
+   * Validates the specifier type and replacement position.
+   *
+   * @ignore
+   * @param  {number}   index                The index of the matched specifier.
+   * @param  {number}   replacementsLength   The number of replacements.
+   * @param  {string}   typeSpecifier        The type specifier says what type the argument data should be treated as.
+   * @return {undefined}
+   */
+function validateFormat (index, replacementsLength, typeSpecifier) {    if (isNil(typeSpecifier)) {
+      throw new Error('sprintf(): Unknown type specifier');
+    }
+    if (index > replacementsLength - 1) {
+      throw new Error('sprintf(): Too few arguments');
+    }
+    if (index < 0) {
+      throw new Error('sprintf(): Argument number must be greater than zero');
     }
   }
 
@@ -1289,7 +1324,7 @@ function replaceConversionSpecification (index, args, signSpecifier, paddingSpec
    * @since 1.0.0
    * @memberOf Format
    * @param  {string} [format=''] The format string.
-   * @param  {...*}               args The arguments to produce the string.
+   * @param  {...*}               replacements The replacements to produce the string.
    * @return {string}             Returns the produced string.
    * @example
    * v.sprintf('Hello %s!', 'World');
@@ -1314,26 +1349,30 @@ function replaceConversionSpecification (index, args, signSpecifier, paddingSpec
    * // => '1.01e+2 0.455'
    * 
    */
-function sprintf (format) {    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-      args[_key - 1] = arguments[_key];
+function sprintf (format) {
+    for (var _len = arguments.length, replacements = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      replacements[_key - 1] = arguments[_key];
     }
 
-    var formatString = toString(nilDefault(format, ''));
+    var formatString = coerceToString(format);
     if (formatString === '') {
       return formatString;
     }
-    var index = 0;
-    return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, function (conversionSpecification, percent, position) {
-      if (percent === CHARACTER_PERCENT + CHARACTER_PERCENT) {
-        return conversionSpecification.slice(1);
+    // @TODO review these vars names
+    var replacementMatchIndex = 0,
+        replacementsLength = replacements.length;
+    return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, function (conversionSpecification, percent, position, signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
+      var actualReplacementIndex;
+      if (percent === Const.LITERAL_PERCENT_SPECIFIER) {        return conversionSpecification.slice(1);
       }
-      var argumentIndex = isNil(position) ? index++ : position - 1;
-
-      for (var _len2 = arguments.length, specifiers = Array(_len2 > 3 ? _len2 - 3 : 0), _key2 = 3; _key2 < _len2; _key2++) {
-        specifiers[_key2 - 3] = arguments[_key2];
+      if (isNil(position)) {
+        actualReplacementIndex = replacementMatchIndex;
+        replacementMatchIndex++;
+      } else {
+        actualReplacementIndex = position - 1;
       }
-
-      return replaceConversionSpecification.apply(undefined, [argumentIndex, args].concat(specifiers));
+      validateFormat(actualReplacementIndex, replacementsLength, typeSpecifier);
+      return replaceConversionSpecification(replacements[actualReplacementIndex], signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier);
     });
   }
 
@@ -1400,9 +1439,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
    * @static
    * @since 1.0.0
    * @memberOf Format
-   * @param  {string}                [format=''] The format string.
-   * @param  {Array.<number|string>} values      The array of values to produce the string.
-   * @return {string}                            Returns the produced string.
+   * @param  {string}                [format='']  The format string.
+   * @param  {Array.<number|string>} replacements The array of replacements to produce the string.
+   * @return {string}                             Returns the produced string.
    * @example
    * vprintf('%s', ['Welcome'])
    * // => 'Welcome'
@@ -1410,8 +1449,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
    * vprintf('%s costs $%.2f', ['Coffee', 1.5]);
    * // => 'Coffee costs $1.50'
    */
-function vprintf (format, values) {
-    return sprintf.apply(undefined, [format].concat(toConsumableArray(nilDefault(values, []))));
+function vprintf (format, replacements) {
+    return sprintf.apply(undefined, [format].concat(toConsumableArray(nilDefault(replacements, []))));
   }
 
 var escapeCharactersMap = {
@@ -1447,7 +1486,7 @@ var escapeCharactersMap = {
    * v.escapeHtml('<p>wonderful world</p>');
    * // => '&lt;p&gt;wonderful world&lt;/p&gt;'
    */
-function escapeHtml (subject) {    var subjectString = toString(nilDefault(subject, ''));
+function escapeHtml (subject) {    var subjectString = coerceToString(subject);
     return subjectString.replace(REGEXP_HTML_SPECIAL_CHARACTERS, replaceSpecialCharacter);
   }
 
@@ -1464,7 +1503,7 @@ function escapeHtml (subject) {    var subjectString = toString(nilDefault(subje
    * v.escapeRegExp('(hours)[minutes]{seconds}');
    * // => '\(hours\)\[minutes\]\{seconds\}'
    */
-function escapeRegExp (subject) {    var subjectString = toString(nilDefault(subject, ''));
+function escapeRegExp (subject) {    var subjectString = coerceToString(subject);
     return subjectString.replace(REGEXP_SPECIAL_CHARACTERS, '\\$&');
   }
 
@@ -1503,7 +1542,7 @@ var unescapeCharactersMap = {
    * v.unescapeHtml('&lt;p&gt;wonderful world&lt;/p&gt;');
    * // => '<p>wonderful world</p>'
    */
-function unescapeHtml (subject) {    var subjectString = toString(nilDefault(subject, ''));
+function unescapeHtml (subject) {    var subjectString = coerceToString(subject);
     return characters.reduce(reduceUnescapedString, subjectString);
   }
 
@@ -1525,7 +1564,7 @@ function unescapeHtml (subject) {    var subjectString = toString(nilDefault(sub
    * v.indexOf('evening', 'o');
    * // => -1
    */
-function indexOf (subject, search, fromIndex) {    var subjectString = toString(nilDefault(subject, ''));
+function indexOf (subject, search, fromIndex) {    var subjectString = coerceToString(subject);
     return subjectString.indexOf(search, fromIndex);
   }
 
@@ -1547,7 +1586,7 @@ function indexOf (subject, search, fromIndex) {    var subjectString = toString(
    * v.lastIndexOf('evening', 'o');
    * // => -1
    */
-function lastIndexOf (subject, search, fromIndex) {    var subjectString = toString(nilDefault(subject, ''));
+function lastIndexOf (subject, search, fromIndex) {    var subjectString = coerceToString(subject);
     return subjectString.lastIndexOf(search, fromIndex);
   }
 
@@ -1569,7 +1608,7 @@ function lastIndexOf (subject, search, fromIndex) {    var subjectString = toStr
    * v.search('evening', '/\d/');
    * // => -1
    */
-function search (subject, pattern, fromIndex) {    var subjectString = toString(nilDefault(subject, '')),
+function search (subject, pattern, fromIndex) {    var subjectString = coerceToString(subject),
         fromIndexNumber = isNil(fromIndex) ? 0 : clipNumber(toInteger(fromIndex), 0, subjectString.length);
     var matchIndex = subjectString.substr(fromIndexNumber).search(pattern);
     if (matchIndex !== -1 && !isNaN(fromIndexNumber)) {
@@ -2652,7 +2691,7 @@ var diacriticMap = {    "A": "A",
    * v.latinise('как прекрасен этот мир');
    * // => 'kak prekrasen etot mir'
    */
-function latinise (subject) {    var subjectString = toString(nilDefault(subject, ''));
+function latinise (subject) {    var subjectString = coerceToString(subject);
     if (subjectString === '') {
       return subjectString;
     }
@@ -2677,9 +2716,9 @@ function latinise (subject) {    var subjectString = toString(nilDefault(subject
    * v.pad('hi', 5, '-=');
    * // => '-hi-='
    */
-function pad (subject, length, pad) {    var subjectString = toString(nilDefault(subject, '')),
+function pad (subject, length, pad) {    var subjectString = coerceToString(subject),
         lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
-        padString = toString(nilDefault(pad, ' '));
+        padString = coerceToString(pad, ' ');
     if (lengthInt <= subjectString.length) {
       return subjectString;
     }
@@ -2713,7 +2752,7 @@ function pad (subject, length, pad) {    var subjectString = toString(nilDefault
    * });
    * // => 'the duck is nice'
    */
-function replace (subject, pattern, replacement) {    var subjectString = toString(nilDefault(subject, ''));
+function replace (subject, pattern, replacement) {    var subjectString = coerceToString(subject);
     return subjectString.replace(pattern, replacement);
   }
 
@@ -2730,7 +2769,7 @@ function replace (subject, pattern, replacement) {    var subjectString = toStri
    * v.reverse('winter');
    * // => 'retniw'
    */
-function reverse (subject) {    var subjectString = toString(nilDefault(subject, ''));
+function reverse (subject) {    var subjectString = coerceToString(subject);
     return subjectString.split('').reverse().join('');
   }
 
@@ -2752,7 +2791,7 @@ function reverse (subject) {    var subjectString = toString(nilDefault(subject,
    * v.reverseCodePoint('𝌆 bar mañana mañana');
    * // => 'anañam anañam rab 𝌆'
    */
-  function reverseCodePoint(subject) {    var subjectString = toString(nilDefault(subject, ''));
+  function reverseCodePoint(subject) {    var subjectString = coerceToString(subject);
     /**
      * @see https://github.com/mathiasbynens/esrever
      */
@@ -2786,7 +2825,7 @@ function reverse (subject) {    var subjectString = toString(nilDefault(subject,
    * v.slugify('хорошая погода');
    * // => 'horoshaya-pogoda'
    */
-function slugify (subject) {    var subjectString = toString(nilDefault(subject, ''));
+function slugify (subject) {    var subjectString = coerceToString(subject);
     if (subjectString === '') {
       return '';
     }
@@ -2811,7 +2850,7 @@ function slugify (subject) {    var subjectString = toString(nilDefault(subject,
    * v.trimLeft('***Mobile Infantry', '*');
    * // => 'Mobile Infantry'
    */
-function trimLeft (subject, whitespace) {    var subjectString = toString(nilDefault(subject, ''));
+function trimLeft (subject, whitespace) {    var subjectString = coerceToString(subject);
     if (whitespace === '' || subjectString === '') {
       return subjectString;
     }
@@ -2849,7 +2888,7 @@ function trimLeft (subject, whitespace) {    var subjectString = toString(nilDef
    * v.trimRight('do you feel in charge?---', '-');
    * // => 'do you feel in charge?'
    */
-function trimRight (subject, whitespace) {    var subjectString = toString(nilDefault(subject, ''));
+function trimRight (subject, whitespace) {    var subjectString = coerceToString(subject);
     if (whitespace === '' || subjectString === '') {
       return subjectString;
     }
@@ -2890,7 +2929,7 @@ function trimRight (subject, whitespace) {    var subjectString = toString(nilDe
    * v.trim('--Earth--', '-');
    * // => 'Earth'
    */
-function trim (subject, whitespace) {    var subjectString = toString(nilDefault(subject, ''));
+function trim (subject, whitespace) {    var subjectString = coerceToString(subject);
     if (whitespace === '' || subjectString === '') {
       return subjectString;
     }
@@ -2925,8 +2964,8 @@ function trim (subject, whitespace) {    var subjectString = toString(nilDefault
 function endsWith (subject, end, position) {    if (isNil(end)) {
       return false;
     }
-    var subjectString = toString(nilDefault(subject, '')),
-        endString = toString(end);
+    var subjectString = coerceToString(subject),
+        endString = coerceToString(end);
     if (endString === '') {
       return true;
     }
@@ -2954,8 +2993,7 @@ function endsWith (subject, end, position) {    if (isNil(end)) {
    * v.includes('galaxy', 'g', 1);
    * // => false
    */
-function includes (subject, search, position) {    subject = nilDefault(subject, '');
-    var subjectString = toString(nilDefault(subject, '')),
+function includes (subject, search, position) {    var subjectString = coerceToString(subject),
         searchString = toString(search);
     if (searchString === null) {
       return false;
@@ -2986,7 +3024,7 @@ function includes (subject, search, position) {    subject = nilDefault(subject,
    * v.isAlpha('lisa and bart');
    * // => false
    */
-function isAlpha (subject) {    var subjectString = toString(nilDefault(subject, ''));
+function isAlpha (subject) {    var subjectString = coerceToString(subject);
     return REGEXP_ALPHA.test(subjectString);
   }
 
@@ -3009,7 +3047,7 @@ function isAlpha (subject) {    var subjectString = toString(nilDefault(subject,
    * v.isAlphaDigit('40-20');
    * // => false
    */
-function isAlphaDigit (subject) {    var subjectString = toString(nilDefault(subject, ''));
+function isAlphaDigit (subject) {    var subjectString = coerceToString(subject);
     return REGEXP_ALPHA_DIGIT.test(subjectString);
   }
 
@@ -3032,7 +3070,7 @@ function isAlphaDigit (subject) {    var subjectString = toString(nilDefault(sub
    * v.isBlank('World');
    * // => false
    */
-function isBlank (subject) {    var subjectString = toString(nilDefault(subject, ''));
+function isBlank (subject) {    var subjectString = coerceToString(subject);
     return subjectString.trim().length === 0;
   }
 
@@ -3055,7 +3093,7 @@ function isBlank (subject) {    var subjectString = toString(nilDefault(subject,
    * v.isDigit('ten');
    * // => false
    */
-function isDigit (subject) {    var subjectString = toString(nilDefault(subject, ''));
+function isDigit (subject) {    var subjectString = coerceToString(subject);
     return REGEXP_DIGIT.test(subjectString);
   }
 
@@ -3075,7 +3113,7 @@ function isDigit (subject) {    var subjectString = toString(nilDefault(subject,
    * v.isEmpty('  ');
    * // => false
    */
-function isEmpty (subject) {    var subjectString = toString(nilDefault(subject, ''));
+function isEmpty (subject) {    var subjectString = coerceToString(subject);
     return subjectString.length === 0;
   }
 
@@ -3098,7 +3136,7 @@ function isEmpty (subject) {    var subjectString = toString(nilDefault(subject,
    * v.isLowerCase('T1000');
    * // => false
    */
-function isLowerCase (subject) {    var valueString = toString(nilDefault(subject, ''));
+function isLowerCase (subject) {    var valueString = coerceToString(subject);
     return isAlpha(valueString) && valueString.toLowerCase() === valueString;
   }
 
@@ -3122,7 +3160,7 @@ function isLowerCase (subject) {    var valueString = toString(nilDefault(subjec
    * // => false
    */
 function isNumeric (subject) {
-    var valueNumeric = (typeof subject === 'undefined' ? 'undefined' : _typeof(subject)) === 'object' && subject != null ? Number(subject) : subject;
+    var valueNumeric = (typeof subject === 'undefined' ? 'undefined' : _typeof(subject)) === 'object' && !isNil(subject) ? Number(subject) : subject;
     return (typeof valueNumeric === 'number' || typeof valueNumeric === 'string') && !isNaN(valueNumeric - parseFloat(valueNumeric));
   }
 
@@ -3142,7 +3180,7 @@ function isNumeric (subject) {
    * v.isUpperCase('Morning');
    * // => false
    */
-function isUpperCase (subject) {    var subjectString = toString(nilDefault(subject, ''));
+function isUpperCase (subject) {    var subjectString = coerceToString(subject);
     return isAlpha(subjectString) && subjectString.toUpperCase() === subjectString;
   }
 
@@ -3167,8 +3205,8 @@ function isUpperCase (subject) {    var subjectString = toString(nilDefault(subj
    * v.matches('apollo 11', '\\d{3}');
    * // => false
    */
-function matches (subject, pattern, flags) {    var subjectString = toString(nilDefault(subject, '')),
-        flagsString = toString(nilDefault(flags, '')),
+function matches (subject, pattern, flags) {    var subjectString = coerceToString(subject),
+        flagsString = coerceToString(flags),
         patternString;
     if (!(pattern instanceof RegExp)) {
       patternString = toString(pattern);
@@ -3201,7 +3239,7 @@ function matches (subject, pattern, flags) {    var subjectString = toString(nil
    * v.startsWith('the world is yours', 'world');
    * // => false
    */
-function startsWith (subject, start, position) {    var subjectString = toString(nilDefault(subject, '')),
+function startsWith (subject, start, position) {    var subjectString = coerceToString(subject),
         startString = toString(start);
     if (startString === null) {
       return false;
@@ -3226,7 +3264,7 @@ function startsWith (subject, start, position) {    var subjectString = toString
    * v.chars('cloud');
    * // => ['c', 'l', 'o', 'u', 'd']
    */
-function chars (subject) {    var subjectString = toString(nilDefault(subject, ''));
+function chars (subject) {    var subjectString = coerceToString(subject);
     return subjectString.split('');
   }
 
@@ -3248,7 +3286,7 @@ function chars (subject) {    var subjectString = toString(nilDefault(subject, '
    * v.charsCodePoint('cafe\u0301'); // or 'café'
    * // => ['c', 'a', 'f', 'e\u0301']
    */
-function charsCodePoint (subject) {    var subjectString = toString(nilDefault(subject, ''));
+function charsCodePoint (subject) {    var subjectString = coerceToString(subject);
     return nilDefault(subjectString.match(REGEXP_UNICODE_CHARACTER), []);
   }
 
@@ -3270,7 +3308,7 @@ function charsCodePoint (subject) {    var subjectString = toString(nilDefault(s
    * v.split('the dying of the light', /\s/, 3);
    * // => ['the', 'dying', 'of']
    */
-function split (subject, separator, limit) {    var subjectString = toString(nilDefault(subject, ''));
+function split (subject, separator, limit) {    var subjectString = coerceToString(subject);
     return subjectString.split(separator, limit);
   }
 
@@ -3354,25 +3392,26 @@ var functions = {    camelCase: camelCase,
     lastIndexOf: lastIndexOf,
     search: search,
 
+    first: first,
+    last: last,
+    prune: prune,
+    slice: slice,
+    substr: substr,
+    substring: substring,
+    truncate: truncate,
+
     latinise: latinise,
-    left: left,
     pad: pad,
     padLeft: padLeft,
     padRight: padRight,
-    prune: prune,
     repeat: repeat,
     replace: replace,
     reverseCodePoint: reverseCodePoint,
-    right: right,
     reverse: reverse,
-    slice: slice,
     slugify: slugify,
-    substr: substr,
-    substring: substring,
     trim: trim,
     trimLeft: trimLeft,
     trimRight: trimRight,
-    truncate: truncate,
 
     endsWith: endsWith,
     includes: includes,
