@@ -5,27 +5,30 @@ import toInteger from '../helper/number/to_integer';
 import { MAX_SAFE_INTEGER } from '../helper/number/const';
 
 /**
- * Extracts the leftmost `length` characters from `subject`.
+ * Extracts the last `length` characters from `subject`.
  *
- * @function left
+ * @function last
  * @static
  * @since 1.0.0
  * @memberOf Cut
  * @param {string} [subject=''] The string to extract from.
- * @param {int} [length=subject.length] The number of characters to extract.
- * @return {string} Returns the leftmost extracted string.
+ * @param {int} [length=1] The number of characters to extract.
+ * @return {string} Returns the last characters string.
  * @example
- * v.left('vehicle', 2);
- * // => 've'
+ * v.last('helicopter');
+ * // => 'r'
  *
- * v.left('car', 5);
+ * v.last('vehicle', 2);
+ * // => 'le'
+ *
+ * v.last('car', 5);
  * // => 'car'
  */
 export default function(subject, length) {
   var subjectString = coerceToString(subject),
-    lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
+    lengthInt = isNil(length) ? 1 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
   if (subjectString.length <= lengthInt) {
     return subjectString;
   }
-  return subjectString.substr(0, lengthInt);
+  return subjectString.substr(subjectString.length - lengthInt, lengthInt);
 }

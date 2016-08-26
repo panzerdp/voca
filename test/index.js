@@ -11,9 +11,9 @@ import './case/upper_case';
 import './chain/chain';
 
 //cut
-import './cut/left';
+import './cut/first';
+import './cut/last';
 import './cut/prune';
-import './cut/right';
 import './cut/slice';
 import './cut/substr';
 import './cut/substring';

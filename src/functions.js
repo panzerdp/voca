@@ -20,9 +20,9 @@ import truncate from './cut/truncate';
  * Functions to cut a string
  * @namespace Cut
  */
-import left from './cut/left';
+import first from './cut/first';
+import last from './cut/last';
 import prune from './cut/prune';
-import right from './cut/right';
 import slice from './cut/slice';
 import substr from './cut/substr';
 import substring from './cut/substring';
@@ -135,25 +135,26 @@ export default {
   lastIndexOf,
   search,
 
+  first,
+  last,
+  prune,
+  slice,
+  substr,
+  substring,
+  truncate,
+
   latinise,
-  left,
   pad,
   padLeft,
   padRight,
-  prune,
   repeat,
   replace,
   reverseCodePoint,
-  right,
   reverse,
-  slice,
   slugify,
-  substr,
-  substring,
   trim,
   trimLeft,
   trimRight,
-  truncate,
 
   endsWith,
   includes,
