@@ -1,5 +1,5 @@
 import Const from './const';
-import toNumber from '../../utilities/number/to_number';
+import toNumber from '../../helper/number/to_number';
 import getPaddingCharacter from './get_padding_character';
 import formatFloat from './type_format/float';
 import formatIntegerBase from './type_format/integer_base';

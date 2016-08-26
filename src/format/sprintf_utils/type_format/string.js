@@ -1,4 +1,4 @@
-import isNil from '../../../utilities/object/is_nil';
+import isNil from '../../../helper/object/is_nil';
 import truncate from '../../../cut/truncate';
 import alignAndPad from '../align_and_pad';
 

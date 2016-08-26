@@ -1,5 +1,5 @@
-import coerceToString from '../utilities/string/coerce_to_string';
-import toString from '../utilities/string/to_string';
+import coerceToString from '../helper/string/coerce_to_string';
+import toString from '../helper/string/to_string';
 
 /**
  * Checks if `subject` matches the regular expression `pattern`.

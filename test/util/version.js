@@ -1,6 +1,6 @@
 import v from '../voca';
 import { expect } from 'chai';
-import { REGEXP_SEMVER } from '../utilities/string/regexp';
+import { REGEXP_SEMVER } from '../const';
 
 describe('version', function() {
 

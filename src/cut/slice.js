@@ -1,4 +1,4 @@
-import coerceToString from '../utilities/string/coerce_to_string';
+import coerceToString from '../helper/string/coerce_to_string';
 
 /**
  * Extracts from `subject` a string from `start` position to `end` position.

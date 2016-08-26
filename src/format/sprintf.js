@@ -1,7 +1,7 @@
-import { REGEXP_CONVERSION_SPECIFICATION } from '../utilities/string/regexp';
+import { REGEXP_CONVERSION_SPECIFICATION } from '../helper/string/regexp';
 import C from './sprintf_utils/const';
-import coerceToString from '../utilities/string/coerce_to_string';
-import isNil from '../utilities/object/is_nil';
+import coerceToString from '../helper/string/coerce_to_string';
+import isNil from '../helper/object/is_nil';
 import replaceConversionSpecification from './sprintf_utils/replace_conversion_specification';
 import validateFormat from './sprintf_utils/validate_format';
 

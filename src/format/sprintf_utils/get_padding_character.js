@@ -1,5 +1,5 @@
 import Const from './const';
-import nilDefault from '../../utilities/undefined/nil_default';
+import nilDefault from '../../helper/undefined/nil_default';
 
 /**
  * Get the padding character from padding specifier.

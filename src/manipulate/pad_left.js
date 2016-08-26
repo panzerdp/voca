@@ -1,9 +1,9 @@
-import coerceToString from '../utilities/string/coerce_to_string';
-import isNil from '../utilities/object/is_nil';
-import clipNumber from '../utilities/number/clip_number';
-import toInteger from '../utilities/number/to_integer';
-import buildPadding from '../utilities/string/build_padding';
-import { MAX_SAFE_INTEGER } from '../utilities/number/const';
+import coerceToString from '../helper/string/coerce_to_string';
+import isNil from '../helper/object/is_nil';
+import clipNumber from '../helper/number/clip_number';
+import toInteger from '../helper/number/to_integer';
+import buildPadding from '../helper/string/build_padding';
+import { MAX_SAFE_INTEGER } from '../helper/number/const';
 
 /**
  * Pads `subject` from left to a new `length`.

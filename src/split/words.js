@@ -1,8 +1,8 @@
-import coerceToString from '../utilities/string/coerce_to_string';
-import toString from '../utilities/string/to_string';
-import nilDefault from '../utilities/undefined/nil_default';
-import isNil from '../utilities/object/is_nil';
-import { REGEXP_WORD } from '../utilities/string/regexp';
+import coerceToString from '../helper/string/coerce_to_string';
+import toString from '../helper/string/to_string';
+import nilDefault from '../helper/undefined/nil_default';
+import isNil from '../helper/object/is_nil';
+import { REGEXP_WORD } from '../helper/string/regexp';
 
 /**
  * Splits `subject` into an array of words.

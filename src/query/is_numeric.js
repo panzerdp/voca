@@ -1,4 +1,4 @@
-import isNil from '../utilities/object/is_nil';
+import isNil from '../helper/object/is_nil';
 
 /**
  * Checks if `subject` is numeric.

@@ -1,9 +1,9 @@
-import coerceToString from '../utilities/string/coerce_to_string';
-import isNil from '../utilities/object/is_nil';
-import clipNumber from '../utilities/number/clip_number';
-import toInteger from '../utilities/number/to_integer';
-import { REGEXP_WORD } from '../utilities/string/regexp';
-import { MAX_SAFE_INTEGER } from '../utilities/number/const';
+import coerceToString from '../helper/string/coerce_to_string';
+import isNil from '../helper/object/is_nil';
+import clipNumber from '../helper/number/clip_number';
+import toInteger from '../helper/number/to_integer';
+import { REGEXP_WORD } from '../helper/string/regexp';
+import { MAX_SAFE_INTEGER } from '../helper/number/const';
 
 /**
  * Truncates `subject` to a new `length` and does not break the words. Guarantees that the truncated string will be no longer than `length`.

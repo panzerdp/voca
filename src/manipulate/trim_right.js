@@ -1,7 +1,7 @@
-import coerceToString from '../utilities/string/coerce_to_string';
-import toString from '../utilities/string/to_string';
-import isNil from '../utilities/object/is_nil';
-import { REGEX_TRIM_RIGHT } from '../utilities/string/regexp';
+import coerceToString from '../helper/string/coerce_to_string';
+import toString from '../helper/string/to_string';
+import isNil from '../helper/object/is_nil';
+import { REGEX_TRIM_RIGHT } from '../helper/string/regexp';
 
 /**
  * Removes the whitespaces from the right part of the `subject`.

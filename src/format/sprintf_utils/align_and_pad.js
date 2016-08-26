@@ -1,4 +1,4 @@
-import isNil from '../../utilities/object/is_nil';
+import isNil from '../../helper/object/is_nil';
 import Const from './const';
 import padRight from '../../manipulate/pad_right';
 import padLeft from '../../manipulate/pad_left';

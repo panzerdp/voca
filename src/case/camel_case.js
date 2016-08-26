@@ -1,4 +1,4 @@
-import coerceToString from '../utilities/string/coerce_to_string';
+import coerceToString from '../helper/string/coerce_to_string';
 import words from '../split/words';
 import capitalize from '../case/capitalize';
 import lowerCase from '../case/lower_case';

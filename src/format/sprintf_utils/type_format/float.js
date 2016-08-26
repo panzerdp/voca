@@ -1,9 +1,9 @@
 import alignAndPad from '../align_and_pad';
 import Const from '../const';
-import nilDefault from '../../../utilities/undefined/nil_default';
-import toNumber from '../../../utilities/number/to_number';
-import toString from '../../../utilities/string/coerce_to_string';
-import { REGEXP_TRAILING_ZEROS } from '../../../utilities/string/regexp';
+import nilDefault from '../../../helper/undefined/nil_default';
+import toNumber from '../../../helper/number/to_number';
+import toString from '../../../helper/string/coerce_to_string';
+import { REGEXP_TRAILING_ZEROS } from '../../../helper/string/regexp';
 
 /**
  * Formats a float type according to specifiers.

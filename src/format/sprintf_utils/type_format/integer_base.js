@@ -1,5 +1,5 @@
 import alignAndPad from '../align_and_pad';
-import toString from '../../../utilities/string/coerce_to_string';
+import toString from '../../../helper/string/coerce_to_string';
 import Const from '../const';
 
 /**

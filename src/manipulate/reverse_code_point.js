@@ -1,5 +1,5 @@
-import coerceToString from '../utilities/string/coerce_to_string';
-import { REGEXP_COMBINING_MARKS, REGEXP_SURROGATE_PAIRS } from '../utilities/string/regexp';
+import coerceToString from '../helper/string/coerce_to_string';
+import { REGEXP_COMBINING_MARKS, REGEXP_SURROGATE_PAIRS } from '../helper/string/regexp';
 
 /**
  * Reverses the `subject` taking care of

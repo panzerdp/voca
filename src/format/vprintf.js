@@ -1,5 +1,5 @@
 import sprintf from './sprintf';
-import nilDefault from '../utilities/undefined/nil_default';
+import nilDefault from '../helper/undefined/nil_default';
 
 /**
  * Produces a string according to `format`. Works exactly like <a href="#sprintf"><code>sprintf()</code></a>,

@@ -1,7 +1,7 @@
-import coerceToString from '../utilities/string/coerce_to_string';
+import coerceToString from '../helper/string/coerce_to_string';
 import kebabCase from '../case/kebab_case';
 import latinise from '../manipulate/latinise';
-import { REGEXP_NON_LATIN } from '../utilities/string/regexp.js';
+import { REGEXP_NON_LATIN } from '../helper/string/regexp.js';
 
 /**
  * Slugify the `subject`. Cleans the `subject` by replacing diacritics with corresponding latin characters.

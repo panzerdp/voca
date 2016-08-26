@@ -1,4 +1,4 @@
-import coerceToString from '../utilities/string/coerce_to_string';
+import coerceToString from '../helper/string/coerce_to_string';
 
 /**
  * Returns the last occurrence index of `search` in `subject`.
