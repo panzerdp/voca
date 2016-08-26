@@ -30,6 +30,9 @@ import './escape/escape_html';
 import './escape/escape_reg_exp';
 import './escape/unescape_html';
 
+//helper
+import './helper/boolean/coerce_to_string';
+
 //format
 import './format/sprintf';
 import './format/vprintf';
