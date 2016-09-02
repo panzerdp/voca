@@ -15,6 +15,5 @@ import { REGEXP_SPECIAL_CHARACTERS } from '../helper/string/regexp';
  * // => '\(hours\)\[minutes\]\{seconds\}'
  */
 export default function(subject) {
-  var subjectString = coerceToString(subject);
-  return subjectString.replace(REGEXP_SPECIAL_CHARACTERS, '\\$&');
+  return coerceToString(subject).replace(REGEXP_SPECIAL_CHARACTERS, '\\$&');
 }

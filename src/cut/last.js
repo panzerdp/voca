@@ -11,9 +11,9 @@ import { MAX_SAFE_INTEGER } from '../helper/number/const';
  * @static
  * @since 1.0.0
  * @memberOf Cut
- * @param {string} [subject=''] The string to extract from.
- * @param {int} [length=1] The number of characters to extract.
- * @return {string} Returns the last characters string.
+ * @param  {string} [subject=''] The string to extract from.
+ * @param  {int}    [length=1]   The number of characters to extract.
+ * @return {string}              Returns the last characters string.
  * @example
  * v.last('helicopter');
  * // => 'r'

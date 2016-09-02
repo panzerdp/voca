@@ -14,8 +14,8 @@ var escapeCharactersMap = {
  * Return the escaped version of `character`.
  *
  * @ignore
- * @param {string} character The character to be escape.
- * @return {string} The escaped version of character.
+ * @param  {string} character The character to be escape.
+ * @return {string}           The escaped version of character.
  */
 function replaceSpecialCharacter(character) {
   return escapeCharactersMap[character];
@@ -35,6 +35,5 @@ function replaceSpecialCharacter(character) {
  * // => '&lt;p&gt;wonderful world&lt;/p&gt;'
  */
 export default function(subject) {
-  var subjectString = coerceToString(subject);
-  return subjectString.replace(REGEXP_HTML_SPECIAL_CHARACTERS, replaceSpecialCharacter);
+  return coerceToString(subject).replace(REGEXP_HTML_SPECIAL_CHARACTERS, replaceSpecialCharacter);
 }

@@ -7,10 +7,10 @@ import coerceToString from '../helper/string/coerce_to_string';
  * @static
  * @since 1.0.0
  * @memberOf Cut
- * @param {string} [subject=''] The string to extract from.
- * @param {number} start The position to start extraction.
- * @param {number} [length=subject.endOfString] The number of characters to extract. If omitted, extract to the end of `subject`.
- * @return {string} Returns the extracted string.
+ * @param  {string} [subject='']                 The string to extract from.
+ * @param  {number} start                        The position to start extraction.
+ * @param  {number} [length=subject.endOfString] The number of characters to extract. If omitted, extract to the end of `subject`.
+ * @return {string}                              Returns the extracted string.
  * @note Uses native `String.prototype.substr()`
  * @example
  * v.substr('infinite loop', 9);
@@ -20,6 +20,5 @@ import coerceToString from '../helper/string/coerce_to_string';
  * // => 'ea'
  */
 export default function(subject, start, length) {
-  var subjectString = coerceToString(subject);
-  return subjectString.substr(start, length);
+  return coerceToString(subject).substr(start, length);
 }

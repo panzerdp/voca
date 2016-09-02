@@ -1,4 +1,3 @@
-import alignAndPad from '../align_and_pad';
 import Const from '../const';
 import nilDefault from '../../../helper/undefined/nil_default';
 import toNumber from '../../../helper/number/to_number';
@@ -11,15 +10,12 @@ import { REGEXP_TRAILING_ZEROS } from '../../../helper/string/regexp';
  * @ignore
  * @param  {string} replacement          The string to be formatted.
  * @param  {string} [signSpecifier]      The sign specifier to force a sign to be used on a number.
- * @param  {string} paddingCharacter     The padding character.
- * @param  {string} [alignmentSpecifier] The alignment specifier that says if the result should be left-justified or right-justified.
- * @param  {number} [width]              The width how many characters this conversion should result in.
  * @param  {number} [precision]          The precision.
  * @param  {string} typeSpecifier        The type specifier says what type the argument data should be treated as.
  * @return {string}                      Returns the formatted string.
  */
 
-export default function(replacement, signSpecifier, paddingCharacter, alignmentSpecifier, width, precision, typeSpecifier) {
+export default function(replacement, signSpecifier, precision, typeSpecifier) {
   var replacementNumber = parseFloat(replacement),
     formattedReplacement;
   if (isNaN(replacementNumber)) {
@@ -51,5 +47,5 @@ export default function(replacement, signSpecifier, paddingCharacter, alignmentS
   if (signSpecifier === Const.LITERAL_PLUS && replacementNumber >= 0) {
     formattedReplacement = Const.LITERAL_PLUS + formattedReplacement;
   }
-  return alignAndPad(toString(formattedReplacement), paddingCharacter, alignmentSpecifier, width);
+  return toString(formattedReplacement);
 }

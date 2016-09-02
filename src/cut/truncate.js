@@ -11,10 +11,10 @@ import { MAX_SAFE_INTEGER } from '../helper/number/const';
  * @static
  * @since 1.0.0
  * @memberOf Cut
- * @param {string} [subject=''] The string to truncate.
- * @param {int} length The length to truncate the string.
- * @param {string} [end='...'] The string to be added at the end.
- * @return {string} Returns the truncated string.
+ * @param  {string} [subject=''] The string to truncate.
+ * @param  {int}    length       The length to truncate the string.
+ * @param  {string} [end='...']  The string to be added at the end.
+ * @return {string}              Returns the truncated string.
  * @example
  * v.truncate('Once upon a time', 9);
  * // => 'Once u...'

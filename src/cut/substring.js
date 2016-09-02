@@ -7,10 +7,10 @@ import coerceToString from '../helper/string/coerce_to_string';
  * @static
  * @since 1.0.0
  * @memberOf Cut
- * @param {string} [subject=''] The string to extract from.
- * @param {number} start The position to start extraction.
- * @param {number} [end=subject.length] The position to end extraction.
- * @return {string} Returns the extracted string.
+ * @param  {string} [subject='']         The string to extract from.
+ * @param  {number} start                The position to start extraction.
+ * @param  {number} [end=subject.length] The position to end extraction.
+ * @return {string}                      Returns the extracted string.
  * @note Uses native `String.prototype.substring()`
  * @example
  * v.substring('beach', 1);
@@ -20,6 +20,5 @@ import coerceToString from '../helper/string/coerce_to_string';
  * // => 'ea'
  */
 export default function(subject, start, end) {
-  var subjectString = coerceToString(subject);
-  return subjectString.substring(start, end);
+  return coerceToString(subject).substring(start, end);
 }

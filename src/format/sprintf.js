@@ -1,9 +1,9 @@
 import { REGEXP_CONVERSION_SPECIFICATION } from '../helper/string/regexp';
-import C from './sprintf_utils/const';
-import coerceToString from '../helper/string/coerce_to_string';
-import isNil from '../helper/object/is_nil';
-import replaceConversionSpecification from './sprintf_utils/replace_conversion_specification';
-import validateFormat from './sprintf_utils/validate_format';
+import C                                   from './sprintf_utils/const';
+import coerceToString                      from '../helper/string/coerce_to_string';
+import isNil                               from '../helper/object/is_nil';
+import getReplacement                      from './sprintf_utils/get_replacement';
+import validateFormat                      from './sprintf_utils/validate_format';
 
 /**
  * Produces a string according to `format`.
@@ -177,7 +177,7 @@ export default function(format, ...replacements) {
       actualReplacementIndex = position - 1;
     }
     validateFormat(actualReplacementIndex, replacementsLength, typeSpecifier);
-    return replaceConversionSpecification(replacements[actualReplacementIndex], signSpecifier, paddingSpecifier,
-      alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier);
+    return getReplacement(replacements[actualReplacementIndex], signSpecifier, paddingSpecifier, alignmentSpecifier,
+      widthSpecifier, precisionSpecifier, typeSpecifier);
   });
 }

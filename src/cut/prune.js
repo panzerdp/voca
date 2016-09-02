@@ -12,10 +12,10 @@ import { MAX_SAFE_INTEGER } from '../helper/number/const';
  * @function prune
  * @since 1.0.0
  * @memberOf Cut
- * @param    {string} [subject=''] The string to prune.
- * @param    {int}    length       The length to prune the string.
- * @param    {string} [end='...']  The string to be added at the end.
- * @return   {string}              Returns the pruned string.
+ * @param  {string} [subject=''] The string to prune.
+ * @param  {int}    length       The length to prune the string.
+ * @param  {string} [end='...']  The string to be added at the end.
+ * @return {string}              Returns the pruned string.
  * @example
  * v.prune('Once upon a time', 7);
  * // => 'Once...'

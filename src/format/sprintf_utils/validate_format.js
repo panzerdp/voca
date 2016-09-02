@@ -4,6 +4,7 @@ import isNil from '../../helper/object/is_nil';
  * Validates the specifier type and replacement position.
  *
  * @ignore
+ * @throws {Error} Throws an exception on insufficient arguments or unknown specifier.
  * @param  {number}   index                The index of the matched specifier.
  * @param  {number}   replacementsLength   The number of replacements.
  * @param  {string}   typeSpecifier        The type specifier says what type the argument data should be treated as.
