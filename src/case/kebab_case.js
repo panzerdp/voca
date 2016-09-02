@@ -10,8 +10,8 @@ import lowerCase from '../case/lower_case';
  * @static
  * @since 1.0.0
  * @memberOf Case
- * @param {string} [subject=''] The string to convert to kebab case.
- * @return {string} The kebab case string.
+ * @param  {string} [subject=''] The string to convert to kebab case.
+ * @return {string}              The kebab case string.
  * @example
  * v.kebabCase('goodbye blue sky');
  * // => 'goodbye-blue-sky'

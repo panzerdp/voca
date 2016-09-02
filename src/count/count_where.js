@@ -1,5 +1,7 @@
 import coerceToString from '../helper/string/coerce_to_string';
 
+var reduce = Array.prototype.reduce;
+
 /**
  * Counts the characters in `subject` where `predicate` returns truthy.
  *
@@ -7,10 +9,10 @@ import coerceToString from '../helper/string/coerce_to_string';
  * @static
  * @since 1.0.0
  * @memberOf Count
- * @param {string} [subject=''] The string to count characters.
- * @param {Function} predicate The predicate function invoked on each character with parameters `(character, index, string)`.
- * @param {Object} [context] The context to invoke the `predicate`.
- * @return {number} Returns the number of characters.
+ * @param  {string}   [subject=''] The string to count characters.
+ * @param  {Function} predicate    The predicate function invoked on each character with parameters `(character, index, string)`.
+ * @param  {Object}   [context]    The context to invoke the `predicate`.
+ * @return {number}                Returns the number of characters.
  * @example
  * v.countWhere('hola!', v.isAlpha);
  * // => 4
@@ -25,10 +27,8 @@ export default function(subject, predicate, context) {
   if (subjectString === '' || typeof predicate !== 'function') {
     return 0;
   }
-  return Array.prototype.reduce.call(subjectString, function(count, character, index) {
-    if (predicate.call(context, character, index, subjectString)) {
-      count++;
-    }
-    return count;
+  var predicateWithContext = predicate.bind(context);
+  return reduce.call(subjectString, function(countTruthy, character, index) {
+    return predicateWithContext(character, index, subjectString) ? countTruthy + 1 : countTruthy;
   }, 0);
 }

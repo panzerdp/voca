@@ -9,8 +9,8 @@ import lowerCase from '../case/lower_case';
  * @static
  * @since 1.0.0
  * @memberOf Case
- * @param {string} [subject=''] The string to convert to snake case.
- * @return {string} The snake case string.
+ * @param  {string} [subject=''] The string to convert to snake case.
+ * @return {string}              Returns the snake case string.
  * @example
  * v.snakeCase('learning to fly');
  * // => 'learning_to_fly'

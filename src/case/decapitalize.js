@@ -7,8 +7,8 @@ import coerceToString from '../helper/string/coerce_to_string';
  * @static
  * @since 1.0.0
  * @memberOf Case
- * @param {string} [subject=''] The string to decapitalize.
- * @return {string} Returns the decapitalized string.
+ * @param  {string} [subject=''] The string to decapitalize.
+ * @return {string}              Returns the decapitalized string.
  * @example
  * v.decapitalize('Sun');
  * // => 'sun'

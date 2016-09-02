@@ -9,9 +9,9 @@ class ChainWrapper {
    * The chain wrapper constructor.
    *
    * @ignore
-   * @param  {string} subject The string to be wrapped.
-   * @param  {boolean} [explicitChain=false] A boolean that indicates if the chain sequence is explicit or implicit.
-   * @return {ChainWrapper} Returns a new instance of `ChainWrapper`
+   * @param  {string}       subject               The string to be wrapped.
+   * @param  {boolean}      [explicitChain=false] A boolean that indicates if the chain sequence is explicit or implicit.
+   * @return {ChainWrapper}                       Returns a new instance of `ChainWrapper`
    * @constructor
    */
   constructor(subject, explicitChain) {
@@ -47,6 +47,7 @@ class ChainWrapper {
 
   /**
    * Override the default object valueOf().
+   *
    * @ignore
    * @return {*} Returns the wrapped value.
    */
@@ -56,6 +57,7 @@ class ChainWrapper {
 
   /**
    * Returns the wrapped value to be used in JSON.stringify().
+   *
    * @ignore
    * @return {*} Returns the wrapped value.
    */
@@ -65,6 +67,7 @@ class ChainWrapper {
 
   /**
    * Returns the string representation of the wrapped value.
+   *
    * @ignore
    * @return {string} Returns the string representation.
    */
@@ -106,8 +109,8 @@ class ChainWrapper {
    * @memberof Chain
    * @since 1.0.0
    * @function __proto__thru
-   * @param {Function} changer The function to invoke.
-   * @return {Object} Returns the new wrapper object.
+   * @param  {Function} changer The function to invoke.
+   * @return {Object}           Returns the new wrapper object.
    * @example
    * v('sun is shining')
    *  .words()
@@ -134,16 +137,26 @@ class ChainWrapper {
  */
 ChainWrapper.prototype._explicitChain = true;
 
-Object.keys(functions).forEach(function(name) {
-  var vocaFunction = functions[name];
-  ChainWrapper.prototype[name] = function(...args) {
-    var result = vocaFunction(this._wrappedValue, ...args);
-    if (!this._explicitChain && typeof result !== 'string') {
-      return result;
-    } else {
+/**
+ * Make a voca function chainable.
+ *
+ * @ignore
+ * @param  {Function} functionInstance The function to make chainable
+ * @return {Function}                  Returns the chainable function
+ */
+function makeFunctionChainable(functionInstance) {
+  return function(...args) {
+    var result = functionInstance(this._wrappedValue, ...args);
+    if (this._explicitChain || typeof result === 'string') {
       return new ChainWrapper(result, this._explicitChain);
+    } else {
+      return result;
     }
   };
+}
+
+Object.keys(functions).forEach(function(name) {
+  ChainWrapper.prototype[name] = makeFunctionChainable(functions[name]);
 });
 
 

@@ -7,8 +7,8 @@ import coerceToString from '../helper/string/coerce_to_string';
  * @static
  * @since 1.0.0
  * @memberOf Case
- * @param {string} [subject=''] The string to convert to lower case.
- * @return {string} The lower case string.
+ * @param  {string} [subject=''] The string to convert to lower case.
+ * @return {string}              The lower case string.
  * @example
  * v.lowerCase('Green');
  * // => 'green'

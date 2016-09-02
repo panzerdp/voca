@@ -7,8 +7,8 @@ import ChainWrapper from './wrapper';
  * @memberOf Chain
  * @since 1.0.0
  * @function chain
- * @param {string} subject The string to wrap.
- * @return {Object}        Returns the new wrapper object.
+ * @param  {string} subject The string to wrap.
+ * @return {Object}         Returns the new wrapper object.
  * @example
  * v
  *  .chain('Back to School')

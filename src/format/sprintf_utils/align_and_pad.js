@@ -14,12 +14,9 @@ import padLeft from '../../manipulate/pad_left';
  * @return {string}                      Returns the aligned and padded string.
  */
 export default function(subject, paddingCharacter, alignmentSpecifier, width) {
-  if (!isNil(width) && subject.length < width) {
-    if (alignmentSpecifier === Const.LITERAL_MINUS) {
-      return padRight(subject, width, paddingCharacter);
-    } else {
-      return padLeft(subject, width, paddingCharacter);
-    }
+  if (isNil(width) || subject.length >= width) {
+    return subject;
   }
-  return subject;
+  var padType = alignmentSpecifier === Const.LITERAL_MINUS ? padRight : padLeft;
+  return padType(subject, width, paddingCharacter);
 }

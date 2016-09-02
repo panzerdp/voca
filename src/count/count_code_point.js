@@ -10,8 +10,8 @@ import { REGEXP_COMBINING_MARKS, REGEXP_SURROGATE_PAIRS } from '../helper/string
  * @static
  * @since 1.0.0
  * @memberOf Count
- * @param {string} [subject=''] The string to count characters.
- * @return {number} Returns the number of characters in `subject`.
+ * @param  {string} [subject=''] The string to count characters.
+ * @return {number}              Returns the number of characters in `subject`.
  * @example
  * v.countCodePoint('rain');
  * // => 4

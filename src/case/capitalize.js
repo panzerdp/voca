@@ -8,9 +8,9 @@ import coerceToBoolean from '../helper/boolean/coerce_to_boolean';
  * @static
  * @since 1.0.0
  * @memberOf Case
- * @param {string} [subject=''] The string to capitalize.
- * @param {boolean} [restToLowerCase=false] Convert the rest of `subject` to lower case.
- * @return {string} Returns the capitalized string.
+ * @param  {string}  [subject='']            The string to capitalize.
+ * @param  {boolean} [restToLowerCase=false] Convert the rest of `subject` to lower case.
+ * @return {string}                          Returns the capitalized string.
  * @example
  * v.capitalize('apple');
  * // => 'Apple'

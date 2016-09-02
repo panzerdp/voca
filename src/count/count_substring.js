@@ -7,9 +7,9 @@ import coerceToString from '../helper/string/coerce_to_string';
  * @static
  * @since 1.0.0
  * @memberOf Count
- * @param {string} [subject=''] The subject string.
- * @param {string} substring The substring to be counted.
- * @return {number} Returns the number of `substring` appearances.
+ * @param  {string} [subject=''] The subject string.
+ * @param  {string} substring    The substring to be counted.
+ * @return {number}              Returns the number of `substring` appearances.
  * @example
  * v.countSubstring('bad boys, bad boys whatcha gonna do?', 'boys');
  * // => 2
