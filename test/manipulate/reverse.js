@@ -1,6 +1,6 @@
-import v from '../voca';
-import { expect } from 'chai';
 import { PRINTABLE_ASCII, REVERSED_PRINTABLE_ASCII } from '../const';
+import { expect } from 'chai';
+import v from '../voca';
 
 describe('reverse', function() {
 

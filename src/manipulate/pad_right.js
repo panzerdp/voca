@@ -1,9 +1,9 @@
+import buildPadding from '../helper/string/build_padding';
+import clipNumber from '../helper/number/clip_number';
 import coerceToString from '../helper/string/coerce_to_string';
 import isNil from '../helper/object/is_nil';
-import clipNumber from '../helper/number/clip_number';
-import toInteger from '../helper/number/to_integer';
-import buildPadding from '../helper/string/build_padding';
 import { MAX_SAFE_INTEGER } from '../helper/number/const';
+import toInteger from '../helper/number/to_integer';
 
 /**
  * Pads `subject` from right to a new `length`.

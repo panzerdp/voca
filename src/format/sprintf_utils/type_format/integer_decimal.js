@@ -1,13 +1,13 @@
+import addSignToFormattedNumber from './helper/add_sign_to_formatted_number';
 import toString from '../../../helper/string/to_string';
-import Const from '../const';
 
 /**
  * Formats a decimal integer type according to specifiers.
  *
  * @ignore
- * @param  {string} replacement          The string to be formatted.
- * @param  {string} [signSpecifier]      The sign specifier to force a sign to be used on a number.
- * @return {string}                      Returns the formatted string.
+ * @param  {string} replacement     The string to be formatted.
+ * @param  {string} [signSpecifier] The sign specifier to force a sign to be used on a number.
+ * @return {string}                 Returns the formatted string.
  */
 
 export default function(replacement, signSpecifier) {
@@ -15,8 +15,5 @@ export default function(replacement, signSpecifier) {
   if (isNaN(integer)) {
     integer = 0;
   }
-  if (signSpecifier === Const.LITERAL_PLUS && integer >= 0) {
-    integer = Const.LITERAL_PLUS + integer;
-  }
-  return toString(integer);
+  return addSignToFormattedNumber(integer, toString(integer), signSpecifier);
 }

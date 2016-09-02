@@ -18,6 +18,11 @@
     "comma-style": ["error", "last"],
     "space-before-blocks": ["error", { "functions": "always", "keywords": "always", "classes": "always" }],
     "semi": ["error", "always"],
-    "no-undef": "error"
+    "no-undef": "error",
+    "sort-imports": ["error", {
+      "ignoreCase": true,
+      "ignoreMemberSort": false,
+      "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
+    }]
   }
 }

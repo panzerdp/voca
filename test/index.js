@@ -31,7 +31,8 @@ import './escape/escape_reg_exp';
 import './escape/unescape_html';
 
 //helper
-import './helper/boolean/coerce_to_string';
+import './helper/boolean/coerce_to_boolean';
+import './helper/number/coerce_to_number';
 
 //format
 import './format/sprintf';

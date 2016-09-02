@@ -1,8 +1,28 @@
+import addSignToFormattedNumber from './helper/add_sign_to_formatted_number';
+import coerceToNumber from '../../../helper/number/coerce_to_number';
 import Const from '../const';
-import nilDefault from '../../../helper/undefined/nil_default';
-import toNumber from '../../../helper/number/to_number';
-import toString from '../../../helper/string/coerce_to_string';
 import { REGEXP_TRAILING_ZEROS } from '../../../helper/string/regexp';
+import toString from '../../../helper/string/coerce_to_string';
+
+/**
+ * Formats the short float.
+ *
+ * @ignore
+ * @param  {number} replacementNumber The number to format.
+ * @param  {number} precision         The precision to format the float.
+ * @param  {string} typeSpecifier     The type specifier.
+ * @return {string}                   Returns the formatted short float.
+ */
+function formatFloatAsShort(replacementNumber, precision, typeSpecifier) {
+  if (replacementNumber === 0) {
+    return '0';
+  }
+  var formattedReplacement = replacementNumber.toPrecision(precision === 0 ? 1 : precision).replace(REGEXP_TRAILING_ZEROS, '');
+  if (typeSpecifier === Const.TYPE_FLOAT_SHORT_UPPERCASE) {
+    formattedReplacement = formattedReplacement.toUpperCase();
+  }
+  return formattedReplacement;
+}
 
 /**
  * Formats a float type according to specifiers.
@@ -21,7 +41,7 @@ export default function(replacement, signSpecifier, precision, typeSpecifier) {
   if (isNaN(replacementNumber)) {
     replacementNumber = 0;
   }
-  precision = toNumber(nilDefault(precision, 6));
+  precision = coerceToNumber(precision, 6);
   switch (typeSpecifier) {
     case Const.TYPE_FLOAT:
       formattedReplacement = replacementNumber.toFixed(precision);
@@ -34,18 +54,9 @@ export default function(replacement, signSpecifier, precision, typeSpecifier) {
       break;
     case Const.TYPE_FLOAT_SHORT:
     case Const.TYPE_FLOAT_SHORT_UPPERCASE:
-      if (replacementNumber === 0) {
-        formattedReplacement = 0;
-        break;
-      }
-      formattedReplacement = replacementNumber.toPrecision(precision === 0 ? 1 : precision).replace(REGEXP_TRAILING_ZEROS, '');
-      if (typeSpecifier === Const.TYPE_FLOAT_SHORT_UPPERCASE) {
-        formattedReplacement = formattedReplacement.toUpperCase();
-      }
+      formattedReplacement = formatFloatAsShort(replacementNumber, precision, typeSpecifier);
       break;
   }
-  if (signSpecifier === Const.LITERAL_PLUS && replacementNumber >= 0) {
-    formattedReplacement = Const.LITERAL_PLUS + formattedReplacement;
-  }
+  formattedReplacement = addSignToFormattedNumber(replacementNumber, formattedReplacement, signSpecifier);
   return toString(formattedReplacement);
 }

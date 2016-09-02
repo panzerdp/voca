@@ -1,6 +1,6 @@
-import v from '../voca';
 import { expect } from 'chai';
 import { PRINTABLE_ASCII } from '../const';
+import v from '../voca';
 
 describe('search', function() {
 

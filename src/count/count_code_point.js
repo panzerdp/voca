@@ -1,5 +1,5 @@
-import coerceToString from '../helper/string/coerce_to_string';
 import { REGEXP_COMBINING_MARKS, REGEXP_SURROGATE_PAIRS } from '../helper/string/regexp';
+import coerceToString from '../helper/string/coerce_to_string';
 
 /**
  * Counts the characters in `subject` taking care of

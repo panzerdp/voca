@@ -1,6 +1,6 @@
+import { REGEXP_COMBINING_MARKS, REGEXP_NON_BASIC_LATIN } from '../helper/string/regexp';
 import coerceToString from '../helper/string/coerce_to_string';
 import diacriticMap from '../helper/string/diacritics_map';
-import { REGEXP_NON_BASIC_LATIN, REGEXP_COMBINING_MARKS } from '../helper/string/regexp';
 
 /**
  * Removes the diacritics from `character`.

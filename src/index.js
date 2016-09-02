@@ -1,6 +1,6 @@
-import functions from './functions';
-import ChainWrapper from './chain/wrapper';
 import chain from './chain/chain'; // include chain here to resolve af circular reference
+import ChainWrapper from './chain/wrapper';
+import functions from './functions';
 
 /**
  * Creates a chain object that wraps `subject`, enabling <i>implicit</i> chain sequences.<br/>

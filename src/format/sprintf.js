@@ -1,9 +1,9 @@
+import C from './sprintf_utils/const';
+import coerceToString from '../helper/string/coerce_to_string';
+import getReplacement from './sprintf_utils/get_replacement';
+import isNil from '../helper/object/is_nil';
 import { REGEXP_CONVERSION_SPECIFICATION } from '../helper/string/regexp';
-import C                                   from './sprintf_utils/const';
-import coerceToString                      from '../helper/string/coerce_to_string';
-import isNil                               from '../helper/object/is_nil';
-import getReplacement                      from './sprintf_utils/get_replacement';
-import validateFormat                      from './sprintf_utils/validate_format';
+import validateFormat from './sprintf_utils/validate_format';
 
 /**
  * Produces a string according to `format`.
@@ -161,7 +161,7 @@ export default function(format, ...replacements) {
   if (formatString === '') {
     return formatString;
   }
-  // @TODO review these vars names
+  // @TODO review these var  names
   var replacementMatchIndex = 0,
     replacementsLength = replacements.length;
   return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, function(conversionSpecification, percent, position,

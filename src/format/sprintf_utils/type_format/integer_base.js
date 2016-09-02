@@ -1,5 +1,5 @@
-import toString from '../../../helper/string/coerce_to_string';
 import Const from '../const';
+import toString from '../../../helper/string/coerce_to_string';
 
 /**
  * Formats an integer type according to specifiers.

@@ -1,4 +1,3 @@
-
 /**
  * Checks if `value` is `null` or `undefined`
  *

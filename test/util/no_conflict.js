@@ -1,6 +1,6 @@
-import vocaLibrary from '../voca';
-import getGlobalObject from '../../src/helper/object/get_global';
 import { expect } from 'chai';
+import getGlobalObject from '../../src/helper/object/get_global';
+import vocaLibrary from '../voca';
 
 describe('noConflict', function() {
 

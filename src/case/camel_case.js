@@ -1,7 +1,7 @@
-import coerceToString from '../helper/string/coerce_to_string';
-import words from '../split/words';
 import capitalize from '../case/capitalize';
+import coerceToString from '../helper/string/coerce_to_string';
 import lowerCase from '../case/lower_case';
+import words from '../split/words';
 
 /**
  * Transforms the `word` into camel case chunk.

@@ -1,8 +1,8 @@
-import coerceToString from '../helper/string/coerce_to_string';
-import toString from '../helper/string/to_string';
 import clipNumber from '../helper/number/clip_number';
-import toInteger from '../helper/number/to_integer';
+import coerceToString from '../helper/string/coerce_to_string';
 import isNil from '../helper/object/is_nil';
+import toInteger from '../helper/number/to_integer';
+import toString from '../helper/string/to_string';
 
 /**
  * Checks if `subject` starts with `start`.

@@ -1,3 +1,5 @@
+/* eslint sort-imports: "off" */
+
 /**
  * Functions to change the case
  * @namespace Case
