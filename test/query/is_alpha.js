@@ -27,6 +27,11 @@ describe('isAlpha', function() {
     expect(v.isAlpha('áéèêëíîïóôúûýàòüçäöâùÿãõñ')).to.be.true;
   });
 
+  it('should return true for characters with diacritical marks', function() {
+    expect(v.isAlpha('man\u0303ana')).to.be.true;
+    expect(v.isAlpha('foo\u0303\u035C\u035D\u035Ebar')).to.be.true;
+  });
+
   it('should return true for an array with one alpha string item', function() {
     expect(v.isAlpha(['HelloWorld'])).to.be.true;
     expect(v.isAlpha(['ПриветМир'])).to.be.true;
