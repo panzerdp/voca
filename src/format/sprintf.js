@@ -1,5 +1,6 @@
-import C from './sprintf_utils/const';
+import coerceToNumber from '../helper/number/coerce_to_number';
 import coerceToString from '../helper/string/coerce_to_string';
+import ConversionSpecification from './sprintf_utils/conversion_specification';
 import getReplacement from './sprintf_utils/get_replacement';
 import isNil from '../helper/object/is_nil';
 import { REGEXP_CONVERSION_SPECIFICATION } from '../helper/string/regexp';
@@ -161,13 +162,21 @@ export default function(format, ...replacements) {
   if (formatString === '') {
     return formatString;
   }
-  // @TODO review these var  names
   var replacementMatchIndex = 0,
     replacementsLength = replacements.length;
   return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, function(conversionSpecification, percent, position,
     signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
-    var actualReplacementIndex;
-    if (percent === C.LITERAL_PERCENT_SPECIFIER) {
+    var actualReplacementIndex,
+      conversion = new ConversionSpecification({
+        percent,
+        signSpecifier,
+        paddingSpecifier,
+        alignmentSpecifier,
+        width: coerceToNumber(widthSpecifier, null),
+        precision: coerceToNumber(precisionSpecifier, null),
+        typeSpecifier
+      });
+    if (conversion.isPercentLiteral()) {
       return conversionSpecification.slice(1);
     }
     if (isNil(position)) {
@@ -176,8 +185,7 @@ export default function(format, ...replacements) {
     } else {
       actualReplacementIndex = position - 1;
     }
-    validateFormat(actualReplacementIndex, replacementsLength, typeSpecifier);
-    return getReplacement(replacements[actualReplacementIndex], signSpecifier, paddingSpecifier, alignmentSpecifier,
-      widthSpecifier, precisionSpecifier, typeSpecifier);
+    validateFormat(actualReplacementIndex, replacementsLength, conversion);
+    return getReplacement(replacements[actualReplacementIndex], conversion);
   });
 }

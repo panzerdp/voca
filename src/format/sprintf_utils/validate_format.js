@@ -1,17 +1,17 @@
-import isNil from '../../helper/object/is_nil';
+import isNil from '~/helper/object/is_nil';
 
 /**
  * Validates the specifier type and replacement position.
  *
  * @ignore
  * @throws {Error} Throws an exception on insufficient arguments or unknown specifier.
- * @param  {number}   index                The index of the matched specifier.
- * @param  {number}   replacementsLength   The number of replacements.
- * @param  {string}   typeSpecifier        The type specifier says what type the argument data should be treated as.
+ * @param  {number} index The index of the matched specifier.
+ * @param  {number} replacementsLength The number of replacements.
+ * @param  {ConversionSpecification} conversion The conversion specification object.
  * @return {undefined}
  */
-export default function(index, replacementsLength, typeSpecifier) {
-  if (isNil(typeSpecifier)) {
+export default function(index, replacementsLength, conversion) {
+  if (isNil(conversion.typeSpecifier)) {
     throw new Error('sprintf(): Unknown type specifier');
   }
   if (index > replacementsLength - 1) {

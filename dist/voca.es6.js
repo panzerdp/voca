@@ -1,4 +1,32 @@
 /**
+   * Checks if `value` is `null` or `undefined`
+   *
+   * @ignore
+   * @function isNil
+   * @param {*} value The object to check
+   * @return {boolean} Returns `true` is `value` is `undefined` or `null`, `false` otherwise
+   */
+  function isNil(value) {    return value === undefined || value === null;
+  }
+
+/**
+   * Converts the `value` to a boolean. If `value` is `undefined` or `null`, returns `defaultValue`.
+   *
+   * @ignore
+   * @function toBoolean
+   * @param {*} value The value to convert.
+   * @param {boolean} [defaultValue=false] The default value.
+   * @return {boolean} Returns the coercion to boolean.
+   */
+function coerceToBoolean (value) {    var defaultValue = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
+
+    if (isNil(value)) {
+      return defaultValue;
+    }
+    return Boolean(value);
+  }
+
+/**
    * Checks if `subject` is a string primitive type.
    *
    * @function isString
@@ -15,17 +43,6 @@
    * // => false
    */
 function isString (subject) {    return typeof subject === 'string';
-  }
-
-/**
-   * Checks if `value` is `null` or `undefined`
-   *
-   * @ignore
-   * @function isNil
-   * @param {*} value The object to check
-   * @return {boolean} Returns `true` is `value` is `undefined` or `null`, `false` otherwise
-   */
-  function isNil(value) {    return value === undefined || value === null;
   }
 
 /**
@@ -52,21 +69,48 @@ function coerceToString (value) {    var defaultValue = arguments.length <= 1 ||
   }
 
 /**
-   * Get the string representation of the `value`.
-   * Converts the `value` to string.
+   * Converts the first character of `subject` to upper case and the rest to lower case.
    *
-   * @ignore
-   * @function toString
-   * @param {*} value             The value to convert.
-   * @return {string|null}        Returns the string representation of `value`.
+   * @function capitalize
+   * @static
+   * @since 1.0.0
+   * @memberOf Case
+   * @param  {string}  [subject='']            The string to capitalize.
+   * @param  {boolean} [restToLowerCase=false] Convert the rest of `subject` to lower case.
+   * @return {string}                          Returns the capitalized string.
+   * @example
+   * v.capitalize('apple');
+   * // => 'Apple'
+   *
+   * v.capitalize('mAC', false);
+   * // => 'MAC'
    */
-function toString (value) {    if (isNil(value)) {
-      return null;
+function capitalize (subject, restToLowerCase) {    var subjectString = coerceToString(subject),
+        restToLowerCaseBoolean = coerceToBoolean(restToLowerCase);
+    if (subjectString === '') {
+      return '';
     }
-    if (isString(value)) {
-      return value;
+    if (restToLowerCaseBoolean) {
+      subjectString = subjectString.toLowerCase();
     }
-    return String(value);
+    return subjectString.substr(0, 1).toUpperCase() + subjectString.substr(1);
+  }
+
+/**
+   * Converts the `subject` to lower case.
+   *
+   * @function lowerCase
+   * @static
+   * @since 1.0.0
+   * @memberOf Case
+   * @param  {string} [subject=''] The string to convert to lower case.
+   * @return {string}              The lower case string.
+   * @example
+   * v.lowerCase('Green');
+   * // => 'green'
+   */
+function lowerCase (subject) {    var subjectString = coerceToString(subject, '');
+    return subjectString.toLowerCase();
   }
 
 /**
@@ -273,6 +317,24 @@ function nilDefault (value, defaultValue) {    return value == null ? defaultVal
   var REGEXP_TRAILING_ZEROS = /\.?0+$/g;
 
 /**
+   * Get the string representation of the `value`.
+   * Converts the `value` to string.
+   *
+   * @ignore
+   * @function toString
+   * @param {*} value             The value to convert.
+   * @return {string|null}        Returns the string representation of `value`.
+   */
+function toString (value) {    if (isNil(value)) {
+      return null;
+    }
+    if (isString(value)) {
+      return value;
+    }
+    return String(value);
+  }
+
+/**
    * Splits `subject` into an array of words.
    *
    * @function words
@@ -304,73 +366,11 @@ function words (subject, pattern, flags) {    var subjectString = coerceToString
   }
 
 /**
-   * Converts the `value` to a boolean. If `value` is `undefined` or `null`, returns `defaultValue`.
-   *
-   * @ignore
-   * @function toBoolean
-   * @param {*} value The value to convert.
-   * @param {boolean} [defaultValue=false] The default value.
-   * @return {boolean} Returns the coercion to boolean.
-   */
-function coerceToBoolean (value) {    var defaultValue = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
-
-    if (isNil(value)) {
-      return defaultValue;
-    }
-    return Boolean(value);
-  }
-
-/**
-   * Converts the first character of `subject` to upper case and the rest to lower case.
-   *
-   * @function capitalize
-   * @static
-   * @since 1.0.0
-   * @memberOf Case
-   * @param {string} [subject=''] The string to capitalize.
-   * @param {boolean} [restToLowerCase=false] Convert the rest of `subject` to lower case.
-   * @return {string} Returns the capitalized string.
-   * @example
-   * v.capitalize('apple');
-   * // => 'Apple'
-   *
-   * v.capitalize('mAC', false);
-   * // => 'MAC'
-   */
-function capitalize (subject, restToLowerCase) {    var subjectString = coerceToString(subject),
-        restToLowerCaseBoolean = coerceToBoolean(restToLowerCase);
-    if (subjectString === '') {
-      return '';
-    }
-    if (restToLowerCaseBoolean) {
-      subjectString = subjectString.toLowerCase();
-    }
-    return subjectString.substr(0, 1).toUpperCase() + subjectString.substr(1);
-  }
-
-/**
-   * Converts the `subject` to lower case.
-   *
-   * @function lowerCase
-   * @static
-   * @since 1.0.0
-   * @memberOf Case
-   * @param {string} [subject=''] The string to convert to lower case.
-   * @return {string} The lower case string.
-   * @example
-   * v.lowerCase('Green');
-   * // => 'green'
-   */
-function lowerCase (subject) {    var subjectString = coerceToString(subject, '');
-    return subjectString.toLowerCase();
-  }
-
-/**
    * Transforms the `word` into camel case chunk.
    *
-   * @param {string} word The word string
-   * @param {number} index The index of the word in phrase.
-   * @returns {string} The transformed word.
+   * @param  {string} word  The word string
+   * @param  {number} index The index of the word in phrase.
+   * @return {string}       The transformed word.
    * @ignore
    */
   function wordToCamel(word, index) {
@@ -384,8 +384,8 @@ function lowerCase (subject) {    var subjectString = coerceToString(subject, ''
    * @static
    * @since 1.0.0
    * @memberOf Case
-   * @param {string} [subject=''] The string to convert to camel case.
-   * @return {string} The camel case string.
+   * @param  {string} [subject=''] The string to convert to camel case.
+   * @return {string}              The camel case string.
    * @example
    * v.camelCase('bird flight');
    * // => 'birdFlight'
@@ -410,8 +410,8 @@ function camelCase (subject) {    var subjectString = coerceToString(subject);
    * @static
    * @since 1.0.0
    * @memberOf Case
-   * @param {string} [subject=''] The string to decapitalize.
-   * @return {string} Returns the decapitalized string.
+   * @param  {string} [subject=''] The string to decapitalize.
+   * @return {string}              Returns the decapitalized string.
    * @example
    * v.decapitalize('Sun');
    * // => 'sun'
@@ -431,8 +431,8 @@ function decapitalize (subject) {    var subjectString = coerceToString(subject)
    * @static
    * @since 1.0.0
    * @memberOf Case
-   * @param {string} [subject=''] The string to convert to kebab case.
-   * @return {string} The kebab case string.
+   * @param  {string} [subject=''] The string to convert to kebab case.
+   * @return {string}              The kebab case string.
    * @example
    * v.kebabCase('goodbye blue sky');
    * // => 'goodbye-blue-sky'
@@ -457,8 +457,8 @@ function kebabCase (subject) {    var subjectString = coerceToString(subject);
    * @static
    * @since 1.0.0
    * @memberOf Case
-   * @param {string} [subject=''] The string to convert to snake case.
-   * @return {string} The snake case string.
+   * @param  {string} [subject=''] The string to convert to snake case.
+   * @return {string}              Returns the snake case string.
    * @example
    * v.snakeCase('learning to fly');
    * // => 'learning_to_fly'
@@ -483,8 +483,8 @@ function snakeCase (subject) {    var subjectString = coerceToString(subject);
    * @static
    * @since 1.0.0
    * @memberOf Case
-   * @param {string} [subject=''] The string to convert to upper case.
-   * @return {string} The upper case string.
+   * @param  {string} [subject=''] The string to convert to upper case.
+   * @return {string}              Returns the upper case string.
    * @example
    * v.upperCase('school');
    * // => 'SCHOOL'
@@ -544,10 +544,10 @@ function toInteger (value) {    if (value === Infinity) {
    * @static
    * @since 1.0.0
    * @memberOf Cut
-   * @param {string} [subject=''] The string to truncate.
-   * @param {int} length The length to truncate the string.
-   * @param {string} [end='...'] The string to be added at the end.
-   * @return {string} Returns the truncated string.
+   * @param  {string} [subject=''] The string to truncate.
+   * @param  {int}    length       The length to truncate the string.
+   * @param  {string} [end='...']  The string to be added at the end.
+   * @return {string}              Returns the truncated string.
    * @example
    * v.truncate('Once upon a time', 9);
    * // => 'Once u...'
@@ -574,9 +574,9 @@ function truncate (subject, length, end) {    var subjectString = coerceToString
    * @static
    * @since 1.0.0
    * @memberOf Cut
-   * @param {string} [subject=''] The string to extract from.
-   * @param {int} [length=1] The number of characters to extract.
-   * @return {string} Returns the first characters string.
+   * @param  {string} [subject=''] The string to extract from.
+   * @param  {int}    [length=1]   The number of characters to extract.
+   * @return {string}              Returns the first characters string.
    * @example
    * v.first('helicopter');
    * // => 'h'
@@ -602,9 +602,9 @@ function first (subject, length) {    var subjectString = coerceToString(subject
    * @static
    * @since 1.0.0
    * @memberOf Cut
-   * @param {string} [subject=''] The string to extract from.
-   * @param {int} [length=1] The number of characters to extract.
-   * @return {string} Returns the last characters string.
+   * @param  {string} [subject=''] The string to extract from.
+   * @param  {int}    [length=1]   The number of characters to extract.
+   * @return {string}              Returns the last characters string.
    * @example
    * v.last('helicopter');
    * // => 'r'
@@ -630,10 +630,10 @@ function last (subject, length) {    var subjectString = coerceToString(subject)
    * @function prune
    * @since 1.0.0
    * @memberOf Cut
-   * @param    {string} [subject=''] The string to prune.
-   * @param    {int}    length       The length to prune the string.
-   * @param    {string} [end='...']  The string to be added at the end.
-   * @return   {string}              Returns the pruned string.
+   * @param  {string} [subject=''] The string to prune.
+   * @param  {int}    length       The length to prune the string.
+   * @param  {string} [end='...']  The string to be added at the end.
+   * @return {string}              Returns the pruned string.
    * @example
    * v.prune('Once upon a time', 7);
    * // => 'Once...'
@@ -667,10 +667,10 @@ function prune (subject, length, end) {    var subjectString = coerceToString(su
    * @static
    * @since 1.0.0
    * @memberOf Cut
-   * @param {string} [subject=''] The string to extract from.
-   * @param {number} start The position to start extraction. If negative use `subject.length + start`.
-   * @param {number} [end=subject.length] The position to end extraction. If negative use `subject.length + end`.
-   * @return {string} Returns the extracted string.
+   * @param  {string} [subject='']         The string to extract from.
+   * @param  {number} start                The position to start extraction. If negative use `subject.length + start`.
+   * @param  {number} [end=subject.length] The position to end extraction. If negative use `subject.length + end`.
+   * @return {string}                      Returns the extracted string.
    * @note Uses native `String.prototype.slice()`
    * @example
    * v.slice('miami', 1);
@@ -679,8 +679,7 @@ function prune (subject, length, end) {    var subjectString = coerceToString(su
    * v.slice('florida', -4);
    * // => 'rida'
    */
-function slice (subject, start, end) {    var subjectString = coerceToString(subject);
-    return subjectString.slice(start, end);
+function slice (subject, start, end) {    return coerceToString(subject).slice(start, end);
   }
 
 /**
@@ -690,10 +689,10 @@ function slice (subject, start, end) {    var subjectString = coerceToString(sub
    * @static
    * @since 1.0.0
    * @memberOf Cut
-   * @param {string} [subject=''] The string to extract from.
-   * @param {number} start The position to start extraction.
-   * @param {number} [length=subject.endOfString] The number of characters to extract. If omitted, extract to the end of `subject`.
-   * @return {string} Returns the extracted string.
+   * @param  {string} [subject='']                 The string to extract from.
+   * @param  {number} start                        The position to start extraction.
+   * @param  {number} [length=subject.endOfString] The number of characters to extract. If omitted, extract to the end of `subject`.
+   * @return {string}                              Returns the extracted string.
    * @note Uses native `String.prototype.substr()`
    * @example
    * v.substr('infinite loop', 9);
@@ -702,8 +701,7 @@ function slice (subject, start, end) {    var subjectString = coerceToString(sub
    * v.substr('dreams', 2, 2);
    * // => 'ea'
    */
-function substr (subject, start, length) {    var subjectString = coerceToString(subject);
-    return subjectString.substr(start, length);
+function substr (subject, start, length) {    return coerceToString(subject).substr(start, length);
   }
 
 /**
@@ -713,10 +711,10 @@ function substr (subject, start, length) {    var subjectString = coerceToString
    * @static
    * @since 1.0.0
    * @memberOf Cut
-   * @param {string} [subject=''] The string to extract from.
-   * @param {number} start The position to start extraction.
-   * @param {number} [end=subject.length] The position to end extraction.
-   * @return {string} Returns the extracted string.
+   * @param  {string} [subject='']         The string to extract from.
+   * @param  {number} start                The position to start extraction.
+   * @param  {number} [end=subject.length] The position to end extraction.
+   * @return {string}                      Returns the extracted string.
    * @note Uses native `String.prototype.substring()`
    * @example
    * v.substring('beach', 1);
@@ -725,8 +723,7 @@ function substr (subject, start, length) {    var subjectString = coerceToString
    * v.substring('ocean', 1, 3);
    * // => 'ea'
    */
-function substring (subject, start, end) {    var subjectString = coerceToString(subject);
-    return subjectString.substring(start, end);
+function substring (subject, start, end) {    return coerceToString(subject).substring(start, end);
   }
 
 /**
@@ -736,8 +733,8 @@ function substring (subject, start, end) {    var subjectString = coerceToString
    * @static
    * @since 1.0.0
    * @memberOf Count
-   * @param {string} [subject=''] The string to count characters.
-   * @return {number} Returns the number of characters in `subject`.
+   * @param  {string} [subject=''] The string to count characters.
+   * @return {number}              Returns the number of characters in `subject`.
    * @example
    * v.count('rain');
    * // => 4
@@ -754,8 +751,8 @@ function count (subject) {    return coerceToString(subject).length;
    * @static
    * @since 1.0.0
    * @memberOf Count
-   * @param {string} [subject=''] The string to count characters.
-   * @return {number} Returns the number of characters in `subject`.
+   * @param  {string} [subject=''] The string to count characters.
+   * @return {number}              Returns the number of characters in `subject`.
    * @example
    * v.countCodePoint('rain');
    * // => 4
@@ -776,9 +773,9 @@ function countCodePoint (subject) {    return coerceToString(subject).replace(RE
    * @static
    * @since 1.0.0
    * @memberOf Count
-   * @param {string} [subject=''] The subject string.
-   * @param {string} substring The substring to be counted.
-   * @return {number} Returns the number of `substring` appearances.
+   * @param  {string} [subject=''] The subject string.
+   * @param  {string} substring    The substring to be counted.
+   * @return {number}              Returns the number of `substring` appearances.
    * @example
    * v.countSubstring('bad boys, bad boys whatcha gonna do?', 'boys');
    * // => 2
@@ -801,17 +798,19 @@ function countSubstring (subject, substring) {    var subjectString = coerceToSt
     return count;
   }
 
-/**
+var reduce = Array.prototype.reduce;
+
+  /**
    * Counts the characters in `subject` where `predicate` returns truthy.
    *
    * @function  countWhere
    * @static
    * @since 1.0.0
    * @memberOf Count
-   * @param {string} [subject=''] The string to count characters.
-   * @param {Function} predicate The predicate function invoked on each character with parameters `(character, index, string)`.
-   * @param {Object} [context] The context to invoke the `predicate`.
-   * @return {number} Returns the number of characters.
+   * @param  {string}   [subject=''] The string to count characters.
+   * @param  {Function} predicate    The predicate function invoked on each character with parameters `(character, index, string)`.
+   * @param  {Object}   [context]    The context to invoke the `predicate`.
+   * @return {number}                Returns the number of characters.
    * @example
    * v.countWhere('hola!', v.isAlpha);
    * // => 4
@@ -825,11 +824,9 @@ function countWhere (subject, predicate, context) {    var subjectString = coerc
     if (subjectString === '' || typeof predicate !== 'function') {
       return 0;
     }
-    return Array.prototype.reduce.call(subjectString, function (count, character, index) {
-      if (predicate.call(context, character, index, subjectString)) {
-        count++;
-      }
-      return count;
+    var predicateWithContext = predicate.bind(context);
+    return reduce.call(subjectString, function (countTruthy, character, index) {
+      return predicateWithContext(character, index, subjectString) ? countTruthy + 1 : countTruthy;
     }, 0);
   }
 
@@ -863,35 +860,172 @@ var Const = Object.freeze({    // Type specifiers
     RADIX_HEXADECIMAL: 16
   });
 
-/**
-   * Get the number representation of the `value`.
-   * Converts the `value` to a number.
-   * If `value` is `null` or `undefined`, return `null`.
-   *
-   * @ignore
-   * @function toNumber
-   * @param  {*} value            The value to convert.
-   * @return {number|null}        Returns the number representation of `value` or `null` if `value` is `null` or `undefined`.
-   */
-function toNumber (value) {    if (isNil(value)) {
-      return null;
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
+  };
+
+  var classCallCheck = function (instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
     }
-    return Number(value);
-  }
+  };
+
+  var createClass = function () {
+    function defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }
+
+    return function (Constructor, protoProps, staticProps) {
+      if (protoProps) defineProperties(Constructor.prototype, protoProps);
+      if (staticProps) defineProperties(Constructor, staticProps);
+      return Constructor;
+    };
+  }();
+
+  var _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  var toConsumableArray = function (arr) {
+    if (Array.isArray(arr)) {
+      for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+
+      return arr2;
+    } else {
+      return Array.from(arr);
+    }
+  };
 
 /**
-   * Get the padding character from padding specifier.
-   *
    * @ignore
-   * @param  {string=} paddingSpecifier The padding specifier.
-   * @return {string}                   Returns the padding character.
    */
-function getPaddingCharacter (paddingSpecifier) {    var paddingCharacter = nilDefault(paddingSpecifier, ' ');
-    if (paddingCharacter[0] === Const.LITERAL_SINGLE_QUOTE && paddingCharacter.length === 2) {
-      paddingCharacter = paddingCharacter[1];
+
+  var ConversionSpecification = function () {
+
+    /**
+     * Construct the new conversion specification object.
+     *
+     * @param {Object} properties An object with properties to initialize.
+     */
+    function ConversionSpecification(properties) {
+      classCallCheck(this, ConversionSpecification);
+
+
+      /**
+       * The percent characters from conversion specification.
+       *
+       * @ignore
+       * @name ConversionSpecification#percent
+       * @type {string}
+       */
+      this.percent = properties.percent;
+
+      /**
+       *  The sign specifier to force a sign to be used on a number.
+       *
+       * @ignore
+       * @name ConversionSpecification#signSpecifier
+       * @type {string}
+       */
+      this.signSpecifier = properties.signSpecifier;
+
+      /**
+       * The padding specifier that says what padding character will be used.
+       *
+       * @ignore
+       * @name ConversionSpecification#paddingSpecifier
+       * @type {string}
+       */
+      this.paddingSpecifier = properties.paddingSpecifier;
+
+      /**
+       * The alignment specifier that says if the result should be left-justified or right-justified.
+       *
+       * @ignore
+       * @name ConversionSpecification#alignmentSpecifier
+       * @type {string}
+       */
+      this.alignmentSpecifier = properties.alignmentSpecifier;
+
+      /**
+       * The width specifier how many characters this conversion should result in.
+       *
+       * @ignore
+       * @name ConversionSpecification#widthSpecifier
+       * @type {string}
+       */
+      this.widthSpecifier = properties.widthSpecifier;
+
+      /**
+       * The precision specifier says how many decimal digits should be displayed for floating-point numbers.
+       *
+       * @ignore
+       * @name ConversionSpecification#precisionSpecifier
+       * @type {string}
+       */
+      this.precisionSpecifier = properties.precisionSpecifier;
+
+      /**
+       * The type specifier says what type the argument data should be treated as.
+       *
+       * @ignore
+       * @name ConversionSpecification#typeSpecifier
+       * @type {string}
+       */
+      this.typeSpecifier = properties.typeSpecifier;
     }
-    return paddingCharacter;
-  }
+
+    /**
+     * Check if the conversion specification is a percent literal "%%".
+     *
+     * @ignore
+     * @return {boolean} Returns true if the conversion is a percent literal, false otherwise.
+     */
+
+
+    createClass(ConversionSpecification, [{
+      key: 'isPercentLiteral',
+      value: function isPercentLiteral() {
+        return Const.LITERAL_PERCENT_SPECIFIER === this.percent;
+      }
+
+      /**
+       * Get the padding character from padding specifier.
+       *
+       * @ignore
+       * @returns {string} Returns the padding character.
+       */
+
+    }, {
+      key: 'getPaddingCharacter',
+      value: function getPaddingCharacter() {
+        var paddingCharacter = nilDefault(this.paddingSpecifier, ' ');
+        if (paddingCharacter.length === 2 && paddingCharacter[0] === Const.LITERAL_SINGLE_QUOTE) {
+          paddingCharacter = paddingCharacter[1];
+        }
+        return paddingCharacter;
+      }
+    }]);
+    return ConversionSpecification;
+  }();
 
 /**
    * Repeats the `subject` number of `times`.
@@ -939,33 +1073,6 @@ function buildPadding (padCharacters, length) {    var padStringRepeat = toInteg
   }
 
 /**
-   * Pads `subject` from right to a new `length`.
-   *
-   * @function padRight
-   * @static
-   * @since 1.0.0
-   * @memberOf Manipulate
-   * @param {string} [subject=''] The string to pad.
-   * @param {int} [length=0] The length to right pad the string. No changes are made if `length` is less than `subject.length`.
-   * @param {string} [pad=' '] The string to be used for padding.
-   * @return {string} Returns the right padded string.
-   * @example
-   * v.padRight('word', 6, '-');
-   * // => 'word--'
-   *
-   * v.padRight('hi', 5, '-=');
-   * // => 'hi-=-'
-   */
-function padRight (subject, length, pad) {    var subjectString = coerceToString(subject),
-        lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
-        padString = coerceToString(pad, ' ');
-    if (lengthInt <= subjectString.length) {
-      return subjectString;
-    }
-    return subjectString + buildPadding(padString, lengthInt - subjectString.length);
-  }
-
-/**
    * Pads `subject` from left to a new `length`.
    *
    * @function padLeft
@@ -993,46 +1100,124 @@ function padLeft (subject, length, pad) {    var subjectString = coerceToString(
   }
 
 /**
-   * Aligns and pads `subject` string.
+   * Pads `subject` from right to a new `length`.
    *
-   * @ignore
-   * @param  {string} subject              The subject string.
-   * @param  {string} paddingCharacter     The padding character.
-   * @param  {string} [alignmentSpecifier] The alignment specifier that says if the result should be left-justified or right-justified.
-   * @param  {number} [width]              The width how many characters this conversion should result in.
-   * @return {string}                      Returns the aligned and padded string.
+   * @function padRight
+   * @static
+   * @since 1.0.0
+   * @memberOf Manipulate
+   * @param {string} [subject=''] The string to pad.
+   * @param {int} [length=0] The length to right pad the string. No changes are made if `length` is less than `subject.length`.
+   * @param {string} [pad=' '] The string to be used for padding.
+   * @return {string} Returns the right padded string.
+   * @example
+   * v.padRight('word', 6, '-');
+   * // => 'word--'
+   *
+   * v.padRight('hi', 5, '-=');
+   * // => 'hi-=-'
    */
-function alignAndPad (subject, paddingCharacter, alignmentSpecifier, width) {    if (!isNil(width) && subject.length < width) {
-      if (alignmentSpecifier === Const.LITERAL_MINUS) {
-        return padRight(subject, width, paddingCharacter);
-      } else {
-        return padLeft(subject, width, paddingCharacter);
-      }
+function padRight (subject, length, pad) {    var subjectString = coerceToString(subject),
+        lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
+        padString = coerceToString(pad, ' ');
+    if (lengthInt <= subjectString.length) {
+      return subjectString;
     }
-    return subject;
+    return subjectString + buildPadding(padString, lengthInt - subjectString.length);
   }
 
 /**
+   * Aligns and pads `subject` string.
+   *
+   * @ignore
+   * @param {string} subject The subject string.
+   * @param {ConversionSpecification} conversion The conversion specification object.
+   * @return {string} Returns the aligned and padded string.
+   */
+function alignAndPad (subject, conversion) {    if (isNil(conversion.widthSpecifier) || subject.length >= conversion.widthSpecifier) {
+      return subject;
+    }
+    var padType = conversion.alignmentSpecifier === Const.LITERAL_MINUS ? padRight : padLeft;
+    return padType(subject, conversion.widthSpecifier, conversion.getPaddingCharacter());
+  }
+
+/**
+   * Add sign to the formatted number.
+   *
+   * @ignore
+   * @name addSignToFormattedNumber
+   * @param  {number} replacementNumber    The number to be replaced.
+   * @param  {string} formattedReplacement The formatted version of number.
+   * @param  {string} signSpecifier        The sign specifier.
+   * @return {string}                      Returns the formatted number string with a sign.
+   */
+function addSignToFormattedNumber (replacementNumber, formattedReplacement, signSpecifier) {    if (signSpecifier === Const.LITERAL_PLUS && replacementNumber >= 0) {
+      formattedReplacement = Const.LITERAL_PLUS + formattedReplacement;
+    }
+    return formattedReplacement;
+  }
+
+/**
+   * Get the number representation of the `value`.
+   * Converts the `value` to number.
+   * If `value` is `null` or `undefined`, return `defaultValue`.
+   *
+   * @ignore
+   * @function toString
+   * @param {*} value             The value to convert.
+   * @param {*} [defaultValue=''] The default value to return.
+   * @return {number|null}        Returns the number representation of `value`. Returns `defaultValue` if `value` is
+   *                              `null` or `undefined`.
+   */
+function coerceToNumber (value) {    var defaultValue = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
+
+    if (isNil(value)) {
+      return defaultValue;
+    }
+    if (typeof value === 'number') {
+      return value;
+    }
+    return Number(value);
+  }
+
+/**
+   * Formats the short float.
+   *
+   * @ignore
+   * @param  {number} replacementNumber The number to format.
+   * @param  {number} precision         The precision to format the float.
+   * @param  {string} typeSpecifier     The type specifier.
+   * @return {string}                   Returns the formatted short float.
+   */
+  function formatFloatAsShort(replacementNumber, precision, typeSpecifier) {
+    if (replacementNumber === 0) {
+      return '0';
+    }
+    var formattedReplacement = replacementNumber.toPrecision(precision === 0 ? 1 : precision).replace(REGEXP_TRAILING_ZEROS, '');
+    if (typeSpecifier === Const.TYPE_FLOAT_SHORT_UPPERCASE) {
+      formattedReplacement = formattedReplacement.toUpperCase();
+    }
+    return formattedReplacement;
+  }
+
+  /**
    * Formats a float type according to specifiers.
    *
    * @ignore
    * @param  {string} replacement          The string to be formatted.
    * @param  {string} [signSpecifier]      The sign specifier to force a sign to be used on a number.
-   * @param  {string} paddingCharacter     The padding character.
-   * @param  {string} [alignmentSpecifier] The alignment specifier that says if the result should be left-justified or right-justified.
-   * @param  {number} [width]              The width how many characters this conversion should result in.
    * @param  {number} [precision]          The precision.
    * @param  {string} typeSpecifier        The type specifier says what type the argument data should be treated as.
    * @return {string}                      Returns the formatted string.
    */
 
-function formatFloat (replacement, signSpecifier, paddingCharacter, alignmentSpecifier, width, precision, typeSpecifier) {
+function formatFloat (replacement, signSpecifier, precision, typeSpecifier) {
     var replacementNumber = parseFloat(replacement),
         formattedReplacement;
     if (isNaN(replacementNumber)) {
       replacementNumber = 0;
     }
-    precision = toNumber(nilDefault(precision, 6));
+    precision = coerceToNumber(precision, 6);
     switch (typeSpecifier) {
       case Const.TYPE_FLOAT:
         formattedReplacement = replacementNumber.toFixed(precision);
@@ -1045,20 +1230,11 @@ function formatFloat (replacement, signSpecifier, paddingCharacter, alignmentSpe
         break;
       case Const.TYPE_FLOAT_SHORT:
       case Const.TYPE_FLOAT_SHORT_UPPERCASE:
-        if (replacementNumber === 0) {
-          formattedReplacement = 0;
-          break;
-        }
-        formattedReplacement = replacementNumber.toPrecision(precision === 0 ? 1 : precision).replace(REGEXP_TRAILING_ZEROS, '');
-        if (typeSpecifier === Const.TYPE_FLOAT_SHORT_UPPERCASE) {
-          formattedReplacement = formattedReplacement.toUpperCase();
-        }
+        formattedReplacement = formatFloatAsShort(replacementNumber, precision, typeSpecifier);
         break;
     }
-    if (signSpecifier === Const.LITERAL_PLUS && replacementNumber >= 0) {
-      formattedReplacement = Const.LITERAL_PLUS + formattedReplacement;
-    }
-    return alignAndPad(coerceToString(formattedReplacement), paddingCharacter, alignmentSpecifier, width);  }
+    formattedReplacement = addSignToFormattedNumber(replacementNumber, formattedReplacement, signSpecifier);
+    return coerceToString(formattedReplacement);  }
 
 /**
    * Formats an integer type according to specifiers.
@@ -1066,15 +1242,12 @@ function formatFloat (replacement, signSpecifier, paddingCharacter, alignmentSpe
    * @ignore
    * @param  {string} replacement          The string to be formatted.
    * @param  {string} [signSpecifier]      The sign specifier to force a sign to be used on a number.
-   * @param  {string} paddingCharacter     The padding character.
-   * @param  {string} [alignmentSpecifier] The alignment specifier that says if the result should be left-justified or right-justified.
-   * @param  {number} [width]              The width how many characters this conversion should result in.
    * @param  {number} [precision]          The precision.
    * @param  {string} typeSpecifier        The type specifier says what type the argument data should be treated as.
    * @return {string}                      Returns the formatted string.
    */
 
-function formatIntegerBase (replacement, signSpecifier, paddingCharacter, alignmentSpecifier, width, precision, typeSpecifier) {
+function formatIntegerBase (replacement, signSpecifier, precision, typeSpecifier) {
     var integer = parseInt(replacement);
     if (isNaN(integer)) {
       integer = 0;
@@ -1097,28 +1270,22 @@ function formatIntegerBase (replacement, signSpecifier, paddingCharacter, alignm
         integer = integer.toString(Const.RADIX_HEXADECIMAL).toUpperCase();
         break;
     }
-    return alignAndPad(coerceToString(integer), paddingCharacter, alignmentSpecifier, width);  }
+    return coerceToString(integer);  }
 
 /**
    * Formats a decimal integer type according to specifiers.
    *
    * @ignore
-   * @param  {string} replacement          The string to be formatted.
-   * @param  {string} [signSpecifier]      The sign specifier to force a sign to be used on a number.
-   * @param  {string} paddingCharacter     The padding character.
-   * @param  {string} [alignmentSpecifier] The alignment specifier that says if the result should be left-justified or right-justified.
-   * @param  {number} [width]              The width how many characters this conversion should result in.
-   * @return {string}                      Returns the formatted string.
+   * @param  {string} replacement     The string to be formatted.
+   * @param  {string} [signSpecifier] The sign specifier to force a sign to be used on a number.
+   * @return {string}                 Returns the formatted string.
    */
 
-function formatIntegerDecimal (replacement, signSpecifier, paddingCharacter, alignmentSpecifier, width) {    var integer = parseInt(replacement);
+function formatIntegerDecimal (replacement, signSpecifier) {    var integer = parseInt(replacement);
     if (isNaN(integer)) {
       integer = 0;
     }
-    if (signSpecifier === Const.LITERAL_PLUS && integer >= 0) {
-      integer = Const.LITERAL_PLUS + integer;
-    }
-    return alignAndPad(toString(integer), paddingCharacter, alignmentSpecifier, width);
+    return addSignToFormattedNumber(integer, toString(integer), signSpecifier);
   }
 
 /**
@@ -1127,67 +1294,82 @@ function formatIntegerDecimal (replacement, signSpecifier, paddingCharacter, ali
    * @ignore
    * @param  {string} replacement          The string to be formatted.
    * @param  {string} [signSpecifier]      The sign specifier to force a sign to be used on a number.
-   * @param  {string} paddingCharacter     The padding character.
-   * @param  {string} [alignmentSpecifier] The alignment specifier that says if the result should be left-justified or right-justified.
-   * @param  {number} [width]              The width how many characters this conversion should result in.
    * @param  {number} [precision]          The precision sets a maximum character limit to the string.
    * @return {string}                      Returns the formatted string.
    */
 
-function formatString (replacement, signSpecifier, paddingCharacter, alignmentSpecifier, width, precision) {    var formattedReplacement = replacement;
+function formatString (replacement, signSpecifier, precision) {    var formattedReplacement = replacement;
     if (!isNil(precision) && formattedReplacement.length > precision) {
       formattedReplacement = truncate(formattedReplacement, precision, '');
     }
-    return alignAndPad(formattedReplacement, paddingCharacter, alignmentSpecifier, width);
+    return formattedReplacement;
   }
 
 /**
    * Returns the computed string based on format specifiers.
    *
    * @ignore
-   * @name replaceConversionSpecification
-   * @param  {string}   replacement             The replacement value.
-   * @param  {string}   signSpecifier           The sign specifier to force a sign to be used on a number.
-   * @param  {string}   paddingSpecifier        The padding specifier that says what padding character will be used.
-   * @param  {string}   alignmentSpecifier      The alignment specifier that says if the result should be left-justified or right-justified.
-   * @param  {number}   widthSpecifier          The width specifier how many characters this conversion should result in.
-   * @param  {number}   precisionSpecifier      The precision specifier says how many decimal digits should be displayed for floating-point numbers.
-   * @param  {string}   typeSpecifier           The type specifier says what type the argument data should be treated as.
-   * @return {string}                           Returns the computed string.
+   * @name getReplacement
+   * @param {string} replacement The replacement value.
+   * @param {ConversionSpecification} conversion The conversion specification object.
+   * @return {string} Returns the computed string.
    */
-function replaceConversionSpecification (replacement, signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {    var formatterArguments = [replacement, signSpecifier, getPaddingCharacter(paddingSpecifier), alignmentSpecifier, toNumber(widthSpecifier), toNumber(precisionSpecifier)];
-    switch (typeSpecifier) {
+function getReplacement (replacement, conversion) {    var formatFunction;
+    switch (conversion.typeSpecifier) {
       case Const.TYPE_STRING:
-        return formatString.apply(undefined, formatterArguments);
+        formatFunction = formatString;
+        break;
       case Const.TYPE_INTEGER_DECIMAL:
       case Const.TYPE_INTEGER:
-        return formatIntegerDecimal.apply(undefined, formatterArguments);
+        formatFunction = formatIntegerDecimal;
+        break;
       case Const.TYPE_INTEGER_ASCII_CHARACTER:
       case Const.TYPE_INTEGER_BINARY:
       case Const.TYPE_INTEGER_OCTAL:
       case Const.TYPE_INTEGER_HEXADECIMAL:
       case Const.TYPE_INTEGER_HEXADECIMAL_UPPERCASE:
       case Const.TYPE_INTEGER_UNSIGNED_DECIMAL:
-        return formatIntegerBase.apply(undefined, formatterArguments.concat([typeSpecifier]));
+        formatFunction = formatIntegerBase;
+        break;
       case Const.TYPE_FLOAT:
       case Const.TYPE_FLOAT_SCIENTIFIC:
       case Const.TYPE_FLOAT_SCIENTIFIC_UPPERCASE:
       case Const.TYPE_FLOAT_SHORT:
       case Const.TYPE_FLOAT_SHORT_UPPERCASE:
-        return formatFloat.apply(undefined, formatterArguments.concat([typeSpecifier]));
+        formatFunction = formatFloat;
+        break;
     }
+    var formattedString = formatFunction(replacement, conversion);
+    return alignAndPad(formattedString, conversion);
+  }
+
+/**
+   * Get the number representation of the `value`.
+   * Converts the `value` to a number.
+   * If `value` is `null` or `undefined`, return `null`.
+   *
+   * @ignore
+   * @function toNumber
+   * @param  {*} value            The value to convert.
+   * @return {number|null}        Returns the number representation of `value` or `null` if `value` is `null` or `undefined`.
+   */
+function toNumber (value) {    if (isNil(value)) {
+      return null;
+    }
+    return Number(value);
   }
 
 /**
    * Validates the specifier type and replacement position.
    *
    * @ignore
-   * @param  {number}   index                The index of the matched specifier.
-   * @param  {number}   replacementsLength   The number of replacements.
-   * @param  {string}   typeSpecifier        The type specifier says what type the argument data should be treated as.
+   * @throws {Error} Throws an exception on insufficient arguments or unknown specifier.
+   * @param  {number} index The index of the matched specifier.
+   * @param  {number} replacementsLength The number of replacements.
+   * @param  {ConversionSpecification} conversion The conversion specification object.
    * @return {undefined}
    */
-function validateFormat (index, replacementsLength, typeSpecifier) {    if (isNil(typeSpecifier)) {
+function validateFormat (index, replacementsLength, conversion) {    if (isNil(conversion.typeSpecifier)) {
       throw new Error('sprintf(): Unknown type specifier');
     }
     if (index > replacementsLength - 1) {
@@ -1349,8 +1531,7 @@ function validateFormat (index, replacementsLength, typeSpecifier) {    if (isNi
    * // => '1.01e+2 0.455'
    * 
    */
-function sprintf (format) {
-    for (var _len = arguments.length, replacements = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+function sprintf (format) {    for (var _len = arguments.length, replacements = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
       replacements[_key - 1] = arguments[_key];
     }
 
@@ -1358,12 +1539,21 @@ function sprintf (format) {
     if (formatString === '') {
       return formatString;
     }
-    // @TODO review these vars names
     var replacementMatchIndex = 0,
         replacementsLength = replacements.length;
     return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, function (conversionSpecification, percent, position, signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
-      var actualReplacementIndex;
-      if (percent === Const.LITERAL_PERCENT_SPECIFIER) {        return conversionSpecification.slice(1);
+      var actualReplacementIndex,
+          conversion = new ConversionSpecification({
+        percent: percent,
+        signSpecifier: signSpecifier,
+        paddingSpecifier: paddingSpecifier,
+        alignmentSpecifier: alignmentSpecifier,
+        widthSpecifier: toNumber(widthSpecifier),
+        precisionSpecifier: toNumber(precisionSpecifier),
+        typeSpecifier: typeSpecifier
+      });
+      if (conversion.isPercentLiteral()) {
+        return conversionSpecification.slice(1);
       }
       if (isNil(position)) {
         actualReplacementIndex = replacementMatchIndex;
@@ -1371,64 +1561,10 @@ function sprintf (format) {
       } else {
         actualReplacementIndex = position - 1;
       }
-      validateFormat(actualReplacementIndex, replacementsLength, typeSpecifier);
-      return replaceConversionSpecification(replacements[actualReplacementIndex], signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier);
+      validateFormat(actualReplacementIndex, replacementsLength, conversion);
+      return getReplacement(replacements[actualReplacementIndex], conversion);
     });
   }
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-    return typeof obj;
-  } : function (obj) {
-    return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
-  };
-
-  var classCallCheck = function (instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
-    }
-  };
-
-  var createClass = function () {
-    function defineProperties(target, props) {
-      for (var i = 0; i < props.length; i++) {
-        var descriptor = props[i];
-        descriptor.enumerable = descriptor.enumerable || false;
-        descriptor.configurable = true;
-        if ("value" in descriptor) descriptor.writable = true;
-        Object.defineProperty(target, descriptor.key, descriptor);
-      }
-    }
-
-    return function (Constructor, protoProps, staticProps) {
-      if (protoProps) defineProperties(Constructor.prototype, protoProps);
-      if (staticProps) defineProperties(Constructor, staticProps);
-      return Constructor;
-    };
-  }();
-
-  var _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  var toConsumableArray = function (arr) {
-    if (Array.isArray(arr)) {
-      for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
-
-      return arr2;
-    } else {
-      return Array.from(arr);
-    }
-  };
 
 /**
    * Produces a string according to `format`. Works exactly like <a href="#sprintf"><code>sprintf()</code></a>,
@@ -1466,8 +1602,8 @@ var escapeCharactersMap = {
    * Return the escaped version of `character`.
    *
    * @ignore
-   * @param {string} character The character to be escape.
-   * @return {string} The escaped version of character.
+   * @param  {string} character The character to be escape.
+   * @return {string}           The escaped version of character.
    */
   function replaceSpecialCharacter(character) {
     return escapeCharactersMap[character];
@@ -1486,8 +1622,7 @@ var escapeCharactersMap = {
    * v.escapeHtml('<p>wonderful world</p>');
    * // => '&lt;p&gt;wonderful world&lt;/p&gt;'
    */
-function escapeHtml (subject) {    var subjectString = coerceToString(subject);
-    return subjectString.replace(REGEXP_HTML_SPECIAL_CHARACTERS, replaceSpecialCharacter);
+function escapeHtml (subject) {    return coerceToString(subject).replace(REGEXP_HTML_SPECIAL_CHARACTERS, replaceSpecialCharacter);
   }
 
 /**
@@ -1503,8 +1638,7 @@ function escapeHtml (subject) {    var subjectString = coerceToString(subject);
    * v.escapeRegExp('(hours)[minutes]{seconds}');
    * // => '\(hours\)\[minutes\]\{seconds\}'
    */
-function escapeRegExp (subject) {    var subjectString = coerceToString(subject);
-    return subjectString.replace(REGEXP_SPECIAL_CHARACTERS, '\\$&');
+function escapeRegExp (subject) {    return coerceToString(subject).replace(REGEXP_SPECIAL_CHARACTERS, '\\$&');
   }
 
 var unescapeCharactersMap = {
@@ -1521,23 +1655,24 @@ var unescapeCharactersMap = {
    * Replaces the HTML entities with corresponding characters.
    *
    * @ignore
-   * @param {string} string The accumulator string.
-   * @param {string} key The character.
-   * @return {string} The string with replaced HTML entity
+   * @param  {string} string The accumulator string.
+   * @param  {string} key    The character.
+   * @return {string}        The string with replaced HTML entity
    */
   function reduceUnescapedString(string, key) {
     return string.replace(unescapeCharactersMap[key], key);
   }
 
   /**
-   * Unescapes HTML special characters from <code>&amp;lt; &amp;gt; &amp;amp; &amp;quot; &amp;#x27; &amp;#x60;</code> to corresponding <code>< > & ' " `</code> in <code>subject</code>.
+   * Unescapes HTML special characters from <code>&amp;lt; &amp;gt; &amp;amp; &amp;quot; &amp;#x27; &amp;#x60;</code>
+   * to corresponding <code>< > & ' " `</code> in <code>subject</code>.
    *
    * @function unescapeHtml
    * @static
    * @since 1.0.0
    * @memberOf Escape
-   * @param {string} [subject=''] The string to unescape.
-   * @return {string} Returns the unescaped string.
+   * @param  {string} [subject=''] The string to unescape.
+   * @return {string}              Returns the unescaped string.
    * @example
    * v.unescapeHtml('&lt;p&gt;wonderful world&lt;/p&gt;');
    * // => '<p>wonderful world</p>'
@@ -2736,7 +2871,7 @@ function pad (subject, length, pad) {    var subjectString = coerceToString(subj
    * @since 1.0.0
    * @memberOf Manipulate
    * @param {string} [subject=''] The string to verify.
-   * @param {string|RegExp} pattern The pattern which match is replaced with `replacement`. If `pattern` is a string,
+   * @param {string|RegExp} pattern The pattern which match is replaced. If `pattern` is a string,
    * a simple string match is evaluated and only the first occurrence replaced.
    * @param {string|Function} replacement The string or a function which invocation result replaces `pattern` match.
    * @return {string} Returns the replacement result.
@@ -3446,9 +3581,9 @@ var functions = {    camelCase: camelCase,
      * The chain wrapper constructor.
      *
      * @ignore
-     * @param  {string} subject The string to be wrapped.
-     * @param  {boolean} [explicitChain=false] A boolean that indicates if the chain sequence is explicit or implicit.
-     * @return {ChainWrapper} Returns a new instance of `ChainWrapper`
+     * @param  {string}       subject               The string to be wrapped.
+     * @param  {boolean}      [explicitChain=false] A boolean that indicates if the chain sequence is explicit or implicit.
+     * @return {ChainWrapper}                       Returns a new instance of `ChainWrapper`
      * @constructor
      */
     function ChainWrapper(subject, explicitChain) {
@@ -3490,6 +3625,7 @@ var functions = {    camelCase: camelCase,
 
       /**
        * Override the default object valueOf().
+       *
        * @ignore
        * @return {*} Returns the wrapped value.
        */
@@ -3502,6 +3638,7 @@ var functions = {    camelCase: camelCase,
 
       /**
        * Returns the wrapped value to be used in JSON.stringify().
+       *
        * @ignore
        * @return {*} Returns the wrapped value.
        */
@@ -3514,6 +3651,7 @@ var functions = {    camelCase: camelCase,
 
       /**
        * Returns the string representation of the wrapped value.
+       *
        * @ignore
        * @return {string} Returns the string representation.
        */
@@ -3561,8 +3699,8 @@ var functions = {    camelCase: camelCase,
        * @memberof Chain
        * @since 1.0.0
        * @function __proto__thru
-       * @param {Function} changer The function to invoke.
-       * @return {Object} Returns the new wrapper object.
+       * @param  {Function} changer The function to invoke.
+       * @return {Object}           Returns the new wrapper object.
        * @example
        * v('sun is shining')
        *  .words()
@@ -3596,20 +3734,30 @@ var functions = {    camelCase: camelCase,
 
   ChainWrapper.prototype._explicitChain = true;
 
-  Object.keys(functions).forEach(function (name) {
-    var vocaFunction = functions[name];
-    ChainWrapper.prototype[name] = function () {
+  /**
+   * Make a voca function chainable.
+   *
+   * @ignore
+   * @param  {Function} functionInstance The function to make chainable
+   * @return {Function}                  Returns the chainable function
+   */
+  function makeFunctionChainable(functionInstance) {
+    return function () {
       for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
         args[_key] = arguments[_key];
       }
 
-      var result = vocaFunction.apply(undefined, [this._wrappedValue].concat(args));
-      if (!this._explicitChain && typeof result !== 'string') {
-        return result;
-      } else {
+      var result = functionInstance.apply(undefined, [this._wrappedValue].concat(args));
+      if (this._explicitChain || typeof result === 'string') {
         return new ChainWrapper(result, this._explicitChain);
+      } else {
+        return result;
       }
     };
+  }
+
+  Object.keys(functions).forEach(function (name) {
+    ChainWrapper.prototype[name] = makeFunctionChainable(functions[name]);
   });
 
 /**
@@ -3619,8 +3767,8 @@ var functions = {    camelCase: camelCase,
    * @memberOf Chain
    * @since 1.0.0
    * @function chain
-   * @param {string} subject The string to wrap.
-   * @return {Object}        Returns the new wrapper object.
+   * @param  {string} subject The string to wrap.
+   * @return {Object}         Returns the new wrapper object.
    * @example
    * v
    *  .chain('Back to School')
@@ -3632,9 +3780,7 @@ var functions = {    camelCase: camelCase,
 function chain (subject) {    return new ChainWrapper(subject, true);
   }
 
-// include chain here to resolve af circular reference
-
-  /**
+/**
    * Creates a chain object that wraps `subject`, enabling <i>implicit</i> chain sequences.<br/>
    * A function that returns `number`, `boolean` or `array` type <i>terminates</i> the chain sequence and returns the unwrapped value.
    * Otherwise use `v.prototype.value()` to unwrap the result.

@@ -2,10 +2,62 @@
   'use strict';
 
   /**
+   * The string containing all printable ASCII characters.
+   * @ignore
+   * @type {string}
+   */
+  var PRINTABLE_ASCII = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~';
+
+  /**
+   * The string containing all printable ASCII characters in reverse order.
+   * @ignore
+   * @type {string}
+   */
+  var REVERSED_PRINTABLE_ASCII = '~}|{zyxwvutsrqponmlkjihgfedcba`_^]\\[ZYXWVUTSRQPONMLKJIHGFEDCBA@?>=<;:9876543210/.-,+*)(\'&%$#"! ';
+
+  /**
+   * Regular expression to match the library version.
+   * @see http://semver.org/
+   * @type {RegExp}
+   */
+  var REGEXP_SEMVER = /\bv?(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)(?:-[\da-z\-]+(?:\.[\da-z\-]+)*)?(?:\+[\da-z\-]+(?:\.[\da-z\-]+)*)?\b/ig;
+
+  /**
+   * Checks if `value` is `null` or `undefined`
+   *
+   * @ignore
+   * @function isNil
+   * @param {*} value The object to check
+   * @return {boolean} Returns `true` is `value` is `undefined` or `null`, `false` otherwise
+   */
+  function isNil(value) {
+    return value === undefined || value === null;
+  }
+
+  /**
+   * Converts the `value` to a boolean. If `value` is `undefined` or `null`, returns `defaultValue`.
+   *
+   * @ignore
+   * @function toBoolean
+   * @param {*} value The value to convert.
+   * @param {boolean} [defaultValue=false] The default value.
+   * @return {boolean} Returns the coercion to boolean.
+   */
+  function coerceToBoolean (value) {
+    var defaultValue = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
+
+    if (isNil(value)) {
+      return defaultValue;
+    }
+    return Boolean(value);
+  }
+
+  /**
    * Checks if `subject` is a string primitive type.
    *
    * @function isString
    * @static
+   * @since 1.0.0
    * @memberOf Query
    * @param {string} subject The value to verify.
    * @return {boolean} Returns `true` if `subject` is string primitive type or `false` otherwise.
@@ -21,35 +73,74 @@
   }
 
   /**
-   * Checks if `value` is `null` or `undefined`
-   *
-   * @ignore
-   * @function isNil
-   * @param {*} value The object to check
-   * @return {boolean} Returns `true` is `value` is `undefined` or `null`, `false` otherwise
-   */
-  function isNil(value) {
-    return value === undefined || value === null;
-  }
-
-  /**
-   * Get the string representation of the `value`
+   * Get the string representation of the `value`.
    * Converts the `value` to string.
-   * If `value` is `null` or `undefined`, return `null`.
+   * If `value` is `null` or `undefined`, return `defaultValue`.
    *
    * @ignore
    * @function toString
-   * @param {*} value The value to convert.
-   * @return {string|null} Returns the string representation of `value`. Returns `null` if `value` is `null` or `undefined`.
+   * @param {*} value             The value to convert.
+   * @param {*} [defaultValue=''] The default value to return.
+   * @return {string|null}        Returns the string representation of `value`. Returns `defaultValue` if `value` is
+   *                              `null` or `undefined`.
    */
-  function toString (value) {
+  function coerceToString (value) {
+    var defaultValue = arguments.length <= 1 || arguments[1] === undefined ? '' : arguments[1];
+
     if (isNil(value)) {
-      return null;
+      return defaultValue;
     }
     if (isString(value)) {
       return value;
     }
     return String(value);
+  }
+
+  /**
+   * Converts the first character of `subject` to upper case and the rest to lower case.
+   *
+   * @function capitalize
+   * @static
+   * @since 1.0.0
+   * @memberOf Case
+   * @param  {string}  [subject='']            The string to capitalize.
+   * @param  {boolean} [restToLowerCase=false] Convert the rest of `subject` to lower case.
+   * @return {string}                          Returns the capitalized string.
+   * @example
+   * v.capitalize('apple');
+   * // => 'Apple'
+   *
+   * v.capitalize('mAC', false);
+   * // => 'MAC'
+   */
+  function capitalize (subject, restToLowerCase) {
+    var subjectString = coerceToString(subject),
+        restToLowerCaseBoolean = coerceToBoolean(restToLowerCase);
+    if (subjectString === '') {
+      return '';
+    }
+    if (restToLowerCaseBoolean) {
+      subjectString = subjectString.toLowerCase();
+    }
+    return subjectString.substr(0, 1).toUpperCase() + subjectString.substr(1);
+  }
+
+  /**
+   * Converts the `subject` to lower case.
+   *
+   * @function lowerCase
+   * @static
+   * @since 1.0.0
+   * @memberOf Case
+   * @param  {string} [subject=''] The string to convert to lower case.
+   * @return {string}              The lower case string.
+   * @example
+   * v.lowerCase('Green');
+   * // => 'green'
+   */
+  function lowerCase (subject) {
+    var subjectString = coerceToString(subject, '');
+    return subjectString.toLowerCase();
   }
 
   /**
@@ -257,10 +348,30 @@
   var REGEXP_TRAILING_ZEROS = /\.?0+$/g;
 
   /**
+   * Get the string representation of the `value`.
+   * Converts the `value` to string.
+   *
+   * @ignore
+   * @function toString
+   * @param {*} value             The value to convert.
+   * @return {string|null}        Returns the string representation of `value`.
+   */
+  function toString (value) {
+    if (isNil(value)) {
+      return null;
+    }
+    if (isString(value)) {
+      return value;
+    }
+    return String(value);
+  }
+
+  /**
    * Splits `subject` into an array of words.
    *
    * @function words
    * @static
+   * @since 1.0.0
    * @memberOf Split
    * @param {string} [subject=''] The string to split into words.
    * @param {string|RegExp} [pattern] The pattern to watch words. If `pattern` is not RegExp, it is transformed to `new RegExp(pattern, flags)`.
@@ -274,7 +385,7 @@
    * // => ['gr', 'av', 'it', 'y']
    */
   function words (subject, pattern, flags) {
-    var subjectString = toString(nilDefault(subject, '')),
+    var subjectString = coerceToString(subject),
         patternRegExp;
     if (isNil(pattern)) {
       patternRegExp = REGEXP_WORD;
@@ -288,68 +399,11 @@
   }
 
   /**
-   * Converts the `value` to a boolean.
-   *
-   * @ignore
-   * @function toBoolean
-   * @param {*} value The value to convert.
-   * @return {boolean} Returns `true` if `value` is truthy or `false` otherwise.
-   */
-  function toBoolean (value) {
-    return !!value;
-  }
-
-  /**
-   * Converts the first character of `subject` to upper case and the rest to lower case.
-   *
-   * @function capitalize
-   * @static
-   * @memberOf Case
-   * @param {string} [subject=''] The string to capitalize.
-   * @param {boolean} [restToLowerCase=false] Convert the rest of `subject` to lower case.
-   * @return {string} Returns the capitalized string.
-   * @example
-   * v.capitalize('apple');
-   * // => 'Apple'
-   *
-   * v.capitalize('mAC', false);
-   * // => 'MAC'
-   */
-  function capitalize (subject, restToLowerCase) {
-    var subjectString = toString(nilDefault(subject, '')),
-        restToLowerCaseBoolean = toBoolean(nilDefault(restToLowerCase, false));
-    if (subjectString === '') {
-      return '';
-    }
-    if (restToLowerCaseBoolean) {
-      subjectString = subjectString.toLowerCase();
-    }
-    return subjectString.substr(0, 1).toUpperCase() + subjectString.substr(1);
-  }
-
-  /**
-   * Converts the `subject` to lower case.
-   *
-   * @function lowerCase
-   * @static
-   * @memberOf Case
-   * @param {string} [subject=''] The string to convert to lower case.
-   * @return {string} The lower case string.
-   * @example
-   * v.lowerCase('Green');
-   * // => 'green'
-   */
-  function lowerCase (subject) {
-    var subjectString = toString(nilDefault(subject, ''));
-    return subjectString.toLowerCase();
-  }
-
-  /**
    * Transforms the `word` into camel case chunk.
    *
-   * @param {string} word The word string
-   * @param {number} index The index of the word in phrase.
-   * @returns {string} The transformed word.
+   * @param  {string} word  The word string
+   * @param  {number} index The index of the word in phrase.
+   * @return {string}       The transformed word.
    * @ignore
    */
   function wordToCamel(word, index) {
@@ -361,9 +415,10 @@
    *
    * @function camelCase
    * @static
+   * @since 1.0.0
    * @memberOf Case
-   * @param {string} [subject=''] The string to convert to camel case.
-   * @return {string} The camel case string.
+   * @param  {string} [subject=''] The string to convert to camel case.
+   * @return {string}              The camel case string.
    * @example
    * v.camelCase('bird flight');
    * // => 'birdFlight'
@@ -375,7 +430,7 @@
    * // => 'birdFlight'
    */
   function camelCase (subject) {
-    var subjectString = toString(nilDefault(subject, ''));
+    var subjectString = coerceToString(subject);
     if (subjectString === '') {
       return '';
     }
@@ -387,15 +442,16 @@
    *
    * @function decapitalize
    * @static
+   * @since 1.0.0
    * @memberOf Case
-   * @param {string} [subject=''] The string to decapitalize.
-   * @return {string} Returns the decapitalized string.
+   * @param  {string} [subject=''] The string to decapitalize.
+   * @return {string}              Returns the decapitalized string.
    * @example
    * v.decapitalize('Sun');
    * // => 'sun'
    */
   function decapitalize (subject) {
-    var subjectString = toString(nilDefault(subject, ''));
+    var subjectString = coerceToString(subject);
     if (subjectString === '') {
       return subjectString;
     }
@@ -408,9 +464,10 @@
    *
    * @function kebabCase
    * @static
+   * @since 1.0.0
    * @memberOf Case
-   * @param {string} [subject=''] The string to convert to kebab case.
-   * @return {string} The kebab case string.
+   * @param  {string} [subject=''] The string to convert to kebab case.
+   * @return {string}              The kebab case string.
    * @example
    * v.kebabCase('goodbye blue sky');
    * // => 'goodbye-blue-sky'
@@ -422,7 +479,7 @@
    * // => 'goodbye-blue-sky'
    */
   function kebabCase (subject) {
-    var subjectString = toString(nilDefault(subject, ''));
+    var subjectString = coerceToString(subject);
     if (subjectString === '') {
       return '';
     }
@@ -434,9 +491,10 @@
    *
    * @function snakeCase
    * @static
+   * @since 1.0.0
    * @memberOf Case
-   * @param {string} [subject=''] The string to convert to snake case.
-   * @return {string} The snake case string.
+   * @param  {string} [subject=''] The string to convert to snake case.
+   * @return {string}              Returns the snake case string.
    * @example
    * v.snakeCase('learning to fly');
    * // => 'learning_to_fly'
@@ -448,7 +506,7 @@
    * // => 'learning_to_fly'
    */
   function snakeCase (subject) {
-    var subjectString = toString(nilDefault(subject, ''));
+    var subjectString = coerceToString(subject);
     if (subjectString === '') {
       return '';
     }
@@ -460,199 +518,17 @@
    *
    * @function upperCase
    * @static
+   * @since 1.0.0
    * @memberOf Case
-   * @param {string} [subject=''] The string to convert to upper case.
-   * @return {string} The upper case string.
+   * @param  {string} [subject=''] The string to convert to upper case.
+   * @return {string}              Returns the upper case string.
    * @example
    * v.upperCase('school');
    * // => 'SCHOOL'
    */
   function upperCase (subject) {
-    var subjectString = toString(nilDefault(subject, ''));
+    var subjectString = coerceToString(subject);
     return subjectString.toUpperCase();
-  }
-
-  /**
-   * Counts the characters in `subject`. Equivalent to `subject.length`.
-   *
-   * @function count
-   * @static
-   * @memberOf Count
-   * @param {string} [subject=''] The string to count characters.
-   * @return {number} Returns the number of characters in `subject`.
-   * @example
-   * v.count('rain');
-   * // => 4
-   */
-  function count (subject) {
-    return toString(nilDefault(subject, '')).length;
-  }
-
-  /**
-   * Counts the characters in `subject` taking care of
-   * <a href="http://unicode.org/glossary/#surrogate_pair">surrogate pairs</a> and
-   * <a href="http://unicode.org/glossary/#combining_mark">combining marks</a>.
-   *
-   * @function  countCodePoint
-   * @static
-   * @memberOf Count
-   * @param {string} [subject=''] The string to count characters.
-   * @return {number} Returns the number of characters in `subject`.
-   * @example
-   * v.countCodePoint('rain');
-   * // => 4
-   *
-   * v.countCodePoint('\uD835\uDC00\uD835\uDC01'); // or '𝐀𝐁'
-   * // => 2
-   *
-   * v.countCodePoint('cafe\u0301'); // or 'café'
-   * // => 4
-   */
-  function countCodePoint (subject) {
-    return toString(nilDefault(subject, '')).replace(REGEXP_COMBINING_MARKS, '*').replace(REGEXP_SURROGATE_PAIRS, '*').length;
-  }
-
-  /**
-   * Counts the number of `substring` appearances in `subject`.
-   *
-   * @function countSubstring
-   * @static
-   * @memberOf Count
-   * @param {string} [subject=''] The subject string.
-   * @param {string} substring The substring to be counted.
-   * @return {number} Returns the number of `substring` appearances.
-   * @example
-   * v.countSubstring('bad boys, bad boys whatcha gonna do?', 'boys');
-   * // => 2
-   */
-  function countSubstring (subject, substring) {
-    var subjectString = toString(nilDefault(subject, '')),
-        substringString = toString(nilDefault(substring, '')),
-        count = 0,
-        matchIndex = 0,
-        substringLength = substringString.length;
-    if (subjectString === '' || substringString === '') {
-      return count;
-    }
-    do {
-      matchIndex = subjectString.indexOf(substringString, matchIndex);
-      if (matchIndex !== -1) {
-        count++;
-        matchIndex += substringLength;
-      }
-    } while (matchIndex !== -1);
-    return count;
-  }
-
-  /**
-   * Counts the characters in `subject` where `predicate` returns truthy.
-   *
-   * @function  countWhere
-   * @static
-   * @memberOf Count
-   * @param {string} [subject=''] The string to count characters.
-   * @param {Function} predicate The predicate function invoked on each character with parameters `(character, index, string)`.
-   * @param {Object} [context] The context to invoke the `predicate`.
-   * @return {number} Returns the number of characters.
-   * @example
-   * v.countWhere('hola!', v.isAlpha);
-   * // => 4
-   *
-   * v.countWhere('2022', function(character, index, str) {
-   *   return character === '2';
-   * });
-   * // => 3
-   */
-  function countWhere (subject, predicate, context) {
-    var subjectString = toString(nilDefault(subject, ''));
-    if (subjectString === '' || typeof predicate !== 'function') {
-      return 0;
-    }
-    return Array.prototype.reduce.call(subjectString, function (count, character, index) {
-      if (predicate.call(context, character, index, subjectString)) {
-        count++;
-      }
-      return count;
-    }, 0);
-  }
-
-  // Type specifiers list
-  var Type = {
-    INTEGER: 'i',
-    INTEGER_BINARY: 'b',
-    INTEGER_ASCII_CHARACTER: 'c',
-    INTEGER_DECIMAL: 'd',
-    INTEGER_OCTAL: 'o',
-    INTEGER_UNSIGNED_DECIMAL: 'u',
-    INTEGER_HEXADECIMAL: 'x',
-    INTEGER_HEXADECIMAL_UPPERCASE: 'X',
-    FLOAT_SCIENTIFIC: 'e',
-    FLOAT_SCIENTIFIC_UPPERCASE: 'E',
-    FLOAT: 'f',
-    FLOAT_SHORT: 'g',
-    FLOAT_SHORT_UPPERCASE: 'G',
-    STRING: 's'
-  };
-  Object.freeze(Type);
-  var CHARACTER_PERCENT = '%';
-
-  var CHARACTER_SINGLE_QUOTE = '\'';
-
-  var CHARACTER_PLUS = '+';
-
-  var CHARACTER_MINUS = '-';
-
-  /**
-   * Get the number representation of the `value`.
-   * Converts the `value` to a number.
-   * If `value` is `null` or `undefined`, return `null`.
-   *
-   * @ignore
-   * @function toNumber
-   * @param {*} value The value to convert.
-   * @return {number|null} Returns the number representation of `value`. Returns `null` if `value` is `null` or `undefined`.
-   */
-  function toNumber (value) {
-    if (isNil(value)) {
-      return null;
-    }
-    return Number(value);
-  }
-
-  /**
-   * Get the padding character from padding specifier.
-   *
-   * @ignore
-   * @param  {string=} paddingSpecifier The padding specifier.
-   * @return {string}                   Returns the padding character.
-   */
-  function paddingCharacter (paddingSpecifier) {
-    var paddingCharacter = nilDefault(paddingSpecifier, ' ');
-    if (paddingCharacter[0] === CHARACTER_SINGLE_QUOTE && paddingCharacter.length === 2) {
-      paddingCharacter = paddingCharacter[1];
-    }
-    return paddingCharacter;
-  }
-
-  /**
-   * Validates the utils string.
-   *
-   * @ignore
-   * @param  {number}   index         The index of the matched specifier.
-   * @param  {Object[]} args          The array of arguments to replace specifiers.
-   * @param  {string}   typeSpecifier The type specifier says what type the argument data should be treated as.
-   * @return {undefined}
-   */
-  function validateFormat (index, args, typeSpecifier) {
-    if (isNil(typeSpecifier)) {
-      throw new Error('sprintf(): Unknown type specifier');
-    }
-    if (index > args.length - 1) {
-      throw new Error('sprintf(): Too few arguments');
-    }
-    if (index < 0) {
-      throw new Error('sprintf(): Argument number must be greater than zero');
-    }
   }
 
   /**
@@ -702,10 +578,513 @@
   }
 
   /**
+   * Truncates `subject` to a new `length`.
+   *
+   * @function truncate
+   * @static
+   * @since 1.0.0
+   * @memberOf Cut
+   * @param  {string} [subject=''] The string to truncate.
+   * @param  {int}    length       The length to truncate the string.
+   * @param  {string} [end='...']  The string to be added at the end.
+   * @return {string}              Returns the truncated string.
+   * @example
+   * v.truncate('Once upon a time', 9);
+   * // => 'Once u...'
+   *
+   * v.truncate('Good day, Little Red Riding Hood', 20, ' (read more)');
+   * // => 'Good day (read more)'
+   *
+   * v.truncate('Once upon', 10);
+   * // => 'Once upon'
+   */
+  function truncate (subject, length, end) {
+    var subjectString = coerceToString(subject),
+        lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
+        endString = coerceToString(end, '...');
+    if (lengthInt >= subjectString.length) {
+      return subjectString;
+    }
+    return subjectString.substr(0, length - endString.length) + endString;
+  }
+
+  /**
+   * Extracts the first `length` characters from `subject`.
+   *
+   * @function first
+   * @static
+   * @since 1.0.0
+   * @memberOf Cut
+   * @param  {string} [subject=''] The string to extract from.
+   * @param  {int}    [length=1]   The number of characters to extract.
+   * @return {string}              Returns the first characters string.
+   * @example
+   * v.first('helicopter');
+   * // => 'h'
+   *
+   * v.first('vehicle', 2);
+   * // => 've'
+   *
+   * v.first('car', 5);
+   * // => 'car'
+   */
+  function first (subject, length) {
+    var subjectString = coerceToString(subject),
+        lengthInt = isNil(length) ? 1 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
+    if (subjectString.length <= lengthInt) {
+      return subjectString;
+    }
+    return subjectString.substr(0, lengthInt);
+  }
+
+  /**
+   * Extracts the last `length` characters from `subject`.
+   *
+   * @function last
+   * @static
+   * @since 1.0.0
+   * @memberOf Cut
+   * @param  {string} [subject=''] The string to extract from.
+   * @param  {int}    [length=1]   The number of characters to extract.
+   * @return {string}              Returns the last characters string.
+   * @example
+   * v.last('helicopter');
+   * // => 'r'
+   *
+   * v.last('vehicle', 2);
+   * // => 'le'
+   *
+   * v.last('car', 5);
+   * // => 'car'
+   */
+  function last (subject, length) {
+    var subjectString = coerceToString(subject),
+        lengthInt = isNil(length) ? 1 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
+    if (subjectString.length <= lengthInt) {
+      return subjectString;
+    }
+    return subjectString.substr(subjectString.length - lengthInt, lengthInt);
+  }
+
+  /**
+   * Truncates `subject` to a new `length` and does not break the words. Guarantees that the truncated string will be no longer than `length`.
+   *
+   * @static
+   * @function prune
+   * @since 1.0.0
+   * @memberOf Cut
+   * @param  {string} [subject=''] The string to prune.
+   * @param  {int}    length       The length to prune the string.
+   * @param  {string} [end='...']  The string to be added at the end.
+   * @return {string}              Returns the pruned string.
+   * @example
+   * v.prune('Once upon a time', 7);
+   * // => 'Once...'
+   *
+   * v.prune('Good day, Little Red Riding Hood', 16, ' (more)');
+   * // => 'Good day (more)'
+   *
+   * v.prune('Once upon', 10);
+   * // => 'Once upon'
+   */
+  function prune (subject, length, end) {
+    var subjectString = coerceToString(subject),
+        lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
+        endString = coerceToString(end, '...');
+    if (lengthInt >= subjectString.length) {
+      return subjectString;
+    }
+    var truncatedString = '';
+    subjectString.replace(REGEXP_WORD, function (word, offset) {
+      var wordInsertLength = offset + word.length;
+      if (wordInsertLength <= lengthInt - endString.length) {
+        truncatedString = subjectString.substr(0, wordInsertLength);
+      }
+    });
+    return truncatedString + endString;
+  }
+
+  /**
+   * Extracts from `subject` a string from `start` position to `end` position.
+   *
+   * @function slice
+   * @static
+   * @since 1.0.0
+   * @memberOf Cut
+   * @param  {string} [subject='']         The string to extract from.
+   * @param  {number} start                The position to start extraction. If negative use `subject.length + start`.
+   * @param  {number} [end=subject.length] The position to end extraction. If negative use `subject.length + end`.
+   * @return {string}                      Returns the extracted string.
+   * @note Uses native `String.prototype.slice()`
+   * @example
+   * v.slice('miami', 1);
+   * // => 'iami'
+   *
+   * v.slice('florida', -4);
+   * // => 'rida'
+   */
+  function slice (subject, start, end) {
+    return coerceToString(subject).slice(start, end);
+  }
+
+  /**
+   * Extracts from `subject` a string from `start` position a number of `length` characters.
+   *
+   * @function substr
+   * @static
+   * @since 1.0.0
+   * @memberOf Cut
+   * @param  {string} [subject='']                 The string to extract from.
+   * @param  {number} start                        The position to start extraction.
+   * @param  {number} [length=subject.endOfString] The number of characters to extract. If omitted, extract to the end of `subject`.
+   * @return {string}                              Returns the extracted string.
+   * @note Uses native `String.prototype.substr()`
+   * @example
+   * v.substr('infinite loop', 9);
+   * // => 'loop'
+   *
+   * v.substr('dreams', 2, 2);
+   * // => 'ea'
+   */
+  function substr (subject, start, length) {
+    return coerceToString(subject).substr(start, length);
+  }
+
+  /**
+   * Extracts from `subject` a string from `start` position to `end` position.
+   *
+   * @function substring
+   * @static
+   * @since 1.0.0
+   * @memberOf Cut
+   * @param  {string} [subject='']         The string to extract from.
+   * @param  {number} start                The position to start extraction.
+   * @param  {number} [end=subject.length] The position to end extraction.
+   * @return {string}                      Returns the extracted string.
+   * @note Uses native `String.prototype.substring()`
+   * @example
+   * v.substring('beach', 1);
+   * // => 'each'
+   *
+   * v.substring('ocean', 1, 3);
+   * // => 'ea'
+   */
+  function substring (subject, start, end) {
+    return coerceToString(subject).substring(start, end);
+  }
+
+  /**
+   * Counts the characters in `subject`.<br/>
+   *
+   * @function count
+   * @static
+   * @since 1.0.0
+   * @memberOf Count
+   * @param  {string} [subject=''] The string to count characters.
+   * @return {number}              Returns the number of characters in `subject`.
+   * @example
+   * v.count('rain');
+   * // => 4
+   */
+  function count (subject) {
+    return coerceToString(subject).length;
+  }
+
+  /**
+   * Counts the characters in `subject` taking care of
+   * <a href="http://unicode.org/glossary/#surrogate_pair">surrogate pairs</a> and
+   * <a href="http://unicode.org/glossary/#combining_mark">combining marks</a>.
+   *
+   * @function  countCodePoint
+   * @static
+   * @since 1.0.0
+   * @memberOf Count
+   * @param  {string} [subject=''] The string to count characters.
+   * @return {number}              Returns the number of characters in `subject`.
+   * @example
+   * v.countCodePoint('rain');
+   * // => 4
+   *
+   * v.countCodePoint('\uD835\uDC00\uD835\uDC01'); // or '𝐀𝐁'
+   * // => 2
+   *
+   * v.countCodePoint('cafe\u0301'); // or 'café'
+   * // => 4
+   */
+  function countCodePoint (subject) {
+    return coerceToString(subject).replace(REGEXP_COMBINING_MARKS, '*').replace(REGEXP_SURROGATE_PAIRS, '*').length;
+  }
+
+  /**
+   * Counts the number of `substring` appearances in `subject`.
+   *
+   * @function countSubstring
+   * @static
+   * @since 1.0.0
+   * @memberOf Count
+   * @param  {string} [subject=''] The subject string.
+   * @param  {string} substring    The substring to be counted.
+   * @return {number}              Returns the number of `substring` appearances.
+   * @example
+   * v.countSubstring('bad boys, bad boys whatcha gonna do?', 'boys');
+   * // => 2
+   */
+  function countSubstring (subject, substring) {
+    var subjectString = coerceToString(subject),
+        substringString = coerceToString(substring),
+        count = 0,
+        matchIndex = 0,
+        substringLength = substringString.length;
+    if (subjectString === '' || substringString === '') {
+      return count;
+    }
+    do {
+      matchIndex = subjectString.indexOf(substringString, matchIndex);
+      if (matchIndex !== -1) {
+        count++;
+        matchIndex += substringLength;
+      }
+    } while (matchIndex !== -1);
+    return count;
+  }
+
+  var reduce = Array.prototype.reduce;
+
+  /**
+   * Counts the characters in `subject` where `predicate` returns truthy.
+   *
+   * @function  countWhere
+   * @static
+   * @since 1.0.0
+   * @memberOf Count
+   * @param  {string}   [subject=''] The string to count characters.
+   * @param  {Function} predicate    The predicate function invoked on each character with parameters `(character, index, string)`.
+   * @param  {Object}   [context]    The context to invoke the `predicate`.
+   * @return {number}                Returns the number of characters.
+   * @example
+   * v.countWhere('hola!', v.isAlpha);
+   * // => 4
+   *
+   * v.countWhere('2022', function(character, index, str) {
+   *   return character === '2';
+   * });
+   * // => 3
+   */
+  function countWhere (subject, predicate, context) {
+    var subjectString = coerceToString(subject);
+    if (subjectString === '' || typeof predicate !== 'function') {
+      return 0;
+    }
+    var predicateWithContext = predicate.bind(context);
+    return reduce.call(subjectString, function (countTruthy, character, index) {
+      return predicateWithContext(character, index, subjectString) ? countTruthy + 1 : countTruthy;
+    }, 0);
+  }
+
+  var Const = Object.freeze({
+    // Type specifiers
+    TYPE_INTEGER: 'i',
+    TYPE_INTEGER_BINARY: 'b',
+    TYPE_INTEGER_ASCII_CHARACTER: 'c',
+    TYPE_INTEGER_DECIMAL: 'd',
+    TYPE_INTEGER_OCTAL: 'o',
+    TYPE_INTEGER_UNSIGNED_DECIMAL: 'u',
+    TYPE_INTEGER_HEXADECIMAL: 'x',
+    TYPE_INTEGER_HEXADECIMAL_UPPERCASE: 'X',
+    TYPE_FLOAT_SCIENTIFIC: 'e',
+    TYPE_FLOAT_SCIENTIFIC_UPPERCASE: 'E',
+    TYPE_FLOAT: 'f',
+    TYPE_FLOAT_SHORT: 'g',
+    TYPE_FLOAT_SHORT_UPPERCASE: 'G',
+    TYPE_STRING: 's',
+
+    // Simple literals
+    LITERAL_PERCENT: '%',
+    LITERAL_SINGLE_QUOTE: "'",
+    LITERAL_PLUS: '+',
+    LITERAL_MINUS: '-',
+    LITERAL_PERCENT_SPECIFIER: '%%',
+
+    // Radix constants to format numbers
+    RADIX_BINARY: 2,
+    RADIX_OCTAL: 8,
+    RADIX_DECIMAL: 10,
+    RADIX_HEXADECIMAL: 16
+  });
+
+  var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
+  };
+
+  var classCallCheck = function (instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  };
+
+  var createClass = function () {
+    function defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }
+
+    return function (Constructor, protoProps, staticProps) {
+      if (protoProps) defineProperties(Constructor.prototype, protoProps);
+      if (staticProps) defineProperties(Constructor, staticProps);
+      return Constructor;
+    };
+  }();
+
+  var _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  var toConsumableArray = function (arr) {
+    if (Array.isArray(arr)) {
+      for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+
+      return arr2;
+    } else {
+      return Array.from(arr);
+    }
+  };
+
+  /**
+   * @ignore
+   */
+
+  var ConversionSpecification = function () {
+
+    /**
+     * Construct the new conversion specification object.
+     *
+     * @param {Object} properties An object with properties to initialize.
+     */
+    function ConversionSpecification(properties) {
+      classCallCheck(this, ConversionSpecification);
+
+
+      /**
+       * The percent characters from conversion specification.
+       *
+       * @ignore
+       * @name ConversionSpecification#percent
+       * @type {string}
+       */
+      this.percent = properties.percent;
+
+      /**
+       *  The sign specifier to force a sign to be used on a number.
+       *
+       * @ignore
+       * @name ConversionSpecification#signSpecifier
+       * @type {string}
+       */
+      this.signSpecifier = properties.signSpecifier;
+
+      /**
+       * The padding specifier that says what padding character will be used.
+       *
+       * @ignore
+       * @name ConversionSpecification#paddingSpecifier
+       * @type {string}
+       */
+      this.paddingSpecifier = properties.paddingSpecifier;
+
+      /**
+       * The alignment specifier that says if the result should be left-justified or right-justified.
+       *
+       * @ignore
+       * @name ConversionSpecification#alignmentSpecifier
+       * @type {string}
+       */
+      this.alignmentSpecifier = properties.alignmentSpecifier;
+
+      /**
+       * The width specifier how many characters this conversion should result in.
+       *
+       * @ignore
+       * @name ConversionSpecification#widthSpecifier
+       * @type {string}
+       */
+      this.widthSpecifier = properties.widthSpecifier;
+
+      /**
+       * The precision specifier says how many decimal digits should be displayed for floating-point numbers.
+       *
+       * @ignore
+       * @name ConversionSpecification#precisionSpecifier
+       * @type {string}
+       */
+      this.precisionSpecifier = properties.precisionSpecifier;
+
+      /**
+       * The type specifier says what type the argument data should be treated as.
+       *
+       * @ignore
+       * @name ConversionSpecification#typeSpecifier
+       * @type {string}
+       */
+      this.typeSpecifier = properties.typeSpecifier;
+    }
+
+    /**
+     * Check if the conversion specification is a percent literal "%%".
+     *
+     * @ignore
+     * @return {boolean} Returns true if the conversion is a percent literal, false otherwise.
+     */
+
+
+    createClass(ConversionSpecification, [{
+      key: 'isPercentLiteral',
+      value: function isPercentLiteral() {
+        return Const.LITERAL_PERCENT_SPECIFIER === this.percent;
+      }
+
+      /**
+       * Get the padding character from padding specifier.
+       *
+       * @ignore
+       * @returns {string} Returns the padding character.
+       */
+
+    }, {
+      key: 'getPaddingCharacter',
+      value: function getPaddingCharacter() {
+        var paddingCharacter = nilDefault(this.paddingSpecifier, ' ');
+        if (paddingCharacter.length === 2 && paddingCharacter[0] === Const.LITERAL_SINGLE_QUOTE) {
+          paddingCharacter = paddingCharacter[1];
+        }
+        return paddingCharacter;
+      }
+    }]);
+    return ConversionSpecification;
+  }();
+
+  /**
    * Repeats the `subject` number of `times`.
    *
    * @function repeat
    * @static
+   * @since 1.0.0
    * @memberOf Manipulate
    * @param {string} [subject=''] The string to repeat.
    * @param {number} [times=1] The number of times to repeat.
@@ -718,7 +1097,7 @@
    * // => ''
    */
   function repeat (subject, times) {
-    var subjectString = toString(nilDefault(subject, '')),
+    var subjectString = coerceToString(subject),
         timesInt = isNil(times) ? 1 : clipNumber(toInteger(times), 0, MAX_SAFE_INTEGER);
     var repeatString = '';
     while (timesInt) {
@@ -748,37 +1127,11 @@
   }
 
   /**
-   * Pads `subject` from right to a new `length`.
-   *
-   * @function padRight
-   * @static
-   * @memberOf Manipulate
-   * @param {string} [subject=''] The string to pad.
-   * @param {int} [length=0] The length to right pad the string. No changes are made if `length` is less than `subject.length`.
-   * @param {string} [pad=' '] The string to be used for padding.
-   * @return {string} Returns the right padded string.
-   * @example
-   * v.padRight('word', 6, '-');
-   * // => 'word--'
-   *
-   * v.padRight('hi', 5, '-=');
-   * // => 'hi-=-'
-   */
-  function padRight (subject, length, pad) {
-    var subjectString = toString(nilDefault(subject, '')),
-        lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
-        padString = toString(nilDefault(pad, ' '));
-    if (lengthInt <= subjectString.length) {
-      return subjectString;
-    }
-    return subjectString + buildPadding(padString, lengthInt - subjectString.length);
-  }
-
-  /**
    * Pads `subject` from left to a new `length`.
    *
    * @function padLeft
    * @static
+   * @since 1.0.0
    * @memberOf Manipulate
    * @param {string} [subject=''] The string to pad.
    * @param {int} [length=0] The length to left pad the string. No changes are made if `length` is less than `subject.length`.
@@ -792,9 +1145,9 @@
    * // => '-=-hi'
    */
   function padLeft (subject, length, pad) {
-    var subjectString = toString(nilDefault(subject, '')),
+    var subjectString = coerceToString(subject),
         lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
-        padString = toString(nilDefault(pad, ' '));
+        padString = coerceToString(pad, ' ');
     if (lengthInt <= subjectString.length) {
       return subjectString;
     }
@@ -802,24 +1155,108 @@
   }
 
   /**
+   * Pads `subject` from right to a new `length`.
+   *
+   * @function padRight
+   * @static
+   * @since 1.0.0
+   * @memberOf Manipulate
+   * @param {string} [subject=''] The string to pad.
+   * @param {int} [length=0] The length to right pad the string. No changes are made if `length` is less than `subject.length`.
+   * @param {string} [pad=' '] The string to be used for padding.
+   * @return {string} Returns the right padded string.
+   * @example
+   * v.padRight('word', 6, '-');
+   * // => 'word--'
+   *
+   * v.padRight('hi', 5, '-=');
+   * // => 'hi-=-'
+   */
+  function padRight (subject, length, pad) {
+    var subjectString = coerceToString(subject),
+        lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
+        padString = coerceToString(pad, ' ');
+    if (lengthInt <= subjectString.length) {
+      return subjectString;
+    }
+    return subjectString + buildPadding(padString, lengthInt - subjectString.length);
+  }
+
+  /**
    * Aligns and pads `subject` string.
    *
    * @ignore
-   * @param  {string} subject              The subject string.
-   * @param  {string} paddingCharacter     The padding character.
-   * @param  {string} [alignmentSpecifier] The alignment specifier that says if the result should be left-justified or right-justified.
-   * @param  {number} [width]              The width how many characters this conversion should result in.
-   * @return {string}                      Returns the aligned and padded string.
+   * @param {string} subject The subject string.
+   * @param {ConversionSpecification} conversion The conversion specification object.
+   * @return {string} Returns the aligned and padded string.
    */
-  function alignAndPad (subject, paddingCharacter, alignmentSpecifier, width) {
-    if (!isNil(width) && subject.length < width) {
-      if (alignmentSpecifier === CHARACTER_MINUS) {
-        return padRight(subject, width, paddingCharacter);
-      } else {
-        return padLeft(subject, width, paddingCharacter);
-      }
+  function alignAndPad (subject, conversion) {
+    if (isNil(conversion.widthSpecifier) || subject.length >= conversion.widthSpecifier) {
+      return subject;
     }
-    return subject;
+    var padType = conversion.alignmentSpecifier === Const.LITERAL_MINUS ? padRight : padLeft;
+    return padType(subject, conversion.widthSpecifier, conversion.getPaddingCharacter());
+  }
+
+  /**
+   * Add sign to the formatted number.
+   *
+   * @ignore
+   * @name addSignToFormattedNumber
+   * @param  {number} replacementNumber    The number to be replaced.
+   * @param  {string} formattedReplacement The formatted version of number.
+   * @param  {string} signSpecifier        The sign specifier.
+   * @return {string}                      Returns the formatted number string with a sign.
+   */
+  function addSignToFormattedNumber (replacementNumber, formattedReplacement, signSpecifier) {
+    if (signSpecifier === Const.LITERAL_PLUS && replacementNumber >= 0) {
+      formattedReplacement = Const.LITERAL_PLUS + formattedReplacement;
+    }
+    return formattedReplacement;
+  }
+
+  /**
+   * Get the number representation of the `value`.
+   * Converts the `value` to number.
+   * If `value` is `null` or `undefined`, return `defaultValue`.
+   *
+   * @ignore
+   * @function toString
+   * @param {*} value             The value to convert.
+   * @param {*} [defaultValue=''] The default value to return.
+   * @return {number|null}        Returns the number representation of `value`. Returns `defaultValue` if `value` is
+   *                              `null` or `undefined`.
+   */
+  function coerceToNumber (value) {
+    var defaultValue = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
+
+    if (isNil(value)) {
+      return defaultValue;
+    }
+    if (typeof value === 'number') {
+      return value;
+    }
+    return Number(value);
+  }
+
+  /**
+   * Formats the short float.
+   *
+   * @ignore
+   * @param  {number} replacementNumber The number to format.
+   * @param  {number} precision         The precision to format the float.
+   * @param  {string} typeSpecifier     The type specifier.
+   * @return {string}                   Returns the formatted short float.
+   */
+  function formatFloatAsShort(replacementNumber, precision, typeSpecifier) {
+    if (replacementNumber === 0) {
+      return '0';
+    }
+    var formattedReplacement = replacementNumber.toPrecision(precision === 0 ? 1 : precision).replace(REGEXP_TRAILING_ZEROS, '');
+    if (typeSpecifier === Const.TYPE_FLOAT_SHORT_UPPERCASE) {
+      formattedReplacement = formattedReplacement.toUpperCase();
+    }
+    return formattedReplacement;
   }
 
   /**
@@ -828,47 +1265,35 @@
    * @ignore
    * @param  {string} replacement          The string to be formatted.
    * @param  {string} [signSpecifier]      The sign specifier to force a sign to be used on a number.
-   * @param  {string} paddingCharacter     The padding character.
-   * @param  {string} [alignmentSpecifier] The alignment specifier that says if the result should be left-justified or right-justified.
-   * @param  {number} [width]              The width how many characters this conversion should result in.
    * @param  {number} [precision]          The precision.
    * @param  {string} typeSpecifier        The type specifier says what type the argument data should be treated as.
    * @return {string}                      Returns the formatted string.
    */
 
-  function formatFloat (replacement, signSpecifier, paddingCharacter, alignmentSpecifier, width, precision, typeSpecifier) {
-    var float = parseFloat(replacement);
-    precision = toNumber(nilDefault(precision, 6));
-    if (isNaN(float)) {
-      float = 0;
+  function formatFloat (replacement, signSpecifier, precision, typeSpecifier) {
+    var replacementNumber = parseFloat(replacement),
+        formattedReplacement;
+    if (isNaN(replacementNumber)) {
+      replacementNumber = 0;
     }
-    var showPlusSign = signSpecifier === CHARACTER_PLUS && float >= 0;
+    precision = coerceToNumber(precision, 6);
     switch (typeSpecifier) {
-      case Type.FLOAT:
-        float = float.toFixed(precision);
+      case Const.TYPE_FLOAT:
+        formattedReplacement = replacementNumber.toFixed(precision);
         break;
-      case Type.FLOAT_SCIENTIFIC:
-        float = float.toExponential(precision);
+      case Const.TYPE_FLOAT_SCIENTIFIC:
+        formattedReplacement = replacementNumber.toExponential(precision);
         break;
-      case Type.FLOAT_SCIENTIFIC_UPPERCASE:
-        float = float.toExponential(precision).toUpperCase();
+      case Const.TYPE_FLOAT_SCIENTIFIC_UPPERCASE:
+        formattedReplacement = replacementNumber.toExponential(precision).toUpperCase();
         break;
-      case Type.FLOAT_SHORT:
-      case Type.FLOAT_SHORT_UPPERCASE:
-        if (float === 0) {
-          float = '0';
-          break;
-        }
-        float = float.toPrecision(precision === 0 ? 1 : precision).replace(REGEXP_TRAILING_ZEROS, '');
-        if (typeSpecifier === Type.FLOAT_SHORT_UPPERCASE) {
-          float = float.toUpperCase();
-        }
+      case Const.TYPE_FLOAT_SHORT:
+      case Const.TYPE_FLOAT_SHORT_UPPERCASE:
+        formattedReplacement = formatFloatAsShort(replacementNumber, precision, typeSpecifier);
         break;
     }
-    if (showPlusSign) {
-      float = CHARACTER_PLUS + float;
-    }
-    return alignAndPad(float, paddingCharacter, alignmentSpecifier, width);
+    formattedReplacement = addSignToFormattedNumber(replacementNumber, formattedReplacement, signSpecifier);
+    return coerceToString(formattedReplacement);
   }
 
   /**
@@ -877,91 +1302,52 @@
    * @ignore
    * @param  {string} replacement          The string to be formatted.
    * @param  {string} [signSpecifier]      The sign specifier to force a sign to be used on a number.
-   * @param  {string} paddingCharacter     The padding character.
-   * @param  {string} [alignmentSpecifier] The alignment specifier that says if the result should be left-justified or right-justified.
-   * @param  {number} [width]              The width how many characters this conversion should result in.
    * @param  {number} [precision]          The precision.
    * @param  {string} typeSpecifier        The type specifier says what type the argument data should be treated as.
    * @return {string}                      Returns the formatted string.
    */
 
-  function formatIntegerBase (replacement, signSpecifier, paddingCharacter, alignmentSpecifier, width, precision, typeSpecifier) {
+  function formatIntegerBase (replacement, signSpecifier, precision, typeSpecifier) {
     var integer = parseInt(replacement);
     if (isNaN(integer)) {
       integer = 0;
     }
     integer = integer >>> 0;
     switch (typeSpecifier) {
-      case Type.INTEGER_ASCII_CHARACTER:
+      case Const.TYPE_INTEGER_ASCII_CHARACTER:
         integer = String.fromCharCode(integer);
         break;
-      case Type.INTEGER_BINARY:
-        integer = integer.toString(2);
+      case Const.TYPE_INTEGER_BINARY:
+        integer = integer.toString(Const.RADIX_BINARY);
         break;
-      case Type.INTEGER_OCTAL:
-        integer = integer.toString(8);
+      case Const.TYPE_INTEGER_OCTAL:
+        integer = integer.toString(Const.RADIX_OCTAL);
         break;
-      case Type.INTEGER_HEXADECIMAL:
-        integer = integer.toString(16);
+      case Const.TYPE_INTEGER_HEXADECIMAL:
+        integer = integer.toString(Const.RADIX_HEXADECIMAL);
         break;
-      case Type.INTEGER_HEXADECIMAL_UPPERCASE:
-        integer = integer.toString(16).toUpperCase();
+      case Const.TYPE_INTEGER_HEXADECIMAL_UPPERCASE:
+        integer = integer.toString(Const.RADIX_HEXADECIMAL).toUpperCase();
         break;
     }
-    return alignAndPad(toString(integer), paddingCharacter, alignmentSpecifier, width);
+    return coerceToString(integer);
   }
 
   /**
    * Formats a decimal integer type according to specifiers.
    *
    * @ignore
-   * @param  {string} replacement          The string to be formatted.
-   * @param  {string} [signSpecifier]      The sign specifier to force a sign to be used on a number.
-   * @param  {string} paddingCharacter     The padding character.
-   * @param  {string} [alignmentSpecifier] The alignment specifier that says if the result should be left-justified or right-justified.
-   * @param  {number} [width]              The width how many characters this conversion should result in.
-   * @return {string}                      Returns the formatted string.
+   * @param  {string} replacement     The string to be formatted.
+   * @param  {string} [signSpecifier] The sign specifier to force a sign to be used on a number.
+   * @return {string}                 Returns the formatted string.
    */
 
-  function formatIntegerDecimal (replacement, signSpecifier, paddingCharacter, alignmentSpecifier, width) {
+  function formatIntegerDecimal (replacement, signSpecifier) {
     var integer = parseInt(replacement);
     if (isNaN(integer)) {
       integer = 0;
     }
-    if (signSpecifier === CHARACTER_PLUS && integer >= 0) {
-      integer = CHARACTER_PLUS + integer;
-    }
-    return alignAndPad(toString(integer), paddingCharacter, alignmentSpecifier, width);
-  }
-
-  /**
-   * Truncates `subject` to a new `length`.
-   *
-   * @function truncate
-   * @static
-   * @memberOf Manipulate
-   * @param {string} [subject=''] The string to truncate.
-   * @param {int} length The length to truncate the string.
-   * @param {string} [end='...'] The string to be added at the end.
-   * @return {string} Returns the truncated string.
-   * @example
-   * v.truncate('Once upon a time', 9);
-   * // => 'Once upon...'
-   *
-   * v.truncate('Good day, Little Red Riding Hood', 8, ' (read more)');
-   * // => 'Good day (read more)'
-   *
-   * v.truncate('Once upon', 10);
-   * // => 'Once upon'
-   */
-  function truncate (subject, length, end) {
-    var subjectString = toString(nilDefault(subject, '')),
-        lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
-        endString = toString(nilDefault(end, '...'));
-    if (lengthInt >= subjectString.length) {
-      return subjectString;
-    }
-    return subjectString.substr(0, length) + endString;
+    return addSignToFormattedNumber(integer, toString(integer), signSpecifier);
   }
 
   /**
@@ -970,59 +1356,93 @@
    * @ignore
    * @param  {string} replacement          The string to be formatted.
    * @param  {string} [signSpecifier]      The sign specifier to force a sign to be used on a number.
-   * @param  {string} paddingCharacter     The padding character.
-   * @param  {string} [alignmentSpecifier] The alignment specifier that says if the result should be left-justified or right-justified.
-   * @param  {number} [width]              The width how many characters this conversion should result in.
    * @param  {number} [precision]          The precision sets a maximum character limit to the string.
    * @return {string}                      Returns the formatted string.
    */
 
-  function formatString (replacement, signSpecifier, paddingCharacter, alignmentSpecifier, width, precision) {
+  function formatString (replacement, signSpecifier, precision) {
     var formattedReplacement = replacement;
     if (!isNil(precision) && formattedReplacement.length > precision) {
       formattedReplacement = truncate(formattedReplacement, precision, '');
     }
-    return alignAndPad(formattedReplacement, paddingCharacter, alignmentSpecifier, width);
+    return formattedReplacement;
   }
 
   /**
-   * Return the computed string based on format specifiers.
+   * Returns the computed string based on format specifiers.
    *
    * @ignore
-   * @name replaceConversionSpecification
-   * @param  {number}   index                   The index of the matched specifier.
-   * @param  {Object[]} args                    The array of arguments to replace specifiers.
-   * @param  {string}   signSpecifier           The sign specifier to force a sign to be used on a number.
-   * @param  {string}   paddingSpecifier        The padding specifier that says what padding character will be used.
-   * @param  {string}   alignmentSpecifier      The alignment specifier that says if the result should be left-justified or right-justified.
-   * @param  {number}   widthSpecifier          The width specifier how many characters this conversion should result in.
-   * @param  {number}   precisionSpecifier      The precision specifier says how many decimal digits should be displayed for floating-point numbers.
-   * @param  {string}   typeSpecifier           The type specifier says what type the argument data should be treated as.
-   * @return {string}                           Returns the computed string.
+   * @name getReplacement
+   * @param {string} replacement The replacement value.
+   * @param {ConversionSpecification} conversion The conversion specification object.
+   * @return {string} Returns the computed string.
    */
-  function replaceConversionSpecification (index, args, signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
-    validateFormat(index, args, typeSpecifier);
-    var replacement = args[index];
-    var formatterArguments = [replacement, signSpecifier, paddingCharacter(paddingSpecifier), alignmentSpecifier, toNumber(widthSpecifier), toNumber(precisionSpecifier)];
-    switch (typeSpecifier) {
-      case Type.STRING:
-        return formatString.apply(undefined, formatterArguments);
-      case Type.INTEGER_DECIMAL:
-      case Type.INTEGER:
-        return formatIntegerDecimal.apply(undefined, formatterArguments);
-      case Type.INTEGER_ASCII_CHARACTER:
-      case Type.INTEGER_BINARY:
-      case Type.INTEGER_OCTAL:
-      case Type.INTEGER_HEXADECIMAL:
-      case Type.INTEGER_HEXADECIMAL_UPPERCASE:
-      case Type.INTEGER_UNSIGNED_DECIMAL:
-        return formatIntegerBase.apply(undefined, formatterArguments.concat([typeSpecifier]));
-      case Type.FLOAT:
-      case Type.FLOAT_SCIENTIFIC:
-      case Type.FLOAT_SCIENTIFIC_UPPERCASE:
-      case Type.FLOAT_SHORT:
-      case Type.FLOAT_SHORT_UPPERCASE:
-        return formatFloat.apply(undefined, formatterArguments.concat([typeSpecifier]));
+  function getReplacement (replacement, conversion) {
+    var formatFunction;
+    switch (conversion.typeSpecifier) {
+      case Const.TYPE_STRING:
+        formatFunction = formatString;
+        break;
+      case Const.TYPE_INTEGER_DECIMAL:
+      case Const.TYPE_INTEGER:
+        formatFunction = formatIntegerDecimal;
+        break;
+      case Const.TYPE_INTEGER_ASCII_CHARACTER:
+      case Const.TYPE_INTEGER_BINARY:
+      case Const.TYPE_INTEGER_OCTAL:
+      case Const.TYPE_INTEGER_HEXADECIMAL:
+      case Const.TYPE_INTEGER_HEXADECIMAL_UPPERCASE:
+      case Const.TYPE_INTEGER_UNSIGNED_DECIMAL:
+        formatFunction = formatIntegerBase;
+        break;
+      case Const.TYPE_FLOAT:
+      case Const.TYPE_FLOAT_SCIENTIFIC:
+      case Const.TYPE_FLOAT_SCIENTIFIC_UPPERCASE:
+      case Const.TYPE_FLOAT_SHORT:
+      case Const.TYPE_FLOAT_SHORT_UPPERCASE:
+        formatFunction = formatFloat;
+        break;
+    }
+    var formattedString = formatFunction(replacement, conversion);
+    return alignAndPad(formattedString, conversion);
+  }
+
+  /**
+   * Get the number representation of the `value`.
+   * Converts the `value` to a number.
+   * If `value` is `null` or `undefined`, return `null`.
+   *
+   * @ignore
+   * @function toNumber
+   * @param  {*} value            The value to convert.
+   * @return {number|null}        Returns the number representation of `value` or `null` if `value` is `null` or `undefined`.
+   */
+  function toNumber (value) {
+    if (isNil(value)) {
+      return null;
+    }
+    return Number(value);
+  }
+
+  /**
+   * Validates the specifier type and replacement position.
+   *
+   * @ignore
+   * @throws {Error} Throws an exception on insufficient arguments or unknown specifier.
+   * @param  {number} index The index of the matched specifier.
+   * @param  {number} replacementsLength The number of replacements.
+   * @param  {ConversionSpecification} conversion The conversion specification object.
+   * @return {undefined}
+   */
+  function validateFormat (index, replacementsLength, conversion) {
+    if (isNil(conversion.typeSpecifier)) {
+      throw new Error('sprintf(): Unknown type specifier');
+    }
+    if (index > replacementsLength - 1) {
+      throw new Error('sprintf(): Too few arguments');
+    }
+    if (index < 0) {
+      throw new Error('sprintf(): Argument number must be greater than zero');
     }
   }
 
@@ -1149,9 +1569,10 @@
    *
    * @function sprintf
    * @static
+   * @since 1.0.0
    * @memberOf Format
    * @param  {string} [format=''] The format string.
-   * @param  {...*}               args The arguments to produce the string.
+   * @param  {...*}               replacements The replacements to produce the string.
    * @return {string}             Returns the produced string.
    * @example
    * v.sprintf('Hello %s!', 'World');
@@ -1177,82 +1598,40 @@
    * 
    */
   function sprintf (format) {
-    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-      args[_key - 1] = arguments[_key];
+    for (var _len = arguments.length, replacements = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      replacements[_key - 1] = arguments[_key];
     }
 
-    var formatString = toString(nilDefault(format, ''));
+    var formatString = coerceToString(format);
     if (formatString === '') {
       return formatString;
     }
-    var index = 0;
-    return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, function (conversionSpecification, percent, position) {
-      if (percent === CHARACTER_PERCENT + CHARACTER_PERCENT) {
+    var replacementMatchIndex = 0,
+        replacementsLength = replacements.length;
+    return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, function (conversionSpecification, percent, position, signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
+      var actualReplacementIndex,
+          conversion = new ConversionSpecification({
+        percent: percent,
+        signSpecifier: signSpecifier,
+        paddingSpecifier: paddingSpecifier,
+        alignmentSpecifier: alignmentSpecifier,
+        widthSpecifier: toNumber(widthSpecifier),
+        precisionSpecifier: toNumber(precisionSpecifier),
+        typeSpecifier: typeSpecifier
+      });
+      if (conversion.isPercentLiteral()) {
         return conversionSpecification.slice(1);
       }
-      var argumentIndex = isNil(position) ? index++ : position - 1;
-
-      for (var _len2 = arguments.length, specifiers = Array(_len2 > 3 ? _len2 - 3 : 0), _key2 = 3; _key2 < _len2; _key2++) {
-        specifiers[_key2 - 3] = arguments[_key2];
+      if (isNil(position)) {
+        actualReplacementIndex = replacementMatchIndex;
+        replacementMatchIndex++;
+      } else {
+        actualReplacementIndex = position - 1;
       }
-
-      return replaceConversionSpecification.apply(undefined, [argumentIndex, args].concat(specifiers));
+      validateFormat(actualReplacementIndex, replacementsLength, conversion);
+      return getReplacement(replacements[actualReplacementIndex], conversion);
     });
   }
-
-  var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-    return typeof obj;
-  } : function (obj) {
-    return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
-  };
-
-  var classCallCheck = function (instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
-    }
-  };
-
-  var createClass = function () {
-    function defineProperties(target, props) {
-      for (var i = 0; i < props.length; i++) {
-        var descriptor = props[i];
-        descriptor.enumerable = descriptor.enumerable || false;
-        descriptor.configurable = true;
-        if ("value" in descriptor) descriptor.writable = true;
-        Object.defineProperty(target, descriptor.key, descriptor);
-      }
-    }
-
-    return function (Constructor, protoProps, staticProps) {
-      if (protoProps) defineProperties(Constructor.prototype, protoProps);
-      if (staticProps) defineProperties(Constructor, staticProps);
-      return Constructor;
-    };
-  }();
-
-  var _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  var toConsumableArray = function (arr) {
-    if (Array.isArray(arr)) {
-      for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
-
-      return arr2;
-    } else {
-      return Array.from(arr);
-    }
-  };
 
   /**
    * Produces a string according to `format`. Works exactly like <a href="#sprintf"><code>sprintf()</code></a>,
@@ -1261,10 +1640,11 @@
    *
    * @function vprintf
    * @static
+   * @since 1.0.0
    * @memberOf Format
-   * @param  {string}                [format=''] The format string.
-   * @param  {Array.<number|string>} values      The array of values to produce the string.
-   * @return {string}                            Returns the produced string.
+   * @param  {string}                [format='']  The format string.
+   * @param  {Array.<number|string>} replacements The array of replacements to produce the string.
+   * @return {string}                             Returns the produced string.
    * @example
    * vprintf('%s', ['Welcome'])
    * // => 'Welcome'
@@ -1272,8 +1652,8 @@
    * vprintf('%s costs $%.2f', ['Coffee', 1.5]);
    * // => 'Coffee costs $1.50'
    */
-  function vprintf (format, values) {
-    return sprintf.apply(undefined, [format].concat(toConsumableArray(nilDefault(values, []))));
+  function vprintf (format, replacements) {
+    return sprintf.apply(undefined, [format].concat(toConsumableArray(nilDefault(replacements, []))));
   }
 
   var escapeCharactersMap = {
@@ -1289,8 +1669,8 @@
    * Return the escaped version of `character`.
    *
    * @ignore
-   * @param {string} character The character to be escape.
-   * @return {string} The escaped version of character.
+   * @param  {string} character The character to be escape.
+   * @return {string}           The escaped version of character.
    */
   function replaceSpecialCharacter(character) {
     return escapeCharactersMap[character];
@@ -1301,6 +1681,7 @@
    *
    * @function escapeHtml
    * @static
+   * @since 1.0.0         
    * @memberOf Escape
    * @param {string} [subject=''] The string to escape.
    * @return {string} Returns the escaped string.
@@ -1309,8 +1690,7 @@
    * // => '&lt;p&gt;wonderful world&lt;/p&gt;'
    */
   function escapeHtml (subject) {
-    var subjectString = toString(nilDefault(subject, ''));
-    return subjectString.replace(REGEXP_HTML_SPECIAL_CHARACTERS, replaceSpecialCharacter);
+    return coerceToString(subject).replace(REGEXP_HTML_SPECIAL_CHARACTERS, replaceSpecialCharacter);
   }
 
   /**
@@ -1318,6 +1698,7 @@
    *
    * @function escapeRegExp
    * @static
+   * @since 1.0.0
    * @memberOf Escape
    * @param {string} [subject=''] The string to escape.
    * @return {string} Returns the escaped string.
@@ -1326,8 +1707,7 @@
    * // => '\(hours\)\[minutes\]\{seconds\}'
    */
   function escapeRegExp (subject) {
-    var subjectString = toString(nilDefault(subject, ''));
-    return subjectString.replace(REGEXP_SPECIAL_CHARACTERS, '\\$&');
+    return coerceToString(subject).replace(REGEXP_SPECIAL_CHARACTERS, '\\$&');
   }
 
   var unescapeCharactersMap = {
@@ -1344,28 +1724,30 @@
    * Replaces the HTML entities with corresponding characters.
    *
    * @ignore
-   * @param {string} string The accumulator string.
-   * @param {string} key The character.
-   * @return {string} The string with replaced HTML entity
+   * @param  {string} string The accumulator string.
+   * @param  {string} key    The character.
+   * @return {string}        The string with replaced HTML entity
    */
   function reduceUnescapedString(string, key) {
     return string.replace(unescapeCharactersMap[key], key);
   }
 
   /**
-   * Unescapes HTML special characters from <code>&amp;lt; &amp;gt; &amp;amp; &amp;quot; &amp;#x27; &amp;#x60;</code> to corresponding <code>< > & ' " `</code> in <code>subject</code>.
+   * Unescapes HTML special characters from <code>&amp;lt; &amp;gt; &amp;amp; &amp;quot; &amp;#x27; &amp;#x60;</code>
+   * to corresponding <code>< > & ' " `</code> in <code>subject</code>.
    *
    * @function unescapeHtml
    * @static
+   * @since 1.0.0
    * @memberOf Escape
-   * @param {string} [subject=''] The string to unescape.
-   * @return {string} Returns the unescaped string.
+   * @param  {string} [subject=''] The string to unescape.
+   * @return {string}              Returns the unescaped string.
    * @example
    * v.unescapeHtml('&lt;p&gt;wonderful world&lt;/p&gt;');
    * // => '<p>wonderful world</p>'
    */
   function unescapeHtml (subject) {
-    var subjectString = toString(nilDefault(subject, ''));
+    var subjectString = coerceToString(subject);
     return characters.reduce(reduceUnescapedString, subjectString);
   }
 
@@ -1374,6 +1756,7 @@
    *
    * @function indexOf
    * @static
+   * @since 1.0.0
    * @memberOf Index
    * @param {string} [subject=''] The string where to search.
    * @param {string} search The string to search.
@@ -1387,7 +1770,7 @@
    * // => -1
    */
   function indexOf (subject, search, fromIndex) {
-    var subjectString = toString(nilDefault(subject, ''));
+    var subjectString = coerceToString(subject);
     return subjectString.indexOf(search, fromIndex);
   }
 
@@ -1396,6 +1779,7 @@
    *
    * @function lastIndexOf
    * @static
+   * @since 1.0.0
    * @memberOf Index
    * @param {string} [subject=''] The string where to search.
    * @param {string} search The string to search.
@@ -1409,7 +1793,7 @@
    * // => -1
    */
   function lastIndexOf (subject, search, fromIndex) {
-    var subjectString = toString(nilDefault(subject, ''));
+    var subjectString = coerceToString(subject);
     return subjectString.lastIndexOf(search, fromIndex);
   }
 
@@ -1418,6 +1802,7 @@
    *
    * @function search
    * @static
+   * @since 1.0.0
    * @memberOf Index
    * @param {string} [subject=''] The string where to search.
    * @param {string|RegExp} pattern The pattern to match. If `pattern` is not RegExp, it is transformed to `new RegExp(pattern)`.
@@ -1431,7 +1816,7 @@
    * // => -1
    */
   function search (subject, pattern, fromIndex) {
-    var subjectString = toString(nilDefault(subject, '')),
+    var subjectString = coerceToString(subject),
         fromIndexNumber = isNil(fromIndex) ? 0 : clipNumber(toInteger(fromIndex), 0, subjectString.length);
     var matchIndex = subjectString.substr(fromIndexNumber).search(pattern);
     if (matchIndex !== -1 && !isNaN(fromIndexNumber)) {
@@ -2321,7 +2706,156 @@
     "ｗ": "w",
     "ｘ": "x",
     "ｙ": "y",
-    "ｚ": "z"
+    "ｚ": "z",
+
+    // Additional maps for russian, ukranian and few other languages
+    "Ð": "D",
+    "Þ": "TH",
+    "ð": "d",
+    "þ": "th",
+    "Ά": "A",
+    "Έ": "E",
+    "Ή": "H",
+    "Ί": "I",
+    "Ό": "O",
+    "Ύ": "Y",
+    "Ώ": "W",
+    "ΐ": "i",
+    "Α": "A",
+    "Β": "B",
+    "Γ": "G",
+    "Δ": "D",
+    "Ε": "E",
+    "Ζ": "Z",
+    "Η": "H",
+    "Θ": "8",
+    "Ι": "I",
+    "Κ": "K",
+    "Λ": "L",
+    "Μ": "M",
+    "Ν": "N",
+    "Ξ": "3",
+    "Ο": "O",
+    "Π": "P",
+    "Ρ": "R",
+    "Σ": "S",
+    "Τ": "T",
+    "Υ": "Y",
+    "Φ": "F",
+    "Χ": "X",
+    "Ψ": "PS",
+    "Ω": "W",
+    "Ϊ": "I",
+    "Ϋ": "Y",
+    "ά": "a",
+    "έ": "e",
+    "ή": "h",
+    "ί": "i",
+    "ΰ": "y",
+    "α": "a",
+    "β": "b",
+    "γ": "g",
+    "δ": "d",
+    "ε": "e",
+    "ζ": "z",
+    "η": "h",
+    "θ": "8",
+    "ι": "i",
+    "κ": "k",
+    "λ": "l",
+    "μ": "m",
+    "ν": "n",
+    "ξ": "3",
+    "ο": "o",
+    "π": "p",
+    "ρ": "r",
+    "ς": "s",
+    "σ": "s",
+    "τ": "t",
+    "υ": "y",
+    "φ": "f",
+    "χ": "x",
+    "ψ": "ps",
+    "ω": "w",
+    "ϊ": "i",
+    "ϋ": "y",
+    "ό": "o",
+    "ύ": "y",
+    "ώ": "w",
+    "Ё": "Yo",
+    "Є": "Ye",
+    "І": "I",
+    "Ї": "Yi",
+    "А": "A",
+    "Б": "B",
+    "В": "V",
+    "Г": "G",
+    "Д": "D",
+    "Е": "E",
+    "Ж": "Zh",
+    "З": "Z",
+    "И": "I",
+    "Й": "J",
+    "К": "K",
+    "Л": "L",
+    "М": "M",
+    "Н": "N",
+    "О": "O",
+    "П": "P",
+    "Р": "R",
+    "С": "S",
+    "Т": "T",
+    "У": "U",
+    "Ф": "F",
+    "Х": "H",
+    "Ц": "C",
+    "Ч": "Ch",
+    "Ш": "Sh",
+    "Щ": "Sh",
+    "Ъ": "U",
+    "Ы": "Y",
+    "Ь": "",
+    "Э": "E",
+    "Ю": "Yu",
+    "Я": "Ya",
+    "а": "a",
+    "б": "b",
+    "в": "v",
+    "г": "g",
+    "д": "d",
+    "е": "e",
+    "ж": "zh",
+    "з": "z",
+    "и": "i",
+    "й": "j",
+    "к": "k",
+    "л": "l",
+    "м": "m",
+    "н": "n",
+    "о": "o",
+    "п": "p",
+    "р": "r",
+    "с": "s",
+    "т": "t",
+    "у": "u",
+    "ф": "f",
+    "х": "h",
+    "ц": "c",
+    "ч": "ch",
+    "ш": "sh",
+    "щ": "sh",
+    "ъ": "u",
+    "ы": "y",
+    "ь": "",
+    "э": "e",
+    "ю": "yu",
+    "я": "ya",
+    "ё": "yo",
+    "є": "ye",
+    "і": "i",
+    "ї": "yi",
+    "Ґ": "G",
+    "ґ": "g"
   };
 
   /**
@@ -2352,6 +2886,7 @@
    *
    * @function latinise
    * @static
+   * @since 1.0.0
    * @memberOf Manipulate
    * @param {string} [subject=''] The string to latinise.
    * @return {string} Returns the latinised string.
@@ -2361,9 +2896,12 @@
    *
    * v.latinise('août décembre');
    * // => 'aout decembre'
+   *
+   * v.latinise('как прекрасен этот мир');
+   * // => 'kak prekrasen etot mir'
    */
   function latinise (subject) {
-    var subjectString = toString(nilDefault(subject, ''));
+    var subjectString = coerceToString(subject);
     if (subjectString === '') {
       return subjectString;
     }
@@ -2375,6 +2913,7 @@
    *
    * @function pad
    * @static
+   * @since 1.0.0
    * @memberOf Manipulate
    * @param {string} [subject=''] The string to pad.
    * @param {int} [length=0] The length to pad the string. No changes are made if `length` is less than `subject.length`.
@@ -2388,9 +2927,9 @@
    * // => '-hi-='
    */
   function pad (subject, length, pad) {
-    var subjectString = toString(nilDefault(subject, '')),
+    var subjectString = coerceToString(subject),
         lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
-        padString = toString(nilDefault(pad, ' '));
+        padString = coerceToString(pad, ' ');
     if (lengthInt <= subjectString.length) {
       return subjectString;
     }
@@ -2401,50 +2940,15 @@
   }
 
   /**
-   * Truncates `subject` to a new `length` and does not break the words. Guarantees that the truncated string will be no longer than `length`.
-   *
-   * @static
-   * @function prune
-   * @memberOf Manipulate
-   * @param    {string} [subject=''] The string to prune.
-   * @param    {int}    length       The length to prune the string.
-   * @param    {string} [end='...']  The string to be added at the end.
-   * @return   {string}              Returns the pruned string.
-   * @example
-   * v.prune('Once upon a time', 6);
-   * // => 'Once...'
-   *
-   * v.prune('Good day, Little Red Riding Hood', 8, ' (read more)');
-   * // => 'Good day (read more)'
-   *
-   * v.prune('Once upon', 10);
-   * // => 'Once upon'
-   */
-  function prune (subject, length, end) {
-    var subjectString = toString(nilDefault(subject, '')),
-        lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
-        endString = toString(nilDefault(end, '...'));
-    if (lengthInt >= subjectString.length) {
-      return subjectString;
-    }
-    var truncatedString = '';
-    subjectString.replace(REGEXP_WORD, function (word, offset) {
-      var wordInsertLength = offset + word.length;
-      if (wordInsertLength <= length) {
-        truncatedString = subjectString.substr(0, wordInsertLength);
-      }
-    });
-    return truncatedString + endString;
-  }
-
-  /**
-   * Returns a new string where the matches of `pattern` are replaced with `replacement`.
+   * Returns a new string where the matches of `pattern` are replaced with `replacement`. <br/>
    *
    * @function replace
    * @static
+   * @since 1.0.0
    * @memberOf Manipulate
    * @param {string} [subject=''] The string to verify.
-   * @param {string|RegExp} pattern The pattern which match is replaced with `replacement`. If `pattern` is string, a simple string match is evaluated.
+   * @param {string|RegExp} pattern The pattern which match is replaced. If `pattern` is a string,
+   * a simple string match is evaluated and only the first occurrence replaced.
    * @param {string|Function} replacement The string or a function which invocation result replaces `pattern` match.
    * @return {string} Returns the replacement result.
    * @example
@@ -2460,7 +2964,7 @@
    * // => 'the duck is nice'
    */
   function replace (subject, pattern, replacement) {
-    var subjectString = toString(nilDefault(subject, ''));
+    var subjectString = coerceToString(subject);
     return subjectString.replace(pattern, replacement);
   }
 
@@ -2469,6 +2973,7 @@
    *
    * @function reverse
    * @static
+   * @since 1.0.0
    * @memberOf Manipulate
    * @param {string} [subject=''] The string to reverse.
    * @return {string} Returns the reversed string.
@@ -2477,7 +2982,7 @@
    * // => 'retniw'
    */
   function reverse (subject) {
-    var subjectString = toString(nilDefault(subject, ''));
+    var subjectString = coerceToString(subject);
     return subjectString.split('').reverse().join('');
   }
 
@@ -2488,6 +2993,7 @@
    *
    * @function reverseCodePoint
    * @static
+   * @since 1.0.0
    * @memberOf Manipulate
    * @param {string} [subject=''] The string to reverse.
    * @return {string} Returns the reversed string.
@@ -2499,7 +3005,7 @@
    * // => 'anañam anañam rab 𝌆'
    */
   function reverseCodePoint(subject) {
-    var subjectString = toString(nilDefault(subject, ''));
+    var subjectString = coerceToString(subject);
     /**
      * @see https://github.com/mathiasbynens/esrever
      */
@@ -2515,33 +3021,11 @@
   }
 
   /**
-   * Extracts from `subject` a string from `start` position to `end` position.
-   *
-   * @function slice
-   * @static
-   * @memberOf Manipulate
-   * @param {string} [subject=''] The string to extract from.
-   * @param {number} start The position to start extraction. If negative use `subject.length + start`.
-   * @param {number} [end=subject.length] The position to end extraction. If negative use `subject.length + end`.
-   * @return {string} Returns the extracted string.
-   * @note Uses native `String.prototype.slice()`
-   * @example
-   * v.slice('miami', 1);
-   * // => 'iami'
-   *
-   * v.slice('florida', -4);
-   * // => 'rida'
-   */
-  function slice (subject, start, end) {
-    var subjectString = toString(nilDefault(subject, ''));
-    return subjectString.slice(start, end);
-  }
-
-  /**
    * Slugify the `subject`. Cleans the `subject` by replacing diacritics with corresponding latin characters.
    *
    * @function slugify
    * @static
+   * @since 1.0.0
    * @memberOf Manipulate
    * @param {string} [subject=''] The string to slugify.
    * @return {string} The slugified string.
@@ -2551,9 +3035,12 @@
    *
    * v.slugify('café latté');
    * // => 'caffe-latte'
+   *
+   * v.slugify('хорошая погода');
+   * // => 'horoshaya-pogoda'
    */
   function slugify (subject) {
-    var subjectString = toString(nilDefault(subject, ''));
+    var subjectString = coerceToString(subject);
     if (subjectString === '') {
       return '';
     }
@@ -2562,56 +3049,11 @@
   }
 
   /**
-   * Extracts from `subject` a string from `start` position a number of `length` characters.
-   *
-   * @function substr
-   * @static
-   * @memberOf Manipulate
-   * @param {string} [subject=''] The string to extract from.
-   * @param {number} start The position to start extraction.
-   * @param {number} [length=subject.endOfString] The number of characters to extract. If omitted, extract to the end of `subject`.
-   * @return {string} Returns the extracted string.
-   * @note Uses native `String.prototype.substr()`
-   * @example
-   * v.substr('infinite loop', 9);
-   * // => 'loop'
-   *
-   * v.substr('dreams', 2, 2);
-   * // => 'ea'
-   */
-  function substr (subject, start, length) {
-    var subjectString = toString(nilDefault(subject, ''));
-    return subjectString.substr(start, length);
-  }
-
-  /**
-   * Extracts from `subject` a string from `start` position to `end` position.
-   *
-   * @function substring
-   * @static
-   * @memberOf Manipulate
-   * @param {string} [subject=''] The string to extract from.
-   * @param {number} start The position to start extraction.
-   * @param {number} [end=subject.length] The position to end extraction.
-   * @return {string} Returns the extracted string.
-   * @note Uses native `String.prototype.substring()`
-   * @example
-   * v.substring('beach', 1);
-   * // => 'each'
-   *
-   * v.substring('ocean', 1, 3);
-   * // => 'ea'
-   */
-  function substring (subject, start, end) {
-    var subjectString = toString(nilDefault(subject, ''));
-    return subjectString.substring(start, end);
-  }
-
-  /**
    * Removes the whitespaces from the left part of the `subject`.
    *
    * @function trimLeft
    * @static
+   * @since 1.0.0
    * @memberOf Manipulate
    * @param {string} [subject=''] The string to trim.
    * @param {string} [whitespace=whitespace] The whitespace characters to trim.
@@ -2624,7 +3066,7 @@
    * // => 'Mobile Infantry'
    */
   function trimLeft (subject, whitespace) {
-    var subjectString = toString(nilDefault(subject, ''));
+    var subjectString = coerceToString(subject);
     if (whitespace === '' || subjectString === '') {
       return subjectString;
     }
@@ -2650,6 +3092,7 @@
    *
    * @function trimRight
    * @static
+   * @since 1.0.0
    * @memberOf Manipulate
    * @param {string} [subject=''] The string to trim.
    * @param {string} [whitespace=whitespace] The whitespace characters to trim.
@@ -2662,7 +3105,7 @@
    * // => 'do you feel in charge?'
    */
   function trimRight (subject, whitespace) {
-    var subjectString = toString(nilDefault(subject, ''));
+    var subjectString = coerceToString(subject);
     if (whitespace === '' || subjectString === '') {
       return subjectString;
     }
@@ -2691,6 +3134,7 @@
    *
    * @function trim
    * @static
+   * @since 1.0.0
    * @memberOf Manipulate
    * @param {string} [subject=''] The string to trim.
    * @param {string} [whitespace=whitespace] The whitespace characters to trim.
@@ -2703,7 +3147,7 @@
    * // => 'Earth'
    */
   function trim (subject, whitespace) {
-    var subjectString = toString(nilDefault(subject, ''));
+    var subjectString = coerceToString(subject);
     if (whitespace === '' || subjectString === '') {
       return subjectString;
     }
@@ -2719,6 +3163,7 @@
    *
    * @function endsWith
    * @static
+   * @since 1.0.0
    * @memberOf Query
    * @param {string} [subject=''] The string to verify.
    * @param {string} end The ending string.
@@ -2738,8 +3183,8 @@
     if (isNil(end)) {
       return false;
     }
-    var subjectString = toString(nilDefault(subject, '')),
-        endString = toString(end);
+    var subjectString = coerceToString(subject),
+        endString = coerceToString(end);
     if (endString === '') {
       return true;
     }
@@ -2754,6 +3199,7 @@
    *
    * @function includes
    * @static
+   * @since 1.0.0
    * @memberOf Query
    * @param {string} [subject=''] The string where to search.
    * @param {string} search The string to search.
@@ -2767,8 +3213,7 @@
    * // => false
    */
   function includes (subject, search, position) {
-    subject = nilDefault(subject, '');
-    var subjectString = toString(nilDefault(subject, '')),
+    var subjectString = coerceToString(subject),
         searchString = toString(search);
     if (searchString === null) {
       return false;
@@ -2785,6 +3230,7 @@
    *
    * @function isAlpha
    * @static
+   * @since 1.0.0
    * @memberOf Query
    * @param {string} [subject=''] The string to verify.
    * @return {boolean} Returns `true` if `subject` contains only alpha characters or `false` otherwise.
@@ -2799,7 +3245,7 @@
    * // => false
    */
   function isAlpha (subject) {
-    var subjectString = toString(nilDefault(subject, ''));
+    var subjectString = coerceToString(subject);
     return REGEXP_ALPHA.test(subjectString);
   }
 
@@ -2808,6 +3254,7 @@
    *
    * @function isAlphaDigit
    * @static
+   * @since 1.0.0
    * @memberOf Query
    * @param {string} [subject=''] The string to verify.
    * @return {boolean} Returns `true` if `subject` contains only alpha and digit characters or `false` otherwise.
@@ -2822,7 +3269,7 @@
    * // => false
    */
   function isAlphaDigit (subject) {
-    var subjectString = toString(nilDefault(subject, ''));
+    var subjectString = coerceToString(subject);
     return REGEXP_ALPHA_DIGIT.test(subjectString);
   }
 
@@ -2831,6 +3278,7 @@
    *
    * @function isBlank
    * @static
+   * @since 1.0.0
    * @memberOf Query
    * @param {string} [subject=''] The string to verify.
    * @return {boolean} Returns `true` if `subject` is empty or contains only whitespaces or `false` otherwise.
@@ -2845,7 +3293,7 @@
    * // => false
    */
   function isBlank (subject) {
-    var subjectString = toString(nilDefault(subject, ''));
+    var subjectString = coerceToString(subject);
     return subjectString.trim().length === 0;
   }
 
@@ -2854,6 +3302,7 @@
    *
    * @function isDigit
    * @static
+   * @since 1.0.0
    * @memberOf Query
    * @param {string} [subject=''] The string to verify.
    * @return {boolean} Returns `true` if `subject` contains only digit characters or `false` otherwise.
@@ -2868,7 +3317,7 @@
    * // => false
    */
   function isDigit (subject) {
-    var subjectString = toString(nilDefault(subject, ''));
+    var subjectString = coerceToString(subject);
     return REGEXP_DIGIT.test(subjectString);
   }
 
@@ -2877,6 +3326,7 @@
    *
    * @function isEmpty
    * @static
+   * @since 1.0.0
    * @memberOf Query
    * @param {string} [subject=''] The string to verify.
    * @return {boolean} Returns `true` if `subject` is empty or `false` otherwise
@@ -2888,7 +3338,7 @@
    * // => false
    */
   function isEmpty (subject) {
-    var subjectString = toString(nilDefault(subject, ''));
+    var subjectString = coerceToString(subject);
     return subjectString.length === 0;
   }
 
@@ -2897,6 +3347,7 @@
    *
    * @function isLowerCase
    * @static
+   * @since 1.0.0
    * @memberOf Query
    * @param {string} [subject=''] The string to verify.
    * @return {boolean} Returns `true` if `subject` is lower case or `false` otherwise.
@@ -2911,7 +3362,7 @@
    * // => false
    */
   function isLowerCase (subject) {
-    var valueString = toString(nilDefault(subject, ''));
+    var valueString = coerceToString(subject);
     return isAlpha(valueString) && valueString.toLowerCase() === valueString;
   }
 
@@ -2920,6 +3371,7 @@
    *
    * @function isNumeric
    * @static
+   * @since 1.0.0
    * @memberOf Query
    * @param {string} [subject=''] The string to verify.
    * @return {boolean} Returns `true` if `subject` is numeric or `false` otherwise.
@@ -2934,7 +3386,7 @@
    * // => false
    */
   function isNumeric (subject) {
-    var valueNumeric = (typeof subject === 'undefined' ? 'undefined' : _typeof(subject)) === 'object' && subject != null ? Number(subject) : subject;
+    var valueNumeric = (typeof subject === 'undefined' ? 'undefined' : _typeof(subject)) === 'object' && !isNil(subject) ? Number(subject) : subject;
     return (typeof valueNumeric === 'number' || typeof valueNumeric === 'string') && !isNaN(valueNumeric - parseFloat(valueNumeric));
   }
 
@@ -2943,6 +3395,7 @@
    *
    * @function isUpperCase
    * @static
+   * @since 1.0.0
    * @memberOf Query
    * @param {string} [subject=''] The string to verify.
    * @return {boolean} Returns `true` if `subject` is upper case or `false` otherwise.
@@ -2954,7 +3407,7 @@
    * // => false
    */
   function isUpperCase (subject) {
-    var subjectString = toString(nilDefault(subject, ''));
+    var subjectString = coerceToString(subject);
     return isAlpha(subjectString) && subjectString.toUpperCase() === subjectString;
   }
 
@@ -2963,6 +3416,7 @@
    *
    * @function matches
    * @static
+   * @since 1.0.0
    * @memberOf Query
    * @param {string} [subject=''] The string to verify.
    * @param {RegExp|string} pattern The pattern to match. If `pattern` is not RegExp, it is transformed to `new RegExp(pattern, flags)`.
@@ -2979,8 +3433,8 @@
    * // => false
    */
   function matches (subject, pattern, flags) {
-    var subjectString = toString(nilDefault(subject, '')),
-        flagsString = toString(nilDefault(flags, '')),
+    var subjectString = coerceToString(subject),
+        flagsString = coerceToString(flags),
         patternString;
     if (!(pattern instanceof RegExp)) {
       patternString = toString(pattern);
@@ -2997,6 +3451,7 @@
    *
    * @function startsWith
    * @static
+   * @since 1.0.0
    * @memberOf Query
    * @param {string} [subject=''] The string to verify.
    * @param {string} start The starting string.
@@ -3013,7 +3468,7 @@
    * // => false
    */
   function startsWith (subject, start, position) {
-    var subjectString = toString(nilDefault(subject, '')),
+    var subjectString = coerceToString(subject),
         startString = toString(start);
     if (startString === null) {
       return false;
@@ -3030,6 +3485,7 @@
    *
    * @function chars
    * @static
+   * @since 1.0.0
    * @memberOf Split
    * @param {string} [subject=''] The string to split into characters.
    * @return {Array} Returns the array of characters.
@@ -3038,7 +3494,7 @@
    * // => ['c', 'l', 'o', 'u', 'd']
    */
   function chars (subject) {
-    var subjectString = toString(nilDefault(subject, ''));
+    var subjectString = coerceToString(subject);
     return subjectString.split('');
   }
 
@@ -3049,6 +3505,7 @@
    *
    * @function charsCodePoint
    * @static
+   * @since 1.0.0
    * @memberOf Split
    * @param {string} [subject=''] The string to split into characters.
    * @return {Array} Returns the array of characters.
@@ -3060,7 +3517,7 @@
    * // => ['c', 'a', 'f', 'e\u0301']
    */
   function charsCodePoint (subject) {
-    var subjectString = toString(nilDefault(subject, ''));
+    var subjectString = coerceToString(subject);
     return nilDefault(subjectString.match(REGEXP_UNICODE_CHARACTER), []);
   }
 
@@ -3069,6 +3526,7 @@
    *
    * @function split
    * @static
+   * @since 1.0.0
    * @memberOf Split
    * @param {string} [subject=''] The string to split into characters.
    * @param {string|RegExp} [separator] The pattern to match the separator.
@@ -3082,7 +3540,7 @@
    * // => ['the', 'dying', 'of']
    */
   function split (subject, separator, limit) {
-    var subjectString = toString(nilDefault(subject, ''));
+    var subjectString = coerceToString(subject);
     return subjectString.split(separator, limit);
   }
 
@@ -3115,6 +3573,7 @@
    *
    * @function noConflict
    * @static
+   * @since 1.0.0
    * @memberOf Util
    * @return {Object} Returns Voca library instance.
    * @example
@@ -3133,6 +3592,7 @@
    * A property that contains the library <a href="http://semver.org/">semantic version number</a>.
    * @name version
    * @static
+   * @since 1.0.0
    * @memberOf Util
    * @type string
    * @example
@@ -3166,23 +3626,26 @@
     lastIndexOf: lastIndexOf,
     search: search,
 
+    first: first,
+    last: last,
+    prune: prune,
+    slice: slice,
+    substr: substr,
+    substring: substring,
+    truncate: truncate,
+
     latinise: latinise,
     pad: pad,
     padLeft: padLeft,
     padRight: padRight,
-    prune: prune,
     repeat: repeat,
     replace: replace,
     reverseCodePoint: reverseCodePoint,
     reverse: reverse,
-    slice: slice,
     slugify: slugify,
-    substr: substr,
-    substring: substring,
     trim: trim,
     trimLeft: trimLeft,
     trimRight: trimRight,
-    truncate: truncate,
 
     endsWith: endsWith,
     includes: includes,
@@ -3217,9 +3680,9 @@
      * The chain wrapper constructor.
      *
      * @ignore
-     * @param  {string} subject The string to be wrapped.
-     * @param  {boolean} [explicitChain=false] A boolean that indicates if the chain sequence is explicit or implicit.
-     * @return {ChainWrapper} Returns a new instance of `ChainWrapper`
+     * @param  {string}       subject               The string to be wrapped.
+     * @param  {boolean}      [explicitChain=false] A boolean that indicates if the chain sequence is explicit or implicit.
+     * @return {ChainWrapper}                       Returns a new instance of `ChainWrapper`
      * @constructor
      */
     function ChainWrapper(subject, explicitChain) {
@@ -3233,6 +3696,7 @@
      * Unwraps the chain sequence value.
      *
      * @memberof Chain
+     * @since 1.0.0
      * @function __proto__value
      * @return {*} Returns the unwrapped value.
      * @example
@@ -3260,6 +3724,7 @@
 
       /**
        * Override the default object valueOf().
+       *
        * @ignore
        * @return {*} Returns the wrapped value.
        */
@@ -3272,6 +3737,7 @@
 
       /**
        * Returns the wrapped value to be used in JSON.stringify().
+       *
        * @ignore
        * @return {*} Returns the wrapped value.
        */
@@ -3284,6 +3750,7 @@
 
       /**
        * Returns the string representation of the wrapped value.
+       *
        * @ignore
        * @return {string} Returns the string representation.
        */
@@ -3300,6 +3767,7 @@
        * Does not modify the wrapped value.
        *
        * @memberof Chain
+       * @since 1.0.0
        * @function __proto__chain
        * @return {Object} Returns the new wrapper object.
        * @example
@@ -3328,9 +3796,10 @@
        * Modifies the wrapped value with the invocation result of `changer` function.
        *
        * @memberof Chain
+       * @since 1.0.0
        * @function __proto__thru
-       * @param {Function} changer The function to invoke.
-       * @return {Object} Returns the new wrapper object.
+       * @param  {Function} changer The function to invoke.
+       * @return {Object}           Returns the new wrapper object.
        * @example
        * v('sun is shining')
        *  .words()
@@ -3364,20 +3833,30 @@
 
   ChainWrapper.prototype._explicitChain = true;
 
-  Object.keys(functions).forEach(function (name) {
-    var vocaFunction = functions[name];
-    ChainWrapper.prototype[name] = function () {
+  /**
+   * Make a voca function chainable.
+   *
+   * @ignore
+   * @param  {Function} functionInstance The function to make chainable
+   * @return {Function}                  Returns the chainable function
+   */
+  function makeFunctionChainable(functionInstance) {
+    return function () {
       for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
         args[_key] = arguments[_key];
       }
 
-      var result = vocaFunction.apply(undefined, [this._wrappedValue].concat(args));
-      if (!this._explicitChain && typeof result !== 'string') {
-        return result;
-      } else {
+      var result = functionInstance.apply(undefined, [this._wrappedValue].concat(args));
+      if (this._explicitChain || typeof result === 'string') {
         return new ChainWrapper(result, this._explicitChain);
+      } else {
+        return result;
       }
     };
+  }
+
+  Object.keys(functions).forEach(function (name) {
+    ChainWrapper.prototype[name] = makeFunctionChainable(functions[name]);
   });
 
   /**
@@ -3385,9 +3864,10 @@
    * Use `v.prototype.value()` to unwrap the result.
    *
    * @memberOf Chain
+   * @since 1.0.0
    * @function chain
-   * @param {string} subject The string to wrap.
-   * @return {Object}        Returns the new wrapper object.
+   * @param  {string} subject The string to wrap.
+   * @return {Object}         Returns the new wrapper object.
    * @example
    * v
    *  .chain('Back to School')
@@ -3400,14 +3880,13 @@
     return new ChainWrapper(subject, true);
   }
 
-  // include chain here to resolve af circular reference
-
   /**
    * Creates a chain object that wraps `subject`, enabling <i>implicit</i> chain sequences.<br/>
    * A function that returns `number`, `boolean` or `array` type <i>terminates</i> the chain sequence and returns the unwrapped value.
    * Otherwise use `v.prototype.value()` to unwrap the result.
    *
    * @memberOf Chain
+   * @since 1.0.0
    * @function v
    * @param {string} subject The string to wrap.
    * @return {Object}  Returns the new wrapper object.
@@ -3430,20 +3909,6 @@
   _extends(Voca, functions, {
     chain: chain
   });
-
-  /**
-   * The string containing all printable ASCII characters.
-   * @ignore
-   * @type {string}
-   */
-  var PRINTABLE_ASCII = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~';
-
-  /**
-   * The string containing all printable ASCII characters in reverse order.
-   * @ignore
-   * @type {string}
-   */
-  var REVERSED_PRINTABLE_ASCII = '~}|{zyxwvutsrqponmlkjihgfedcba`_^]\\[ZYXWVUTSRQPONMLKJIHGFEDCBA@?>=<;:9876543210/.-,+*)(\'&%$#"! ';
 
   describe('camelCase', function () {
 
@@ -3775,6 +4240,252 @@
     });
   });
 
+  describe('first', function () {
+
+    it('should return the first part of a string', function () {
+      chai.expect(Voca.first('Good day', -1)).to.be.equal('');
+      chai.expect(Voca.first('Good day', 0)).to.be.equal('');
+      chai.expect(Voca.first('Good day', 4)).to.be.equal('Good');
+      chai.expect(Voca.first('Good day', 1)).to.be.equal('G');
+      chai.expect(Voca.first('Good day', 8)).to.be.equal('Good day');
+      chai.expect(Voca.first('Good day', 1000)).to.be.equal('Good day');
+      chai.expect(Voca.first('Good day')).to.be.equal('G');
+      chai.expect(Voca.first('', 5)).to.be.equal('');
+      chai.expect(Voca.first('', 0)).to.be.equal('');
+      chai.expect(Voca.first('')).to.be.equal('');
+      chai.expect(Voca.first(PRINTABLE_ASCII, PRINTABLE_ASCII.length)).to.be.equal(PRINTABLE_ASCII);
+      chai.expect(Voca.first(PRINTABLE_ASCII, 1)).to.be.equal(PRINTABLE_ASCII[0]);
+    });
+
+    it('should return the first part of a string representation of an object', function () {
+      chai.expect(Voca.first(['Good evening'], 5)).to.be.equal('Good ');
+      chai.expect(Voca.first({
+        toString: function toString() {
+          return 'Morning';
+        }
+      }, 2)).to.be.equal('Mo');
+    });
+
+    it('should return an empty string for null or undefined', function () {
+      chai.expect(Voca.first()).to.be.equal('');
+      chai.expect(Voca.first(undefined)).to.be.equal('');
+      chai.expect(Voca.first(null)).to.be.equal('');
+      chai.expect(Voca.first(null, null)).to.be.equal('');
+      chai.expect(Voca.first(undefined, undefined)).to.be.equal('');
+    });
+  });
+
+  describe('last', function () {
+
+    it('should return the last part of a string', function () {
+      chai.expect(Voca.last('Good day', -1)).to.be.equal('');
+      chai.expect(Voca.last('Good day', 0)).to.be.equal('');
+      chai.expect(Voca.last('Good day', 4)).to.be.equal(' day');
+      chai.expect(Voca.last('Good day', 1)).to.be.equal('y');
+      chai.expect(Voca.last('Good day', 8)).to.be.equal('Good day');
+      chai.expect(Voca.last('Good day', 1000)).to.be.equal('Good day');
+      chai.expect(Voca.last('Good day')).to.be.equal('y');
+      chai.expect(Voca.last('', 5)).to.be.equal('');
+      chai.expect(Voca.last('', 0)).to.be.equal('');
+      chai.expect(Voca.last('')).to.be.equal('');
+      chai.expect(Voca.last(PRINTABLE_ASCII, PRINTABLE_ASCII.length)).to.be.equal(PRINTABLE_ASCII);
+      chai.expect(Voca.last(PRINTABLE_ASCII, 1)).to.be.equal(PRINTABLE_ASCII[PRINTABLE_ASCII.length - 1]);
+    });
+
+    it('should return the last part of a string representation of an object', function () {
+      chai.expect(Voca.last(['Good evening'], 5)).to.be.equal('ening');
+      chai.expect(Voca.last({
+        toString: function toString() {
+          return 'Morning';
+        }
+      }, 2)).to.be.equal('ng');
+    });
+
+    it('should return an empty string for null or undefined', function () {
+      chai.expect(Voca.last()).to.be.equal('');
+      chai.expect(Voca.last(undefined)).to.be.equal('');
+      chai.expect(Voca.last(null)).to.be.equal('');
+      chai.expect(Voca.last(null, null)).to.be.equal('');
+      chai.expect(Voca.last(undefined, undefined)).to.be.equal('');
+    });
+  });
+
+  describe('prune', function () {
+
+    it('should prune a string', function () {
+      chai.expect(Voca.prune('Once upon a time there lived in a certain village a little country girl', 7)).to.be.equal('Once...');
+      chai.expect(Voca.prune('I\'ll go this way and go you that', 19, ' (read more)')).to.be.equal('I\'ll go (read more)');
+      chai.expect(Voca.prune('Little Red Riding Hood', 6, '...')).to.be.equal('...');
+      chai.expect(Voca.prune('Little Red Riding Hood', 9, '...')).to.be.equal('Little...');
+      chai.expect(Voca.prune('Little Red Riding Hood', 11, '...')).to.be.equal('Little...');
+      chai.expect(Voca.prune('Little Red Riding Hood', 20, '...')).to.be.equal('Little Red Riding...');
+      chai.expect(Voca.prune('Little Red Riding Hood', 22, '...')).to.be.equal('Little Red Riding Hood');
+      chai.expect(Voca.prune('Little Red Riding Hood', 1, '...')).to.be.equal('...');
+      chai.expect(Voca.prune('Little Red Riding Hood', 5, '...')).to.be.equal('...');
+      chai.expect(Voca.prune('Little Red Riding Hood', 0, '(more)')).to.be.equal('(more)');
+      chai.expect(Voca.prune(PRINTABLE_ASCII, PRINTABLE_ASCII.length)).to.be.equal(PRINTABLE_ASCII);
+      chai.expect(Voca.prune(PRINTABLE_ASCII, 0)).to.be.equal('...');
+    });
+
+    it('should not prune a string if length parameter is greater or equal than string length', function () {
+      chai.expect(Voca.prune('Once upon', 20)).to.be.equal('Once upon');
+      chai.expect(Voca.prune('Once', 4, ' (read more)')).to.be.equal('Once');
+      chai.expect(Voca.prune('', 0, '....')).to.be.equal('');
+    });
+
+    it('should prune a string representation of an object', function () {
+      chai.expect(Voca.prune(['Welcome'], 4)).to.be.equal('...');
+      chai.expect(Voca.prune({
+        toString: function toString() {
+          return 'Have a nice day';
+        }
+      }, 6, '..')).to.be.equal('Have..');
+    });
+
+    it('should return an empty string for null or undefined', function () {
+      chai.expect(Voca.prune()).to.be.equal('');
+      chai.expect(Voca.prune(undefined)).to.be.equal('');
+      chai.expect(Voca.prune(null)).to.be.equal('');
+    });
+  });
+
+  describe('slice', function () {
+
+    it('should slice a string', function () {
+      chai.expect(Voca.slice('infinite loop', 9)).to.be.equal('loop');
+      chai.expect(Voca.slice('infinite loop', 0)).to.be.equal('infinite loop');
+      chai.expect(Voca.slice('infinite loop')).to.be.equal('infinite loop');
+      chai.expect(Voca.slice('infinite loop', 1)).to.be.equal('nfinite loop');
+      chai.expect(Voca.slice(PRINTABLE_ASCII, 0)).to.be.equal(PRINTABLE_ASCII);
+    });
+
+    it('should slice a string with an end position', function () {
+      chai.expect(Voca.slice('infinite loop', 9, 12)).to.be.equal('loo');
+      chai.expect(Voca.slice('infinite loop', 9, -1)).to.be.equal('loo');
+      chai.expect(Voca.slice('infinite loop', 0, 'infinite loop'.length)).to.be.equal('infinite loop');
+      chai.expect(Voca.slice('infinite loop', 1, 2)).to.be.equal('n');
+      chai.expect(Voca.slice('infinite loop', -4, -1)).to.be.equal('loo');
+    });
+
+    it('should slice a string representation of an object', function () {
+      chai.expect(Voca.slice(['infinite loop'], 10)).to.be.equal('oop');
+      chai.expect(Voca.slice({
+        toString: function toString() {
+          return 'loop';
+        }
+      }, 0, 3)).to.be.equal('loo');
+    });
+
+    it('should slice a string from a number', function () {
+      chai.expect(Voca.slice(12345, 3)).to.be.equal('45');
+      chai.expect(Voca.slice(987, 1, 2)).to.be.equal('8');
+    });
+  });
+
+  describe('substr', function () {
+
+    it('should substract a string', function () {
+      chai.expect(Voca.substr('infinite loop', 9)).to.be.equal('loop');
+      chai.expect(Voca.substr('infinite loop', 0)).to.be.equal('infinite loop');
+      chai.expect(Voca.substr('infinite loop')).to.be.equal('infinite loop');
+      chai.expect(Voca.substr('infinite loop', 1)).to.be.equal('nfinite loop');
+      chai.expect(Voca.substr('infinite loop', -4)).to.be.equal('loop');
+      chai.expect(Voca.substr(PRINTABLE_ASCII, 0)).to.be.equal(PRINTABLE_ASCII);
+    });
+
+    it('should substract a string with a length', function () {
+      chai.expect(Voca.substr('infinite loop', 9, 3)).to.be.equal('loo');
+      chai.expect(Voca.substr('infinite loop', 0, 'infinite loop'.length)).to.be.equal('infinite loop');
+      chai.expect(Voca.substr('infinite loop', 1, 1)).to.be.equal('n');
+      chai.expect(Voca.substr('infinite loop', -4, 1)).to.be.equal('l');
+    });
+
+    it('should substract a string representation of an object', function () {
+      chai.expect(Voca.substr(['infinite loop'], 10)).to.be.equal('oop');
+      chai.expect(Voca.substr({
+        toString: function toString() {
+          return 'loop';
+        }
+      }, 0, 3)).to.be.equal('loo');
+    });
+
+    it('should substract a string from a number', function () {
+      chai.expect(Voca.substr(12345, 3)).to.be.equal('45');
+      chai.expect(Voca.substr(987, 1, 1)).to.be.equal('8');
+    });
+  });
+
+  describe('substring', function () {
+
+    it('should substring a string', function () {
+      chai.expect(Voca.substring('infinite loop', 9)).to.be.equal('loop');
+      chai.expect(Voca.substring('infinite loop', 0)).to.be.equal('infinite loop');
+      chai.expect(Voca.substring('infinite loop')).to.be.equal('infinite loop');
+      chai.expect(Voca.substring('infinite loop', 1)).to.be.equal('nfinite loop');
+      chai.expect(Voca.substring(PRINTABLE_ASCII, 0)).to.be.equal(PRINTABLE_ASCII);
+    });
+
+    it('should substring a string with an end position', function () {
+      chai.expect(Voca.substring('infinite loop', 9, 12)).to.be.equal('loo');
+      chai.expect(Voca.substring('infinite loop', 0, 'infinite loop'.length)).to.be.equal('infinite loop');
+      chai.expect(Voca.substring('infinite loop', 1, 2)).to.be.equal('n');
+    });
+
+    it('should substring a string representation of an object', function () {
+      chai.expect(Voca.substring(['infinite loop'], 10)).to.be.equal('oop');
+      chai.expect(Voca.substring({
+        toString: function toString() {
+          return 'loop';
+        }
+      }, 0, 3)).to.be.equal('loo');
+    });
+
+    it('should substring a string from a number', function () {
+      chai.expect(Voca.substring(12345, 3)).to.be.equal('45');
+      chai.expect(Voca.substring(987, 1, 2)).to.be.equal('8');
+    });
+  });
+
+  describe('truncate', function () {
+
+    it('should truncate a string', function () {
+      chai.expect(Voca.truncate('Once upon a time there lived in a certain village a little country girl', 4)).to.be.equal('O...');
+      chai.expect(Voca.truncate('I\'ll go this way and go you that', 19, ' (read more)')).to.be.equal('I\'ll go (read more)');
+      chai.expect(Voca.truncate('Little Red Riding Hood', 9, '...')).to.be.equal('Little...');
+      chai.expect(Voca.truncate('Little Red Riding Hood', 0, '(more)')).to.be.equal('(more)');
+      chai.expect(Voca.truncate('Little Red Riding Hood', 1, '(more)')).to.be.equal('(more)');
+      chai.expect(Voca.truncate('Little Red Riding Hood', 2, '(more)')).to.be.equal('(more)');
+      chai.expect(Voca.truncate('Little Red Riding Hood', 3, '(more)')).to.be.equal('(more)');
+      chai.expect(Voca.truncate('Little Red Riding Hood', 6, '(more)')).to.be.equal('(more)');
+      chai.expect(Voca.truncate('Little Red Riding Hood', 7, '(more)')).to.be.equal('L(more)');
+      chai.expect(Voca.truncate('Little Red Riding Hood', 7, '')).to.be.equal('Little ');
+      chai.expect(Voca.truncate('Little Red Riding Hood', 0, '')).to.be.equal('');
+      chai.expect(Voca.truncate(PRINTABLE_ASCII, PRINTABLE_ASCII.length)).to.be.equal(PRINTABLE_ASCII);
+      chai.expect(Voca.truncate(PRINTABLE_ASCII, 0)).to.be.equal('...');
+    });
+
+    it('should not truncate a string if length parameter is greater or equal than string length', function () {
+      chai.expect(Voca.truncate('Once upon', 20)).to.be.equal('Once upon');
+      chai.expect(Voca.truncate('Once', 4, ' (read more)')).to.be.equal('Once');
+      chai.expect(Voca.truncate('', 0, '....')).to.be.equal('');
+    });
+
+    it('should truncate a string representation of an object', function () {
+      chai.expect(Voca.truncate(['Welcome'], 6)).to.be.equal('Wel...');
+      chai.expect(Voca.truncate({
+        toString: function toString() {
+          return 'Have a nice day';
+        }
+      }, 4, '..')).to.be.equal('Ha..');
+    });
+
+    it('should return an empty string for null or undefined', function () {
+      chai.expect(Voca.truncate()).to.be.equal('');
+      chai.expect(Voca.truncate(undefined)).to.be.equal('');
+      chai.expect(Voca.truncate(null)).to.be.equal('');
+    });
+  });
+
   describe('count', function () {
 
     it('should return the number of characters in a string', function () {
@@ -4015,6 +4726,34 @@
       chai.expect(Voca.unescapeHtml()).to.be.equal('');
       chai.expect(Voca.unescapeHtml(undefined)).to.be.equal('');
       chai.expect(Voca.unescapeHtml(null)).to.be.equal('');
+    });
+  });
+
+  describe('coerceToBoolean', function () {
+
+    it('should coerce the value to boolean', function () {
+      chai.expect(coerceToBoolean(true)).to.be.equal(true);
+      chai.expect(coerceToBoolean(false)).to.be.equal(false);
+      chai.expect(coerceToBoolean(1)).to.be.equal(true);
+      chai.expect(coerceToBoolean(null)).to.be.equal(false);
+      chai.expect(coerceToBoolean(null, true)).to.be.equal(true);
+      chai.expect(coerceToBoolean(undefined)).to.be.equal(false);
+      chai.expect(coerceToBoolean(undefined, true)).to.be.equal(true);
+      chai.expect(coerceToBoolean(undefined, false)).to.be.equal(false);
+    });
+  });
+
+  describe('coerceToNumber', function () {
+
+    it('should coerce the value to number', function () {
+      chai.expect(coerceToNumber(10)).to.be.equal(10);
+      chai.expect(coerceToNumber(0)).to.be.equal(0);
+      chai.expect(coerceToNumber(true)).to.be.equal(1);
+      chai.expect(coerceToNumber(null)).to.be.equal(0);
+      chai.expect(coerceToNumber(null, 1)).to.be.equal(1);
+      chai.expect(coerceToNumber(undefined)).to.be.equal(0);
+      chai.expect(coerceToNumber(undefined, 1)).to.be.equal(1);
+      chai.expect(coerceToNumber(undefined, 0)).to.be.equal(0);
     });
   });
 
@@ -4451,6 +5190,7 @@
       chai.expect(Voca.latinise("Dès l'enfance, Charlotte, comme Emily et probablement plus fortement Branwell, est influencée par certaines sources d'inspiration")).to.be.equal("Des l'enfance, Charlotte, comme Emily et probablement plus fortement Branwell, est influencee par certaines sources d'inspiration");
       chai.expect(Voca.latinise('Există peste 13.800 de localități în România')).to.be.equal('Exista peste 13.800 de localitati in Romania');
       chai.expect(Voca.latinise('août décembre')).to.be.equal('aout decembre');
+      chai.expect(Voca.latinise('Україна розташована в південно-східній частині Європи')).to.be.equal('Ukrayina roztashovana v pivdenno-shidnij chastini Yevropi');
       chai.expect(Voca.latinise('\t\n')).to.be.equal('\t\n');
       chai.expect(Voca.latinise('⁇')).to.be.equal('⁇');
       chai.expect(Voca.latinise(PRINTABLE_ASCII)).to.be.equal(PRINTABLE_ASCII);
@@ -4644,45 +5384,6 @@
     });
   });
 
-  describe('prune', function () {
-
-    it('should prune a string', function () {
-      chai.expect(Voca.prune('Once upon a time there lived in a certain village a little country girl', 6)).to.be.equal('Once...');
-      chai.expect(Voca.prune('I\'ll go this way and go you that', 9, ' (read more)')).to.be.equal('I\'ll go (read more)');
-      chai.expect(Voca.prune('Little Red Riding Hood', 6, '...')).to.be.equal('Little...');
-      chai.expect(Voca.prune('Little Red Riding Hood', 9, '...')).to.be.equal('Little...');
-      chai.expect(Voca.prune('Little Red Riding Hood', 11, '...')).to.be.equal('Little Red...');
-      chai.expect(Voca.prune('Little Red Riding Hood', 20, '...')).to.be.equal('Little Red Riding...');
-      chai.expect(Voca.prune('Little Red Riding Hood', 22, '...')).to.be.equal('Little Red Riding Hood');
-      chai.expect(Voca.prune('Little Red Riding Hood', 1, '...')).to.be.equal('...');
-      chai.expect(Voca.prune('Little Red Riding Hood', 5, '...')).to.be.equal('...');
-      chai.expect(Voca.prune('Little Red Riding Hood', 0, '(more)')).to.be.equal('(more)');
-      chai.expect(Voca.prune(PRINTABLE_ASCII, PRINTABLE_ASCII.length)).to.be.equal(PRINTABLE_ASCII);
-      chai.expect(Voca.prune(PRINTABLE_ASCII, 0)).to.be.equal('...');
-    });
-
-    it('should not prune a string if length parameter is greater or equal than string length', function () {
-      chai.expect(Voca.prune('Once upon', 20)).to.be.equal('Once upon');
-      chai.expect(Voca.prune('Once', 4, ' (read more)')).to.be.equal('Once');
-      chai.expect(Voca.prune('', 0, '....')).to.be.equal('');
-    });
-
-    it('should prune a string representation of an object', function () {
-      chai.expect(Voca.prune(['Welcome'], 4)).to.be.equal('...');
-      chai.expect(Voca.prune({
-        toString: function toString() {
-          return 'Have a nice day';
-        }
-      }, 4, '..')).to.be.equal('Have..');
-    });
-
-    it('should return an empty string for null or undefined', function () {
-      chai.expect(Voca.prune()).to.be.equal('');
-      chai.expect(Voca.prune(undefined)).to.be.equal('');
-      chai.expect(Voca.prune(null)).to.be.equal('');
-    });
-  });
-
   describe('replace', function () {
 
     it('should return the replace result with a string pattern', function () {
@@ -4797,39 +5498,6 @@
     });
   });
 
-  describe('slice', function () {
-
-    it('should slice a string', function () {
-      chai.expect(Voca.slice('infinite loop', 9)).to.be.equal('loop');
-      chai.expect(Voca.slice('infinite loop', 0)).to.be.equal('infinite loop');
-      chai.expect(Voca.slice('infinite loop')).to.be.equal('infinite loop');
-      chai.expect(Voca.slice('infinite loop', 1)).to.be.equal('nfinite loop');
-      chai.expect(Voca.slice(PRINTABLE_ASCII, 0)).to.be.equal(PRINTABLE_ASCII);
-    });
-
-    it('should slice a string with an end position', function () {
-      chai.expect(Voca.slice('infinite loop', 9, 12)).to.be.equal('loo');
-      chai.expect(Voca.slice('infinite loop', 9, -1)).to.be.equal('loo');
-      chai.expect(Voca.slice('infinite loop', 0, 'infinite loop'.length)).to.be.equal('infinite loop');
-      chai.expect(Voca.slice('infinite loop', 1, 2)).to.be.equal('n');
-      chai.expect(Voca.slice('infinite loop', -4, -1)).to.be.equal('loo');
-    });
-
-    it('should slice a string representation of an object', function () {
-      chai.expect(Voca.slice(['infinite loop'], 10)).to.be.equal('oop');
-      chai.expect(Voca.slice({
-        toString: function toString() {
-          return 'loop';
-        }
-      }, 0, 3)).to.be.equal('loo');
-    });
-
-    it('should slice a string from a number', function () {
-      chai.expect(Voca.slice(12345, 3)).to.be.equal('45');
-      chai.expect(Voca.slice(987, 1, 2)).to.be.equal('8');
-    });
-  });
-
   describe('slugify', function () {
 
     it('should slugify the string', function () {
@@ -4857,6 +5525,7 @@
       chai.expect(Voca.slugify('zborul păsării')).to.be.equal('zborul-pasarii');
       chai.expect(Voca.slugify('fuerza de sustentación')).to.be.equal('fuerza-de-sustentacion');
       chai.expect(Voca.slugify('skrzydło ptaka składa się')).to.be.equal('skrzydlo-ptaka-sklada-sie');
+      chai.expect(Voca.slugify('Україна розташована в південно-східній частині Європи')).to.be.equal('ukrayina-roztashovana-v-pivdenno-shidnij-chastini-yevropi');
       chai.expect(Voca.slugify('mañana')).to.be.equal('manana');
       chai.expect(Voca.slugify('foõ͜͝͞ bar')).to.be.equal('foo-bar');
     });
@@ -4880,70 +5549,6 @@
       chai.expect(Voca.slugify()).to.be.equal('');
       chai.expect(Voca.slugify(undefined)).to.be.equal('');
       chai.expect(Voca.slugify(null)).to.be.equal('');
-    });
-  });
-
-  describe('substr', function () {
-
-    it('should substract a string', function () {
-      chai.expect(Voca.substr('infinite loop', 9)).to.be.equal('loop');
-      chai.expect(Voca.substr('infinite loop', 0)).to.be.equal('infinite loop');
-      chai.expect(Voca.substr('infinite loop')).to.be.equal('infinite loop');
-      chai.expect(Voca.substr('infinite loop', 1)).to.be.equal('nfinite loop');
-      chai.expect(Voca.substr('infinite loop', -4)).to.be.equal('loop');
-      chai.expect(Voca.substr(PRINTABLE_ASCII, 0)).to.be.equal(PRINTABLE_ASCII);
-    });
-
-    it('should substract a string with a length', function () {
-      chai.expect(Voca.substr('infinite loop', 9, 3)).to.be.equal('loo');
-      chai.expect(Voca.substr('infinite loop', 0, 'infinite loop'.length)).to.be.equal('infinite loop');
-      chai.expect(Voca.substr('infinite loop', 1, 1)).to.be.equal('n');
-      chai.expect(Voca.substr('infinite loop', -4, 1)).to.be.equal('l');
-    });
-
-    it('should substract a string representation of an object', function () {
-      chai.expect(Voca.substr(['infinite loop'], 10)).to.be.equal('oop');
-      chai.expect(Voca.substr({
-        toString: function toString() {
-          return 'loop';
-        }
-      }, 0, 3)).to.be.equal('loo');
-    });
-
-    it('should substract a string from a number', function () {
-      chai.expect(Voca.substr(12345, 3)).to.be.equal('45');
-      chai.expect(Voca.substr(987, 1, 1)).to.be.equal('8');
-    });
-  });
-
-  describe('substring', function () {
-
-    it('should substring a string', function () {
-      chai.expect(Voca.substring('infinite loop', 9)).to.be.equal('loop');
-      chai.expect(Voca.substring('infinite loop', 0)).to.be.equal('infinite loop');
-      chai.expect(Voca.substring('infinite loop')).to.be.equal('infinite loop');
-      chai.expect(Voca.substring('infinite loop', 1)).to.be.equal('nfinite loop');
-      chai.expect(Voca.substring(PRINTABLE_ASCII, 0)).to.be.equal(PRINTABLE_ASCII);
-    });
-
-    it('should substring a string with an end position', function () {
-      chai.expect(Voca.substring('infinite loop', 9, 12)).to.be.equal('loo');
-      chai.expect(Voca.substring('infinite loop', 0, 'infinite loop'.length)).to.be.equal('infinite loop');
-      chai.expect(Voca.substring('infinite loop', 1, 2)).to.be.equal('n');
-    });
-
-    it('should substring a string representation of an object', function () {
-      chai.expect(Voca.substring(['infinite loop'], 10)).to.be.equal('oop');
-      chai.expect(Voca.substring({
-        toString: function toString() {
-          return 'loop';
-        }
-      }, 0, 3)).to.be.equal('loo');
-    });
-
-    it('should substring a string from a number', function () {
-      chai.expect(Voca.substring(12345, 3)).to.be.equal('45');
-      chai.expect(Voca.substring(987, 1, 2)).to.be.equal('8');
     });
   });
 
@@ -5110,39 +5715,6 @@
       chai.expect(Voca.trimRight(undefined)).to.be.equal('');
       chai.expect(Voca.trimRight(undefined, '*')).to.be.equal('');
       chai.expect(Voca.trimRight(undefined, undefined)).to.be.equal('');
-    });
-  });
-
-  describe('truncate', function () {
-
-    it('should truncate a string', function () {
-      chai.expect(Voca.truncate('Once upon a time there lived in a certain village a little country girl', 4)).to.be.equal('Once...');
-      chai.expect(Voca.truncate('I\'ll go this way and go you that', 7, ' (read more)')).to.be.equal('I\'ll go (read more)');
-      chai.expect(Voca.truncate('Little Red Riding Hood', 6, '...')).to.be.equal('Little...');
-      chai.expect(Voca.truncate('Little Red Riding Hood', 0, '(more)')).to.be.equal('(more)');
-      chai.expect(Voca.truncate(PRINTABLE_ASCII, PRINTABLE_ASCII.length)).to.be.equal(PRINTABLE_ASCII);
-      chai.expect(Voca.truncate(PRINTABLE_ASCII, 0)).to.be.equal('...');
-    });
-
-    it('should not truncate a string if length parameter is greater or equal than string length', function () {
-      chai.expect(Voca.truncate('Once upon', 20)).to.be.equal('Once upon');
-      chai.expect(Voca.truncate('Once', 4, ' (read more)')).to.be.equal('Once');
-      chai.expect(Voca.truncate('', 0, '....')).to.be.equal('');
-    });
-
-    it('should truncate a string representation of an object', function () {
-      chai.expect(Voca.truncate(['Welcome'], 4)).to.be.equal('Welc...');
-      chai.expect(Voca.truncate({
-        toString: function toString() {
-          return 'Have a nice day';
-        }
-      }, 4, '..')).to.be.equal('Have..');
-    });
-
-    it('should return an empty string for null or undefined', function () {
-      chai.expect(Voca.truncate()).to.be.equal('');
-      chai.expect(Voca.truncate(undefined)).to.be.equal('');
-      chai.expect(Voca.truncate(null)).to.be.equal('');
     });
   });
 
@@ -5350,6 +5922,11 @@
 
     it('should return true for a string with diacritics', function () {
       chai.expect(Voca.isAlpha('áéèêëíîïóôúûýàòüçäöâùÿãõñ')).to.be.true;
+    });
+
+    it('should return true for characters with diacritical marks', function () {
+      chai.expect(Voca.isAlpha('mañana')).to.be.true;
+      chai.expect(Voca.isAlpha('foõ͜͝͞bar')).to.be.true;
     });
 
     it('should return true for an array with one alpha string item', function () {
@@ -6406,13 +6983,6 @@
       chai.expect(globalObject.v).to.be.equal(undefined);
     });
   });
-
-  /**
-   * Regular expression to match the library version.
-   * @see http://semver.org/
-   * @type {RegExp}
-   */
-  var REGEXP_SEMVER = /\bv?(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)(?:-[\da-z\-]+(?:\.[\da-z\-]+)*)?(?:\+[\da-z\-]+(?:\.[\da-z\-]+)*)?\b/ig;
 
   describe('version', function () {
 

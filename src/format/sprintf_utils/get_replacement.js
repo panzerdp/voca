@@ -4,27 +4,19 @@ import formatFloat from './type_format/float';
 import formatIntegerBase from './type_format/integer_base';
 import formatIntegerDecimal from './type_format/integer_decimal';
 import formatString from './type_format/string';
-import getPaddingCharacter from './get_padding_character';
-import toNumber from '../../helper/number/to_number';
 
 /**
  * Returns the computed string based on format specifiers.
  *
  * @ignore
  * @name getReplacement
- * @param  {string}   replacement        The replacement value.
- * @param  {string}   signSpecifier      The sign specifier to force a sign to be used on a number.
- * @param  {string}   paddingSpecifier   The padding specifier that says what padding character will be used.
- * @param  {string}   alignmentSpecifier The alignment specifier that says if the result should be left-justified or right-justified.
- * @param  {number}   widthSpecifier     The width specifier how many characters this conversion should result in.
- * @param  {number}   precisionSpecifier The precision specifier says how many decimal digits should be displayed for floating-point numbers.
- * @param  {string}   typeSpecifier      The type specifier says what type the argument data should be treated as.
- * @return {string}                      Returns the computed string.
+ * @param {string} replacement The replacement value.
+ * @param {ConversionSpecification} conversion The conversion specification object.
+ * @return {string} Returns the computed string.
  */
-export default function (replacement, signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier,
-    precisionSpecifier, typeSpecifier) {
+export default function (replacement, conversion) {
   var formatFunction;
-  switch (typeSpecifier) {
+  switch (conversion.typeSpecifier) {
     case Const.TYPE_STRING:
       formatFunction = formatString;
       break;
@@ -48,6 +40,6 @@ export default function (replacement, signSpecifier, paddingSpecifier, alignment
       formatFunction = formatFloat;
       break;
   }
-  var formattedString = formatFunction(replacement, signSpecifier, toNumber(precisionSpecifier), typeSpecifier);
-  return alignAndPad(formattedString, getPaddingCharacter(paddingSpecifier), alignmentSpecifier, toNumber(widthSpecifier));
+  var formattedString = formatFunction(replacement, conversion);
+  return alignAndPad(formattedString, conversion);
 }

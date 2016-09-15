@@ -1,4 +1,11 @@
 {
-  "presets": ["es2015"],
-  "plugins": ["transform-object-assign"]
+  "presets": [
+    "es2015"
+  ],
+  "plugins": [
+    "transform-object-assign",
+    ["babel-root-import", {
+      "rootPathSuffix": "src"
+    }]
+  ]
 }

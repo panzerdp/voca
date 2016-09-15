@@ -9,16 +9,19 @@ import toString from '../../../helper/string/coerce_to_string';
  *
  * @ignore
  * @param  {number} replacementNumber The number to format.
- * @param  {number} precision         The precision to format the float.
- * @param  {string} typeSpecifier     The type specifier.
- * @return {string}                   Returns the formatted short float.
+ * @param  {number} precision The precision to format the float.
+ * @param  {ConversionSpecification} conversion The conversion specification object.
+ * @return {string}  Returns the formatted short float.
  */
-function formatFloatAsShort(replacementNumber, precision, typeSpecifier) {
+function formatFloatAsShort(replacementNumber, precision, conversion) {
   if (replacementNumber === 0) {
     return '0';
   }
-  var formattedReplacement = replacementNumber.toPrecision(precision === 0 ? 1 : precision).replace(REGEXP_TRAILING_ZEROS, '');
-  if (typeSpecifier === Const.TYPE_FLOAT_SHORT_UPPERCASE) {
+  var nonZeroPrecision = precision === 0 ? 1 : precision;
+  var formattedReplacement = replacementNumber
+    .toPrecision(nonZeroPrecision)
+    .replace(REGEXP_TRAILING_ZEROS, '');
+  if (conversion.typeSpecifier === Const.TYPE_FLOAT_SHORT_UPPERCASE) {
     formattedReplacement = formattedReplacement.toUpperCase();
   }
   return formattedReplacement;
@@ -28,21 +31,19 @@ function formatFloatAsShort(replacementNumber, precision, typeSpecifier) {
  * Formats a float type according to specifiers.
  *
  * @ignore
- * @param  {string} replacement          The string to be formatted.
- * @param  {string} [signSpecifier]      The sign specifier to force a sign to be used on a number.
- * @param  {number} [precision]          The precision.
- * @param  {string} typeSpecifier        The type specifier says what type the argument data should be treated as.
- * @return {string}                      Returns the formatted string.
+ * @param  {string} replacement The string to be formatted.
+ * @param  {ConversionSpecification} conversion The conversion specification object.
+ * @return {string} Returns the formatted string.
  */
 
-export default function(replacement, signSpecifier, precision, typeSpecifier) {
+export default function(replacement, conversion) {
   var replacementNumber = parseFloat(replacement),
     formattedReplacement;
   if (isNaN(replacementNumber)) {
     replacementNumber = 0;
   }
-  precision = coerceToNumber(precision, 6);
-  switch (typeSpecifier) {
+  var precision = coerceToNumber(conversion.precision, 6);
+  switch (conversion.typeSpecifier) {
     case Const.TYPE_FLOAT:
       formattedReplacement = replacementNumber.toFixed(precision);
       break;
@@ -54,9 +55,9 @@ export default function(replacement, signSpecifier, precision, typeSpecifier) {
       break;
     case Const.TYPE_FLOAT_SHORT:
     case Const.TYPE_FLOAT_SHORT_UPPERCASE:
-      formattedReplacement = formatFloatAsShort(replacementNumber, precision, typeSpecifier);
+      formattedReplacement = formatFloatAsShort(replacementNumber, precision, conversion);
       break;
   }
-  formattedReplacement = addSignToFormattedNumber(replacementNumber, formattedReplacement, signSpecifier);
+  formattedReplacement = addSignToFormattedNumber(replacementNumber, formattedReplacement, conversion);
   return toString(formattedReplacement);
 }
