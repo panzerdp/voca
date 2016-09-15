@@ -1,10 +1,7 @@
-import coerceToNumber from '../helper/number/coerce_to_number';
 import coerceToString from '../helper/string/coerce_to_string';
-import ConversionSpecification from './sprintf_utils/conversion_specification';
-import getReplacement from './sprintf_utils/get_replacement';
-import isNil from '../helper/object/is_nil';
 import { REGEXP_CONVERSION_SPECIFICATION } from '../helper/string/regexp';
-import validateFormat from './sprintf_utils/validate_format';
+import ReplacementIndex from './sprintf_utils/replacement/index';
+import replacementMatch from './sprintf_utils/replacement/match';
 
 /**
  * Produces a string according to `format`.
@@ -162,30 +159,6 @@ export default function(format, ...replacements) {
   if (formatString === '') {
     return formatString;
   }
-  var replacementMatchIndex = 0,
-    replacementsLength = replacements.length;
-  return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, function(conversionSpecification, percent, position,
-    signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
-    var actualReplacementIndex,
-      conversion = new ConversionSpecification({
-        percent,
-        signSpecifier,
-        paddingSpecifier,
-        alignmentSpecifier,
-        width: coerceToNumber(widthSpecifier, null),
-        precision: coerceToNumber(precisionSpecifier, null),
-        typeSpecifier
-      });
-    if (conversion.isPercentLiteral()) {
-      return conversionSpecification.slice(1);
-    }
-    if (isNil(position)) {
-      actualReplacementIndex = replacementMatchIndex;
-      replacementMatchIndex++;
-    } else {
-      actualReplacementIndex = position - 1;
-    }
-    validateFormat(actualReplacementIndex, replacementsLength, conversion);
-    return getReplacement(replacements[actualReplacementIndex], conversion);
-  });
+  var boundReplacementMatch = replacementMatch.bind(undefined, new ReplacementIndex(), replacements);
+  return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, boundReplacementMatch);
 }
