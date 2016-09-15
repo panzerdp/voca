@@ -71,6 +71,7 @@ import padLeft from './manipulate/pad_left';
 import padRight from './manipulate/pad_right';
 import repeat from './manipulate/repeat';
 import replace from './manipulate/replace';
+import replaceAll from './manipulate/replace_all';
 import reverse from './manipulate/reverse';
 import reverseCodePoint from './manipulate/reverse_code_point';
 import slugify from './manipulate/slugify';
@@ -151,6 +152,7 @@ export default {
   padRight,
   repeat,
   replace,
+  replaceAll,
   reverseCodePoint,
   reverse,
   slugify,
