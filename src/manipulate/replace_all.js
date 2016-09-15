@@ -2,6 +2,16 @@ import coerceToString from '../helper/string/coerce_to_string';
 import escapeRegExp from '../escape/escape_reg_exp';
 
 /**
+ * Compute the flags string based on regular expression flag properties.
+ *
+ * @param {RegExp} regExp The regular expression object
+ * @returns {string} Returns the string with flags chars.
+ */
+function getRegExpFlags(regExp) {
+  return regExp.toString().match(/[gimuy]*$/)[0];
+}
+
+/**
  * Coerce the pattern to a regular expression with global flag enabled.
  *
  * @ignore
@@ -13,7 +23,7 @@ function coerceToGlobalRegExp(pattern) {
   if (!(pattern instanceof RegExp)) {
     regExp = new RegExp(escapeRegExp(coerceToString(pattern)), 'g');
   } else if (!pattern.global) {
-    regExp = new RegExp(pattern.source, pattern.flags + 'g');
+    regExp = new RegExp(pattern.source, getRegExpFlags(pattern) + 'g');
   }
   return regExp;
 }

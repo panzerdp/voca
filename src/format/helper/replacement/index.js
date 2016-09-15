@@ -33,7 +33,7 @@ export default class ReplacementIndex {
    * @param {number} [position] The replacement position.
    * @return {undefined}
    */
-  incrementIndexByPosition(position) {
+  incrementOnEmptyPosition(position) {
     if (isNil(position)) {
       this.increment();
     }

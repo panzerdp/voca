@@ -36,7 +36,7 @@ export default function(replacementIndex, replacements, conversionSpecification,
     return conversionSpecification.slice(1);
   }
   var actualReplacementIndex = replacementIndex.getIndexByPosition(position);
-  replacementIndex.incrementIndexByPosition(position);
+  replacementIndex.incrementOnEmptyPosition(position);
   validateReplacement(actualReplacementIndex, replacements.length, conversion);
   return computeReplacement(replacements[actualReplacementIndex], conversion);
 }
