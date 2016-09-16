@@ -6,17 +6,17 @@ import coerceToString from '../helper/string/coerce_to_string';
  * <a href="http://unicode.org/glossary/#surrogate_pair">surrogate pairs</a> and
  * <a href="http://unicode.org/glossary/#combining_mark">combining marks</a>.
  *
- * @function reverseCodePoint
+ * @function reverseGrapheme
  * @static
  * @since 1.0.0
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to reverse.
  * @return {string} Returns the reversed string.
  * @example
- * v.reverseCodePoint('summer');
+ * v.reverseGrapheme('summer');
  * // => 'remmus'
  *
- * v.reverseCodePoint('𝌆 bar mañana mañana');
+ * v.reverseGrapheme('𝌆 bar mañana mañana');
  * // => 'anañam anañam rab 𝌆'
  */
 export default function reverseCodePoint(subject) {

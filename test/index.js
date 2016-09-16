@@ -21,7 +21,7 @@ import './cut/truncate';
 
 //count
 import './count/count';
-import './count/count_code_point';
+import './count/count_grapheme';
 import './count/count_substring';
 import './count/count_where';
 
@@ -53,7 +53,7 @@ import './manipulate/pad_right';
 import './manipulate/replace';
 import './manipulate/replace_all';
 import './manipulate/reverse';
-import './manipulate/reverse_code_point';
+import './manipulate/reverse_grapheme';
 import './manipulate/slugify';
 import './manipulate/trim';
 import './manipulate/trim_left';
@@ -76,7 +76,7 @@ import './query/starts_with';
 
 //split
 import './split/chars';
-import './split/chars_code_point';
+import './split/graphemes';
 import './split/split';
 import './split/words';
 

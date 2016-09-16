@@ -34,7 +34,7 @@ import substring from './cut/substring';
  * @namespace Count
  */
 import count from './count/count';
-import countCodePoint from './count/count_code_point';
+import countGrapheme from './count/count_grapheme';
 import countSubstring from './count/count_substring';
 import countWhere from './count/count_where';
 
@@ -73,7 +73,7 @@ import repeat from './manipulate/repeat';
 import replace from './manipulate/replace';
 import replaceAll from './manipulate/replace_all';
 import reverse from './manipulate/reverse';
-import reverseCodePoint from './manipulate/reverse_code_point';
+import reverseGrapheme from './manipulate/reverse_grapheme';
 import slugify from './manipulate/slugify';
 import trim from './manipulate/trim';
 import trimLeft from './manipulate/trim_left';
@@ -102,7 +102,7 @@ import startsWith from './query/starts_with';
  * @namespace Split
  */
 import chars from './split/chars';
-import charsCodePoint from './split/chars_code_point';
+import graphemes from './split/graphemes';
 import split from './split/split';
 import words from './split/words';
 
@@ -123,7 +123,7 @@ export default {
   upperCase,
 
   count,
-  countCodePoint,
+  countGrapheme,
   countSubstring,
   countWhere,
 
@@ -153,8 +153,8 @@ export default {
   repeat,
   replace,
   replaceAll,
-  reverseCodePoint,
   reverse,
+  reverseGrapheme,
   slugify,
   trim,
   trimLeft,
@@ -175,7 +175,7 @@ export default {
   startsWith,
 
   chars,
-  charsCodePoint,
+  graphemes,
   split,
   words,
 

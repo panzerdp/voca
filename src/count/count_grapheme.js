@@ -6,20 +6,20 @@ import coerceToString from '../helper/string/coerce_to_string';
  * <a href="http://unicode.org/glossary/#surrogate_pair">surrogate pairs</a> and
  * <a href="http://unicode.org/glossary/#combining_mark">combining marks</a>.
  *
- * @function  countCodePoint
+ * @function  countGrapheme
  * @static
  * @since 1.0.0
  * @memberOf Count
  * @param  {string} [subject=''] The string to count characters.
  * @return {number}              Returns the number of characters in `subject`.
  * @example
- * v.countCodePoint('rain');
+ * v.countGrapheme('cafe\u0301'); // or 'café'
  * // => 4
  *
- * v.countCodePoint('\uD835\uDC00\uD835\uDC01'); // or '𝐀𝐁'
+ * v.countGrapheme('\uD835\uDC00\uD835\uDC01'); // or '𝐀𝐁'
  * // => 2
  *
- * v.countCodePoint('cafe\u0301'); // or 'café'
+ * v.countGrapheme('rain');
  * // => 4
  */
 export default function(subject) {
