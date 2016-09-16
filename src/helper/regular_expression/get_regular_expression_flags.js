@@ -1,10 +1,12 @@
+import { REGEXP_FLAGS } from './const';
+
 /**
- * Compute the flags string based on regular expression flag properties.
+ * Get the flags string from a regular expression object.
  *
  * @ignore
  * @param {RegExp} regExp The regular expression object.
  * @return {string} Returns the string with flags chars.
  */
-export default function getRegularExpressionFlags(regExp) {
-  return regExp.toString().match(/[gimuy]*$/)[0];
+export default function(regExp) {
+  return regExp.toString().match(REGEXP_FLAGS)[0];
 }

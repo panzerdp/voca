@@ -192,3 +192,11 @@ export var REGEXP_CONVERSION_SPECIFICATION = /(%{1,2})(?:(\d+)\$)?(\+)?([ 0]|'.{
  * @ignore
  */
 export var REGEXP_TRAILING_ZEROS = /\.?0+$/g;
+
+/**
+ * Regular expression to match flags from a regular expression.
+ *
+ * @type {RegExp}
+ * @ignore
+ */
+export var REGEXP_FLAGS = /[gimuy]*$/;

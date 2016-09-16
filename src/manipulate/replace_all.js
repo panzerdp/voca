@@ -1,5 +1,6 @@
-import coerceToRegularExpression from '../helper/regular_expression/coerce_to_regular_expression';
+import appendFlagToRegularExpression from '../helper/regular_expression/append_flag_to_regular_expression';
 import coerceToString from '../helper/string/coerce_to_string';
+import escapeRegExp from '~/escape/escape_reg_exp';
 
 /**
  * Returns a new string where all matches of `pattern` are replaced with `replacement`. <br/>
@@ -21,6 +22,12 @@ import coerceToString from '../helper/string/coerce_to_string';
  *
  */
 export default function(subject, pattern, replacement) {
-  var subjectString = coerceToString(subject);
-  return subjectString.replace(coerceToRegularExpression(pattern), replacement);
+  var subjectString = coerceToString(subject),
+    regExp = pattern;
+  if (!(pattern instanceof RegExp)) {
+    regExp = new RegExp(escapeRegExp(pattern), 'g');
+  } else if (!pattern.global) {
+    regExp = appendFlagToRegularExpression(pattern, 'g');
+  }
+  return subjectString.replace(regExp, replacement);
 }

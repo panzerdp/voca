@@ -1,4 +1,4 @@
-import coerceToNumber from '../../../src/helper/number/coerce_to_number';
+import coerceToNumber from '~/helper/number/coerce_to_number';
 import { expect } from 'chai';
 
 describe('coerceToNumber', function() {
