@@ -1,6 +1,6 @@
 import coerceToString from '../helper/string/coerce_to_string';
 import isNil from '../helper/object/is_nil';
-import { REGEX_TRIM_RIGHT } from '../helper/string/regexp';
+import { REGEX_TRIM_RIGHT } from '../helper/regular_expression/const';
 import toString from '../helper/string/to_string';
 
 /**

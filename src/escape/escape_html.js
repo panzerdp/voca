@@ -1,5 +1,5 @@
 import coerceToString from '../helper/string/coerce_to_string';
-import { REGEXP_HTML_SPECIAL_CHARACTERS } from '../helper/string/regexp';
+import { REGEXP_HTML_SPECIAL_CHARACTERS } from '../helper/regular_expression/const';
 
 var escapeCharactersMap = {
   '<': '&lt;',

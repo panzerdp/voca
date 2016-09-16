@@ -1,32 +1,5 @@
+import coerceToRegularExpression from '../helper/regular_expression/coerce_to_regular_expression';
 import coerceToString from '../helper/string/coerce_to_string';
-import escapeRegExp from '../escape/escape_reg_exp';
-
-/**
- * Compute the flags string based on regular expression flag properties.
- *
- * @param {RegExp} regExp The regular expression object
- * @returns {string} Returns the string with flags chars.
- */
-function getRegExpFlags(regExp) {
-  return regExp.toString().match(/[gimuy]*$/)[0];
-}
-
-/**
- * Coerce the pattern to a regular expression with global flag enabled.
- *
- * @ignore
- * @param {string|RegExp} pattern The pattern to coerce.
- * @return {RegExp} The regular expression with global flag enabled.
- */
-function coerceToGlobalRegExp(pattern) {
-  var regExp = pattern;
-  if (!(pattern instanceof RegExp)) {
-    regExp = new RegExp(escapeRegExp(coerceToString(pattern)), 'g');
-  } else if (!pattern.global) {
-    regExp = new RegExp(pattern.source, getRegExpFlags(pattern) + 'g');
-  }
-  return regExp;
-}
 
 /**
  * Returns a new string where all matches of `pattern` are replaced with `replacement`. <br/>
@@ -49,5 +22,5 @@ function coerceToGlobalRegExp(pattern) {
  */
 export default function(subject, pattern, replacement) {
   var subjectString = coerceToString(subject);
-  return subjectString.replace(coerceToGlobalRegExp(pattern), replacement);
+  return subjectString.replace(coerceToRegularExpression(pattern), replacement);
 }

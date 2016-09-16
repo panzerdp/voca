@@ -2,7 +2,7 @@ import clipNumber from '../helper/number/clip_number';
 import coerceToString from '../helper/string/coerce_to_string';
 import isNil from '../helper/object/is_nil';
 import { MAX_SAFE_INTEGER } from '../helper/number/const';
-import { REGEXP_WORD } from '../helper/string/regexp';
+import { REGEXP_WORD } from '../helper/regular_expression/const';
 import toInteger from '../helper/number/to_integer';
 
 /**
