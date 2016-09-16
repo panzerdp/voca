@@ -22,6 +22,7 @@ import truncate from './cut/truncate';
  * Functions to cut a string
  * @namespace Cut
  */
+import charAt from './cut/char_at';
 import first from './cut/first';
 import last from './cut/last';
 import prune from './cut/prune';
@@ -138,6 +139,7 @@ export default {
   lastIndexOf,
   search,
 
+  charAt,
   first,
   last,
   prune,

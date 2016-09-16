@@ -9,6 +9,7 @@ export default class ConversionSpecification {
   /**
    * Construct the new conversion specification object.
    *
+   * @ignore
    * @param {Object} properties An object with properties to initialize.
    */
   constructor(properties) {

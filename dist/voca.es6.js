@@ -316,6 +316,14 @@ function nilDefault (value, defaultValue) {    return value == null ? defaultVal
    */
   var REGEXP_TRAILING_ZEROS = /\.?0+$/g;
 
+  /**
+   * Regular expression to match flags from a regular expression.
+   *
+   * @type {RegExp}
+   * @ignore
+   */
+  var REGEXP_FLAGS = /[gimuy]*$/;
+
 /**
    * Get the string representation of the `value`.
    * Converts the `value` to string.
@@ -568,6 +576,30 @@ function truncate (subject, length, end) {    var subjectString = coerceToString
   }
 
 /**
+   * Get a character from `subject` at specific index.
+   *
+   * @function charAt
+   * @static
+   * @since 1.0.0
+   * @memberOf Cut
+   * @param  {string} [subject=''] The string to extract from.
+   * @param  {numbers} index The index to get the character.
+   * @return {string} Returns characters.
+   * @example
+   * v.charAt('helicopter');
+   * // => 'h'
+   *
+   * v.first('vehicle', 2);
+   * // => 've'
+   *
+   * v.first('car', 5);
+   * // => 'car'
+   */
+function charAt (subject, index) {    var subjectString = coerceToString(subject);
+    return subjectString.charAt(index);
+  }
+
+/**
    * Extracts the first `length` characters from `subject`.
    *
    * @function first
@@ -747,23 +779,23 @@ function count (subject) {    return coerceToString(subject).length;
    * <a href="http://unicode.org/glossary/#surrogate_pair">surrogate pairs</a> and
    * <a href="http://unicode.org/glossary/#combining_mark">combining marks</a>.
    *
-   * @function  countCodePoint
+   * @function  countGrapheme
    * @static
    * @since 1.0.0
    * @memberOf Count
    * @param  {string} [subject=''] The string to count characters.
    * @return {number}              Returns the number of characters in `subject`.
    * @example
-   * v.countCodePoint('rain');
+   * v.countGrapheme('cafe\u0301'); // or 'café'
    * // => 4
    *
-   * v.countCodePoint('\uD835\uDC00\uD835\uDC01'); // or '𝐀𝐁'
+   * v.countGrapheme('\uD835\uDC00\uD835\uDC01'); // or '𝐀𝐁'
    * // => 2
    *
-   * v.countCodePoint('cafe\u0301'); // or 'café'
+   * v.countGrapheme('rain');
    * // => 4
    */
-function countCodePoint (subject) {    return coerceToString(subject).replace(REGEXP_COMBINING_MARKS, '*').replace(REGEXP_SURROGATE_PAIRS, '*').length;
+function countGrapheme (subject) {    return coerceToString(subject).replace(REGEXP_COMBINING_MARKS, '*').replace(REGEXP_SURROGATE_PAIRS, '*').length;
   }
 
 /**
@@ -830,36 +862,6 @@ function countWhere (subject, predicate, context) {    var subjectString = coerc
     }, 0);
   }
 
-var Const = Object.freeze({    // Type specifiers
-    TYPE_INTEGER: 'i',
-    TYPE_INTEGER_BINARY: 'b',
-    TYPE_INTEGER_ASCII_CHARACTER: 'c',
-    TYPE_INTEGER_DECIMAL: 'd',
-    TYPE_INTEGER_OCTAL: 'o',
-    TYPE_INTEGER_UNSIGNED_DECIMAL: 'u',
-    TYPE_INTEGER_HEXADECIMAL: 'x',
-    TYPE_INTEGER_HEXADECIMAL_UPPERCASE: 'X',
-    TYPE_FLOAT_SCIENTIFIC: 'e',
-    TYPE_FLOAT_SCIENTIFIC_UPPERCASE: 'E',
-    TYPE_FLOAT: 'f',
-    TYPE_FLOAT_SHORT: 'g',
-    TYPE_FLOAT_SHORT_UPPERCASE: 'G',
-    TYPE_STRING: 's',
-
-    // Simple literals
-    LITERAL_PERCENT: '%',
-    LITERAL_SINGLE_QUOTE: "'",
-    LITERAL_PLUS: '+',
-    LITERAL_MINUS: '-',
-    LITERAL_PERCENT_SPECIFIER: '%%',
-
-    // Radix constants to format numbers
-    RADIX_BINARY: 2,
-    RADIX_OCTAL: 8,
-    RADIX_DECIMAL: 10,
-    RADIX_HEXADECIMAL: 16
-  });
-
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
     return typeof obj;
   } : function (obj) {
@@ -915,117 +917,123 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   };
 
 /**
+   * The class that creates index instances.
    * @ignore
    */
 
-  var ConversionSpecification = function () {
-
-    /**
-     * Construct the new conversion specification object.
-     *
-     * @param {Object} properties An object with properties to initialize.
-     */
-    function ConversionSpecification(properties) {
-      classCallCheck(this, ConversionSpecification);
-
+  var ReplacementIndex = function () {
+    function ReplacementIndex() {
+      classCallCheck(this, ReplacementIndex);
 
       /**
-       * The percent characters from conversion specification.
+       * The current index.
        *
        * @ignore
-       * @name ConversionSpecification#percent
-       * @type {string}
+       * @name ReplacementIndex#index
+       * @type {number}
        */
-      this.percent = properties.percent;
-
-      /**
-       *  The sign specifier to force a sign to be used on a number.
-       *
-       * @ignore
-       * @name ConversionSpecification#signSpecifier
-       * @type {string}
-       */
-      this.signSpecifier = properties.signSpecifier;
-
-      /**
-       * The padding specifier that says what padding character will be used.
-       *
-       * @ignore
-       * @name ConversionSpecification#paddingSpecifier
-       * @type {string}
-       */
-      this.paddingSpecifier = properties.paddingSpecifier;
-
-      /**
-       * The alignment specifier that says if the result should be left-justified or right-justified.
-       *
-       * @ignore
-       * @name ConversionSpecification#alignmentSpecifier
-       * @type {string}
-       */
-      this.alignmentSpecifier = properties.alignmentSpecifier;
-
-      /**
-       * The width specifier how many characters this conversion should result in.
-       *
-       * @ignore
-       * @name ConversionSpecification#widthSpecifier
-       * @type {string}
-       */
-      this.widthSpecifier = properties.widthSpecifier;
-
-      /**
-       * The precision specifier says how many decimal digits should be displayed for floating-point numbers.
-       *
-       * @ignore
-       * @name ConversionSpecification#precisionSpecifier
-       * @type {string}
-       */
-      this.precisionSpecifier = properties.precisionSpecifier;
-
-      /**
-       * The type specifier says what type the argument data should be treated as.
-       *
-       * @ignore
-       * @name ConversionSpecification#typeSpecifier
-       * @type {string}
-       */
-      this.typeSpecifier = properties.typeSpecifier;
+      this.index = 0;
     }
 
     /**
-     * Check if the conversion specification is a percent literal "%%".
+     * Increment the current index.
      *
      * @ignore
-     * @return {boolean} Returns true if the conversion is a percent literal, false otherwise.
+     * @return {undefined}
      */
 
 
-    createClass(ConversionSpecification, [{
-      key: 'isPercentLiteral',
-      value: function isPercentLiteral() {
-        return Const.LITERAL_PERCENT_SPECIFIER === this.percent;
+    createClass(ReplacementIndex, [{
+      key: 'increment',
+      value: function increment() {
+        this.index++;
       }
 
       /**
-       * Get the padding character from padding specifier.
+       * Increment the current index by position.
        *
        * @ignore
-       * @returns {string} Returns the padding character.
+       * @param {number} [position] The replacement position.
+       * @return {undefined}
        */
 
     }, {
-      key: 'getPaddingCharacter',
-      value: function getPaddingCharacter() {
-        var paddingCharacter = nilDefault(this.paddingSpecifier, ' ');
-        if (paddingCharacter.length === 2 && paddingCharacter[0] === Const.LITERAL_SINGLE_QUOTE) {
-          paddingCharacter = paddingCharacter[1];
+      key: 'incrementOnEmptyPosition',
+      value: function incrementOnEmptyPosition(position) {
+        if (isNil(position)) {
+          this.increment();
         }
-        return paddingCharacter;
+      }
+
+      /**
+       * Get the replacement index by position.
+       *
+       * @ignore
+       * @param {number} [position] The replacement position.
+       * @return {number} The replacement index.
+       */
+
+    }, {
+      key: 'getIndexByPosition',
+      value: function getIndexByPosition(position) {
+        return isNil(position) ? this.index : position - 1;
       }
     }]);
-    return ConversionSpecification;
+    return ReplacementIndex;
   }();
+
+/**
+   * Get the number representation of the `value`.
+   * Converts the `value` to number.
+   * If `value` is `null` or `undefined`, return `defaultValue`.
+   *
+   * @ignore
+   * @function toString
+   * @param {*} value             The value to convert.
+   * @param {*} [defaultValue=''] The default value to return.
+   * @return {number|null}        Returns the number representation of `value`. Returns `defaultValue` if `value` is
+   *                              `null` or `undefined`.
+   */
+function coerceToNumber (value) {    var defaultValue = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
+
+    if (isNil(value)) {
+      return defaultValue;
+    }
+    if (typeof value === 'number') {
+      return value;
+    }
+    return Number(value);
+  }
+
+var Const = Object.freeze({    // Type specifiers
+    TYPE_INTEGER: 'i',
+    TYPE_INTEGER_BINARY: 'b',
+    TYPE_INTEGER_ASCII_CHARACTER: 'c',
+    TYPE_INTEGER_DECIMAL: 'd',
+    TYPE_INTEGER_OCTAL: 'o',
+    TYPE_INTEGER_UNSIGNED_DECIMAL: 'u',
+    TYPE_INTEGER_HEXADECIMAL: 'x',
+    TYPE_INTEGER_HEXADECIMAL_UPPERCASE: 'X',
+    TYPE_FLOAT_SCIENTIFIC: 'e',
+    TYPE_FLOAT_SCIENTIFIC_UPPERCASE: 'E',
+    TYPE_FLOAT: 'f',
+    TYPE_FLOAT_SHORT: 'g',
+    TYPE_FLOAT_SHORT_UPPERCASE: 'G',
+    TYPE_STRING: 's',
+
+    // Simple literals
+    LITERAL_PERCENT: '%',
+    LITERAL_SINGLE_QUOTE: "'",
+    LITERAL_PLUS: '+',
+    LITERAL_MINUS: '-',
+    LITERAL_PERCENT_SPECIFIER: '%%',
+
+    // Radix constants to format numbers
+    RADIX_BINARY: 2,
+    RADIX_OCTAL: 8,
+    RADIX_DECIMAL: 10,
+    RADIX_HEXADECIMAL: 16
+  });
 
 /**
    * Repeats the `subject` number of `times`.
@@ -1134,11 +1142,12 @@ function padRight (subject, length, pad) {    var subjectString = coerceToString
    * @param {ConversionSpecification} conversion The conversion specification object.
    * @return {string} Returns the aligned and padded string.
    */
-function alignAndPad (subject, conversion) {    if (isNil(conversion.widthSpecifier) || subject.length >= conversion.widthSpecifier) {
+function alignAndPad (subject, conversion) {    var width = conversion.width;
+    if (isNil(width) || subject.length >= width) {
       return subject;
     }
     var padType = conversion.alignmentSpecifier === Const.LITERAL_MINUS ? padRight : padLeft;
-    return padType(subject, conversion.widthSpecifier, conversion.getPaddingCharacter());
+    return padType(subject, width, conversion.getPaddingCharacter());
   }
 
 /**
@@ -1146,38 +1155,15 @@ function alignAndPad (subject, conversion) {    if (isNil(conversion.widthSpecif
    *
    * @ignore
    * @name addSignToFormattedNumber
-   * @param  {number} replacementNumber    The number to be replaced.
+   * @param  {number} replacementNumber The number to be replaced.
    * @param  {string} formattedReplacement The formatted version of number.
-   * @param  {string} signSpecifier        The sign specifier.
-   * @return {string}                      Returns the formatted number string with a sign.
+   * @param  {ConversionSpecification} conversion The conversion specification object.
+   * @return {string} Returns the formatted number string with a sign.
    */
-function addSignToFormattedNumber (replacementNumber, formattedReplacement, signSpecifier) {    if (signSpecifier === Const.LITERAL_PLUS && replacementNumber >= 0) {
+function addSignToFormattedNumber (replacementNumber, formattedReplacement, conversion) {    if (conversion.signSpecifier === Const.LITERAL_PLUS && replacementNumber >= 0) {
       formattedReplacement = Const.LITERAL_PLUS + formattedReplacement;
     }
     return formattedReplacement;
-  }
-
-/**
-   * Get the number representation of the `value`.
-   * Converts the `value` to number.
-   * If `value` is `null` or `undefined`, return `defaultValue`.
-   *
-   * @ignore
-   * @function toString
-   * @param {*} value             The value to convert.
-   * @param {*} [defaultValue=''] The default value to return.
-   * @return {number|null}        Returns the number representation of `value`. Returns `defaultValue` if `value` is
-   *                              `null` or `undefined`.
-   */
-function coerceToNumber (value) {    var defaultValue = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
-
-    if (isNil(value)) {
-      return defaultValue;
-    }
-    if (typeof value === 'number') {
-      return value;
-    }
-    return Number(value);
   }
 
 /**
@@ -1185,16 +1171,17 @@ function coerceToNumber (value) {    var defaultValue = arguments.length <= 1 ||
    *
    * @ignore
    * @param  {number} replacementNumber The number to format.
-   * @param  {number} precision         The precision to format the float.
-   * @param  {string} typeSpecifier     The type specifier.
-   * @return {string}                   Returns the formatted short float.
+   * @param  {number} precision The precision to format the float.
+   * @param  {ConversionSpecification} conversion The conversion specification object.
+   * @return {string}  Returns the formatted short float.
    */
-  function formatFloatAsShort(replacementNumber, precision, typeSpecifier) {
+  function formatFloatAsShort(replacementNumber, precision, conversion) {
     if (replacementNumber === 0) {
       return '0';
     }
-    var formattedReplacement = replacementNumber.toPrecision(precision === 0 ? 1 : precision).replace(REGEXP_TRAILING_ZEROS, '');
-    if (typeSpecifier === Const.TYPE_FLOAT_SHORT_UPPERCASE) {
+    var nonZeroPrecision = precision === 0 ? 1 : precision;
+    var formattedReplacement = replacementNumber.toPrecision(nonZeroPrecision).replace(REGEXP_TRAILING_ZEROS, '');
+    if (conversion.typeSpecifier === Const.TYPE_FLOAT_SHORT_UPPERCASE) {
       formattedReplacement = formattedReplacement.toUpperCase();
     }
     return formattedReplacement;
@@ -1204,21 +1191,19 @@ function coerceToNumber (value) {    var defaultValue = arguments.length <= 1 ||
    * Formats a float type according to specifiers.
    *
    * @ignore
-   * @param  {string} replacement          The string to be formatted.
-   * @param  {string} [signSpecifier]      The sign specifier to force a sign to be used on a number.
-   * @param  {number} [precision]          The precision.
-   * @param  {string} typeSpecifier        The type specifier says what type the argument data should be treated as.
-   * @return {string}                      Returns the formatted string.
+   * @param  {string} replacement The string to be formatted.
+   * @param  {ConversionSpecification} conversion The conversion specification object.
+   * @return {string} Returns the formatted string.
    */
 
-function formatFloat (replacement, signSpecifier, precision, typeSpecifier) {
+function formatFloat (replacement, conversion) {
     var replacementNumber = parseFloat(replacement),
         formattedReplacement;
     if (isNaN(replacementNumber)) {
       replacementNumber = 0;
     }
-    precision = coerceToNumber(precision, 6);
-    switch (typeSpecifier) {
+    var precision = coerceToNumber(conversion.precision, 6);
+    switch (conversion.typeSpecifier) {
       case Const.TYPE_FLOAT:
         formattedReplacement = replacementNumber.toFixed(precision);
         break;
@@ -1230,30 +1215,28 @@ function formatFloat (replacement, signSpecifier, precision, typeSpecifier) {
         break;
       case Const.TYPE_FLOAT_SHORT:
       case Const.TYPE_FLOAT_SHORT_UPPERCASE:
-        formattedReplacement = formatFloatAsShort(replacementNumber, precision, typeSpecifier);
+        formattedReplacement = formatFloatAsShort(replacementNumber, precision, conversion);
         break;
     }
-    formattedReplacement = addSignToFormattedNumber(replacementNumber, formattedReplacement, signSpecifier);
+    formattedReplacement = addSignToFormattedNumber(replacementNumber, formattedReplacement, conversion);
     return coerceToString(formattedReplacement);  }
 
 /**
    * Formats an integer type according to specifiers.
    *
    * @ignore
-   * @param  {string} replacement          The string to be formatted.
-   * @param  {string} [signSpecifier]      The sign specifier to force a sign to be used on a number.
-   * @param  {number} [precision]          The precision.
-   * @param  {string} typeSpecifier        The type specifier says what type the argument data should be treated as.
-   * @return {string}                      Returns the formatted string.
+   * @param  {string} replacement The string to be formatted.
+   * @param  {ConversionSpecification} conversion The conversion specification object.
+   * @return {string} Returns the formatted string.
    */
 
-function formatIntegerBase (replacement, signSpecifier, precision, typeSpecifier) {
+function formatIntegerBase (replacement, conversion) {
     var integer = parseInt(replacement);
     if (isNaN(integer)) {
       integer = 0;
     }
     integer = integer >>> 0;
-    switch (typeSpecifier) {
+    switch (conversion.typeSpecifier) {
       case Const.TYPE_INTEGER_ASCII_CHARACTER:
         integer = String.fromCharCode(integer);
         break;
@@ -1276,29 +1259,28 @@ function formatIntegerBase (replacement, signSpecifier, precision, typeSpecifier
    * Formats a decimal integer type according to specifiers.
    *
    * @ignore
-   * @param  {string} replacement     The string to be formatted.
-   * @param  {string} [signSpecifier] The sign specifier to force a sign to be used on a number.
-   * @return {string}                 Returns the formatted string.
+   * @param  {string} replacement The string to be formatted.
+   * @param  {ConversionSpecification} conversion The conversion specification object.
+   * @return {string} Returns the formatted string.
    */
 
-function formatIntegerDecimal (replacement, signSpecifier) {    var integer = parseInt(replacement);
+function formatIntegerDecimal (replacement, conversion) {    var integer = parseInt(replacement);
     if (isNaN(integer)) {
       integer = 0;
     }
-    return addSignToFormattedNumber(integer, toString(integer), signSpecifier);
+    return addSignToFormattedNumber(integer, toString(integer), conversion);
   }
 
 /**
    * Formats a string type according to specifiers.
    *
    * @ignore
-   * @param  {string} replacement          The string to be formatted.
-   * @param  {string} [signSpecifier]      The sign specifier to force a sign to be used on a number.
-   * @param  {number} [precision]          The precision sets a maximum character limit to the string.
-   * @return {string}                      Returns the formatted string.
+   * @param {string} replacement The string to be formatted.
+   * @param {ConversionSpecification} conversion The conversion specification object.
+   * @return {string} Returns the formatted string.
    */
-
-function formatString (replacement, signSpecifier, precision) {    var formattedReplacement = replacement;
+function formatString (replacement, conversion) {    var formattedReplacement = replacement,
+        precision = conversion.precision;
     if (!isNil(precision) && formattedReplacement.length > precision) {
       formattedReplacement = truncate(formattedReplacement, precision, '');
     }
@@ -1309,12 +1291,12 @@ function formatString (replacement, signSpecifier, precision) {    var formatted
    * Returns the computed string based on format specifiers.
    *
    * @ignore
-   * @name getReplacement
+   * @name computeReplacement
    * @param {string} replacement The replacement value.
    * @param {ConversionSpecification} conversion The conversion specification object.
    * @return {string} Returns the computed string.
    */
-function getReplacement (replacement, conversion) {    var formatFunction;
+function computeReplacement (replacement, conversion) {    var formatFunction;
     switch (conversion.typeSpecifier) {
       case Const.TYPE_STRING:
         formatFunction = formatString;
@@ -1344,20 +1326,118 @@ function getReplacement (replacement, conversion) {    var formatFunction;
   }
 
 /**
-   * Get the number representation of the `value`.
-   * Converts the `value` to a number.
-   * If `value` is `null` or `undefined`, return `null`.
-   *
    * @ignore
-   * @function toNumber
-   * @param  {*} value            The value to convert.
-   * @return {number|null}        Returns the number representation of `value` or `null` if `value` is `null` or `undefined`.
    */
-function toNumber (value) {    if (isNil(value)) {
-      return null;
+
+  var ConversionSpecification = function () {
+
+    /**
+     * Construct the new conversion specification object.
+     *
+     * @ignore
+     * @param {Object} properties An object with properties to initialize.
+     */
+    function ConversionSpecification(properties) {
+      classCallCheck(this, ConversionSpecification);
+
+
+      /**
+       * The percent characters from conversion specification.
+       *
+       * @ignore
+       * @name ConversionSpecification#percent
+       * @type {string}
+       */
+      this.percent = properties.percent;
+
+      /**
+       *  The sign specifier to force a sign to be used on a number.
+       *
+       * @ignore
+       * @name ConversionSpecification#signSpecifier
+       * @type {string}
+       */
+      this.signSpecifier = properties.signSpecifier;
+
+      /**
+       * The padding specifier that says what padding character will be used.
+       *
+       * @ignore
+       * @name ConversionSpecification#paddingSpecifier
+       * @type {string}
+       */
+      this.paddingSpecifier = properties.paddingSpecifier;
+
+      /**
+       * The alignment specifier that says if the result should be left-justified or right-justified.
+       *
+       * @ignore
+       * @name ConversionSpecification#alignmentSpecifier
+       * @type {string}
+       */
+      this.alignmentSpecifier = properties.alignmentSpecifier;
+
+      /**
+       * The width specifier how many characters this conversion should result in.
+       *
+       * @ignore
+       * @name ConversionSpecification#width
+       * @type {number}
+       */
+      this.width = properties.width;
+
+      /**
+       * The precision specifier says how many decimal digits should be displayed for floating-point numbers.
+       *
+       * @ignore
+       * @name ConversionSpecification#precision
+       * @type {number}
+       */
+      this.precision = properties.precision;
+
+      /**
+       * The type specifier says what type the argument data should be treated as.
+       *
+       * @ignore
+       * @name ConversionSpecification#typeSpecifier
+       * @type {string}
+       */
+      this.typeSpecifier = properties.typeSpecifier;
     }
-    return Number(value);
-  }
+
+    /**
+     * Check if the conversion specification is a percent literal "%%".
+     *
+     * @ignore
+     * @return {boolean} Returns true if the conversion is a percent literal, false otherwise.
+     */
+
+
+    createClass(ConversionSpecification, [{
+      key: 'isPercentLiteral',
+      value: function isPercentLiteral() {
+        return Const.LITERAL_PERCENT_SPECIFIER === this.percent;
+      }
+
+      /**
+       * Get the padding character from padding specifier.
+       *
+       * @ignore
+       * @returns {string} Returns the padding character.
+       */
+
+    }, {
+      key: 'getPaddingCharacter',
+      value: function getPaddingCharacter() {
+        var paddingCharacter = nilDefault(this.paddingSpecifier, ' ');
+        if (paddingCharacter.length === 2 && paddingCharacter[0] === Const.LITERAL_SINGLE_QUOTE) {
+          paddingCharacter = paddingCharacter[1];
+        }
+        return paddingCharacter;
+      }
+    }]);
+    return ConversionSpecification;
+  }();
 
 /**
    * Validates the specifier type and replacement position.
@@ -1369,7 +1449,7 @@ function toNumber (value) {    if (isNil(value)) {
    * @param  {ConversionSpecification} conversion The conversion specification object.
    * @return {undefined}
    */
-function validateFormat (index, replacementsLength, conversion) {    if (isNil(conversion.typeSpecifier)) {
+function validateReplacement (index, replacementsLength, conversion) {    if (isNil(conversion.typeSpecifier)) {
       throw new Error('sprintf(): Unknown type specifier');
     }
     if (index > replacementsLength - 1) {
@@ -1378,6 +1458,42 @@ function validateFormat (index, replacementsLength, conversion) {    if (isNil(c
     if (index < 0) {
       throw new Error('sprintf(): Argument number must be greater than zero');
     }
+  }
+
+/**
+   * Return the replacement for regular expression match of the conversion specification.
+   *
+   * @ignore
+   * @name matchReplacement
+   * @param {ReplacementIndex} replacementIndex The replacement index object.
+   * @param {string[]} replacements The array of replacements.
+   * @param {string} conversionSpecification The conversion specification.
+   * @param {string} percent The percent characters from conversion specification.
+   * @param {string} position The position to insert the replacement.
+   * @param {string} signSpecifier The sign specifier to force a sign to be used on a number.
+   * @param {string} paddingSpecifier The padding specifier that says what padding character will be used.
+   * @param {string} alignmentSpecifier The alignment specifier that says if the result should be left-justified or right-justified.
+   * @param {string} widthSpecifier The width specifier how many characters this conversion should result in.
+   * @param {string} precisionSpecifier The precision specifier says how many decimal digits should be displayed for floating-point numbers.
+   * @param {string} typeSpecifier The type specifier says what type the argument data should be treated as.
+   * @return {string} Returns the computed replacement.
+   */
+function replacementMatch (replacementIndex, replacements, conversionSpecification, percent, position, signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {    var conversion = new ConversionSpecification({
+      percent: percent,
+      signSpecifier: signSpecifier,
+      paddingSpecifier: paddingSpecifier,
+      alignmentSpecifier: alignmentSpecifier,
+      width: coerceToNumber(widthSpecifier, null),
+      precision: coerceToNumber(precisionSpecifier, null),
+      typeSpecifier: typeSpecifier
+    });
+    if (conversion.isPercentLiteral()) {
+      return conversionSpecification.slice(1);
+    }
+    var actualReplacementIndex = replacementIndex.getIndexByPosition(position);
+    replacementIndex.incrementOnEmptyPosition(position);
+    validateReplacement(actualReplacementIndex, replacements.length, conversion);
+    return computeReplacement(replacements[actualReplacementIndex], conversion);
   }
 
 /**
@@ -1531,39 +1647,17 @@ function validateFormat (index, replacementsLength, conversion) {    if (isNil(c
    * // => '1.01e+2 0.455'
    * 
    */
-function sprintf (format) {    for (var _len = arguments.length, replacements = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-      replacements[_key - 1] = arguments[_key];
-    }
-
-    var formatString = coerceToString(format);
+function sprintf (format) {    var formatString = coerceToString(format);
     if (formatString === '') {
       return formatString;
     }
-    var replacementMatchIndex = 0,
-        replacementsLength = replacements.length;
-    return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, function (conversionSpecification, percent, position, signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
-      var actualReplacementIndex,
-          conversion = new ConversionSpecification({
-        percent: percent,
-        signSpecifier: signSpecifier,
-        paddingSpecifier: paddingSpecifier,
-        alignmentSpecifier: alignmentSpecifier,
-        widthSpecifier: toNumber(widthSpecifier),
-        precisionSpecifier: toNumber(precisionSpecifier),
-        typeSpecifier: typeSpecifier
-      });
-      if (conversion.isPercentLiteral()) {
-        return conversionSpecification.slice(1);
-      }
-      if (isNil(position)) {
-        actualReplacementIndex = replacementMatchIndex;
-        replacementMatchIndex++;
-      } else {
-        actualReplacementIndex = position - 1;
-      }
-      validateFormat(actualReplacementIndex, replacementsLength, conversion);
-      return getReplacement(replacements[actualReplacementIndex], conversion);
-    });
+
+    for (var _len = arguments.length, replacements = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      replacements[_key - 1] = arguments[_key];
+    }
+
+    var boundReplacementMatch = replacementMatch.bind(undefined, new ReplacementIndex(), replacements);
+    return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, boundReplacementMatch);
   }
 
 /**
@@ -2873,7 +2967,7 @@ function pad (subject, length, pad) {    var subjectString = coerceToString(subj
    * @param {string} [subject=''] The string to verify.
    * @param {string|RegExp} pattern The pattern which match is replaced. If `pattern` is a string,
    * a simple string match is evaluated and only the first occurrence replaced.
-   * @param {string|Function} replacement The string or a function which invocation result replaces `pattern` match.
+   * @param {string|Function} replacement The string or function which invocation result replaces `pattern` match.
    * @return {string} Returns the replacement result.
    * @example
    * v.replace('swan', 'wa', 'u');
@@ -2889,6 +2983,90 @@ function pad (subject, length, pad) {    var subjectString = coerceToString(subj
    */
 function replace (subject, pattern, replacement) {    var subjectString = coerceToString(subject);
     return subjectString.replace(pattern, replacement);
+  }
+
+/**
+   * Get the flags string from a regular expression object.
+   *
+   * @ignore
+   * @param {RegExp} regExp The regular expression object.
+   * @return {string} Returns the string with flags chars.
+   */
+function getRegularExpressionFlags (regExp) {    return regExp.toString().match(REGEXP_FLAGS)[0];
+  }
+
+/**
+   * Checks if `subject` includes `search` starting from `position`
+   *
+   * @function includes
+   * @static
+   * @since 1.0.0
+   * @memberOf Query
+   * @param {string} [subject=''] The string where to search.
+   * @param {string} search The string to search.
+   * @param {number} [position=0] The position to start searching.
+   * @return {boolean} Returns `true` if `subject` includes `search` or `false` otherwise.
+   * @example
+   * v.includes('starship', 'star');
+   * // => true
+   *
+   * v.includes('galaxy', 'g', 1);
+   * // => false
+   */
+function includes (subject, search, position) {    var subjectString = coerceToString(subject),
+        searchString = toString(search);
+    if (searchString === null) {
+      return false;
+    }
+    if (searchString === '') {
+      return true;
+    }
+    position = isNil(position) ? 0 : clipNumber(toInteger(position), 0, subjectString.length);
+    return subjectString.indexOf(searchString, position) !== -1;
+  }
+
+/**
+   * Append flag to a regular expression.
+   *
+   * @ignore
+   * @param {RegExp} pattern The pattern to coerce.
+   * @param {string} appendFlag The flag to append to regular expression.
+   * @return {RegExp} The regular expression with added flag.
+   */
+function appendFlagToRegularExpression (pattern, appendFlag) {    var regularExpressionFlags = getRegularExpressionFlags(pattern);
+    if (!includes(regularExpressionFlags, appendFlag)) {
+      return new RegExp(pattern.source, regularExpressionFlags + appendFlag);
+    }
+    return pattern;
+  }
+
+/**
+   * Returns a new string where all matches of `pattern` are replaced with `replacement`. <br/>
+   *
+   * @function replaceAll
+   * @static
+   * @since 1.0.0
+   * @memberOf Manipulate
+   * @param {string} [subject=''] The string to verify.
+   * @param {string|RegExp} pattern The pattern which match is replaced. If `pattern` is a string, a simple string match is evaluated.
+   * All matches are replaced.
+   * @param {string|Function} replacement The string or function which invocation result replaces `pattern` match.
+   * @return {string} Returns the replacement result.
+   * @example
+   * v.replaceAll('good morning', 'o', '*');
+   * // => 'g**d m*rning'
+   * v.replaceAll('evening', \n\, 's');
+   * // => 'evesisg'
+   *
+   */
+function replaceAll (subject, pattern, replacement) {    var subjectString = coerceToString(subject),
+        regExp = pattern;
+    if (!(pattern instanceof RegExp)) {
+      regExp = new RegExp(escapeRegExp(pattern), 'g');
+    } else if (!pattern.global) {
+      regExp = appendFlagToRegularExpression(pattern, 'g');
+    }
+    return subjectString.replace(regExp, replacement);
   }
 
 /**
@@ -2913,17 +3091,17 @@ function reverse (subject) {    var subjectString = coerceToString(subject);
    * <a href="http://unicode.org/glossary/#surrogate_pair">surrogate pairs</a> and
    * <a href="http://unicode.org/glossary/#combining_mark">combining marks</a>.
    *
-   * @function reverseCodePoint
+   * @function reverseGrapheme
    * @static
    * @since 1.0.0
    * @memberOf Manipulate
    * @param {string} [subject=''] The string to reverse.
    * @return {string} Returns the reversed string.
    * @example
-   * v.reverseCodePoint('summer');
+   * v.reverseGrapheme('summer');
    * // => 'remmus'
    *
-   * v.reverseCodePoint('𝌆 bar mañana mañana');
+   * v.reverseGrapheme('𝌆 bar mañana mañana');
    * // => 'anañam anañam rab 𝌆'
    */
   function reverseCodePoint(subject) {    var subjectString = coerceToString(subject);
@@ -3108,36 +3286,6 @@ function endsWith (subject, end, position) {    if (isNil(end)) {
     position -= endString.length;
     var lastIndex = subjectString.indexOf(endString, position);
     return lastIndex !== -1 && lastIndex === position;
-  }
-
-/**
-   * Checks if `subject` includes `search` starting from `position`
-   *
-   * @function includes
-   * @static
-   * @since 1.0.0
-   * @memberOf Query
-   * @param {string} [subject=''] The string where to search.
-   * @param {string} search The string to search.
-   * @param {number} [position=0] The position to start searching.
-   * @return {boolean} Returns `true` if `subject` includes `search` or `false` otherwise.
-   * @example
-   * v.includes('starship', 'star');
-   * // => true
-   *
-   * v.includes('galaxy', 'g', 1);
-   * // => false
-   */
-function includes (subject, search, position) {    var subjectString = coerceToString(subject),
-        searchString = toString(search);
-    if (searchString === null) {
-      return false;
-    }
-    if (searchString === '') {
-      return true;
-    }
-    position = isNil(position) ? 0 : clipNumber(toInteger(position), 0, subjectString.length);
-    return subjectString.indexOf(searchString, position) !== -1;
   }
 
 /**
@@ -3408,20 +3556,20 @@ function chars (subject) {    var subjectString = coerceToString(subject);
    * <a href="http://unicode.org/glossary/#surrogate_pair">surrogate pairs</a> and
    * <a href="http://unicode.org/glossary/#combining_mark">combining marks</a>.
    *
-   * @function charsCodePoint
+   * @function graphemes
    * @static
    * @since 1.0.0
    * @memberOf Split
    * @param {string} [subject=''] The string to split into characters.
    * @return {Array} Returns the array of characters.
    * @example
-   * v.charsCodePoint('\uD835\uDC00\uD835\uDC01'); // or '𝐀𝐁'
+   * v.graphemes('\uD835\uDC00\uD835\uDC01'); // or '𝐀𝐁'
    * // => ['\uD835\uDC00', '\uD835\uDC01']
    *
-   * v.charsCodePoint('cafe\u0301'); // or 'café'
+   * v.graphemes('cafe\u0301'); // or 'café'
    * // => ['c', 'a', 'f', 'e\u0301']
    */
-function charsCodePoint (subject) {    var subjectString = coerceToString(subject);
+function graphemes (subject) {    var subjectString = coerceToString(subject);
     return nilDefault(subjectString.match(REGEXP_UNICODE_CHARACTER), []);
   }
 
@@ -3503,7 +3651,8 @@ function noConflict () {    if (this === globalObject.v) {
    */
   var version = '0.0.1';
 
-var functions = {    camelCase: camelCase,
+var functions = {
+    camelCase: camelCase,
     capitalize: capitalize,
     decapitalize: decapitalize,
     kebabCase: kebabCase,
@@ -3512,7 +3661,7 @@ var functions = {    camelCase: camelCase,
     upperCase: upperCase,
 
     count: count,
-    countCodePoint: countCodePoint,
+    countGrapheme: countGrapheme,
     countSubstring: countSubstring,
     countWhere: countWhere,
 
@@ -3527,6 +3676,7 @@ var functions = {    camelCase: camelCase,
     lastIndexOf: lastIndexOf,
     search: search,
 
+    charAt: charAt,
     first: first,
     last: last,
     prune: prune,
@@ -3541,9 +3691,9 @@ var functions = {    camelCase: camelCase,
     padRight: padRight,
     repeat: repeat,
     replace: replace,
-    reverseCodePoint: reverseCodePoint,
+    replaceAll: replaceAll,
     reverse: reverse,
-    slugify: slugify,
+    reverseGrapheme: reverseCodePoint,    slugify: slugify,
     trim: trim,
     trimLeft: trimLeft,
     trimRight: trimRight,
@@ -3563,7 +3713,7 @@ var functions = {    camelCase: camelCase,
     startsWith: startsWith,
 
     chars: chars,
-    charsCodePoint: charsCodePoint,
+    graphemes: graphemes,
     split: split,
     words: words,
 
