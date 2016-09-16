@@ -24,6 +24,7 @@ import truncate from './cut/truncate';
  */
 import charAt from './cut/char_at';
 import first from './cut/first';
+import graphemeAt from './cut/grapheme_at';
 import last from './cut/last';
 import prune from './cut/prune';
 import slice from './cut/slice';
@@ -141,6 +142,7 @@ export default {
 
   charAt,
   first,
+  graphemeAt,
   last,
   prune,
   slice,
