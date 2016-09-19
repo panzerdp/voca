@@ -37,7 +37,7 @@ class ChainWrapper {
    *
    * v(' Space travel ')
    *  .trim()
-   *  .truncate(5)
+   *  .truncate(8)
    *  .value()
    * // => 'Space...'
    */
@@ -95,7 +95,7 @@ class ChainWrapper {
    * v(" Back to School ")
    *  .chain()
    *  .trim()
-   *  .truncate(4)
+   *  .truncate(7)
    *  .value()
    * // => 'Back...'
    */
