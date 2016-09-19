@@ -20,7 +20,7 @@ import functions from './functions';
  *
  * v(" Back to School ")
  *  .trim()
- *  .truncate(4)
+ *  .truncate(7)
  *  .value()
  * // => 'Back...'
  */

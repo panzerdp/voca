@@ -628,6 +628,65 @@ function first (subject, length) {    var subjectString = coerceToString(subject
   }
 
 /**
+   * Get the number representation of the `value`.
+   * Converts the `value` to number.
+   * If `value` is `null` or `undefined`, return `defaultValue`.
+   *
+   * @ignore
+   * @function toString
+   * @param {*} value             The value to convert.
+   * @param {*} [defaultValue=''] The default value to return.
+   * @return {number|null}        Returns the number representation of `value`. Returns `defaultValue` if `value` is
+   *                              `null` or `undefined`.
+   */
+function coerceToNumber (value) {    var defaultValue = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
+
+    if (isNil(value)) {
+      return defaultValue;
+    }
+    if (typeof value === 'number') {
+      return value;
+    }
+    return Number(value);
+  }
+
+/**
+   * Get a grapheme from `subject` at specific index taking care of
+   * <a href="http://unicode.org/glossary/#surrogate_pair">surrogate pairs</a> and
+   * <a href="http://unicode.org/glossary/#combining_mark">combining marks</a>.
+   *
+   * @function graphemeAt
+   * @static
+   * @since 1.0.0
+   * @memberOf Cut
+   * @param  {string} [subject=''] The string to extract from.
+   * @param  {number} index The index to get the character.
+   * @return {string} Returns a grapheme.
+   * @example
+   * v.graphemeAt('\uD835\uDC00\uD835\uDC01', 0); // or '𝐀𝐁'
+   * // => 'A'
+   *
+   * v.graphemeAt('cafe\u0301', 3); // or 'café'
+   * // => 'é'
+   */
+function graphemeAt (subject, index) {    if (isNil(index)) {
+      return '';
+    }
+    var subjectString = coerceToString(subject),
+        indexNumber = coerceToNumber(index),
+        graphemeMatch,
+        graphemeMatchIndex = 0;
+    while ((graphemeMatch = REGEXP_UNICODE_CHARACTER.exec(subjectString)) !== null) {
+      if (graphemeMatchIndex === indexNumber) {
+        REGEXP_UNICODE_CHARACTER.lastIndex = 0;
+        return graphemeMatch[0];
+      }
+      graphemeMatchIndex++;
+    }
+    return '';
+  }
+
+/**
    * Extracts the last `length` characters from `subject`.
    *
    * @function last
@@ -981,29 +1040,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     }]);
     return ReplacementIndex;
   }();
-
-/**
-   * Get the number representation of the `value`.
-   * Converts the `value` to number.
-   * If `value` is `null` or `undefined`, return `defaultValue`.
-   *
-   * @ignore
-   * @function toString
-   * @param {*} value             The value to convert.
-   * @param {*} [defaultValue=''] The default value to return.
-   * @return {number|null}        Returns the number representation of `value`. Returns `defaultValue` if `value` is
-   *                              `null` or `undefined`.
-   */
-function coerceToNumber (value) {    var defaultValue = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
-
-    if (isNil(value)) {
-      return defaultValue;
-    }
-    if (typeof value === 'number') {
-      return value;
-    }
-    return Number(value);
-  }
 
 var Const = Object.freeze({    // Type specifiers
     TYPE_INTEGER: 'i',
@@ -3552,7 +3588,7 @@ function chars (subject) {    var subjectString = coerceToString(subject);
   }
 
 /**
-   * Splits `subject` into an array of characters taking care of
+   * Splits `subject` into an array of graphemes taking care of
    * <a href="http://unicode.org/glossary/#surrogate_pair">surrogate pairs</a> and
    * <a href="http://unicode.org/glossary/#combining_mark">combining marks</a>.
    *
@@ -3561,7 +3597,7 @@ function chars (subject) {    var subjectString = coerceToString(subject);
    * @since 1.0.0
    * @memberOf Split
    * @param {string} [subject=''] The string to split into characters.
-   * @return {Array} Returns the array of characters.
+   * @return {Array} Returns the array of graphemes.
    * @example
    * v.graphemes('\uD835\uDC00\uD835\uDC01'); // or '𝐀𝐁'
    * // => ['\uD835\uDC00', '\uD835\uDC01']
@@ -3678,6 +3714,7 @@ var functions = {
 
     charAt: charAt,
     first: first,
+    graphemeAt: graphemeAt,
     last: last,
     prune: prune,
     slice: slice,
@@ -3761,7 +3798,7 @@ var functions = {
      *
      * v(' Space travel ')
      *  .trim()
-     *  .truncate(5)
+     *  .truncate(8)
      *  .value()
      * // => 'Space...'
      */
@@ -3832,7 +3869,7 @@ var functions = {
        * v(" Back to School ")
        *  .chain()
        *  .trim()
-       *  .truncate(4)
+       *  .truncate(7)
        *  .value()
        * // => 'Back...'
        */
