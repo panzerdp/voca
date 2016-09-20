@@ -1,31 +1,8 @@
 import addSignToFormattedNumber from './helper/add_sign_to_formatted_number';
-import coerceToNumber from '../../../helper/number/coerce_to_number';
+import coerceToNumber from '~/helper/number/coerce_to_number';
 import Const from '../const';
-import { REGEXP_TRAILING_ZEROS } from '../../../helper/regular_expression/const';
-import toString from '../../../helper/string/coerce_to_string';
-
-/**
- * Formats the short float.
- *
- * @ignore
- * @param  {number} replacementNumber The number to format.
- * @param  {number} precision The precision to format the float.
- * @param  {ConversionSpecification} conversion The conversion specification object.
- * @return {string}  Returns the formatted short float.
- */
-function formatFloatAsShort(replacementNumber, precision, conversion) {
-  if (replacementNumber === 0) {
-    return '0';
-  }
-  var nonZeroPrecision = precision === 0 ? 1 : precision;
-  var formattedReplacement = replacementNumber
-    .toPrecision(nonZeroPrecision)
-    .replace(REGEXP_TRAILING_ZEROS, '');
-  if (conversion.typeSpecifier === Const.TYPE_FLOAT_SHORT_UPPERCASE) {
-    formattedReplacement = formattedReplacement.toUpperCase();
-  }
-  return formattedReplacement;
-}
+import { REGEXP_TRAILING_ZEROS } from '~/helper/regular_expression/const';
+import toString from '~/helper/string/coerce_to_string';
 
 /**
  * Formats a float type according to specifiers.
@@ -60,4 +37,27 @@ export default function(replacement, conversion) {
   }
   formattedReplacement = addSignToFormattedNumber(replacementNumber, formattedReplacement, conversion);
   return toString(formattedReplacement);
+}
+
+/**
+ * Formats the short float.
+ *
+ * @ignore
+ * @param  {number} replacementNumber The number to format.
+ * @param  {number} precision The precision to format the float.
+ * @param  {ConversionSpecification} conversion The conversion specification object.
+ * @return {string}  Returns the formatted short float.
+ */
+function formatFloatAsShort(replacementNumber, precision, conversion) {
+  if (replacementNumber === 0) {
+    return '0';
+  }
+  var nonZeroPrecision = precision === 0 ? 1 : precision;
+  var formattedReplacement = replacementNumber
+    .toPrecision(nonZeroPrecision)
+    .replace(REGEXP_TRAILING_ZEROS, '');
+  if (conversion.typeSpecifier === Const.TYPE_FLOAT_SHORT_UPPERCASE) {
+    formattedReplacement = formattedReplacement.toUpperCase();
+  }
+  return formattedReplacement;
 }
