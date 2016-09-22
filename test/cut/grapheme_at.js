@@ -19,6 +19,10 @@ describe('graphemeAt', function() {
     expect(v.graphemeAt('foo\uD834\uDF06\u0303\u035C\u035D\u035Ebar\uD834\uDF06\u0303\u035C\u035D', 7))
       .to.equal('\uD834\uDF06\u0303\u035C\u035D');
     expect(v.graphemeAt('', 0)).to.be.equal('');
+    expect(v.graphemeAt('Good day')).to.be.equal('G');
+    expect(v.graphemeAt('Good day', undefined)).to.be.equal('G');
+    expect(v.graphemeAt('Good day', null)).to.be.equal('G');
+    expect(v.graphemeAt('Good day', NaN)).to.be.equal('G');
   });
 
   it('should return an empty string for out of bounds index', function() {
@@ -26,7 +30,6 @@ describe('graphemeAt', function() {
     expect(v.graphemeAt('Good day', 100)).to.be.equal('');
     expect(v.graphemeAt('cafe\u0301', 4)).to.be.equal('');
   });
-
 
   it('should return the grapheme by index of a string representation of an object', function() {
     expect(v.graphemeAt(['Good evening'], 5)).to.be.equal('e');

@@ -623,6 +623,121 @@
     return subjectString.charAt(index);
   }
 
+  var HIGH_SURROGATE_START = 0xD800;
+  var HIGH_SURROGATE_END = 0xDBFF;
+  var LOW_SURROGATE_START = 0xDC00;
+  var LOW_SURROGATE_END = 0xDFFF;
+
+  /**
+   * Checks if `codePoint` is a high-surrogate number from range 0xD800 to 0xDBFF.
+   *
+   * @ignore
+   * @param {number} codePoint The code point number to be verified
+   * @return {boolean} Returns a boolean whether `codePoint` is a high-surrogate number.
+   */
+  function isHighSurrogate(codePoint) {
+    return codePoint >= HIGH_SURROGATE_START && codePoint <= HIGH_SURROGATE_END;
+  }
+
+  /**
+   * Checks if `codePoint` is a low-surrogate number from range 0xDC00 to 0xDFFF.
+   *
+   * @ignore
+   * @param {number} codePoint The code point number to be verified
+   * @return {boolean} Returns a boolean whether `codePoint` is a low-surrogate number.
+   */
+  function isLowSurrogate(codePoint) {
+    return codePoint >= LOW_SURROGATE_START && codePoint <= LOW_SURROGATE_END;
+  }
+
+  /**
+   * Get the astral code point number based on surrogate pair numbers.
+   *
+   * @ignore
+   * @param {number} highSurrogate The high-surrogate code point number.
+   * @param {number} lowSurrogate The low-surrogate code point number.
+   * @return {number} Returns the astral symbol number.
+   */
+  function getAstralNumberFromSurrogatePair(highSurrogate, lowSurrogate) {
+    return (highSurrogate - HIGH_SURROGATE_START) * 0x400 + lowSurrogate - LOW_SURROGATE_START + 0x10000;
+  }
+
+  /**
+   * Get the number representation of the `value`.
+   * Converts the `value` to number.
+   * If `value` is `null` or `undefined`, return `defaultValue`.
+   *
+   * @ignore
+   * @function toString
+   * @param {*} value             The value to convert.
+   * @param {*} [defaultValue=''] The default value to return.
+   * @return {number|null}        Returns the number representation of `value`. Returns `defaultValue` if `value` is
+   *                              `null` or `undefined`.
+   */
+  function coerceToNumber (value) {
+    var defaultValue = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
+
+    if (isNil(value)) {
+      return defaultValue;
+    }
+    if (typeof value === 'number') {
+      return value;
+    }
+    return Number(value);
+  }
+
+  /**
+   * If `value` is `NaN`, return `defaultValue`. In other case returns `value`.
+   *
+   * @ignore
+   * @function nanDefault
+   * @param {*} value The value to verify.
+   * @param {*} defaultValue The default value.
+   * @return {*} Returns `defaultValue` if `value` is `NaN`, otherwise `defaultValue`.
+   */
+  function nanDefault (value, defaultValue) {
+    return value !== value ? defaultValue : value;
+  }
+
+  /**
+   * Get the Unicode code point value at `position`.
+   *
+   * @function codePointAt
+   * @static
+   * @since 1.0.0
+   * @memberOf Cut
+   * @param  {string} [subject=''] The string to extract from.
+   * @param  {number} position The position to get the code point number.
+   * @return {number} Returns the Unicode code point value number.
+   * @example
+   * v.codePointAt('rain', 1);
+   * // => 'h'
+   *
+   * v.first('vehicle', 2);
+   * // => 've'
+   *
+   * v.first('car', 5);
+   * // => 'car'
+   */
+  function codePointAt (subject, position) {
+    var subjectString = coerceToString(subject),
+        subjectStringLength = subjectString.length,
+        positionNumber = coerceToNumber(position, -1);
+    positionNumber = nanDefault(positionNumber, 0);
+    if (positionNumber < 0 || positionNumber >= subjectStringLength) {
+      return undefined;
+    }
+    var firstCodePoint = subjectString.charCodeAt(positionNumber),
+        secondCodePoint;
+    if (isHighSurrogate(firstCodePoint) && subjectStringLength > positionNumber + 1) {
+      secondCodePoint = subjectString.charCodeAt(positionNumber + 1);
+      if (isLowSurrogate(secondCodePoint)) {
+        return getAstralNumberFromSurrogatePair(firstCodePoint, secondCodePoint);
+      }
+    }
+    return firstCodePoint;
+  }
+
   /**
    * Extracts the first `length` characters from `subject`.
    *
@@ -653,30 +768,6 @@
   }
 
   /**
-   * Get the number representation of the `value`.
-   * Converts the `value` to number.
-   * If `value` is `null` or `undefined`, return `defaultValue`.
-   *
-   * @ignore
-   * @function toString
-   * @param {*} value             The value to convert.
-   * @param {*} [defaultValue=''] The default value to return.
-   * @return {number|null}        Returns the number representation of `value`. Returns `defaultValue` if `value` is
-   *                              `null` or `undefined`.
-   */
-  function coerceToNumber (value) {
-    var defaultValue = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
-
-    if (isNil(value)) {
-      return defaultValue;
-    }
-    if (typeof value === 'number') {
-      return value;
-    }
-    return Number(value);
-  }
-
-  /**
    * Get a grapheme from `subject` at specific index taking care of
    * <a href="http://unicode.org/glossary/#surrogate_pair">surrogate pairs</a> and
    * <a href="http://unicode.org/glossary/#combining_mark">combining marks</a>.
@@ -703,6 +794,7 @@
         indexNumber = coerceToNumber(index),
         graphemeMatch,
         graphemeMatchIndex = 0;
+    indexNumber = nanDefault(indexNumber, 0);
     while ((graphemeMatch = REGEXP_UNICODE_CHARACTER.exec(subjectString)) !== null) {
       if (graphemeMatchIndex === indexNumber) {
         REGEXP_UNICODE_CHARACTER.lastIndex = 0;
@@ -1246,27 +1338,6 @@
   }
 
   /**
-   * Formats the short float.
-   *
-   * @ignore
-   * @param  {number} replacementNumber The number to format.
-   * @param  {number} precision The precision to format the float.
-   * @param  {ConversionSpecification} conversion The conversion specification object.
-   * @return {string}  Returns the formatted short float.
-   */
-  function formatFloatAsShort(replacementNumber, precision, conversion) {
-    if (replacementNumber === 0) {
-      return '0';
-    }
-    var nonZeroPrecision = precision === 0 ? 1 : precision;
-    var formattedReplacement = replacementNumber.toPrecision(nonZeroPrecision).replace(REGEXP_TRAILING_ZEROS, '');
-    if (conversion.typeSpecifier === Const.TYPE_FLOAT_SHORT_UPPERCASE) {
-      formattedReplacement = formattedReplacement.toUpperCase();
-    }
-    return formattedReplacement;
-  }
-
-  /**
    * Formats a float type according to specifiers.
    *
    * @ignore
@@ -1299,6 +1370,27 @@
     }
     formattedReplacement = addSignToFormattedNumber(replacementNumber, formattedReplacement, conversion);
     return coerceToString(formattedReplacement);
+  }
+
+  /**
+   * Formats the short float.
+   *
+   * @ignore
+   * @param  {number} replacementNumber The number to format.
+   * @param  {number} precision The precision to format the float.
+   * @param  {ConversionSpecification} conversion The conversion specification object.
+   * @return {string}  Returns the formatted short float.
+   */
+  function formatFloatAsShort(replacementNumber, precision, conversion) {
+    if (replacementNumber === 0) {
+      return '0';
+    }
+    var nonZeroPrecision = precision === 0 ? 1 : precision;
+    var formattedReplacement = replacementNumber.toPrecision(nonZeroPrecision).replace(REGEXP_TRAILING_ZEROS, '');
+    if (conversion.typeSpecifier === Const.TYPE_FLOAT_SHORT_UPPERCASE) {
+      formattedReplacement = formattedReplacement.toUpperCase();
+    }
+    return formattedReplacement;
   }
 
   /**
@@ -3798,6 +3890,7 @@
     search: search,
 
     charAt: charAt,
+    codePointAt: codePointAt,
     first: first,
     graphemeAt: graphemeAt,
     last: last,
@@ -4072,7 +4165,7 @@
    *
    * v(" Back to School ")
    *  .trim()
-   *  .truncate(4)
+   *  .truncate(7)
    *  .value()
    * // => 'Back...'
    */

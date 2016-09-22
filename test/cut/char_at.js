@@ -10,13 +10,16 @@ describe('charAt', function() {
     expect(v.charAt('Good day', 7)).to.be.equal('y');
     expect(v.charAt(PRINTABLE_ASCII, 0)).to.be.equal(' ');
     expect(v.charAt('', 0)).to.be.equal('');
+    expect(v.charAt('Good day')).to.be.equal('G');
+    expect(v.charAt('Good day', undefined)).to.be.equal('G');
+    expect(v.charAt('Good day', null)).to.be.equal('G');
+    expect(v.charAt('Good day', NaN)).to.be.equal('G');
   });
 
   it('should return an empty string for out of bounds index', function() {
     expect(v.charAt('Good day', -1)).to.be.equal('');
     expect(v.charAt('Good day', 100)).to.be.equal('');
   });
-
 
   it('should return the character by index of a string representation of an object', function() {
     expect(v.charAt(['Good evening'], 5)).to.be.equal('e');

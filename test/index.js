@@ -12,6 +12,7 @@ import './chain/chain';
 
 //cut
 import './cut/char_at';
+import './cut/code_point_at';
 import './cut/grapheme_at';
 import './cut/first';
 import './cut/last';

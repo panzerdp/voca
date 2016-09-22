@@ -348,6 +348,14 @@
   var REGEXP_TRAILING_ZEROS = /\.?0+$/g;
 
   /**
+   * Regular expression to match flags from a regular expression.
+   *
+   * @type {RegExp}
+   * @ignore
+   */
+  var REGEXP_FLAGS = /[gimuy]*$/;
+
+  /**
    * Get the string representation of the `value`.
    * Converts the `value` to string.
    *
@@ -609,6 +617,145 @@
   }
 
   /**
+   * Get a character from `subject` at specific index.
+   *
+   * @function charAt
+   * @static
+   * @since 1.0.0
+   * @memberOf Cut
+   * @param  {string} [subject=''] The string to extract from.
+   * @param  {numbers} index The index to get the character.
+   * @return {string} Returns characters.
+   * @example
+   * v.charAt('helicopter');
+   * // => 'h'
+   *
+   * v.first('vehicle', 2);
+   * // => 've'
+   *
+   * v.first('car', 5);
+   * // => 'car'
+   */
+  function charAt (subject, index) {
+    var subjectString = coerceToString(subject);
+    return subjectString.charAt(index);
+  }
+
+  var HIGH_SURROGATE_START = 0xD800;
+  var HIGH_SURROGATE_END = 0xDBFF;
+  var LOW_SURROGATE_START = 0xDC00;
+  var LOW_SURROGATE_END = 0xDFFF;
+
+  /**
+   * Checks if `codePoint` is a high-surrogate number from range 0xD800 to 0xDBFF.
+   *
+   * @ignore
+   * @param {number} codePoint The code point number to be verified
+   * @return {boolean} Returns a boolean whether `codePoint` is a high-surrogate number.
+   */
+  function isHighSurrogate(codePoint) {
+    return codePoint >= HIGH_SURROGATE_START && codePoint <= HIGH_SURROGATE_END;
+  }
+
+  /**
+   * Checks if `codePoint` is a low-surrogate number from range 0xDC00 to 0xDFFF.
+   *
+   * @ignore
+   * @param {number} codePoint The code point number to be verified
+   * @return {boolean} Returns a boolean whether `codePoint` is a low-surrogate number.
+   */
+  function isLowSurrogate(codePoint) {
+    return codePoint >= LOW_SURROGATE_START && codePoint <= LOW_SURROGATE_END;
+  }
+
+  /**
+   * Get the astral code point number based on surrogate pair numbers.
+   *
+   * @param {number} highSurrogate The high-surrogate code point number.
+   * @param {number} lowSurrogate The low-surrogate code point number.
+   * @return {number} Returns the astral symbol number.
+   */
+  function getAstralNumberFromSurrogatePair(highSurrogate, lowSurrogate) {
+    return (highSurrogate - HIGH_SURROGATE_START) * 0x400 + lowSurrogate - LOW_SURROGATE_START + 0x10000;
+  }
+
+  /**
+   * Get the number representation of the `value`.
+   * Converts the `value` to number.
+   * If `value` is `null` or `undefined`, return `defaultValue`.
+   *
+   * @ignore
+   * @function toString
+   * @param {*} value             The value to convert.
+   * @param {*} [defaultValue=''] The default value to return.
+   * @return {number|null}        Returns the number representation of `value`. Returns `defaultValue` if `value` is
+   *                              `null` or `undefined`.
+   */
+  function coerceToNumber (value) {
+    var defaultValue = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
+
+    if (isNil(value)) {
+      return defaultValue;
+    }
+    if (typeof value === 'number') {
+      return value;
+    }
+    return Number(value);
+  }
+
+  /**
+   * If `value` is `NaN`, return `defaultValue`. In other case returns `value`.
+   *
+   * @ignore
+   * @function nanDefault
+   * @param {*} value The value to verify.
+   * @param {*} defaultValue The default value.
+   * @return {*} Returns `defaultValue` if `value` is `NaN`, otherwise `defaultValue`.
+   */
+  function nanDefault (value, defaultValue) {
+    return value !== value ? defaultValue : value;
+  }
+
+  /**
+   * Get the Unicode code point value at `position`.
+   *
+   * @function codePointAt
+   * @static
+   * @since 1.0.0
+   * @memberOf Cut
+   * @param  {string} [subject=''] The string to extract from.
+   * @param  {number} position The position to get the code point number.
+   * @return {number} Returns the Unicode code point value number.
+   * @example
+   * v.codePointAt('rain', 1);
+   * // => 'h'
+   *
+   * v.first('vehicle', 2);
+   * // => 've'
+   *
+   * v.first('car', 5);
+   * // => 'car'
+   */
+  function codePointAt (subject, position) {
+    var subjectString = coerceToString(subject),
+        subjectStringLength = subjectString.length,
+        positionNumber = coerceToNumber(position, -1);
+    positionNumber = nanDefault(positionNumber, 0);
+    if (positionNumber < 0 || positionNumber >= subjectStringLength) {
+      return undefined;
+    }
+    var firstCodePoint = subjectString.charCodeAt(positionNumber),
+        secondCodePoint;
+    if (isHighSurrogate(firstCodePoint) && subjectStringLength > positionNumber + 1) {
+      secondCodePoint = subjectString.charCodeAt(positionNumber + 1);
+      if (isLowSurrogate(secondCodePoint)) {
+        return getAstralNumberFromSurrogatePair(firstCodePoint, secondCodePoint);
+      }
+    }
+    return firstCodePoint;
+  }
+
+  /**
    * Extracts the first `length` characters from `subject`.
    *
    * @function first
@@ -635,6 +782,44 @@
       return subjectString;
     }
     return subjectString.substr(0, lengthInt);
+  }
+
+  /**
+   * Get a grapheme from `subject` at specific index taking care of
+   * <a href="http://unicode.org/glossary/#surrogate_pair">surrogate pairs</a> and
+   * <a href="http://unicode.org/glossary/#combining_mark">combining marks</a>.
+   *
+   * @function graphemeAt
+   * @static
+   * @since 1.0.0
+   * @memberOf Cut
+   * @param  {string} [subject=''] The string to extract from.
+   * @param  {number} index The index to get the character.
+   * @return {string} Returns a grapheme.
+   * @example
+   * v.graphemeAt('\uD835\uDC00\uD835\uDC01', 0); // or '𝐀𝐁'
+   * // => 'A'
+   *
+   * v.graphemeAt('cafe\u0301', 3); // or 'café'
+   * // => 'é'
+   */
+  function graphemeAt (subject, index) {
+    if (isNil(index)) {
+      return '';
+    }
+    var subjectString = coerceToString(subject),
+        indexNumber = coerceToNumber(index),
+        graphemeMatch,
+        graphemeMatchIndex = 0;
+    indexNumber = nanDefault(indexNumber, 0);
+    while ((graphemeMatch = REGEXP_UNICODE_CHARACTER.exec(subjectString)) !== null) {
+      if (graphemeMatchIndex === indexNumber) {
+        REGEXP_UNICODE_CHARACTER.lastIndex = 0;
+        return graphemeMatch[0];
+      }
+      graphemeMatchIndex++;
+    }
+    return '';
   }
 
   /**
@@ -795,23 +980,23 @@
    * <a href="http://unicode.org/glossary/#surrogate_pair">surrogate pairs</a> and
    * <a href="http://unicode.org/glossary/#combining_mark">combining marks</a>.
    *
-   * @function  countCodePoint
+   * @function  countGrapheme
    * @static
    * @since 1.0.0
    * @memberOf Count
    * @param  {string} [subject=''] The string to count characters.
    * @return {number}              Returns the number of characters in `subject`.
    * @example
-   * v.countCodePoint('rain');
+   * v.countGrapheme('cafe\u0301'); // or 'café'
    * // => 4
    *
-   * v.countCodePoint('\uD835\uDC00\uD835\uDC01'); // or '𝐀𝐁'
+   * v.countGrapheme('\uD835\uDC00\uD835\uDC01'); // or '𝐀𝐁'
    * // => 2
    *
-   * v.countCodePoint('cafe\u0301'); // or 'café'
+   * v.countGrapheme('rain');
    * // => 4
    */
-  function countCodePoint (subject) {
+  function countGrapheme (subject) {
     return coerceToString(subject).replace(REGEXP_COMBINING_MARKS, '*').replace(REGEXP_SURROGATE_PAIRS, '*').length;
   }
 
@@ -881,37 +1066,6 @@
     }, 0);
   }
 
-  var Const = Object.freeze({
-    // Type specifiers
-    TYPE_INTEGER: 'i',
-    TYPE_INTEGER_BINARY: 'b',
-    TYPE_INTEGER_ASCII_CHARACTER: 'c',
-    TYPE_INTEGER_DECIMAL: 'd',
-    TYPE_INTEGER_OCTAL: 'o',
-    TYPE_INTEGER_UNSIGNED_DECIMAL: 'u',
-    TYPE_INTEGER_HEXADECIMAL: 'x',
-    TYPE_INTEGER_HEXADECIMAL_UPPERCASE: 'X',
-    TYPE_FLOAT_SCIENTIFIC: 'e',
-    TYPE_FLOAT_SCIENTIFIC_UPPERCASE: 'E',
-    TYPE_FLOAT: 'f',
-    TYPE_FLOAT_SHORT: 'g',
-    TYPE_FLOAT_SHORT_UPPERCASE: 'G',
-    TYPE_STRING: 's',
-
-    // Simple literals
-    LITERAL_PERCENT: '%',
-    LITERAL_SINGLE_QUOTE: "'",
-    LITERAL_PLUS: '+',
-    LITERAL_MINUS: '-',
-    LITERAL_PERCENT_SPECIFIER: '%%',
-
-    // Radix constants to format numbers
-    RADIX_BINARY: 2,
-    RADIX_OCTAL: 8,
-    RADIX_DECIMAL: 10,
-    RADIX_HEXADECIMAL: 16
-  });
-
   var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
     return typeof obj;
   } : function (obj) {
@@ -967,117 +1121,101 @@
   };
 
   /**
+   * The class that creates index instances.
    * @ignore
    */
 
-  var ConversionSpecification = function () {
-
-    /**
-     * Construct the new conversion specification object.
-     *
-     * @param {Object} properties An object with properties to initialize.
-     */
-    function ConversionSpecification(properties) {
-      classCallCheck(this, ConversionSpecification);
-
+  var ReplacementIndex = function () {
+    function ReplacementIndex() {
+      classCallCheck(this, ReplacementIndex);
 
       /**
-       * The percent characters from conversion specification.
+       * The current index.
        *
        * @ignore
-       * @name ConversionSpecification#percent
-       * @type {string}
+       * @name ReplacementIndex#index
+       * @type {number}
        */
-      this.percent = properties.percent;
-
-      /**
-       *  The sign specifier to force a sign to be used on a number.
-       *
-       * @ignore
-       * @name ConversionSpecification#signSpecifier
-       * @type {string}
-       */
-      this.signSpecifier = properties.signSpecifier;
-
-      /**
-       * The padding specifier that says what padding character will be used.
-       *
-       * @ignore
-       * @name ConversionSpecification#paddingSpecifier
-       * @type {string}
-       */
-      this.paddingSpecifier = properties.paddingSpecifier;
-
-      /**
-       * The alignment specifier that says if the result should be left-justified or right-justified.
-       *
-       * @ignore
-       * @name ConversionSpecification#alignmentSpecifier
-       * @type {string}
-       */
-      this.alignmentSpecifier = properties.alignmentSpecifier;
-
-      /**
-       * The width specifier how many characters this conversion should result in.
-       *
-       * @ignore
-       * @name ConversionSpecification#widthSpecifier
-       * @type {string}
-       */
-      this.widthSpecifier = properties.widthSpecifier;
-
-      /**
-       * The precision specifier says how many decimal digits should be displayed for floating-point numbers.
-       *
-       * @ignore
-       * @name ConversionSpecification#precisionSpecifier
-       * @type {string}
-       */
-      this.precisionSpecifier = properties.precisionSpecifier;
-
-      /**
-       * The type specifier says what type the argument data should be treated as.
-       *
-       * @ignore
-       * @name ConversionSpecification#typeSpecifier
-       * @type {string}
-       */
-      this.typeSpecifier = properties.typeSpecifier;
+      this.index = 0;
     }
 
     /**
-     * Check if the conversion specification is a percent literal "%%".
+     * Increment the current index.
      *
      * @ignore
-     * @return {boolean} Returns true if the conversion is a percent literal, false otherwise.
+     * @return {undefined}
      */
 
 
-    createClass(ConversionSpecification, [{
-      key: 'isPercentLiteral',
-      value: function isPercentLiteral() {
-        return Const.LITERAL_PERCENT_SPECIFIER === this.percent;
+    createClass(ReplacementIndex, [{
+      key: 'increment',
+      value: function increment() {
+        this.index++;
       }
 
       /**
-       * Get the padding character from padding specifier.
+       * Increment the current index by position.
        *
        * @ignore
-       * @returns {string} Returns the padding character.
+       * @param {number} [position] The replacement position.
+       * @return {undefined}
        */
 
     }, {
-      key: 'getPaddingCharacter',
-      value: function getPaddingCharacter() {
-        var paddingCharacter = nilDefault(this.paddingSpecifier, ' ');
-        if (paddingCharacter.length === 2 && paddingCharacter[0] === Const.LITERAL_SINGLE_QUOTE) {
-          paddingCharacter = paddingCharacter[1];
+      key: 'incrementOnEmptyPosition',
+      value: function incrementOnEmptyPosition(position) {
+        if (isNil(position)) {
+          this.increment();
         }
-        return paddingCharacter;
+      }
+
+      /**
+       * Get the replacement index by position.
+       *
+       * @ignore
+       * @param {number} [position] The replacement position.
+       * @return {number} The replacement index.
+       */
+
+    }, {
+      key: 'getIndexByPosition',
+      value: function getIndexByPosition(position) {
+        return isNil(position) ? this.index : position - 1;
       }
     }]);
-    return ConversionSpecification;
+    return ReplacementIndex;
   }();
+
+  var Const = Object.freeze({
+    // Type specifiers
+    TYPE_INTEGER: 'i',
+    TYPE_INTEGER_BINARY: 'b',
+    TYPE_INTEGER_ASCII_CHARACTER: 'c',
+    TYPE_INTEGER_DECIMAL: 'd',
+    TYPE_INTEGER_OCTAL: 'o',
+    TYPE_INTEGER_UNSIGNED_DECIMAL: 'u',
+    TYPE_INTEGER_HEXADECIMAL: 'x',
+    TYPE_INTEGER_HEXADECIMAL_UPPERCASE: 'X',
+    TYPE_FLOAT_SCIENTIFIC: 'e',
+    TYPE_FLOAT_SCIENTIFIC_UPPERCASE: 'E',
+    TYPE_FLOAT: 'f',
+    TYPE_FLOAT_SHORT: 'g',
+    TYPE_FLOAT_SHORT_UPPERCASE: 'G',
+    TYPE_STRING: 's',
+
+    // Simple literals
+    LITERAL_PERCENT: '%',
+    LITERAL_SINGLE_QUOTE: "'",
+    LITERAL_PLUS: '+',
+    LITERAL_MINUS: '-',
+    LITERAL_PERCENT_SPECIFIER: '%%',
+
+    // Radix constants to format numbers
+    RADIX_BINARY: 2,
+    RADIX_OCTAL: 8,
+    RADIX_DECIMAL: 10,
+    RADIX_HEXADECIMAL: 16
+  });
 
   /**
    * Repeats the `subject` number of `times`.
@@ -1191,11 +1329,12 @@
    * @return {string} Returns the aligned and padded string.
    */
   function alignAndPad (subject, conversion) {
-    if (isNil(conversion.widthSpecifier) || subject.length >= conversion.widthSpecifier) {
+    var width = conversion.width;
+    if (isNil(width) || subject.length >= width) {
       return subject;
     }
     var padType = conversion.alignmentSpecifier === Const.LITERAL_MINUS ? padRight : padLeft;
-    return padType(subject, conversion.widthSpecifier, conversion.getPaddingCharacter());
+    return padType(subject, width, conversion.getPaddingCharacter());
   }
 
   /**
@@ -1203,58 +1342,14 @@
    *
    * @ignore
    * @name addSignToFormattedNumber
-   * @param  {number} replacementNumber    The number to be replaced.
+   * @param  {number} replacementNumber The number to be replaced.
    * @param  {string} formattedReplacement The formatted version of number.
-   * @param  {string} signSpecifier        The sign specifier.
-   * @return {string}                      Returns the formatted number string with a sign.
+   * @param  {ConversionSpecification} conversion The conversion specification object.
+   * @return {string} Returns the formatted number string with a sign.
    */
-  function addSignToFormattedNumber (replacementNumber, formattedReplacement, signSpecifier) {
-    if (signSpecifier === Const.LITERAL_PLUS && replacementNumber >= 0) {
+  function addSignToFormattedNumber (replacementNumber, formattedReplacement, conversion) {
+    if (conversion.signSpecifier === Const.LITERAL_PLUS && replacementNumber >= 0) {
       formattedReplacement = Const.LITERAL_PLUS + formattedReplacement;
-    }
-    return formattedReplacement;
-  }
-
-  /**
-   * Get the number representation of the `value`.
-   * Converts the `value` to number.
-   * If `value` is `null` or `undefined`, return `defaultValue`.
-   *
-   * @ignore
-   * @function toString
-   * @param {*} value             The value to convert.
-   * @param {*} [defaultValue=''] The default value to return.
-   * @return {number|null}        Returns the number representation of `value`. Returns `defaultValue` if `value` is
-   *                              `null` or `undefined`.
-   */
-  function coerceToNumber (value) {
-    var defaultValue = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
-
-    if (isNil(value)) {
-      return defaultValue;
-    }
-    if (typeof value === 'number') {
-      return value;
-    }
-    return Number(value);
-  }
-
-  /**
-   * Formats the short float.
-   *
-   * @ignore
-   * @param  {number} replacementNumber The number to format.
-   * @param  {number} precision         The precision to format the float.
-   * @param  {string} typeSpecifier     The type specifier.
-   * @return {string}                   Returns the formatted short float.
-   */
-  function formatFloatAsShort(replacementNumber, precision, typeSpecifier) {
-    if (replacementNumber === 0) {
-      return '0';
-    }
-    var formattedReplacement = replacementNumber.toPrecision(precision === 0 ? 1 : precision).replace(REGEXP_TRAILING_ZEROS, '');
-    if (typeSpecifier === Const.TYPE_FLOAT_SHORT_UPPERCASE) {
-      formattedReplacement = formattedReplacement.toUpperCase();
     }
     return formattedReplacement;
   }
@@ -1263,21 +1358,19 @@
    * Formats a float type according to specifiers.
    *
    * @ignore
-   * @param  {string} replacement          The string to be formatted.
-   * @param  {string} [signSpecifier]      The sign specifier to force a sign to be used on a number.
-   * @param  {number} [precision]          The precision.
-   * @param  {string} typeSpecifier        The type specifier says what type the argument data should be treated as.
-   * @return {string}                      Returns the formatted string.
+   * @param  {string} replacement The string to be formatted.
+   * @param  {ConversionSpecification} conversion The conversion specification object.
+   * @return {string} Returns the formatted string.
    */
 
-  function formatFloat (replacement, signSpecifier, precision, typeSpecifier) {
+  function formatFloat (replacement, conversion) {
     var replacementNumber = parseFloat(replacement),
         formattedReplacement;
     if (isNaN(replacementNumber)) {
       replacementNumber = 0;
     }
-    precision = coerceToNumber(precision, 6);
-    switch (typeSpecifier) {
+    var precision = coerceToNumber(conversion.precision, 6);
+    switch (conversion.typeSpecifier) {
       case Const.TYPE_FLOAT:
         formattedReplacement = replacementNumber.toFixed(precision);
         break;
@@ -1289,31 +1382,50 @@
         break;
       case Const.TYPE_FLOAT_SHORT:
       case Const.TYPE_FLOAT_SHORT_UPPERCASE:
-        formattedReplacement = formatFloatAsShort(replacementNumber, precision, typeSpecifier);
+        formattedReplacement = formatFloatAsShort(replacementNumber, precision, conversion);
         break;
     }
-    formattedReplacement = addSignToFormattedNumber(replacementNumber, formattedReplacement, signSpecifier);
+    formattedReplacement = addSignToFormattedNumber(replacementNumber, formattedReplacement, conversion);
     return coerceToString(formattedReplacement);
+  }
+
+  /**
+   * Formats the short float.
+   *
+   * @ignore
+   * @param  {number} replacementNumber The number to format.
+   * @param  {number} precision The precision to format the float.
+   * @param  {ConversionSpecification} conversion The conversion specification object.
+   * @return {string}  Returns the formatted short float.
+   */
+  function formatFloatAsShort(replacementNumber, precision, conversion) {
+    if (replacementNumber === 0) {
+      return '0';
+    }
+    var nonZeroPrecision = precision === 0 ? 1 : precision;
+    var formattedReplacement = replacementNumber.toPrecision(nonZeroPrecision).replace(REGEXP_TRAILING_ZEROS, '');
+    if (conversion.typeSpecifier === Const.TYPE_FLOAT_SHORT_UPPERCASE) {
+      formattedReplacement = formattedReplacement.toUpperCase();
+    }
+    return formattedReplacement;
   }
 
   /**
    * Formats an integer type according to specifiers.
    *
    * @ignore
-   * @param  {string} replacement          The string to be formatted.
-   * @param  {string} [signSpecifier]      The sign specifier to force a sign to be used on a number.
-   * @param  {number} [precision]          The precision.
-   * @param  {string} typeSpecifier        The type specifier says what type the argument data should be treated as.
-   * @return {string}                      Returns the formatted string.
+   * @param  {string} replacement The string to be formatted.
+   * @param  {ConversionSpecification} conversion The conversion specification object.
+   * @return {string} Returns the formatted string.
    */
 
-  function formatIntegerBase (replacement, signSpecifier, precision, typeSpecifier) {
+  function formatIntegerBase (replacement, conversion) {
     var integer = parseInt(replacement);
     if (isNaN(integer)) {
       integer = 0;
     }
     integer = integer >>> 0;
-    switch (typeSpecifier) {
+    switch (conversion.typeSpecifier) {
       case Const.TYPE_INTEGER_ASCII_CHARACTER:
         integer = String.fromCharCode(integer);
         break;
@@ -1337,31 +1449,30 @@
    * Formats a decimal integer type according to specifiers.
    *
    * @ignore
-   * @param  {string} replacement     The string to be formatted.
-   * @param  {string} [signSpecifier] The sign specifier to force a sign to be used on a number.
-   * @return {string}                 Returns the formatted string.
+   * @param  {string} replacement The string to be formatted.
+   * @param  {ConversionSpecification} conversion The conversion specification object.
+   * @return {string} Returns the formatted string.
    */
 
-  function formatIntegerDecimal (replacement, signSpecifier) {
+  function formatIntegerDecimal (replacement, conversion) {
     var integer = parseInt(replacement);
     if (isNaN(integer)) {
       integer = 0;
     }
-    return addSignToFormattedNumber(integer, toString(integer), signSpecifier);
+    return addSignToFormattedNumber(integer, toString(integer), conversion);
   }
 
   /**
    * Formats a string type according to specifiers.
    *
    * @ignore
-   * @param  {string} replacement          The string to be formatted.
-   * @param  {string} [signSpecifier]      The sign specifier to force a sign to be used on a number.
-   * @param  {number} [precision]          The precision sets a maximum character limit to the string.
-   * @return {string}                      Returns the formatted string.
+   * @param {string} replacement The string to be formatted.
+   * @param {ConversionSpecification} conversion The conversion specification object.
+   * @return {string} Returns the formatted string.
    */
-
-  function formatString (replacement, signSpecifier, precision) {
-    var formattedReplacement = replacement;
+  function formatString (replacement, conversion) {
+    var formattedReplacement = replacement,
+        precision = conversion.precision;
     if (!isNil(precision) && formattedReplacement.length > precision) {
       formattedReplacement = truncate(formattedReplacement, precision, '');
     }
@@ -1372,12 +1483,12 @@
    * Returns the computed string based on format specifiers.
    *
    * @ignore
-   * @name getReplacement
+   * @name computeReplacement
    * @param {string} replacement The replacement value.
    * @param {ConversionSpecification} conversion The conversion specification object.
    * @return {string} Returns the computed string.
    */
-  function getReplacement (replacement, conversion) {
+  function computeReplacement (replacement, conversion) {
     var formatFunction;
     switch (conversion.typeSpecifier) {
       case Const.TYPE_STRING:
@@ -1408,21 +1519,118 @@
   }
 
   /**
-   * Get the number representation of the `value`.
-   * Converts the `value` to a number.
-   * If `value` is `null` or `undefined`, return `null`.
-   *
    * @ignore
-   * @function toNumber
-   * @param  {*} value            The value to convert.
-   * @return {number|null}        Returns the number representation of `value` or `null` if `value` is `null` or `undefined`.
    */
-  function toNumber (value) {
-    if (isNil(value)) {
-      return null;
+
+  var ConversionSpecification = function () {
+
+    /**
+     * Construct the new conversion specification object.
+     *
+     * @ignore
+     * @param {Object} properties An object with properties to initialize.
+     */
+    function ConversionSpecification(properties) {
+      classCallCheck(this, ConversionSpecification);
+
+
+      /**
+       * The percent characters from conversion specification.
+       *
+       * @ignore
+       * @name ConversionSpecification#percent
+       * @type {string}
+       */
+      this.percent = properties.percent;
+
+      /**
+       *  The sign specifier to force a sign to be used on a number.
+       *
+       * @ignore
+       * @name ConversionSpecification#signSpecifier
+       * @type {string}
+       */
+      this.signSpecifier = properties.signSpecifier;
+
+      /**
+       * The padding specifier that says what padding character will be used.
+       *
+       * @ignore
+       * @name ConversionSpecification#paddingSpecifier
+       * @type {string}
+       */
+      this.paddingSpecifier = properties.paddingSpecifier;
+
+      /**
+       * The alignment specifier that says if the result should be left-justified or right-justified.
+       *
+       * @ignore
+       * @name ConversionSpecification#alignmentSpecifier
+       * @type {string}
+       */
+      this.alignmentSpecifier = properties.alignmentSpecifier;
+
+      /**
+       * The width specifier how many characters this conversion should result in.
+       *
+       * @ignore
+       * @name ConversionSpecification#width
+       * @type {number}
+       */
+      this.width = properties.width;
+
+      /**
+       * The precision specifier says how many decimal digits should be displayed for floating-point numbers.
+       *
+       * @ignore
+       * @name ConversionSpecification#precision
+       * @type {number}
+       */
+      this.precision = properties.precision;
+
+      /**
+       * The type specifier says what type the argument data should be treated as.
+       *
+       * @ignore
+       * @name ConversionSpecification#typeSpecifier
+       * @type {string}
+       */
+      this.typeSpecifier = properties.typeSpecifier;
     }
-    return Number(value);
-  }
+
+    /**
+     * Check if the conversion specification is a percent literal "%%".
+     *
+     * @ignore
+     * @return {boolean} Returns true if the conversion is a percent literal, false otherwise.
+     */
+
+
+    createClass(ConversionSpecification, [{
+      key: 'isPercentLiteral',
+      value: function isPercentLiteral() {
+        return Const.LITERAL_PERCENT_SPECIFIER === this.percent;
+      }
+
+      /**
+       * Get the padding character from padding specifier.
+       *
+       * @ignore
+       * @returns {string} Returns the padding character.
+       */
+
+    }, {
+      key: 'getPaddingCharacter',
+      value: function getPaddingCharacter() {
+        var paddingCharacter = nilDefault(this.paddingSpecifier, ' ');
+        if (paddingCharacter.length === 2 && paddingCharacter[0] === Const.LITERAL_SINGLE_QUOTE) {
+          paddingCharacter = paddingCharacter[1];
+        }
+        return paddingCharacter;
+      }
+    }]);
+    return ConversionSpecification;
+  }();
 
   /**
    * Validates the specifier type and replacement position.
@@ -1434,7 +1642,7 @@
    * @param  {ConversionSpecification} conversion The conversion specification object.
    * @return {undefined}
    */
-  function validateFormat (index, replacementsLength, conversion) {
+  function validateReplacement (index, replacementsLength, conversion) {
     if (isNil(conversion.typeSpecifier)) {
       throw new Error('sprintf(): Unknown type specifier');
     }
@@ -1444,6 +1652,43 @@
     if (index < 0) {
       throw new Error('sprintf(): Argument number must be greater than zero');
     }
+  }
+
+  /**
+   * Return the replacement for regular expression match of the conversion specification.
+   *
+   * @ignore
+   * @name matchReplacement
+   * @param {ReplacementIndex} replacementIndex The replacement index object.
+   * @param {string[]} replacements The array of replacements.
+   * @param {string} conversionSpecification The conversion specification.
+   * @param {string} percent The percent characters from conversion specification.
+   * @param {string} position The position to insert the replacement.
+   * @param {string} signSpecifier The sign specifier to force a sign to be used on a number.
+   * @param {string} paddingSpecifier The padding specifier that says what padding character will be used.
+   * @param {string} alignmentSpecifier The alignment specifier that says if the result should be left-justified or right-justified.
+   * @param {string} widthSpecifier The width specifier how many characters this conversion should result in.
+   * @param {string} precisionSpecifier The precision specifier says how many decimal digits should be displayed for floating-point numbers.
+   * @param {string} typeSpecifier The type specifier says what type the argument data should be treated as.
+   * @return {string} Returns the computed replacement.
+   */
+  function replacementMatch (replacementIndex, replacements, conversionSpecification, percent, position, signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
+    var conversion = new ConversionSpecification({
+      percent: percent,
+      signSpecifier: signSpecifier,
+      paddingSpecifier: paddingSpecifier,
+      alignmentSpecifier: alignmentSpecifier,
+      width: coerceToNumber(widthSpecifier, null),
+      precision: coerceToNumber(precisionSpecifier, null),
+      typeSpecifier: typeSpecifier
+    });
+    if (conversion.isPercentLiteral()) {
+      return conversionSpecification.slice(1);
+    }
+    var actualReplacementIndex = replacementIndex.getIndexByPosition(position);
+    replacementIndex.incrementOnEmptyPosition(position);
+    validateReplacement(actualReplacementIndex, replacements.length, conversion);
+    return computeReplacement(replacements[actualReplacementIndex], conversion);
   }
 
   /**
@@ -1598,39 +1843,17 @@
    * 
    */
   function sprintf (format) {
-    for (var _len = arguments.length, replacements = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-      replacements[_key - 1] = arguments[_key];
-    }
-
     var formatString = coerceToString(format);
     if (formatString === '') {
       return formatString;
     }
-    var replacementMatchIndex = 0,
-        replacementsLength = replacements.length;
-    return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, function (conversionSpecification, percent, position, signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
-      var actualReplacementIndex,
-          conversion = new ConversionSpecification({
-        percent: percent,
-        signSpecifier: signSpecifier,
-        paddingSpecifier: paddingSpecifier,
-        alignmentSpecifier: alignmentSpecifier,
-        widthSpecifier: toNumber(widthSpecifier),
-        precisionSpecifier: toNumber(precisionSpecifier),
-        typeSpecifier: typeSpecifier
-      });
-      if (conversion.isPercentLiteral()) {
-        return conversionSpecification.slice(1);
-      }
-      if (isNil(position)) {
-        actualReplacementIndex = replacementMatchIndex;
-        replacementMatchIndex++;
-      } else {
-        actualReplacementIndex = position - 1;
-      }
-      validateFormat(actualReplacementIndex, replacementsLength, conversion);
-      return getReplacement(replacements[actualReplacementIndex], conversion);
-    });
+
+    for (var _len = arguments.length, replacements = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      replacements[_key - 1] = arguments[_key];
+    }
+
+    var boundReplacementMatch = replacementMatch.bind(undefined, new ReplacementIndex(), replacements);
+    return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, boundReplacementMatch);
   }
 
   /**
@@ -2949,7 +3172,7 @@
    * @param {string} [subject=''] The string to verify.
    * @param {string|RegExp} pattern The pattern which match is replaced. If `pattern` is a string,
    * a simple string match is evaluated and only the first occurrence replaced.
-   * @param {string|Function} replacement The string or a function which invocation result replaces `pattern` match.
+   * @param {string|Function} replacement The string or function which invocation result replaces `pattern` match.
    * @return {string} Returns the replacement result.
    * @example
    * v.replace('swan', 'wa', 'u');
@@ -2966,6 +3189,94 @@
   function replace (subject, pattern, replacement) {
     var subjectString = coerceToString(subject);
     return subjectString.replace(pattern, replacement);
+  }
+
+  /**
+   * Get the flags string from a regular expression object.
+   *
+   * @ignore
+   * @param {RegExp} regExp The regular expression object.
+   * @return {string} Returns the string with flags chars.
+   */
+  function getRegularExpressionFlags (regExp) {
+    return regExp.toString().match(REGEXP_FLAGS)[0];
+  }
+
+  /**
+   * Checks if `subject` includes `search` starting from `position`
+   *
+   * @function includes
+   * @static
+   * @since 1.0.0
+   * @memberOf Query
+   * @param {string} [subject=''] The string where to search.
+   * @param {string} search The string to search.
+   * @param {number} [position=0] The position to start searching.
+   * @return {boolean} Returns `true` if `subject` includes `search` or `false` otherwise.
+   * @example
+   * v.includes('starship', 'star');
+   * // => true
+   *
+   * v.includes('galaxy', 'g', 1);
+   * // => false
+   */
+  function includes (subject, search, position) {
+    var subjectString = coerceToString(subject),
+        searchString = toString(search);
+    if (searchString === null) {
+      return false;
+    }
+    if (searchString === '') {
+      return true;
+    }
+    position = isNil(position) ? 0 : clipNumber(toInteger(position), 0, subjectString.length);
+    return subjectString.indexOf(searchString, position) !== -1;
+  }
+
+  /**
+   * Append flag to a regular expression.
+   *
+   * @ignore
+   * @param {RegExp} pattern The pattern to coerce.
+   * @param {string} appendFlag The flag to append to regular expression.
+   * @return {RegExp} The regular expression with added flag.
+   */
+  function appendFlagToRegularExpression (pattern, appendFlag) {
+    var regularExpressionFlags = getRegularExpressionFlags(pattern);
+    if (!includes(regularExpressionFlags, appendFlag)) {
+      return new RegExp(pattern.source, regularExpressionFlags + appendFlag);
+    }
+    return pattern;
+  }
+
+  /**
+   * Returns a new string where all matches of `pattern` are replaced with `replacement`. <br/>
+   *
+   * @function replaceAll
+   * @static
+   * @since 1.0.0
+   * @memberOf Manipulate
+   * @param {string} [subject=''] The string to verify.
+   * @param {string|RegExp} pattern The pattern which match is replaced. If `pattern` is a string, a simple string match is evaluated.
+   * All matches are replaced.
+   * @param {string|Function} replacement The string or function which invocation result replaces `pattern` match.
+   * @return {string} Returns the replacement result.
+   * @example
+   * v.replaceAll('good morning', 'o', '*');
+   * // => 'g**d m*rning'
+   * v.replaceAll('evening', \n\, 's');
+   * // => 'evesisg'
+   *
+   */
+  function replaceAll (subject, pattern, replacement) {
+    var subjectString = coerceToString(subject),
+        regExp = pattern;
+    if (!(pattern instanceof RegExp)) {
+      regExp = new RegExp(escapeRegExp(pattern), 'g');
+    } else if (!pattern.global) {
+      regExp = appendFlagToRegularExpression(pattern, 'g');
+    }
+    return subjectString.replace(regExp, replacement);
   }
 
   /**
@@ -2991,17 +3302,17 @@
    * <a href="http://unicode.org/glossary/#surrogate_pair">surrogate pairs</a> and
    * <a href="http://unicode.org/glossary/#combining_mark">combining marks</a>.
    *
-   * @function reverseCodePoint
+   * @function reverseGrapheme
    * @static
    * @since 1.0.0
    * @memberOf Manipulate
    * @param {string} [subject=''] The string to reverse.
    * @return {string} Returns the reversed string.
    * @example
-   * v.reverseCodePoint('summer');
+   * v.reverseGrapheme('summer');
    * // => 'remmus'
    *
-   * v.reverseCodePoint('𝌆 bar mañana mañana');
+   * v.reverseGrapheme('𝌆 bar mañana mañana');
    * // => 'anañam anañam rab 𝌆'
    */
   function reverseCodePoint(subject) {
@@ -3192,37 +3503,6 @@
     position -= endString.length;
     var lastIndex = subjectString.indexOf(endString, position);
     return lastIndex !== -1 && lastIndex === position;
-  }
-
-  /**
-   * Checks if `subject` includes `search` starting from `position`
-   *
-   * @function includes
-   * @static
-   * @since 1.0.0
-   * @memberOf Query
-   * @param {string} [subject=''] The string where to search.
-   * @param {string} search The string to search.
-   * @param {number} [position=0] The position to start searching.
-   * @return {boolean} Returns `true` if `subject` includes `search` or `false` otherwise.
-   * @example
-   * v.includes('starship', 'star');
-   * // => true
-   *
-   * v.includes('galaxy', 'g', 1);
-   * // => false
-   */
-  function includes (subject, search, position) {
-    var subjectString = coerceToString(subject),
-        searchString = toString(search);
-    if (searchString === null) {
-      return false;
-    }
-    if (searchString === '') {
-      return true;
-    }
-    position = isNil(position) ? 0 : clipNumber(toInteger(position), 0, subjectString.length);
-    return subjectString.indexOf(searchString, position) !== -1;
   }
 
   /**
@@ -3499,24 +3779,24 @@
   }
 
   /**
-   * Splits `subject` into an array of characters taking care of
+   * Splits `subject` into an array of graphemes taking care of
    * <a href="http://unicode.org/glossary/#surrogate_pair">surrogate pairs</a> and
    * <a href="http://unicode.org/glossary/#combining_mark">combining marks</a>.
    *
-   * @function charsCodePoint
+   * @function graphemes
    * @static
    * @since 1.0.0
    * @memberOf Split
    * @param {string} [subject=''] The string to split into characters.
-   * @return {Array} Returns the array of characters.
+   * @return {Array} Returns the array of graphemes.
    * @example
-   * v.charsCodePoint('\uD835\uDC00\uD835\uDC01'); // or '𝐀𝐁'
+   * v.graphemes('\uD835\uDC00\uD835\uDC01'); // or '𝐀𝐁'
    * // => ['\uD835\uDC00', '\uD835\uDC01']
    *
-   * v.charsCodePoint('cafe\u0301'); // or 'café'
+   * v.graphemes('cafe\u0301'); // or 'café'
    * // => ['c', 'a', 'f', 'e\u0301']
    */
-  function charsCodePoint (subject) {
+  function graphemes (subject) {
     var subjectString = coerceToString(subject);
     return nilDefault(subjectString.match(REGEXP_UNICODE_CHARACTER), []);
   }
@@ -3611,7 +3891,7 @@
     upperCase: upperCase,
 
     count: count,
-    countCodePoint: countCodePoint,
+    countGrapheme: countGrapheme,
     countSubstring: countSubstring,
     countWhere: countWhere,
 
@@ -3626,7 +3906,10 @@
     lastIndexOf: lastIndexOf,
     search: search,
 
+    charAt: charAt,
+    codePointAt: codePointAt,
     first: first,
+    graphemeAt: graphemeAt,
     last: last,
     prune: prune,
     slice: slice,
@@ -3640,8 +3923,9 @@
     padRight: padRight,
     repeat: repeat,
     replace: replace,
-    reverseCodePoint: reverseCodePoint,
+    replaceAll: replaceAll,
     reverse: reverse,
+    reverseGrapheme: reverseCodePoint,
     slugify: slugify,
     trim: trim,
     trimLeft: trimLeft,
@@ -3662,7 +3946,7 @@
     startsWith: startsWith,
 
     chars: chars,
-    charsCodePoint: charsCodePoint,
+    graphemes: graphemes,
     split: split,
     words: words,
 
@@ -3710,7 +3994,7 @@
      *
      * v(' Space travel ')
      *  .trim()
-     *  .truncate(5)
+     *  .truncate(8)
      *  .value()
      * // => 'Space...'
      */
@@ -3781,7 +4065,7 @@
        * v(" Back to School ")
        *  .chain()
        *  .trim()
-       *  .truncate(4)
+       *  .truncate(7)
        *  .value()
        * // => 'Back...'
        */
@@ -3898,7 +4182,7 @@
    *
    * v(" Back to School ")
    *  .trim()
-   *  .truncate(4)
+   *  .truncate(7)
    *  .value()
    * // => 'Back...'
    */
@@ -4240,6 +4524,80 @@
     });
   });
 
+  describe('charAt', function () {
+
+    it('should return the character by index', function () {
+      chai.expect(Voca.charAt('Good day', 0)).to.be.equal('G');
+      chai.expect(Voca.charAt('Good day', 1)).to.be.equal('o');
+      chai.expect(Voca.charAt('Good day', 7)).to.be.equal('y');
+      chai.expect(Voca.charAt(PRINTABLE_ASCII, 0)).to.be.equal(' ');
+      chai.expect(Voca.charAt('', 0)).to.be.equal('');
+    });
+
+    it('should return an empty string for out of bounds index', function () {
+      chai.expect(Voca.charAt('Good day', -1)).to.be.equal('');
+      chai.expect(Voca.charAt('Good day', 100)).to.be.equal('');
+    });
+
+    it('should return the character by index of a string representation of an object', function () {
+      chai.expect(Voca.charAt(['Good evening'], 5)).to.be.equal('e');
+      chai.expect(Voca.charAt({
+        toString: function toString() {
+          return 'Morning';
+        }
+      }, 1)).to.be.equal('o');
+    });
+
+    it('should return an empty string for null or undefined', function () {
+      chai.expect(Voca.charAt()).to.be.equal('');
+      chai.expect(Voca.charAt(undefined)).to.be.equal('');
+      chai.expect(Voca.charAt(null)).to.be.equal('');
+      chai.expect(Voca.charAt(null, null)).to.be.equal('');
+      chai.expect(Voca.charAt(undefined, undefined)).to.be.equal('');
+    });
+  });
+
+  describe('graphemeAt', function () {
+
+    it('should return the grapheme by index', function () {
+      chai.expect(Voca.graphemeAt('Good day', 0)).to.be.equal('G');
+      chai.expect(Voca.graphemeAt('Good day', 1)).to.be.equal('o');
+      chai.expect(Voca.graphemeAt('Good day', 7)).to.be.equal('y');
+      chai.expect(Voca.graphemeAt(PRINTABLE_ASCII, 0)).to.be.equal(' ');
+      chai.expect(Voca.graphemeAt('mañana', 2)).to.equal('ñ');
+      chai.expect(Voca.graphemeAt('é⃝', 0)).to.equal('é⃝');
+      chai.expect(Voca.graphemeAt('𝐀𝐁', 1)).to.equal('𝐁');
+      chai.expect(Voca.graphemeAt('café', 3)).to.equal('é');
+      chai.expect(Voca.graphemeAt('foõ͜͝͞bar', 2)).to.equal('õ͜͝͞');
+      chai.expect(Voca.graphemeAt('foo𝌆̃͜͝͞bar𝌆̃͜͝', 3)).to.equal('𝌆̃͜͝͞');
+      chai.expect(Voca.graphemeAt('foo𝌆̃͜͝͞bar𝌆̃͜͝', 7)).to.equal('𝌆̃͜͝');
+      chai.expect(Voca.graphemeAt('', 0)).to.be.equal('');
+    });
+
+    it('should return an empty string for out of bounds index', function () {
+      chai.expect(Voca.graphemeAt('Good day', -1)).to.be.equal('');
+      chai.expect(Voca.graphemeAt('Good day', 100)).to.be.equal('');
+      chai.expect(Voca.graphemeAt('café', 4)).to.be.equal('');
+    });
+
+    it('should return the grapheme by index of a string representation of an object', function () {
+      chai.expect(Voca.graphemeAt(['Good evening'], 5)).to.be.equal('e');
+      chai.expect(Voca.graphemeAt({
+        toString: function toString() {
+          return 'Morning';
+        }
+      }, 1)).to.be.equal('o');
+    });
+
+    it('should return an empty string for null or undefined', function () {
+      chai.expect(Voca.graphemeAt()).to.be.equal('');
+      chai.expect(Voca.graphemeAt(undefined)).to.be.equal('');
+      chai.expect(Voca.graphemeAt(null)).to.be.equal('');
+      chai.expect(Voca.graphemeAt(null, null)).to.be.equal('');
+      chai.expect(Voca.graphemeAt(undefined, undefined)).to.be.equal('');
+    });
+  });
+
   describe('first', function () {
 
     it('should return the first part of a string', function () {
@@ -4517,30 +4875,30 @@
     });
   });
 
-  describe('countCodePoint', function () {
+  describe('countGrapheme', function () {
 
     it('should return the number of characters in a string', function () {
-      chai.expect(Voca.countCodePoint('rain')).to.be.equal(4);
-      chai.expect(Voca.countCodePoint('')).to.be.equal(0);
-      chai.expect(Voca.countCodePoint('rainbow')).to.be.equal(7);
-      chai.expect(Voca.countCodePoint('é⃝')).to.be.equal(1);
-      chai.expect(Voca.countCodePoint('𝐀𝐁')).to.be.equal(2);
-      chai.expect(Voca.countCodePoint('mañana')).to.be.equal(6);
-      chai.expect(Voca.countCodePoint('café')).to.be.equal(4);
-      chai.expect(Voca.countCodePoint('foõ͜͝͞bar')).to.be.equal(6);
-      chai.expect(Voca.countCodePoint('foo𝌆̃͜͝͞bar')).to.be.equal(7);
-      chai.expect(Voca.countCodePoint(PRINTABLE_ASCII)).to.be.equal(PRINTABLE_ASCII.length);
+      chai.expect(Voca.countGrapheme('rain')).to.be.equal(4);
+      chai.expect(Voca.countGrapheme('')).to.be.equal(0);
+      chai.expect(Voca.countGrapheme('rainbow')).to.be.equal(7);
+      chai.expect(Voca.countGrapheme('é⃝')).to.be.equal(1);
+      chai.expect(Voca.countGrapheme('𝐀𝐁')).to.be.equal(2);
+      chai.expect(Voca.countGrapheme('mañana')).to.be.equal(6);
+      chai.expect(Voca.countGrapheme('café')).to.be.equal(4);
+      chai.expect(Voca.countGrapheme('foõ͜͝͞bar')).to.be.equal(6);
+      chai.expect(Voca.countGrapheme('foo𝌆̃͜͝͞bar')).to.be.equal(7);
+      chai.expect(Voca.countGrapheme(PRINTABLE_ASCII)).to.be.equal(PRINTABLE_ASCII.length);
     });
 
     it('should return the number of characters in a number', function () {
-      chai.expect(Voca.countCodePoint(123)).to.be.equal(3);
-      chai.expect(Voca.countCodePoint(0)).to.be.equal(1);
-      chai.expect(Voca.countCodePoint(-1.5)).to.be.equal(4);
+      chai.expect(Voca.countGrapheme(123)).to.be.equal(3);
+      chai.expect(Voca.countGrapheme(0)).to.be.equal(1);
+      chai.expect(Voca.countGrapheme(-1.5)).to.be.equal(4);
     });
 
     it('should return the number of characters in a string representation of an object', function () {
-      chai.expect(Voca.countCodePoint(['droplet'])).to.be.equal(7);
-      chai.expect(Voca.countCodePoint({
+      chai.expect(Voca.countGrapheme(['droplet'])).to.be.equal(7);
+      chai.expect(Voca.countGrapheme({
         toString: function toString() {
           return 'rainfall';
         }
@@ -4548,9 +4906,9 @@
     });
 
     it('should return zero for undefined or null', function () {
-      chai.expect(Voca.countCodePoint()).to.be.equal(0);
-      chai.expect(Voca.countCodePoint(null)).to.be.equal(0);
-      chai.expect(Voca.countCodePoint(undefined)).to.be.equal(0);
+      chai.expect(Voca.countGrapheme()).to.be.equal(0);
+      chai.expect(Voca.countGrapheme(null)).to.be.equal(0);
+      chai.expect(Voca.countGrapheme(undefined)).to.be.equal(0);
     });
   });
 
@@ -4754,6 +5112,18 @@
       chai.expect(coerceToNumber(undefined)).to.be.equal(0);
       chai.expect(coerceToNumber(undefined, 1)).to.be.equal(1);
       chai.expect(coerceToNumber(undefined, 0)).to.be.equal(0);
+    });
+  });
+
+  describe('coerceToRegularExpression', function () {
+
+    it('should coerce the pattern to a regular expression', function () {
+      var regexp1 = appendFlagToRegularExpression(/.*/g, 'g');
+      chai.expect(regexp1).to.be.instanceof(RegExp);
+      chai.expect(regexp1.toString()).to.be.equal('/.*/g');
+      var regexp2 = appendFlagToRegularExpression(/.*/, 'g');
+      chai.expect(regexp2).to.be.instanceof(RegExp);
+      chai.expect(regexp2.toString()).to.be.equal('/.*/g');
     });
   });
 
@@ -5430,6 +5800,69 @@
     });
   });
 
+  describe('replaceAll', function () {
+
+    it('should return the replace result with a string pattern', function () {
+      chai.expect(Voca.replaceAll('duck', 'duck', 'swan')).to.be.equal('swan');
+      chai.expect(Voca.replaceAll('duck duck', 'duck', 'swan')).to.be.equal('swan swan');
+      chai.expect(Voca.replaceAll('duck', 'duck', '')).to.be.equal('');
+      chai.expect(Voca.replaceAll('dduucckk', 'd', 'dd')).to.be.equal('dddduucckk');
+      chai.expect(Voca.replaceAll('duck', 'd', '')).to.be.equal('uck');
+      chai.expect(Voca.replaceAll('duck duck duc', 'duck', function () {
+        return 'swan';
+      })).to.be.equal('swan swan duc');
+      chai.expect(Voca.replaceAll('duck', 'u', function () {
+        return 'a';
+      })).to.be.equal('dack');
+      chai.expect(Voca.replaceAll('[a-b] [a-c][a-b]', '[a-b]', '[ab]')).to.be.equal('[ab] [a-c][ab]');
+      chai.expect(Voca.replaceAll('*.*.', '*.', '*')).to.be.equal('**');
+      chai.expect(Voca.replaceAll('a a b a', 'a', 'b')).to.be.equal('b b b b');
+      chai.expect(Voca.replaceAll('', '', '')).to.be.equal('');
+      chai.expect(Voca.replaceAll('duck', '', '')).to.be.equal('duck');
+      chai.expect(Voca.replaceAll(PRINTABLE_ASCII, PRINTABLE_ASCII, PRINTABLE_ASCII)).to.be.equal(PRINTABLE_ASCII);
+      chai.expect(Voca.replaceAll(PRINTABLE_ASCII, PRINTABLE_ASCII, 'duck')).to.be.equal('duck');
+    });
+
+    it('should return the replace result with a RegExp pattern', function () {
+      chai.expect(Voca.replaceAll('duck duck', /duck/, 'swan')).to.be.equal('swan swan');
+      chai.expect(Voca.replaceAll('duck DUCK', /duck/, 'swan')).to.be.equal('swan DUCK');
+      chai.expect(Voca.replaceAll('duck DUCK', /DUCK/i, 'swan')).to.be.equal('swan swan');
+      chai.expect(Voca.replaceAll('duck', /duck/, '')).to.be.equal('');
+      chai.expect(Voca.replaceAll('duck', /d/, '')).to.be.equal('uck');
+      chai.expect(Voca.replaceAll('duck duck', /u/, function () {
+        return 'a';
+      })).to.be.equal('dack dack');
+      chai.expect(Voca.replaceAll('hello world', /(hello)\s(world)/, function (match, hello, world) {
+        return world + ', ' + hello;
+      })).to.be.equal('world, hello');
+    });
+
+    it('should return the replace result from a string representation of an object', function () {
+      chai.expect(Voca.replaceAll(['duck'], 'duck', 'swan')).to.be.equal('swan');
+      chai.expect(Voca.replaceAll({
+        toString: function toString() {
+          return 'mandarin duck';
+        }
+      }, /mandarin\s/, '')).to.be.equal('duck');
+    });
+
+    it('should return the replace result from a number', function () {
+      chai.expect(Voca.replaceAll(1500, '0', '1')).to.be.equal('1511');
+      chai.expect(Voca.replaceAll(6475, /\d/g, '*')).to.be.equal('****');
+      chai.expect(Voca.replaceAll(6475, /\d/, '*')).to.be.equal('****');
+    });
+
+    it('should return the original string on failed match', function () {
+      chai.expect(Voca.replaceAll('duck', 'dack', 'swan')).to.be.equal('duck');
+      chai.expect(Voca.replaceAll('duck', /dack/, '')).to.be.equal('duck');
+    });
+
+    it('should return the an empty string for an undefined or null', function () {
+      chai.expect(Voca.replaceAll(undefined, /./, '1')).to.be.equal('');
+      chai.expect(Voca.replaceAll(null, /./, '1')).to.be.equal('');
+    });
+  });
+
   describe('reverse', function () {
 
     it('should reverse a string', function () {
@@ -5462,29 +5895,29 @@
     });
   });
 
-  describe('reverseCodePoint', function () {
+  describe('reverseGrapheme', function () {
 
     it('should reverse a string', function () {
-      chai.expect(Voca.reverseCodePoint('green tree')).to.be.equal('eert neerg');
-      chai.expect(Voca.reverseCodePoint('ma\xF1ana')).to.be.equal('ana\xF1am');
-      chai.expect(Voca.reverseCodePoint('mañana')).to.be.equal('anañam');
-      chai.expect(Voca.reverseCodePoint('foõ͜͝͞bar')).to.be.equal('rabõ͜͝͞of');
-      chai.expect(Voca.reverseCodePoint('foo𝌆̃͜͝͞bar')).to.be.equal('rab𝌆̃͜͝͞oof');
-      chai.expect(Voca.reverseCodePoint('o')).to.be.equal('o');
-      chai.expect(Voca.reverseCodePoint('\n\t')).to.be.equal('\t\n');
-      chai.expect(Voca.reverseCodePoint('')).to.be.equal('');
-      chai.expect(Voca.reverseCodePoint(PRINTABLE_ASCII)).to.be.equal(REVERSED_PRINTABLE_ASCII);
+      chai.expect(Voca.reverseGrapheme('green tree')).to.be.equal('eert neerg');
+      chai.expect(Voca.reverseGrapheme('ma\xF1ana')).to.be.equal('ana\xF1am');
+      chai.expect(Voca.reverseGrapheme('mañana')).to.be.equal('anañam');
+      chai.expect(Voca.reverseGrapheme('foõ͜͝͞bar')).to.be.equal('rabõ͜͝͞of');
+      chai.expect(Voca.reverseGrapheme('foo𝌆̃͜͝͞bar')).to.be.equal('rab𝌆̃͜͝͞oof');
+      chai.expect(Voca.reverseGrapheme('o')).to.be.equal('o');
+      chai.expect(Voca.reverseGrapheme('\n\t')).to.be.equal('\t\n');
+      chai.expect(Voca.reverseGrapheme('')).to.be.equal('');
+      chai.expect(Voca.reverseGrapheme(PRINTABLE_ASCII)).to.be.equal(REVERSED_PRINTABLE_ASCII);
     });
 
     it('should reverseCodePoint a number', function () {
-      chai.expect(Voca.reverseCodePoint(123)).to.be.equal('321');
-      chai.expect(Voca.reverseCodePoint(0)).to.be.equal('0');
-      chai.expect(Voca.reverseCodePoint(-1.5)).to.be.equal('5.1-');
+      chai.expect(Voca.reverseGrapheme(123)).to.be.equal('321');
+      chai.expect(Voca.reverseGrapheme(0)).to.be.equal('0');
+      chai.expect(Voca.reverseGrapheme(-1.5)).to.be.equal('5.1-');
     });
 
     it('should reverseCodePoint a string representation of an object', function () {
-      chai.expect(Voca.reverseCodePoint(['flower'])).to.be.equal('rewolf');
-      chai.expect(Voca.reverseCodePoint({
+      chai.expect(Voca.reverseGrapheme(['flower'])).to.be.equal('rewolf');
+      chai.expect(Voca.reverseGrapheme({
         toString: function toString() {
           return 'flower';
         }
@@ -5492,9 +5925,9 @@
     });
 
     it('should return an empty string for null or undefined', function () {
-      chai.expect(Voca.reverseCodePoint()).to.be.equal('');
-      chai.expect(Voca.reverseCodePoint(null)).to.be.equal('');
-      chai.expect(Voca.reverseCodePoint(undefined)).to.be.equal('');
+      chai.expect(Voca.reverseGrapheme()).to.be.equal('');
+      chai.expect(Voca.reverseGrapheme(null)).to.be.equal('');
+      chai.expect(Voca.reverseGrapheme(undefined)).to.be.equal('');
     });
   });
 
@@ -6827,34 +7260,34 @@
     });
   });
 
-  describe('charsCodePoint', function () {
+  describe('graphemes', function () {
 
     it('should split a string into characters', function () {
-      chai.expect(Voca.charsCodePoint('stellar bomb')).to.eql(['s', 't', 'e', 'l', 'l', 'a', 'r', ' ', 'b', 'o', 'm', 'b']);
-      chai.expect(Voca.charsCodePoint('   ')).to.eql([' ', ' ', ' ']);
-      chai.expect(Voca.charsCodePoint('\n\t')).to.eql(['\n', '\t']);
-      chai.expect(Voca.charsCodePoint('')).to.eql([]);
-      chai.expect(Voca.charsCodePoint(PRINTABLE_ASCII)).to.eql(Array.prototype.slice.call(PRINTABLE_ASCII, 0));
+      chai.expect(Voca.graphemes('stellar bomb')).to.eql(['s', 't', 'e', 'l', 'l', 'a', 'r', ' ', 'b', 'o', 'm', 'b']);
+      chai.expect(Voca.graphemes('   ')).to.eql([' ', ' ', ' ']);
+      chai.expect(Voca.graphemes('\n\t')).to.eql(['\n', '\t']);
+      chai.expect(Voca.graphemes('')).to.eql([]);
+      chai.expect(Voca.graphemes(PRINTABLE_ASCII)).to.eql(Array.prototype.slice.call(PRINTABLE_ASCII, 0));
     });
 
     it('should split a string into surrogate pairs and diacritical marks characters', function () {
-      chai.expect(Voca.charsCodePoint('mañana')).to.eql(['m', 'a', 'ñ', 'a', 'n', 'a']);
-      chai.expect(Voca.charsCodePoint('é⃝')).to.eql(['é⃝']);
-      chai.expect(Voca.charsCodePoint('𝐀𝐁')).to.eql(['𝐀', '𝐁']);
-      chai.expect(Voca.charsCodePoint('café')).to.eql(['c', 'a', 'f', 'é']);
-      chai.expect(Voca.charsCodePoint('foõ͜͝͞bar')).to.eql(['f', 'o', 'õ͜͝͞', 'b', 'a', 'r']);
-      chai.expect(Voca.charsCodePoint('foo𝌆̃͜͝͞bar')).to.eql(['f', 'o', 'o', '𝌆̃͜͝͞', 'b', 'a', 'r']);
+      chai.expect(Voca.graphemes('mañana')).to.eql(['m', 'a', 'ñ', 'a', 'n', 'a']);
+      chai.expect(Voca.graphemes('é⃝')).to.eql(['é⃝']);
+      chai.expect(Voca.graphemes('𝐀𝐁')).to.eql(['𝐀', '𝐁']);
+      chai.expect(Voca.graphemes('café')).to.eql(['c', 'a', 'f', 'é']);
+      chai.expect(Voca.graphemes('foõ͜͝͞bar')).to.eql(['f', 'o', 'õ͜͝͞', 'b', 'a', 'r']);
+      chai.expect(Voca.graphemes('foo𝌆̃͜͝͞bar')).to.eql(['f', 'o', 'o', '𝌆̃͜͝͞', 'b', 'a', 'r']);
     });
 
     it('should split a number into characters', function () {
-      chai.expect(Voca.charsCodePoint(0)).to.eql(['0']);
-      chai.expect(Voca.charsCodePoint(1560)).to.eql(['1', '5', '6', '0']);
-      chai.expect(Voca.charsCodePoint(-1.6)).to.eql(['-', '1', '.', '6']);
+      chai.expect(Voca.graphemes(0)).to.eql(['0']);
+      chai.expect(Voca.graphemes(1560)).to.eql(['1', '5', '6', '0']);
+      chai.expect(Voca.graphemes(-1.6)).to.eql(['-', '1', '.', '6']);
     });
 
     it('should split the string representation of an object', function () {
-      chai.expect(Voca.charsCodePoint(['star'])).to.eql(['s', 't', 'a', 'r']);
-      chai.expect(Voca.charsCodePoint({
+      chai.expect(Voca.graphemes(['star'])).to.eql(['s', 't', 'a', 'r']);
+      chai.expect(Voca.graphemes({
         toString: function toString() {
           return 'Capa';
         }
@@ -6862,9 +7295,9 @@
     });
 
     it('should return an empty array of characters for null and undefined', function () {
-      chai.expect(Voca.charsCodePoint()).to.eql([]);
-      chai.expect(Voca.charsCodePoint(undefined)).to.eql([]);
-      chai.expect(Voca.charsCodePoint(null)).to.eql([]);
+      chai.expect(Voca.graphemes()).to.eql([]);
+      chai.expect(Voca.graphemes(undefined)).to.eql([]);
+      chai.expect(Voca.graphemes(null)).to.eql([]);
     });
   });
 

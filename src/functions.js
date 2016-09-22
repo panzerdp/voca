@@ -23,6 +23,7 @@ import truncate from './cut/truncate';
  * @namespace Cut
  */
 import charAt from './cut/char_at';
+import codePointAt from './cut/code_point_at';
 import first from './cut/first';
 import graphemeAt from './cut/grapheme_at';
 import last from './cut/last';
@@ -141,6 +142,7 @@ export default {
   search,
 
   charAt,
+  codePointAt,
   first,
   graphemeAt,
   last,

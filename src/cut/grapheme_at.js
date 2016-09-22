@@ -1,6 +1,6 @@
 import coerceToNumber from '../helper/number/coerce_to_number';
 import coerceToString from '../helper/string/coerce_to_string';
-import isNil from '../helper/object/is_nil';
+import nanDefault from '../helper/number/nan_default';
 import { REGEXP_UNICODE_CHARACTER } from '../helper/regular_expression/const';
 
 /**
@@ -23,13 +23,11 @@ import { REGEXP_UNICODE_CHARACTER } from '../helper/regular_expression/const';
  * // => 'é'
  */
 export default function(subject, index) {
-  if (isNil(index)) {
-    return '';
-  }
   var subjectString = coerceToString(subject),
     indexNumber = coerceToNumber(index),
     graphemeMatch,
     graphemeMatchIndex = 0;
+  indexNumber = nanDefault(indexNumber, 0);
   while ((graphemeMatch = REGEXP_UNICODE_CHARACTER.exec(subjectString)) !== null) {
     if (graphemeMatchIndex === indexNumber) {
       REGEXP_UNICODE_CHARACTER.lastIndex = 0;
