@@ -11,7 +11,7 @@ import toInteger from '../helper/number/to_integer';
  * @static
  * @function prune
  * @since 1.0.0
- * @memberOf Cut
+ * @memberOf Chop
  * @param  {string} [subject=''] The string to prune.
  * @param  {int}    length       The length to prune the string.
  * @param  {string} [end='...']  The string to be added at the end.

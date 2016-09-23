@@ -1,5 +1,5 @@
 import isNil from '~/helper/object/is_nil';
-import truncate from '~/cut/truncate';
+import truncate from '~/chop/truncate';
 
 /**
  * Formats a string type according to specifiers.

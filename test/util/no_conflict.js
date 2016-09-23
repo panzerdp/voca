@@ -12,7 +12,7 @@ describe('noConflict', function() {
     expect(globalObject.v).to.be.equal(undefined);
   });
 
-  it('should return voca library instance and not modify v global variable', function() {
+  it('should return Voca library instance and not modify v global variable', function() {
     var globalObject = getGlobalObject();
     var voca = vocaLibrary.noConflict();
     expect(voca).to.be.equal(vocaLibrary);

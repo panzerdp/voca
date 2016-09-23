@@ -11,7 +11,7 @@ import kebabCase from './case/kebab_case';
 import lowerCase from './case/lower_case';
 import snakeCase from './case/snake_case';
 import upperCase from './case/upper_case';
-import truncate from './cut/truncate';
+import truncate from './chop/truncate';
 
 /**
  * Chain functions
@@ -20,17 +20,17 @@ import truncate from './cut/truncate';
 
 /**
  * Functions to cut a string
- * @namespace Cut
+ * @namespace Chop
  */
-import charAt from './cut/char_at';
-import codePointAt from './cut/code_point_at';
-import first from './cut/first';
-import graphemeAt from './cut/grapheme_at';
-import last from './cut/last';
-import prune from './cut/prune';
-import slice from './cut/slice';
-import substr from './cut/substr';
-import substring from './cut/substring';
+import charAt from './chop/char_at';
+import codePointAt from './chop/code_point_at';
+import first from './chop/first';
+import graphemeAt from './chop/grapheme_at';
+import last from './chop/last';
+import prune from './chop/prune';
+import slice from './chop/slice';
+import substr from './chop/substr';
+import substring from './chop/substring';
 
 /**
  * Functions to count characters in a string

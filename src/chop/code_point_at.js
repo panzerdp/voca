@@ -10,7 +10,7 @@ import nanDefault from '../helper/number/nan_default';
  * @function codePointAt
  * @static
  * @since 1.0.0
- * @memberOf Cut
+ * @memberOf Chop
  * @param  {string} [subject=''] The string to extract from.
  * @param  {number} position The position to get the code point number.
  * @return {number} Returns the Unicode code point value number.

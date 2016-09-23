@@ -6,7 +6,7 @@ import coerceToString from '../helper/string/coerce_to_string';
  * @function charAt
  * @static
  * @since 1.0.0
- * @memberOf Cut
+ * @memberOf Chop
  * @param  {string} [subject=''] The string to extract from.
  * @param  {numbers} index The index to get the character.
  * @return {string} Returns characters.

@@ -10,7 +10,7 @@ import toInteger from '../helper/number/to_integer';
  * @function first
  * @static
  * @since 1.0.0
- * @memberOf Cut
+ * @memberOf Chop
  * @param  {string} [subject=''] The string to extract from.
  * @param  {int}    [length=1]   The number of characters to extract.
  * @return {string}              Returns the first characters string.

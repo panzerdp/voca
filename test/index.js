@@ -10,17 +10,17 @@ import './case/upper_case';
 //chain
 import './chain/chain';
 
-//cut
-import './cut/char_at';
-import './cut/code_point_at';
-import './cut/grapheme_at';
-import './cut/first';
-import './cut/last';
-import './cut/prune';
-import './cut/slice';
-import './cut/substr';
-import './cut/substring';
-import './cut/truncate';
+//chop
+import './chop/char_at';
+import './chop/code_point_at';
+import './chop/grapheme_at';
+import './chop/first';
+import './chop/last';
+import './chop/prune';
+import './chop/slice';
+import './chop/substr';
+import './chop/substring';
+import './chop/truncate';
 
 //count
 import './count/count';

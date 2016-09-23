@@ -11,7 +11,7 @@ import { REGEXP_UNICODE_CHARACTER } from '../helper/regular_expression/const';
  * @function graphemeAt
  * @static
  * @since 1.0.0
- * @memberOf Cut
+ * @memberOf Chop
  * @param  {string} [subject=''] The string to extract from.
  * @param  {number} index The index to get the character.
  * @return {string} Returns a grapheme.

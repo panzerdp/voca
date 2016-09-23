@@ -6,7 +6,7 @@ import coerceToString from '../helper/string/coerce_to_string';
  * @function slice
  * @static
  * @since 1.0.0
- * @memberOf Cut
+ * @memberOf Chop
  * @param  {string} [subject='']         The string to extract from.
  * @param  {number} start                The position to start extraction. If negative use `subject.length + start`.
  * @param  {number} [end=subject.length] The position to end extraction. If negative use `subject.length + end`.
