@@ -4,8 +4,8 @@ import coerceToString from '../helper/string/coerce_to_string';
 import nanDefault from '../helper/number/nan_default';
 
 /**
- * Get the Unicode code point value at `position`. <br/>
- * If no UTF-16 surrogate pair starts at `position`, the code point value at `position` is returned.
+ * Get the Unicode code point value of the character at `position`. <br/>
+ * If a valid UTF-16 surrogate pair does not begin at `position`, the code point value at `position` is returned.
  *
  * @function codePointAt
  * @static
@@ -13,7 +13,7 @@ import nanDefault from '../helper/number/nan_default';
  * @memberOf Chop
  * @param  {string} [subject=''] The string to extract from.
  * @param  {number} position The position to get the code point number.
- * @return {number} Returns the Unicode code point value number.
+ * @return {number} Returns a non-negative number less than or equal to `0x10FFFF`.
  * @example
  * v.codePointAt('rain', 1);
  * // => 97, or 0x0048

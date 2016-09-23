@@ -105,6 +105,7 @@ import startsWith from './query/starts_with';
  * @namespace Split
  */
 import chars from './split/chars';
+import codePoints from './split/code_points';
 import graphemes from './split/graphemes';
 import split from './split/split';
 import words from './split/words';
@@ -181,6 +182,7 @@ export default {
   startsWith,
 
   chars,
+  codePoints,
   graphemes,
   split,
   words,
