@@ -302,7 +302,6 @@ function attachModuleSymbols(doclets, modules) {
 
 function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
   var nav = '';
-  var repositoryUrl = 'https://gihub.com/panzerdp/voca';
 
   if (items && items.length) {
     var itemsNav = '';
@@ -314,13 +313,16 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
       members.concat(methods).forEach(function (method) {
         if (method.memberof) {
           method.orig_name = method.name;
-          var repositoryFileUrl = v.sprintf('%s/%s.js',
-            v.snakeCase(method.memberof), v.snakeCase(method.orig_name));
-          method.github_source = repositoryUrl + '/src/' + repositoryFileUrl;
-          method.github_test = repositoryUrl + '/test/' + repositoryFileUrl;
-          var methodName = method.name;
-          methodName = methodName.replace('__proto__', 'prototype.');
+          var methodName = method.name.replace('__proto__', 'prototype.');
           method.name = methodName === 'v' ? 'v' : 'v.' + methodName;  /*method.memberof*/
+          if (method.memberof === 'Chain' && method.orig_name !== 'chain') {
+            var isV = method.orig_name === 'v';
+            method.github_source = getRepositoryUrl('src', isV ? '' : 'chain', isV ? 'index': 'wrapper');
+            method.github_test = getRepositoryUrl('test', 'chain', 'chain');
+          } else {
+            method.github_source = getRepositoryUrl('src', method.memberof, method.orig_name);
+            method.github_test = getRepositoryUrl('test', method.memberof, method.orig_name);
+          }
         }
       });
       methods = methods.sort(function (a, b) {
@@ -364,6 +366,11 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
   }
 
   return nav;
+}
+
+function getRepositoryUrl(baseDirectory, memberof, name) {
+  var template = 'https://github.com/panzerdp/voca/tree/master/%s/%s/%s.js';
+  return v.sprintf(template, baseDirectory, v.snakeCase(memberof), v.snakeCase(name));
 }
 
 function linktoTutorial(longName, name) {
