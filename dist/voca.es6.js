@@ -551,7 +551,7 @@ function toInteger (value) {    if (value === Infinity) {
    * @function truncate
    * @static
    * @since 1.0.0
-   * @memberOf Cut
+   * @memberOf Chop
    * @param  {string} [subject=''] The string to truncate.
    * @param  {int}    length       The length to truncate the string.
    * @param  {string} [end='...']  The string to be added at the end.
@@ -581,7 +581,7 @@ function truncate (subject, length, end) {    var subjectString = coerceToString
    * @function charAt
    * @static
    * @since 1.0.0
-   * @memberOf Cut
+   * @memberOf Chop
    * @param  {string} [subject=''] The string to extract from.
    * @param  {numbers} index The index to get the character.
    * @return {string} Returns characters.
@@ -673,28 +673,26 @@ function nanDefault (value, defaultValue) {    return value !== value ? defaultV
   }
 
 /**
-   * Get the Unicode code point value at `position`.
+   * Get the Unicode code point value of the character at `position`. <br/>
+   * If a valid UTF-16 surrogate pair does not begin at `position`, the astral code point value at `position` is returned.
    *
    * @function codePointAt
    * @static
    * @since 1.0.0
-   * @memberOf Cut
+   * @memberOf Chop
    * @param  {string} [subject=''] The string to extract from.
    * @param  {number} position The position to get the code point number.
-   * @return {number} Returns the Unicode code point value number.
+   * @return {number} Returns a non-negative number less than or equal to `0x10FFFF`.
    * @example
    * v.codePointAt('rain', 1);
-   * // => 'h'
+   * // => 97, or 0x0048
    *
-   * v.first('vehicle', 2);
-   * // => 've'
-   *
-   * v.first('car', 5);
-   * // => 'car'
+   * v.codePointAt('\uD83D\uDE00 is smile', 0); // or '😀 is smile'
+   * // => 128512, or 0x1F600
    */
 function codePointAt (subject, position) {    var subjectString = coerceToString(subject),
         subjectStringLength = subjectString.length,
-        positionNumber = coerceToNumber(position, -1);
+        positionNumber = coerceToNumber(position);
     positionNumber = nanDefault(positionNumber, 0);
     if (positionNumber < 0 || positionNumber >= subjectStringLength) {
       return undefined;
@@ -716,7 +714,7 @@ function codePointAt (subject, position) {    var subjectString = coerceToString
    * @function first
    * @static
    * @since 1.0.0
-   * @memberOf Cut
+   * @memberOf Chop
    * @param  {string} [subject=''] The string to extract from.
    * @param  {int}    [length=1]   The number of characters to extract.
    * @return {string}              Returns the first characters string.
@@ -746,7 +744,7 @@ function first (subject, length) {    var subjectString = coerceToString(subject
    * @function graphemeAt
    * @static
    * @since 1.0.0
-   * @memberOf Cut
+   * @memberOf Chop
    * @param  {string} [subject=''] The string to extract from.
    * @param  {number} index The index to get the character.
    * @return {string} Returns a grapheme.
@@ -757,10 +755,7 @@ function first (subject, length) {    var subjectString = coerceToString(subject
    * v.graphemeAt('cafe\u0301', 3); // or 'café'
    * // => 'é'
    */
-function graphemeAt (subject, index) {    if (isNil(index)) {
-      return '';
-    }
-    var subjectString = coerceToString(subject),
+function graphemeAt (subject, index) {    var subjectString = coerceToString(subject),
         indexNumber = coerceToNumber(index),
         graphemeMatch,
         graphemeMatchIndex = 0;
@@ -781,7 +776,7 @@ function graphemeAt (subject, index) {    if (isNil(index)) {
    * @function last
    * @static
    * @since 1.0.0
-   * @memberOf Cut
+   * @memberOf Chop
    * @param  {string} [subject=''] The string to extract from.
    * @param  {int}    [length=1]   The number of characters to extract.
    * @return {string}              Returns the last characters string.
@@ -809,7 +804,7 @@ function last (subject, length) {    var subjectString = coerceToString(subject)
    * @static
    * @function prune
    * @since 1.0.0
-   * @memberOf Cut
+   * @memberOf Chop
    * @param  {string} [subject=''] The string to prune.
    * @param  {int}    length       The length to prune the string.
    * @param  {string} [end='...']  The string to be added at the end.
@@ -846,7 +841,7 @@ function prune (subject, length, end) {    var subjectString = coerceToString(su
    * @function slice
    * @static
    * @since 1.0.0
-   * @memberOf Cut
+   * @memberOf Chop
    * @param  {string} [subject='']         The string to extract from.
    * @param  {number} start                The position to start extraction. If negative use `subject.length + start`.
    * @param  {number} [end=subject.length] The position to end extraction. If negative use `subject.length + end`.
@@ -868,7 +863,7 @@ function slice (subject, start, end) {    return coerceToString(subject).slice(s
    * @function substr
    * @static
    * @since 1.0.0
-   * @memberOf Cut
+   * @memberOf Chop
    * @param  {string} [subject='']                 The string to extract from.
    * @param  {number} start                        The position to start extraction.
    * @param  {number} [length=subject.endOfString] The number of characters to extract. If omitted, extract to the end of `subject`.
@@ -890,7 +885,7 @@ function substr (subject, start, length) {    return coerceToString(subject).sub
    * @function substring
    * @static
    * @since 1.0.0
-   * @memberOf Cut
+   * @memberOf Chop
    * @param  {string} [subject='']         The string to extract from.
    * @param  {number} start                The position to start extraction.
    * @param  {number} [end=subject.length] The position to end extraction.
@@ -3677,6 +3672,35 @@ function chars (subject) {    var subjectString = coerceToString(subject);
   }
 
 /**
+   * Returns an array of Unicode code point values from characters of `subject`.
+   *
+   * @function codePoints
+   * @static
+   * @since 1.0.0
+   * @memberOf Split
+   * @param  {string} [subject=''] The string to extract from.
+   * @return {Array} Returns an array of non-negative numbers less than or equal to `0x10FFFF`.
+   * @example
+   * v.codePoints('rain');
+   * // => [97]
+   *
+   * v.codePoints('\uD83D\uDE00 smile'); // or '😀 smile'
+   * // => []
+   */
+function codePoints (subject) {    var subjectString = coerceToString(subject),
+        subjectStringLength = subjectString.length,
+        codePointArray = [],
+        index = 0,
+        codePointNumber;
+    while (index < subjectStringLength) {
+      codePointNumber = codePointAt(subjectString, index);
+      codePointArray.push(codePointNumber);
+      index += codePointNumber > 0xFFFF ? 2 : 1;
+    }
+    return codePointArray;
+  }
+
+/**
    * Splits `subject` into an array of graphemes taking care of
    * <a href="http://unicode.org/glossary/#surrogate_pair">surrogate pairs</a> and
    * <a href="http://unicode.org/glossary/#combining_mark">combining marks</a>.
@@ -3840,6 +3864,7 @@ var functions = {
     startsWith: startsWith,
 
     chars: chars,
+    codePoints: codePoints,
     graphemes: graphemes,
     split: split,
     words: words,

@@ -16,6 +16,8 @@ var resolveAuthorLinks = helper.resolveAuthorLinks;
 var scopeToPunc = helper.scopeToPunc;
 var hasOwnProp = Object.prototype.hasOwnProperty;
 
+var v = require('../../dist/voca');
+
 var data;
 var view;
 
@@ -300,6 +302,7 @@ function attachModuleSymbols(doclets, modules) {
 
 function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
   var nav = '';
+  var repositoryUrl = 'https://gihub.com/panzerdp/voca';
 
   if (items && items.length) {
     var itemsNav = '';
@@ -311,6 +314,10 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
       members.concat(methods).forEach(function (method) {
         if (method.memberof) {
           method.orig_name = method.name;
+          var repositoryFileUrl = v.sprintf('%s/%s.js',
+            v.snakeCase(method.memberof), v.snakeCase(method.orig_name));
+          method.github_source = repositoryUrl + '/src/' + repositoryFileUrl;
+          method.github_test = repositoryUrl + '/test/' + repositoryFileUrl;
           var methodName = method.name;
           methodName = methodName.replace('__proto__', 'prototype.');
           method.name = methodName === 'v' ? 'v' : 'v.' + methodName;  /*method.memberof*/

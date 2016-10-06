@@ -694,6 +694,10 @@ span.param-type, .params td .param-type, .param-type dd {
   z-index: 1;
 }
 
+.right-side-links {
+  float: right;
+}
+
 @media only screen and (min-width: 320px) and (max-width: 680px) {
   body {
     overflow-x: hidden;
