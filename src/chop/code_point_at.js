@@ -5,7 +5,7 @@ import nanDefault from '../helper/number/nan_default';
 
 /**
  * Get the Unicode code point value of the character at `position`. <br/>
- * If a valid UTF-16 surrogate pair does not begin at `position`, the code point value at `position` is returned.
+ * If a valid UTF-16 surrogate pair does not begin at `position`, the astral code point value at `position` is returned.
  *
  * @function codePointAt
  * @static
