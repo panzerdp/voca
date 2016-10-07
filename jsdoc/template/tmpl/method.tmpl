@@ -20,10 +20,10 @@ var self = this;
 
 <?js= this.partial('details.tmpl', data) ?>
 
-<div>
-  <a href="#<?js= id ?>">Permalink</a>
-  <a target="_blank" href="<?js= data.github_source ?>">Source</a>
-  <a target="_blank" href="<?js= data.github_test ?>">Test</a>
+<div class="container-links">
+  <a title="Function permalink" href="#<?js= id ?>">&#x1f517;</a>
+  <a title="Function source file" target="_blank" href="<?js= data.github_source ?>">&#x24c8;</a>
+  <a title="Function unit test file" target="_blank" href="<?js= data.github_test ?>">&#x24c9;</a>
 </div>
 
 <?js if (data.kind !== 'module' && data.description) { ?>
