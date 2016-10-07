@@ -386,6 +386,10 @@ pre[class*="language-"] {
   color: #883f44;
 }
 
+pre[class*="language-"] {
+  padding: 0.8em;
+}
+
 /*
 .prettyprint code {
   line-height: 18px;
@@ -685,6 +689,21 @@ span.param-type, .params td .param-type, .param-type dd {
   float: right;
 }
 
+.container-links {
+  float: right;
+  margin-right: 1em;
+}
+
+.container-links a {
+  font-size: 1.2em;
+  text-decoration: none;
+  margin-left: 0.2em;
+}
+
+.container-links a:hover {
+  color: #386685;
+}
+
 @media only screen and (min-width: 320px) and (max-width: 680px) {
   body {
     overflow-x: hidden;
@@ -734,19 +753,8 @@ span.param-type, .params td .param-type, .param-type dd {
   footer {
     margin-left: 0;
   }
-}
 
-.container-links {
-  float: right;
-  margin-right: 1em;
-}
-
-.container-links a {
-  font-size: 1.2em;
-  text-decoration: none;
-  margin-left: 0.2em;
-}
-
-.container-links a:hover {
-  color: #386685;
+  .container-links {
+    float: none;
+  }
 }
