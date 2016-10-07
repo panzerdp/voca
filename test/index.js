@@ -79,6 +79,7 @@ import './query/starts_with';
 
 //split
 import './split/chars';
+import './split/code_points';
 import './split/graphemes';
 import './split/split';
 import './split/words';
