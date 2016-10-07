@@ -378,8 +378,8 @@ pre[class*="language-"] {
   font-size: 1em;
   overflow: auto;
   border-radius: 0.2em;
-  border: 1px solid #eaebeb;
-  background-color: #f4f5f5;
+  border: 1px solid #ebebeb;
+  background-color: #f4f4f4;
 }
 
 .token.function {
@@ -695,8 +695,9 @@ span.param-type, .params td .param-type, .param-type dd {
 }
 
 .container-links a {
-  font-size: 1.2em;
-  text-decoration: none;
+  color: #bebebe;
+  text-decoration: underline;
+  font-size: 0.9em;
   margin-left: 0.2em;
 }
 

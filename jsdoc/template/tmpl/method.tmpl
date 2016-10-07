@@ -21,9 +21,9 @@ var self = this;
 <?js= this.partial('details.tmpl', data) ?>
 
 <div class="container-links">
-  <a title="Function permalink" href="#<?js= id ?>">&#x1f517;</a>
-  <a title="Function source file" target="_blank" href="<?js= data.github_source ?>">&#x24c8;</a>
-  <a title="Function unit test file" target="_blank" href="<?js= data.github_test ?>">&#x24c9;</a>
+  <a title="Function permalink" href="#<?js= id ?>">permalink</a>
+  <a title="Function source file" target="_blank" href="<?js= data.github_source ?>">source</a>
+  <a title="Function test file" target="_blank" href="<?js= data.github_test ?>">test</a>
 </div>
 
 <?js if (data.kind !== 'module' && data.description) { ?>

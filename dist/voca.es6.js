@@ -76,7 +76,7 @@ function coerceToString (value) {    var defaultValue = arguments.length > 1 && 
    * @since 1.0.0
    * @memberOf Case
    * @param  {string}  [subject='']            The string to capitalize.
-   * @param  {boolean} [restToLowerCase=false] Convert the rest of `subject` to lower case.
+   * @param  {boolean} [restToLower=false] Convert the rest of `subject` to lower case.
    * @return {string}                          Returns the capitalized string.
    * @example
    * v.capitalize('apple');
@@ -85,8 +85,8 @@ function coerceToString (value) {    var defaultValue = arguments.length > 1 && 
    * v.capitalize('mAC', false);
    * // => 'MAC'
    */
-function capitalize (subject, restToLowerCase) {    var subjectString = coerceToString(subject),
-        restToLowerCaseBoolean = coerceToBoolean(restToLowerCase);
+function capitalize (subject, restToLower) {    var subjectString = coerceToString(subject),
+        restToLowerCaseBoolean = coerceToBoolean(restToLower);
     if (subjectString === '') {
       return '';
     }
