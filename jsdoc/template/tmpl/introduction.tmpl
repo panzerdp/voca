@@ -63,12 +63,12 @@
 
      Install the library using npm into your local modules directory:
 
-     <pre class="prettyprint"><code>npm install --save voca</code></pre>
+     <pre class="prettyprint"><code class="language-javascript">npm install --save voca</code></pre>
 
      Then use the commonjs format:
 
 <pre class="prettyprint">
-<code>// Get the entire library
+<code class="language-javascript">// Get the entire library
 var v = require('voca');
 
 v.trim(' Hello World! ');
@@ -84,7 +84,7 @@ isAlpha('earth');
 Or use the ECMAScript 6 import format:
 
 <pre class="prettyprint">
-<code>// Get the entire library
+<code class="language-javascript">// Get the entire library
 import v from 'voca';
 
 v.trim(' Hello World! ');
@@ -114,7 +114,7 @@ Use a <code>script</code> tag to load the library into a web page:
 Then a global variable <code>v</code> is exposed:
 
 <pre class="prettyprint">
-<code>&lt;script type=&quot;text/javascript&quot;&gt;
+<code class="language-javascript">&lt;script type=&quot;text/javascript&quot;&gt;
   v.isBlank(&apos;  &apos;);
   // =&gt; true
 &lt;/script&gt;</code></pre>

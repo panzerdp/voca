@@ -373,30 +373,35 @@ footer {
   margin: 0;
 }
 
-.prettyprint {
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
   font-size: 1em;
   overflow: auto;
   border-radius: 0.2em;
+  border: 1px solid #eaebeb;
+  background-color: #f4f5f5;
 }
 
+.token.function {
+  color: #883f44;
+}
+
+/*
+.prettyprint code {
+  line-height: 18px;
+  display: block;
+  background-color: #f6fafd;
+  color: #333;
+}
+
+*/
+/*
 .prettyprint.source {
   width: inherit;
   line-height: 18px;
   display: block;
   background-color: #0d152a;
   color: #aeaeae;
-}
-
-.prettyprint code {
-  line-height: 18px;
-  display: block;
-  background-color: #0d152a;
-  color: #333;
-}
-
-.prettyprint > code {
-  padding: 15px;
-  overflow-x: auto;
 }
 
 .prettyprint .linenums code {
@@ -411,32 +416,14 @@ footer {
   display: inline-block
 }
 
-.prettyprint.linenums {
-  padding-left: 70px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.prettyprint.linenums ol {
-  padding-left: 0
-}
-
-.prettyprint.linenums li {
-  border-left: 3px #34446B solid;
-}
-
-.prettyprint.linenums li.selected, .prettyprint.linenums li.selected * {
-  background-color: #34446B;
-}
-
 .prettyprint.linenums li * {
   -webkit-user-select: text;
   -moz-user-select: text;
   -ms-user-select: text;
   user-select: text;
 }
+
+*/
 
 .params, .props {
   border-spacing: 0;
@@ -749,6 +736,17 @@ span.param-type, .params td .param-type, .param-type dd {
   }
 }
 
+.container-links {
+  float: right;
+  margin-right: 1em;
+}
+
 .container-links a {
-  
+  font-size: 1.2em;
+  text-decoration: none;
+  margin-left: 0.2em;
+}
+
+.container-links a:hover {
+  color: #386685;
 }

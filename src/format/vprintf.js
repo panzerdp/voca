@@ -14,10 +14,10 @@ import sprintf from './sprintf';
  * @param  {Array.<number|string>} replacements The array of replacements to produce the string.
  * @return {string}                             Returns the produced string.
  * @example
- * vprintf('%s', ['Welcome'])
+ * v.vprintf('%s', ['Welcome'])
  * // => 'Welcome'
  *
- * vprintf('%s costs $%.2f', ['Coffee', 1.5]);
+ * v.vprintf('%s costs $%.2f', ['Coffee', 1.5]);
  * // => 'Coffee costs $1.50'
  */
 export default function(format, replacements) {
