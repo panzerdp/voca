@@ -12,7 +12,7 @@ body {
   background: #f6fafd;
   margin: 0 auto;
   padding-right: 10px;
-  padding-left: 20px;
+  padding-left: 10px;
   font-family: Helvetica, Arial, sans-serif;
   font-size: 1em;
   line-height: 160%;
@@ -187,6 +187,7 @@ nav {
   overflow: auto;
   position: fixed;
   height: 100%;
+  padding-left: 10px;
 }
 
 nav h3 {
@@ -705,10 +706,49 @@ span.param-type, .params td .param-type, .param-type dd {
   color: #386685;
 }
 
+.clearable-input {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1.2em;
+  width: 210px;
+  border-radius: 0.2em;
+  box-shadow: 0 0 0.3em #cacccd;
+  background-color: white;
+}
+
+.clearable-input > input {
+  padding-left: 0.5em;
+  padding-right: 1.4em;
+  height: 2.2em;
+  font-size: 0.8em;
+  font-family: Consolas, "Courier New", monospace;
+  width: 100%;
+  border: none;
+  background-color: white;
+  border-radius: 0.2em;
+}
+
+.clearable-input >[data-clear-input] {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  right: 0.4em;
+  top: 0;
+  font-weight: bold;
+  font-size: 1em;
+  line-height: 2em;
+  cursor: pointer;
+}
+
+.clearable-input > input::-ms-clear {
+  display: none;
+}
+
+
 @media only screen and (min-width: 320px) and (max-width: 680px) {
   body {
     overflow-x: hidden;
-    padding-left: 10px;
+    padding-left: 0;
   }
 
   .logo {

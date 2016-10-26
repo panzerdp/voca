@@ -396,7 +396,7 @@ function linktoExternal(longName, name) {
  * @return {string} The HTML for the navigation sidebar.
  */
 function buildNav(members) {
-  var nav = '<h2 class="main-name"><a href="#">Voca</a></h2>';
+  var nav = '';
   var seen = {};
   var seenTutorials = {};
 

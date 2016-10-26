@@ -43,8 +43,6 @@
 
     <title><?js= title ?> Documentation</title>
 
-    <script src="scripts/prism.js"></script>
-    <script src="scripts/voca.js"></script>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -60,6 +58,11 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
+    <h2 class="main-name"><a href="#">Voca</a></h2>
+    <div class="clearable-input">
+      <input type="text" placeholder="🔍 Search" value="" />
+      <span data-clear-input>&#x274C;</span>
+    </div>
     <?js= this.nav ?>
 </nav>
 
@@ -75,6 +78,9 @@
 
 <!--</footer>-->
 
+<script src="scripts/prism.js"></script>
+<script src="scripts/voca.js"></script>
+<script src="scripts/search.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -85,5 +91,6 @@
   ga('send', 'pageview');
 
 </script>
+
 </body>
 </html>
