@@ -728,6 +728,28 @@ span.param-type, .params td .param-type, .param-type dd {
   border-radius: 0.2em;
 }
 
+::-webkit-input-placeholder {
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 1em;
+}
+::-moz-placeholder {
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 1em;
+}
+:-ms-input-placeholder {
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 1em;
+}
+:-moz-placeholder {
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 1em;
+}
+
+.clearable-input > input:focus {
+  outline: none;
+  box-shadow: 0 0 0.3em #408BAA;
+}
+
 .clearable-input >[data-clear-input] {
   display: none;
   position: absolute;
@@ -748,7 +770,7 @@ span.param-type, .params td .param-type, .param-type dd {
 @media only screen and (min-width: 320px) and (max-width: 680px) {
   body {
     overflow-x: hidden;
-    padding-left: 0;
+    padding-left: 10px;
   }
 
   .logo {
@@ -797,5 +819,18 @@ span.param-type, .params td .param-type, .param-type dd {
 
   .container-links {
     float: none;
+  }
+
+  ::-webkit-input-placeholder {
+    font-size: 0.8em;
+  }
+  ::-moz-placeholder {
+    font-size: 0.8em;
+  }
+  :-ms-input-placeholder {
+    font-size: 0.8em;
+  }
+  :-moz-placeholder {
+    font-size: 0.8em;
   }
 }
