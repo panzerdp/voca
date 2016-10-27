@@ -1,7 +1,8 @@
 import coerceToString from '../helper/string/coerce_to_string';
 
 /**
- * Extracts from `subject` a string from `start` position to `end` position.
+ * Extracts from `subject` a string from `start` position up to `end` position. The character at `end` position is not
+ * included.
  *
  * @function slice
  * @static
@@ -18,6 +19,9 @@ import coerceToString from '../helper/string/coerce_to_string';
  *
  * v.slice('florida', -4);
  * // => 'rida'
+ *
+ * v.slice('florida', 1, 4);
+ * // => "lor"
  */
 export default function(subject, start, end) {
   return coerceToString(subject).slice(start, end);

@@ -2,21 +2,22 @@ import coerceToBoolean from '../helper/boolean/coerce_to_boolean';
 import coerceToString from '../helper/string/coerce_to_string';
 
 /**
- * Converts the first character of `subject` to upper case and the rest to lower case.
+ * Converts the first character of `subject` to upper case. If `restToLower` is `true`, convert the rest of
+ * `subject` to lower case.
  *
  * @function capitalize
  * @static
  * @since 1.0.0
  * @memberOf Case
- * @param  {string}  [subject='']            The string to capitalize.
+ * @param  {string}  [subject='']        The string to capitalize.
  * @param  {boolean} [restToLower=false] Convert the rest of `subject` to lower case.
- * @return {string}                          Returns the capitalized string.
+ * @return {string}                      Returns the capitalized string.
  * @example
  * v.capitalize('apple');
  * // => 'Apple'
  *
- * v.capitalize('mAC', false);
- * // => 'MAC'
+ * v.capitalize('aPPle', true);
+ * // => 'Apple'
  */
 export default function(subject, restToLower) {
   var subjectString = coerceToString(subject),

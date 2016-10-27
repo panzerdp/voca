@@ -9,7 +9,8 @@ import replacementMatch from './helper/replacement/match';
  * <div id="sprintf-format" class="smaller">
  * `format` string is composed of zero or more directives: ordinary characters (not <code>%</code>), which are  copied  unchanged
  * to  the  output string and <i>conversion specifications</i>, each of which results in fetching zero or more subsequent
- * arguments. Each <b>conversion specification</b> is introduced by the character <code>%</code>, and ends with a <b>conversion
+ * arguments. <br/>
+ * Each <b>conversion specification</b> is introduced by the character <code>%</code>, and ends with a <b>conversion
  * specifier</b>. In between there may be (in this order) zero or more <b>flags</b>, an optional <b>minimum field width</b>
  * and an optional <b>precision</b>.<br/>
  * By default, the arguments are used in the given order.<br/>

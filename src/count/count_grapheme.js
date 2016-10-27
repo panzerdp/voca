@@ -2,16 +2,16 @@ import { REGEXP_COMBINING_MARKS, REGEXP_SURROGATE_PAIRS } from '../helper/regula
 import coerceToString from '../helper/string/coerce_to_string';
 
 /**
- * Counts the characters in `subject` taking care of
- * <a href="http://unicode.org/glossary/#surrogate_pair">surrogate pairs</a> and
- * <a href="http://unicode.org/glossary/#combining_mark">combining marks</a>.
+ * Counts the graphemes in `subject` taking care of
+ * <a href="https://rainsoft.io/what-every-javascript-developer-should-know-about-unicode/#24surrogatepairs">surrogate pairs</a> and
+ * <a href="https://rainsoft.io/what-every-javascript-developer-should-know-about-unicode/#25combiningmarks">combining marks</a>.
  *
  * @function  countGrapheme
  * @static
  * @since 1.0.0
  * @memberOf Count
- * @param  {string} [subject=''] The string to count characters.
- * @return {number}              Returns the number of characters in `subject`.
+ * @param  {string} [subject=''] The string to count graphemes.
+ * @return {number}              Returns the number of graphemes in `subject`.
  * @example
  * v.countGrapheme('cafe\u0301'); // or 'café'
  * // => 4

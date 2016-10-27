@@ -1,7 +1,8 @@
 import coerceToString from '../helper/string/coerce_to_string';
 
 /**
- * Extracts from `subject` a string from `start` position to `end` position.
+ * Extracts from `subject` a string from `start` position up to `end` position. The character at `end` position is not
+ * included.
  *
  * @function substring
  * @static

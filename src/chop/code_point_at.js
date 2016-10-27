@@ -5,7 +5,10 @@ import nanDefault from '../helper/number/nan_default';
 
 /**
  * Get the Unicode code point value of the character at `position`. <br/>
- * If a valid UTF-16 surrogate pair does not begin at `position`, the astral code point value at `position` is returned.
+ * If a valid UTF-16 <a href="https://rainsoft.io/what-every-javascript-developer-should-know-about-unicode/#24surrogatepairs">
+ * surrogate pair</a> starts at `position`, the
+ * <a href="https://rainsoft.io/what-every-javascript-developer-should-know-about-unicode/#astralplanes">astral code point</a>
+ * value at `position` is returned.
  *
  * @function codePointAt
  * @static
@@ -16,7 +19,7 @@ import nanDefault from '../helper/number/nan_default';
  * @return {number} Returns a non-negative number less than or equal to `0x10FFFF`.
  * @example
  * v.codePointAt('rain', 1);
- * // => 97, or 0x0048
+ * // => 97, or 0x0061
  *
  * v.codePointAt('\uD83D\uDE00 is smile', 0); // or '😀 is smile'
  * // => 128512, or 0x1F600

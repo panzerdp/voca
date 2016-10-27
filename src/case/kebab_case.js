@@ -3,15 +3,15 @@ import lowerCase from '../case/lower_case';
 import words from '../split/words';
 
 /**
- * Converts the `subject` to <a href="https://en.wikipedia.org/wiki/Letter_case#cite_ref-13">kebab case</a>.
- * Also called <i>spinal case</i> or <i>lisp case</i>.
+ * Converts the `subject` to <a href="https://en.wikipedia.org/wiki/Letter_case#cite_ref-13">kebab case</a>,
+ * also called <i>spinal case</i> or <i>lisp case</i>.
  *
  * @function kebabCase
  * @static
  * @since 1.0.0
  * @memberOf Case
  * @param  {string} [subject=''] The string to convert to kebab case.
- * @return {string}              The kebab case string.
+ * @return {string}              Returns the kebab case string.
  * @example
  * v.kebabCase('goodbye blue sky');
  * // => 'goodbye-blue-sky'

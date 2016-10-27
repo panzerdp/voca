@@ -20,7 +20,7 @@ class ChainWrapper {
   }
 
   /**
-   * Unwraps the chain sequence value.
+   * Unwraps the chain sequence wrapped value.
    *
    * @memberof Chain
    * @since 1.0.0
@@ -83,7 +83,7 @@ class ChainWrapper {
    * @memberof Chain
    * @since 1.0.0
    * @function __proto__chain
-   * @return {Object} Returns the new wrapper object.
+   * @return {Object} Returns the wrapper in <i>explicit</i> mode.
    * @example
    * v('Back to School')
    *  .chain()
@@ -104,15 +104,17 @@ class ChainWrapper {
   }
 
   /**
-   * Modifies the wrapped value with the invocation result of `changer` function.
+   * Modifies the wrapped value with the invocation result of `changer` function. The current wrapped value is the
+   * argument of `changer` invocation.
    *
    * @memberof Chain
    * @since 1.0.0
    * @function __proto__thru
    * @param  {Function} changer The function to invoke.
-   * @return {Object}           Returns the new wrapper object.
+   * @return {Object}           Returns the new wrapper that wraps the invocation result of `changer`.
    * @example
-   * v('sun is shining')
+   * v
+   *  .chain('sun is shining')
    *  .words()
    *  .thru(function(words) {
    *    return words[0];

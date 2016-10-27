@@ -1,7 +1,7 @@
 import coerceToString from '../helper/string/coerce_to_string';
 
 /**
- * Get a character from `subject` at specific index.
+ * Access a character from `subject` at specified `index`.
  *
  * @function charAt
  * @static
@@ -9,16 +9,13 @@ import coerceToString from '../helper/string/coerce_to_string';
  * @memberOf Chop
  * @param  {string} [subject=''] The string to extract from.
  * @param  {numbers} index The index to get the character.
- * @return {string} Returns characters.
+ * @return {string} Returns the character at specified index.
  * @example
- * v.charAt('helicopter');
+ * v.charAt('helicopter', 0);
  * // => 'h'
  *
- * v.first('vehicle', 2);
- * // => 've'
- *
- * v.first('car', 5);
- * // => 'car'
+ * v.charAt('helicopter', 1);
+ * // => 'e'
  */
 export default function(subject, index) {
   var subjectString = coerceToString(subject);
