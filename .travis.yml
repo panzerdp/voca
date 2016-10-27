@@ -19,6 +19,8 @@ matrix:
       env:
     - node_js: "5"
       env:
+    - node_js: "7"
+      env:
 before_script:
   - npm prune
 script:
