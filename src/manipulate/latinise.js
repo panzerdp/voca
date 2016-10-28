@@ -1,4 +1,4 @@
-import { REGEXP_COMBINING_MARKS, REGEXP_NON_BASIC_LATIN } from '../helper/regular_expression/const';
+import { REGEXP_COMBINING_MARKS, REGEXP_NON_BASIC_LATIN } from '../helper/reg_exp/const';
 import coerceToString from '../helper/string/coerce_to_string';
 import diacriticMap from '../helper/string/diacritics_map';
 

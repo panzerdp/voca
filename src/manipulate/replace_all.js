@@ -1,4 +1,4 @@
-import appendFlagToRegularExpression from '../helper/regular_expression/append_flag_to_regular_expression';
+import appendFlagToRegularExpression from '../helper/reg_exp/append_flag_to_regular_expression';
 import coerceToString from '../helper/string/coerce_to_string';
 import escapeRegExp from '~/escape/escape_reg_exp';
 

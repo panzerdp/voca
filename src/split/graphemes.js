@@ -1,6 +1,6 @@
 import coerceToString from '../helper/string/coerce_to_string';
 import nilDefault from '../helper/undefined/nil_default';
-import { REGEXP_UNICODE_CHARACTER } from '../helper/regular_expression/const';
+import { REGEXP_UNICODE_CHARACTER } from '../helper/reg_exp/const';
 
 /**
  * Splits `subject` into an array of graphemes taking care of

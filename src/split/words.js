@@ -1,7 +1,7 @@
 import coerceToString from '../helper/string/coerce_to_string';
 import isNil from '../helper/object/is_nil';
 import nilDefault from '../helper/undefined/nil_default';
-import { REGEXP_WORD } from '../helper/regular_expression/const';
+import { REGEXP_WORD } from '../helper/reg_exp/const';
 import toString from '../helper/string/to_string';
 
 /**

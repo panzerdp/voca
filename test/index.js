@@ -36,7 +36,7 @@ import './escape/unescape_html';
 //helper
 import './helper/boolean/coerce_to_boolean';
 import './helper/number/coerce_to_number';
-import './helper/regular_expression/append_flag_to_regular_expression';
+import './helper/reg_exp/append_flag_to_reg_exp';
 
 //format
 import './format/sprintf';

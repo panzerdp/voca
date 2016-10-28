@@ -1,6 +1,6 @@
 import coerceToString from '../helper/string/coerce_to_string';
 import isNil from '../helper/object/is_nil';
-import { REGEX_TRIM_RIGHT } from '../helper/regular_expression/const';
+import { REGEXP_TRIM_RIGHT } from '../helper/reg_exp/const';
 import toString from '../helper/string/to_string';
 
 /**
@@ -27,7 +27,7 @@ export default function(subject, whitespace) {
   }
   var whitespaceString = toString(whitespace);
   if (isNil(whitespaceString)) {
-    return subjectString.replace(REGEX_TRIM_RIGHT, '');
+    return subjectString.replace(REGEXP_TRIM_RIGHT, '');
   }
   var matchWhitespace = true,
     totalWhitespaceLength = 0,

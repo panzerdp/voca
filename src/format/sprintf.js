@@ -1,5 +1,5 @@
 import coerceToString from '../helper/string/coerce_to_string';
-import { REGEXP_CONVERSION_SPECIFICATION } from '../helper/regular_expression/const';
+import { REGEXP_CONVERSION_SPECIFICATION } from '../helper/reg_exp/const';
 import ReplacementIndex from './helper/replacement/index';
 import replacementMatch from './helper/replacement/match';
 

@@ -90,7 +90,7 @@ export var REGEXP_UNICODE_CHARACTER = new RegExp(
  * @type {RegExp}
  * @ignore
  */
-export var REGEX_TRIM_LEFT = new RegExp('^[' + whitespace + ']+');
+export var REGEXP_TRIM_LEFT = new RegExp('^[' + whitespace + ']+');
 
 /**
  * Regular expression to match whitespaces from the right side
@@ -98,7 +98,7 @@ export var REGEX_TRIM_LEFT = new RegExp('^[' + whitespace + ']+');
  * @type {RegExp}
  * @ignore
  */
-export var REGEX_TRIM_RIGHT = new RegExp('[' + whitespace + ']+$');
+export var REGEXP_TRIM_RIGHT = new RegExp('[' + whitespace + ']+$');
 
 /**
  * Regular expression to match alpha characters

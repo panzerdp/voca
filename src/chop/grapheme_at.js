@@ -1,7 +1,7 @@
 import coerceToNumber from '../helper/number/coerce_to_number';
 import coerceToString from '../helper/string/coerce_to_string';
 import nanDefault from '../helper/number/nan_default';
-import { REGEXP_UNICODE_CHARACTER } from '../helper/regular_expression/const';
+import { REGEXP_UNICODE_CHARACTER } from '../helper/reg_exp/const';
 
 /**
  * Get a grapheme from `subject` at specific index taking care of

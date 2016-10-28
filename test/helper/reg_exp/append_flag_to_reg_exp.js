@@ -1,4 +1,4 @@
-import appendFlagToRegularExpression from '~/helper/regular_expression/append_flag_to_regular_expression';
+import appendFlagToRegularExpression from '~/helper/regular_expression/append_flag_to_reg_exp';
 import { expect } from 'chai';
 
 describe('coerceToRegularExpression', function() {
