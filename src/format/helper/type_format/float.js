@@ -1,7 +1,7 @@
 import addSignToFormattedNumber from './helper/add_sign_to_formatted_number';
 import coerceToNumber from '~/helper/number/coerce_to_number';
 import Const from '../const';
-import { REGEXP_TRAILING_ZEROS } from '~/helper/regular_expression/const';
+import { REGEXP_TRAILING_ZEROS } from '~/helper/reg_exp/const';
 import toString from '~/helper/string/coerce_to_string';
 
 /**
