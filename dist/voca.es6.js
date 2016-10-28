@@ -69,21 +69,22 @@ function coerceToString (value) {    var defaultValue = arguments.length > 1 && 
   }
 
 /**
-   * Converts the first character of `subject` to upper case and the rest to lower case.
+   * Converts the first character of `subject` to upper case. If `restToLower` is `true`, convert the rest of
+   * `subject` to lower case.
    *
    * @function capitalize
    * @static
    * @since 1.0.0
    * @memberOf Case
-   * @param  {string}  [subject='']            The string to capitalize.
+   * @param  {string}  [subject='']        The string to capitalize.
    * @param  {boolean} [restToLower=false] Convert the rest of `subject` to lower case.
-   * @return {string}                          Returns the capitalized string.
+   * @return {string}                      Returns the capitalized string.
    * @example
    * v.capitalize('apple');
    * // => 'Apple'
    *
-   * v.capitalize('mAC', false);
-   * // => 'MAC'
+   * v.capitalize('aPPle', true);
+   * // => 'Apple'
    */
 function capitalize (subject, restToLower) {    var subjectString = coerceToString(subject),
         restToLowerCaseBoolean = coerceToBoolean(restToLower);
@@ -104,7 +105,7 @@ function capitalize (subject, restToLower) {    var subjectString = coerceToStri
    * @since 1.0.0
    * @memberOf Case
    * @param  {string} [subject=''] The string to convert to lower case.
-   * @return {string}              The lower case string.
+   * @return {string}              Returns the lower case string.
    * @example
    * v.lowerCase('Green');
    * // => 'green'
@@ -432,15 +433,15 @@ function decapitalize (subject) {    var subjectString = coerceToString(subject)
   }
 
 /**
-   * Converts the `subject` to <a href="https://en.wikipedia.org/wiki/Letter_case#cite_ref-13">kebab case</a>.
-   * Also called <i>spinal case</i> or <i>lisp case</i>.
+   * Converts the `subject` to <a href="https://en.wikipedia.org/wiki/Letter_case#cite_ref-13">kebab case</a>,
+   * also called <i>spinal case</i> or <i>lisp case</i>.
    *
    * @function kebabCase
    * @static
    * @since 1.0.0
    * @memberOf Case
    * @param  {string} [subject=''] The string to convert to kebab case.
-   * @return {string}              The kebab case string.
+   * @return {string}              Returns the kebab case string.
    * @example
    * v.kebabCase('goodbye blue sky');
    * // => 'goodbye-blue-sky'
@@ -557,11 +558,11 @@ function toInteger (value) {    if (value === Infinity) {
    * @param  {string} [end='...']  The string to be added at the end.
    * @return {string}              Returns the truncated string.
    * @example
-   * v.truncate('Once upon a time', 9);
-   * // => 'Once u...'
+   * v.truncate('Once upon a time', 7);
+   * // => 'Once...'
    *
-   * v.truncate('Good day, Little Red Riding Hood', 20, ' (read more)');
-   * // => 'Good day (read more)'
+   * v.truncate('Good day, Little Red Riding Hood', 14, ' (...)');
+   * // => 'Good day (...)'
    *
    * v.truncate('Once upon', 10);
    * // => 'Once upon'
@@ -576,7 +577,7 @@ function truncate (subject, length, end) {    var subjectString = coerceToString
   }
 
 /**
-   * Get a character from `subject` at specific index.
+   * Access a character from `subject` at specified `index`.
    *
    * @function charAt
    * @static
@@ -584,16 +585,13 @@ function truncate (subject, length, end) {    var subjectString = coerceToString
    * @memberOf Chop
    * @param  {string} [subject=''] The string to extract from.
    * @param  {numbers} index The index to get the character.
-   * @return {string} Returns characters.
+   * @return {string} Returns the character at specified index.
    * @example
-   * v.charAt('helicopter');
+   * v.charAt('helicopter', 0);
    * // => 'h'
    *
-   * v.first('vehicle', 2);
-   * // => 've'
-   *
-   * v.first('car', 5);
-   * // => 'car'
+   * v.charAt('helicopter', 1);
+   * // => 'e'
    */
 function charAt (subject, index) {    var subjectString = coerceToString(subject);
     return subjectString.charAt(index);
@@ -674,7 +672,10 @@ function nanDefault (value, defaultValue) {    return value !== value ? defaultV
 
 /**
    * Get the Unicode code point value of the character at `position`. <br/>
-   * If a valid UTF-16 surrogate pair does not begin at `position`, the astral code point value at `position` is returned.
+   * If a valid UTF-16 <a href="https://rainsoft.io/what-every-javascript-developer-should-know-about-unicode/#24surrogatepairs">
+   * surrogate pair</a> starts at `position`, the
+   * <a href="https://rainsoft.io/what-every-javascript-developer-should-know-about-unicode/#astralplanes">astral code point</a>
+   * value at `position` is returned.
    *
    * @function codePointAt
    * @static
@@ -685,7 +686,7 @@ function nanDefault (value, defaultValue) {    return value !== value ? defaultV
    * @return {number} Returns a non-negative number less than or equal to `0x10FFFF`.
    * @example
    * v.codePointAt('rain', 1);
-   * // => 97, or 0x0048
+   * // => 97, or 0x0061
    *
    * v.codePointAt('\uD83D\uDE00 is smile', 0); // or '😀 is smile'
    * // => 128512, or 0x1F600
@@ -738,8 +739,8 @@ function first (subject, length) {    var subjectString = coerceToString(subject
 
 /**
    * Get a grapheme from `subject` at specific index taking care of
-   * <a href="http://unicode.org/glossary/#surrogate_pair">surrogate pairs</a> and
-   * <a href="http://unicode.org/glossary/#combining_mark">combining marks</a>.
+   * <a href="https://rainsoft.io/what-every-javascript-developer-should-know-about-unicode/#24surrogatepairs">surrogate pairs</a> and
+   * <a href="https://rainsoft.io/what-every-javascript-developer-should-know-about-unicode/#25combiningmarks">combining marks</a>.
    *
    * @function graphemeAt
    * @static
@@ -799,7 +800,8 @@ function last (subject, length) {    var subjectString = coerceToString(subject)
   }
 
 /**
-   * Truncates `subject` to a new `length` and does not break the words. Guarantees that the truncated string will be no longer than `length`.
+   * Truncates `subject` to a new `length` and does not break the words. Guarantees that the truncated string is no longer
+   * than `length`.
    *
    * @static
    * @function prune
@@ -836,7 +838,8 @@ function prune (subject, length, end) {    var subjectString = coerceToString(su
   }
 
 /**
-   * Extracts from `subject` a string from `start` position to `end` position.
+   * Extracts from `subject` a string from `start` position up to `end` position. The character at `end` position is not
+   * included.
    *
    * @function slice
    * @static
@@ -853,6 +856,9 @@ function prune (subject, length, end) {    var subjectString = coerceToString(su
    *
    * v.slice('florida', -4);
    * // => 'rida'
+   *
+   * v.slice('florida', 1, 4);
+   * // => "lor"
    */
 function slice (subject, start, end) {    return coerceToString(subject).slice(start, end);
   }
@@ -880,7 +886,8 @@ function substr (subject, start, length) {    return coerceToString(subject).sub
   }
 
 /**
-   * Extracts from `subject` a string from `start` position to `end` position.
+   * Extracts from `subject` a string from `start` position up to `end` position. The character at `end` position is not
+   * included.
    *
    * @function substring
    * @static
@@ -918,16 +925,16 @@ function count (subject) {    return coerceToString(subject).length;
   }
 
 /**
-   * Counts the characters in `subject` taking care of
-   * <a href="http://unicode.org/glossary/#surrogate_pair">surrogate pairs</a> and
-   * <a href="http://unicode.org/glossary/#combining_mark">combining marks</a>.
+   * Counts the graphemes in `subject` taking care of
+   * <a href="https://rainsoft.io/what-every-javascript-developer-should-know-about-unicode/#24surrogatepairs">surrogate pairs</a> and
+   * <a href="https://rainsoft.io/what-every-javascript-developer-should-know-about-unicode/#25combiningmarks">combining marks</a>.
    *
    * @function  countGrapheme
    * @static
    * @since 1.0.0
    * @memberOf Count
-   * @param  {string} [subject=''] The string to count characters.
-   * @return {number}              Returns the number of characters in `subject`.
+   * @param  {string} [subject=''] The string to count graphemes.
+   * @return {number}              Returns the number of graphemes in `subject`.
    * @example
    * v.countGrapheme('cafe\u0301'); // or 'café'
    * // => 4
@@ -948,12 +955,15 @@ function countGrapheme (subject) {    return coerceToString(subject).replace(REG
    * @static
    * @since 1.0.0
    * @memberOf Count
-   * @param  {string} [subject=''] The subject string.
+   * @param  {string} [subject=''] The string where to count.
    * @param  {string} substring    The substring to be counted.
    * @return {number}              Returns the number of `substring` appearances.
    * @example
    * v.countSubstring('bad boys, bad boys whatcha gonna do?', 'boys');
    * // => 2
+   *
+   * v.countSubstring('every dog has its day', 'cat');
+   * // => 0
    */
 function countSubstring (subject, substring) {    var subjectString = coerceToString(subject),
         substringString = coerceToString(substring),
@@ -1735,7 +1745,8 @@ function replacementMatch (replacementIndex, replacements, conversionSpecificati
    * <div id="sprintf-format" class="smaller">
    * `format` string is composed of zero or more directives: ordinary characters (not <code>%</code>), which are  copied  unchanged
    * to  the  output string and <i>conversion specifications</i>, each of which results in fetching zero or more subsequent
-   * arguments. Each <b>conversion specification</b> is introduced by the character <code>%</code>, and ends with a <b>conversion
+   * arguments. <br/>
+   * Each <b>conversion specification</b> is introduced by the character <code>%</code>, and ends with a <b>conversion
    * specifier</b>. In between there may be (in this order) zero or more <b>flags</b>, an optional <b>minimum field width</b>
    * and an optional <b>precision</b>.<br/>
    * By default, the arguments are used in the given order.<br/>
@@ -4009,7 +4020,7 @@ var functions = {
     }
 
     /**
-     * Unwraps the chain sequence value.
+     * Unwraps the chain sequence wrapped value.
      *
      * @memberof Chain
      * @since 1.0.0
@@ -4085,7 +4096,7 @@ var functions = {
        * @memberof Chain
        * @since 1.0.0
        * @function __proto__chain
-       * @return {Object} Returns the new wrapper object.
+       * @return {Object} Returns the wrapper in <i>explicit</i> mode.
        * @example
        * v('Back to School')
        *  .chain()
@@ -4109,15 +4120,17 @@ var functions = {
       }
 
       /**
-       * Modifies the wrapped value with the invocation result of `changer` function.
+       * Modifies the wrapped value with the invocation result of `changer` function. The current wrapped value is the
+       * argument of `changer` invocation.
        *
        * @memberof Chain
        * @since 1.0.0
        * @function __proto__thru
        * @param  {Function} changer The function to invoke.
-       * @return {Object}           Returns the new wrapper object.
+       * @return {Object}           Returns the new wrapper that wraps the invocation result of `changer`.
        * @example
-       * v('sun is shining')
+       * v
+       *  .chain('sun is shining')
        *  .words()
        *  .thru(function(words) {
        *    return words[0];

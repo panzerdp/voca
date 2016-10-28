@@ -9,15 +9,22 @@ import replacementMatch from './helper/replacement/match';
  * <div id="sprintf-format" class="smaller">
  * `format` string is composed of zero or more directives: ordinary characters (not <code>%</code>), which are  copied  unchanged
  * to  the  output string and <i>conversion specifications</i>, each of which results in fetching zero or more subsequent
- * arguments. <br/>
+ * arguments. <br/> <br/>
+ *
  * Each <b>conversion specification</b> is introduced by the character <code>%</code>, and ends with a <b>conversion
  * specifier</b>. In between there may be (in this order) zero or more <b>flags</b>, an optional <b>minimum field width</b>
  * and an optional <b>precision</b>.<br/>
+ * The syntax is: <b>ConversionSpecification</b> = <b>"%"</b> { <b>Flags</b> }
+ * [ <b>MinimumFieldWidth</b> ] [ <b>Precision</b> ] <b>ConversionSpecifier</b>, where curly braces { } denote repetition
+ * and square brackets [ ] optionality. <br/><br/>
+ *
  * By default, the arguments are used in the given order.<br/>
  * For argument numbering and swapping, `%m$` (where `m` is a number indicating the argument order)
- * is used instead of `%` to specify explicitly which argument is taken.<br/><br/>
+ * is used instead of `%` to specify explicitly which argument is taken. For instance `%1$s` fetches the 1st argument,
+ * `%2$s` the 2nd and so on, no matter what position  the conversion specification has in `format`.
+ * <br/><br/>
  *
- * <b>The flag characters</b><br/>
+ * <b>The flags</b><br/>
  * The character <code>%</code> is followed by zero or more of the following flags:<br/>
  * <table class="light-params">
  *   <tr>
@@ -45,7 +52,7 @@ import replacementMatch from './helper/replacement/match';
  *   </tr>
  * </table>
  *
- * <b>The field width</b><br/>
+ * <b>The minimum field width</b><br/>
  * An  optional decimal digit string (with nonzero first digit) specifying a minimum field width.  If the converted
  * value has fewer characters than the field width, it will be padded with spaces on the left (or right, if the
  * left-adjustment flag has been given).<br/><br/>
