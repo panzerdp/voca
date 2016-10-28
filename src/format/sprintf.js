@@ -152,13 +152,19 @@ import replacementMatch from './helper/replacement/match';
  * v.sprintf('% 6s', 'bird');
  * // => '  bird'
  *
- * v.sprintf('% -6s', 'bird');
- * // => 'bird  '
+ * v.sprintf('% -6s', 'crab');
+ * // => 'crab  '
+ *
+ * v.sprintf("%'*5s", 'cat');
+ * // => '**cat'
+ *
+ * v.sprintf("%'*-6s", 'duck');
+ * // => 'duck**'
  *
  * v.sprintf('%d %i %+d', 15, -2, 25);
  * // => '15 -2 +25'
  *
- * v.sprintf("%'06d", 15);
+ * v.sprintf("%06d", 15);
  * // => '000015'
  *
  * v.sprintf('0b%b 0o%o 0x%X', 12, 9, 155);
