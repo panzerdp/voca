@@ -3,8 +3,8 @@ import coerceToString from '../helper/string/coerce_to_string';
 
 /**
  * Reverses the `subject` taking care of
- * <a href="http://unicode.org/glossary/#surrogate_pair">surrogate pairs</a> and
- * <a href="http://unicode.org/glossary/#combining_mark">combining marks</a>.
+ * <a href="https://rainsoft.io/what-every-javascript-developer-should-know-about-unicode/#24surrogatepairs">surrogate pairs</a> and
+ * <a href="https://rainsoft.io/what-every-javascript-developer-should-know-about-unicode/#25combiningmarks">combining marks</a>.
  *
  * @function reverseGrapheme
  * @static

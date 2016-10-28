@@ -2,7 +2,7 @@ import coerceToString from '../helper/string/coerce_to_string';
 import { REGEXP_ALPHA_DIGIT } from '../helper/reg_exp/const';
 
 /**
- * Checks if `subject` contains only alpha and digit characters.
+ * Checks whether `subject` contains only alpha and digit characters.
  *
  * @function isAlphaDigit
  * @static

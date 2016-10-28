@@ -1,7 +1,7 @@
 import coerceToString from '../helper/string/coerce_to_string';
 
 /**
- * Checks if `subject` is empty or contains only whitespaces.
+ * Checks whether `subject` is empty or contains only whitespaces.
  *
  * @function isBlank
  * @static

@@ -4,7 +4,7 @@ import { REGEXP_TRIM_RIGHT } from '../helper/reg_exp/const';
 import toString from '../helper/string/to_string';
 
 /**
- * Removes the whitespaces from the right part of the `subject`.
+ * Removes whitespaces from the right part of the `subject`.
  *
  * @function trimRight
  * @static
@@ -17,7 +17,7 @@ import toString from '../helper/string/to_string';
  * v.trimRight('the fire rises   ');
  * // => 'the fire rises'
  *
- * v.trimRight('do you feel in charge?---', '-');
+ * v.trimRight('do you feel in charge?!!!', '!');
  * // => 'do you feel in charge?'
  */
 export default function(subject, whitespace) {

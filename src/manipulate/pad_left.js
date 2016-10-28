@@ -17,11 +17,14 @@ import toInteger from '../helper/number/to_integer';
  * @param {string} [pad=' '] The string to be used for padding.
  * @return {string} Returns the left padded string.
  * @example
- * v.padLeft('word', 6, '-');
- * // => '--word'
+ * v.padLeft('dog', 5);
+ * // => '  dog'
  *
- * v.padLeft('hi', 5, '-=');
- * // => '-=-hi'
+ * v.padLeft('bird', 6, '-');
+ * // => '--bird-'
+ *
+ * v.padLeft('cat', 6, '-=');
+ * // => '-=-cat'
  */
 export default function(subject, length, pad) {
   var subjectString = coerceToString(subject),

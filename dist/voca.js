@@ -26,7 +26,7 @@
    * @return {boolean} Returns the coercion to boolean.
    */
   function coerceToBoolean (value) {
-    var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+    var defaultValue = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
 
     if (isNil(value)) {
       return defaultValue;
@@ -35,7 +35,7 @@
   }
 
   /**
-   * Checks if `subject` is a string primitive type.
+   * Checks whether `subject` is a string primitive type.
    *
    * @function isString
    * @static
@@ -67,7 +67,7 @@
    *                              `null` or `undefined`.
    */
   function coerceToString (value) {
-    var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+    var defaultValue = arguments.length <= 1 || arguments[1] === undefined ? '' : arguments[1];
 
     if (isNil(value)) {
       return defaultValue;
@@ -228,7 +228,7 @@
    * @type {RegExp}
    * @ignore
    */
-  var REGEX_TRIM_LEFT = new RegExp('^[' + whitespace + ']+');
+  var REGEXP_TRIM_LEFT = new RegExp('^[' + whitespace + ']+');
 
   /**
    * Regular expression to match whitespaces from the right side
@@ -236,7 +236,7 @@
    * @type {RegExp}
    * @ignore
    */
-  var REGEX_TRIM_RIGHT = new RegExp('[' + whitespace + ']+$');
+  var REGEXP_TRIM_RIGHT = new RegExp('[' + whitespace + ']+$');
 
   /**
    * Regular expression to match alpha characters
@@ -673,7 +673,7 @@
    *                              `null` or `undefined`.
    */
   function coerceToNumber (value) {
-    var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+    var defaultValue = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
 
     if (isNil(value)) {
       return defaultValue;
@@ -1057,121 +1057,8 @@
   var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
     return typeof obj;
   } : function (obj) {
-    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
   };
-
-  var asyncGenerator = function () {
-    function AwaitValue(value) {
-      this.value = value;
-    }
-
-    function AsyncGenerator(gen) {
-      var front, back;
-
-      function send(key, arg) {
-        return new Promise(function (resolve, reject) {
-          var request = {
-            key: key,
-            arg: arg,
-            resolve: resolve,
-            reject: reject,
-            next: null
-          };
-
-          if (back) {
-            back = back.next = request;
-          } else {
-            front = back = request;
-            resume(key, arg);
-          }
-        });
-      }
-
-      function resume(key, arg) {
-        try {
-          var result = gen[key](arg);
-          var value = result.value;
-
-          if (value instanceof AwaitValue) {
-            Promise.resolve(value.value).then(function (arg) {
-              resume("next", arg);
-            }, function (arg) {
-              resume("throw", arg);
-            });
-          } else {
-            settle(result.done ? "return" : "normal", result.value);
-          }
-        } catch (err) {
-          settle("throw", err);
-        }
-      }
-
-      function settle(type, value) {
-        switch (type) {
-          case "return":
-            front.resolve({
-              value: value,
-              done: true
-            });
-            break;
-
-          case "throw":
-            front.reject(value);
-            break;
-
-          default:
-            front.resolve({
-              value: value,
-              done: false
-            });
-            break;
-        }
-
-        front = front.next;
-
-        if (front) {
-          resume(front.key, front.arg);
-        } else {
-          back = null;
-        }
-      }
-
-      this._invoke = send;
-
-      if (typeof gen.return !== "function") {
-        this.return = undefined;
-      }
-    }
-
-    if (typeof Symbol === "function" && Symbol.asyncIterator) {
-      AsyncGenerator.prototype[Symbol.asyncIterator] = function () {
-        return this;
-      };
-    }
-
-    AsyncGenerator.prototype.next = function (arg) {
-      return this._invoke("next", arg);
-    };
-
-    AsyncGenerator.prototype.throw = function (arg) {
-      return this._invoke("throw", arg);
-    };
-
-    AsyncGenerator.prototype.return = function (arg) {
-      return this._invoke("return", arg);
-    };
-
-    return {
-      wrap: function (fn) {
-        return function () {
-          return new AsyncGenerator(fn.apply(this, arguments));
-        };
-      },
-      await: function (value) {
-        return new AwaitValue(value);
-      }
-    };
-  }();
 
   var classCallCheck = function (instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -1377,11 +1264,14 @@
    * @param {string} [pad=' '] The string to be used for padding.
    * @return {string} Returns the left padded string.
    * @example
-   * v.padLeft('word', 6, '-');
-   * // => '--word'
+   * v.padLeft('dog', 5);
+   * // => '  dog'
    *
-   * v.padLeft('hi', 5, '-=');
-   * // => '-=-hi'
+   * v.padLeft('bird', 6, '-');
+   * // => '--bird-'
+   *
+   * v.padLeft('cat', 6, '-=');
+   * // => '-=-cat'
    */
   function padLeft (subject, length, pad) {
     var subjectString = coerceToString(subject),
@@ -1405,11 +1295,14 @@
    * @param {string} [pad=' '] The string to be used for padding.
    * @return {string} Returns the right padded string.
    * @example
-   * v.padRight('word', 6, '-');
-   * // => 'word--'
+   * v.padRight('dog', 5);
+   * // => 'dog  '
    *
-   * v.padRight('hi', 5, '-=');
-   * // => 'hi-=-'
+   * v.padRight('bird', 6, '-');
+   * // => 'bird--'
+   *
+   * v.padRight('cat', 6, '-=');
+   * // => 'cat-=-'
    */
   function padRight (subject, length, pad) {
     var subjectString = coerceToString(subject),
@@ -1798,15 +1691,22 @@
    * <div id="sprintf-format" class="smaller">
    * `format` string is composed of zero or more directives: ordinary characters (not <code>%</code>), which are  copied  unchanged
    * to  the  output string and <i>conversion specifications</i>, each of which results in fetching zero or more subsequent
-   * arguments. <br/>
+   * arguments. <br/> <br/>
+   *
    * Each <b>conversion specification</b> is introduced by the character <code>%</code>, and ends with a <b>conversion
    * specifier</b>. In between there may be (in this order) zero or more <b>flags</b>, an optional <b>minimum field width</b>
    * and an optional <b>precision</b>.<br/>
+   * The syntax is: <b>ConversionSpecification</b> = <b>"%"</b> { <b>Flags</b> }
+   * [ <b>MinimumFieldWidth</b> ] [ <b>Precision</b> ] <b>ConversionSpecifier</b>, where curly braces { } denote repetition
+   * and square brackets [ ] optionality. <br/><br/>
+   *
    * By default, the arguments are used in the given order.<br/>
    * For argument numbering and swapping, `%m$` (where `m` is a number indicating the argument order)
-   * is used instead of `%` to specify explicitly which argument is taken.<br/><br/>
+   * is used instead of `%` to specify explicitly which argument is taken. For instance `%1$s` fetches the 1st argument,
+   * `%2$s` the 2nd and so on, no matter what position  the conversion specification has in `format`.
+   * <br/><br/>
    *
-   * <b>The flag characters</b><br/>
+   * <b>The flags</b><br/>
    * The character <code>%</code> is followed by zero or more of the following flags:<br/>
    * <table class="light-params">
    *   <tr>
@@ -1834,7 +1734,7 @@
    *   </tr>
    * </table>
    *
-   * <b>The field width</b><br/>
+   * <b>The minimum field width</b><br/>
    * An  optional decimal digit string (with nonzero first digit) specifying a minimum field width.  If the converted
    * value has fewer characters than the field width, it will be padded with spaces on the left (or right, if the
    * left-adjustment flag has been given).<br/><br/>
@@ -1922,23 +1822,32 @@
    * @param  {...*}               replacements The replacements to produce the string.
    * @return {string}             Returns the produced string.
    * @example
-   * v.sprintf('Hello %s!', 'World');
+   * v.sprintf('%s, %s!', 'Hello', 'World');
    * // => 'Hello World!'
    *
-   * v.sprintf("%.4s the %'!-8s", 'Alexander', 'Great');
-   * // => 'Alex the Great!!!'
+   * v.sprintf('%s costs $%d', 'coffee', 2);
+   * // => 'coffee costs $2'
    *
-   * v.sprintf('%2$s the %1$s', 'Great', 'Alexander');
-   * // => 'Alexander the Great'
+   * v.sprintf('%1$s %2$s %1$s %2$s, watcha gonna %3$s', 'bad', 'boys', 'do')
+   * // => 'bad boys bad boys, watcha gonna do'
+   *
+   * v.sprintf('% 6s', 'bird');
+   * // => '  bird'
+   *
+   * v.sprintf('% -6s', 'bird');
+   * // => 'bird  '
    *
    * v.sprintf('%d %i %+d', 15, -2, 25);
    * // => '15 -2 +25'
    *
-   * v.sprintf('0b%b 0%o 0x%x', 12, 9, 15);
-   * // => '0b1100 011 0xf'
+   * v.sprintf("%'06d", 15);
+   * // => '000015'
    *
-   * v.sprintf('%.1f %06.2f', 1.46, 8.7);
-   * // => '1.5 008.70'
+   * v.sprintf('0b%b 0o%o 0x%X', 12, 9, 155);
+   * // => '0b1100 0o11 0x9B'
+   *
+   * v.sprintf('%.2f', 10.469);
+   * // => '10.47'
    *
    * v.sprintf('%.2e %g', 100.5, 0.455);
    * // => '1.01e+2 0.455'
@@ -1974,8 +1883,8 @@
    * v.vprintf('%s', ['Welcome'])
    * // => 'Welcome'
    *
-   * v.vprintf('%s costs $%.2f', ['Coffee', 1.5]);
-   * // => 'Coffee costs $1.50'
+   * v.vprintf('%s has %d apples', ['Alexandra', 3]);
+   * // => 'Alexandra has 3 apples'
    */
   function vprintf (format, replacements) {
     return sprintf.apply(undefined, [format].concat(toConsumableArray(nilDefault(replacements, []))));
@@ -2210,977 +2119,977 @@
     "x": "x",
     "y": "y",
     "z": "z",
-    "\x8C": "OE",
-    "\x9C": "oe",
-    "\xC0": "A",
-    "\xC1": "A",
-    "\xC2": "A",
-    "\xC3": "A",
-    "\xC4": "A",
-    "\xC5": "A",
-    "\xC6": "AE",
-    "\xC7": "C",
-    "\xC8": "E",
-    "\xC9": "E",
-    "\xCA": "E",
-    "\xCB": "E",
-    "\xCC": "I",
-    "\xCD": "I",
-    "\xCE": "I",
-    "\xCF": "I",
-    "\xD1": "N",
-    "\xD2": "O",
-    "\xD3": "O",
-    "\xD4": "O",
-    "\xD5": "O",
-    "\xD6": "O",
-    "\xD8": "O",
-    "\xD9": "U",
-    "\xDA": "U",
-    "\xDB": "U",
-    "\xDC": "U",
-    "\xDD": "Y",
-    "\xDF": "s",
-    "\xE0": "a",
-    "\xE1": "a",
-    "\xE2": "a",
-    "\xE3": "a",
-    "\xE4": "a",
-    "\xE5": "a",
-    "\xE6": "ae",
-    "\xE7": "c",
-    "\xE8": "e",
-    "\xE9": "e",
-    "\xEA": "e",
-    "\xEB": "e",
-    "\xEC": "i",
-    "\xED": "i",
-    "\xEE": "i",
-    "\xEF": "i",
-    "\xF1": "n",
-    "\xF2": "o",
-    "\xF3": "o",
-    "\xF4": "o",
-    "\xF5": "o",
-    "\xF6": "o",
-    "\xF8": "o",
-    "\xF9": "u",
-    "\xFA": "u",
-    "\xFB": "u",
-    "\xFC": "u",
-    "\xFD": "y",
-    "\xFF": "y",
-    "\u0100": "A",
-    "\u0101": "a",
-    "\u0102": "A",
-    "\u0103": "a",
-    "\u0104": "A",
-    "\u0105": "a",
-    "\u0106": "C",
-    "\u0107": "c",
-    "\u0108": "C",
-    "\u0109": "c",
-    "\u010A": "C",
-    "\u010B": "c",
-    "\u010C": "C",
-    "\u010D": "c",
-    "\u010E": "D",
-    "\u010F": "d",
-    "\u0110": "D",
-    "\u0111": "d",
-    "\u0112": "E",
-    "\u0113": "e",
-    "\u0114": "E",
-    "\u0115": "e",
-    "\u0116": "E",
-    "\u0117": "e",
-    "\u0118": "E",
-    "\u0119": "e",
-    "\u011A": "E",
-    "\u011B": "e",
-    "\u011C": "G",
-    "\u011D": "g",
-    "\u011E": "G",
-    "\u011F": "g",
-    "\u0120": "G",
-    "\u0121": "g",
-    "\u0122": "G",
-    "\u0123": "g",
-    "\u0124": "H",
-    "\u0125": "h",
-    "\u0126": "H",
-    "\u0127": "h",
-    "\u0128": "I",
-    "\u0129": "i",
-    "\u012A": "I",
-    "\u012B": "i",
-    "\u012C": "I",
-    "\u012D": "i",
-    "\u012E": "I",
-    "\u012F": "i",
-    "\u0130": "I",
-    "\u0131": "i",
-    "\u0134": "J",
-    "\u0135": "j",
-    "\u0136": "K",
-    "\u0137": "k",
-    "\u0139": "L",
-    "\u013A": "l",
-    "\u013B": "L",
-    "\u013C": "l",
-    "\u013D": "L",
-    "\u013E": "l",
-    "\u013F": "L",
-    "\u0140": "l",
-    "\u0141": "L",
-    "\u0142": "l",
-    "\u0143": "N",
-    "\u0144": "n",
-    "\u0145": "N",
-    "\u0146": "n",
-    "\u0147": "N",
-    "\u0148": "n",
-    "\u0149": "n",
-    "\u014C": "O",
-    "\u014D": "o",
-    "\u014E": "O",
-    "\u014F": "o",
-    "\u0150": "O",
-    "\u0151": "o",
-    "\u0152": "OE",
-    "\u0153": "oe",
-    "\u0154": "R",
-    "\u0155": "r",
-    "\u0156": "R",
-    "\u0157": "r",
-    "\u0158": "R",
-    "\u0159": "r",
-    "\u015A": "S",
-    "\u015B": "s",
-    "\u015C": "S",
-    "\u015D": "s",
-    "\u015E": "S",
-    "\u015F": "s",
-    "\u0160": "S",
-    "\u0161": "s",
-    "\u0162": "T",
-    "\u0163": "t",
-    "\u0164": "T",
-    "\u0165": "t",
-    "\u0166": "T",
-    "\u0167": "t",
-    "\u0168": "U",
-    "\u0169": "u",
-    "\u016A": "U",
-    "\u016B": "u",
-    "\u016C": "U",
-    "\u016D": "u",
-    "\u016E": "U",
-    "\u016F": "u",
-    "\u0170": "U",
-    "\u0171": "u",
-    "\u0172": "U",
-    "\u0173": "u",
-    "\u0174": "W",
-    "\u0175": "w",
-    "\u0176": "Y",
-    "\u0177": "y",
-    "\u0178": "Y",
-    "\u0179": "Z",
-    "\u017A": "z",
-    "\u017B": "Z",
-    "\u017C": "z",
-    "\u017D": "Z",
-    "\u017E": "z",
-    "\u017F": "l",
-    "\u0180": "b",
-    "\u0181": "B",
-    "\u0182": "B",
-    "\u0183": "b",
-    "\u0186": "O",
-    "\u0187": "C",
-    "\u0188": "c",
-    "\u0189": "D",
-    "\u018A": "D",
-    "\u018B": "D",
-    "\u018C": "d",
-    "\u018E": "E",
-    "\u0190": "E",
-    "\u0191": "F",
-    "\u0192": "f",
-    "\u0193": "G",
-    "\u0195": "hv",
-    "\u0197": "I",
-    "\u0198": "K",
-    "\u0199": "k",
-    "\u019A": "l",
-    "\u019C": "M",
-    "\u019D": "N",
-    "\u019E": "n",
-    "\u019F": "O",
-    "\u01A0": "O",
-    "\u01A1": "o",
-    "\u01A2": "OI",
-    "\u01A3": "oi",
-    "\u01A4": "P",
-    "\u01A5": "p",
-    "\u01AC": "T",
-    "\u01AD": "t",
-    "\u01AE": "T",
-    "\u01AF": "U",
-    "\u01B0": "u",
-    "\u01B2": "V",
-    "\u01B3": "Y",
-    "\u01B4": "y",
-    "\u01B5": "Z",
-    "\u01B6": "z",
-    "\u01C4": "DZ",
-    "\u01C5": "Dz",
-    "\u01C6": "dz",
-    "\u01C7": "LJ",
-    "\u01C8": "Lj",
-    "\u01C9": "lj",
-    "\u01CA": "NJ",
-    "\u01CB": "Nj",
-    "\u01CC": "nj",
-    "\u01CD": "A",
-    "\u01CE": "a",
-    "\u01CF": "I",
-    "\u01D0": "i",
-    "\u01D1": "O",
-    "\u01D2": "o",
-    "\u01D3": "U",
-    "\u01D4": "u",
-    "\u01D5": "U",
-    "\u01D6": "u",
-    "\u01D7": "U",
-    "\u01D8": "u",
-    "\u01D9": "U",
-    "\u01DA": "u",
-    "\u01DB": "U",
-    "\u01DC": "u",
-    "\u01DD": "e",
-    "\u01DE": "A",
-    "\u01DF": "a",
-    "\u01E0": "A",
-    "\u01E1": "a",
-    "\u01E2": "AE",
-    "\u01E3": "ae",
-    "\u01E4": "G",
-    "\u01E5": "g",
-    "\u01E6": "G",
-    "\u01E7": "g",
-    "\u01E8": "K",
-    "\u01E9": "k",
-    "\u01EA": "O",
-    "\u01EB": "o",
-    "\u01EC": "O",
-    "\u01ED": "o",
-    "\u01F0": "j",
-    "\u01F1": "DZ",
-    "\u01F2": "Dz",
-    "\u01F3": "dz",
-    "\u01F4": "G",
-    "\u01F5": "g",
-    "\u01F8": "N",
-    "\u01F9": "n",
-    "\u01FA": "A",
-    "\u01FB": "a",
-    "\u01FC": "AE",
-    "\u01FD": "ae",
-    "\u01FE": "O",
-    "\u01FF": "o",
-    "\u0200": "A",
-    "\u0201": "a",
-    "\u0202": "A",
-    "\u0203": "a",
-    "\u0204": "E",
-    "\u0205": "e",
-    "\u0206": "E",
-    "\u0207": "e",
-    "\u0208": "I",
-    "\u0209": "i",
-    "\u020A": "I",
-    "\u020B": "i",
-    "\u020C": "O",
-    "\u020D": "o",
-    "\u020E": "O",
-    "\u020F": "o",
-    "\u0210": "R",
-    "\u0211": "r",
-    "\u0212": "R",
-    "\u0213": "r",
-    "\u0214": "U",
-    "\u0215": "u",
-    "\u0216": "U",
-    "\u0217": "u",
-    "\u0218": "S",
-    "\u0219": "s",
-    "\u021A": "T",
-    "\u021B": "t",
-    "\u021E": "H",
-    "\u021F": "h",
-    "\u0220": "N",
-    "\u0222": "OU",
-    "\u0223": "ou",
-    "\u0224": "Z",
-    "\u0225": "z",
-    "\u0226": "A",
-    "\u0227": "a",
-    "\u0228": "E",
-    "\u0229": "e",
-    "\u022A": "O",
-    "\u022B": "o",
-    "\u022C": "O",
-    "\u022D": "o",
-    "\u022E": "O",
-    "\u022F": "o",
-    "\u0230": "O",
-    "\u0231": "o",
-    "\u0232": "Y",
-    "\u0233": "y",
-    "\u023A": "A",
-    "\u023B": "C",
-    "\u023C": "c",
-    "\u023D": "L",
-    "\u023E": "T",
-    "\u023F": "s",
-    "\u0240": "z",
-    "\u0243": "B",
-    "\u0244": "U",
-    "\u0245": "V",
-    "\u0247": "e",
-    "\u0248": "J",
-    "\u0249": "j",
-    "\u024A": "Q",
-    "\u024B": "q",
-    "\u024C": "R",
-    "\u024D": "r",
-    "\u024E": "Y",
-    "\u024F": "y",
-    "\u0250": "a",
-    "\u0253": "b",
-    "\u0254": "o",
-    "\u0256": "d",
-    "\u0257": "d",
-    "\u025B": "e",
-    "\u0260": "g",
-    "\u0265": "h",
-    "\u0268": "i",
-    "\u026B": "l",
-    "\u026F": "m",
-    "\u0271": "m",
-    "\u0272": "n",
-    "\u0275": "o",
-    "\u027D": "r",
-    "\u0288": "t",
-    "\u0289": "u",
-    "\u028B": "v",
-    "\u028C": "v",
-    "\u1D79": "g",
-    "\u1D7D": "p",
-    "\u1E00": "A",
-    "\u1E01": "a",
-    "\u1E02": "B",
-    "\u1E03": "b",
-    "\u1E04": "B",
-    "\u1E05": "b",
-    "\u1E06": "B",
-    "\u1E07": "b",
-    "\u1E08": "C",
-    "\u1E09": "c",
-    "\u1E0A": "D",
-    "\u1E0B": "d",
-    "\u1E0C": "D",
-    "\u1E0D": "d",
-    "\u1E0E": "D",
-    "\u1E0F": "d",
-    "\u1E10": "D",
-    "\u1E11": "d",
-    "\u1E12": "D",
-    "\u1E13": "d",
-    "\u1E14": "E",
-    "\u1E15": "e",
-    "\u1E16": "E",
-    "\u1E17": "e",
-    "\u1E18": "E",
-    "\u1E19": "e",
-    "\u1E1A": "E",
-    "\u1E1B": "e",
-    "\u1E1C": "E",
-    "\u1E1D": "e",
-    "\u1E1E": "F",
-    "\u1E1F": "f",
-    "\u1E20": "G",
-    "\u1E21": "g",
-    "\u1E22": "H",
-    "\u1E23": "h",
-    "\u1E24": "H",
-    "\u1E25": "h",
-    "\u1E26": "H",
-    "\u1E27": "h",
-    "\u1E28": "H",
-    "\u1E29": "h",
-    "\u1E2A": "H",
-    "\u1E2B": "h",
-    "\u1E2C": "I",
-    "\u1E2D": "i",
-    "\u1E2E": "I",
-    "\u1E2F": "i",
-    "\u1E30": "K",
-    "\u1E31": "k",
-    "\u1E32": "K",
-    "\u1E33": "k",
-    "\u1E34": "K",
-    "\u1E35": "k",
-    "\u1E36": "L",
-    "\u1E37": "l",
-    "\u1E38": "L",
-    "\u1E39": "l",
-    "\u1E3A": "L",
-    "\u1E3B": "l",
-    "\u1E3C": "L",
-    "\u1E3D": "l",
-    "\u1E3E": "M",
-    "\u1E3F": "m",
-    "\u1E40": "M",
-    "\u1E41": "m",
-    "\u1E42": "M",
-    "\u1E43": "m",
-    "\u1E44": "N",
-    "\u1E45": "n",
-    "\u1E46": "N",
-    "\u1E47": "n",
-    "\u1E48": "N",
-    "\u1E49": "n",
-    "\u1E4A": "N",
-    "\u1E4B": "n",
-    "\u1E4C": "O",
-    "\u1E4D": "o",
-    "\u1E4E": "O",
-    "\u1E4F": "o",
-    "\u1E50": "O",
-    "\u1E51": "o",
-    "\u1E52": "O",
-    "\u1E53": "o",
-    "\u1E54": "P",
-    "\u1E55": "p",
-    "\u1E56": "P",
-    "\u1E57": "p",
-    "\u1E58": "R",
-    "\u1E59": "r",
-    "\u1E5A": "R",
-    "\u1E5B": "r",
-    "\u1E5C": "R",
-    "\u1E5D": "r",
-    "\u1E5E": "R",
-    "\u1E5F": "r",
-    "\u1E60": "S",
-    "\u1E61": "s",
-    "\u1E62": "S",
-    "\u1E63": "s",
-    "\u1E64": "S",
-    "\u1E65": "s",
-    "\u1E66": "S",
-    "\u1E67": "s",
-    "\u1E68": "S",
-    "\u1E69": "s",
-    "\u1E6A": "T",
-    "\u1E6B": "t",
-    "\u1E6C": "T",
-    "\u1E6D": "t",
-    "\u1E6E": "T",
-    "\u1E6F": "t",
-    "\u1E70": "T",
-    "\u1E71": "t",
-    "\u1E72": "U",
-    "\u1E73": "u",
-    "\u1E74": "U",
-    "\u1E75": "u",
-    "\u1E76": "U",
-    "\u1E77": "u",
-    "\u1E78": "U",
-    "\u1E79": "u",
-    "\u1E7A": "U",
-    "\u1E7B": "u",
-    "\u1E7C": "V",
-    "\u1E7D": "v",
-    "\u1E7E": "V",
-    "\u1E7F": "v",
-    "\u1E80": "W",
-    "\u1E81": "w",
-    "\u1E82": "W",
-    "\u1E83": "w",
-    "\u1E84": "W",
-    "\u1E85": "w",
-    "\u1E86": "W",
-    "\u1E87": "w",
-    "\u1E88": "W",
-    "\u1E89": "w",
-    "\u1E8A": "X",
-    "\u1E8B": "x",
-    "\u1E8C": "X",
-    "\u1E8D": "x",
-    "\u1E8E": "Y",
-    "\u1E8F": "y",
-    "\u1E90": "Z",
-    "\u1E91": "z",
-    "\u1E92": "Z",
-    "\u1E93": "z",
-    "\u1E94": "Z",
-    "\u1E95": "z",
-    "\u1E96": "h",
-    "\u1E97": "t",
-    "\u1E98": "w",
-    "\u1E99": "y",
-    "\u1E9A": "a",
-    "\u1E9B": "s",
-    "\u1E9E": "S",
-    "\u1EA0": "A",
-    "\u1EA1": "a",
-    "\u1EA2": "A",
-    "\u1EA3": "a",
-    "\u1EA4": "A",
-    "\u1EA5": "a",
-    "\u1EA6": "A",
-    "\u1EA7": "a",
-    "\u1EA8": "A",
-    "\u1EA9": "a",
-    "\u1EAA": "A",
-    "\u1EAB": "a",
-    "\u1EAC": "A",
-    "\u1EAD": "a",
-    "\u1EAE": "A",
-    "\u1EAF": "a",
-    "\u1EB0": "A",
-    "\u1EB1": "a",
-    "\u1EB2": "A",
-    "\u1EB3": "a",
-    "\u1EB4": "A",
-    "\u1EB5": "a",
-    "\u1EB6": "A",
-    "\u1EB7": "a",
-    "\u1EB8": "E",
-    "\u1EB9": "e",
-    "\u1EBA": "E",
-    "\u1EBB": "e",
-    "\u1EBC": "E",
-    "\u1EBD": "e",
-    "\u1EBE": "E",
-    "\u1EBF": "e",
-    "\u1EC0": "E",
-    "\u1EC1": "e",
-    "\u1EC2": "E",
-    "\u1EC3": "e",
-    "\u1EC4": "E",
-    "\u1EC5": "e",
-    "\u1EC6": "E",
-    "\u1EC7": "e",
-    "\u1EC8": "I",
-    "\u1EC9": "i",
-    "\u1ECA": "I",
-    "\u1ECB": "i",
-    "\u1ECC": "O",
-    "\u1ECD": "o",
-    "\u1ECE": "O",
-    "\u1ECF": "o",
-    "\u1ED0": "O",
-    "\u1ED1": "o",
-    "\u1ED2": "O",
-    "\u1ED3": "o",
-    "\u1ED4": "O",
-    "\u1ED5": "o",
-    "\u1ED6": "O",
-    "\u1ED7": "o",
-    "\u1ED8": "O",
-    "\u1ED9": "o",
-    "\u1EDA": "O",
-    "\u1EDB": "o",
-    "\u1EDC": "O",
-    "\u1EDD": "o",
-    "\u1EDE": "O",
-    "\u1EDF": "o",
-    "\u1EE0": "O",
-    "\u1EE1": "o",
-    "\u1EE2": "O",
-    "\u1EE3": "o",
-    "\u1EE4": "U",
-    "\u1EE5": "u",
-    "\u1EE6": "U",
-    "\u1EE7": "u",
-    "\u1EE8": "U",
-    "\u1EE9": "u",
-    "\u1EEA": "U",
-    "\u1EEB": "u",
-    "\u1EEC": "U",
-    "\u1EED": "u",
-    "\u1EEE": "U",
-    "\u1EEF": "u",
-    "\u1EF0": "U",
-    "\u1EF1": "u",
-    "\u1EF2": "Y",
-    "\u1EF3": "y",
-    "\u1EF4": "Y",
-    "\u1EF5": "y",
-    "\u1EF6": "Y",
-    "\u1EF7": "y",
-    "\u1EF8": "Y",
-    "\u1EF9": "y",
-    "\u1EFE": "Y",
-    "\u1EFF": "y",
-    "\u2184": "c",
-    "\u24B6": "A",
-    "\u24B7": "B",
-    "\u24B8": "C",
-    "\u24B9": "D",
-    "\u24BA": "E",
-    "\u24BB": "F",
-    "\u24BC": "G",
-    "\u24BD": "H",
-    "\u24BE": "I",
-    "\u24BF": "J",
-    "\u24C0": "K",
-    "\u24C1": "L",
-    "\u24C2": "M",
-    "\u24C3": "N",
-    "\u24C4": "O",
-    "\u24C5": "P",
-    "\u24C6": "Q",
-    "\u24C7": "R",
-    "\u24C8": "S",
-    "\u24C9": "T",
-    "\u24CA": "U",
-    "\u24CB": "V",
-    "\u24CC": "W",
-    "\u24CD": "X",
-    "\u24CE": "Y",
-    "\u24CF": "Z",
-    "\u24D0": "a",
-    "\u24D1": "b",
-    "\u24D2": "c",
-    "\u24D3": "d",
-    "\u24D4": "e",
-    "\u24D5": "f",
-    "\u24D6": "g",
-    "\u24D7": "h",
-    "\u24D8": "i",
-    "\u24D9": "j",
-    "\u24DA": "k",
-    "\u24DB": "l",
-    "\u24DC": "m",
-    "\u24DD": "n",
-    "\u24DE": "o",
-    "\u24DF": "p",
-    "\u24E0": "q",
-    "\u24E1": "r",
-    "\u24E2": "s",
-    "\u24E3": "t",
-    "\u24E4": "u",
-    "\u24E5": "v",
-    "\u24E6": "w",
-    "\u24E7": "x",
-    "\u24E8": "y",
-    "\u24E9": "z",
-    "\u2C60": "L",
-    "\u2C61": "l",
-    "\u2C62": "L",
-    "\u2C63": "P",
-    "\u2C64": "R",
-    "\u2C65": "a",
-    "\u2C66": "t",
-    "\u2C67": "H",
-    "\u2C68": "h",
-    "\u2C69": "K",
-    "\u2C6A": "k",
-    "\u2C6B": "Z",
-    "\u2C6C": "z",
-    "\u2C6E": "M",
-    "\u2C6F": "A",
-    "\u2C72": "W",
-    "\u2C73": "w",
-    "\u2C75": "H",
-    "\u2C76": "h",
-    "\u2C7E": "S",
-    "\u2C7F": "Z",
-    "\uA728": "TZ",
-    "\uA729": "tz",
-    "\uA732": "AA",
-    "\uA733": "aa",
-    "\uA734": "AO",
-    "\uA735": "ao",
-    "\uA736": "AU",
-    "\uA737": "au",
-    "\uA738": "AV",
-    "\uA739": "av",
-    "\uA73A": "AV",
-    "\uA73B": "av",
-    "\uA73C": "AY",
-    "\uA73D": "ay",
-    "\uA73E": "C",
-    "\uA73F": "c",
-    "\uA740": "K",
-    "\uA741": "k",
-    "\uA742": "K",
-    "\uA743": "k",
-    "\uA744": "K",
-    "\uA745": "k",
-    "\uA746": "L",
-    "\uA747": "l",
-    "\uA748": "L",
-    "\uA749": "l",
-    "\uA74A": "O",
-    "\uA74B": "o",
-    "\uA74C": "O",
-    "\uA74D": "o",
-    "\uA74E": "OO",
-    "\uA74F": "oo",
-    "\uA750": "P",
-    "\uA751": "p",
-    "\uA752": "P",
-    "\uA753": "p",
-    "\uA754": "P",
-    "\uA755": "p",
-    "\uA756": "Q",
-    "\uA757": "q",
-    "\uA758": "Q",
-    "\uA759": "q",
-    "\uA75A": "R",
-    "\uA75B": "r",
-    "\uA75E": "V",
-    "\uA75F": "v",
-    "\uA760": "VY",
-    "\uA761": "vy",
-    "\uA762": "Z",
-    "\uA763": "z",
-    "\uA779": "D",
-    "\uA77A": "d",
-    "\uA77B": "F",
-    "\uA77C": "f",
-    "\uA77D": "G",
-    "\uA77E": "G",
-    "\uA77F": "g",
-    "\uA780": "L",
-    "\uA781": "l",
-    "\uA782": "R",
-    "\uA783": "r",
-    "\uA784": "S",
-    "\uA785": "s",
-    "\uA786": "T",
-    "\uA787": "t",
-    "\uA78D": "H",
-    "\uA790": "N",
-    "\uA791": "n",
-    "\uA7A0": "G",
-    "\uA7A1": "g",
-    "\uA7A2": "K",
-    "\uA7A3": "k",
-    "\uA7A4": "N",
-    "\uA7A5": "n",
-    "\uA7A6": "R",
-    "\uA7A7": "r",
-    "\uA7A8": "S",
-    "\uA7A9": "s",
-    "\uFF21": "A",
-    "\uFF22": "B",
-    "\uFF23": "C",
-    "\uFF24": "D",
-    "\uFF25": "E",
-    "\uFF26": "F",
-    "\uFF27": "G",
-    "\uFF28": "H",
-    "\uFF29": "I",
-    "\uFF2A": "J",
-    "\uFF2B": "K",
-    "\uFF2C": "L",
-    "\uFF2D": "M",
-    "\uFF2E": "N",
-    "\uFF2F": "O",
-    "\uFF30": "P",
-    "\uFF31": "Q",
-    "\uFF32": "R",
-    "\uFF33": "S",
-    "\uFF34": "T",
-    "\uFF35": "U",
-    "\uFF36": "V",
-    "\uFF37": "W",
-    "\uFF38": "X",
-    "\uFF39": "Y",
-    "\uFF3A": "Z",
-    "\uFF41": "a",
-    "\uFF42": "b",
-    "\uFF43": "c",
-    "\uFF44": "d",
-    "\uFF45": "e",
-    "\uFF46": "f",
-    "\uFF47": "g",
-    "\uFF48": "h",
-    "\uFF49": "i",
-    "\uFF4A": "j",
-    "\uFF4B": "k",
-    "\uFF4C": "l",
-    "\uFF4D": "m",
-    "\uFF4E": "n",
-    "\uFF4F": "o",
-    "\uFF50": "p",
-    "\uFF51": "q",
-    "\uFF52": "r",
-    "\uFF53": "s",
-    "\uFF54": "t",
-    "\uFF55": "u",
-    "\uFF56": "v",
-    "\uFF57": "w",
-    "\uFF58": "x",
-    "\uFF59": "y",
-    "\uFF5A": "z",
+    "": "OE",
+    "": "oe",
+    "À": "A",
+    "Á": "A",
+    "Â": "A",
+    "Ã": "A",
+    "Ä": "A",
+    "Å": "A",
+    "Æ": "AE",
+    "Ç": "C",
+    "È": "E",
+    "É": "E",
+    "Ê": "E",
+    "Ë": "E",
+    "Ì": "I",
+    "Í": "I",
+    "Î": "I",
+    "Ï": "I",
+    "Ñ": "N",
+    "Ò": "O",
+    "Ó": "O",
+    "Ô": "O",
+    "Õ": "O",
+    "Ö": "O",
+    "Ø": "O",
+    "Ù": "U",
+    "Ú": "U",
+    "Û": "U",
+    "Ü": "U",
+    "Ý": "Y",
+    "ß": "s",
+    "à": "a",
+    "á": "a",
+    "â": "a",
+    "ã": "a",
+    "ä": "a",
+    "å": "a",
+    "æ": "ae",
+    "ç": "c",
+    "è": "e",
+    "é": "e",
+    "ê": "e",
+    "ë": "e",
+    "ì": "i",
+    "í": "i",
+    "î": "i",
+    "ï": "i",
+    "ñ": "n",
+    "ò": "o",
+    "ó": "o",
+    "ô": "o",
+    "õ": "o",
+    "ö": "o",
+    "ø": "o",
+    "ù": "u",
+    "ú": "u",
+    "û": "u",
+    "ü": "u",
+    "ý": "y",
+    "ÿ": "y",
+    "Ā": "A",
+    "ā": "a",
+    "Ă": "A",
+    "ă": "a",
+    "Ą": "A",
+    "ą": "a",
+    "Ć": "C",
+    "ć": "c",
+    "Ĉ": "C",
+    "ĉ": "c",
+    "Ċ": "C",
+    "ċ": "c",
+    "Č": "C",
+    "č": "c",
+    "Ď": "D",
+    "ď": "d",
+    "Đ": "D",
+    "đ": "d",
+    "Ē": "E",
+    "ē": "e",
+    "Ĕ": "E",
+    "ĕ": "e",
+    "Ė": "E",
+    "ė": "e",
+    "Ę": "E",
+    "ę": "e",
+    "Ě": "E",
+    "ě": "e",
+    "Ĝ": "G",
+    "ĝ": "g",
+    "Ğ": "G",
+    "ğ": "g",
+    "Ġ": "G",
+    "ġ": "g",
+    "Ģ": "G",
+    "ģ": "g",
+    "Ĥ": "H",
+    "ĥ": "h",
+    "Ħ": "H",
+    "ħ": "h",
+    "Ĩ": "I",
+    "ĩ": "i",
+    "Ī": "I",
+    "ī": "i",
+    "Ĭ": "I",
+    "ĭ": "i",
+    "Į": "I",
+    "į": "i",
+    "İ": "I",
+    "ı": "i",
+    "Ĵ": "J",
+    "ĵ": "j",
+    "Ķ": "K",
+    "ķ": "k",
+    "Ĺ": "L",
+    "ĺ": "l",
+    "Ļ": "L",
+    "ļ": "l",
+    "Ľ": "L",
+    "ľ": "l",
+    "Ŀ": "L",
+    "ŀ": "l",
+    "Ł": "L",
+    "ł": "l",
+    "Ń": "N",
+    "ń": "n",
+    "Ņ": "N",
+    "ņ": "n",
+    "Ň": "N",
+    "ň": "n",
+    "ŉ": "n",
+    "Ō": "O",
+    "ō": "o",
+    "Ŏ": "O",
+    "ŏ": "o",
+    "Ő": "O",
+    "ő": "o",
+    "Œ": "OE",
+    "œ": "oe",
+    "Ŕ": "R",
+    "ŕ": "r",
+    "Ŗ": "R",
+    "ŗ": "r",
+    "Ř": "R",
+    "ř": "r",
+    "Ś": "S",
+    "ś": "s",
+    "Ŝ": "S",
+    "ŝ": "s",
+    "Ş": "S",
+    "ş": "s",
+    "Š": "S",
+    "š": "s",
+    "Ţ": "T",
+    "ţ": "t",
+    "Ť": "T",
+    "ť": "t",
+    "Ŧ": "T",
+    "ŧ": "t",
+    "Ũ": "U",
+    "ũ": "u",
+    "Ū": "U",
+    "ū": "u",
+    "Ŭ": "U",
+    "ŭ": "u",
+    "Ů": "U",
+    "ů": "u",
+    "Ű": "U",
+    "ű": "u",
+    "Ų": "U",
+    "ų": "u",
+    "Ŵ": "W",
+    "ŵ": "w",
+    "Ŷ": "Y",
+    "ŷ": "y",
+    "Ÿ": "Y",
+    "Ź": "Z",
+    "ź": "z",
+    "Ż": "Z",
+    "ż": "z",
+    "Ž": "Z",
+    "ž": "z",
+    "ſ": "l",
+    "ƀ": "b",
+    "Ɓ": "B",
+    "Ƃ": "B",
+    "ƃ": "b",
+    "Ɔ": "O",
+    "Ƈ": "C",
+    "ƈ": "c",
+    "Ɖ": "D",
+    "Ɗ": "D",
+    "Ƌ": "D",
+    "ƌ": "d",
+    "Ǝ": "E",
+    "Ɛ": "E",
+    "Ƒ": "F",
+    "ƒ": "f",
+    "Ɠ": "G",
+    "ƕ": "hv",
+    "Ɨ": "I",
+    "Ƙ": "K",
+    "ƙ": "k",
+    "ƚ": "l",
+    "Ɯ": "M",
+    "Ɲ": "N",
+    "ƞ": "n",
+    "Ɵ": "O",
+    "Ơ": "O",
+    "ơ": "o",
+    "Ƣ": "OI",
+    "ƣ": "oi",
+    "Ƥ": "P",
+    "ƥ": "p",
+    "Ƭ": "T",
+    "ƭ": "t",
+    "Ʈ": "T",
+    "Ư": "U",
+    "ư": "u",
+    "Ʋ": "V",
+    "Ƴ": "Y",
+    "ƴ": "y",
+    "Ƶ": "Z",
+    "ƶ": "z",
+    "Ǆ": "DZ",
+    "ǅ": "Dz",
+    "ǆ": "dz",
+    "Ǉ": "LJ",
+    "ǈ": "Lj",
+    "ǉ": "lj",
+    "Ǌ": "NJ",
+    "ǋ": "Nj",
+    "ǌ": "nj",
+    "Ǎ": "A",
+    "ǎ": "a",
+    "Ǐ": "I",
+    "ǐ": "i",
+    "Ǒ": "O",
+    "ǒ": "o",
+    "Ǔ": "U",
+    "ǔ": "u",
+    "Ǖ": "U",
+    "ǖ": "u",
+    "Ǘ": "U",
+    "ǘ": "u",
+    "Ǚ": "U",
+    "ǚ": "u",
+    "Ǜ": "U",
+    "ǜ": "u",
+    "ǝ": "e",
+    "Ǟ": "A",
+    "ǟ": "a",
+    "Ǡ": "A",
+    "ǡ": "a",
+    "Ǣ": "AE",
+    "ǣ": "ae",
+    "Ǥ": "G",
+    "ǥ": "g",
+    "Ǧ": "G",
+    "ǧ": "g",
+    "Ǩ": "K",
+    "ǩ": "k",
+    "Ǫ": "O",
+    "ǫ": "o",
+    "Ǭ": "O",
+    "ǭ": "o",
+    "ǰ": "j",
+    "Ǳ": "DZ",
+    "ǲ": "Dz",
+    "ǳ": "dz",
+    "Ǵ": "G",
+    "ǵ": "g",
+    "Ǹ": "N",
+    "ǹ": "n",
+    "Ǻ": "A",
+    "ǻ": "a",
+    "Ǽ": "AE",
+    "ǽ": "ae",
+    "Ǿ": "O",
+    "ǿ": "o",
+    "Ȁ": "A",
+    "ȁ": "a",
+    "Ȃ": "A",
+    "ȃ": "a",
+    "Ȅ": "E",
+    "ȅ": "e",
+    "Ȇ": "E",
+    "ȇ": "e",
+    "Ȉ": "I",
+    "ȉ": "i",
+    "Ȋ": "I",
+    "ȋ": "i",
+    "Ȍ": "O",
+    "ȍ": "o",
+    "Ȏ": "O",
+    "ȏ": "o",
+    "Ȑ": "R",
+    "ȑ": "r",
+    "Ȓ": "R",
+    "ȓ": "r",
+    "Ȕ": "U",
+    "ȕ": "u",
+    "Ȗ": "U",
+    "ȗ": "u",
+    "Ș": "S",
+    "ș": "s",
+    "Ț": "T",
+    "ț": "t",
+    "Ȟ": "H",
+    "ȟ": "h",
+    "Ƞ": "N",
+    "Ȣ": "OU",
+    "ȣ": "ou",
+    "Ȥ": "Z",
+    "ȥ": "z",
+    "Ȧ": "A",
+    "ȧ": "a",
+    "Ȩ": "E",
+    "ȩ": "e",
+    "Ȫ": "O",
+    "ȫ": "o",
+    "Ȭ": "O",
+    "ȭ": "o",
+    "Ȯ": "O",
+    "ȯ": "o",
+    "Ȱ": "O",
+    "ȱ": "o",
+    "Ȳ": "Y",
+    "ȳ": "y",
+    "Ⱥ": "A",
+    "Ȼ": "C",
+    "ȼ": "c",
+    "Ƚ": "L",
+    "Ⱦ": "T",
+    "ȿ": "s",
+    "ɀ": "z",
+    "Ƀ": "B",
+    "Ʉ": "U",
+    "Ʌ": "V",
+    "ɇ": "e",
+    "Ɉ": "J",
+    "ɉ": "j",
+    "Ɋ": "Q",
+    "ɋ": "q",
+    "Ɍ": "R",
+    "ɍ": "r",
+    "Ɏ": "Y",
+    "ɏ": "y",
+    "ɐ": "a",
+    "ɓ": "b",
+    "ɔ": "o",
+    "ɖ": "d",
+    "ɗ": "d",
+    "ɛ": "e",
+    "ɠ": "g",
+    "ɥ": "h",
+    "ɨ": "i",
+    "ɫ": "l",
+    "ɯ": "m",
+    "ɱ": "m",
+    "ɲ": "n",
+    "ɵ": "o",
+    "ɽ": "r",
+    "ʈ": "t",
+    "ʉ": "u",
+    "ʋ": "v",
+    "ʌ": "v",
+    "ᵹ": "g",
+    "ᵽ": "p",
+    "Ḁ": "A",
+    "ḁ": "a",
+    "Ḃ": "B",
+    "ḃ": "b",
+    "Ḅ": "B",
+    "ḅ": "b",
+    "Ḇ": "B",
+    "ḇ": "b",
+    "Ḉ": "C",
+    "ḉ": "c",
+    "Ḋ": "D",
+    "ḋ": "d",
+    "Ḍ": "D",
+    "ḍ": "d",
+    "Ḏ": "D",
+    "ḏ": "d",
+    "Ḑ": "D",
+    "ḑ": "d",
+    "Ḓ": "D",
+    "ḓ": "d",
+    "Ḕ": "E",
+    "ḕ": "e",
+    "Ḗ": "E",
+    "ḗ": "e",
+    "Ḙ": "E",
+    "ḙ": "e",
+    "Ḛ": "E",
+    "ḛ": "e",
+    "Ḝ": "E",
+    "ḝ": "e",
+    "Ḟ": "F",
+    "ḟ": "f",
+    "Ḡ": "G",
+    "ḡ": "g",
+    "Ḣ": "H",
+    "ḣ": "h",
+    "Ḥ": "H",
+    "ḥ": "h",
+    "Ḧ": "H",
+    "ḧ": "h",
+    "Ḩ": "H",
+    "ḩ": "h",
+    "Ḫ": "H",
+    "ḫ": "h",
+    "Ḭ": "I",
+    "ḭ": "i",
+    "Ḯ": "I",
+    "ḯ": "i",
+    "Ḱ": "K",
+    "ḱ": "k",
+    "Ḳ": "K",
+    "ḳ": "k",
+    "Ḵ": "K",
+    "ḵ": "k",
+    "Ḷ": "L",
+    "ḷ": "l",
+    "Ḹ": "L",
+    "ḹ": "l",
+    "Ḻ": "L",
+    "ḻ": "l",
+    "Ḽ": "L",
+    "ḽ": "l",
+    "Ḿ": "M",
+    "ḿ": "m",
+    "Ṁ": "M",
+    "ṁ": "m",
+    "Ṃ": "M",
+    "ṃ": "m",
+    "Ṅ": "N",
+    "ṅ": "n",
+    "Ṇ": "N",
+    "ṇ": "n",
+    "Ṉ": "N",
+    "ṉ": "n",
+    "Ṋ": "N",
+    "ṋ": "n",
+    "Ṍ": "O",
+    "ṍ": "o",
+    "Ṏ": "O",
+    "ṏ": "o",
+    "Ṑ": "O",
+    "ṑ": "o",
+    "Ṓ": "O",
+    "ṓ": "o",
+    "Ṕ": "P",
+    "ṕ": "p",
+    "Ṗ": "P",
+    "ṗ": "p",
+    "Ṙ": "R",
+    "ṙ": "r",
+    "Ṛ": "R",
+    "ṛ": "r",
+    "Ṝ": "R",
+    "ṝ": "r",
+    "Ṟ": "R",
+    "ṟ": "r",
+    "Ṡ": "S",
+    "ṡ": "s",
+    "Ṣ": "S",
+    "ṣ": "s",
+    "Ṥ": "S",
+    "ṥ": "s",
+    "Ṧ": "S",
+    "ṧ": "s",
+    "Ṩ": "S",
+    "ṩ": "s",
+    "Ṫ": "T",
+    "ṫ": "t",
+    "Ṭ": "T",
+    "ṭ": "t",
+    "Ṯ": "T",
+    "ṯ": "t",
+    "Ṱ": "T",
+    "ṱ": "t",
+    "Ṳ": "U",
+    "ṳ": "u",
+    "Ṵ": "U",
+    "ṵ": "u",
+    "Ṷ": "U",
+    "ṷ": "u",
+    "Ṹ": "U",
+    "ṹ": "u",
+    "Ṻ": "U",
+    "ṻ": "u",
+    "Ṽ": "V",
+    "ṽ": "v",
+    "Ṿ": "V",
+    "ṿ": "v",
+    "Ẁ": "W",
+    "ẁ": "w",
+    "Ẃ": "W",
+    "ẃ": "w",
+    "Ẅ": "W",
+    "ẅ": "w",
+    "Ẇ": "W",
+    "ẇ": "w",
+    "Ẉ": "W",
+    "ẉ": "w",
+    "Ẋ": "X",
+    "ẋ": "x",
+    "Ẍ": "X",
+    "ẍ": "x",
+    "Ẏ": "Y",
+    "ẏ": "y",
+    "Ẑ": "Z",
+    "ẑ": "z",
+    "Ẓ": "Z",
+    "ẓ": "z",
+    "Ẕ": "Z",
+    "ẕ": "z",
+    "ẖ": "h",
+    "ẗ": "t",
+    "ẘ": "w",
+    "ẙ": "y",
+    "ẚ": "a",
+    "ẛ": "s",
+    "ẞ": "S",
+    "Ạ": "A",
+    "ạ": "a",
+    "Ả": "A",
+    "ả": "a",
+    "Ấ": "A",
+    "ấ": "a",
+    "Ầ": "A",
+    "ầ": "a",
+    "Ẩ": "A",
+    "ẩ": "a",
+    "Ẫ": "A",
+    "ẫ": "a",
+    "Ậ": "A",
+    "ậ": "a",
+    "Ắ": "A",
+    "ắ": "a",
+    "Ằ": "A",
+    "ằ": "a",
+    "Ẳ": "A",
+    "ẳ": "a",
+    "Ẵ": "A",
+    "ẵ": "a",
+    "Ặ": "A",
+    "ặ": "a",
+    "Ẹ": "E",
+    "ẹ": "e",
+    "Ẻ": "E",
+    "ẻ": "e",
+    "Ẽ": "E",
+    "ẽ": "e",
+    "Ế": "E",
+    "ế": "e",
+    "Ề": "E",
+    "ề": "e",
+    "Ể": "E",
+    "ể": "e",
+    "Ễ": "E",
+    "ễ": "e",
+    "Ệ": "E",
+    "ệ": "e",
+    "Ỉ": "I",
+    "ỉ": "i",
+    "Ị": "I",
+    "ị": "i",
+    "Ọ": "O",
+    "ọ": "o",
+    "Ỏ": "O",
+    "ỏ": "o",
+    "Ố": "O",
+    "ố": "o",
+    "Ồ": "O",
+    "ồ": "o",
+    "Ổ": "O",
+    "ổ": "o",
+    "Ỗ": "O",
+    "ỗ": "o",
+    "Ộ": "O",
+    "ộ": "o",
+    "Ớ": "O",
+    "ớ": "o",
+    "Ờ": "O",
+    "ờ": "o",
+    "Ở": "O",
+    "ở": "o",
+    "Ỡ": "O",
+    "ỡ": "o",
+    "Ợ": "O",
+    "ợ": "o",
+    "Ụ": "U",
+    "ụ": "u",
+    "Ủ": "U",
+    "ủ": "u",
+    "Ứ": "U",
+    "ứ": "u",
+    "Ừ": "U",
+    "ừ": "u",
+    "Ử": "U",
+    "ử": "u",
+    "Ữ": "U",
+    "ữ": "u",
+    "Ự": "U",
+    "ự": "u",
+    "Ỳ": "Y",
+    "ỳ": "y",
+    "Ỵ": "Y",
+    "ỵ": "y",
+    "Ỷ": "Y",
+    "ỷ": "y",
+    "Ỹ": "Y",
+    "ỹ": "y",
+    "Ỿ": "Y",
+    "ỿ": "y",
+    "ↄ": "c",
+    "Ⓐ": "A",
+    "Ⓑ": "B",
+    "Ⓒ": "C",
+    "Ⓓ": "D",
+    "Ⓔ": "E",
+    "Ⓕ": "F",
+    "Ⓖ": "G",
+    "Ⓗ": "H",
+    "Ⓘ": "I",
+    "Ⓙ": "J",
+    "Ⓚ": "K",
+    "Ⓛ": "L",
+    "Ⓜ": "M",
+    "Ⓝ": "N",
+    "Ⓞ": "O",
+    "Ⓟ": "P",
+    "Ⓠ": "Q",
+    "Ⓡ": "R",
+    "Ⓢ": "S",
+    "Ⓣ": "T",
+    "Ⓤ": "U",
+    "Ⓥ": "V",
+    "Ⓦ": "W",
+    "Ⓧ": "X",
+    "Ⓨ": "Y",
+    "Ⓩ": "Z",
+    "ⓐ": "a",
+    "ⓑ": "b",
+    "ⓒ": "c",
+    "ⓓ": "d",
+    "ⓔ": "e",
+    "ⓕ": "f",
+    "ⓖ": "g",
+    "ⓗ": "h",
+    "ⓘ": "i",
+    "ⓙ": "j",
+    "ⓚ": "k",
+    "ⓛ": "l",
+    "ⓜ": "m",
+    "ⓝ": "n",
+    "ⓞ": "o",
+    "ⓟ": "p",
+    "ⓠ": "q",
+    "ⓡ": "r",
+    "ⓢ": "s",
+    "ⓣ": "t",
+    "ⓤ": "u",
+    "ⓥ": "v",
+    "ⓦ": "w",
+    "ⓧ": "x",
+    "ⓨ": "y",
+    "ⓩ": "z",
+    "Ⱡ": "L",
+    "ⱡ": "l",
+    "Ɫ": "L",
+    "Ᵽ": "P",
+    "Ɽ": "R",
+    "ⱥ": "a",
+    "ⱦ": "t",
+    "Ⱨ": "H",
+    "ⱨ": "h",
+    "Ⱪ": "K",
+    "ⱪ": "k",
+    "Ⱬ": "Z",
+    "ⱬ": "z",
+    "Ɱ": "M",
+    "Ɐ": "A",
+    "Ⱳ": "W",
+    "ⱳ": "w",
+    "Ⱶ": "H",
+    "ⱶ": "h",
+    "Ȿ": "S",
+    "Ɀ": "Z",
+    "Ꜩ": "TZ",
+    "ꜩ": "tz",
+    "Ꜳ": "AA",
+    "ꜳ": "aa",
+    "Ꜵ": "AO",
+    "ꜵ": "ao",
+    "Ꜷ": "AU",
+    "ꜷ": "au",
+    "Ꜹ": "AV",
+    "ꜹ": "av",
+    "Ꜻ": "AV",
+    "ꜻ": "av",
+    "Ꜽ": "AY",
+    "ꜽ": "ay",
+    "Ꜿ": "C",
+    "ꜿ": "c",
+    "Ꝁ": "K",
+    "ꝁ": "k",
+    "Ꝃ": "K",
+    "ꝃ": "k",
+    "Ꝅ": "K",
+    "ꝅ": "k",
+    "Ꝇ": "L",
+    "ꝇ": "l",
+    "Ꝉ": "L",
+    "ꝉ": "l",
+    "Ꝋ": "O",
+    "ꝋ": "o",
+    "Ꝍ": "O",
+    "ꝍ": "o",
+    "Ꝏ": "OO",
+    "ꝏ": "oo",
+    "Ꝑ": "P",
+    "ꝑ": "p",
+    "Ꝓ": "P",
+    "ꝓ": "p",
+    "Ꝕ": "P",
+    "ꝕ": "p",
+    "Ꝗ": "Q",
+    "ꝗ": "q",
+    "Ꝙ": "Q",
+    "ꝙ": "q",
+    "Ꝛ": "R",
+    "ꝛ": "r",
+    "Ꝟ": "V",
+    "ꝟ": "v",
+    "Ꝡ": "VY",
+    "ꝡ": "vy",
+    "Ꝣ": "Z",
+    "ꝣ": "z",
+    "Ꝺ": "D",
+    "ꝺ": "d",
+    "Ꝼ": "F",
+    "ꝼ": "f",
+    "Ᵹ": "G",
+    "Ꝿ": "G",
+    "ꝿ": "g",
+    "Ꞁ": "L",
+    "ꞁ": "l",
+    "Ꞃ": "R",
+    "ꞃ": "r",
+    "Ꞅ": "S",
+    "ꞅ": "s",
+    "Ꞇ": "T",
+    "ꞇ": "t",
+    "Ɥ": "H",
+    "Ꞑ": "N",
+    "ꞑ": "n",
+    "Ꞡ": "G",
+    "ꞡ": "g",
+    "Ꞣ": "K",
+    "ꞣ": "k",
+    "Ꞥ": "N",
+    "ꞥ": "n",
+    "Ꞧ": "R",
+    "ꞧ": "r",
+    "Ꞩ": "S",
+    "ꞩ": "s",
+    "Ａ": "A",
+    "Ｂ": "B",
+    "Ｃ": "C",
+    "Ｄ": "D",
+    "Ｅ": "E",
+    "Ｆ": "F",
+    "Ｇ": "G",
+    "Ｈ": "H",
+    "Ｉ": "I",
+    "Ｊ": "J",
+    "Ｋ": "K",
+    "Ｌ": "L",
+    "Ｍ": "M",
+    "Ｎ": "N",
+    "Ｏ": "O",
+    "Ｐ": "P",
+    "Ｑ": "Q",
+    "Ｒ": "R",
+    "Ｓ": "S",
+    "Ｔ": "T",
+    "Ｕ": "U",
+    "Ｖ": "V",
+    "Ｗ": "W",
+    "Ｘ": "X",
+    "Ｙ": "Y",
+    "Ｚ": "Z",
+    "ａ": "a",
+    "ｂ": "b",
+    "ｃ": "c",
+    "ｄ": "d",
+    "ｅ": "e",
+    "ｆ": "f",
+    "ｇ": "g",
+    "ｈ": "h",
+    "ｉ": "i",
+    "ｊ": "j",
+    "ｋ": "k",
+    "ｌ": "l",
+    "ｍ": "m",
+    "ｎ": "n",
+    "ｏ": "o",
+    "ｐ": "p",
+    "ｑ": "q",
+    "ｒ": "r",
+    "ｓ": "s",
+    "ｔ": "t",
+    "ｕ": "u",
+    "ｖ": "v",
+    "ｗ": "w",
+    "ｘ": "x",
+    "ｙ": "y",
+    "ｚ": "z",
 
     // Additional maps for russian, ukranian and few other languages
-    "\xD0": "D",
-    "\xDE": "TH",
-    "\xF0": "d",
-    "\xFE": "th",
-    "\u0386": "A",
-    "\u0388": "E",
-    "\u0389": "H",
-    "\u038A": "I",
-    "\u038C": "O",
-    "\u038E": "Y",
-    "\u038F": "W",
-    "\u0390": "i",
-    "\u0391": "A",
-    "\u0392": "B",
-    "\u0393": "G",
-    "\u0394": "D",
-    "\u0395": "E",
-    "\u0396": "Z",
-    "\u0397": "H",
-    "\u0398": "8",
-    "\u0399": "I",
-    "\u039A": "K",
-    "\u039B": "L",
-    "\u039C": "M",
-    "\u039D": "N",
-    "\u039E": "3",
-    "\u039F": "O",
-    "\u03A0": "P",
-    "\u03A1": "R",
-    "\u03A3": "S",
-    "\u03A4": "T",
-    "\u03A5": "Y",
-    "\u03A6": "F",
-    "\u03A7": "X",
-    "\u03A8": "PS",
-    "\u03A9": "W",
-    "\u03AA": "I",
-    "\u03AB": "Y",
-    "\u03AC": "a",
-    "\u03AD": "e",
-    "\u03AE": "h",
-    "\u03AF": "i",
-    "\u03B0": "y",
-    "\u03B1": "a",
-    "\u03B2": "b",
-    "\u03B3": "g",
-    "\u03B4": "d",
-    "\u03B5": "e",
-    "\u03B6": "z",
-    "\u03B7": "h",
-    "\u03B8": "8",
-    "\u03B9": "i",
-    "\u03BA": "k",
-    "\u03BB": "l",
-    "\u03BC": "m",
-    "\u03BD": "n",
-    "\u03BE": "3",
-    "\u03BF": "o",
-    "\u03C0": "p",
-    "\u03C1": "r",
-    "\u03C2": "s",
-    "\u03C3": "s",
-    "\u03C4": "t",
-    "\u03C5": "y",
-    "\u03C6": "f",
-    "\u03C7": "x",
-    "\u03C8": "ps",
-    "\u03C9": "w",
-    "\u03CA": "i",
-    "\u03CB": "y",
-    "\u03CC": "o",
-    "\u03CD": "y",
-    "\u03CE": "w",
-    "\u0401": "Yo",
-    "\u0404": "Ye",
-    "\u0406": "I",
-    "\u0407": "Yi",
-    "\u0410": "A",
-    "\u0411": "B",
-    "\u0412": "V",
-    "\u0413": "G",
-    "\u0414": "D",
-    "\u0415": "E",
-    "\u0416": "Zh",
-    "\u0417": "Z",
-    "\u0418": "I",
-    "\u0419": "J",
-    "\u041A": "K",
-    "\u041B": "L",
-    "\u041C": "M",
-    "\u041D": "N",
-    "\u041E": "O",
-    "\u041F": "P",
-    "\u0420": "R",
-    "\u0421": "S",
-    "\u0422": "T",
-    "\u0423": "U",
-    "\u0424": "F",
-    "\u0425": "H",
-    "\u0426": "C",
-    "\u0427": "Ch",
-    "\u0428": "Sh",
-    "\u0429": "Sh",
-    "\u042A": "U",
-    "\u042B": "Y",
-    "\u042C": "",
-    "\u042D": "E",
-    "\u042E": "Yu",
-    "\u042F": "Ya",
-    "\u0430": "a",
-    "\u0431": "b",
-    "\u0432": "v",
-    "\u0433": "g",
-    "\u0434": "d",
-    "\u0435": "e",
-    "\u0436": "zh",
-    "\u0437": "z",
-    "\u0438": "i",
-    "\u0439": "j",
-    "\u043A": "k",
-    "\u043B": "l",
-    "\u043C": "m",
-    "\u043D": "n",
-    "\u043E": "o",
-    "\u043F": "p",
-    "\u0440": "r",
-    "\u0441": "s",
-    "\u0442": "t",
-    "\u0443": "u",
-    "\u0444": "f",
-    "\u0445": "h",
-    "\u0446": "c",
-    "\u0447": "ch",
-    "\u0448": "sh",
-    "\u0449": "sh",
-    "\u044A": "u",
-    "\u044B": "y",
-    "\u044C": "",
-    "\u044D": "e",
-    "\u044E": "yu",
-    "\u044F": "ya",
-    "\u0451": "yo",
-    "\u0454": "ye",
-    "\u0456": "i",
-    "\u0457": "yi",
-    "\u0490": "G",
-    "\u0491": "g"
+    "Ð": "D",
+    "Þ": "TH",
+    "ð": "d",
+    "þ": "th",
+    "Ά": "A",
+    "Έ": "E",
+    "Ή": "H",
+    "Ί": "I",
+    "Ό": "O",
+    "Ύ": "Y",
+    "Ώ": "W",
+    "ΐ": "i",
+    "Α": "A",
+    "Β": "B",
+    "Γ": "G",
+    "Δ": "D",
+    "Ε": "E",
+    "Ζ": "Z",
+    "Η": "H",
+    "Θ": "8",
+    "Ι": "I",
+    "Κ": "K",
+    "Λ": "L",
+    "Μ": "M",
+    "Ν": "N",
+    "Ξ": "3",
+    "Ο": "O",
+    "Π": "P",
+    "Ρ": "R",
+    "Σ": "S",
+    "Τ": "T",
+    "Υ": "Y",
+    "Φ": "F",
+    "Χ": "X",
+    "Ψ": "PS",
+    "Ω": "W",
+    "Ϊ": "I",
+    "Ϋ": "Y",
+    "ά": "a",
+    "έ": "e",
+    "ή": "h",
+    "ί": "i",
+    "ΰ": "y",
+    "α": "a",
+    "β": "b",
+    "γ": "g",
+    "δ": "d",
+    "ε": "e",
+    "ζ": "z",
+    "η": "h",
+    "θ": "8",
+    "ι": "i",
+    "κ": "k",
+    "λ": "l",
+    "μ": "m",
+    "ν": "n",
+    "ξ": "3",
+    "ο": "o",
+    "π": "p",
+    "ρ": "r",
+    "ς": "s",
+    "σ": "s",
+    "τ": "t",
+    "υ": "y",
+    "φ": "f",
+    "χ": "x",
+    "ψ": "ps",
+    "ω": "w",
+    "ϊ": "i",
+    "ϋ": "y",
+    "ό": "o",
+    "ύ": "y",
+    "ώ": "w",
+    "Ё": "Yo",
+    "Є": "Ye",
+    "І": "I",
+    "Ї": "Yi",
+    "А": "A",
+    "Б": "B",
+    "В": "V",
+    "Г": "G",
+    "Д": "D",
+    "Е": "E",
+    "Ж": "Zh",
+    "З": "Z",
+    "И": "I",
+    "Й": "J",
+    "К": "K",
+    "Л": "L",
+    "М": "M",
+    "Н": "N",
+    "О": "O",
+    "П": "P",
+    "Р": "R",
+    "С": "S",
+    "Т": "T",
+    "У": "U",
+    "Ф": "F",
+    "Х": "H",
+    "Ц": "C",
+    "Ч": "Ch",
+    "Ш": "Sh",
+    "Щ": "Sh",
+    "Ъ": "U",
+    "Ы": "Y",
+    "Ь": "",
+    "Э": "E",
+    "Ю": "Yu",
+    "Я": "Ya",
+    "а": "a",
+    "б": "b",
+    "в": "v",
+    "г": "g",
+    "д": "d",
+    "е": "e",
+    "ж": "zh",
+    "з": "z",
+    "и": "i",
+    "й": "j",
+    "к": "k",
+    "л": "l",
+    "м": "m",
+    "н": "n",
+    "о": "o",
+    "п": "p",
+    "р": "r",
+    "с": "s",
+    "т": "t",
+    "у": "u",
+    "ф": "f",
+    "х": "h",
+    "ц": "c",
+    "ч": "ch",
+    "ш": "sh",
+    "щ": "sh",
+    "ъ": "u",
+    "ы": "y",
+    "ь": "",
+    "э": "e",
+    "ю": "yu",
+    "я": "ya",
+    "ё": "yo",
+    "є": "ye",
+    "і": "i",
+    "ї": "yi",
+    "Ґ": "G",
+    "ґ": "g"
   };
 
   /**
@@ -3245,11 +3154,14 @@
    * @param {string} [pad=' '] The string to be used for padding.
    * @return {string} Returns the padded string.
    * @example
-   * v.pad('word', 6, '-');
-   * // => '-word-'
+   * v.pad('dog', 5);
+   * // => ' dog '
    *
-   * v.pad('hi', 5, '-=');
-   * // => '-hi-='
+   * v.pad('bird', 6, '-');
+   * // => '-bird-'
+   *
+   * v.pad('cat', 6, '-=');
+   * // => '-cat-='
    */
   function pad (subject, length, pad) {
     var subjectString = coerceToString(subject),
@@ -3300,12 +3212,12 @@
    * @param {RegExp} regExp The regular expression object.
    * @return {string} Returns the string with flags chars.
    */
-  function getRegularExpressionFlags (regExp) {
+  function getRegExpFlags (regExp) {
     return regExp.toString().match(REGEXP_FLAGS)[0];
   }
 
   /**
-   * Checks if `subject` includes `search` starting from `position`
+   * Checks whether `subject` includes `search` starting from `position`.
    *
    * @function includes
    * @static
@@ -3344,7 +3256,7 @@
    * @return {RegExp} The regular expression with added flag.
    */
   function appendFlagToRegularExpression (pattern, appendFlag) {
-    var regularExpressionFlags = getRegularExpressionFlags(pattern);
+    var regularExpressionFlags = getRegExpFlags(pattern);
     if (!includes(regularExpressionFlags, appendFlag)) {
       return new RegExp(pattern.source, regularExpressionFlags + appendFlag);
     }
@@ -3401,8 +3313,8 @@
 
   /**
    * Reverses the `subject` taking care of
-   * <a href="http://unicode.org/glossary/#surrogate_pair">surrogate pairs</a> and
-   * <a href="http://unicode.org/glossary/#combining_mark">combining marks</a>.
+   * <a href="https://rainsoft.io/what-every-javascript-developer-should-know-about-unicode/#24surrogatepairs">surrogate pairs</a> and
+   * <a href="https://rainsoft.io/what-every-javascript-developer-should-know-about-unicode/#25combiningmarks">combining marks</a>.
    *
    * @function reverseGrapheme
    * @static
@@ -3434,7 +3346,7 @@
   }
 
   /**
-   * Slugify the `subject`. Cleans the `subject` by replacing diacritics with corresponding latin characters.
+   * Slugifies the `subject`. Cleans the `subject` by replacing diacritics with corresponding latin characters.
    *
    * @function slugify
    * @static
@@ -3462,7 +3374,7 @@
   }
 
   /**
-   * Removes the whitespaces from the left part of the `subject`.
+   * Removes whitespaces from the left part of the `subject`.
    *
    * @function trimLeft
    * @static
@@ -3485,7 +3397,7 @@
     }
     var whitespaceString = toString(whitespace);
     if (isNil(whitespaceString)) {
-      return subjectString.replace(REGEX_TRIM_LEFT, '');
+      return subjectString.replace(REGEXP_TRIM_LEFT, '');
     }
     var matchWhitespace = true,
         totalWhitespaceLength = 0,
@@ -3501,7 +3413,7 @@
   }
 
   /**
-   * Removes the whitespaces from the right part of the `subject`.
+   * Removes whitespaces from the right part of the `subject`.
    *
    * @function trimRight
    * @static
@@ -3514,7 +3426,7 @@
    * v.trimRight('the fire rises   ');
    * // => 'the fire rises'
    *
-   * v.trimRight('do you feel in charge?---', '-');
+   * v.trimRight('do you feel in charge?!!!', '!');
    * // => 'do you feel in charge?'
    */
   function trimRight (subject, whitespace) {
@@ -3524,7 +3436,7 @@
     }
     var whitespaceString = toString(whitespace);
     if (isNil(whitespaceString)) {
-      return subjectString.replace(REGEX_TRIM_RIGHT, '');
+      return subjectString.replace(REGEXP_TRIM_RIGHT, '');
     }
     var matchWhitespace = true,
         totalWhitespaceLength = 0,
@@ -3543,7 +3455,7 @@
   }
 
   /**
-   * Removes the whitespaces from left and right parts of the `subject`.
+   * Removes whitespaces from left and right parts of the `subject`.
    *
    * @function trim
    * @static
@@ -3572,7 +3484,7 @@
   }
 
   /**
-   * Checks if `subject` ends with `end`.
+   * Checks whether `subject` ends with `end`.
    *
    * @function endsWith
    * @static
@@ -3608,7 +3520,7 @@
   }
 
   /**
-   * Checks if `subject` contains only alpha characters.
+   * Checks whether `subject` contains only alpha characters.
    *
    * @function isAlpha
    * @static
@@ -3632,7 +3544,7 @@
   }
 
   /**
-   * Checks if `subject` contains only alpha and digit characters.
+   * Checks whether `subject` contains only alpha and digit characters.
    *
    * @function isAlphaDigit
    * @static
@@ -3656,7 +3568,7 @@
   }
 
   /**
-   * Checks if `subject` is empty or contains only whitespaces.
+   * Checks whether `subject` is empty or contains only whitespaces.
    *
    * @function isBlank
    * @static
@@ -3680,7 +3592,7 @@
   }
 
   /**
-   * Checks if `subject` contains only digit characters.
+   * Checks whether `subject` contains only digit characters.
    *
    * @function isDigit
    * @static
@@ -3704,7 +3616,7 @@
   }
 
   /**
-   * Checks if `subject` is empty.
+   * Checks whether `subject` is empty.
    *
    * @function isEmpty
    * @static
@@ -3725,7 +3637,7 @@
   }
 
   /**
-   * Checks if `subject` has only lower case characters.
+   * Checks whether `subject` has only lower case characters.
    *
    * @function isLowerCase
    * @static
@@ -3749,7 +3661,7 @@
   }
 
   /**
-   * Checks if `subject` is numeric.
+   * Checks whether `subject` is numeric.
    *
    * @function isNumeric
    * @static
@@ -3773,7 +3685,7 @@
   }
 
   /**
-   * Checks if `subject` has only upper case characters.
+   * Checks whether `subject` contains only upper case characters.
    *
    * @function isUpperCase
    * @static
@@ -3794,7 +3706,7 @@
   }
 
   /**
-   * Checks if `subject` matches the regular expression `pattern`.
+   * Checks whether `subject` matches the regular expression `pattern`.
    *
    * @function matches
    * @static
@@ -3829,7 +3741,7 @@
   }
 
   /**
-   * Checks if `subject` starts with `start`.
+   * Checks whether `subject` starts with `start`.
    *
    * @function startsWith
    * @static

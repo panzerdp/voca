@@ -4,7 +4,7 @@ import latinise from '../manipulate/latinise';
 import { REGEXP_NON_LATIN } from '../helper/reg_exp/const';
 
 /**
- * Slugify the `subject`. Cleans the `subject` by replacing diacritics with corresponding latin characters.
+ * Slugifies the `subject`. Cleans the `subject` by replacing diacritics with corresponding latin characters.
  *
  * @function slugify
  * @static

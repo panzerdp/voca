@@ -4,7 +4,7 @@ import isNil from '../helper/object/is_nil';
 import toInteger from '../helper/number/to_integer';
 
 /**
- * Checks if `subject` ends with `end`.
+ * Checks whether `subject` ends with `end`.
  *
  * @function endsWith
  * @static

@@ -2,7 +2,7 @@ import coerceToString from '../helper/string/coerce_to_string';
 import isAlpha from './is_alpha';
 
 /**
- * Checks if `subject` has only upper case characters.
+ * Checks whether `subject` contains only upper case characters.
  *
  * @function isUpperCase
  * @static

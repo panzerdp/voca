@@ -5,7 +5,7 @@ import toInteger from '../helper/number/to_integer';
 import toString from '../helper/string/to_string';
 
 /**
- * Checks if `subject` includes `search` starting from `position`
+ * Checks whether `subject` includes `search` starting from `position`.
  *
  * @function includes
  * @static

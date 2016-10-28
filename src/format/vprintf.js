@@ -17,8 +17,8 @@ import sprintf from './sprintf';
  * v.vprintf('%s', ['Welcome'])
  * // => 'Welcome'
  *
- * v.vprintf('%s costs $%.2f', ['Coffee', 1.5]);
- * // => 'Coffee costs $1.50'
+ * v.vprintf('%s has %d apples', ['Alexandra', 3]);
+ * // => 'Alexandra has 3 apples'
  */
 export default function(format, replacements) {
   return sprintf(format, ...nilDefault(replacements, []));

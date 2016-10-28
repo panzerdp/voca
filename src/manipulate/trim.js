@@ -5,7 +5,7 @@ import trimLeft from './trim_left';
 import trimRight from './trim_right';
 
 /**
- * Removes the whitespaces from left and right parts of the `subject`.
+ * Removes whitespaces from left and right parts of the `subject`.
  *
  * @function trim
  * @static

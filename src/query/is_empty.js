@@ -1,7 +1,7 @@
 import coerceToString from '../helper/string/coerce_to_string';
 
 /**
- * Checks if `subject` is empty.
+ * Checks whether `subject` is empty.
  *
  * @function isEmpty
  * @static

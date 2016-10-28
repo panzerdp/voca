@@ -2,7 +2,7 @@ import coerceToString from '../helper/string/coerce_to_string';
 import { REGEXP_ALPHA } from '../helper/reg_exp/const';
 
 /**
- * Checks if `subject` contains only alpha characters.
+ * Checks whether `subject` contains only alpha characters.
  *
  * @function isAlpha
  * @static

@@ -1,5 +1,5 @@
 /**
- * Checks if `subject` is a string primitive type.
+ * Checks whether `subject` is a string primitive type.
  *
  * @function isString
  * @static

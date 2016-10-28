@@ -2,7 +2,7 @@ import coerceToString from '../helper/string/coerce_to_string';
 import { REGEXP_DIGIT } from '../helper/reg_exp/const';
 
 /**
- * Checks if `subject` contains only digit characters.
+ * Checks whether `subject` contains only digit characters.
  *
  * @function isDigit
  * @static

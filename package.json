@@ -13,7 +13,7 @@
     "report-coverage": "cat ./coverage/lcov.info | codecov",
     "verify": "npm run eslint && npm run coverage",
     "prepublish": "npm test",
-    "jsdoc": "jsdoc --configure .jsdoc.json && opn docs/index.html",
+    "jsdoc": "jsdoc --configure .jsdoc.json",
     "deploy": "rollup -c rollup.config.js && cp dist/voca.js docs/scripts && scp -r docs/* rainishere:/home/rainishere/webapps/voca_docs"
   },
   "repository": {

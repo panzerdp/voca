@@ -5,7 +5,7 @@ import toInteger from '../helper/number/to_integer';
 import toString from '../helper/string/to_string';
 
 /**
- * Checks if `subject` starts with `start`.
+ * Checks whether `subject` starts with `start`.
  *
  * @function startsWith
  * @static

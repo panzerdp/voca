@@ -1,7 +1,7 @@
 import isNil from '../helper/object/is_nil';
 
 /**
- * Checks if `subject` is numeric.
+ * Checks whether `subject` is numeric.
  *
  * @function isNumeric
  * @static
