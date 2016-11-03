@@ -46,21 +46,24 @@
     var containsQuery = contains.bind(undefined, query.toLowerCase());
     structure.forEach(function(categoryStructure) {
       var categoryNameMatch = containsQuery(categoryStructure.name);
-      if (!categoryNameMatch) {
+      if (categoryNameMatch) {
+        categoryStructure.functions.forEach(showStructure);
+        showStructure(categoryStructure);
+      } else {
+        var categoryHasMatchedFunctions = false;
         categoryStructure.functions.forEach(function(functionStructure) {
-          var functionNameMatch = containsQuery(functionStructure.name);
-          if (functionNameMatch) {
-            categoryNameMatch = true;
-            showElement(functionStructure.element);
+          if (containsQuery(functionStructure.name)) {
+            categoryHasMatchedFunctions = true;
+            showStructure(functionStructure);
           } else {
-            hideElement(functionStructure.element);
+            hideStructure(functionStructure);
           }
         });
-      }
-      if (categoryNameMatch) {
-        showElement(categoryStructure.element);
-      } else {
-        hideElement(categoryStructure.element);
+        if (categoryHasMatchedFunctions) {
+          showStructure(categoryStructure);
+        } else {
+          hideStructure(categoryStructure);
+        }
       }
     });
   }
@@ -70,10 +73,8 @@
       structure = getStructure();
     }
     structure.forEach(function(categoryStructure) {
-      showElement(categoryStructure.element);
-      categoryStructure.functions.forEach(function(functionStructure) {
-        showElement(functionStructure.element);
-      });
+      showStructure(categoryStructure);
+      categoryStructure.functions.forEach(showStructure);
     });
   }
 
@@ -102,11 +103,12 @@
     return subject.indexOf(query) !== -1;
   }
 
-  function hideElement(element) {
-    element.style.display = 'none';
+  function hideStructure(structure) {
+    structure.element.style.display = 'none';
   }
 
-  function showElement(element) {
+  function showStructure(structure) {
+    var element = structure.element;
     if (element.style.display !== '') {
       element.style.display = '';
     }

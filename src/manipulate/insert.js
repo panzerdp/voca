@@ -13,11 +13,11 @@ import coerceToString from '../helper/string/coerce_to_string';
  * @param {number} [position=0] The position to insert.
  * @return {string} Returns the string after insertion.
  * @example
- * v.repeat('w', 3);
- * // => 'www'
+ * v.insert('ct', 'a', 1);
+ * // => 'cat'
  *
- * v.repeat('world', 0);
- * // => ''
+ * v.insert('sunny', ' day', 5);
+ * // => 'sunny day'
  */
 export default function insert(subject, toInsert, position) {
   var subjectString = coerceToString(subject),
