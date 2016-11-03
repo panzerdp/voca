@@ -52,7 +52,7 @@
   "dependencies": {},
   "config": {
     "ghooks": {
-      
+      "pre-commit": "npm run eslint && npm run test"
     }
   }
 }

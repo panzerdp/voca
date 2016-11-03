@@ -11,7 +11,7 @@ import { REGEXP_NON_LATIN } from '../helper/reg_exp/const';
  * @since 1.0.0
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to slugify.
- * @return {string} The slugified string.
+ * @return {string} Returns the slugified string.
  * @example
  * v.slugify('Italian cappuccino drink');
  * // => 'italian-cappuccino-drink'

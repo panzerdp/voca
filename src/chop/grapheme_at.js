@@ -4,7 +4,7 @@ import nanDefault from '../helper/number/nan_default';
 import { REGEXP_UNICODE_CHARACTER } from '../helper/reg_exp/const';
 
 /**
- * Get a grapheme from `subject` at specific index taking care of
+ * Get a grapheme from `subject` at specified `position` taking care of
  * <a href="https://rainsoft.io/what-every-javascript-developer-should-know-about-unicode/#24surrogatepairs">surrogate pairs</a> and
  * <a href="https://rainsoft.io/what-every-javascript-developer-should-know-about-unicode/#25combiningmarks">combining marks</a>.
  *
@@ -13,8 +13,8 @@ import { REGEXP_UNICODE_CHARACTER } from '../helper/reg_exp/const';
  * @since 1.0.0
  * @memberOf Chop
  * @param  {string} [subject=''] The string to extract from.
- * @param  {number} index The index to get the character.
- * @return {string} Returns a grapheme.
+ * @param  {number} position The position to get the grapheme.
+ * @return {string} Returns the grapheme at specified position.
  * @example
  * v.graphemeAt('\uD835\uDC00\uD835\uDC01', 0); // or '𝐀𝐁'
  * // => 'A'
@@ -22,14 +22,14 @@ import { REGEXP_UNICODE_CHARACTER } from '../helper/reg_exp/const';
  * v.graphemeAt('cafe\u0301', 3); // or 'café'
  * // => 'é'
  */
-export default function(subject, index) {
+export default function(subject, position) {
   var subjectString = coerceToString(subject),
-    indexNumber = coerceToNumber(index),
+    positionNumber = coerceToNumber(position),
     graphemeMatch,
     graphemeMatchIndex = 0;
-  indexNumber = nanDefault(indexNumber, 0);
+  positionNumber = nanDefault(positionNumber, 0);
   while ((graphemeMatch = REGEXP_UNICODE_CHARACTER.exec(subjectString)) !== null) {
-    if (graphemeMatchIndex === indexNumber) {
+    if (graphemeMatchIndex === positionNumber) {
       REGEXP_UNICODE_CHARACTER.lastIndex = 0;
       return graphemeMatch[0];
     }

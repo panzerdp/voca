@@ -68,6 +68,7 @@ import search from './index/search';
  * Functions to manipulate a string
  * @namespace Manipulate
  */
+import insert from './manipulate/insert';
 import latinise from './manipulate/latinise';
 import pad from './manipulate/pad';
 import padLeft from './manipulate/pad_left';
@@ -153,6 +154,7 @@ export default {
   substring,
   truncate,
 
+  insert,
   latinise,
   pad,
   padLeft,

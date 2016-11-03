@@ -48,6 +48,7 @@ import './index/last_index_of';
 import './index/search';
 
 //manipulate
+import './manipulate/insert';
 import './manipulate/latinise';
 import './manipulate/repeat';
 import './manipulate/pad';
