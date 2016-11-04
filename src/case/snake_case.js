@@ -21,7 +21,7 @@ import words from '../split/words';
  * v.snakeCase('-Learning-To-Fly-');
  * // => 'learning_to_fly'
  */
-export default function(subject) {
+export default function snakeCase(subject) {
   var subjectString = coerceToString(subject);
   if (subjectString === '') {
     return '';

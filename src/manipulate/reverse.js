@@ -13,7 +13,7 @@ import coerceToString from '../helper/string/coerce_to_string';
  * v.reverse('winter');
  * // => 'retniw'
  */
-export default function(subject) {
+export default function reverse(subject) {
   var subjectString = coerceToString(subject);
   return subjectString.split('').reverse().join('');
 }

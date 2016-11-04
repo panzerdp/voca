@@ -21,7 +21,7 @@ import toInteger from '../helper/number/to_integer';
  * v.repeat('world', 0);
  * // => ''
  */
-export default function(subject, times) {
+export default function repeat(subject, times) {
   var subjectString = coerceToString(subject),
     timesInt = isNil(times) ? 1 : clipNumber(toInteger(times), 0, MAX_SAFE_INTEGER);
   var repeatString = '';

@@ -21,7 +21,7 @@ import trimRight from './trim_right';
  * v.trim('--Earth--', '-');
  * // => 'Earth'
  */
-export default function(subject, whitespace) {
+export default function trim(subject, whitespace) {
   var subjectString = coerceToString(subject);
   if (whitespace === '' || subjectString === '') {
     return subjectString;

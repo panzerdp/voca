@@ -24,7 +24,7 @@ import toInteger from '../helper/number/to_integer';
  * v.last('car', 5);
  * // => 'car'
  */
-export default function(subject, length) {
+export default function last(subject, length) {
   var subjectString = coerceToString(subject),
     lengthInt = isNil(length) ? 1 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
   if (subjectString.length <= lengthInt) {

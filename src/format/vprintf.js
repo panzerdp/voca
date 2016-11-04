@@ -20,6 +20,6 @@ import sprintf from './sprintf';
  * v.vprintf('%s has %d apples', ['Alexandra', 3]);
  * // => 'Alexandra has 3 apples'
  */
-export default function(format, replacements) {
+export default function vprintf(format, replacements) {
   return sprintf(format, ...nilDefault(replacements, []));
 }

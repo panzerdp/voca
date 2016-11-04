@@ -16,7 +16,7 @@ var previousV = globalObject.v;
  * voca.isAlhpa('Hello');
  * // => true
  */
-export default function () {
+export default function noConflict() {
   if (this === globalObject.v) {
     globalObject.v = previousV;
   }

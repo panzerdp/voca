@@ -18,7 +18,7 @@ import coerceToString from '../helper/string/coerce_to_string';
  * v.indexOf('evening', 'o');
  * // => -1
  */
-export default function(subject, search, fromIndex) {
+export default function indexOf(subject, search, fromIndex) {
   var subjectString = coerceToString(subject);
   return subjectString.indexOf(search, fromIndex);
 }

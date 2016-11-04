@@ -22,7 +22,7 @@ import { REGEXP_NON_LATIN } from '../helper/reg_exp/const';
  * v.slugify('хорошая погода');
  * // => 'horoshaya-pogoda'
  */
-export default function(subject) {
+export default function slugify(subject) {
   var subjectString = coerceToString(subject);
   if (subjectString === '') {
     return '';

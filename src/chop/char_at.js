@@ -17,7 +17,7 @@ import coerceToString from '../helper/string/coerce_to_string';
  * v.charAt('helicopter', 1);
  * // => 'e'
  */
-export default function(subject, position) {
+export default function charAt(subject, position) {
   var subjectString = coerceToString(subject);
   return subjectString.charAt(position);
 }

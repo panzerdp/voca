@@ -13,7 +13,7 @@ import coerceToString from '../helper/string/coerce_to_string';
  * v.chars('cloud');
  * // => ['c', 'l', 'o', 'u', 'd']
  */
-export default function(subject) {
+export default function chars(subject) {
   var subjectString = coerceToString(subject);
   return subjectString.split('');
 }

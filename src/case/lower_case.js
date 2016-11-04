@@ -13,7 +13,7 @@ import coerceToString from '../helper/string/coerce_to_string';
  * v.lowerCase('Green');
  * // => 'green'
  */
-export default function(subject) {
+export default function lowerCase(subject) {
   var subjectString = coerceToString(subject, '');
   return subjectString.toLowerCase();
 }

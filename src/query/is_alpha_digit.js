@@ -20,7 +20,7 @@ import { REGEXP_ALPHA_DIGIT } from '../helper/reg_exp/const';
  * v.isAlphaDigit('40-20');
  * // => false
  */
-export default function(subject) {
+export default function isAlphaDigit(subject) {
   var subjectString = coerceToString(subject);
   return REGEXP_ALPHA_DIGIT.test(subjectString);
 }

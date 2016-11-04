@@ -170,6 +170,14 @@ export var REGEXP_WORD = new RegExp(
 export var REGEXP_NON_LATIN = /[\W]/g;
 
 /**
+ * Regular expression to match ASCII characters
+ *
+ * @type {RegExp}
+ * @ignore
+ */
+export var REGEXP_ASCII = /^[\x00-\xFF]*$/;
+
+/**
  * Regular expression to match HTML special characters.
  *
  * @type {RegExp}

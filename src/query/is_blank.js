@@ -19,7 +19,7 @@ import coerceToString from '../helper/string/coerce_to_string';
  * v.isBlank('World');
  * // => false
  */
-export default function(subject) {
+export default function isBlank(subject) {
   var subjectString = coerceToString(subject);
   return subjectString.trim().length === 0;
 }

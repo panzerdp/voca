@@ -34,6 +34,6 @@ function replaceSpecialCharacter(character) {
  * v.escapeHtml('<p>wonderful world</p>');
  * // => '&lt;p&gt;wonderful world&lt;/p&gt;'
  */
-export default function(subject) {
+export default function escapeHtml(subject) {
   return coerceToString(subject).replace(REGEXP_HTML_SPECIAL_CHARACTERS, replaceSpecialCharacter);
 }

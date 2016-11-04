@@ -22,7 +22,7 @@ var reduce = Array.prototype.reduce;
  * });
  * // => 3
  */
-export default function(subject, predicate, context) {
+export default function countWhere(subject, predicate, context) {
   var subjectString = coerceToString(subject);
   if (subjectString === '' || typeof predicate !== 'function') {
     return 0;

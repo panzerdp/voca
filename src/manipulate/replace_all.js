@@ -21,7 +21,7 @@ import escapeRegExp from '~/escape/escape_reg_exp';
  * // => 'evesisg'
  *
  */
-export default function(subject, pattern, replacement) {
+export default function replaceAll(subject, pattern, replacement) {
   var subjectString = coerceToString(subject),
     regExp = pattern;
   if (!(pattern instanceof RegExp)) {

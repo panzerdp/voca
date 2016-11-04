@@ -22,7 +22,7 @@ import { REGEXP_UNICODE_CHARACTER } from '../helper/reg_exp/const';
  * v.graphemeAt('cafe\u0301', 3); // or 'café'
  * // => 'é'
  */
-export default function(subject, position) {
+export default function graphemeAt(subject, position) {
   var subjectString = coerceToString(subject),
     positionNumber = coerceToNumber(position),
     graphemeMatch,

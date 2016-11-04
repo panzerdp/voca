@@ -22,7 +22,7 @@ import words from '../split/words';
  * v.kebabCase('-Goodbye-Blue-Sky-');
  * // => 'goodbye-blue-sky'
  */
-export default function(subject) {
+export default function kebabCase(subject) {
   var subjectString = coerceToString(subject);
   if (subjectString === '') {
     return '';

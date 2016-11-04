@@ -20,7 +20,7 @@ import isAlpha from './is_alpha';
  * v.isLowerCase('T1000');
  * // => false
  */
-export default function(subject) {
+export default function isLowerCase(subject) {
   var valueString = coerceToString(subject);
   return isAlpha(valueString) && valueString.toLowerCase() === valueString;
 }

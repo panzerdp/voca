@@ -25,7 +25,7 @@ import toInteger from '../helper/number/to_integer';
  * v.truncate('Once upon', 10);
  * // => 'Once upon'
  */
-export default function(subject, length, end) {
+export default function truncate(subject, length, end) {
   var subjectString = coerceToString(subject),
     lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
     endString = coerceToString(end, '...');

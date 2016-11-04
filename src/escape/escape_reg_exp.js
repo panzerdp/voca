@@ -14,6 +14,6 @@ import { REGEXP_SPECIAL_CHARACTERS } from '../helper/reg_exp/const';
  * v.escapeRegExp('(hours)[minutes]{seconds}');
  * // => '\(hours\)\[minutes\]\{seconds\}'
  */
-export default function(subject) {
+export default function escapeRegExp(subject) {
   return coerceToString(subject).replace(REGEXP_SPECIAL_CHARACTERS, '\\$&');
 }

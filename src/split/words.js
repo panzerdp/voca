@@ -22,7 +22,7 @@ import toString from '../helper/string/to_string';
  * v.words('gravity', /\w{1,2}/g);
  * // => ['gr', 'av', 'it', 'y']
  */
-export default function(subject, pattern, flags) {
+export default function words(subject, pattern, flags) {
   var subjectString = coerceToString(subject),
     patternRegExp;
   if (isNil(pattern)) {

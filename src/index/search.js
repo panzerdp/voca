@@ -21,7 +21,7 @@ import toInteger from '../helper/number/to_integer';
  * v.search('evening', '/\d/');
  * // => -1
  */
-export default function(subject, pattern, fromIndex) {
+export default function search(subject, pattern, fromIndex) {
   var subjectString = coerceToString(subject),
     fromIndexNumber = isNil(fromIndex) ? 0 : clipNumber(toInteger(fromIndex), 0, subjectString.length);
   var matchIndex  = subjectString.substr(fromIndexNumber).search(pattern);

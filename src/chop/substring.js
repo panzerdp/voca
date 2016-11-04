@@ -20,6 +20,6 @@ import coerceToString from '../helper/string/coerce_to_string';
  * v.substring('ocean', 1, 3);
  * // => 'ea'
  */
-export default function(subject, start, end) {
+export default function substring(subject, start, end) {
   return coerceToString(subject).substring(start, end);
 }

@@ -36,7 +36,7 @@ function reduceUnescapedString(string, key) {
  * v.unescapeHtml('&lt;p&gt;wonderful world&lt;/p&gt;');
  * // => '<p>wonderful world</p>'
  */
-export default function(subject) {
+export default function unescapeHtml(subject) {
   var subjectString = coerceToString(subject);
   return characters.reduce(reduceUnescapedString, subjectString);
 }

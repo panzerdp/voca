@@ -177,7 +177,7 @@ import replacementMatch from './helper/replacement/match';
  * // => '1.01e+2 0.455'
  * 
  */
-export default function(format, ...replacements) {
+export default function sprintf(format, ...replacements) {
   var formatString = coerceToString(format);
   if (formatString === '') {
     return formatString;

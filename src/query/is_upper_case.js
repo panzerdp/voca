@@ -17,7 +17,7 @@ import isAlpha from './is_alpha';
  * v.isUpperCase('Morning');
  * // => false
  */
-export default function(subject) {
+export default function isUpperCase(subject) {
   var subjectString = coerceToString(subject);
   return isAlpha(subjectString) && subjectString.toUpperCase() === subjectString;
 }

@@ -19,7 +19,7 @@ import coerceToString from '../helper/string/coerce_to_string';
  * // => [128512, 32, 115, 109, 105, 108, 101], or
  * //    [0x1F600, 0x20, 0x73, 0x6D, 0x69, 0x6C, 0x65]
  */
-export default function(subject) {
+export default function codePoints(subject) {
   var subjectString = coerceToString(subject),
     subjectStringLength = subjectString.length,
     codePointArray = [],

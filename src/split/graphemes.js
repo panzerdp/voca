@@ -22,7 +22,7 @@ import { REGEXP_UNICODE_CHARACTER } from '../helper/reg_exp/const';
  * // => ['c', 'a', 'f', 'e\u0301'], or
  * //    ['c', 'a', 'f', 'é']
  */
-export default function(subject) {
+export default function graphemes(subject) {
   var subjectString = coerceToString(subject);
   return nilDefault(subjectString.match(REGEXP_UNICODE_CHARACTER), []);
 }

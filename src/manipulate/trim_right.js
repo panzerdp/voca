@@ -20,7 +20,7 @@ import toString from '../helper/string/to_string';
  * v.trimRight('do you feel in charge?!!!', '!');
  * // => 'do you feel in charge?'
  */
-export default function(subject, whitespace) {
+export default function trimRight(subject, whitespace) {
   var subjectString = coerceToString(subject);
   if (whitespace === '' || subjectString === '') {
     return subjectString;

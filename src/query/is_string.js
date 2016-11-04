@@ -14,6 +14,6 @@
  * v.isString(560);
  * // => false
  */
-export default function (subject) {
+export default function isString(subject) {
   return typeof subject === 'string';
 }

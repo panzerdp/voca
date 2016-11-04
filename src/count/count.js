@@ -13,6 +13,6 @@ import coerceToString from '../helper/string/coerce_to_string';
  * v.count('rain');
  * // => 4
  */
-export default function(subject) {
+export default function count(subject) {
   return coerceToString(subject).length;
 }

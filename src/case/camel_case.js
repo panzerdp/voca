@@ -34,7 +34,7 @@ function wordToCamel(word, index) {
  * v.camelCase('-BIRD-FLIGHT-');
  * // => 'birdFlight'
  */
-export default function(subject) {
+export default function camelCase(subject) {
   var subjectString = coerceToString(subject);
   if (subjectString === '') {
     return '';

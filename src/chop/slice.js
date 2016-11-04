@@ -23,6 +23,6 @@ import coerceToString from '../helper/string/coerce_to_string';
  * v.slice('florida', 1, 4);
  * // => "lor"
  */
-export default function(subject, start, end) {
+export default function slice(subject, start, end) {
   return coerceToString(subject).slice(start, end);
 }

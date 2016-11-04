@@ -24,7 +24,7 @@ import nanDefault from '../helper/number/nan_default';
  * v.codePointAt('\uD83D\uDE00 is smile', 0); // or '😀 is smile'
  * // => 128512, or 0x1F600
  */
-export default function(subject, position) {
+export default function codePointAt(subject, position) {
   var subjectString = coerceToString(subject),
     subjectStringLength = subjectString.length,
     positionNumber = coerceToNumber(position);

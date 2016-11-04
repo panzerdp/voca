@@ -17,6 +17,6 @@ import ChainWrapper from './wrapper';
  *  .value()
  * // => ['back', 'to', 'school']
  */
-export default function (subject) {
+export default function chain(subject) {
   return new ChainWrapper(subject, true);
 }

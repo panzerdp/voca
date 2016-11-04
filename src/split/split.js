@@ -18,7 +18,7 @@ import coerceToString from '../helper/string/coerce_to_string';
  * v.split('the dying of the light', /\s/, 3);
  * // => ['the', 'dying', 'of']
  */
-export default function(subject, separator, limit) {
+export default function split(subject, separator, limit) {
   var subjectString = coerceToString(subject);
   return subjectString.split(separator, limit);
 }

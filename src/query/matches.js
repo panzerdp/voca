@@ -22,7 +22,7 @@ import toString from '../helper/string/to_string';
  * v.matches('apollo 11', '\\d{3}');
  * // => false
  */
-export default function(subject, pattern, flags) {
+export default function matches(subject, pattern, flags) {
   var subjectString = coerceToString(subject),
     flagsString = coerceToString(flags),
     patternString;

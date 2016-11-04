@@ -19,6 +19,6 @@ import coerceToString from '../helper/string/coerce_to_string';
  * v.substr('dreams', 2, 2);
  * // => 'ea'
  */
-export default function(subject, start, length) {
+export default function substr(subject, start, length) {
   return coerceToString(subject).substr(start, length);
 }

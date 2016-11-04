@@ -26,7 +26,7 @@ import toInteger from '../helper/number/to_integer';
  * v.pad('cat', 6, '-=');
  * // => '-cat-='
  */
-export default function(subject, length, pad) {
+export default function pad(subject, length, pad) {
   var subjectString = coerceToString(subject),
     lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
     padString = coerceToString(pad, ' ');

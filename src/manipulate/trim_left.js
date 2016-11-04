@@ -20,7 +20,7 @@ import toString from '../helper/string/to_string';
  * v.trimLeft('***Mobile Infantry', '*');
  * // => 'Mobile Infantry'
  */
-export default function(subject, whitespace) {
+export default function trimLeft(subject, whitespace) {
   var subjectString = coerceToString(subject);
   if (whitespace === '' || subjectString === '') {
     return subjectString;

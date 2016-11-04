@@ -44,7 +44,7 @@ function removeCombiningMarks(character, cleanCharacter) {
  * v.latinise('как прекрасен этот мир');
  * // => 'kak prekrasen etot mir'
  */
-export default function(subject) {
+export default function latinise(subject) {
   var subjectString = coerceToString(subject);
   if (subjectString === '') {
     return subjectString;

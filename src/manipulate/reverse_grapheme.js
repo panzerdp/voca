@@ -19,14 +19,14 @@ import coerceToString from '../helper/string/coerce_to_string';
  * v.reverseGrapheme('𝌆 bar mañana mañana');
  * // => 'anañam anañam rab 𝌆'
  */
-export default function reverseCodePoint(subject) {
+export default function reverseGrapheme(subject) {
   var subjectString = coerceToString(subject);
   /**
    * @see https://github.com/mathiasbynens/esrever
    */
   subjectString = subjectString
     .replace(REGEXP_COMBINING_MARKS, function($0, $1, $2) {
-      return reverseCodePoint($2) + $1;
+      return reverseGrapheme($2) + $1;
     })
     .replace(REGEXP_SURROGATE_PAIRS, '$2$1');
   var reversedString = '',

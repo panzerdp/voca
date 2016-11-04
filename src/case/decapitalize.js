@@ -13,7 +13,7 @@ import coerceToString from '../helper/string/coerce_to_string';
  * v.decapitalize('Sun');
  * // => 'sun'
  */
-export default function(subject) {
+export default function decapitalize(subject) {
   var subjectString = coerceToString(subject);
   if (subjectString === '') {
     return subjectString;

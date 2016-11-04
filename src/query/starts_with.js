@@ -25,7 +25,7 @@ import toString from '../helper/string/to_string';
  * v.startsWith('the world is yours', 'world');
  * // => false
  */
-export default function(subject, start, position) {
+export default function startsWith(subject, start, position) {
   var subjectString = coerceToString(subject),
     startString = toString(start);
   if (startString === null) {

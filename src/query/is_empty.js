@@ -16,7 +16,7 @@ import coerceToString from '../helper/string/coerce_to_string';
  * v.isEmpty('  ');
  * // => false
  */
-export default function(subject) {
+export default function isEmpty(subject) {
   var subjectString = coerceToString(subject);
   return subjectString.length === 0;
 }

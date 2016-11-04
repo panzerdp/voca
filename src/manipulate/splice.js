@@ -15,17 +15,19 @@ import coerceToString from '../helper/string/coerce_to_string';
  * @param {string} [toAdd=''] The string to be added instead of deleted characters.
  * @return {string} Returns the modified string.
  * @example
- * v.splice('w', 3);
- * // => 'www'
+ * v.splice('new year', 0, 4);
+ * // => 'year'
  *
- * v.splice('world', 0);
- * // => ''
+ * v.splice('new year', 0, 3, 'happy');
+ * // => 'happy year'
+ *
+ * v.splice('new year', -4, 4, 'day');
+ * // => 'new day'
  */
 export default function splice(subject, start, deleteCount, toAdd) {
-  var subjectString = coerceToString(subject),
-    startPosition = coerceToNumber(start),
-    deleteCountNumber = coerceToNumber(deleteCount),
-    toAddString = coerceToString(toAdd);
+  var subjectString = coerceToString(subject);
+  var startPosition = coerceToNumber(start);
+  var toAddString = coerceToString(toAdd);
   if (startPosition < 0) {
     startPosition = subjectString.length + startPosition;
     if (startPosition < 0) {
@@ -33,6 +35,10 @@ export default function splice(subject, start, deleteCount, toAdd) {
     }
   } else if (startPosition > subjectString.length) {
     startPosition = subjectString.length;
+  }
+  var deleteCountNumber = coerceToNumber(deleteCount, subjectString.length - startPosition);
+  if (deleteCountNumber < 0) {
+    deleteCountNumber = 0;
   }
   return subjectString.slice(0, startPosition) + toAddString + subjectString.slice(startPosition + deleteCountNumber);
 }

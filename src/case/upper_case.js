@@ -13,7 +13,7 @@ import coerceToString from '../helper/string/coerce_to_string';
  * v.upperCase('school');
  * // => 'SCHOOL'
  */
-export default function(subject) {
+export default function upperCase(subject) {
   var subjectString = coerceToString(subject);
   return subjectString.toUpperCase();
 }

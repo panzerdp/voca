@@ -19,7 +19,7 @@ import coerceToString from '../helper/string/coerce_to_string';
  * v.capitalize('aPPle', true);
  * // => 'Apple'
  */
-export default function(subject, restToLower) {
+export default function capitalize(subject, restToLower) {
   var subjectString = coerceToString(subject),
     restToLowerCaseBoolean = coerceToBoolean(restToLower);
   if (subjectString === '') {

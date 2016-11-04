@@ -18,7 +18,7 @@ import coerceToString from '../helper/string/coerce_to_string';
  * v.lastIndexOf('evening', 'o');
  * // => -1
  */
-export default function(subject, search, fromIndex) {
+export default function lastIndexOf(subject, search, fromIndex) {
   var subjectString = coerceToString(subject);
   return subjectString.lastIndexOf(search, fromIndex);
 }

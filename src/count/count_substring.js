@@ -17,7 +17,7 @@ import coerceToString from '../helper/string/coerce_to_string';
  * v.countSubstring('every dog has its day', 'cat');
  * // => 0
  */
-export default function(subject, substring) {
+export default function countSubstring(subject, substring) {
   var subjectString = coerceToString(subject),
     substringString = coerceToString(substring),
     count = 0,
