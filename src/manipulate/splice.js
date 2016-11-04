@@ -2,7 +2,8 @@ import coerceToNumber from '../helper/number/coerce_to_number';
 import coerceToString from '../helper/string/coerce_to_string';
 
 /**
- * Changes `subject` by removing a substring and adding a new string.
+ * Changes `subject` by deleting `deleteCount` of characters starting at position `start`. Places a new string
+ * `toAdd` instead of deleted characters.
  *
  * @function splice
  * @static
@@ -11,7 +12,7 @@ import coerceToString from '../helper/string/coerce_to_string';
  * @param {string} [subject=''] The string where to insert.
  * @param {string} start The position to start changing the string. For a negative position will start from the end of
  * the string.
- * @param {number} [deleteCount=0] The number of characters to delete from string.
+ * @param {number} [deleteCount=subject.length-start] The number of characters to delete from string.
  * @param {string} [toAdd=''] The string to be added instead of deleted characters.
  * @return {string} Returns the modified string.
  * @example

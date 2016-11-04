@@ -151,7 +151,7 @@ export var REGEXP_SPECIAL_CHARACTERS = /[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g;
 var lowerCaseLetterClass = '(?![' + upLetter + '])[^' + nonLetter + ']';
 
 /**
- * Regular expression to match words
+ * Regular expression to match Unicode words
  *
  * @type {RegExp}
  * @ignore
@@ -160,6 +160,14 @@ export var REGEXP_WORD = new RegExp(
 '(?:(?:[' + upLetter + '][' + diacriticalMark + ']*)?(?:' + lowerCaseLetterClass + '[' + diacriticalMark + ']*)+)|\
 (?:(?:[' + upLetter + '][' + diacriticalMark + ']*)+(?!' + lowerCaseLetterClass + '))|\
 (?:[' + digit + ']+)', 'g');
+
+/**
+ * Regular expression to match Unicode words
+ *
+ * @type {RegExp}
+ * @ignore
+ */
+export var REGEXP_ASCII_WORD = /(?:[A-Z]?[a-z]+)|(?:[A-Z]+(?![a-z]))|(?:\d+)/g;
 
 /**
  * Regular expression to match not latin characters
