@@ -19,6 +19,12 @@ import toString from '../helper/string/to_string';
  * v.words('gravity can cross dimensions');
  * // => ['gravity', 'can', 'cross', 'dimensions']
  *
+ * v.words('GravityCanCrossDimensions');
+ * // => ["Gravity", "Can", "Cross", "Dimensions"]
+ *
+ * v.words('Gravity - can cross dimensions!');
+ * // => ["Gravity", "can", "cross", "dimensions"]
+ *
  * v.words('gravity', /\w{1,2}/g);
  * // => ['gr', 'av', 'it', 'y']
  */
