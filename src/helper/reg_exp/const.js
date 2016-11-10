@@ -162,12 +162,12 @@ export var REGEXP_WORD = new RegExp(
 (?:[' + digit + ']+)', 'g');
 
 /**
- * Regular expression to match Unicode words
+ * Regular expression to match words from Basic Latin and Latin-1 Supplement blocks
  *
  * @type {RegExp}
  * @ignore
  */
-export var REGEXP_ASCII_WORD = /(?:[A-Z]?[a-z]+)|(?:[A-Z]+(?![a-z]))|(?:\d+)/g;
+export var REGEXP_LATIN_WORD = /(?:[A-Z\xC0-\xD6\xD8-\xDE]?[a-z\xDF-\xF6\xF8-\xFF]+)|(?:[A-Z\xC0-\xD6\xD8-\xDE]+(?![a-z\xDF-\xF6\xF8-\xFF]))|(?:\d+)/g;
 
 /**
  * Regular expression to match not latin characters
@@ -178,12 +178,12 @@ export var REGEXP_ASCII_WORD = /(?:[A-Z]?[a-z]+)|(?:[A-Z]+(?![a-z]))|(?:\d+)/g;
 export var REGEXP_NON_LATIN = /[\W]/g;
 
 /**
- * Regular expression to match ASCII characters
+ * Regular expression to match Basic Latin and Latin-1 Supplement blocks
  *
  * @type {RegExp}
  * @ignore
  */
-export var REGEXP_ASCII = /^[\x00-\xFF]*$/;
+export var REGEXP_LATIN = /^[\x00-\xFF]*$/;
 
 /**
  * Regular expression to match HTML special characters.

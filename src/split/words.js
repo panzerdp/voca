@@ -1,7 +1,7 @@
+import { REGEXP_LATIN, REGEXP_LATIN_WORD, REGEXP_WORD } from '../helper/reg_exp/const';
 import coerceToString from '../helper/string/coerce_to_string';
 import isNil from '../helper/object/is_nil';
 import nilDefault from '../helper/undefined/nil_default';
-import { REGEXP_WORD } from '../helper/reg_exp/const';
 import toString from '../helper/string/to_string';
 
 /**
@@ -26,7 +26,7 @@ export default function words(subject, pattern, flags) {
   var subjectString = coerceToString(subject),
     patternRegExp;
   if (isNil(pattern)) {
-    patternRegExp = REGEXP_WORD;
+    patternRegExp = REGEXP_LATIN.test(subjectString) ? REGEXP_LATIN_WORD : REGEXP_WORD;
   } else if (pattern instanceof RegExp) {
     patternRegExp = pattern;
   } else {
