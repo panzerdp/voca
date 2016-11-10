@@ -1,80 +1,63 @@
-![Image](jsdoc/template/static/images/voca-logo250px.png)
+![Image](https://github.com/panzerdp/voca/raw/master/jsdoc/template/static/images/voca-logo250px.png)
 
-**The ultimate JavaScript string library**
+**The ultimate JavaScript string library** [https://vocajs.com](https://vocajs.com)
 
 [![travis build](https://img.shields.io/travis/panzerdp/voca.svg)](https://travis-ci.org/panzerdp/voca)
-[![sauce test status](https://saucelabs.com/buildstatus/panzerdp)](https://saucelabs.com/u/panzerdp)
 [![code coverage](https://img.shields.io/codecov/c/github/panzerdp/voca.svg)](https://codecov.io/github/panzerdp/voca)
+[![sauce test status](https://saucelabs.com/buildstatus/panzerdp)](https://saucelabs.com/u/panzerdp)
 [![dependencies](https://david-dm.org/panzerdp/voca.svg)](https://david-dm.org/panzerdp/voca)
 
-## Work in progress
+## Features
 
-Voca is still in early design and development. Many important features are in progress or planned.  
-
-## Scope
-
-[Voca](https://vocajs.com) provides the full set of methods for working with **strings** in JavaScript. The main benefits:
-
-*  Contains a complete set of methods for strings manipulation, format and query
-*  100% test coverage
-*  Comfortable [documentation](https://vocajs.com)
-*  Provides modularity and clean code
+*  Provides the complete set of functions to manipulate, chop, format, escape and query strings
+*  Covered by detailed and comfortable [documentation](https://vocajs.com)
+*  Supports a wide range of environments: Chrome, Firefox, Safari 7+, IE 9+, NodeJS 0.10+
+*  100% code coverage
+*  No dependencies
 
 ## Documentation
 
-See the detailed API documentation on [vocajs.com](https://vocajs.com)
+See the complete documentation at [https://vocajs.com](https://vocajs.com)
 
 ## Usage
-Voca can be used in various environments.  
+Voca can be used in various environments.
 
-#### Node.js, browserify or rollup
-Install the library using npm into your local modules directory:
+#### Node.js, Rollup, Browserify
+Install the library with npm into your local modules directory:
 
 ```bash
-npm install --save voca
+npm install voca
 ```
 
-Then use the commonjs format:
+Then use the CommonJS format:
 ```javascript
-// Get the entire library
 var v = require('voca');
-
 v.trim(' Hello World! ');
 // => 'Hello World!'
+v.sprintf('%s costs $%.2f', 'Coffee', 1.5);
+// => 'Coffee costs $1.50'
 
-// Get a single method (work in progress...)
-var isAlpha = require('voca/is_alpha');
-
-isAlpha('earth');
-// => true
+var words = require('voca/words');
+words('welcome to Earth');
+// => ['welcome', 'to', 'Earth']
 ```
 
-Or use the ECMAScript 6 import format:
+Or use the ES2015 import format:
 
 ```javascript
-// Get the entire library
 import v from 'voca';
-
 v.trim(' Hello World! ');
 // => 'Hello World'
+v.sprintf('%s costs $%.2f', 'Coffee', 1.5);
+// => 'Coffee costs $1.50'
 
-// Get a list of methods
-import {trimLeft as tl, isDigit} from 'voca';
-
-tl(' moon');
-// => 'moon'
-isDigit('340');
-// => true
-
-// Get a single method (work in progress...)
-import isAlpha from 'voca/is_alpha';
-
-isAlpha('welcome');
-// => true
+import words from 'voca/words';
+words('welcome to Earth');
+// => ['welcome', 'to', 'Earth']
 ```
 
 #### Browser
-Use a `script` tag to load the library into a web page:
+Use `dist/voca.js` or `dist/voca.min.js` builds to load the library directly into Browser's web page:
 
 ```html
 <script src="path-to-scripts/voca.js" type="text/javascript"></script>
@@ -89,51 +72,25 @@ Then a global variable `v` is exposed:
 </script>
 ```
 
-## Bug report or question
+## Bug reports
 
-If you found a problem in the source code or documentation do not hesitate to create an [issue](https://github.com/panzerdp/voca/issues). 
-Before filling an issue make sure that someone didn't report it already.  
-For general usage questions a better place is to ask on [StackOverflow](http://stackoverflow.com/questions/ask).
+For bug reports, documentation typos or feature requests feel free to create an [issue](https://github.com/panzerdp/voca/issues).
+Before filling an issue, make sure that someone didn't report the same problem already.
+
+For general usage questions please ask on [StackOverflow](http://stackoverflow.com/questions/ask).
 
 ## Contribution
 
-Contribution is always welcome. You can do this by:
+Contribution is welcome!
 
-* Create a pull request containing bug fixes or new features. Include unit tests (of course library should pass them) and keep the coverage report at 100%
-* [Create an issue](https://github.com/panzerdp/voca/issues) with a bug report or improvement idea
-* Suggest better documentation
+You can do this by:
+* Create a pull request containing bug fixes or new features. Include unit tests and keep the code coverage report near 100% (yep, perfectionism 😎)
+* Propose new functions, improvements, better documentation
 
 ## Development
 
-Clone the repo into your project directory.  
-Then install the development dependencies within Voca source directory:
+Visit the [development section](https://github.com/panzerdp/voca/blob/master/markdown/DEVELOPMENT.md) to find more details.
 
-```bash
-npm install
-```
-
-Build the bundle into `dist/` folder.  
-`dist/voca.js` is an [UMD](https://github.com/umdjs/umd) build compatible with CommonJS, RequireJS and browser globals.   
-`dist/voca.es6.js` is an [ES6 module format](https://github.com/rollup/rollup/wiki/jsnext:main) build.  
-
-```bash
-npm run build
-```
-
-Unit test the library:
-```bash
-npm test
-```
-
-Verify the test coverage:
-```bash
-npm run coverage
-```
-
-Check the code using eslint tool:
-```bash
-npm run eslint
-``` 
 
 ## Author
 
@@ -141,5 +98,4 @@ npm run eslint
 
 ## License
 
-Licensed under the [MIT License](https://github.com/panzerdp/voca/blob/master/LICENSE)
-
+Licensed under the [MIT License](https://github.com/panzerdp/voca/blob/master/markdown/LICENSE)
