@@ -97,7 +97,6 @@ h6 {
 tt, code, kbd, samp {
   font-family: Consolas, "Courier New", monospace;
   background: #f4f4f4;
-  padding: 1px 5px;
 }
 
 .class-description {
