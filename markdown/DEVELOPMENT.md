@@ -1,6 +1,6 @@
-Clone the repo into your project directory.
+Fork the repostiory, the clone the repo into your project directory.
 
-Then install the development dependencies within Voca source directory:
+Install the development dependencies within Voca source directory:
 ```bash
 npm install
 ```

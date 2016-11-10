@@ -75,7 +75,7 @@ Then a global variable `v` is exposed:
 ## Bug reports
 
 For bug reports, documentation typos or feature requests feel free to create an [issue](https://github.com/panzerdp/voca/issues).
-Before filling an issue, make sure that someone didn't report the same problem already.
+Please make sure that someone didn't report the same problem already.
 
 For general usage questions please ask on [StackOverflow](http://stackoverflow.com/questions/ask).
 
