@@ -7,6 +7,8 @@
 [![sauce test status](https://saucelabs.com/buildstatus/panzerdp)](https://saucelabs.com/u/panzerdp)
 [![dependencies](https://david-dm.org/panzerdp/voca.svg)](https://david-dm.org/panzerdp/voca)
 
+Voca is the JavaScript library that helps manipulate strings easy and comfortable.    
+
 ## Features
 
 *  Provides the complete set of functions to manipulate, chop, format, escape and query strings
@@ -29,7 +31,10 @@ Install the library with npm into your local modules directory:
 npm install voca
 ```
 
-Then use the CommonJS format:
+You can require the entire library or individual functions.  
+
+Use the CommonJS format:
+
 ```javascript
 var v = require('voca');
 v.trim(' Hello World! ');
@@ -57,7 +62,7 @@ words('welcome to Earth');
 ```
 
 #### Browser
-Use `dist/voca.js` or `dist/voca.min.js` builds to load the library directly into Browser's web page:
+Use `dist/voca.min.js` (minified production-ready) or `dist/voca.js` builds to load the library directly into browser's web page:
 
 ```html
 <script src="path-to-scripts/voca.js" type="text/javascript"></script>
@@ -74,8 +79,8 @@ Then a global variable `v` is exposed:
 
 ## Bug reports
 
-For bug reports, documentation typos or feature requests feel free to create an [issue](https://github.com/panzerdp/voca/issues).
-Please make sure that someone didn't report the same problem already.
+For bug reports, documentation typos or feature requests feel free to create an [issue](https://github.com/panzerdp/voca/issues).  
+Please make sure that someone didn't report already the same problem.
 
 For general usage questions please ask on [StackOverflow](http://stackoverflow.com/questions/ask).
 

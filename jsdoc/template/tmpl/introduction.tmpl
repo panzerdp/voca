@@ -32,26 +32,25 @@
       </a>
     </p>
 
-     <h3>Work in progress</h3>
+     <p>Voca is the JavaScript library that helps manipulate strings easily and comfortable.</p>
 
-     <p>Voca is still in early design and development. Many important features are in progress or planned.</p>
-
-     <h3>Scope</h3>
-
-     <p>Voca provides the full set of methods for working with strings in JavaScript. The main benefits:</p>
+     <h3>Features</h3>
 
      <ul>
        <li>
-         Contains a complete set of methods for strings manipulation, format and query
+         Provides the complete set of functions to manipulate, chop, format, escape and query strings
        </li>
        <li>
-         100% test coverage
+         Covered by detailed and comfortable
        </li>
        <li>
-         Comfortable documentation
+         Supports a wide range of environments: Chrome, Firefox, Safari 7+, IE 9+, NodeJS 0.10+
        </li>
        <li>
-         Provides modularity and clean code
+         100% code coverage
+       </li>
+       <li>
+         No dependencies
        </li>
      </ul>
 
@@ -59,55 +58,29 @@
 
      <p>Voca can be used in various environments.</p>
 
-     <p><b>Node.js, browserify or rollup</b></p>
+     <p><b>Node.js, Rollup, Browserify</b></p>
 
-     Install the library using npm into your local modules directory:
+     Install the library with npm into your local modules directory:
 
-     <pre class="prettyprint"><code class="language-javascript">npm install --save voca</code></pre>
+     <pre class="prettyprint"><code class="language-javascript">npm install voca</code></pre>
 
-     Then use the commonjs format:
 
-<pre class="prettyprint">
-<code class="language-javascript">// Get the entire library
-var v = require('voca');
+Then in your application import the entire library:
 
-v.trim(' Hello World! ');
-// => 'Hello World!'
-
-// Get a single method (work in progress...)
-var isAlpha = require('voca/is_alpha');
-
-isAlpha('earth');
-// => true
-</code></pre>
-
-Or use the ECMAScript 6 import format:
-
-<pre class="prettyprint">
-<code class="language-javascript">// Get the entire library
-import v from 'voca';
-
+<pre class="prettyprint"><code class="language-javascript">let v = require('voca');
 v.trim(' Hello World! ');
 // => 'Hello World'
+v.sprintf('%s costs $%.2f', 'Coffee', 1.5);
+// => 'Coffee costs $1.50'</code></pre>
 
-// Get a list of methods
-import {trimLeft as tl, isDigit} from 'voca';
-
-tl(' moon');
-// => 'moon'
-isDigit('340');
-// => true
-
-// Get a single method (work in progress...)
-import isAlpha from 'voca/is_alpha';
-
-isAlpha('welcome');
-// => true
-</code></pre>
+Or individual functions:
+<pre class="prettyprint"><code class="language-javascript">let words = require('voca/words');
+words('welcome to Earth');
+// => ['welcome', 'to', 'Earth']</code></pre>
 
 <p><b>Browser</b></p>
 
-Use a <code>script</code> tag to load the library into a web page:
+Use `dist/voca.min.js` (minified production-ready) or `dist/voca.js` builds to load the library directly into browser's web page:
 
 <pre class="prettyprint"><code class="language-javascript">&lt;script src=&quot;path-to-scripts/voca.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</code></pre>
 
@@ -123,16 +96,10 @@ Then a global variable <code>v</code> is exposed:
 
 <ul>
   <li>
-    <a href="https://github.com/panzerdp/voca">The repository on GitHub</a>
+    <a href="https://github.com/panzerdp/voca">The GitHub repository</a>
   </li>
   <li>
-    <a href="https://github.com/panzerdp/voca#bug-report-or-question">How to report a bug or ask a question</a>
-  </li>
-  <li>
-    <a href="https://github.com/panzerdp/voca#contribution">How to contribute</a>
-  </li>
-  <li>
-    <a href="https://github.com/panzerdp/voca#development">How to develop Voca</a>
+    <a href="https://github.com/panzerdp/voca/issues/new">Report a bug or suggest improvement</a>
   </li>
 </ul>
 

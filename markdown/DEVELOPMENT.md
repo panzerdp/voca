@@ -5,9 +5,9 @@ Install the development dependencies within Voca source directory:
 npm install
 ```
 
-1) Build the bundle into `dist/` folder.
-`dist/voca.js` is an [UMD](https://github.com/umdjs/umd) build compatible with CommonJS, RequireJS and Browser globals.
-`dist/voca.min.js` is the minified production-ready version.
+1) Build the bundle into `dist/` folder.  
+`dist/voca.js` is an [UMD](https://github.com/umdjs/umd) build compatible with CommonJS, RequireJS and Browser globals.  
+`dist/voca.min.js` is the minified UMD, production-ready.
 
 ```bash
 npm run build
