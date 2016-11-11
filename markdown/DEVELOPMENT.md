@@ -1,4 +1,4 @@
-Fork the repostiory, the clone the repo into your project directory.
+Fork the repostiory, then clone it into your project directory.
 
 Install the development dependencies within Voca source directory:
 ```bash

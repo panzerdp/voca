@@ -90,4 +90,4 @@ Visit the [development section](https://github.com/panzerdp/voca/blob/master/mar
 
 ## License
 
-Licensed under the [MIT License](https://github.com/panzerdp/voca/blob/master/markdown/LICENSE)
+Licensed under [MIT](https://github.com/panzerdp/voca/blob/master/markdown/LICENSE)
