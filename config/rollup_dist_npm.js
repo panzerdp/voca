@@ -1,18 +1,13 @@
-import babel from 'rollup-plugin-babel';
-import babelrc from 'babelrc-rollup';
-
-var pkg = require('./../package.json');
-var external = Object.keys(pkg.dependencies);
+import babelConfig from './babel_config';
 
 export default {
   entry: 'src/index.js',
   plugins: [
-    babel(babelrc())
+    babelConfig
   ],
-  external: external,
   targets: [{
-    dest: pkg['main'],
-    format: 'umd',
+    dest: 'dist_npm/index.js',
+    format: 'cjs',
     moduleName: 'v',
     sourceMap: false
   }]

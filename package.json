@@ -28,6 +28,7 @@
   "scripts": {
     "eslint": "eslint . --ext .js",
     "build": "rollup -c config/rollup_dist.js && rollup -c config/rollup_dist_min.js && rollup -c config/rollup_test.js",
+    "build-npm": "cp package.json README.md ./dist_npm && rollup -c config/rollup_dist_npm.js",
     "test": "mocha test/index.js --reporter dot",
     "test-sl": "grunt --gruntfile ./test_runner/gruntfile.js --base .",
     "coverage": "istanbul cover _mocha -- test/index.js --reporter spec",

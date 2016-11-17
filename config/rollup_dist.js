@@ -1,12 +1,9 @@
-import babel from 'rollup-plugin-babel';
-import babelrc from 'babelrc-rollup';
+import babelConfig from './babel_config';
 
 export default {
   entry: 'src/index.js',
   plugins: [
-    babel(babelrc({
-      path: 'config/.rollup_babelrc'
-    }))
+    babelConfig
   ],
   targets: [{
     dest: 'dist/voca.js',

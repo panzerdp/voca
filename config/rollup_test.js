@@ -1,14 +1,9 @@
-import babel from 'rollup-plugin-babel';
-import babelrc from 'babelrc-rollup';
+import babelConfig from './babel_config';
 
 export default {
   entry: 'test/index.js',
   plugins: [
-    babel(babelrc({
-      path: 'config/.rollup_babelrc'
-    }))
-  ],
-  external: [
+    babelConfig
   ],
   targets: [{
     dest: 'test_runner/test_bundle.js',
