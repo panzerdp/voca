@@ -1,12 +1,33 @@
 {
   "name": "voca",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "The ultimate JavaScript string library",
+  "homepage": "https://vocajs.com",
+  "author": {
+    "name": "Dmitri Pavlutin",
+    "email": "dmitri@rainsoft.io",
+    "url": "https://rainsoft.io/about-me/"
+  },
+  "license": "MIT",
+  "keywords": [
+    "voca",
+    "string",
+    "sprintf",
+    "util"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/panzerdp/voca.git"
+  },
+  "bugs": {
+    "url": "https://github.com/panzerdp/voca/issues",
+    "email": "dmitri@rainsoft.io"
+  },
   "main": "dist/voca.js",
   "jsnext:main": "dist/voca.es6.js",
   "scripts": {
     "eslint": "eslint . --ext .js",
-    "build": "rollup -c rollup.config.js && rollup -c rollup.test.config.js",
+    "build": "rollup -c config/rollup_dist.js && rollup -c config/rollup_dist_min.js && rollup -c config/rollup_test.js",
     "test": "mocha test/index.js --reporter dot",
     "test-sl": "grunt --gruntfile ./test_runner/gruntfile.js --base .",
     "coverage": "istanbul cover _mocha -- test/index.js --reporter spec",
@@ -14,18 +35,8 @@
     "verify": "npm run eslint && npm run coverage",
     "prepublish": "npm test",
     "jsdoc": "jsdoc --configure .jsdoc.json",
-    "deploy": "rollup -c rollup.config.js && cp dist/voca.js docs/scripts && scp -r docs/* rainishere:/home/rainishere/webapps/voca_docs"
+    "deploy": "rollup -c config/rollup_dist.js && cp dist/voca.js docs/scripts && scp -r docs/* rainishere:/home/rainishere/webapps/voca_docs"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/panzerdp/voca.git"
-  },
-  "author": "Dmitri Pavlutin",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/panzerdp/voca/issues"
-  },
-  "homepage": "https://github.com/panzerdp/voca#readme",
   "devDependencies": {
     "babel-eslint": "6.1.2",
     "babel-plugin-external-helpers": "6.18.0",

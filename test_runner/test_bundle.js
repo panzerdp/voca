@@ -68,9 +68,9 @@ var coerceToBoolean = function (value) {
  * v.isString(560);
  * // => false
  */
-var isString = function (subject) {
+function isString(subject) {
   return typeof subject === 'string';
-};
+}
 
 /**
  * Get the string representation of the `value`.
@@ -114,7 +114,7 @@ var coerceToString = function (value) {
  * v.capitalize('aPPle', true);
  * // => 'Apple'
  */
-var capitalize = function (subject, restToLower) {
+function capitalize(subject, restToLower) {
   var subjectString = coerceToString(subject),
       restToLowerCaseBoolean = coerceToBoolean(restToLower);
   if (subjectString === '') {
@@ -124,7 +124,7 @@ var capitalize = function (subject, restToLower) {
     subjectString = subjectString.toLowerCase();
   }
   return subjectString.substr(0, 1).toUpperCase() + subjectString.substr(1);
-};
+}
 
 /**
  * Converts the `subject` to lower case.
@@ -139,23 +139,10 @@ var capitalize = function (subject, restToLower) {
  * v.lowerCase('Green');
  * // => 'green'
  */
-var lowerCase = function (subject) {
+function lowerCase(subject) {
   var subjectString = coerceToString(subject, '');
   return subjectString.toLowerCase();
-};
-
-/**
- * Verifies if `value` is `undefined` or `null` and returns `defaultValue`. In other case returns `value`.
- *
- * @ignore
- * @function nilDefault
- * @param {*} value The value to verify.
- * @param {*} defaultValue The default value.
- * @return {*} Returns `defaultValue` if `value` is `undefined` or `null`, otherwise `defaultValue`.
- */
-var nilDefault = function (value, defaultValue) {
-  return value == null ? defaultValue : value;
-};
+}
 
 /**
  * A regular expression string that matches upper letter (upper case + title case)
@@ -307,7 +294,7 @@ var REGEXP_SPECIAL_CHARACTERS = /[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g;
 var lowerCaseLetterClass = '(?![' + upLetter + '])[^' + nonLetter + ']';
 
 /**
- * Regular expression to match words
+ * Regular expression to match Unicode words
  *
  * @type {RegExp}
  * @ignore
@@ -315,6 +302,14 @@ var lowerCaseLetterClass = '(?![' + upLetter + '])[^' + nonLetter + ']';
 var REGEXP_WORD = new RegExp('(?:(?:[' + upLetter + '][' + diacriticalMark + ']*)?(?:' + lowerCaseLetterClass + '[' + diacriticalMark + ']*)+)|\
 (?:(?:[' + upLetter + '][' + diacriticalMark + ']*)+(?!' + lowerCaseLetterClass + '))|\
 (?:[' + digit + ']+)', 'g');
+
+/**
+ * Regular expression to match words from Basic Latin and Latin-1 Supplement blocks
+ *
+ * @type {RegExp}
+ * @ignore
+ */
+var REGEXP_LATIN_WORD = /(?:[A-Z\xC0-\xD6\xD8-\xDE]?[a-z\xDF-\xF6\xF8-\xFF]+)|(?:[A-Z\xC0-\xD6\xD8-\xDE]+(?![a-z\xDF-\xF6\xF8-\xFF]))|(?:\d+)/g;
 
 /**
  * Regular expression to match not latin characters
@@ -325,12 +320,12 @@ var REGEXP_WORD = new RegExp('(?:(?:[' + upLetter + '][' + diacriticalMark + ']*
 var REGEXP_NON_LATIN = /[\W]/g;
 
 /**
- * Regular expression to match ASCII characters
+ * Regular expression to match Basic Latin and Latin-1 Supplement blocks
  *
  * @type {RegExp}
  * @ignore
  */
-
+var REGEXP_LATIN = /^[\x00-\xFF]*$/;
 
 /**
  * Regular expression to match HTML special characters.
@@ -363,6 +358,19 @@ var REGEXP_TRAILING_ZEROS = /\.?0+$/g;
  * @ignore
  */
 var REGEXP_FLAGS = /[gimuy]*$/;
+
+/**
+ * Verifies if `value` is `undefined` or `null` and returns `defaultValue`. In other case returns `value`.
+ *
+ * @ignore
+ * @function nilDefault
+ * @param {*} value The value to verify.
+ * @param {*} defaultValue The default value.
+ * @return {*} Returns `defaultValue` if `value` is `undefined` or `null`, otherwise `defaultValue`.
+ */
+var nilDefault = function (value, defaultValue) {
+  return value == null ? defaultValue : value;
+};
 
 /**
  * Get the string representation of the `value`.
@@ -398,14 +406,20 @@ var toString$1 = function (value) {
  * v.words('gravity can cross dimensions');
  * // => ['gravity', 'can', 'cross', 'dimensions']
  *
+ * v.words('GravityCanCrossDimensions');
+ * // => ["Gravity", "Can", "Cross", "Dimensions"]
+ *
+ * v.words('Gravity - can cross dimensions!');
+ * // => ["Gravity", "can", "cross", "dimensions"]
+ *
  * v.words('gravity', /\w{1,2}/g);
  * // => ['gr', 'av', 'it', 'y']
  */
-var words = function (subject, pattern, flags) {
+function words(subject, pattern, flags) {
   var subjectString = coerceToString(subject),
       patternRegExp;
   if (isNil(pattern)) {
-    patternRegExp = REGEXP_WORD;
+    patternRegExp = REGEXP_LATIN.test(subjectString) ? REGEXP_LATIN_WORD : REGEXP_WORD;
   } else if (pattern instanceof RegExp) {
     patternRegExp = pattern;
   } else {
@@ -413,7 +427,7 @@ var words = function (subject, pattern, flags) {
     patternRegExp = new RegExp(toString$1(pattern), flagsString);
   }
   return nilDefault(subjectString.match(patternRegExp), []);
-};
+}
 
 /**
  * Transforms the `word` into camel case chunk.
@@ -446,13 +460,13 @@ function wordToCamel(word, index) {
  * v.camelCase('-BIRD-FLIGHT-');
  * // => 'birdFlight'
  */
-var camelCase = function (subject) {
+function camelCase(subject) {
   var subjectString = coerceToString(subject);
   if (subjectString === '') {
     return '';
   }
   return words(subjectString).map(wordToCamel).join('');
-};
+}
 
 /**
  * Converts the first character of `subject` to lower case.
@@ -467,13 +481,13 @@ var camelCase = function (subject) {
  * v.decapitalize('Sun');
  * // => 'sun'
  */
-var decapitalize = function (subject) {
+function decapitalize(subject) {
   var subjectString = coerceToString(subject);
   if (subjectString === '') {
     return subjectString;
   }
   return subjectString.substr(0, 1).toLowerCase() + subjectString.substr(1);
-};
+}
 
 /**
  * Converts the `subject` to <a href="https://en.wikipedia.org/wiki/Letter_case#cite_ref-13">kebab case</a>,
@@ -495,13 +509,13 @@ var decapitalize = function (subject) {
  * v.kebabCase('-Goodbye-Blue-Sky-');
  * // => 'goodbye-blue-sky'
  */
-var kebabCase = function (subject) {
+function kebabCase(subject) {
   var subjectString = coerceToString(subject);
   if (subjectString === '') {
     return '';
   }
   return words(subjectString).map(lowerCase).join('-');
-};
+}
 
 /**
  * Converts the `subject` to <a href="https://en.wikipedia.org/wiki/Snake_case">snake case</a>.
@@ -522,13 +536,13 @@ var kebabCase = function (subject) {
  * v.snakeCase('-Learning-To-Fly-');
  * // => 'learning_to_fly'
  */
-var snakeCase = function (subject) {
+function snakeCase(subject) {
   var subjectString = coerceToString(subject);
   if (subjectString === '') {
     return '';
   }
   return words(subjectString).map(lowerCase).join('_');
-};
+}
 
 /**
  * Converts the `subject` to upper case.
@@ -543,10 +557,10 @@ var snakeCase = function (subject) {
  * v.upperCase('school');
  * // => 'SCHOOL'
  */
-var upperCase = function (subject) {
+function upperCase(subject) {
   var subjectString = coerceToString(subject);
   return subjectString.toUpperCase();
-};
+}
 
 /**
  * Clip the number to interval `downLimit` to `upLimit`.
@@ -615,7 +629,7 @@ var toInteger = function (value) {
  * v.truncate('Once upon', 10);
  * // => 'Once upon'
  */
-var truncate = function (subject, length, end) {
+function truncate(subject, length, end) {
   var subjectString = coerceToString(subject),
       lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
       endString = coerceToString(end, '...');
@@ -623,7 +637,7 @@ var truncate = function (subject, length, end) {
     return subjectString;
   }
   return subjectString.substr(0, length - endString.length) + endString;
-};
+}
 
 /**
  * Access a character from `subject` at specified `position`.
@@ -642,10 +656,10 @@ var truncate = function (subject, length, end) {
  * v.charAt('helicopter', 1);
  * // => 'e'
  */
-var charAt = function (subject, position) {
+function charAt(subject, position) {
   var subjectString = coerceToString(subject);
   return subjectString.charAt(position);
-};
+}
 
 var HIGH_SURROGATE_START = 0xD800;
 var HIGH_SURROGATE_END = 0xDBFF;
@@ -744,7 +758,7 @@ var nanDefault = function (value, defaultValue) {
  * v.codePointAt('\uD83D\uDE00 is smile', 0); // or '😀 is smile'
  * // => 128512, or 0x1F600
  */
-var codePointAt = function (subject, position) {
+function codePointAt(subject, position) {
   var subjectString = coerceToString(subject),
       subjectStringLength = subjectString.length,
       positionNumber = coerceToNumber(position);
@@ -761,7 +775,7 @@ var codePointAt = function (subject, position) {
     }
   }
   return firstCodePoint;
-};
+}
 
 /**
  * Extracts the first `length` characters from `subject`.
@@ -783,14 +797,14 @@ var codePointAt = function (subject, position) {
  * v.first('car', 5);
  * // => 'car'
  */
-var first = function (subject, length) {
+function first(subject, length) {
   var subjectString = coerceToString(subject),
       lengthInt = isNil(length) ? 1 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
   if (subjectString.length <= lengthInt) {
     return subjectString;
   }
   return subjectString.substr(0, lengthInt);
-};
+}
 
 /**
  * Get a grapheme from `subject` at specified `position` taking care of
@@ -811,7 +825,7 @@ var first = function (subject, length) {
  * v.graphemeAt('cafe\u0301', 3); // or 'café'
  * // => 'é'
  */
-var graphemeAt = function (subject, position) {
+function graphemeAt(subject, position) {
   var subjectString = coerceToString(subject),
       positionNumber = coerceToNumber(position),
       graphemeMatch,
@@ -825,7 +839,7 @@ var graphemeAt = function (subject, position) {
     graphemeMatchIndex++;
   }
   return '';
-};
+}
 
 /**
  * Extracts the last `length` characters from `subject`.
@@ -847,14 +861,14 @@ var graphemeAt = function (subject, position) {
  * v.last('car', 5);
  * // => 'car'
  */
-var last = function (subject, length) {
+function last(subject, length) {
   var subjectString = coerceToString(subject),
       lengthInt = isNil(length) ? 1 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
   if (subjectString.length <= lengthInt) {
     return subjectString;
   }
   return subjectString.substr(subjectString.length - lengthInt, lengthInt);
-};
+}
 
 /**
  * Truncates `subject` to a new `length` and does not break the words. Guarantees that the truncated string is no longer
@@ -878,7 +892,7 @@ var last = function (subject, length) {
  * v.prune('Once upon', 10);
  * // => 'Once upon'
  */
-var prune = function (subject, length, end) {
+function prune(subject, length, end) {
   var subjectString = coerceToString(subject),
       lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
       endString = coerceToString(end, '...');
@@ -893,7 +907,7 @@ var prune = function (subject, length, end) {
     }
   });
   return truncatedString + endString;
-};
+}
 
 /**
  * Extracts from `subject` a string from `start` position up to `end` position. The character at `end` position is not
@@ -918,9 +932,9 @@ var prune = function (subject, length, end) {
  * v.slice('florida', 1, 4);
  * // => "lor"
  */
-var slice = function (subject, start, end) {
+function slice(subject, start, end) {
   return coerceToString(subject).slice(start, end);
-};
+}
 
 /**
  * Extracts from `subject` a string from `start` position a number of `length` characters.
@@ -941,9 +955,9 @@ var slice = function (subject, start, end) {
  * v.substr('dreams', 2, 2);
  * // => 'ea'
  */
-var substr = function (subject, start, length) {
+function substr(subject, start, length) {
   return coerceToString(subject).substr(start, length);
-};
+}
 
 /**
  * Extracts from `subject` a string from `start` position up to `end` position. The character at `end` position is not
@@ -965,9 +979,9 @@ var substr = function (subject, start, length) {
  * v.substring('ocean', 1, 3);
  * // => 'ea'
  */
-var substring = function (subject, start, end) {
+function substring(subject, start, end) {
   return coerceToString(subject).substring(start, end);
-};
+}
 
 /**
  * Counts the characters in `subject`.<br/>
@@ -982,9 +996,9 @@ var substring = function (subject, start, end) {
  * v.count('rain');
  * // => 4
  */
-var count = function (subject) {
+function count(subject) {
   return coerceToString(subject).length;
-};
+}
 
 /**
  * Counts the graphemes in `subject` taking care of
@@ -1007,9 +1021,9 @@ var count = function (subject) {
  * v.countGrapheme('rain');
  * // => 4
  */
-var countGrapheme = function (subject) {
+function countGrapheme(subject) {
   return coerceToString(subject).replace(REGEXP_COMBINING_MARKS, '*').replace(REGEXP_SURROGATE_PAIRS, '*').length;
-};
+}
 
 /**
  * Counts the number of `substring` appearances in `subject`.
@@ -1028,7 +1042,7 @@ var countGrapheme = function (subject) {
  * v.countSubstring('every dog has its day', 'cat');
  * // => 0
  */
-var countSubstring = function (subject, substring) {
+function countSubstring(subject, substring) {
   var subjectString = coerceToString(subject),
       substringString = coerceToString(substring),
       count = 0,
@@ -1045,7 +1059,7 @@ var countSubstring = function (subject, substring) {
     }
   } while (matchIndex !== -1);
   return count;
-};
+}
 
 var reduce = Array.prototype.reduce;
 
@@ -1069,7 +1083,7 @@ var reduce = Array.prototype.reduce;
  * });
  * // => 3
  */
-var countWhere = function (subject, predicate, context) {
+function countWhere(subject, predicate, context) {
   var subjectString = coerceToString(subject);
   if (subjectString === '' || typeof predicate !== 'function') {
     return 0;
@@ -1078,7 +1092,7 @@ var countWhere = function (subject, predicate, context) {
   return reduce.call(subjectString, function (countTruthy, character, index) {
     return predicateWithContext(character, index, subjectString) ? countTruthy + 1 : countTruthy;
   }, 0);
-};
+}
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
   return typeof obj;
@@ -1452,7 +1466,7 @@ var Const = Object.freeze({
  * v.repeat('world', 0);
  * // => ''
  */
-var repeat = function (subject, times) {
+function repeat(subject, times) {
   var subjectString = coerceToString(subject),
       timesInt = isNil(times) ? 1 : clipNumber(toInteger(times), 0, MAX_SAFE_INTEGER);
   var repeatString = '';
@@ -1466,7 +1480,7 @@ var repeat = function (subject, times) {
     timesInt >>= 1;
   }
   return repeatString;
-};
+}
 
 /**
  * Creates the padding string.
@@ -1503,7 +1517,7 @@ var buildPadding = function (padCharacters, length) {
  * v.padLeft('cat', 6, '-=');
  * // => '-=-cat'
  */
-var padLeft = function (subject, length, pad) {
+function padLeft(subject, length, pad) {
   var subjectString = coerceToString(subject),
       lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
       padString = coerceToString(pad, ' ');
@@ -1511,7 +1525,7 @@ var padLeft = function (subject, length, pad) {
     return subjectString;
   }
   return buildPadding(padString, lengthInt - subjectString.length) + subjectString;
-};
+}
 
 /**
  * Pads `subject` from right to a new `length`.
@@ -1534,7 +1548,7 @@ var padLeft = function (subject, length, pad) {
  * v.padRight('cat', 6, '-=');
  * // => 'cat-=-'
  */
-var padRight = function (subject, length, pad) {
+function padRight(subject, length, pad) {
   var subjectString = coerceToString(subject),
       lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
       padString = coerceToString(pad, ' ');
@@ -1542,7 +1556,7 @@ var padRight = function (subject, length, pad) {
     return subjectString;
   }
   return subjectString + buildPadding(padString, lengthInt - subjectString.length);
-};
+}
 
 /**
  * Aligns and pads `subject` string.
@@ -2089,7 +2103,7 @@ var replacementMatch = function (replacementIndex, replacements, conversionSpeci
  * // => '1.01e+2 0.455'
  * 
  */
-var sprintf = function (format) {
+function sprintf(format) {
   var formatString = coerceToString(format);
   if (formatString === '') {
     return formatString;
@@ -2101,7 +2115,7 @@ var sprintf = function (format) {
 
   var boundReplacementMatch = replacementMatch.bind(undefined, new ReplacementIndex(), replacements);
   return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, boundReplacementMatch);
-};
+}
 
 /**
  * Produces a string according to `format`. Works exactly like <a href="#sprintf"><code>sprintf()</code></a>,
@@ -2122,9 +2136,9 @@ var sprintf = function (format) {
  * v.vprintf('%s has %d apples', ['Alexandra', 3]);
  * // => 'Alexandra has 3 apples'
  */
-var vprintf = function (format, replacements) {
+function vprintf(format, replacements) {
   return sprintf.apply(undefined, [format].concat(toConsumableArray(nilDefault(replacements, []))));
-};
+}
 
 var escapeCharactersMap = {
   '<': '&lt;',
@@ -2159,9 +2173,9 @@ function replaceSpecialCharacter(character) {
  * v.escapeHtml('<p>wonderful world</p>');
  * // => '&lt;p&gt;wonderful world&lt;/p&gt;'
  */
-var escapeHtml = function (subject) {
+function escapeHtml(subject) {
   return coerceToString(subject).replace(REGEXP_HTML_SPECIAL_CHARACTERS, replaceSpecialCharacter);
-};
+}
 
 /**
  * Escapes the regular expression special characters `- [ ] / { } ( ) * + ? . \ ^ $ |` in `subject`.
@@ -2176,9 +2190,9 @@ var escapeHtml = function (subject) {
  * v.escapeRegExp('(hours)[minutes]{seconds}');
  * // => '\(hours\)\[minutes\]\{seconds\}'
  */
-var escapeRegExp = function (subject) {
+function escapeRegExp(subject) {
   return coerceToString(subject).replace(REGEXP_SPECIAL_CHARACTERS, '\\$&');
-};
+}
 
 var unescapeCharactersMap = {
   '<': /(&lt;)|(&#x0*3c;)|(&#0*60;)/gi,
@@ -2216,10 +2230,10 @@ function reduceUnescapedString(string, key) {
  * v.unescapeHtml('&lt;p&gt;wonderful world&lt;/p&gt;');
  * // => '<p>wonderful world</p>'
  */
-var unescapeHtml = function (subject) {
+function unescapeHtml(subject) {
   var subjectString = coerceToString(subject);
   return characters.reduce(reduceUnescapedString, subjectString);
-};
+}
 
 /**
  * Returns the first occurrence index of `search` in `subject`.
@@ -2239,10 +2253,10 @@ var unescapeHtml = function (subject) {
  * v.indexOf('evening', 'o');
  * // => -1
  */
-var indexOf = function (subject, search, fromIndex) {
+function indexOf(subject, search, fromIndex) {
   var subjectString = coerceToString(subject);
   return subjectString.indexOf(search, fromIndex);
-};
+}
 
 /**
  * Returns the last occurrence index of `search` in `subject`.
@@ -2262,10 +2276,10 @@ var indexOf = function (subject, search, fromIndex) {
  * v.lastIndexOf('evening', 'o');
  * // => -1
  */
-var lastIndexOf = function (subject, search, fromIndex) {
+function lastIndexOf(subject, search, fromIndex) {
   var subjectString = coerceToString(subject);
   return subjectString.lastIndexOf(search, fromIndex);
-};
+}
 
 /**
  * Returns the first index of a `pattern` match in `subject`.
@@ -2285,7 +2299,7 @@ var lastIndexOf = function (subject, search, fromIndex) {
  * v.search('evening', '/\d/');
  * // => -1
  */
-var search = function (subject, pattern, fromIndex) {
+function search(subject, pattern, fromIndex) {
   var subjectString = coerceToString(subject),
       fromIndexNumber = isNil(fromIndex) ? 0 : clipNumber(toInteger(fromIndex), 0, subjectString.length);
   var matchIndex = subjectString.substr(fromIndexNumber).search(pattern);
@@ -2293,7 +2307,7 @@ var search = function (subject, pattern, fromIndex) {
     matchIndex += fromIndexNumber;
   }
   return matchIndex;
-};
+}
 
 /**
  * Inserts into `subject` a string `toInsert` at specified `position`.
@@ -3398,13 +3412,13 @@ function removeCombiningMarks(character, cleanCharacter) {
  * v.latinise('как прекрасен этот мир');
  * // => 'kak prekrasen etot mir'
  */
-var latinise = function (subject) {
+function latinise(subject) {
   var subjectString = coerceToString(subject);
   if (subjectString === '') {
     return subjectString;
   }
   return subjectString.replace(REGEXP_NON_BASIC_LATIN, removeDiacritics).replace(REGEXP_COMBINING_MARKS, removeCombiningMarks);
-};
+}
 
 /**
  * Pads `subject` to a new `length`.
@@ -3427,7 +3441,7 @@ var latinise = function (subject) {
  * v.pad('cat', 6, '-=');
  * // => '-cat-='
  */
-var pad = function (subject, length, pad) {
+function pad(subject, length, pad) {
   var subjectString = coerceToString(subject),
       lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
       padString = coerceToString(pad, ' ');
@@ -3438,7 +3452,7 @@ var pad = function (subject, length, pad) {
       paddingSideLength = toInteger(paddingLength / 2),
       paddingSideRemainingLength = paddingLength % 2;
   return buildPadding(padString, paddingSideLength) + subjectString + buildPadding(padString, paddingSideLength + paddingSideRemainingLength);
-};
+}
 
 /**
  * Returns a new string where the matches of `pattern` are replaced with `replacement`. <br/>
@@ -3464,10 +3478,10 @@ var pad = function (subject, length, pad) {
  * });
  * // => 'the duck is nice'
  */
-var replace = function (subject, pattern, replacement) {
+function replace(subject, pattern, replacement) {
   var subjectString = coerceToString(subject);
   return subjectString.replace(pattern, replacement);
-};
+}
 
 /**
  * Get the flags string from a regular expression object.
@@ -3546,7 +3560,7 @@ var appendFlagToRegExp = function (pattern, appendFlag) {
  * // => 'evesisg'
  *
  */
-var replaceAll = function (subject, pattern, replacement) {
+function replaceAll(subject, pattern, replacement) {
   var subjectString = coerceToString(subject),
       regExp = pattern;
   if (!(pattern instanceof RegExp)) {
@@ -3555,7 +3569,7 @@ var replaceAll = function (subject, pattern, replacement) {
     regExp = appendFlagToRegExp(pattern, 'g');
   }
   return subjectString.replace(regExp, replacement);
-};
+}
 
 /**
  * Reverses the `subject`.
@@ -3570,10 +3584,10 @@ var replaceAll = function (subject, pattern, replacement) {
  * v.reverse('winter');
  * // => 'retniw'
  */
-var reverse = function (subject) {
+function reverse(subject) {
   var subjectString = coerceToString(subject);
   return subjectString.split('').reverse().join('');
-};
+}
 
 /**
  * Reverses the `subject` taking care of
@@ -3593,13 +3607,13 @@ var reverse = function (subject) {
  * v.reverseGrapheme('𝌆 bar mañana mañana');
  * // => 'anañam anañam rab 𝌆'
  */
-function reverseCodePoint(subject) {
+function reverseGrapheme(subject) {
   var subjectString = coerceToString(subject);
   /**
    * @see https://github.com/mathiasbynens/esrever
    */
   subjectString = subjectString.replace(REGEXP_COMBINING_MARKS, function ($0, $1, $2) {
-    return reverseCodePoint($2) + $1;
+    return reverseGrapheme($2) + $1;
   }).replace(REGEXP_SURROGATE_PAIRS, '$2$1');
   var reversedString = '',
       index = subjectString.length;
@@ -3628,17 +3642,18 @@ function reverseCodePoint(subject) {
  * v.slugify('хорошая погода');
  * // => 'horoshaya-pogoda'
  */
-var slugify = function (subject) {
+function slugify(subject) {
   var subjectString = coerceToString(subject);
   if (subjectString === '') {
     return '';
   }
   var cleanSubjectString = latinise(subjectString).replace(REGEXP_NON_LATIN, '-');
   return kebabCase(cleanSubjectString);
-};
+}
 
 /**
- * Changes `subject` by removing a substring and adding a new string.
+ * Changes `subject` by deleting `deleteCount` of characters starting at position `start`. Places a new string
+ * `toAdd` instead of deleted characters.
  *
  * @function splice
  * @static
@@ -3647,7 +3662,7 @@ var slugify = function (subject) {
  * @param {string} [subject=''] The string where to insert.
  * @param {string} start The position to start changing the string. For a negative position will start from the end of
  * the string.
- * @param {number} [deleteCount=0] The number of characters to delete from string.
+ * @param {number} [deleteCount=subject.length-start] The number of characters to delete from string.
  * @param {string} [toAdd=''] The string to be added instead of deleted characters.
  * @return {string} Returns the modified string.
  * @example
@@ -3657,12 +3672,13 @@ var slugify = function (subject) {
  * v.splice('new year', 0, 3, 'happy');
  * // => 'happy year'
  *
+ * v.splice('new year', -4, 4, 'day');
+ * // => 'new day'
  */
 function splice(subject, start, deleteCount, toAdd) {
-  var subjectString = coerceToString(subject),
-      startPosition = coerceToNumber(start),
-      deleteCountNumber = coerceToNumber(deleteCount),
-      toAddString = coerceToString(toAdd);
+  var subjectString = coerceToString(subject);
+  var startPosition = coerceToNumber(start);
+  var toAddString = coerceToString(toAdd);
   if (startPosition < 0) {
     startPosition = subjectString.length + startPosition;
     if (startPosition < 0) {
@@ -3670,6 +3686,10 @@ function splice(subject, start, deleteCount, toAdd) {
     }
   } else if (startPosition > subjectString.length) {
     startPosition = subjectString.length;
+  }
+  var deleteCountNumber = coerceToNumber(deleteCount, subjectString.length - startPosition);
+  if (deleteCountNumber < 0) {
+    deleteCountNumber = 0;
   }
   return subjectString.slice(0, startPosition) + toAddString + subjectString.slice(startPosition + deleteCountNumber);
 }
@@ -3691,7 +3711,7 @@ function splice(subject, start, deleteCount, toAdd) {
  * v.trimLeft('***Mobile Infantry', '*');
  * // => 'Mobile Infantry'
  */
-var trimLeft = function (subject, whitespace) {
+function trimLeft(subject, whitespace) {
   var subjectString = coerceToString(subject);
   if (whitespace === '' || subjectString === '') {
     return subjectString;
@@ -3711,7 +3731,7 @@ var trimLeft = function (subject, whitespace) {
     }
   }
   return subjectString.substring(totalWhitespaceLength);
-};
+}
 
 /**
  * Removes whitespaces from the right part of the `subject`.
@@ -3730,7 +3750,7 @@ var trimLeft = function (subject, whitespace) {
  * v.trimRight('do you feel in charge?!!!', '!');
  * // => 'do you feel in charge?'
  */
-var trimRight = function (subject, whitespace) {
+function trimRight(subject, whitespace) {
   var subjectString = coerceToString(subject);
   if (whitespace === '' || subjectString === '') {
     return subjectString;
@@ -3753,7 +3773,7 @@ var trimRight = function (subject, whitespace) {
     }
   }
   return subjectString.substring(0, valueStringLength - totalWhitespaceLength);
-};
+}
 
 /**
  * Removes whitespaces from left and right parts of the `subject`.
@@ -3772,7 +3792,7 @@ var trimRight = function (subject, whitespace) {
  * v.trim('--Earth--', '-');
  * // => 'Earth'
  */
-var trim = function (subject, whitespace) {
+function trim(subject, whitespace) {
   var subjectString = coerceToString(subject);
   if (whitespace === '' || subjectString === '') {
     return subjectString;
@@ -3782,7 +3802,7 @@ var trim = function (subject, whitespace) {
     return subjectString.trim();
   }
   return trimRight(trimLeft(subjectString, whitespaceString), whitespaceString);
-};
+}
 
 /**
  * Checks whether `subject` ends with `end`.
@@ -3863,10 +3883,10 @@ var isAlpha = function (subject) {
  * v.isAlphaDigit('40-20');
  * // => false
  */
-var isAlphaDigit = function (subject) {
+function isAlphaDigit(subject) {
   var subjectString = coerceToString(subject);
   return REGEXP_ALPHA_DIGIT.test(subjectString);
-};
+}
 
 /**
  * Checks whether `subject` is empty or contains only whitespaces.
@@ -3887,10 +3907,10 @@ var isAlphaDigit = function (subject) {
  * v.isBlank('World');
  * // => false
  */
-var isBlank = function (subject) {
+function isBlank(subject) {
   var subjectString = coerceToString(subject);
   return subjectString.trim().length === 0;
-};
+}
 
 /**
  * Checks whether `subject` contains only digit characters.
@@ -3911,10 +3931,10 @@ var isBlank = function (subject) {
  * v.isDigit('ten');
  * // => false
  */
-var isDigit = function (subject) {
+function isDigit(subject) {
   var subjectString = coerceToString(subject);
   return REGEXP_DIGIT.test(subjectString);
-};
+}
 
 /**
  * Checks whether `subject` is empty.
@@ -3932,10 +3952,10 @@ var isDigit = function (subject) {
  * v.isEmpty('  ');
  * // => false
  */
-var isEmpty = function (subject) {
+function isEmpty(subject) {
   var subjectString = coerceToString(subject);
   return subjectString.length === 0;
-};
+}
 
 /**
  * Checks whether `subject` has only lower case characters.
@@ -3956,10 +3976,10 @@ var isEmpty = function (subject) {
  * v.isLowerCase('T1000');
  * // => false
  */
-var isLowerCase = function (subject) {
+function isLowerCase(subject) {
   var valueString = coerceToString(subject);
   return isAlpha(valueString) && valueString.toLowerCase() === valueString;
-};
+}
 
 /**
  * Checks whether `subject` is numeric.
@@ -3980,10 +4000,10 @@ var isLowerCase = function (subject) {
  * v.isNumeric('NaN');
  * // => false
  */
-var isNumeric = function (subject) {
+function isNumeric(subject) {
   var valueNumeric = (typeof subject === 'undefined' ? 'undefined' : _typeof(subject)) === 'object' && !isNil(subject) ? Number(subject) : subject;
   return (typeof valueNumeric === 'number' || typeof valueNumeric === 'string') && !isNaN(valueNumeric - parseFloat(valueNumeric));
-};
+}
 
 /**
  * Checks whether `subject` contains only upper case characters.
@@ -4001,10 +4021,10 @@ var isNumeric = function (subject) {
  * v.isUpperCase('Morning');
  * // => false
  */
-var isUpperCase = function (subject) {
+function isUpperCase(subject) {
   var subjectString = coerceToString(subject);
   return isAlpha(subjectString) && subjectString.toUpperCase() === subjectString;
-};
+}
 
 /**
  * Checks whether `subject` matches the regular expression `pattern`.
@@ -4027,7 +4047,7 @@ var isUpperCase = function (subject) {
  * v.matches('apollo 11', '\\d{3}');
  * // => false
  */
-var matches = function (subject, pattern, flags) {
+function matches(subject, pattern, flags) {
   var subjectString = coerceToString(subject),
       flagsString = coerceToString(flags),
       patternString;
@@ -4039,7 +4059,7 @@ var matches = function (subject, pattern, flags) {
     pattern = new RegExp(patternString, flagsString);
   }
   return pattern.test(subjectString);
-};
+}
 
 /**
  * Checks whether `subject` starts with `start`.
@@ -4062,7 +4082,7 @@ var matches = function (subject, pattern, flags) {
  * v.startsWith('the world is yours', 'world');
  * // => false
  */
-var startsWith = function (subject, start, position) {
+function startsWith(subject, start, position) {
   var subjectString = coerceToString(subject),
       startString = toString$1(start);
   if (startString === null) {
@@ -4073,7 +4093,7 @@ var startsWith = function (subject, start, position) {
   }
   position = isNil(position) ? 0 : clipNumber(toInteger(position), 0, subjectString.length);
   return subjectString.substr(position, startString.length) === startString;
-};
+}
 
 /**
  * Splits `subject` into an array of characters.
@@ -4088,10 +4108,10 @@ var startsWith = function (subject, start, position) {
  * v.chars('cloud');
  * // => ['c', 'l', 'o', 'u', 'd']
  */
-var chars = function (subject) {
+function chars(subject) {
   var subjectString = coerceToString(subject);
   return subjectString.split('');
-};
+}
 
 /**
  * Returns an array of Unicode code point values from characters of `subject`.
@@ -4111,7 +4131,7 @@ var chars = function (subject) {
  * // => [128512, 32, 115, 109, 105, 108, 101], or
  * //    [0x1F600, 0x20, 0x73, 0x6D, 0x69, 0x6C, 0x65]
  */
-var codePoints = function (subject) {
+function codePoints(subject) {
   var subjectString = coerceToString(subject),
       subjectStringLength = subjectString.length,
       codePointArray = [],
@@ -4123,7 +4143,7 @@ var codePoints = function (subject) {
     index += codePointNumber > 0xFFFF ? 2 : 1;
   }
   return codePointArray;
-};
+}
 
 /**
  * Splits `subject` into an array of graphemes taking care of
@@ -4145,10 +4165,10 @@ var codePoints = function (subject) {
  * // => ['c', 'a', 'f', 'e\u0301'], or
  * //    ['c', 'a', 'f', 'é']
  */
-var graphemes = function (subject) {
+function graphemes(subject) {
   var subjectString = coerceToString(subject);
   return nilDefault(subjectString.match(REGEXP_UNICODE_CHARACTER), []);
-};
+}
 
 /**
  * Splits `subject` into an array of chunks by `separator`.
@@ -4168,10 +4188,10 @@ var graphemes = function (subject) {
  * v.split('the dying of the light', /\s/, 3);
  * // => ['the', 'dying', 'of']
  */
-var split = function (subject, separator, limit) {
+function split(subject, separator, limit) {
   var subjectString = coerceToString(subject);
   return subjectString.split(separator, limit);
-};
+}
 
 var globalObject$1 = null;
 
@@ -4210,12 +4230,12 @@ var previousV = globalObject.v;
  * voca.isAlhpa('Hello');
  * // => true
  */
-var noConflict = function () {
+function noConflict() {
   if (this === globalObject.v) {
     globalObject.v = previousV;
   }
   return this;
-};
+}
 
 /**
  * A property that contains the library <a href="http://semver.org/">semantic version number</a>.
@@ -4322,7 +4342,7 @@ var functions = {
   replace: replace,
   replaceAll: replaceAll,
   reverse: reverse,
-  reverseGrapheme: reverseCodePoint,
+  reverseGrapheme: reverseGrapheme,
   slugify: slugify,
   splice: splice,
   trim: trim,
@@ -4561,9 +4581,9 @@ Object.keys(functions).forEach(function (name) {
  *  .value()
  * // => ['back', 'to', 'school']
  */
-var chain$1 = function (subject) {
+function chain$1(subject) {
   return new ChainWrapper(subject, true);
-};
+}
 
 /**
  * Creates a chain object that wraps `subject`, enabling <i>implicit</i> chain sequences.<br/>
@@ -6484,41 +6504,56 @@ describe('slugify', function () {
   });
 });
 
-describe('insert', function () {
+describe('splice', function () {
 
-  it('should insert into a string at specified position', function () {
-    chai.expect(Voca.insert('autumn', 'nice ', 0)).to.be.equal('nice autumn');
-    chai.expect(Voca.insert('autumn', 'nice ')).to.be.equal('nice autumn');
-    chai.expect(Voca.insert('autumn', 'nice', 1)).to.be.equal('aniceutumn');
-    chai.expect(Voca.insert('autumn', 'nice', 5)).to.be.equal('autumnicen');
-    chai.expect(Voca.insert('autumn', ' is nice', 6)).to.be.equal('autumn is nice');
-    chai.expect(Voca.insert('', 'nice', 0)).to.be.equal('nice');
-    chai.expect(Voca.insert('autumn', '', 1)).to.be.equal('autumn');
-    chai.expect(Voca.insert('autumn', '', 6)).to.be.equal('autumn');
+  it('should splice the string at a given position, number of characters and addition string', function () {
+    chai.expect(Voca.splice('sting like a bee', 0, 0, 'you should ')).to.be.equal('you should sting like a bee');
+    chai.expect(Voca.splice('sting like a bee', 0, 5, 'fly')).to.be.equal('fly like a bee');
+    chai.expect(Voca.splice('sting like a bee', 6, 4, 'as')).to.be.equal('sting as a bee');
+    chai.expect(Voca.splice('sting like a bee', 0, 16, 'float like a butterfly')).to.be.equal('float like a butterfly');
+    chai.expect(Voca.splice('sting like a bee', 0, 16, '')).to.be.equal('');
+    chai.expect(Voca.splice('bee', 3, 0, ' flies')).to.be.equal('bee flies');
+    chai.expect(Voca.splice('bee', 10, 0, ' flies')).to.be.equal('bee flies');
+    chai.expect(Voca.splice('sting like a bee', 0, 0, '')).to.be.equal('sting like a bee');
+    chai.expect(Voca.splice('bee', 10, 100, ' flies')).to.be.equal('bee flies');
+    chai.expect(Voca.splice('bee', 100, 100, ' is an insect')).to.be.equal('bee is an insect');
+    chai.expect(Voca.splice('bee', 100, -1, ' is an insect')).to.be.equal('bee is an insect');
   });
 
-  it('should not insert into a string when position is out of bounds', function () {
-    chai.expect(Voca.insert('autumn', 'nice ', 100)).to.be.equal('autumn');
-    chai.expect(Voca.insert('autumn', 'nice', -100)).to.be.equal('autumn');
-    chai.expect(Voca.insert('autumn', 'nice', 7)).to.be.equal('autumn');
-    chai.expect(Voca.insert('autumn', 'nice', -1)).to.be.equal('autumn');
-    chai.expect(Voca.insert('', 'nice', 1)).to.be.equal('');
+  it('should splice the string at a given negative position, number of characters and addition string', function () {
+    chai.expect(Voca.splice('days', -1, 1, '')).to.be.equal('day');
+    chai.expect(Voca.splice('days', -1, 1, ' and night')).to.be.equal('day and night');
+    chai.expect(Voca.splice('make the days count', -5, 5, 'matter')).to.be.equal('make the days matter');
+    chai.expect(Voca.splice('make the days count', -5, 0, 'matter and ')).to.be.equal('make the days matter and count');
+    chai.expect(Voca.splice('make the days count', -19, 19, 'matter')).to.be.equal('matter');
+    chai.expect(Voca.splice('make the days count', -19, 19, '')).to.be.equal('');
+    chai.expect(Voca.splice('make the days count', -100, 19, 'matter')).to.be.equal('matter');
+    chai.expect(Voca.splice('make the days count', -100, 100, 'matter')).to.be.equal('matter');
   });
 
-  it('should insert into a string representation of an object at specified position', function () {
-    chai.expect(Voca.insert(['paradise'], '**', 2)).to.be.equal('pa**radise');
-    chai.expect(Voca.insert({
+  it('should delete from string at a given position by number of characters', function () {
+    chai.expect(Voca.splice('suffer now then be champion', 6, 4)).to.be.equal('suffer then be champion');
+    chai.expect(Voca.splice('champion', -1, 0)).to.be.equal('champion');
+    chai.expect(Voca.splice('champion', 0, 0)).to.be.equal('champion');
+    chai.expect(Voca.splice('champion', 1, 0)).to.be.equal('champion');
+    chai.expect(Voca.splice('champion', 5)).to.be.equal('champ');
+    chai.expect(Voca.splice('champion', 0)).to.be.equal('');
+  });
+
+  it('should splice the string representation of an object', function () {
+    chai.expect(Voca.splice(['paradise'], 0, 0, 'this is ')).to.be.equal('this is paradise');
+    chai.expect(Voca.splice({
       toString: function toString() {
-        return 'Tony';
+        return 'paradise';
       }
-    }, ' Montana', 4)).to.be.equal('Tony Montana');
+    }, 5, 1, 'I')).to.be.equal('paradIse');
   });
 
-  it('should not insert into a string on null or undefined arguments', function () {
-    chai.expect(Voca.insert()).to.be.equal('');
-    chai.expect(Voca.insert(null)).to.be.equal('');
-    chai.expect(Voca.insert(undefined)).to.be.equal('');
-    chai.expect(Voca.insert(undefined, undefined)).to.be.equal('');
+  it('should clear the string for null or undefined arguments', function () {
+    chai.expect(Voca.splice('champion')).to.be.equal('');
+    chai.expect(Voca.splice('champion', undefined, null)).to.be.equal('');
+    chai.expect(Voca.splice('champion', null, null, null)).to.be.equal('');
+    chai.expect(Voca.splice()).to.be.equal('');
   });
 });
 
