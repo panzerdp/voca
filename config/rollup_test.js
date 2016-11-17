@@ -4,7 +4,9 @@ import babelrc from 'babelrc-rollup';
 export default {
   entry: 'test/index.js',
   plugins: [
-    babel(babelrc())
+    babel(babelrc({
+      path: 'config/.rollup_babelrc'
+    }))
   ],
   external: [
   ],

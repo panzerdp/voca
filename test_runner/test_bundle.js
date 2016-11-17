@@ -1251,20 +1251,6 @@ var createClass = function () {
 
 
 
-var _extends = Object.assign || function (target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i];
-
-    for (var key in source) {
-      if (Object.prototype.hasOwnProperty.call(source, key)) {
-        target[key] = source[key];
-      }
-    }
-  }
-
-  return target;
-};
-
 var get = function get(object, property, receiver) {
   if (object === null) object = Function.prototype;
   var desc = Object.getOwnPropertyDescriptor(object, property);
@@ -4611,7 +4597,7 @@ function Voca(subject) {
   return new ChainWrapper(subject, false);
 }
 
-_extends(Voca, functions, {
+Object.assign(Voca, functions, {
   chain: chain$1
 });
 

@@ -1,9 +1,14 @@
 {
   "presets": [
-    "es2015"
+
   ],
   "plugins": [
     "transform-object-assign",
+    "transform-es2015-spread",
+    "transform-es2015-shorthand-properties",
+    "transform-es2015-modules-commonjs",
+    "transform-es2015-classes",
+    "transform-es2015-parameters",
     ["babel-root-import", {
       "rootPathSuffix": "src"
     }]
