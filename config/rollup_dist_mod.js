@@ -6,7 +6,7 @@ export default {
     babelConfig
   ],
   targets: [{
-    dest: 'dist_npm/index.js',
+    dest: 'dist_mod/index.js',
     format: 'cjs',
     moduleName: 'v',
     sourceMap: false

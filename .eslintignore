@@ -3,4 +3,4 @@ dist
 docs
 jsdoc
 test_runner
-dist_npm
+dist_mod
