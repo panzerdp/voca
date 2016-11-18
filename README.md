@@ -76,7 +76,7 @@ For general usage questions please ask on [StackOverflow](http://stackoverflow.c
 
 Contribution is welcome!
 
-* Create a pull request containing bug fixes or new features. Include unit tests and keep the code coverage report near 100% (yep, perfectionism 😎)
+* Create a pull request containing bug fixes or new features. Include unit tests and keep the code coverage report near 100% 😎
 * [Propose](https://github.com/panzerdp/voca/issues) new functions, improvements, better documentation
 
 ## Development

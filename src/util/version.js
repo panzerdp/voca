@@ -9,6 +9,6 @@
  * v.version
  * // => '1.0.0'
  */
-var version = '0.0.1';
+var version = '1.0.0';
 
 export default version;

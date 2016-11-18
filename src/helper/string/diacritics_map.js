@@ -881,7 +881,7 @@ export default {
   "\uff59": "y",
   "\uff5a": "z",
 
-  // Additional maps for russian, ukranian and few other languages
+  // Additional maps for russian, ukrainian and few other languages
   "\u00d0": "D",
   "\u00de": "TH",
   "\u00f0": "d",
