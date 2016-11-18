@@ -41,6 +41,7 @@
   "devDependencies": {
     "babel-eslint": "6.1.2",
     "babel-plugin-external-helpers": "6.18.0",
+    "babel-plugin-transform-es2015-block-scoping": "6.18.0",
     "babel-plugin-transform-es2015-classes": "6.18.0",
     "babel-plugin-transform-es2015-modules-commonjs": "6.18.0",
     "babel-plugin-transform-es2015-parameters": "6.18.0",
