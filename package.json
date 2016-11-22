@@ -60,6 +60,7 @@
     "grunt-saucelabs": "9.0.0",
     "istanbul": "1.1.0-alpha.1",
     "jsdoc": "3.4.3",
+    "mkdirp": "0.5.1",
     "mocha": "3.1.2",
     "rollup": "0.36.3",
     "rollup-plugin-babel": "2.6.1",
