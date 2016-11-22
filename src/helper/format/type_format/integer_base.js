@@ -1,4 +1,4 @@
-import Const from 'format/helper/const';
+import Const from 'helper/format/const';
 import toString from 'helper/string/coerce_to_string';
 
 /**

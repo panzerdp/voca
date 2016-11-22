@@ -1,9 +1,9 @@
-import alignAndPad from 'format/helper/align_and_pad';
-import Const from 'format/helper/const';
-import formatFloat from 'format/helper/type_format/float';
-import formatIntegerBase from 'format/helper/type_format/integer_base';
-import formatIntegerDecimal from 'format/helper/type_format/integer_decimal';
-import formatString from 'format/helper/type_format/string';
+import alignAndPad from 'helper/format/align_and_pad';
+import Const from 'helper/format/const';
+import formatFloat from 'helper/format/type_format/float';
+import formatIntegerBase from 'helper/format/type_format/integer_base';
+import formatIntegerDecimal from 'helper/format/type_format/integer_decimal';
+import formatString from 'helper/format/type_format/string';
 
 /**
  * Returns the computed string based on format specifiers.

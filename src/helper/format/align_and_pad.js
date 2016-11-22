@@ -1,4 +1,4 @@
-import Const from 'format/helper/const';
+import Const from 'helper/format/const';
 import isNil from 'helper/object/is_nil';
 import padLeft from 'manipulate/pad_left';
 import padRight from 'manipulate/pad_right';

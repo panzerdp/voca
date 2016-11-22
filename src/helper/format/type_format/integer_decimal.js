@@ -1,5 +1,5 @@
-import addSignToFormattedNumber from './helper/add_sign_to_formatted_number';
-import toString from '../../../helper/string/to_string';
+import addSignToFormattedNumber from 'helper/format/type_format/add_sign_to_formatted_number';
+import toString from 'helper/string/to_string';
 
 /**
  * Formats a decimal integer type according to specifiers.

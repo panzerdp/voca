@@ -1,6 +1,6 @@
-import addSignToFormattedNumber from 'format/helper/type_format/helper/add_sign_to_formatted_number';
+import addSignToFormattedNumber from 'helper/format/type_format/add_sign_to_formatted_number';
 import coerceToNumber from 'helper/number/coerce_to_number';
-import Const from 'format/helper/const';
+import Const from 'helper/format/const';
 import { REGEXP_TRAILING_ZEROS } from 'helper/reg_exp/const';
 import toString from 'helper/string/coerce_to_string';
 

@@ -1,5 +1,5 @@
 import coerceToString from 'helper/string/coerce_to_string';
-import isAlpha from './is_alpha';
+import isAlpha from 'query/is_alpha';
 
 /**
  * Checks whether `subject` contains only upper case characters.
