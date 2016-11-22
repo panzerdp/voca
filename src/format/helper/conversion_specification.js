@@ -1,4 +1,4 @@
-import Const from './const';
+import Const from 'format/helper/const';
 import nilDefault from 'helper/undefined/nil_default';
 
 /**

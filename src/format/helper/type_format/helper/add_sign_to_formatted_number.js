@@ -1,4 +1,4 @@
-import Const from '../../const';
+import Const from 'format/helper/const';
 
 /**
  * Add sign to the formatted number.

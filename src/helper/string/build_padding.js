@@ -1,4 +1,4 @@
-import repeat from '../../manipulate/repeat';
+import repeat from 'manipulate/repeat';
 import toInteger from '../number/to_integer';
 
 /**

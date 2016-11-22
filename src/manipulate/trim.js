@@ -1,8 +1,8 @@
 import coerceToString from 'helper/string/coerce_to_string';
 import isNil from 'helper/object/is_nil';
 import toString from 'helper/string/to_string';
-import trimLeft from './trim_left';
-import trimRight from './trim_right';
+import trimLeft from 'manipulate/trim_left';
+import trimRight from 'manipulate/trim_right';
 
 /**
  * Removes whitespaces from left and right parts of the `subject`.

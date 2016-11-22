@@ -1,7 +1,7 @@
 import coerceToNumber from 'helper/number/coerce_to_number';
-import computeReplacement from './compute';
-import ConversionSpecification from '../conversion_specification';
-import validateReplacement from './validate';
+import computeReplacement from 'format/helper/replacement/compute';
+import ConversionSpecification from 'format/helper/conversion_specification';
+import validateReplacement from 'format/helper/replacement/validate';
 
 /**
  * Return the replacement for regular expression match of the conversion specification.

@@ -1,4 +1,4 @@
-import codePointAt from '../chop/code_point_at';
+import codePointAt from 'chop/code_point_at';
 import coerceToString from 'helper/string/coerce_to_string';
 
 /**

@@ -1,5 +1,5 @@
 import isNil from '../object/is_nil';
-import isString from '../../query/is_string';
+import isString from 'query/is_string';
 
 /**
  * Get the string representation of the `value`.

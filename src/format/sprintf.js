@@ -1,7 +1,7 @@
 import coerceToString from 'helper/string/coerce_to_string';
 import { REGEXP_CONVERSION_SPECIFICATION } from 'helper/reg_exp/const';
-import ReplacementIndex from './helper/replacement/index';
-import replacementMatch from './helper/replacement/match';
+import ReplacementIndex from 'format/helper/replacement/index';
+import replacementMatch from 'format/helper/replacement/match';
 
 /**
  * Produces a string according to `format`.

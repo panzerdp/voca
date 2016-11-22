@@ -1,6 +1,6 @@
 import coerceToString from 'helper/string/coerce_to_string';
-import kebabCase from '../case/kebab_case';
-import latinise from '../manipulate/latinise';
+import kebabCase from 'case/kebab_case';
+import latinise from 'manipulate/latinise';
 import { REGEXP_NON_LATIN } from 'helper/reg_exp/const';
 
 /**
