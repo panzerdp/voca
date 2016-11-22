@@ -1,4 +1,4 @@
-import coerceToBoolean from '~/helper/boolean/coerce_to_boolean';
+import coerceToBoolean from 'helper/boolean/coerce_to_boolean';
 import { expect } from 'chai';
 
 describe('coerceToBoolean', function() {

@@ -1,8 +1,8 @@
-import { REGEXP_LATIN, REGEXP_LATIN_WORD, REGEXP_WORD } from '../helper/reg_exp/const';
-import coerceToString from '../helper/string/coerce_to_string';
-import isNil from '../helper/object/is_nil';
-import nilDefault from '../helper/undefined/nil_default';
-import toString from '../helper/string/to_string';
+import { REGEXP_LATIN, REGEXP_LATIN_WORD, REGEXP_WORD } from 'helper/reg_exp/const';
+import coerceToString from 'helper/string/coerce_to_string';
+import isNil from 'helper/object/is_nil';
+import nilDefault from 'helper/undefined/nil_default';
+import toString from 'helper/string/to_string';
 
 /**
  * Splits `subject` into an array of words.

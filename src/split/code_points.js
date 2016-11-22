@@ -1,5 +1,5 @@
 import codePointAt from '../chop/code_point_at';
-import coerceToString from '../helper/string/coerce_to_string';
+import coerceToString from 'helper/string/coerce_to_string';
 
 /**
  * Returns an array of Unicode code point values from characters of `subject`.

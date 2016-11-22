@@ -1,4 +1,4 @@
-import nilDefault from '../helper/undefined/nil_default';
+import nilDefault from 'helper/undefined/nil_default';
 import sprintf from './sprintf';
 
 /**

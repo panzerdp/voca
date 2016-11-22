@@ -1,5 +1,5 @@
-import coerceToNumber from '../helper/number/coerce_to_number';
-import coerceToString from '../helper/string/coerce_to_string';
+import coerceToNumber from 'helper/number/coerce_to_number';
+import coerceToString from 'helper/string/coerce_to_string';
 
 /**
  * Inserts into `subject` a string `toInsert` at specified `position`.

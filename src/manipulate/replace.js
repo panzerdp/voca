@@ -1,4 +1,4 @@
-import coerceToString from '../helper/string/coerce_to_string';
+import coerceToString from 'helper/string/coerce_to_string';
 
 /**
  * Returns a new string where the matches of `pattern` are replaced with `replacement`. <br/>

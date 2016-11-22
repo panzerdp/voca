@@ -1,5 +1,5 @@
 import getRegExpFlags from './get_reg_exp_flags';
-import includes from '~/query/includes';
+import includes from 'query/includes';
 
 /**
  * Append flag to a regular expression.

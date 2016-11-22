@@ -1,6 +1,6 @@
-import coerceToString from '../helper/string/coerce_to_string';
-import lowerCase from '../case/lower_case';
-import words from '../split/words';
+import coerceToString from 'helper/string/coerce_to_string';
+import lowerCase from 'case/lower_case';
+import words from 'split/words';
 
 /**
  * Converts the `subject` to <a href="https://en.wikipedia.org/wiki/Letter_case#cite_ref-13">kebab case</a>,

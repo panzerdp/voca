@@ -1,4 +1,4 @@
-import coerceToString from '../helper/string/coerce_to_string';
+import coerceToString from 'helper/string/coerce_to_string';
 
 /**
  * Counts the number of `substring` appearances in `subject`.

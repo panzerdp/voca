@@ -1,5 +1,5 @@
-import { REGEXP_COMBINING_MARKS, REGEXP_SURROGATE_PAIRS } from '../helper/reg_exp/const';
-import coerceToString from '../helper/string/coerce_to_string';
+import { REGEXP_COMBINING_MARKS, REGEXP_SURROGATE_PAIRS } from 'helper/reg_exp/const';
+import coerceToString from 'helper/string/coerce_to_string';
 
 /**
  * Counts the graphemes in `subject` taking care of

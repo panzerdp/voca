@@ -1,6 +1,6 @@
-import appendFlagToRegularExpression from '../helper/reg_exp/append_flag_to_reg_exp';
-import coerceToString from '../helper/string/coerce_to_string';
-import escapeRegExp from '~/escape/escape_reg_exp';
+import appendFlagToRegularExpression from 'helper/reg_exp/append_flag_to_reg_exp';
+import coerceToString from 'helper/string/coerce_to_string';
+import escapeRegExp from 'escape/escape_reg_exp';
 
 /**
  * Returns a new string where all matches of `pattern` are replaced with `replacement`. <br/>

@@ -1,5 +1,5 @@
-import coerceToString from '../helper/string/coerce_to_string';
-import { REGEXP_ALPHA } from '../helper/reg_exp/const';
+import coerceToString from 'helper/string/coerce_to_string';
+import { REGEXP_ALPHA } from 'helper/reg_exp/const';
 
 /**
  * Checks whether `subject` contains only alpha characters.

@@ -7,7 +7,9 @@ export default babel({
     "transform-es2015-parameters",
     "transform-es2015-shorthand-properties",
     "transform-es2015-spread",
-    ["babel-root-import", {"rootPathSuffix": "src"}]
+    ["module-resolver", {
+      "root": ["./src"]
+    }]
   ],
   "babelrc": false
 });

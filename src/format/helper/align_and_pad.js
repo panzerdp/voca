@@ -1,7 +1,7 @@
 import Const from './const';
-import isNil from '~/helper/object/is_nil';
-import padLeft from '~/manipulate/pad_left';
-import padRight from '~/manipulate/pad_right';
+import isNil from 'helper/object/is_nil';
+import padLeft from 'manipulate/pad_left';
+import padRight from 'manipulate/pad_right';
 
 /**
  * Aligns and pads `subject` string.

@@ -901,14 +901,14 @@ function prune(subject, length, end) {
   if (lengthInt >= subjectString.length) {
     return subjectString;
   }
-  var truncatedString = '';
+  var truncatedLength = 0;
   subjectString.replace(REGEXP_WORD, function (word, offset) {
     var wordInsertLength = offset + word.length;
     if (wordInsertLength <= lengthInt - endString.length) {
-      truncatedString = subjectString.substr(0, wordInsertLength);
+      truncatedLength = wordInsertLength;
     }
   });
-  return truncatedString + endString;
+  return subjectString.substr(0, truncatedLength) + endString;
 }
 
 /**
@@ -1102,6 +1102,7 @@ function countWhere(subject, predicate, context) {
  * @ignore
  * @name ReplacementIndex#index
  * @type {number}
+ * @return {ReplacementIndex} ReplacementIndex instance.
  */
 function ReplacementIndex() {
   this.index = 0;
@@ -1484,6 +1485,7 @@ var computeReplacement = function (replacement, conversion) {
  *
  * @ignore
  * @param {Object} properties An object with properties to initialize.
+ * @return {ConversionSpecification} ConversionSpecification instance.
  */
 function ConversionSpecification(properties) {
 

@@ -1,4 +1,4 @@
-import coerceToString from '../helper/string/coerce_to_string';
+import coerceToString from 'helper/string/coerce_to_string';
 
 /**
  * Checks whether `subject` is empty.

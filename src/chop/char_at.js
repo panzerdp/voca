@@ -1,4 +1,4 @@
-import coerceToString from '../helper/string/coerce_to_string';
+import coerceToString from 'helper/string/coerce_to_string';
 
 /**
  * Access a character from `subject` at specified `position`.

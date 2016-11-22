@@ -1,5 +1,5 @@
-import coerceToNumber from '../helper/number/coerce_to_number';
-import coerceToString from '../helper/string/coerce_to_string';
+import coerceToNumber from 'helper/number/coerce_to_number';
+import coerceToString from 'helper/string/coerce_to_string';
 
 /**
  * Changes `subject` by deleting `deleteCount` of characters starting at position `start`. Places a new string

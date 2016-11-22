@@ -1,5 +1,5 @@
 import Const from './const';
-import nilDefault from '~/helper/undefined/nil_default';
+import nilDefault from 'helper/undefined/nil_default';
 
 /**
  * Construct the new conversion specification object.

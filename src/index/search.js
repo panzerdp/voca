@@ -1,7 +1,7 @@
-import clipNumber from '../helper/number/clip_number';
-import coerceToString from '../helper/string/coerce_to_string';
-import isNil from '../helper/object/is_nil';
-import toInteger from '../helper/number/to_integer';
+import clipNumber from 'helper/number/clip_number';
+import coerceToString from 'helper/string/coerce_to_string';
+import isNil from 'helper/object/is_nil';
+import toInteger from 'helper/number/to_integer';
 
 /**
  * Returns the first index of a `pattern` match in `subject`.

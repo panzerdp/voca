@@ -1,5 +1,5 @@
-import coerceToString from '../helper/string/coerce_to_string';
-import { REGEXP_SPECIAL_CHARACTERS } from '../helper/reg_exp/const';
+import coerceToString from 'helper/string/coerce_to_string';
+import { REGEXP_SPECIAL_CHARACTERS } from 'helper/reg_exp/const';
 
 /**
  * Escapes the regular expression special characters `- [ ] / { } ( ) * + ? . \ ^ $ |` in `subject`.

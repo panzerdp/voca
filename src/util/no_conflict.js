@@ -1,4 +1,4 @@
-import getGlobalObject from '../helper/object/get_global';
+import getGlobalObject from 'helper/object/get_global';
 
 var globalObject = getGlobalObject();
 var previousV = globalObject.v;

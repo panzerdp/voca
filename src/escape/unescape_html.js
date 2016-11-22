@@ -1,4 +1,4 @@
-import coerceToString from '../helper/string/coerce_to_string';
+import coerceToString from 'helper/string/coerce_to_string';
 
 var unescapeCharactersMap = {
   '<': /(&lt;)|(&#x0*3c;)|(&#0*60;)/gi,

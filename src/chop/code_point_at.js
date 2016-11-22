@@ -1,7 +1,7 @@
-import { getAstralNumberFromSurrogatePair, isHighSurrogate, isLowSurrogate } from '../helper/string/surrogate_pair';
-import coerceToNumber from '../helper/number/coerce_to_number';
-import coerceToString from '../helper/string/coerce_to_string';
-import nanDefault from '../helper/number/nan_default';
+import { getAstralNumberFromSurrogatePair, isHighSurrogate, isLowSurrogate } from 'helper/string/surrogate_pair';
+import coerceToNumber from 'helper/number/coerce_to_number';
+import coerceToString from 'helper/string/coerce_to_string';
+import nanDefault from 'helper/number/nan_default';
 
 /**
  * Get the Unicode code point value of the character at `position`. <br/>

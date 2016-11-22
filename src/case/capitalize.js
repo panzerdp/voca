@@ -1,5 +1,5 @@
-import coerceToBoolean from '../helper/boolean/coerce_to_boolean';
-import coerceToString from '../helper/string/coerce_to_string';
+import coerceToBoolean from 'helper/boolean/coerce_to_boolean';
+import coerceToString from 'helper/string/coerce_to_string';
 
 /**
  * Converts the first character of `subject` to upper case. If `restToLower` is `true`, convert the rest of

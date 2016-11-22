@@ -28,7 +28,7 @@
     "eslint": "eslint . --ext .js",
     "build": "rollup -c config/rollup_dist.js && rollup -c config/rollup_dist_min.js && rollup -c config/rollup_test.js",
     "build-mod": "rm -rf dist_mod && mkdir dist_mod && cp package.json README.md ./dist_mod && rollup -c config/rollup_dist_mod.js && npm run build-ind-mod",
-    "build-ind-mod": "babel src --out-dir dist_mod/lib --ignore index.js,functions.js,chain.js,wrapper.js",
+    "build-ind-mod": "babel src --out-dir dist_mod --ignore src/index.js,src/functions.js,src/chain/*.js",
     "test": "mocha test/index.js --reporter dot",
     "test-sl": "grunt --gruntfile ./test_runner/gruntfile.js --base .",
     "coverage": "istanbul cover _mocha -- test/index.js --reporter spec",
@@ -40,6 +40,7 @@
   "devDependencies": {
     "babel-cli": "6.18.0",
     "babel-eslint": "6.1.2",
+    "babel-plugin-module-resolver": "2.3.0",
     "babel-plugin-transform-es2015-block-scoping": "6.18.0",
     "babel-plugin-transform-es2015-modules-commonjs": "6.18.0",
     "babel-plugin-transform-es2015-parameters": "6.18.0",

@@ -1,4 +1,4 @@
-import coerceToNumber from '~/helper/number/coerce_to_number';
+import coerceToNumber from 'helper/number/coerce_to_number';
 import computeReplacement from './compute';
 import ConversionSpecification from '../conversion_specification';
 import validateReplacement from './validate';
