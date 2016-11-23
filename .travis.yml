@@ -13,8 +13,6 @@ env:
     - DETAILED=true
 matrix:
   include:
-    - node_js: "0.12"
-      env:
     - node_js: "4"
       env:
     - node_js: "5"

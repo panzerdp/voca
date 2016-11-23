@@ -1,4 +1,6 @@
-Fork the repostiory, then clone it into your project directory.
+Voca development environment requires Node version 4 and above.  
+
+Fork the repository, then clone it into your project directory.    
 
 Install the development dependencies within Voca source directory:
 ```bash
