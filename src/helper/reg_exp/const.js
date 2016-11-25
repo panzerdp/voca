@@ -157,9 +157,9 @@ export const REGEXP_SPECIAL_CHARACTERS = /[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g;
  * @ignore
  */
 export const REGEXP_WORD = new RegExp(
-'(?:(?:[' + upperCaseLetter + '][' + diacriticalMark + ']*)?(?:[' + lowerCaseLetter + '][' + diacriticalMark + ']*)+)|\
-(?:(?:[' + upperCaseLetter + '][' + diacriticalMark + ']*)+(?![' + lowerCaseLetter + ']))|\
-(?:[' + digit + ']+)', 'g');
+'(?:[' + upperCaseLetter + '][' + diacriticalMark + ']*)?(?:[' + lowerCaseLetter + '][' + diacriticalMark + ']*)+|\
+(?:[' + upperCaseLetter + '][' + diacriticalMark + ']*)+(?![' + lowerCaseLetter + '])|\
+[' + digit + ']+', 'g');
 
 /**
  * Regular expression to match words from Basic Latin and Latin-1 Supplement blocks
@@ -167,7 +167,7 @@ export const REGEXP_WORD = new RegExp(
  * @type {RegExp}
  * @ignore
  */
-export const REGEXP_LATIN_WORD = /(?:[A-Z\xC0-\xD6\xD8-\xDE]?[a-z\xDF-\xF6\xF8-\xFF]+)|(?:[A-Z\xC0-\xD6\xD8-\xDE]+(?![a-z\xDF-\xF6\xF8-\xFF]))|(?:\d+)/g;
+export const REGEXP_LATIN_WORD = /[A-Z\xC0-\xD6\xD8-\xDE]?[a-z\xDF-\xF6\xF8-\xFF]+|[A-Z\xC0-\xD6\xD8-\xDE]+(?![a-z\xDF-\xF6\xF8-\xFF])|\d+/g;
 
 /**
  * Regular expression to match not latin characters
