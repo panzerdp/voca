@@ -1,4 +1,4 @@
-var globalObject = null;
+let globalObject = null;
 
 function getGlobalObject() {
   if (globalObject !== null) {

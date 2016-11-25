@@ -21,17 +21,17 @@ import toString from 'helper/string/to_string';
  * // => 'Mobile Infantry'
  */
 export default function trimLeft(subject, whitespace) {
-  var subjectString = coerceToString(subject);
+  const subjectString = coerceToString(subject);
   if (whitespace === '' || subjectString === '') {
     return subjectString;
   }
-  var whitespaceString = toString(whitespace);
+  const whitespaceString = toString(whitespace);
   if (isNil(whitespaceString)) {
     return subjectString.replace(REGEXP_TRIM_LEFT, '');
   }
-  var matchWhitespace = true,
-    totalWhitespaceLength = 0,
-    whitespaceStringLength = whitespaceString.length;
+  const whitespaceStringLength = whitespaceString.length;
+  let matchWhitespace = true;
+  let totalWhitespaceLength = 0;
   while(matchWhitespace) {
     if (subjectString.indexOf(whitespaceString, totalWhitespaceLength) === totalWhitespaceLength) {
       totalWhitespaceLength += whitespaceStringLength;

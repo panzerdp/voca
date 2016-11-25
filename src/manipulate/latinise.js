@@ -10,7 +10,7 @@ import diacriticMap from 'helper/string/diacritics_map';
  * @returns {string} Returns the character without diacritics.
  */
 function removeDiacritics(character) {
-  var characterWithoutDiacritic = diacriticMap[character];
+  const characterWithoutDiacritic = diacriticMap[character];
   return characterWithoutDiacritic ? characterWithoutDiacritic : character;
 }
 
@@ -45,7 +45,7 @@ function removeCombiningMarks(character, cleanCharacter) {
  * // => 'kak prekrasen etot mir'
  */
 export default function latinise(subject) {
-  var subjectString = coerceToString(subject);
+  const subjectString = coerceToString(subject);
   if (subjectString === '') {
     return subjectString;
   }

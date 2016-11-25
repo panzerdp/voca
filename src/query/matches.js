@@ -23,9 +23,9 @@ import toString from 'helper/string/to_string';
  * // => false
  */
 export default function matches(subject, pattern, flags) {
-  var subjectString = coerceToString(subject),
-    flagsString = coerceToString(flags),
-    patternString;
+  const subjectString = coerceToString(subject);
+  const flagsString = coerceToString(flags);
+  let patternString;
   if (!(pattern instanceof RegExp)) {
     patternString = toString(pattern);
     if (patternString === null) {

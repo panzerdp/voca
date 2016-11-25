@@ -10,7 +10,7 @@ import includes from 'query/includes';
  * @return {RegExp} The regular expression with added flag.
  */
 export default function(pattern, appendFlag) {
-  var regularExpressionFlags = getRegExpFlags(pattern);
+  const regularExpressionFlags = getRegExpFlags(pattern);
   if (!includes(regularExpressionFlags, appendFlag)) {
     return new RegExp(pattern.source, regularExpressionFlags + appendFlag);
   }

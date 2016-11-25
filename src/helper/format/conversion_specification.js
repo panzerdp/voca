@@ -92,7 +92,7 @@ ConversionSpecification.prototype.isPercentLiteral = function() {
  * @returns {string} Returns the padding character.
  */
 ConversionSpecification.prototype.getPaddingCharacter = function() {
-  var paddingCharacter = nilDefault(this.paddingSpecifier, ' ');
+  let paddingCharacter = nilDefault(this.paddingSpecifier, ' ');
   if (paddingCharacter.length === 2 && paddingCharacter[0] === Const.LITERAL_SINGLE_QUOTE) {
     paddingCharacter = paddingCharacter[1];
   }

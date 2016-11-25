@@ -20,8 +20,8 @@ import coerceToString from 'helper/string/coerce_to_string';
  * // => 'Apple'
  */
 export default function capitalize(subject, restToLower) {
-  var subjectString = coerceToString(subject),
-    restToLowerCaseBoolean = coerceToBoolean(restToLower);
+  let subjectString = coerceToString(subject);
+  const restToLowerCaseBoolean = coerceToBoolean(restToLower);
   if (subjectString === '') {
     return '';
   }

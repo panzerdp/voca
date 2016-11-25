@@ -20,6 +20,6 @@ import coerceToString from 'helper/string/coerce_to_string';
  * // => false
  */
 export default function isBlank(subject) {
-  var subjectString = coerceToString(subject);
+  const subjectString = coerceToString(subject);
   return subjectString.trim().length === 0;
 }

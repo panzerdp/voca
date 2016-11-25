@@ -14,6 +14,6 @@ import coerceToString from 'helper/string/coerce_to_string';
  * // => 'green'
  */
 export default function lowerCase(subject) {
-  var subjectString = coerceToString(subject, '');
+  const subjectString = coerceToString(subject, '');
   return subjectString.toLowerCase();
 }

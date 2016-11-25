@@ -25,6 +25,6 @@ import coerceToString from 'helper/string/coerce_to_string';
  * // => 'the duck is nice'
  */
 export default function replace(subject, pattern, replacement) {
-  var subjectString = coerceToString(subject);
+  const subjectString = coerceToString(subject);
   return subjectString.replace(pattern, replacement);
 }

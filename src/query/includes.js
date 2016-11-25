@@ -23,8 +23,8 @@ import toString from 'helper/string/to_string';
  * // => false
  */
 export default function(subject, search, position) {
-  var subjectString = coerceToString(subject),
-    searchString = toString(search);
+  const subjectString = coerceToString(subject);
+  const searchString = toString(search);
   if (searchString === null) {
     return false;
   }

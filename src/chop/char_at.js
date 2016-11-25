@@ -18,6 +18,6 @@ import coerceToString from 'helper/string/coerce_to_string';
  * // => 'e'
  */
 export default function charAt(subject, position) {
-  var subjectString = coerceToString(subject);
+  const subjectString = coerceToString(subject);
   return subjectString.charAt(position);
 }

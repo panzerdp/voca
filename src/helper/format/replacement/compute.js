@@ -15,7 +15,7 @@ import formatString from 'helper/format/type_format/string';
  * @return {string} Returns the computed string.
  */
 export default function (replacement, conversion) {
-  var formatFunction;
+  let formatFunction;
   switch (conversion.typeSpecifier) {
     case Const.TYPE_STRING:
       formatFunction = formatString;
@@ -40,6 +40,6 @@ export default function (replacement, conversion) {
       formatFunction = formatFloat;
       break;
   }
-  var formattedString = formatFunction(replacement, conversion);
+  const formattedString = formatFunction(replacement, conversion);
   return alignAndPad(formattedString, conversion);
 }

@@ -22,9 +22,9 @@ import toInteger from 'helper/number/to_integer';
  * // => -1
  */
 export default function search(subject, pattern, fromIndex) {
-  var subjectString = coerceToString(subject),
-    fromIndexNumber = isNil(fromIndex) ? 0 : clipNumber(toInteger(fromIndex), 0, subjectString.length);
-  var matchIndex  = subjectString.substr(fromIndexNumber).search(pattern);
+  const subjectString = coerceToString(subject);
+  const fromIndexNumber = isNil(fromIndex) ? 0 : clipNumber(toInteger(fromIndex), 0, subjectString.length);
+  let matchIndex  = subjectString.substr(fromIndexNumber).search(pattern);
   if (matchIndex !== -1 && !isNaN(fromIndexNumber)) {
     matchIndex += fromIndexNumber;
   }

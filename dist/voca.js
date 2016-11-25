@@ -97,8 +97,8 @@ var coerceToString = function (value) {
  * // => 'Apple'
  */
 function capitalize(subject, restToLower) {
-  var subjectString = coerceToString(subject),
-      restToLowerCaseBoolean = coerceToBoolean(restToLower);
+  var subjectString = coerceToString(subject);
+  var restToLowerCaseBoolean = coerceToBoolean(restToLower);
   if (subjectString === '') {
     return '';
   }

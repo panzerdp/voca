@@ -14,6 +14,6 @@ import coerceToString from 'helper/string/coerce_to_string';
  * // => 'SCHOOL'
  */
 export default function upperCase(subject) {
-  var subjectString = coerceToString(subject);
+  const subjectString = coerceToString(subject);
   return subjectString.toUpperCase();
 }

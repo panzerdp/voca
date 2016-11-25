@@ -143,7 +143,7 @@ ChainWrapper.prototype._explicitChain = true;
  */
 function makeFunctionChainable(functionInstance) {
   return function(...args) {
-    var result = functionInstance(this._wrappedValue, ...args);
+    const result = functionInstance(this._wrappedValue, ...args);
     if (this._explicitChain || typeof result === 'string') {
       return new ChainWrapper(result, this._explicitChain);
     } else {

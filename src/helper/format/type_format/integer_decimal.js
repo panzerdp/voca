@@ -11,7 +11,7 @@ import toString from 'helper/string/to_string';
  */
 
 export default function(replacement, conversion) {
-  var integer = parseInt(replacement);
+  let integer = parseInt(replacement);
   if (isNaN(integer)) {
     integer = 0;
   }

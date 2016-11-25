@@ -23,10 +23,10 @@ import { REGEXP_NON_LATIN } from 'helper/reg_exp/const';
  * // => 'horoshaya-pogoda'
  */
 export default function slugify(subject) {
-  var subjectString = coerceToString(subject);
+  const subjectString = coerceToString(subject);
   if (subjectString === '') {
     return '';
   }
-  var cleanSubjectString = latinise(subjectString).replace(REGEXP_NON_LATIN, '-');
+  const cleanSubjectString = latinise(subjectString).replace(REGEXP_NON_LATIN, '-');
   return kebabCase(cleanSubjectString);
 }

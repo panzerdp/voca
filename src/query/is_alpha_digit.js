@@ -21,6 +21,6 @@ import { REGEXP_ALPHA_DIGIT } from 'helper/reg_exp/const';
  * // => false
  */
 export default function isAlphaDigit(subject) {
-  var subjectString = coerceToString(subject);
+  const subjectString = coerceToString(subject);
   return REGEXP_ALPHA_DIGIT.test(subjectString);
 }

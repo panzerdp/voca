@@ -19,6 +19,6 @@ import coerceToString from 'helper/string/coerce_to_string';
  * // => ['the', 'dying', 'of']
  */
 export default function split(subject, separator, limit) {
-  var subjectString = coerceToString(subject);
+  const subjectString = coerceToString(subject);
   return subjectString.split(separator, limit);
 }

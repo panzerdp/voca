@@ -1,6 +1,6 @@
 import coerceToString from 'helper/string/coerce_to_string';
 
-var unescapeCharactersMap = {
+const unescapeCharactersMap = {
   '<': /(&lt;)|(&#x0*3c;)|(&#0*60;)/gi,
   '>': /(&gt;)|(&#x0*3e;)|(&#0*62;)/gi,
   '&': /(&amp;)|(&#x0*26;)|(&#0*38;)/gi,
@@ -8,7 +8,7 @@ var unescapeCharactersMap = {
   "'": /(&#x0*27;)|(&#0*39;)/gi,
   '`': /(&#x0*60;)|(&#0*96;)/gi
 };
-var characters = Object.keys(unescapeCharactersMap);
+const characters = Object.keys(unescapeCharactersMap);
 
 /**
  * Replaces the HTML entities with corresponding characters.
@@ -37,6 +37,6 @@ function reduceUnescapedString(string, key) {
  * // => '<p>wonderful world</p>'
  */
 export default function unescapeHtml(subject) {
-  var subjectString = coerceToString(subject);
+  const subjectString = coerceToString(subject);
   return characters.reduce(reduceUnescapedString, subjectString);
 }

@@ -27,9 +27,9 @@ import toInteger from 'helper/number/to_integer';
  * // => 'cat-=-'
  */
 export default function padRight(subject, length, pad) {
-  var subjectString = coerceToString(subject),
-    lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
-    padString = coerceToString(pad, ' ');
+  const subjectString = coerceToString(subject);
+  const lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
+  const padString = coerceToString(pad, ' ');
   if (lengthInt <= subjectString.length) {
     return subjectString;
   }

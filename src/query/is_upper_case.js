@@ -18,6 +18,6 @@ import isAlpha from 'query/is_alpha';
  * // => false
  */
 export default function isUpperCase(subject) {
-  var subjectString = coerceToString(subject);
+  const subjectString = coerceToString(subject);
   return isAlpha(subjectString) && subjectString.toUpperCase() === subjectString;
 }

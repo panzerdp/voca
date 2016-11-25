@@ -28,15 +28,15 @@ import toInteger from 'helper/number/to_integer';
  * // => 'Once upon'
  */
 export default function prune(subject, length, end) {
-  var subjectString = coerceToString(subject),
-    lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
-    endString = coerceToString(end, '...');
+  const subjectString = coerceToString(subject);
+  const lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
+  const endString = coerceToString(end, '...');
   if (lengthInt >= subjectString.length) {
     return subjectString;
   }
-  var truncatedLength = 0;
+  let truncatedLength = 0;
   subjectString.replace(REGEXP_WORD, function(word, offset) {
-    var wordInsertLength = offset + word.length;
+    const wordInsertLength = offset + word.length;
     if (wordInsertLength <= lengthInt - endString.length) {
       truncatedLength = wordInsertLength;
     }

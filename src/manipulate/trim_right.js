@@ -21,19 +21,19 @@ import toString from 'helper/string/to_string';
  * // => 'do you feel in charge?'
  */
 export default function trimRight(subject, whitespace) {
-  var subjectString = coerceToString(subject);
+  const subjectString = coerceToString(subject);
   if (whitespace === '' || subjectString === '') {
     return subjectString;
   }
-  var whitespaceString = toString(whitespace);
+  const whitespaceString = toString(whitespace);
   if (isNil(whitespaceString)) {
     return subjectString.replace(REGEXP_TRIM_RIGHT, '');
   }
-  var matchWhitespace = true,
-    totalWhitespaceLength = 0,
-    whitespaceStringLength = whitespaceString.length,
-    valueStringLength = subjectString.length,
-    position;
+  const whitespaceStringLength = whitespaceString.length;
+  const valueStringLength = subjectString.length;
+  let matchWhitespace = true;
+  let totalWhitespaceLength = 0;
+  let position;
   while(matchWhitespace) {
     position = valueStringLength - totalWhitespaceLength - whitespaceStringLength;
     if (subjectString.indexOf(whitespaceString, position) === position) {

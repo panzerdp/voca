@@ -4,4 +4,4 @@
  * @ignore
  * @type {number}
  */
-export var MAX_SAFE_INTEGER = 0x1fffffffffffff;
+export const MAX_SAFE_INTEGER = 0x1fffffffffffff;

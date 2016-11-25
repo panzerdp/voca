@@ -23,7 +23,7 @@ import words from 'split/words';
  * // => 'goodbye-blue-sky'
  */
 export default function kebabCase(subject) {
-  var subjectString = coerceToString(subject);
+  const subjectString = coerceToString(subject);
   if (subjectString === '') {
     return '';
   }

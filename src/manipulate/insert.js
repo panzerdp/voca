@@ -20,10 +20,10 @@ import coerceToString from 'helper/string/coerce_to_string';
  * // => 'sunny day'
  */
 export default function insert(subject, toInsert, position) {
-  var subjectString = coerceToString(subject),
-    toInsertString = coerceToString(toInsert),
-    positionNumber = coerceToNumber(position);
-  if (positionNumber < 0 || positionNumber > subjectString.length || toInsertString == '') {
+  const subjectString = coerceToString(subject);
+  const toInsertString = coerceToString(toInsert);
+  const positionNumber = coerceToNumber(position);
+  if (positionNumber < 0 || positionNumber > subjectString.length || toInsertString === '') {
     return subjectString;
   }
   return subjectString.slice(0, positionNumber) + toInsertString + subjectString.slice(positionNumber);

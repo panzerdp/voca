@@ -29,14 +29,14 @@ import toString from 'helper/string/to_string';
  * // => ['gr', 'av', 'it', 'y']
  */
 export default function words(subject, pattern, flags) {
-  var subjectString = coerceToString(subject),
-    patternRegExp;
+  const subjectString = coerceToString(subject);
+  let patternRegExp;
   if (isNil(pattern)) {
     patternRegExp = REGEXP_LATIN.test(subjectString) ? REGEXP_LATIN_WORD : REGEXP_WORD;
   } else if (pattern instanceof RegExp) {
     patternRegExp = pattern;
   } else {
-    var flagsString = toString(nilDefault(flags, ''));
+    const flagsString = toString(nilDefault(flags, ''));
     patternRegExp = new RegExp(toString(pattern), flagsString);
   }
   return nilDefault(subjectString.match(patternRegExp), []);

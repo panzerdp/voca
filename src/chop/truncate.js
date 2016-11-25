@@ -26,9 +26,9 @@ import toInteger from 'helper/number/to_integer';
  * // => 'Once upon'
  */
 export default function truncate(subject, length, end) {
-  var subjectString = coerceToString(subject),
-    lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
-    endString = coerceToString(end, '...');
+  const subjectString = coerceToString(subject);
+  const lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
+  const endString = coerceToString(end, '...');
   if (lengthInt >= subjectString.length) {
     return subjectString;
   }

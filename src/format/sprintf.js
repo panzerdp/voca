@@ -178,10 +178,10 @@ import replacementMatch from 'helper/format/replacement/match';
  * 
  */
 export default function sprintf(format, ...replacements) {
-  var formatString = coerceToString(format);
+  const formatString = coerceToString(format);
   if (formatString === '') {
     return formatString;
   }
-  var boundReplacementMatch = replacementMatch.bind(undefined, new ReplacementIndex(), replacements);
+  const boundReplacementMatch = replacementMatch.bind(undefined, new ReplacementIndex(), replacements);
   return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, boundReplacementMatch);
 }

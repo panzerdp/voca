@@ -18,11 +18,11 @@ import coerceToString from 'helper/string/coerce_to_string';
  * // => 0
  */
 export default function countSubstring(subject, substring) {
-  var subjectString = coerceToString(subject),
-    substringString = coerceToString(substring),
-    count = 0,
-    matchIndex = 0,
-    substringLength = substringString.length;
+  const subjectString = coerceToString(subject);
+  const substringString = coerceToString(substring);
+  const substringLength = substringString.length;
+  let count = 0;
+  let matchIndex = 0;
   if (subjectString === '' || substringString === '') {
     return count;
   }

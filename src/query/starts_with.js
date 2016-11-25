@@ -26,8 +26,8 @@ import toString from 'helper/string/to_string';
  * // => false
  */
 export default function startsWith(subject, start, position) {
-  var subjectString = coerceToString(subject),
-    startString = toString(start);
+  const subjectString = coerceToString(subject);
+  const startString = toString(start);
   if (startString === null) {
     return false;
   }

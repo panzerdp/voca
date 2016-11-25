@@ -21,6 +21,6 @@ import { REGEXP_ALPHA } from 'helper/reg_exp/const';
  * // => false
  */
 export default function(subject) {
-  var subjectString = coerceToString(subject);
+  const subjectString = coerceToString(subject);
   return REGEXP_ALPHA.test(subjectString);
 }

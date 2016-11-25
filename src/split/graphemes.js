@@ -23,6 +23,6 @@ import { REGEXP_UNICODE_CHARACTER } from 'helper/reg_exp/const';
  * //    ['c', 'a', 'f', 'é']
  */
 export default function graphemes(subject) {
-  var subjectString = coerceToString(subject);
+  const subjectString = coerceToString(subject);
   return nilDefault(subjectString.match(REGEXP_UNICODE_CHARACTER), []);
 }
