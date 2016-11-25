@@ -4,14 +4,6 @@ module.exports = function (grunt) {
     platform: 'Windows 10',
     version: '54'
   }, {
-    browserName: 'chrome',
-    platform: 'Linux',
-    version: '48'
-  }, {
-    browserName: 'firefox',
-    platform: 'Windows 10',
-    version: '47'
-  }, {
     browserName: 'firefox',
     platform: 'Windows 10',
     version: '49'
@@ -30,10 +22,6 @@ module.exports = function (grunt) {
   }, {
     browserName: 'MicrosoftEdge',
     platform: 'Windows 10',
-    version: '13'
-  }, {
-    browserName: 'MicrosoftEdge',
-    platform: 'Windows 10',
     version: '14'
   }, {
     browserName: 'safari',
@@ -43,10 +31,6 @@ module.exports = function (grunt) {
     browserName: 'safari',
     platform: 'OS X 10.10',
     version: '8'
-  }, {
-    browserName: 'safari',
-    platform: 'OS X 10.11',
-    version: '9'
   }, {
     browserName: 'safari',
     platform: 'OS X 10.11',
