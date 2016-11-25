@@ -18,11 +18,6 @@ describe('isAlpha', function() {
     expect(v.isAlpha('АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя')).to.be.true;
   });
 
-  it('should return true for an alpha japanese string', function() {
-    expect(v.isAlpha('こんにちは世界')).to.be.true;
-    expect(v.isAlpha('ジャバスクリプト')).to.be.true;
-  });
-
   it('should return true for a string with diacritics', function() {
     expect(v.isAlpha('áéèêëíîïóôúûýàòüçäöâùÿãõñ')).to.be.true;
   });

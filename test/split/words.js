@@ -39,7 +39,6 @@ describe('words', function() {
   });
 
   it('should split the string with diacritics and non-latin characters into words', function() {
-    expect(v.words('Στις αρχές του 21ου αιώνα')).to.eql(['Στις', 'αρχές', 'του', '21', 'ου', 'αιώνα']);
     expect(v.words('Гравитация притягивает все')).to.eql(['Гравитация', 'притягивает', 'все']);
     expect(v.words('ГравитацияПритягиваетВСЕ')).to.eql(['Гравитация', 'Притягивает', 'ВСЕ']);
     expect(v.words('clasificación biológica.')).to.eql(['clasificación', 'biológica']);

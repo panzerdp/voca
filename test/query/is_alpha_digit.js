@@ -22,12 +22,6 @@ describe('isAlphaDigit', function() {
     expect(v.isAlphaDigit('АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя0123456789')).to.be.true;
   });
 
-  it('should return true for an alpha and digit japanese string', function() {
-    expect(v.isAlphaDigit('こんにちは世界')).to.be.true;
-    expect(v.isAlphaDigit('こんにちは世界45')).to.be.true;
-    expect(v.isAlphaDigit('12ジャバスクリプト')).to.be.true;
-  });
-
   it('should return true for a string with diacritics', function() {
     expect(v.isAlphaDigit('áéèêëíîïóôúûýàòüçäöâùÿãõñ')).to.be.true;
     expect(v.isAlphaDigit('áéèêëíîïóôúûýàòüçäöâùÿãõñ0123456789')).to.be.true;
