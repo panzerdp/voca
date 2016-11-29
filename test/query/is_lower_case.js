@@ -8,7 +8,6 @@ describe('isLowerCase', function() {
     expect(v.isLowerCase('a')).to.be.true;
     expect(v.isLowerCase('helloworld')).to.be.true;
     expect(v.isLowerCase('welcometoearth')).to.be.true;
-    expect(v.isLowerCase('приветземляне')).to.be.true;
     expect(v.isLowerCase('áéèêëíîïóôúûýàòüçäöâùÿãõñ')).to.be.true;
   });
 
@@ -29,13 +28,11 @@ describe('isLowerCase', function() {
   it('should return false for a string containing upper case characters', function() {
     expect(v.isLowerCase('Helloworld')).to.be.false;
     expect(v.isLowerCase('WELCOMETOEARTH')).to.be.false;
-    expect(v.isLowerCase('ПриветЗемляне')).to.be.false;
   });
 
   it('should return false for a string containing characters different than lower case', function() {
     expect(v.isLowerCase('hello world!')).to.be.false;
     expect(v.isLowerCase('No one cared who I was until I put on the mask.')).to.be.false;
-    expect(v.isLowerCase('Привет, Земляне!')).to.be.false;
     expect(v.isLowerCase('\n')).to.be.false;
     expect(v.isLowerCase('\t')).to.be.false;
     expect(v.isLowerCase(' ')).to.be.false;

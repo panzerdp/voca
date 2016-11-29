@@ -8,7 +8,6 @@ describe('isUpperCase', function() {
     expect(v.isUpperCase('A')).to.be.true;
     expect(v.isUpperCase('HELLOWORLD')).to.be.true;
     expect(v.isUpperCase('WELCOMETOEARTH')).to.be.true;
-    expect(v.isUpperCase('ПРИВЕТЗЕМЛЯНЕ')).to.be.true;
     expect(v.isUpperCase('ÁÉÈÊËÍÎÏÓÔÚÛÝÀÒÜÇÄÖÂÙŸÃÕÑ')).to.be.true;
   });
 
@@ -24,7 +23,6 @@ describe('isUpperCase', function() {
   it('should return false for a string containing lower case characters', function() {
     expect(v.isUpperCase('Helloworld')).to.be.false;
     expect(v.isUpperCase('WeLCOMETOEARTH')).to.be.false;
-    expect(v.isUpperCase('ПриветЗемляне')).to.be.false;
   });
 
   it('should return false for a boolean', function() {
@@ -35,7 +33,6 @@ describe('isUpperCase', function() {
   it('should return false for a string containing characters different than upper case', function() {
     expect(v.isUpperCase('hello world!')).to.be.false;
     expect(v.isUpperCase('No one cared who I was until I put on the mask.')).to.be.false;
-    expect(v.isUpperCase('Привет, Земляне!')).to.be.false;
     expect(v.isUpperCase('\n')).to.be.false;
     expect(v.isUpperCase('\t')).to.be.false;
     expect(v.isUpperCase(' ')).to.be.false;

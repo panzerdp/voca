@@ -1,4 +1,4 @@
-import { REGEXP_COMBINING_MARKS, REGEXP_NON_BASIC_LATIN } from 'helper/reg_exp/const';
+import { REGEXP_COMBINING_MARKS, REGEXP_NON_LATIN } from 'helper/reg_exp/const';
 import coerceToString from 'helper/string/coerce_to_string';
 import diacriticMap from 'helper/string/diacritics_map';
 
@@ -50,6 +50,6 @@ export default function latinise(subject) {
     return subjectString;
   }
   return subjectString
-    .replace(REGEXP_NON_BASIC_LATIN, removeDiacritics)
+    .replace(REGEXP_NON_LATIN, removeDiacritics)
     .replace(REGEXP_COMBINING_MARKS, removeCombiningMarks);
 }
