@@ -145,20 +145,20 @@ function lowerCase(subject) {
 }
 
 /**
- * A regular expression string that matches lower case letters: LATIN, BASIC GREEK, BASIC CYRILLIC
+ * A regular expression string that matches lower case letters: LATIN
  *
  * @type {string}
  * @ignore
  */
-var lowerCaseLetter = 'a-z\\xB5\\xDF-\\xF6\\xF8-\\xFF\\u0101\\u0103\\u0105\\u0107\\u0109\\u010B\\u010D\\u010F\\u0111\\u0113\\u0115\\u0117\\u0119\\u011B\\u011D\\u011F\\u0121\\u0123\\u0125\\u0127\\u0129\\u012B\\u012D\\u012F\\u0131\\u0133\\u0135\\u0137\\u0138\\u013A\\u013C\\u013E\\u0140\\u0142\\u0144\\u0146\\u0148\\u0149\\u014B\\u014D\\u014F\\u0151\\u0153\\u0155\\u0157\\u0159\\u015B\\u015D\\u015F\\u0161\\u0163\\u0165\\u0167\\u0169\\u016B\\u016D\\u016F\\u0171\\u0173\\u0175\\u0177\\u017A\\u017C\\u017E-\\u0180\\u0183\\u0185\\u0188\\u018C\\u018D\\u0192\\u0195\\u0199-\\u019B\\u019E\\u01A1\\u01A3\\u01A5\\u01A8\\u01AA\\u01AB\\u01AD\\u01B0\\u01B4\\u01B6\\u01B9\\u01BA\\u01BD-\\u01BF\\u01C6\\u01C9\\u01CC\\u01CE\\u01D0\\u01D2\\u01D4\\u01D6\\u01D8\\u01DA\\u01DC\\u01DD\\u01DF\\u01E1\\u01E3\\u01E5\\u01E7\\u01E9\\u01EB\\u01ED\\u01EF\\u01F0\\u01F3\\u01F5\\u01F9\\u01FB\\u01FD\\u01FF\\u0201\\u0203\\u0205\\u0207\\u0209\\u020B\\u020D\\u020F\\u0211\\u0213\\u0215\\u0217\\u0219\\u021B\\u021D\\u021F\\u0221\\u0223\\u0225\\u0227\\u0229\\u022B\\u022D\\u022F\\u0231\\u0233-\\u0239\\u023C\\u023F\\u0240\\u0242\\u0247\\u0249\\u024B\\u024D\\u024F-\\u0293\\u0295-\\u02AF\\u03B1-\\u03C9\\u0430-\\u044F';
+var lowerCaseLetter = 'a-z\\xB5\\xDF-\\xF6\\xF8-\\xFF\\u0101\\u0103\\u0105\\u0107\\u0109\\u010B\\u010D\\u010F\\u0111\\u0113\\u0115\\u0117\\u0119\\u011B\\u011D\\u011F\\u0121\\u0123\\u0125\\u0127\\u0129\\u012B\\u012D\\u012F\\u0131\\u0133\\u0135\\u0137\\u0138\\u013A\\u013C\\u013E\\u0140\\u0142\\u0144\\u0146\\u0148\\u0149\\u014B\\u014D\\u014F\\u0151\\u0153\\u0155\\u0157\\u0159\\u015B\\u015D\\u015F\\u0161\\u0163\\u0165\\u0167\\u0169\\u016B\\u016D\\u016F\\u0171\\u0173\\u0175\\u0177\\u017A\\u017C\\u017E-\\u0180\\u0183\\u0185\\u0188\\u018C\\u018D\\u0192\\u0195\\u0199-\\u019B\\u019E\\u01A1\\u01A3\\u01A5\\u01A8\\u01AA\\u01AB\\u01AD\\u01B0\\u01B4\\u01B6\\u01B9\\u01BA\\u01BD-\\u01BF\\u01C6\\u01C9\\u01CC\\u01CE\\u01D0\\u01D2\\u01D4\\u01D6\\u01D8\\u01DA\\u01DC\\u01DD\\u01DF\\u01E1\\u01E3\\u01E5\\u01E7\\u01E9\\u01EB\\u01ED\\u01EF\\u01F0\\u01F3\\u01F5\\u01F9\\u01FB\\u01FD\\u01FF\\u0201\\u0203\\u0205\\u0207\\u0209\\u020B\\u020D\\u020F\\u0211\\u0213\\u0215\\u0217\\u0219\\u021B\\u021D\\u021F\\u0221\\u0223\\u0225\\u0227\\u0229\\u022B\\u022D\\u022F\\u0231\\u0233-\\u0239\\u023C\\u023F\\u0240\\u0242\\u0247\\u0249\\u024B\\u024D\\u024F';
 
 /**
- * A regular expression string that matches upper case letters: LATIN, BASIC GREEK, BASIC CYRILLIC
+ * A regular expression string that matches upper case letters: LATIN
  *
  * @type {string}
  * @ignore
  */
-var upperCaseLetter = '\\x41-\\x5a\\xc0-\\xd6\\xd8-\\xde\\u0100\\u0102\\u0104\\u0106\\u0108\\u010a\\u010c\\u010e\\u0110\\u0112\\u0114\\u0116\\u0118\\u011a\\u011c\\u011e\\u0120\\u0122\\u0124\\u0126\\u0128\\u012a\\u012c\\u012e\\u0130\\u0132\\u0134\\u0136\\u0139\\u013b\\u013d\\u013f\\u0141\\u0143\\u0145\\u0147\\u014a\\u014c\\u014e\\u0150\\u0152\\u0154\\u0156\\u0158\\u015a\\u015c\\u015e\\u0160\\u0162\\u0164\\u0166\\u0168\\u016a\\u016c\\u016e\\u0170\\u0172\\u0174\\u0176\\u0178\\u0179\\u017b\\u017d\\u0181\\u0182\\u0184\\u0186\\u0187\\u0189-\\u018b\\u018e-\\u0191\\u0193\\u0194\\u0196-\\u0198\\u019c\\u019d\\u019f\\u01a0\\u01a2\\u01a4\\u01a6\\u01a7\\u01a9\\u01ac\\u01ae\\u01af\\u01b1-\\u01b3\\u01b5\\u01b7\\u01b8\\u01bc\\u01c4\\u01c5\\u01c7\\u01c8\\u01ca\\u01cb\\u01cd\\u01cf\\u01d1\\u01d3\\u01d5\\u01d7\\u01d9\\u01db\\u01de\\u01e0\\u01e2\\u01e4\\u01e6\\u01e8\\u01ea\\u01ec\\u01ee\\u01f1\\u01f2\\u01f4\\u01f6-\\u01f8\\u01fa\\u01fc\\u01fe\\u0200\\u0202\\u0204\\u0206\\u0208\\u020a\\u020c\\u020e\\u0210\\u0212\\u0214\\u0216\\u0218\\u021a\\u021c\\u021e\\u0220\\u0222\\u0224\\u0226\\u0228\\u022a\\u022c\\u022e\\u0230\\u0232\\u023a\\u023b\\u023d\\u023e\\u0241\\u0243-\\u0246\\u0248\\u024a\\u024c\\u024e\\u0391-\\u03A9\\u0410-\\u042F';
+var upperCaseLetter = '\\x41-\\x5a\\xc0-\\xd6\\xd8-\\xde\\u0100\\u0102\\u0104\\u0106\\u0108\\u010a\\u010c\\u010e\\u0110\\u0112\\u0114\\u0116\\u0118\\u011a\\u011c\\u011e\\u0120\\u0122\\u0124\\u0126\\u0128\\u012a\\u012c\\u012e\\u0130\\u0132\\u0134\\u0136\\u0139\\u013b\\u013d\\u013f\\u0141\\u0143\\u0145\\u0147\\u014a\\u014c\\u014e\\u0150\\u0152\\u0154\\u0156\\u0158\\u015a\\u015c\\u015e\\u0160\\u0162\\u0164\\u0166\\u0168\\u016a\\u016c\\u016e\\u0170\\u0172\\u0174\\u0176\\u0178\\u0179\\u017b\\u017d\\u0181\\u0182\\u0184\\u0186\\u0187\\u0189-\\u018b\\u018e-\\u0191\\u0193\\u0194\\u0196-\\u0198\\u019c\\u019d\\u019f\\u01a0\\u01a2\\u01a4\\u01a6\\u01a7\\u01a9\\u01ac\\u01ae\\u01af\\u01b1-\\u01b3\\u01b5\\u01b7\\u01b8\\u01bc\\u01c4\\u01c5\\u01c7\\u01c8\\u01ca\\u01cb\\u01cd\\u01cf\\u01d1\\u01d3\\u01d5\\u01d7\\u01d9\\u01db\\u01de\\u01e0\\u01e2\\u01e4\\u01e6\\u01e8\\u01ea\\u01ec\\u01ee\\u01f1\\u01f2\\u01f4\\u01f6-\\u01f8\\u01fa\\u01fc\\u01fe\\u0200\\u0202\\u0204\\u0206\\u0208\\u020a\\u020c\\u020e\\u0210\\u0212\\u0214\\u0216\\u0218\\u021a\\u021c\\u021e\\u0220\\u0222\\u0224\\u0226\\u0228\\u022a\\u022c\\u022e\\u0230\\u0232\\u023a\\u023b\\u023d\\u023e\\u0241\\u0243-\\u0246\\u0248\\u024a\\u024c\\u024e';
 
 /**
  * A regular expression string matching digits
@@ -207,6 +207,30 @@ var diacriticalMark = '\\u0300-\\u036F\\u1AB0-\\u1AFF\\u1DC0-\\u1DFF\\u20D0-\\u2
  * @ignore
  */
 var base = '\\0-\\u02FF\\u0370-\\u1AAF\\u1B00-\\u1DBF\\u1E00-\\u20CF\\u2100-\\uD7FF\\uE000-\\uFE1F\\uFE30-\\uFFFF';
+
+/**
+ * A regular expression to match the General Punctuation Unicode block
+ *
+ * @type {string}
+ * @ignore
+ */
+var generalPunctuationBlock = '\\u2000-\\u206F';
+
+/**
+ * A regular expression to match non characters from from Basic Latin and Latin-1 Supplement Unicode blocks
+ *
+ * @type {string}
+ * @ignore
+ */
+var nonCharacter = '\\x00-\\x2F\\x3A-\\x40\\x5B-\\x60\\x7b-\\xBF\\xD7\\xF7';
+
+/**
+ * A regular expression to match the dingbat Unicode block
+ *
+ * @type {string}
+ * @ignore
+ */
+var dingbatBlock = '\\u2700-\\u27BF';
 
 /**
  * Regular expression to match combining marks
@@ -280,14 +304,6 @@ var REGEXP_ALPHA_DIGIT = new RegExp('^((?:[' + lowerCaseLetter + upperCaseLetter
 var REGEXP_DIGIT = new RegExp('^' + digit + '+$');
 
 /**
- * Regular expression to match non basic latin characters
- *
- * @type {RegExp}
- * @ignore
- */
-var REGEXP_NON_BASIC_LATIN = /[^\u0000-\u007E]/g;
-
-/**
  * Regular expression to match regular expression special characters
  *
  * @type {RegExp}
@@ -301,9 +317,11 @@ var REGEXP_SPECIAL_CHARACTERS = /[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g;
  * @type {RegExp}
  * @ignore
  */
-var REGEXP_WORD = new RegExp('(?:(?:[' + upperCaseLetter + '][' + diacriticalMark + ']*)?(?:[' + lowerCaseLetter + '][' + diacriticalMark + ']*)+)|\
-(?:(?:[' + upperCaseLetter + '][' + diacriticalMark + ']*)+(?![' + lowerCaseLetter + ']))|\
-(?:[' + digit + ']+)', 'g');
+var REGEXP_WORD = new RegExp('(?:[' + upperCaseLetter + '][' + diacriticalMark + ']*)?(?:[' + lowerCaseLetter + '][' + diacriticalMark + ']*)+|\
+(?:[' + upperCaseLetter + '][' + diacriticalMark + ']*)+(?![' + lowerCaseLetter + '])|\
+[' + digit + ']+|\
+[' + dingbatBlock + ']|\
+[^' + nonCharacter + generalPunctuationBlock + whitespace + ']+', 'g');
 
 /**
  * Regular expression to match words from Basic Latin and Latin-1 Supplement blocks
@@ -311,7 +329,7 @@ var REGEXP_WORD = new RegExp('(?:(?:[' + upperCaseLetter + '][' + diacriticalMar
  * @type {RegExp}
  * @ignore
  */
-var REGEXP_LATIN_WORD = /(?:[A-Z\xC0-\xD6\xD8-\xDE]?[a-z\xDF-\xF6\xF8-\xFF]+)|(?:[A-Z\xC0-\xD6\xD8-\xDE]+(?![a-z\xDF-\xF6\xF8-\xFF]))|(?:\d+)/g;
+var REGEXP_LATIN_WORD = /[A-Z\xC0-\xD6\xD8-\xDE]?[a-z\xDF-\xF6\xF8-\xFF]+|[A-Z\xC0-\xD6\xD8-\xDE]+(?![a-z\xDF-\xF6\xF8-\xFF])|\d+/g;
 
 /**
  * Regular expression to match not latin characters
@@ -319,10 +337,10 @@ var REGEXP_LATIN_WORD = /(?:[A-Z\xC0-\xD6\xD8-\xDE]?[a-z\xDF-\xF6\xF8-\xFF]+)|(?
  * @type {RegExp}
  * @ignore
  */
-var REGEXP_NON_LATIN = /[\W]/g;
+var REGEXP_NON_LATIN = /[^A-Za-z0-9]/g;
 
 /**
- * Regular expression to match Basic Latin and Latin-1 Supplement blocks
+ * Regular expression to match Basic Latin and Latin-1 Supplement Unicode blocks
  *
  * @type {RegExp}
  * @ignore
@@ -2053,1030 +2071,116 @@ function insert(subject, toInsert, position) {
  * @type Object
  */
 
-var diacriticMap = {
-  "\u0041": "A",
-  "\u0042": "B",
-  "\u0043": "C",
-  "\u0044": "D",
-  "\u0045": "E",
-  "\u0046": "F",
-  "\u0047": "G",
-  "\u0048": "H",
-  "\u0049": "I",
-  "\u004a": "J",
-  "\u004b": "K",
-  "\u004c": "L",
-  "\u004d": "M",
-  "\u004e": "N",
-  "\u004f": "O",
-  "\u0050": "P",
-  "\u0051": "Q",
-  "\u0052": "R",
-  "\u0053": "S",
-  "\u0054": "T",
-  "\u0055": "U",
-  "\u0056": "V",
-  "\u0057": "W",
-  "\u0058": "X",
-  "\u0059": "Y",
-  "\u005a": "Z",
-  "\u0061": "a",
-  "\u0062": "b",
-  "\u0063": "c",
-  "\u0064": "d",
-  "\u0065": "e",
-  "\u0066": "f",
-  "\u0067": "g",
-  "\u0068": "h",
-  "\u0069": "i",
-  "\u006a": "j",
-  "\u006b": "k",
-  "\u006c": "l",
-  "\u006d": "m",
-  "\u006e": "n",
-  "\u006f": "o",
-  "\u0070": "p",
-  "\u0071": "q",
-  "\u0072": "r",
-  "\u0073": "s",
-  "\u0074": "t",
-  "\u0075": "u",
-  "\u0076": "v",
-  "\u0077": "w",
-  "\u0078": "x",
-  "\u0079": "y",
-  "\u007a": "z",
-  "\u008c": "OE",
-  "\u009c": "oe",
-  "\u00c0": "A",
-  "\u00c1": "A",
-  "\u00c2": "A",
-  "\u00c3": "A",
-  "\u00c4": "A",
-  "\u00c5": "A",
-  "\u00c6": "AE",
-  "\u00c7": "C",
-  "\u00c8": "E",
-  "\u00c9": "E",
-  "\u00ca": "E",
-  "\u00cb": "E",
-  "\u00cc": "I",
-  "\u00cd": "I",
-  "\u00ce": "I",
-  "\u00cf": "I",
-  "\u00d1": "N",
-  "\u00d2": "O",
-  "\u00d3": "O",
-  "\u00d4": "O",
-  "\u00d5": "O",
-  "\u00d6": "O",
-  "\u00d8": "O",
-  "\u00d9": "U",
-  "\u00da": "U",
-  "\u00db": "U",
-  "\u00dc": "U",
-  "\u00dd": "Y",
-  "\u00df": "s",
-  "\u00e0": "a",
-  "\u00e1": "a",
-  "\u00e2": "a",
-  "\u00e3": "a",
-  "\u00e4": "a",
-  "\u00e5": "a",
-  "\u00e6": "ae",
-  "\u00e7": "c",
-  "\u00e8": "e",
-  "\u00e9": "e",
-  "\u00ea": "e",
-  "\u00eb": "e",
-  "\u00ec": "i",
-  "\u00ed": "i",
-  "\u00ee": "i",
-  "\u00ef": "i",
-  "\u00f1": "n",
-  "\u00f2": "o",
-  "\u00f3": "o",
-  "\u00f4": "o",
-  "\u00f5": "o",
-  "\u00f6": "o",
-  "\u00f8": "o",
-  "\u00f9": "u",
-  "\u00fa": "u",
-  "\u00fb": "u",
-  "\u00fc": "u",
-  "\u00fd": "y",
-  "\u00ff": "y",
-  "\u0100": "A",
-  "\u0101": "a",
-  "\u0102": "A",
-  "\u0103": "a",
-  "\u0104": "A",
-  "\u0105": "a",
-  "\u0106": "C",
-  "\u0107": "c",
-  "\u0108": "C",
-  "\u0109": "c",
-  "\u010a": "C",
-  "\u010b": "c",
-  "\u010c": "C",
-  "\u010d": "c",
-  "\u010e": "D",
-  "\u010f": "d",
-  "\u0110": "D",
-  "\u0111": "d",
-  "\u0112": "E",
-  "\u0113": "e",
-  "\u0114": "E",
-  "\u0115": "e",
-  "\u0116": "E",
-  "\u0117": "e",
-  "\u0118": "E",
-  "\u0119": "e",
-  "\u011a": "E",
-  "\u011b": "e",
-  "\u011c": "G",
-  "\u011d": "g",
-  "\u011e": "G",
-  "\u011f": "g",
-  "\u0120": "G",
-  "\u0121": "g",
-  "\u0122": "G",
-  "\u0123": "g",
-  "\u0124": "H",
-  "\u0125": "h",
-  "\u0126": "H",
-  "\u0127": "h",
-  "\u0128": "I",
-  "\u0129": "i",
-  "\u012a": "I",
-  "\u012b": "i",
-  "\u012c": "I",
-  "\u012d": "i",
-  "\u012e": "I",
-  "\u012f": "i",
-  "\u0130": "I",
-  "\u0131": "i",
-  "\u0134": "J",
-  "\u0135": "j",
-  "\u0136": "K",
-  "\u0137": "k",
-  "\u0139": "L",
-  "\u013a": "l",
-  "\u013b": "L",
-  "\u013c": "l",
-  "\u013d": "L",
-  "\u013e": "l",
-  "\u013f": "L",
-  "\u0140": "l",
-  "\u0141": "L",
-  "\u0142": "l",
-  "\u0143": "N",
-  "\u0144": "n",
-  "\u0145": "N",
-  "\u0146": "n",
-  "\u0147": "N",
-  "\u0148": "n",
-  "\u0149": "n",
-  "\u014c": "O",
-  "\u014d": "o",
-  "\u014e": "O",
-  "\u014f": "o",
-  "\u0150": "O",
-  "\u0151": "o",
-  "\u0152": "OE",
-  "\u0153": "oe",
-  "\u0154": "R",
-  "\u0155": "r",
-  "\u0156": "R",
-  "\u0157": "r",
-  "\u0158": "R",
-  "\u0159": "r",
-  "\u015a": "S",
-  "\u015b": "s",
-  "\u015c": "S",
-  "\u015d": "s",
-  "\u015e": "S",
-  "\u015f": "s",
-  "\u0160": "S",
-  "\u0161": "s",
-  "\u0162": "T",
-  "\u0163": "t",
-  "\u0164": "T",
-  "\u0165": "t",
-  "\u0166": "T",
-  "\u0167": "t",
-  "\u0168": "U",
-  "\u0169": "u",
-  "\u016a": "U",
-  "\u016b": "u",
-  "\u016c": "U",
-  "\u016d": "u",
-  "\u016e": "U",
-  "\u016f": "u",
-  "\u0170": "U",
-  "\u0171": "u",
-  "\u0172": "U",
-  "\u0173": "u",
-  "\u0174": "W",
-  "\u0175": "w",
-  "\u0176": "Y",
-  "\u0177": "y",
-  "\u0178": "Y",
-  "\u0179": "Z",
-  "\u017a": "z",
-  "\u017b": "Z",
-  "\u017c": "z",
-  "\u017d": "Z",
-  "\u017e": "z",
-  "\u017f": "l",
-  "\u0180": "b",
-  "\u0181": "B",
-  "\u0182": "B",
-  "\u0183": "b",
-  "\u0186": "O",
-  "\u0187": "C",
-  "\u0188": "c",
-  "\u0189": "D",
-  "\u018a": "D",
-  "\u018b": "D",
-  "\u018c": "d",
-  "\u018e": "E",
-  "\u0190": "E",
-  "\u0191": "F",
-  "\u0192": "f",
-  "\u0193": "G",
-  "\u0195": "hv",
-  "\u0197": "I",
-  "\u0198": "K",
-  "\u0199": "k",
-  "\u019a": "l",
-  "\u019c": "M",
-  "\u019d": "N",
-  "\u019e": "n",
-  "\u019f": "O",
-  "\u01a0": "O",
-  "\u01a1": "o",
-  "\u01a2": "OI",
-  "\u01a3": "oi",
-  "\u01a4": "P",
-  "\u01a5": "p",
-  "\u01ac": "T",
-  "\u01ad": "t",
-  "\u01ae": "T",
-  "\u01af": "U",
-  "\u01b0": "u",
-  "\u01b2": "V",
-  "\u01b3": "Y",
-  "\u01b4": "y",
-  "\u01b5": "Z",
-  "\u01b6": "z",
-  "\u01c4": "DZ",
-  "\u01c5": "Dz",
-  "\u01c6": "dz",
-  "\u01c7": "LJ",
-  "\u01c8": "Lj",
-  "\u01c9": "lj",
-  "\u01ca": "NJ",
-  "\u01cb": "Nj",
-  "\u01cc": "nj",
-  "\u01cd": "A",
-  "\u01ce": "a",
-  "\u01cf": "I",
-  "\u01d0": "i",
-  "\u01d1": "O",
-  "\u01d2": "o",
-  "\u01d3": "U",
-  "\u01d4": "u",
-  "\u01d5": "U",
-  "\u01d6": "u",
-  "\u01d7": "U",
-  "\u01d8": "u",
-  "\u01d9": "U",
-  "\u01da": "u",
-  "\u01db": "U",
-  "\u01dc": "u",
-  "\u01dd": "e",
-  "\u01de": "A",
-  "\u01df": "a",
-  "\u01e0": "A",
-  "\u01e1": "a",
-  "\u01e2": "AE",
-  "\u01e3": "ae",
-  "\u01e4": "G",
-  "\u01e5": "g",
-  "\u01e6": "G",
-  "\u01e7": "g",
-  "\u01e8": "K",
-  "\u01e9": "k",
-  "\u01ea": "O",
-  "\u01eb": "o",
-  "\u01ec": "O",
-  "\u01ed": "o",
-  "\u01f0": "j",
-  "\u01f1": "DZ",
-  "\u01f2": "Dz",
-  "\u01f3": "dz",
-  "\u01f4": "G",
-  "\u01f5": "g",
-  "\u01f8": "N",
-  "\u01f9": "n",
-  "\u01fa": "A",
-  "\u01fb": "a",
-  "\u01fc": "AE",
-  "\u01fd": "ae",
-  "\u01fe": "O",
-  "\u01ff": "o",
-  "\u0200": "A",
-  "\u0201": "a",
-  "\u0202": "A",
-  "\u0203": "a",
-  "\u0204": "E",
-  "\u0205": "e",
-  "\u0206": "E",
-  "\u0207": "e",
-  "\u0208": "I",
-  "\u0209": "i",
-  "\u020a": "I",
-  "\u020b": "i",
-  "\u020c": "O",
-  "\u020d": "o",
-  "\u020e": "O",
-  "\u020f": "o",
-  "\u0210": "R",
-  "\u0211": "r",
-  "\u0212": "R",
-  "\u0213": "r",
-  "\u0214": "U",
-  "\u0215": "u",
-  "\u0216": "U",
-  "\u0217": "u",
-  "\u0218": "S",
-  "\u0219": "s",
-  "\u021a": "T",
-  "\u021b": "t",
-  "\u021e": "H",
-  "\u021f": "h",
-  "\u0220": "N",
-  "\u0222": "OU",
-  "\u0223": "ou",
-  "\u0224": "Z",
-  "\u0225": "z",
-  "\u0226": "A",
-  "\u0227": "a",
-  "\u0228": "E",
-  "\u0229": "e",
-  "\u022a": "O",
-  "\u022b": "o",
-  "\u022c": "O",
-  "\u022d": "o",
-  "\u022e": "O",
-  "\u022f": "o",
-  "\u0230": "O",
-  "\u0231": "o",
-  "\u0232": "Y",
-  "\u0233": "y",
-  "\u023a": "A",
-  "\u023b": "C",
-  "\u023c": "c",
-  "\u023d": "L",
-  "\u023e": "T",
-  "\u023f": "s",
-  "\u0240": "z",
-  "\u0243": "B",
-  "\u0244": "U",
-  "\u0245": "V",
-  "\u0247": "e",
-  "\u0248": "J",
-  "\u0249": "j",
-  "\u024a": "Q",
-  "\u024b": "q",
-  "\u024c": "R",
-  "\u024d": "r",
-  "\u024e": "Y",
-  "\u024f": "y",
-  "\u0250": "a",
-  "\u0253": "b",
-  "\u0254": "o",
-  "\u0256": "d",
-  "\u0257": "d",
-  "\u025b": "e",
-  "\u0260": "g",
-  "\u0265": "h",
-  "\u0268": "i",
-  "\u026b": "l",
-  "\u026f": "m",
-  "\u0271": "m",
-  "\u0272": "n",
-  "\u0275": "o",
-  "\u027d": "r",
-  "\u0288": "t",
-  "\u0289": "u",
-  "\u028b": "v",
-  "\u028c": "v",
-  "\u1d79": "g",
-  "\u1d7d": "p",
-  "\u1e00": "A",
-  "\u1e01": "a",
-  "\u1e02": "B",
-  "\u1e03": "b",
-  "\u1e04": "B",
-  "\u1e05": "b",
-  "\u1e06": "B",
-  "\u1e07": "b",
-  "\u1e08": "C",
-  "\u1e09": "c",
-  "\u1e0a": "D",
-  "\u1e0b": "d",
-  "\u1e0c": "D",
-  "\u1e0d": "d",
-  "\u1e0e": "D",
-  "\u1e0f": "d",
-  "\u1e10": "D",
-  "\u1e11": "d",
-  "\u1e12": "D",
-  "\u1e13": "d",
-  "\u1e14": "E",
-  "\u1e15": "e",
-  "\u1e16": "E",
-  "\u1e17": "e",
-  "\u1e18": "E",
-  "\u1e19": "e",
-  "\u1e1a": "E",
-  "\u1e1b": "e",
-  "\u1e1c": "E",
-  "\u1e1d": "e",
-  "\u1e1e": "F",
-  "\u1e1f": "f",
-  "\u1e20": "G",
-  "\u1e21": "g",
-  "\u1e22": "H",
-  "\u1e23": "h",
-  "\u1e24": "H",
-  "\u1e25": "h",
-  "\u1e26": "H",
-  "\u1e27": "h",
-  "\u1e28": "H",
-  "\u1e29": "h",
-  "\u1e2a": "H",
-  "\u1e2b": "h",
-  "\u1e2c": "I",
-  "\u1e2d": "i",
-  "\u1e2e": "I",
-  "\u1e2f": "i",
-  "\u1e30": "K",
-  "\u1e31": "k",
-  "\u1e32": "K",
-  "\u1e33": "k",
-  "\u1e34": "K",
-  "\u1e35": "k",
-  "\u1e36": "L",
-  "\u1e37": "l",
-  "\u1e38": "L",
-  "\u1e39": "l",
-  "\u1e3a": "L",
-  "\u1e3b": "l",
-  "\u1e3c": "L",
-  "\u1e3d": "l",
-  "\u1e3e": "M",
-  "\u1e3f": "m",
-  "\u1e40": "M",
-  "\u1e41": "m",
-  "\u1e42": "M",
-  "\u1e43": "m",
-  "\u1e44": "N",
-  "\u1e45": "n",
-  "\u1e46": "N",
-  "\u1e47": "n",
-  "\u1e48": "N",
-  "\u1e49": "n",
-  "\u1e4a": "N",
-  "\u1e4b": "n",
-  "\u1e4c": "O",
-  "\u1e4d": "o",
-  "\u1e4e": "O",
-  "\u1e4f": "o",
-  "\u1e50": "O",
-  "\u1e51": "o",
-  "\u1e52": "O",
-  "\u1e53": "o",
-  "\u1e54": "P",
-  "\u1e55": "p",
-  "\u1e56": "P",
-  "\u1e57": "p",
-  "\u1e58": "R",
-  "\u1e59": "r",
-  "\u1e5a": "R",
-  "\u1e5b": "r",
-  "\u1e5c": "R",
-  "\u1e5d": "r",
-  "\u1e5e": "R",
-  "\u1e5f": "r",
-  "\u1e60": "S",
-  "\u1e61": "s",
-  "\u1e62": "S",
-  "\u1e63": "s",
-  "\u1e64": "S",
-  "\u1e65": "s",
-  "\u1e66": "S",
-  "\u1e67": "s",
-  "\u1e68": "S",
-  "\u1e69": "s",
-  "\u1e6a": "T",
-  "\u1e6b": "t",
-  "\u1e6c": "T",
-  "\u1e6d": "t",
-  "\u1e6e": "T",
-  "\u1e6f": "t",
-  "\u1e70": "T",
-  "\u1e71": "t",
-  "\u1e72": "U",
-  "\u1e73": "u",
-  "\u1e74": "U",
-  "\u1e75": "u",
-  "\u1e76": "U",
-  "\u1e77": "u",
-  "\u1e78": "U",
-  "\u1e79": "u",
-  "\u1e7a": "U",
-  "\u1e7b": "u",
-  "\u1e7c": "V",
-  "\u1e7d": "v",
-  "\u1e7e": "V",
-  "\u1e7f": "v",
-  "\u1e80": "W",
-  "\u1e81": "w",
-  "\u1e82": "W",
-  "\u1e83": "w",
-  "\u1e84": "W",
-  "\u1e85": "w",
-  "\u1e86": "W",
-  "\u1e87": "w",
-  "\u1e88": "W",
-  "\u1e89": "w",
-  "\u1e8a": "X",
-  "\u1e8b": "x",
-  "\u1e8c": "X",
-  "\u1e8d": "x",
-  "\u1e8e": "Y",
-  "\u1e8f": "y",
-  "\u1e90": "Z",
-  "\u1e91": "z",
-  "\u1e92": "Z",
-  "\u1e93": "z",
-  "\u1e94": "Z",
-  "\u1e95": "z",
-  "\u1e96": "h",
-  "\u1e97": "t",
-  "\u1e98": "w",
-  "\u1e99": "y",
-  "\u1e9a": "a",
-  "\u1e9b": "s",
-  "\u1e9e": "S",
-  "\u1ea0": "A",
-  "\u1ea1": "a",
-  "\u1ea2": "A",
-  "\u1ea3": "a",
-  "\u1ea4": "A",
-  "\u1ea5": "a",
-  "\u1ea6": "A",
-  "\u1ea7": "a",
-  "\u1ea8": "A",
-  "\u1ea9": "a",
-  "\u1eaa": "A",
-  "\u1eab": "a",
-  "\u1eac": "A",
-  "\u1ead": "a",
-  "\u1eae": "A",
-  "\u1eaf": "a",
-  "\u1eb0": "A",
-  "\u1eb1": "a",
-  "\u1eb2": "A",
-  "\u1eb3": "a",
-  "\u1eb4": "A",
-  "\u1eb5": "a",
-  "\u1eb6": "A",
-  "\u1eb7": "a",
-  "\u1eb8": "E",
-  "\u1eb9": "e",
-  "\u1eba": "E",
-  "\u1ebb": "e",
-  "\u1ebc": "E",
-  "\u1ebd": "e",
-  "\u1ebe": "E",
-  "\u1ebf": "e",
-  "\u1ec0": "E",
-  "\u1ec1": "e",
-  "\u1ec2": "E",
-  "\u1ec3": "e",
-  "\u1ec4": "E",
-  "\u1ec5": "e",
-  "\u1ec6": "E",
-  "\u1ec7": "e",
-  "\u1ec8": "I",
-  "\u1ec9": "i",
-  "\u1eca": "I",
-  "\u1ecb": "i",
-  "\u1ecc": "O",
-  "\u1ecd": "o",
-  "\u1ece": "O",
-  "\u1ecf": "o",
-  "\u1ed0": "O",
-  "\u1ed1": "o",
-  "\u1ed2": "O",
-  "\u1ed3": "o",
-  "\u1ed4": "O",
-  "\u1ed5": "o",
-  "\u1ed6": "O",
-  "\u1ed7": "o",
-  "\u1ed8": "O",
-  "\u1ed9": "o",
-  "\u1eda": "O",
-  "\u1edb": "o",
-  "\u1edc": "O",
-  "\u1edd": "o",
-  "\u1ede": "O",
-  "\u1edf": "o",
-  "\u1ee0": "O",
-  "\u1ee1": "o",
-  "\u1ee2": "O",
-  "\u1ee3": "o",
-  "\u1ee4": "U",
-  "\u1ee5": "u",
-  "\u1ee6": "U",
-  "\u1ee7": "u",
-  "\u1ee8": "U",
-  "\u1ee9": "u",
-  "\u1eea": "U",
-  "\u1eeb": "u",
-  "\u1eec": "U",
-  "\u1eed": "u",
-  "\u1eee": "U",
-  "\u1eef": "u",
-  "\u1ef0": "U",
-  "\u1ef1": "u",
-  "\u1ef2": "Y",
-  "\u1ef3": "y",
-  "\u1ef4": "Y",
-  "\u1ef5": "y",
-  "\u1ef6": "Y",
-  "\u1ef7": "y",
-  "\u1ef8": "Y",
-  "\u1ef9": "y",
-  "\u1efe": "Y",
-  "\u1eff": "y",
-  "\u2184": "c",
-  "\u24b6": "A",
-  "\u24b7": "B",
-  "\u24b8": "C",
-  "\u24b9": "D",
-  "\u24ba": "E",
-  "\u24bb": "F",
-  "\u24bc": "G",
-  "\u24bd": "H",
-  "\u24be": "I",
-  "\u24bf": "J",
-  "\u24c0": "K",
-  "\u24c1": "L",
-  "\u24c2": "M",
-  "\u24c3": "N",
-  "\u24c4": "O",
-  "\u24c5": "P",
-  "\u24c6": "Q",
-  "\u24c7": "R",
-  "\u24c8": "S",
-  "\u24c9": "T",
-  "\u24ca": "U",
-  "\u24cb": "V",
-  "\u24cc": "W",
-  "\u24cd": "X",
-  "\u24ce": "Y",
-  "\u24cf": "Z",
-  "\u24d0": "a",
-  "\u24d1": "b",
-  "\u24d2": "c",
-  "\u24d3": "d",
-  "\u24d4": "e",
-  "\u24d5": "f",
-  "\u24d6": "g",
-  "\u24d7": "h",
-  "\u24d8": "i",
-  "\u24d9": "j",
-  "\u24da": "k",
-  "\u24db": "l",
-  "\u24dc": "m",
-  "\u24dd": "n",
-  "\u24de": "o",
-  "\u24df": "p",
-  "\u24e0": "q",
-  "\u24e1": "r",
-  "\u24e2": "s",
-  "\u24e3": "t",
-  "\u24e4": "u",
-  "\u24e5": "v",
-  "\u24e6": "w",
-  "\u24e7": "x",
-  "\u24e8": "y",
-  "\u24e9": "z",
-  "\u2c60": "L",
-  "\u2c61": "l",
-  "\u2c62": "L",
-  "\u2c63": "P",
-  "\u2c64": "R",
-  "\u2c65": "a",
-  "\u2c66": "t",
-  "\u2c67": "H",
-  "\u2c68": "h",
-  "\u2c69": "K",
-  "\u2c6a": "k",
-  "\u2c6b": "Z",
-  "\u2c6c": "z",
-  "\u2c6e": "M",
-  "\u2c6f": "A",
-  "\u2c72": "W",
-  "\u2c73": "w",
-  "\u2c75": "H",
-  "\u2c76": "h",
-  "\u2c7e": "S",
-  "\u2c7f": "Z",
-  "\ua728": "TZ",
-  "\ua729": "tz",
-  "\ua732": "AA",
-  "\ua733": "aa",
-  "\ua734": "AO",
-  "\ua735": "ao",
-  "\ua736": "AU",
-  "\ua737": "au",
-  "\ua738": "AV",
-  "\ua739": "av",
-  "\ua73a": "AV",
-  "\ua73b": "av",
-  "\ua73c": "AY",
-  "\ua73d": "ay",
-  "\ua73e": "C",
-  "\ua73f": "c",
-  "\ua740": "K",
-  "\ua741": "k",
-  "\ua742": "K",
-  "\ua743": "k",
-  "\ua744": "K",
-  "\ua745": "k",
-  "\ua746": "L",
-  "\ua747": "l",
-  "\ua748": "L",
-  "\ua749": "l",
-  "\ua74a": "O",
-  "\ua74b": "o",
-  "\ua74c": "O",
-  "\ua74d": "o",
-  "\ua74e": "OO",
-  "\ua74f": "oo",
-  "\ua750": "P",
-  "\ua751": "p",
-  "\ua752": "P",
-  "\ua753": "p",
-  "\ua754": "P",
-  "\ua755": "p",
-  "\ua756": "Q",
-  "\ua757": "q",
-  "\ua758": "Q",
-  "\ua759": "q",
-  "\ua75a": "R",
-  "\ua75b": "r",
-  "\ua75e": "V",
-  "\ua75f": "v",
-  "\ua760": "VY",
-  "\ua761": "vy",
-  "\ua762": "Z",
-  "\ua763": "z",
-  "\ua779": "D",
-  "\ua77a": "d",
-  "\ua77b": "F",
-  "\ua77c": "f",
-  "\ua77d": "G",
-  "\ua77e": "G",
-  "\ua77f": "g",
-  "\ua780": "L",
-  "\ua781": "l",
-  "\ua782": "R",
-  "\ua783": "r",
-  "\ua784": "S",
-  "\ua785": "s",
-  "\ua786": "T",
-  "\ua787": "t",
-  "\ua78d": "H",
-  "\ua790": "N",
-  "\ua791": "n",
-  "\ua7a0": "G",
-  "\ua7a1": "g",
-  "\ua7a2": "K",
-  "\ua7a3": "k",
-  "\ua7a4": "N",
-  "\ua7a5": "n",
-  "\ua7a6": "R",
-  "\ua7a7": "r",
-  "\ua7a8": "S",
-  "\ua7a9": "s",
-  "\uff21": "A",
-  "\uff22": "B",
-  "\uff23": "C",
-  "\uff24": "D",
-  "\uff25": "E",
-  "\uff26": "F",
-  "\uff27": "G",
-  "\uff28": "H",
-  "\uff29": "I",
-  "\uff2a": "J",
-  "\uff2b": "K",
-  "\uff2c": "L",
-  "\uff2d": "M",
-  "\uff2e": "N",
-  "\uff2f": "O",
-  "\uff30": "P",
-  "\uff31": "Q",
-  "\uff32": "R",
-  "\uff33": "S",
-  "\uff34": "T",
-  "\uff35": "U",
-  "\uff36": "V",
-  "\uff37": "W",
-  "\uff38": "X",
-  "\uff39": "Y",
-  "\uff3a": "Z",
-  "\uff41": "a",
-  "\uff42": "b",
-  "\uff43": "c",
-  "\uff44": "d",
-  "\uff45": "e",
-  "\uff46": "f",
-  "\uff47": "g",
-  "\uff48": "h",
-  "\uff49": "i",
-  "\uff4a": "j",
-  "\uff4b": "k",
-  "\uff4c": "l",
-  "\uff4d": "m",
-  "\uff4e": "n",
-  "\uff4f": "o",
-  "\uff50": "p",
-  "\uff51": "q",
-  "\uff52": "r",
-  "\uff53": "s",
-  "\uff54": "t",
-  "\uff55": "u",
-  "\uff56": "v",
-  "\uff57": "w",
-  "\uff58": "x",
-  "\uff59": "y",
-  "\uff5a": "z",
-
-  // Additional maps for russian, ukrainian and few other languages
-  "\u00d0": "D",
-  "\u00de": "TH",
-  "\u00f0": "d",
-  "\u00fe": "th",
-  "\u0386": "A",
-  "\u0388": "E",
-  "\u0389": "H",
-  "\u038a": "I",
-  "\u038c": "O",
-  "\u038e": "Y",
-  "\u038f": "W",
-  "\u0390": "i",
-  "\u0391": "A",
-  "\u0392": "B",
-  "\u0393": "G",
-  "\u0394": "D",
-  "\u0395": "E",
-  "\u0396": "Z",
-  "\u0397": "H",
-  "\u0398": "8",
-  "\u0399": "I",
-  "\u039a": "K",
-  "\u039b": "L",
-  "\u039c": "M",
-  "\u039d": "N",
-  "\u039e": "3",
-  "\u039f": "O",
-  "\u03a0": "P",
-  "\u03a1": "R",
-  "\u03a3": "S",
-  "\u03a4": "T",
-  "\u03a5": "Y",
-  "\u03a6": "F",
-  "\u03a7": "X",
-  "\u03a8": "PS",
-  "\u03a9": "W",
-  "\u03aa": "I",
-  "\u03ab": "Y",
-  "\u03ac": "a",
-  "\u03ad": "e",
-  "\u03ae": "h",
-  "\u03af": "i",
-  "\u03b0": "y",
-  "\u03b1": "a",
-  "\u03b2": "b",
-  "\u03b3": "g",
-  "\u03b4": "d",
-  "\u03b5": "e",
-  "\u03b6": "z",
-  "\u03b7": "h",
-  "\u03b8": "8",
-  "\u03b9": "i",
-  "\u03ba": "k",
-  "\u03bb": "l",
-  "\u03bc": "m",
-  "\u03bd": "n",
-  "\u03be": "3",
-  "\u03bf": "o",
-  "\u03c0": "p",
-  "\u03c1": "r",
-  "\u03c2": "s",
-  "\u03c3": "s",
-  "\u03c4": "t",
-  "\u03c5": "y",
-  "\u03c6": "f",
-  "\u03c7": "x",
-  "\u03c8": "ps",
-  "\u03c9": "w",
-  "\u03ca": "i",
-  "\u03cb": "y",
-  "\u03cc": "o",
-  "\u03cd": "y",
-  "\u03ce": "w",
-  "\u0401": "Yo",
-  "\u0404": "Ye",
-  "\u0406": "I",
-  "\u0407": "Yi",
-  "\u0410": "A",
-  "\u0411": "B",
-  "\u0412": "V",
-  "\u0413": "G",
-  "\u0414": "D",
-  "\u0415": "E",
-  "\u0416": "Zh",
-  "\u0417": "Z",
-  "\u0418": "I",
-  "\u0419": "J",
-  "\u041a": "K",
-  "\u041b": "L",
-  "\u041c": "M",
-  "\u041d": "N",
-  "\u041e": "O",
-  "\u041f": "P",
-  "\u0420": "R",
-  "\u0421": "S",
-  "\u0422": "T",
-  "\u0423": "U",
-  "\u0424": "F",
-  "\u0425": "H",
-  "\u0426": "C",
-  "\u0427": "Ch",
-  "\u0428": "Sh",
-  "\u0429": "Sh",
-  "\u042a": "U",
-  "\u042b": "Y",
-  "\u042c": "",
-  "\u042d": "E",
-  "\u042e": "Yu",
-  "\u042f": "Ya",
-  "\u0430": "a",
-  "\u0431": "b",
-  "\u0432": "v",
-  "\u0433": "g",
-  "\u0434": "d",
-  "\u0435": "e",
-  "\u0436": "zh",
-  "\u0437": "z",
-  "\u0438": "i",
-  "\u0439": "j",
-  "\u043a": "k",
-  "\u043b": "l",
-  "\u043c": "m",
-  "\u043d": "n",
-  "\u043e": "o",
-  "\u043f": "p",
-  "\u0440": "r",
-  "\u0441": "s",
-  "\u0442": "t",
-  "\u0443": "u",
-  "\u0444": "f",
-  "\u0445": "h",
-  "\u0446": "c",
-  "\u0447": "ch",
-  "\u0448": "sh",
-  "\u0449": "sh",
-  "\u044a": "u",
-  "\u044b": "y",
-  "\u044c": "",
-  "\u044d": "e",
-  "\u044e": "yu",
-  "\u044f": "ya",
-  "\u0451": "yo",
-  "\u0454": "ye",
-  "\u0456": "i",
-  "\u0457": "yi",
-  "\u0490": "G",
-  "\u0491": "g"
+var diacriticsMap = {
+  "3": "\u039e\u03be",
+  "8": "\u0398\u03b8",
+  "A": "\u0041\u00c0\u00c1\u00c2\u00c3\u00c4\u00c5\u0100\u0102\u0104\u01cd\u01de\u01e0\u01fa\u0200\u0202\u0226\u023a\u1e00\u1ea0\u1ea2\u1ea4\u1ea6\u1ea8\u1eaa\u1eac\u1eae\u1eb0\u1eb2\u1eb4\u1eb6\u24b6\u2c6f\uff21\u0386\u0391\u0410",
+  "B": "\u0042\u0181\u0182\u0243\u1e02\u1e04\u1e06\u24b7\uff22\u0392\u0411",
+  "C": "\u0043\u00c7\u0106\u0108\u010a\u010c\u0187\u023b\u1e08\u24b8\ua73e\uff23\u0426",
+  "D": "\u0044\u010e\u0110\u0189\u018a\u018b\u1e0a\u1e0c\u1e0e\u1e10\u1e12\u24b9\ua779\uff24\u00d0\u0394\u0414",
+  "E": "\u0045\u00c8\u00c9\u00ca\u00cb\u0112\u0114\u0116\u0118\u011a\u018e\u0190\u0204\u0206\u0228\u1e14\u1e16\u1e18\u1e1a\u1e1c\u1eb8\u1eba\u1ebc\u1ebe\u1ec0\u1ec2\u1ec4\u1ec6\u24ba\uff25\u0388\u0395\u0415\u042d",
+  "F": "\u0046\u0191\u1e1e\u24bb\ua77b\uff26\u03a6\u0424",
+  "G": "\u0047\u011c\u011e\u0120\u0122\u0193\u01e4\u01e6\u01f4\u1e20\u24bc\ua77d\ua77e\ua7a0\uff27\u0393\u0413\u0490",
+  "H": "\u0048\u0124\u0126\u021e\u1e22\u1e24\u1e26\u1e28\u1e2a\u24bd\u2c67\u2c75\ua78d\uff28\u0389\u0397\u0425",
+  "I": "\u0049\u00cc\u00cd\u00ce\u00cf\u0128\u012a\u012c\u012e\u0130\u0197\u01cf\u0208\u020a\u1e2c\u1e2e\u1ec8\u1eca\u24be\uff29\u038a\u0399\u03aa\u0406\u0418",
+  "J": "\u004a\u0134\u0248\u24bf\uff2a\u0419",
+  "K": "\u004b\u0136\u0198\u01e8\u1e30\u1e32\u1e34\u24c0\u2c69\ua740\ua742\ua744\ua7a2\uff2b\u039a\u041a",
+  "L": "\u004c\u0139\u013b\u013d\u013f\u0141\u023d\u1e36\u1e38\u1e3a\u1e3c\u24c1\u2c60\u2c62\ua746\ua748\ua780\uff2c\u039b\u041b",
+  "M": "\u004d\u019c\u1e3e\u1e40\u1e42\u24c2\u2c6e\uff2d\u039c\u041c",
+  "N": "\u004e\u00d1\u0143\u0145\u0147\u019d\u01f8\u0220\u1e44\u1e46\u1e48\u1e4a\u24c3\ua790\ua7a4\uff2e\u039d\u041d",
+  "O": "\u004f\u00d2\u00d3\u00d4\u00d5\u00d6\u00d8\u014c\u014e\u0150\u0186\u019f\u01a0\u01d1\u01ea\u01ec\u01fe\u020c\u020e\u022a\u022c\u022e\u0230\u1e4c\u1e4e\u1e50\u1e52\u1ecc\u1ece\u1ed0\u1ed2\u1ed4\u1ed6\u1ed8\u1eda\u1edc\u1ede\u1ee0\u1ee2\u24c4\ua74a\ua74c\uff2f\u038c\u039f\u041e",
+  "P": "\u0050\u01a4\u1e54\u1e56\u24c5\u2c63\ua750\ua752\ua754\uff30\u03a0\u041f",
+  "Q": "\u0051\u024a\u24c6\ua756\ua758\uff31",
+  "R": "\u0052\u0154\u0156\u0158\u0210\u0212\u024c\u1e58\u1e5a\u1e5c\u1e5e\u24c7\u2c64\ua75a\ua782\ua7a6\uff32\u03a1\u0420",
+  "S": "\u0053\u015a\u015c\u015e\u0160\u0218\u1e60\u1e62\u1e64\u1e66\u1e68\u1e9e\u24c8\u2c7e\ua784\ua7a8\uff33\u03a3\u0421",
+  "T": "\u0054\u0162\u0164\u0166\u01ac\u01ae\u021a\u023e\u1e6a\u1e6c\u1e6e\u1e70\u24c9\ua786\uff34\u03a4\u0422",
+  "U": "\u0055\u00d9\u00da\u00db\u00dc\u0168\u016a\u016c\u016e\u0170\u0172\u01af\u01d3\u01d5\u01d7\u01d9\u01db\u0214\u0216\u0244\u1e72\u1e74\u1e76\u1e78\u1e7a\u1ee4\u1ee6\u1ee8\u1eea\u1eec\u1eee\u1ef0\u24ca\uff35\u0423\u042a",
+  "V": "\u0056\u01b2\u0245\u1e7c\u1e7e\u24cb\ua75e\uff36\u0412",
+  "W": "\u0057\u0174\u1e80\u1e82\u1e84\u1e86\u1e88\u24cc\u2c72\uff37\u038f\u03a9",
+  "X": "\u0058\u1e8a\u1e8c\u24cd\uff38\u03a7",
+  "Y": "\u0059\u00dd\u0176\u0178\u01b3\u0232\u024e\u1e8e\u1ef2\u1ef4\u1ef6\u1ef8\u1efe\u24ce\uff39\u038e\u03a5\u03ab\u042b",
+  "Z": "\u005a\u0179\u017b\u017d\u01b5\u0224\u1e90\u1e92\u1e94\u24cf\u2c6b\u2c7f\ua762\uff3a\u0396\u0417",
+  "a": "\u0061\u00e0\u00e1\u00e2\u00e3\u00e4\u00e5\u0101\u0103\u0105\u01ce\u01df\u01e1\u01fb\u0201\u0203\u0227\u0250\u1e01\u1e9a\u1ea1\u1ea3\u1ea5\u1ea7\u1ea9\u1eab\u1ead\u1eaf\u1eb1\u1eb3\u1eb5\u1eb7\u24d0\u2c65\uff41\u03ac\u03b1\u0430",
+  "b": "\u0062\u0180\u0183\u0253\u1e03\u1e05\u1e07\u24d1\uff42\u03b2\u0431",
+  "c": "\u0063\u00e7\u0107\u0109\u010b\u010d\u0188\u023c\u1e09\u2184\u24d2\ua73f\uff43\u0446",
+  "d": "\u0064\u010f\u0111\u018c\u0256\u0257\u1e0b\u1e0d\u1e0f\u1e11\u1e13\u24d3\ua77a\uff44\u00f0\u03b4\u0434",
+  "e": "\u0065\u00e8\u00e9\u00ea\u00eb\u0113\u0115\u0117\u0119\u011b\u01dd\u0205\u0207\u0229\u0247\u025b\u1e15\u1e17\u1e19\u1e1b\u1e1d\u1eb9\u1ebb\u1ebd\u1ebf\u1ec1\u1ec3\u1ec5\u1ec7\u24d4\uff45\u03ad\u03b5\u0435\u044d",
+  "f": "\u0066\u0192\u1e1f\u24d5\ua77c\uff46\u03c6\u0444",
+  "g": "\u0067\u011d\u011f\u0121\u0123\u01e5\u01e7\u01f5\u0260\u1d79\u1e21\u24d6\ua77f\ua7a1\uff47\u03b3\u0433\u0491",
+  "h": "\u0068\u0125\u0127\u021f\u0265\u1e23\u1e25\u1e27\u1e29\u1e2b\u1e96\u24d7\u2c68\u2c76\uff48\u03ae\u03b7\u0445",
+  "i": "\u0069\u00ec\u00ed\u00ee\u00ef\u0129\u012b\u012d\u012f\u0131\u01d0\u0209\u020b\u0268\u1e2d\u1e2f\u1ec9\u1ecb\u24d8\uff49\u0390\u03af\u03b9\u03ca\u0438\u0456",
+  "j": "\u006a\u0135\u01f0\u0249\u24d9\uff4a\u0439",
+  "k": "\u006b\u0137\u0199\u01e9\u1e31\u1e33\u1e35\u24da\u2c6a\ua741\ua743\ua745\ua7a3\uff4b\u03ba\u043a",
+  "l": "\u006c\u013a\u013c\u013e\u0140\u0142\u017f\u019a\u026b\u1e37\u1e39\u1e3b\u1e3d\u24db\u2c61\ua747\ua749\ua781\uff4c\u03bb\u043b",
+  "m": "\u006d\u026f\u0271\u1e3f\u1e41\u1e43\u24dc\uff4d\u03bc\u043c",
+  "n": "\u006e\u00f1\u0144\u0146\u0148\u0149\u019e\u01f9\u0272\u1e45\u1e47\u1e49\u1e4b\u24dd\ua791\ua7a5\uff4e\u03bd\u043d",
+  "o": "\u006f\u00f2\u00f3\u00f4\u00f5\u00f6\u00f8\u014d\u014f\u0151\u01a1\u01d2\u01eb\u01ed\u01ff\u020d\u020f\u022b\u022d\u022f\u0231\u0254\u0275\u1e4d\u1e4f\u1e51\u1e53\u1ecd\u1ecf\u1ed1\u1ed3\u1ed5\u1ed7\u1ed9\u1edb\u1edd\u1edf\u1ee1\u1ee3\u24de\ua74b\ua74d\uff4f\u03bf\u03cc\u043e",
+  "p": "\u0070\u01a5\u1d7d\u1e55\u1e57\u24df\ua751\ua753\ua755\uff50\u03c0\u043f",
+  "q": "\u0071\u024b\u24e0\ua757\ua759\uff51",
+  "r": "\u0072\u0155\u0157\u0159\u0211\u0213\u024d\u027d\u1e59\u1e5b\u1e5d\u1e5f\u24e1\ua75b\ua783\ua7a7\uff52\u03c1\u0440",
+  "s": "\u0073\u00df\u015b\u015d\u015f\u0161\u0219\u023f\u1e61\u1e63\u1e65\u1e67\u1e69\u1e9b\u24e2\ua785\ua7a9\uff53\u03c2\u03c3\u0441",
+  "t": "\u0074\u0163\u0165\u0167\u01ad\u021b\u0288\u1e6b\u1e6d\u1e6f\u1e71\u1e97\u24e3\u2c66\ua787\uff54\u03c4\u0442",
+  "u": "\u0075\u00f9\u00fa\u00fb\u00fc\u0169\u016b\u016d\u016f\u0171\u0173\u01b0\u01d4\u01d6\u01d8\u01da\u01dc\u0215\u0217\u0289\u1e73\u1e75\u1e77\u1e79\u1e7b\u1ee5\u1ee7\u1ee9\u1eeb\u1eed\u1eef\u1ef1\u24e4\uff55\u0443\u044a",
+  "v": "\u0076\u028b\u028c\u1e7d\u1e7f\u24e5\ua75f\uff56\u0432",
+  "w": "\u0077\u0175\u1e81\u1e83\u1e85\u1e87\u1e89\u1e98\u24e6\u2c73\uff57\u03c9\u03ce",
+  "x": "\u0078\u1e8b\u1e8d\u24e7\uff58\u03c7",
+  "y": "\u0079\u00fd\u00ff\u0177\u01b4\u0233\u024f\u1e8f\u1e99\u1ef3\u1ef5\u1ef7\u1ef9\u1eff\u24e8\uff59\u03b0\u03c5\u03cb\u03cd\u044b",
+  "z": "\u007a\u017a\u017c\u017e\u01b6\u0225\u0240\u1e91\u1e93\u1e95\u24e9\u2c6c\ua763\uff5a\u03b6\u0437",
+  "OE": "\u008c\u0152",
+  "oe": "\u009c\u0153",
+  "AE": "\u00c6\u01e2\u01fc",
+  "ae": "\u00e6\u01e3\u01fd",
+  "hv": "\u0195",
+  "OI": "\u01a2",
+  "oi": "\u01a3",
+  "DZ": "\u01c4\u01f1",
+  "Dz": "\u01c5\u01f2",
+  "dz": "\u01c6\u01f3",
+  "LJ": "\u01c7",
+  "Lj": "\u01c8",
+  "lj": "\u01c9",
+  "NJ": "\u01ca",
+  "Nj": "\u01cb",
+  "nj": "\u01cc",
+  "OU": "\u0222",
+  "ou": "\u0223",
+  "TZ": "\ua728",
+  "tz": "\ua729",
+  "AA": "\ua732",
+  "aa": "\ua733",
+  "AO": "\ua734",
+  "ao": "\ua735",
+  "AU": "\ua736",
+  "au": "\ua737",
+  "AV": "\ua738\ua73a",
+  "av": "\ua739\ua73b",
+  "AY": "\ua73c",
+  "ay": "\ua73d",
+  "OO": "\ua74e",
+  "oo": "\ua74f",
+  "VY": "\ua760",
+  "vy": "\ua761",
+  "TH": "\u00de",
+  "th": "\u00fe",
+  "PS": "\u03a8",
+  "ps": "\u03c8",
+  "Yo": "\u0401",
+  "Ye": "\u0404",
+  "Yi": "\u0407",
+  "Zh": "\u0416",
+  "Ch": "\u0427",
+  "Sh": "\u0428\u0429",
+  "": "\u042c\u044c",
+  "Yu": "\u042e",
+  "Ya": "\u042f",
+  "zh": "\u0436",
+  "ch": "\u0447",
+  "sh": "\u0448\u0449",
+  "yu": "\u044e",
+  "ya": "\u044f",
+  "yo": "\u0451",
+  "ye": "\u0454",
+  "yi": "\u0457"
 };
 
 /**
@@ -3087,7 +2191,7 @@ var diacriticMap = {
  * @returns {string} Returns the character without diacritics.
  */
 function removeDiacritics(character) {
-  var characterWithoutDiacritic = diacriticMap[character];
+  var characterWithoutDiacritic = diacriticsMap[character];
   return characterWithoutDiacritic ? characterWithoutDiacritic : character;
 }
 
@@ -3126,7 +2230,7 @@ function latinise(subject) {
   if (subjectString === '') {
     return subjectString;
   }
-  return subjectString.replace(REGEXP_NON_BASIC_LATIN, removeDiacritics).replace(REGEXP_COMBINING_MARKS, removeCombiningMarks);
+  return subjectString.replace(REGEXP_NON_LATIN, removeDiacritics).replace(REGEXP_COMBINING_MARKS, removeCombiningMarks);
 }
 
 /**
@@ -6593,12 +5697,6 @@ describe('isAlpha', function () {
     chai.expect(Voca.isAlpha('foo\u0303\u035C\u035D\u035Ebar')).to.be.true;
   });
 
-  it('should return true for an alpha russian string', function () {
-    chai.expect(Voca.isAlpha('ПриветМир')).to.be.true;
-    chai.expect(Voca.isAlpha('ЯваСкрипт')).to.be.true;
-    chai.expect(Voca.isAlpha('АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя')).to.be.true;
-  });
-
   it('should return true for a string with diacritics', function () {
     chai.expect(Voca.isAlpha('áéèêëíîïóôúûýàòüçäöâùÿãõñ')).to.be.true;
   });
@@ -6610,7 +5708,6 @@ describe('isAlpha', function () {
 
   it('should return true for an array with one alpha string item', function () {
     chai.expect(Voca.isAlpha(['HelloWorld'])).to.be.true;
-    chai.expect(Voca.isAlpha(['ПриветМир'])).to.be.true;
   });
 
   it('should return true for an alpha string representation of an object', function () {
@@ -6621,7 +5718,7 @@ describe('isAlpha', function () {
     })).to.be.true;
     chai.expect(Voca.isAlpha({
       toString: function () {
-        return 'ПриветМир';
+        return 'HelloWorld';
       }
     })).to.be.true;
   });
@@ -6648,20 +5745,8 @@ describe('isAlpha', function () {
     chai.expect(Voca.isAlpha(PRINTABLE_ASCII)).to.be.false;
   });
 
-  it('should return false for a non-alpha russian string', function () {
-    chai.expect(Voca.isAlpha('Привет Мир!')).to.be.false;
-    chai.expect(Voca.isAlpha('\nПривет Мир!\n')).to.be.false;
-    chai.expect(Voca.isAlpha('ECMAScript версии 5.1 (ECMA-262)')).to.be.false;
-  });
-
-  it('should return false for a non-alpha japanese string', function () {
-    chai.expect(Voca.isAlpha('こんにちは世界!')).to.be.false;
-    chai.expect(Voca.isAlpha('ジャバスクリプト2015')).to.be.false;
-  });
-
   it('should return false for an array with a non-alpha string item', function () {
     chai.expect(Voca.isAlpha(['Hello World!'])).to.be.false;
-    chai.expect(Voca.isAlpha(['Привет Мир!'])).to.be.false;
   });
 
   it('should return false for a non-alpha string representation of an object', function () {
@@ -6672,7 +5757,7 @@ describe('isAlpha', function () {
     })).to.be.false;
     chai.expect(Voca.isAlpha({
       toString: function () {
-        return 'Привет Мир!';
+        return 'Welcome!';
       }
     })).to.be.false;
   });
@@ -6714,20 +5799,6 @@ describe('isAlphaDigit', function () {
     chai.expect(Voca.isAlphaDigit('foo\u0303\u035C\u035D\u035Ebar')).to.be.true;
   });
 
-  it('should return true for an alpha and digit russian string', function () {
-    chai.expect(Voca.isAlphaDigit('ПриветМир')).to.be.true;
-    chai.expect(Voca.isAlphaDigit('ПриветМир007')).to.be.true;
-    chai.expect(Voca.isAlphaDigit('ЯваСкрипт6')).to.be.true;
-    chai.expect(Voca.isAlphaDigit('АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя')).to.be.true;
-    chai.expect(Voca.isAlphaDigit('АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя0123456789')).to.be.true;
-  });
-
-  it('should return true for an alpha and digit japanese string', function () {
-    chai.expect(Voca.isAlphaDigit('こんにちは世界')).to.be.true;
-    chai.expect(Voca.isAlphaDigit('こんにちは世界45')).to.be.true;
-    chai.expect(Voca.isAlphaDigit('12ジャバスクリプト')).to.be.true;
-  });
-
   it('should return true for a string with diacritics', function () {
     chai.expect(Voca.isAlphaDigit('áéèêëíîïóôúûýàòüçäöâùÿãõñ')).to.be.true;
     chai.expect(Voca.isAlphaDigit('áéèêëíîïóôúûýàòüçäöâùÿãõñ0123456789')).to.be.true;
@@ -6736,7 +5807,6 @@ describe('isAlphaDigit', function () {
   it('should return true for an array with one alpha and digit string item', function () {
     chai.expect(Voca.isAlphaDigit(['HelloWorld'])).to.be.true;
     chai.expect(Voca.isAlphaDigit(['HelloWorld007'])).to.be.true;
-    chai.expect(Voca.isAlphaDigit(['ЯваСкрипт6'])).to.be.true;
   });
 
   it('should return true for an alpha and digit string representation of an object', function () {
@@ -6747,7 +5817,7 @@ describe('isAlphaDigit', function () {
     })).to.be.true;
     chai.expect(Voca.isAlphaDigit({
       toString: function () {
-        return 'ПриветМир';
+        return 'Welcome';
       }
     })).to.be.true;
     chai.expect(Voca.isAlphaDigit({
@@ -6757,7 +5827,7 @@ describe('isAlphaDigit', function () {
     })).to.be.true;
     chai.expect(Voca.isAlphaDigit({
       toString: function () {
-        return 'ЯваСкрипт2016';
+        return 'Welcome';
       }
     })).to.be.true;
   });
@@ -6789,23 +5859,6 @@ describe('isAlphaDigit', function () {
     chai.expect(Voca.isAlphaDigit(PRINTABLE_ASCII)).to.be.false;
   });
 
-  it('should return false for a non alpha and non digit russian string', function () {
-    chai.expect(Voca.isAlphaDigit('привет мир!')).to.be.false;
-    chai.expect(Voca.isAlphaDigit('Привет Мир! Это 2016')).to.be.false;
-    chai.expect(Voca.isAlphaDigit('\nПривет-Мир\n')).to.be.false;
-    chai.expect(Voca.isAlphaDigit('ЯваСкрипт 2015')).to.be.false;
-  });
-
-  it('should return false for a non alpha and non digit japanese string', function () {
-    chai.expect(Voca.isAlphaDigit('こんにちは世界00!')).to.be.false;
-    chai.expect(Voca.isAlphaDigit('ジャバスクリプト 2015(2016)')).to.be.false;
-  });
-
-  it('should return false for an array with a non alpha and non digit string item', function () {
-    chai.expect(Voca.isAlphaDigit(['Hello World!'])).to.be.false;
-    chai.expect(Voca.isAlphaDigit(['Ява Скрипт, привет!'])).to.be.false;
-  });
-
   it('should return false for a non alpha and non digit string representation of an object', function () {
     chai.expect(Voca.isAlphaDigit({
       toString: function () {
@@ -6814,7 +5867,7 @@ describe('isAlphaDigit', function () {
     })).to.be.false;
     chai.expect(Voca.isAlphaDigit({
       toString: function () {
-        return 'Ява Скрипт, Привет!';
+        return 'Hello World! How are you?';
       }
     })).to.be.false;
   });
@@ -7057,7 +6110,6 @@ describe('isLowerCase', function () {
     chai.expect(Voca.isLowerCase('a')).to.be.true;
     chai.expect(Voca.isLowerCase('helloworld')).to.be.true;
     chai.expect(Voca.isLowerCase('welcometoearth')).to.be.true;
-    chai.expect(Voca.isLowerCase('приветземляне')).to.be.true;
     chai.expect(Voca.isLowerCase('áéèêëíîïóôúûýàòüçäöâùÿãõñ')).to.be.true;
   });
 
@@ -7078,13 +6130,11 @@ describe('isLowerCase', function () {
   it('should return false for a string containing upper case characters', function () {
     chai.expect(Voca.isLowerCase('Helloworld')).to.be.false;
     chai.expect(Voca.isLowerCase('WELCOMETOEARTH')).to.be.false;
-    chai.expect(Voca.isLowerCase('ПриветЗемляне')).to.be.false;
   });
 
   it('should return false for a string containing characters different than lower case', function () {
     chai.expect(Voca.isLowerCase('hello world!')).to.be.false;
     chai.expect(Voca.isLowerCase('No one cared who I was until I put on the mask.')).to.be.false;
-    chai.expect(Voca.isLowerCase('Привет, Земляне!')).to.be.false;
     chai.expect(Voca.isLowerCase('\n')).to.be.false;
     chai.expect(Voca.isLowerCase('\t')).to.be.false;
     chai.expect(Voca.isLowerCase(' ')).to.be.false;
@@ -7246,7 +6296,6 @@ describe('isUpperCase', function () {
     chai.expect(Voca.isUpperCase('A')).to.be.true;
     chai.expect(Voca.isUpperCase('HELLOWORLD')).to.be.true;
     chai.expect(Voca.isUpperCase('WELCOMETOEARTH')).to.be.true;
-    chai.expect(Voca.isUpperCase('ПРИВЕТЗЕМЛЯНЕ')).to.be.true;
     chai.expect(Voca.isUpperCase('ÁÉÈÊËÍÎÏÓÔÚÛÝÀÒÜÇÄÖÂÙŸÃÕÑ')).to.be.true;
   });
 
@@ -7262,7 +6311,6 @@ describe('isUpperCase', function () {
   it('should return false for a string containing lower case characters', function () {
     chai.expect(Voca.isUpperCase('Helloworld')).to.be.false;
     chai.expect(Voca.isUpperCase('WeLCOMETOEARTH')).to.be.false;
-    chai.expect(Voca.isUpperCase('ПриветЗемляне')).to.be.false;
   });
 
   it('should return false for a boolean', function () {
@@ -7273,7 +6321,6 @@ describe('isUpperCase', function () {
   it('should return false for a string containing characters different than upper case', function () {
     chai.expect(Voca.isUpperCase('hello world!')).to.be.false;
     chai.expect(Voca.isUpperCase('No one cared who I was until I put on the mask.')).to.be.false;
-    chai.expect(Voca.isUpperCase('Привет, Земляне!')).to.be.false;
     chai.expect(Voca.isUpperCase('\n')).to.be.false;
     chai.expect(Voca.isUpperCase('\t')).to.be.false;
     chai.expect(Voca.isUpperCase(' ')).to.be.false;
@@ -7624,6 +6671,7 @@ describe('words', function () {
 
   it('should split the string into words', function () {
     chai.expect(Voca.words('123')).to.eql(['123']);
+    chai.expect(Voca.words('15+20=35')).to.eql(['15', '20', '35']);
     chai.expect(Voca.words('hello')).to.eql(['hello']);
     chai.expect(Voca.words('  hello   ')).to.eql(['hello']);
     chai.expect(Voca.words('hello world')).to.eql(['hello', 'world']);
@@ -7656,11 +6704,14 @@ describe('words', function () {
     chai.expect(Voca.words('fo-O-O\u0303\u035C\u035D\u035E-bar')).to.eql(['fo', 'O', 'O\u0303\u035C\u035D\u035E', 'bar']);
   });
 
-  it('should split the string with diacritics and non-latin characters into words', function () {
-    chai.expect(Voca.words('Στις αρχές του 21ου αιώνα')).to.eql(['Στις', 'αρχές', 'του', '21', 'ου', 'αιώνα']);
-    chai.expect(Voca.words('Гравитация притягивает все')).to.eql(['Гравитация', 'притягивает', 'все']);
-    chai.expect(Voca.words('ГравитацияПритягиваетВСЕ')).to.eql(['Гравитация', 'Притягивает', 'ВСЕ']);
+  it('should split the string with diacritics into words', function () {
     chai.expect(Voca.words('clasificación biológica.')).to.eql(['clasificación', 'biológica']);
+    chai.expect(Voca.words('BunăZiua')).to.eql(['Bună', 'Ziua']);
+    chai.expect(Voca.words('Bună1ZiUa!')).to.eql(['Bună', '1', 'Zi', 'Ua']);
+    chai.expect(Voca.words('Język /polski wywodzi się z` języka` praindoeuropejskiego za**pośrednictwem+języka-prasłowiańskiego.')).to.eql(['Język', 'polski', 'wywodzi', 'się', 'z', 'języka', 'praindoeuropejskiego', 'za', 'pośrednictwem', 'języka', 'prasłowiańskiego']);
+    chai.expect(Voca.words('Гравитация притягивает все')).to.eql(['Гравитация', 'притягивает', 'все']);
+    chai.expect(Voca.words('Гравитация-Притягивает-ВСЕ!!')).to.eql(['Гравитация', 'Притягивает', 'ВСЕ']);
+    chai.expect(Voca.words('Στις--αρχές** (του) 21ου, αιώνα!')).to.eql(['Στις', 'αρχές', 'του', '21', 'ου', 'αιώνα']);
   });
 
   it('should split the string representation of an object', function () {
