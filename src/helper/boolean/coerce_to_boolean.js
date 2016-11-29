@@ -1,4 +1,4 @@
-import isNil from '../object/is_nil';
+import isNil from 'helper/object/is_nil';
 
 /**
  * Converts the `value` to a boolean. If `value` is `undefined` or `null`, returns `defaultValue`.

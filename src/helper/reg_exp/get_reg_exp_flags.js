@@ -1,4 +1,4 @@
-import { REGEXP_FLAGS } from './const';
+import { REGEXP_FLAGS } from 'helper/reg_exp/const';
 
 /**
  * Get the flags string from a regular expression object.

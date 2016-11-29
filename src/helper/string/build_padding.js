@@ -1,5 +1,5 @@
 import repeat from 'manipulate/repeat';
-import toInteger from '../number/to_integer';
+import toInteger from 'helper/number/to_integer';
 
 /**
  * Creates the padding string.

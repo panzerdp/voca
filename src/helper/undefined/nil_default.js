@@ -7,6 +7,6 @@
  * @param {*} defaultValue The default value.
  * @return {*} Returns `defaultValue` if `value` is `undefined` or `null`, otherwise `defaultValue`.
  */
-export default function (value, defaultValue) {
+export default function nilDefault(value, defaultValue) {
   return value == null ? defaultValue : value;
 }

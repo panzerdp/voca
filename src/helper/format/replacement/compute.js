@@ -14,7 +14,7 @@ import formatString from 'helper/format/type_format/string';
  * @param {ConversionSpecification} conversion The conversion specification object.
  * @return {string} Returns the computed string.
  */
-export default function (replacement, conversion) {
+export default function compute(replacement, conversion) {
   let formatFunction;
   switch (conversion.typeSpecifier) {
     case Const.TYPE_STRING:

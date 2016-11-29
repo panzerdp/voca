@@ -1,4 +1,4 @@
-import { MAX_SAFE_INTEGER } from './const';
+import { MAX_SAFE_INTEGER } from 'helper/number/const';
 
 /**
  * Transforms `value` to an integer.

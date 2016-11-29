@@ -7,6 +7,6 @@
  * @param {*} defaultValue The default value.
  * @return {*} Returns `defaultValue` if `value` is `NaN`, otherwise `defaultValue`.
  */
-export default function (value, defaultValue) {
+export default function nanDefault(value, defaultValue) {
   return value !== value ? defaultValue : value;
 }

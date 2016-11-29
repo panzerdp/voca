@@ -1,4 +1,4 @@
-import isNil from '../object/is_nil';
+import isNil from 'helper/object/is_nil';
 
 /**
  * Get the number representation of the `value`.

@@ -1,4 +1,4 @@
-import getRegExpFlags from './get_reg_exp_flags';
+import getRegExpFlags from 'helper/reg_exp/get_reg_exp_flags';
 import includes from 'query/includes';
 
 /**
