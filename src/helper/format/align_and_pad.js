@@ -11,7 +11,7 @@ import padRight from 'manipulate/pad_right';
  * @param {ConversionSpecification} conversion The conversion specification object.
  * @return {string} Returns the aligned and padded string.
  */
-export default function(subject, conversion) {
+export default function alignAndPad(subject, conversion) {
   const width = conversion.width;
   if (isNil(width) || subject.length >= width) {
     return subject;

@@ -10,7 +10,7 @@ import Const from 'helper/format/const';
  * @param  {ConversionSpecification} conversion The conversion specification object.
  * @return {string} Returns the formatted number string with a sign.
  */
-export default function(replacementNumber, formattedReplacement, conversion) {
+export default function addSignToFormattedNumber(replacementNumber, formattedReplacement, conversion) {
   if (conversion.signSpecifier === Const.LITERAL_PLUS && replacementNumber >= 0) {
     formattedReplacement = Const.LITERAL_PLUS + formattedReplacement;
   }

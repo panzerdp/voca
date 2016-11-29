@@ -10,7 +10,7 @@ import isNil from '../object/is_nil';
  * @param  {*} value            The value to convert.
  * @return {number|null}        Returns the number representation of `value` or `null` if `value` is `null` or `undefined`.
  */
-export default function(value) {
+export default function toNumber(value) {
   if (isNil(value)) {
     return null;
   }

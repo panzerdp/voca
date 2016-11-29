@@ -8,7 +8,7 @@
  * @param {number} upLimit The upper limit
  * @return {number} The clipped number
  */
-export default function(value, downLimit, upLimit) {
+export default function clipNumber(value, downLimit, upLimit) {
   if (value <= downLimit) {
     return downLimit;
   }

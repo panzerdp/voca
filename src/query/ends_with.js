@@ -24,7 +24,7 @@ import toInteger from 'helper/number/to_integer';
  * v.endsWith('Murphy', 'ph', 5);
  * // => true
  */
-export default function(subject, end, position) {
+export default function endsWith(subject, end, position) {
   if (isNil(end)) {
     return false;
   }

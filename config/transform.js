@@ -34,6 +34,7 @@ function getFunctionFiles() {
     ignore: [
       DIRECTORY_SRC + 'chain/*.js',
       DIRECTORY_SRC + 'helper/**/*.js',
+      DIRECTORY_SRC + 'util/no_conflict.js',
       DIRECTORY_SRC + 'functions.js',
       DIRECTORY_SRC + 'index.js',
     ]
@@ -68,10 +69,12 @@ function resolveModuleSource(source, filename) {
 }
 
 function resolveHelperModuleSource(source, filename) {
-  if (source.indexOf('helper') === 0) {
-    return source;
-  }
-  var parts = source.split('/');
-  var lastIndex = parts.length - 1;
-  return './' + parts[lastIndex];
+  // if (source.indexOf('helper') === 0) {
+  //   return source;
+  // }
+  // var parts = source.split('/');
+  // var lastIndex = parts.length - 1;
+  // return './' + parts[lastIndex];
+  console.log(source, ' -> ', filename);
+  return source;
 }

@@ -12,7 +12,7 @@ import isNil from '../object/is_nil';
  * @return {number|null}        Returns the number representation of `value`. Returns `defaultValue` if `value` is
  *                              `null` or `undefined`.
  */
-export default function(value, defaultValue = 0) {
+export default function coerceToNumber(value, defaultValue = 0) {
   if (isNil(value)) {
     return defaultValue;
   }

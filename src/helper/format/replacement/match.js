@@ -21,7 +21,7 @@ import validateReplacement from 'helper/format/replacement/validate';
  * @param {string} typeSpecifier The type specifier says what type the argument data should be treated as.
  * @return {string} Returns the computed replacement.
  */
-export default function(replacementIndex, replacements, conversionSpecification, percent, position, signSpecifier,
+export default function match(replacementIndex, replacements, conversionSpecification, percent, position, signSpecifier,
                         paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
   const conversion = new ConversionSpecification({
     percent,

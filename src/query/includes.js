@@ -22,7 +22,7 @@ import toString from 'helper/string/to_string';
  * v.includes('galaxy', 'g', 1);
  * // => false
  */
-export default function(subject, search, position) {
+export default function includes(subject, search, position) {
   const subjectString = coerceToString(subject);
   const searchString = toString(search);
   if (searchString === null) {

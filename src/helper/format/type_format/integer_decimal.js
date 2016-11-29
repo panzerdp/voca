@@ -10,7 +10,7 @@ import toString from 'helper/string/to_string';
  * @return {string} Returns the formatted string.
  */
 
-export default function(replacement, conversion) {
+export default function integerDecimal(replacement, conversion) {
   let integer = parseInt(replacement);
   if (isNaN(integer)) {
     integer = 0;

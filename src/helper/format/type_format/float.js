@@ -13,7 +13,7 @@ import toString from 'helper/string/coerce_to_string';
  * @return {string} Returns the formatted string.
  */
 
-export default function(replacement, conversion) {
+export default function float(replacement, conversion) {
   let replacementNumber = parseFloat(replacement);
   let formattedReplacement;
   if (isNaN(replacementNumber)) {

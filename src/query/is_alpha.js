@@ -20,7 +20,7 @@ import { REGEXP_ALPHA } from 'helper/reg_exp/const';
  * v.isAlpha('lisa and bart');
  * // => false
  */
-export default function(subject) {
+export default function isAlpha(subject) {
   const subjectString = coerceToString(subject);
   return REGEXP_ALPHA.test(subjectString);
 }
