@@ -25,14 +25,14 @@ function isNil(value) {
  * @param {boolean} [defaultValue=false] The default value.
  * @return {boolean} Returns the coercion to boolean.
  */
-var coerceToBoolean = function (value) {
+function coerceToBoolean(value) {
   var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
   if (isNil(value)) {
     return defaultValue;
   }
   return Boolean(value);
-};
+}
 
 /**
  * Checks whether `subject` is a string primitive type.
@@ -66,7 +66,7 @@ function isString(subject) {
  * @return {string|null}        Returns the string representation of `value`. Returns `defaultValue` if `value` is
  *                              `null` or `undefined`.
  */
-var coerceToString = function (value) {
+function coerceToString(value) {
   var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 
   if (isNil(value)) {
@@ -76,7 +76,7 @@ var coerceToString = function (value) {
     return value;
   }
   return String(value);
-};
+}
 
 /**
  * Converts the first character of `subject` to upper case. If `restToLower` is `true`, convert the rest of
@@ -370,9 +370,9 @@ var REGEXP_FLAGS = /[gimuy]*$/;
  * @param {*} defaultValue The default value.
  * @return {*} Returns `defaultValue` if `value` is `undefined` or `null`, otherwise `defaultValue`.
  */
-var nilDefault = function (value, defaultValue) {
+function nilDefault(value, defaultValue) {
   return value == null ? defaultValue : value;
-};
+}
 
 /**
  * Get the string representation of the `value`.
@@ -383,7 +383,7 @@ var nilDefault = function (value, defaultValue) {
  * @param {*} value             The value to convert.
  * @return {string|null}        Returns the string representation of `value`.
  */
-var toString = function (value) {
+function toString(value) {
   if (isNil(value)) {
     return null;
   }
@@ -391,7 +391,7 @@ var toString = function (value) {
     return value;
   }
   return String(value);
-};
+}
 
 /**
  * Splits `subject` into an array of words.
@@ -574,7 +574,7 @@ function upperCase(subject) {
  * @param {number} upLimit The upper limit
  * @return {number} The clipped number
  */
-var clipNumber = function (value, downLimit, upLimit) {
+function clipNumber(value, downLimit, upLimit) {
   if (value <= downLimit) {
     return downLimit;
   }
@@ -582,7 +582,7 @@ var clipNumber = function (value, downLimit, upLimit) {
     return upLimit;
   }
   return value;
-};
+}
 
 /**
  * Max save integer value
@@ -600,7 +600,7 @@ var MAX_SAFE_INTEGER = 0x1fffffffffffff;
  * @param {number} value The number to transform.
  * @returns {number} Returns the transformed integer.
  */
-var toInteger = function (value) {
+function toInteger(value) {
   if (value === Infinity) {
     return MAX_SAFE_INTEGER;
   }
@@ -608,7 +608,7 @@ var toInteger = function (value) {
     return -MAX_SAFE_INTEGER;
   }
   return ~~value;
-};
+}
 
 /**
  * Truncates `subject` to a new `length`.
@@ -714,7 +714,7 @@ function getAstralNumberFromSurrogatePair(highSurrogate, lowSurrogate) {
  * @return {number|null}        Returns the number representation of `value`. Returns `defaultValue` if `value` is
  *                              `null` or `undefined`.
  */
-var coerceToNumber = function (value) {
+function coerceToNumber(value) {
   var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
 
   if (isNil(value)) {
@@ -724,7 +724,7 @@ var coerceToNumber = function (value) {
     return value;
   }
   return Number(value);
-};
+}
 
 /**
  * If `value` is `NaN`, return `defaultValue`. In other case returns `value`.
@@ -735,9 +735,9 @@ var coerceToNumber = function (value) {
  * @param {*} defaultValue The default value.
  * @return {*} Returns `defaultValue` if `value` is `NaN`, otherwise `defaultValue`.
  */
-var nanDefault = function (value, defaultValue) {
+function nanDefault(value, defaultValue) {
   return value !== value ? defaultValue : value;
-};
+}
 
 /**
  * Get the Unicode code point value of the character at `position`. <br/>
@@ -1214,11 +1214,11 @@ function repeat(subject, times) {
  * @param {number} length The padding string length.
  * @return {string} The padding string.
  */
-var buildPadding = function (padCharacters, length) {
+function buildPadding(padCharacters, length) {
   var padStringRepeat = toInteger(length / padCharacters.length);
   var padStringRest = length % padCharacters.length;
   return repeat(padCharacters, padStringRepeat + padStringRest).substr(0, length);
-};
+}
 
 /**
  * Pads `subject` from left to a new `length`.
@@ -1290,14 +1290,14 @@ function padRight(subject, length, pad) {
  * @param {ConversionSpecification} conversion The conversion specification object.
  * @return {string} Returns the aligned and padded string.
  */
-var alignAndPad = function (subject, conversion) {
+function alignAndPad(subject, conversion) {
   var width = conversion.width;
   if (isNil(width) || subject.length >= width) {
     return subject;
   }
   var padType = conversion.alignmentSpecifier === Const.LITERAL_MINUS ? padRight : padLeft;
   return padType(subject, width, conversion.getPaddingCharacter());
-};
+}
 
 /**
  * Add sign to the formatted number.
@@ -1309,12 +1309,12 @@ var alignAndPad = function (subject, conversion) {
  * @param  {ConversionSpecification} conversion The conversion specification object.
  * @return {string} Returns the formatted number string with a sign.
  */
-var addSignToFormattedNumber = function (replacementNumber, formattedReplacement, conversion) {
+function addSignToFormattedNumber(replacementNumber, formattedReplacement, conversion) {
   if (conversion.signSpecifier === Const.LITERAL_PLUS && replacementNumber >= 0) {
     formattedReplacement = Const.LITERAL_PLUS + formattedReplacement;
   }
   return formattedReplacement;
-};
+}
 
 /**
  * Formats a float type according to specifiers.
@@ -1325,7 +1325,7 @@ var addSignToFormattedNumber = function (replacementNumber, formattedReplacement
  * @return {string} Returns the formatted string.
  */
 
-var formatFloat = function (replacement, conversion) {
+function float(replacement, conversion) {
   var replacementNumber = parseFloat(replacement);
   var formattedReplacement = void 0;
   if (isNaN(replacementNumber)) {
@@ -1349,7 +1349,7 @@ var formatFloat = function (replacement, conversion) {
   }
   formattedReplacement = addSignToFormattedNumber(replacementNumber, formattedReplacement, conversion);
   return coerceToString(formattedReplacement);
-};
+}
 
 /**
  * Formats the short float.
@@ -1381,7 +1381,7 @@ function formatFloatAsShort(replacementNumber, precision, conversion) {
  * @return {string} Returns the formatted string.
  */
 
-var formatIntegerBase = function (replacement, conversion) {
+function integerBase(replacement, conversion) {
   var integer = parseInt(replacement);
   if (isNaN(integer)) {
     integer = 0;
@@ -1405,7 +1405,7 @@ var formatIntegerBase = function (replacement, conversion) {
       break;
   }
   return coerceToString(integer);
-};
+}
 
 /**
  * Formats a decimal integer type according to specifiers.
@@ -1416,13 +1416,13 @@ var formatIntegerBase = function (replacement, conversion) {
  * @return {string} Returns the formatted string.
  */
 
-var formatIntegerDecimal = function (replacement, conversion) {
+function integerDecimal(replacement, conversion) {
   var integer = parseInt(replacement);
   if (isNaN(integer)) {
     integer = 0;
   }
   return addSignToFormattedNumber(integer, toString(integer), conversion);
-};
+}
 
 /**
  * Formats a string type according to specifiers.
@@ -1432,14 +1432,14 @@ var formatIntegerDecimal = function (replacement, conversion) {
  * @param {ConversionSpecification} conversion The conversion specification object.
  * @return {string} Returns the formatted string.
  */
-var formatString = function (replacement, conversion) {
+function stringFormat(replacement, conversion) {
   var formattedReplacement = replacement;
   var precision = conversion.precision;
   if (!isNil(precision) && formattedReplacement.length > precision) {
     formattedReplacement = truncate(formattedReplacement, precision, '');
   }
   return formattedReplacement;
-};
+}
 
 /**
  * Returns the computed string based on format specifiers.
@@ -1450,15 +1450,15 @@ var formatString = function (replacement, conversion) {
  * @param {ConversionSpecification} conversion The conversion specification object.
  * @return {string} Returns the computed string.
  */
-var computeReplacement = function (replacement, conversion) {
+function compute(replacement, conversion) {
   var formatFunction = void 0;
   switch (conversion.typeSpecifier) {
     case Const.TYPE_STRING:
-      formatFunction = formatString;
+      formatFunction = stringFormat;
       break;
     case Const.TYPE_INTEGER_DECIMAL:
     case Const.TYPE_INTEGER:
-      formatFunction = formatIntegerDecimal;
+      formatFunction = integerDecimal;
       break;
     case Const.TYPE_INTEGER_ASCII_CHARACTER:
     case Const.TYPE_INTEGER_BINARY:
@@ -1466,19 +1466,19 @@ var computeReplacement = function (replacement, conversion) {
     case Const.TYPE_INTEGER_HEXADECIMAL:
     case Const.TYPE_INTEGER_HEXADECIMAL_UPPERCASE:
     case Const.TYPE_INTEGER_UNSIGNED_DECIMAL:
-      formatFunction = formatIntegerBase;
+      formatFunction = integerBase;
       break;
     case Const.TYPE_FLOAT:
     case Const.TYPE_FLOAT_SCIENTIFIC:
     case Const.TYPE_FLOAT_SCIENTIFIC_UPPERCASE:
     case Const.TYPE_FLOAT_SHORT:
     case Const.TYPE_FLOAT_SHORT_UPPERCASE:
-      formatFunction = formatFloat;
+      formatFunction = float;
       break;
   }
   var formattedString = formatFunction(replacement, conversion);
   return alignAndPad(formattedString, conversion);
-};
+}
 
 /**
  * Construct the new conversion specification object.
@@ -1587,7 +1587,7 @@ ConversionSpecification.prototype.getPaddingCharacter = function () {
  * @param  {ConversionSpecification} conversion The conversion specification object.
  * @return {undefined}
  */
-var validateReplacement = function (index, replacementsLength, conversion) {
+function validate(index, replacementsLength, conversion) {
   if (isNil(conversion.typeSpecifier)) {
     throw new Error('sprintf(): Unknown type specifier');
   }
@@ -1597,7 +1597,7 @@ var validateReplacement = function (index, replacementsLength, conversion) {
   if (index < 0) {
     throw new Error('sprintf(): Argument number must be greater than zero');
   }
-};
+}
 
 /**
  * Return the replacement for regular expression match of the conversion specification.
@@ -1617,7 +1617,7 @@ var validateReplacement = function (index, replacementsLength, conversion) {
  * @param {string} typeSpecifier The type specifier says what type the argument data should be treated as.
  * @return {string} Returns the computed replacement.
  */
-var replacementMatch = function (replacementIndex, replacements, conversionSpecification, percent, position, signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
+function match(replacementIndex, replacements, conversionSpecification, percent, position, signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
   var conversion = new ConversionSpecification({
     percent: percent,
     signSpecifier: signSpecifier,
@@ -1632,9 +1632,9 @@ var replacementMatch = function (replacementIndex, replacements, conversionSpeci
   }
   var actualReplacementIndex = replacementIndex.getIndexByPosition(position);
   replacementIndex.incrementOnEmptyPosition(position);
-  validateReplacement(actualReplacementIndex, replacements.length, conversion);
-  return computeReplacement(replacements[actualReplacementIndex], conversion);
-};
+  validate(actualReplacementIndex, replacements.length, conversion);
+  return compute(replacements[actualReplacementIndex], conversion);
+}
 
 /**
  * Produces a string according to `format`.
@@ -1820,7 +1820,7 @@ function sprintf(format) {
     replacements[_key - 1] = arguments[_key];
   }
 
-  var boundReplacementMatch = replacementMatch.bind(undefined, new ReplacementIndex(), replacements);
+  var boundReplacementMatch = match.bind(undefined, new ReplacementIndex(), replacements);
   return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, boundReplacementMatch);
 }
 
@@ -2296,9 +2296,9 @@ function replace(subject, pattern, replacement) {
  * @param {RegExp} regExp The regular expression object.
  * @return {string} Returns the string with flags chars.
  */
-var getRegExpFlags = function (regExp) {
+function getRegExpFlags(regExp) {
   return regExp.toString().match(REGEXP_FLAGS)[0];
-};
+}
 
 /**
  * Checks whether `subject` includes `search` starting from `position`.
@@ -2318,7 +2318,7 @@ var getRegExpFlags = function (regExp) {
  * v.includes('galaxy', 'g', 1);
  * // => false
  */
-var includes = function (subject, search, position) {
+function includes(subject, search, position) {
   var subjectString = coerceToString(subject);
   var searchString = toString(search);
   if (searchString === null) {
@@ -2329,7 +2329,7 @@ var includes = function (subject, search, position) {
   }
   position = isNil(position) ? 0 : clipNumber(toInteger(position), 0, subjectString.length);
   return subjectString.indexOf(searchString, position) !== -1;
-};
+}
 
 /**
  * Append flag to a regular expression.
@@ -2339,13 +2339,13 @@ var includes = function (subject, search, position) {
  * @param {string} appendFlag The flag to append to regular expression.
  * @return {RegExp} The regular expression with added flag.
  */
-var appendFlagToRegularExpression = function (pattern, appendFlag) {
+function appendFlagToRegExp(pattern, appendFlag) {
   var regularExpressionFlags = getRegExpFlags(pattern);
   if (!includes(regularExpressionFlags, appendFlag)) {
     return new RegExp(pattern.source, regularExpressionFlags + appendFlag);
   }
   return pattern;
-};
+}
 
 /**
  * Returns a new string where all matches of `pattern` are replaced with `replacement`. <br/>
@@ -2372,7 +2372,7 @@ function replaceAll(subject, pattern, replacement) {
   if (!(pattern instanceof RegExp)) {
     regExp = new RegExp(escapeRegExp(pattern), 'g');
   } else if (!pattern.global) {
-    regExp = appendFlagToRegularExpression(pattern, 'g');
+    regExp = appendFlagToRegExp(pattern, 'g');
   }
   return subjectString.replace(regExp, replacement);
 }
@@ -2631,7 +2631,7 @@ function trim(subject, whitespace) {
  * v.endsWith('Murphy', 'ph', 5);
  * // => true
  */
-var endsWith = function (subject, end, position) {
+function endsWith(subject, end, position) {
   if (isNil(end)) {
     return false;
   }
@@ -2644,7 +2644,7 @@ var endsWith = function (subject, end, position) {
   position -= endString.length;
   var lastIndex = subjectString.indexOf(endString, position);
   return lastIndex !== -1 && lastIndex === position;
-};
+}
 
 /**
  * Checks whether `subject` contains only alpha characters.
@@ -2665,10 +2665,10 @@ var endsWith = function (subject, end, position) {
  * v.isAlpha('lisa and bart');
  * // => false
  */
-var isAlpha = function (subject) {
+function isAlpha(subject) {
   var subjectString = coerceToString(subject);
   return REGEXP_ALPHA.test(subjectString);
-};
+}
 
 /**
  * Checks whether `subject` contains only alpha and digit characters.

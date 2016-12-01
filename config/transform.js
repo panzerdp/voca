@@ -11,22 +11,22 @@ compileFunctions();
 compileHelpers();
 
 function compileFunctions() {
-  for (const file of getFunctionFiles()) {
+  getFunctionFiles().forEach(function(file) {
     const destinationFile = DIRECTORY_DIST + path.basename(file);
     babel.transformFile(file, {
       resolveModuleSource: resolveModuleSource
     }, handleFunctionsCompilation.bind(null, destinationFile));
-  }
+  });
 }
 
 function compileHelpers() {
-  for (const file of getHelperFiles()) {
+  getHelperFiles().forEach(function(file) {
     const destinationFile = DIRECTORY_DIST + file.split(path.sep).slice(1).join(path.sep);
     mkdirp.sync(path.dirname(destinationFile));
     babel.transformFile(file, {
       resolveModuleSource: resolveHelperModuleSource
     }, handleFunctionsCompilation.bind(null, destinationFile));
-  }
+  });
 }
 
 function getFunctionFiles() {
