@@ -32,7 +32,7 @@
       "build-npm-package": "rm -rf dist_mod && mkdir dist_mod && cp package.json README.md ./dist_mod && rollup -c config/rollup_dist_mod.js && node config/transform.js",
 
     "test": "mocha test/index.js --reporter dot",
-    "test-npm-package": "mocha test/modules_common.js --reporter dot && mocha test/modules_es2015.js --reporter dot",
+    "test-npm-package": "mocha test/modules_common.js test/modules_es2015.js --reporter dot",
     "test-sl": "grunt --gruntfile ./test_runner/gruntfile.js --base .",
 
     "coverage": "istanbul cover _mocha -- test/index.js --reporter spec",

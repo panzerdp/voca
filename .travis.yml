@@ -23,8 +23,9 @@ before_script:
   - npm prune
 script:
   - npm run eslint
-  - npm run coverage
   - npm run build
+  - npm run coverage
+  - npm run test-npm-package
   - "[ $DETAILED == false ] || npm run test-sl"
 after_success:
   - "[ $DETAILED == false ] || npm run report-coverage"
