@@ -37,7 +37,11 @@ module.exports = function (grunt) {
     version: '10'
   }];
 
-  var buildId = process.env.TRAVIS_JOB_ID ? process.env.TRAVIS_JOB_ID : Math.floor(Math.random() * 10000);
+  var buildId = '';
+  if (process.env.TRAVIS_JOB_ID) {
+    buildId += process.env.TRAVIS_JOB_ID;
+  }
+  buildId += '-' + Math.floor(Math.random() * 1000);
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),

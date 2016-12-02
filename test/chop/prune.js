@@ -19,6 +19,11 @@ describe('prune', function() {
     expect(v.prune(PRINTABLE_ASCII, 0)).to.be.equal('...');
   });
 
+  it('should prune a string with extra ASCII characters', function() {
+    expect(v.prune('Привет, как дела', 10, '...')).to.be.equal('Привет...');
+    expect(v.prune('La variété la plus fréquente est la blanche', 12, '..')).to.be.equal('La variété..');
+  });
+
   it('should not prune a string if length parameter is greater or equal than string length', function() {
     expect(v.prune('Once upon', 20)).to.be.equal('Once upon');
     expect(v.prune('Once', 4, ' (read more)')).to.be.equal('Once');

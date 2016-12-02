@@ -10,10 +10,15 @@
   },
   "license": "MIT",
   "keywords": [
-    "voca",
     "string",
     "sprintf",
-    "util"
+    "trim",
+    "truncate",
+    "pad",
+    "slugify",
+    "latinise",
+    "escape",
+    "words"
   ],
   "repository": {
     "type": "git",

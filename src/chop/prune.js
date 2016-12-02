@@ -1,8 +1,8 @@
+import { REGEXP_EXTENDED_ASCII, REGEXP_LATIN_WORD, REGEXP_WORD } from 'helper/reg_exp/const_extended';
 import clipNumber from 'helper/number/clip_number';
 import coerceToString from 'helper/string/coerce_to_string';
 import isNil from 'helper/object/is_nil';
 import { MAX_SAFE_INTEGER } from 'helper/number/const';
-import { REGEXP_WORD } from 'helper/reg_exp/const';
 import toInteger from 'helper/number/to_integer';
 
 /**
@@ -34,8 +34,9 @@ export default function prune(subject, length, end) {
   if (lengthInt >= subjectString.length) {
     return subjectString;
   }
+  const pattern = REGEXP_EXTENDED_ASCII.test(subjectString) ? REGEXP_LATIN_WORD : REGEXP_WORD;
   let truncatedLength = 0;
-  subjectString.replace(REGEXP_WORD, function(word, offset) {
+  subjectString.replace(pattern, function(word, offset) {
     const wordInsertLength = offset + word.length;
     if (wordInsertLength <= lengthInt - endString.length) {
       truncatedLength = wordInsertLength;
