@@ -11,6 +11,6 @@ export default {
     dest: 'dist/voca.min.js',
     format: 'umd',
     moduleName: 'v',
-    sourceMap: false
+    sourceMap: true
   }]
 };

@@ -50,13 +50,16 @@ words('welcome to Earth');
 ```
 
 #### Browser
-Use `dist/voca.min.js` (minified production-ready) or `dist/voca.js` builds to load the library directly into browser's web page:
+Load the UMD builds directly into browser's web page:
+
+* The minified production-ready [`dist/voca.min.js`](https://raw.githubusercontent.com/panzerdp/voca/1.0.0-alpha.0/dist/voca.min.js) 
+* Or the uncompressed with comments [`dist/voca.js`](https://raw.githubusercontent.com/panzerdp/voca/1.0.0-alpha.0/dist/voca.js) 
 
 ```html
-<script src="path-to-scripts/voca.js" type="text/javascript"></script>
+<script src="voca.js" type="text/javascript"></script>
 ```
 
-Then a global variable `v` is exposed:
+Then a global variable `v` is exposed for the entire library:
 
 ```html
 <script type="text/javascript">
