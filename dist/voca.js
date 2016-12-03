@@ -409,13 +409,13 @@ function toString(value) {
  * // => ['gravity', 'can', 'cross', 'dimensions']
  *
  * v.words('GravityCanCrossDimensions');
- * // => ["Gravity", "Can", "Cross", "Dimensions"]
+ * // => ['Gravity', 'Can', 'Cross', 'Dimensions']
  *
  * v.words('Gravity - can cross dimensions!');
- * // => ["Gravity", "can", "cross", "dimensions"]
+ * // => ['Gravity', 'can', 'cross', 'dimensions']
  *
- * v.words('gravity', /\w{1,2}/g);
- * // => ['gr', 'av', 'it', 'y']
+ * v.words('Earth gravity', /[^\s]+/g);
+ * // => ['Earth', 'gravity']
  */
 function words(subject, pattern, flags) {
   var subjectString = coerceToString(subject);
@@ -901,8 +901,8 @@ function prune(subject, length, end) {
   if (lengthInt >= subjectString.length) {
     return subjectString;
   }
-  var truncatedLength = 0;
   var pattern = REGEXP_EXTENDED_ASCII.test(subjectString) ? REGEXP_LATIN_WORD : REGEXP_WORD;
+  var truncatedLength = 0;
   subjectString.replace(pattern, function (word, offset) {
     var wordInsertLength = offset + word.length;
     if (wordInsertLength <= lengthInt - endString.length) {
@@ -1008,20 +1008,20 @@ function count(subject) {
  * <a href="https://rainsoft.io/what-every-javascript-developer-should-know-about-unicode/#24surrogatepairs">surrogate pairs</a> and
  * <a href="https://rainsoft.io/what-every-javascript-developer-should-know-about-unicode/#25combiningmarks">combining marks</a>.
  *
- * @function  countGrapheme
+ * @function  countGraphemes
  * @static
  * @since 1.0.0
  * @memberOf Count
  * @param  {string} [subject=''] The string to count graphemes.
  * @return {number}              Returns the number of graphemes in `subject`.
  * @example
- * v.countGrapheme('cafe\u0301'); // or 'café'
+ * v.countGraphemes('cafe\u0301'); // or 'café'
  * // => 4
  *
- * v.countGrapheme('\uD835\uDC00\uD835\uDC01'); // or '𝐀𝐁'
+ * v.countGraphemes('\uD835\uDC00\uD835\uDC01'); // or '𝐀𝐁'
  * // => 2
  *
- * v.countGrapheme('rain');
+ * v.countGraphemes('rain');
  * // => 4
  */
 function countGrapheme(subject) {
@@ -1031,7 +1031,7 @@ function countGrapheme(subject) {
 /**
  * Counts the number of `substring` appearances in `subject`.
  *
- * @function countSubstring
+ * @function countSubstrings
  * @static
  * @since 1.0.0
  * @memberOf Count
@@ -1039,13 +1039,13 @@ function countGrapheme(subject) {
  * @param  {string} substring    The substring to be counted.
  * @return {number}              Returns the number of `substring` appearances.
  * @example
- * v.countSubstring('bad boys, bad boys whatcha gonna do?', 'boys');
+ * v.countSubstrings('bad boys, bad boys whatcha gonna do?', 'boys');
  * // => 2
  *
- * v.countSubstring('every dog has its day', 'cat');
+ * v.countSubstrings('every dog has its day', 'cat');
  * // => 0
  */
-function countSubstring(subject, substring) {
+function countSubstrings(subject, substring) {
   var subjectString = coerceToString(subject);
   var substringString = coerceToString(substring);
   var substringLength = substringString.length;
@@ -1095,6 +1095,34 @@ function countWhere(subject, predicate, context) {
   return reduce.call(subjectString, function (countTruthy, character, index) {
     return predicateWithContext(character, index, subjectString) ? countTruthy + 1 : countTruthy;
   }, 0);
+}
+
+/**
+ * Counts the number of words in `subject`.
+ *
+ * @function countWords
+ * @static
+ * @since 1.0.0
+ * @memberOf Count
+ * @param {string} [subject=''] The string to split into words.
+ * @param {string|RegExp} [pattern] The pattern to watch words. If `pattern` is not RegExp, it is transformed to `new RegExp(pattern, flags)`.
+ * @param {string} [flags=''] The regular expression flags. Applies when `pattern` is string type.
+ * @return {number} Returns the number of words.
+ * @example
+ * v.countWords('gravity can cross dimensions');
+ * // => 4
+ *
+ * v.countWords('GravityCanCrossDimensions');
+ * // => 4
+ *
+ * v.countWords('Gravity - can cross dimensions!');
+ * // => 4
+ *
+ * v.words('Earth gravity', /[^\s]+/g);
+ * // => 2
+ */
+function countWords(subject, pattern, flags) {
+  return words(subject, pattern, flags).length;
 }
 
 /**
@@ -3114,9 +3142,10 @@ var functions = {
   upperCase: upperCase,
 
   count: count,
-  countGrapheme: countGrapheme,
-  countSubstring: countSubstring,
+  countGraphemes: countGrapheme,
+  countSubstrings: countSubstrings,
   countWhere: countWhere,
+  countWords: countWords,
 
   escapeHtml: escapeHtml,
   escapeRegExp: escapeRegExp,

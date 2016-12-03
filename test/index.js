@@ -24,9 +24,10 @@ import './chop/truncate';
 
 //count
 import './count/count';
-import './count/count_grapheme';
-import './count/count_substring';
+import './count/count_graphemes';
+import './count/count_substrings';
 import './count/count_where';
+import './count/count_words';
 
 //escape
 import './escape/escape_html';

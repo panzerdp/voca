@@ -6,20 +6,20 @@ import coerceToString from 'helper/string/coerce_to_string';
  * <a href="https://rainsoft.io/what-every-javascript-developer-should-know-about-unicode/#24surrogatepairs">surrogate pairs</a> and
  * <a href="https://rainsoft.io/what-every-javascript-developer-should-know-about-unicode/#25combiningmarks">combining marks</a>.
  *
- * @function  countGrapheme
+ * @function  countGraphemes
  * @static
  * @since 1.0.0
  * @memberOf Count
  * @param  {string} [subject=''] The string to count graphemes.
  * @return {number}              Returns the number of graphemes in `subject`.
  * @example
- * v.countGrapheme('cafe\u0301'); // or 'café'
+ * v.countGraphemes('cafe\u0301'); // or 'café'
  * // => 4
  *
- * v.countGrapheme('\uD835\uDC00\uD835\uDC01'); // or '𝐀𝐁'
+ * v.countGraphemes('\uD835\uDC00\uD835\uDC01'); // or '𝐀𝐁'
  * // => 2
  *
- * v.countGrapheme('rain');
+ * v.countGraphemes('rain');
  * // => 4
  */
 export default function countGrapheme(subject) {

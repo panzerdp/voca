@@ -27,9 +27,10 @@ import truncate from '../dist_mod/truncate';
 // Count
 
 import count from '../dist_mod/count';
-import countGrapheme from '../dist_mod/count_grapheme';
-import countSubstring from '../dist_mod/count_substring';
+import countGraphemes from '../dist_mod/count_graphemes';
+import countSubstrings from '../dist_mod/count_substrings';
 import countWhere from '../dist_mod/count_where';
+import countWords from '../dist_mod/count_words';
 
 // Escape
 
@@ -174,18 +175,22 @@ describe('CommonJS modules', function() {
     expect(count('rainbow')).to.be.equal(7);
   });
 
-  it('should require countGrapheme()', function() {
-    expect(countGrapheme('\uD835\uDC00\uD835\uDC01')).to.be.equal(2);
+  it('should require countGraphemes()', function() {
+    expect(countGraphemes('\uD835\uDC00\uD835\uDC01')).to.be.equal(2);
   });
 
-  it('should require countSubstring()', function() {
-    expect(countSubstring('Hey man where-where-where\'s your cup holder?', 'where')).to.be.equal(3);
+  it('should require countSubstrings()', function() {
+    expect(countSubstrings('Hey man where-where-where\'s your cup holder?', 'where')).to.be.equal(3);
   });
 
   it('should require countWhere()', function() {
     expect(countWhere('****--**--**', function(character) {
       return character === '*';
     })).to.be.equal(8);
+  });
+
+  it('should require countWords()', function() {
+    expect(countWords('Stand by me')).to.be.equal(3);
   });
 
   // Escape

@@ -427,13 +427,13 @@ function toString(value) {
  * // => ['gravity', 'can', 'cross', 'dimensions']
  *
  * v.words('GravityCanCrossDimensions');
- * // => ["Gravity", "Can", "Cross", "Dimensions"]
+ * // => ['Gravity', 'Can', 'Cross', 'Dimensions']
  *
  * v.words('Gravity - can cross dimensions!');
- * // => ["Gravity", "can", "cross", "dimensions"]
+ * // => ['Gravity', 'can', 'cross', 'dimensions']
  *
- * v.words('gravity', /\w{1,2}/g);
- * // => ['gr', 'av', 'it', 'y']
+ * v.words('Earth gravity', /[^\s]+/g);
+ * // => ['Earth', 'gravity']
  */
 function words(subject, pattern, flags) {
   var subjectString = coerceToString(subject);
@@ -919,8 +919,8 @@ function prune(subject, length, end) {
   if (lengthInt >= subjectString.length) {
     return subjectString;
   }
-  var truncatedLength = 0;
   var pattern = REGEXP_EXTENDED_ASCII.test(subjectString) ? REGEXP_LATIN_WORD : REGEXP_WORD;
+  var truncatedLength = 0;
   subjectString.replace(pattern, function (word, offset) {
     var wordInsertLength = offset + word.length;
     if (wordInsertLength <= lengthInt - endString.length) {
@@ -1026,20 +1026,20 @@ function count(subject) {
  * <a href="https://rainsoft.io/what-every-javascript-developer-should-know-about-unicode/#24surrogatepairs">surrogate pairs</a> and
  * <a href="https://rainsoft.io/what-every-javascript-developer-should-know-about-unicode/#25combiningmarks">combining marks</a>.
  *
- * @function  countGrapheme
+ * @function  countGraphemes
  * @static
  * @since 1.0.0
  * @memberOf Count
  * @param  {string} [subject=''] The string to count graphemes.
  * @return {number}              Returns the number of graphemes in `subject`.
  * @example
- * v.countGrapheme('cafe\u0301'); // or 'café'
+ * v.countGraphemes('cafe\u0301'); // or 'café'
  * // => 4
  *
- * v.countGrapheme('\uD835\uDC00\uD835\uDC01'); // or '𝐀𝐁'
+ * v.countGraphemes('\uD835\uDC00\uD835\uDC01'); // or '𝐀𝐁'
  * // => 2
  *
- * v.countGrapheme('rain');
+ * v.countGraphemes('rain');
  * // => 4
  */
 function countGrapheme(subject) {
@@ -1049,7 +1049,7 @@ function countGrapheme(subject) {
 /**
  * Counts the number of `substring` appearances in `subject`.
  *
- * @function countSubstring
+ * @function countSubstrings
  * @static
  * @since 1.0.0
  * @memberOf Count
@@ -1057,13 +1057,13 @@ function countGrapheme(subject) {
  * @param  {string} substring    The substring to be counted.
  * @return {number}              Returns the number of `substring` appearances.
  * @example
- * v.countSubstring('bad boys, bad boys whatcha gonna do?', 'boys');
+ * v.countSubstrings('bad boys, bad boys whatcha gonna do?', 'boys');
  * // => 2
  *
- * v.countSubstring('every dog has its day', 'cat');
+ * v.countSubstrings('every dog has its day', 'cat');
  * // => 0
  */
-function countSubstring(subject, substring) {
+function countSubstrings(subject, substring) {
   var subjectString = coerceToString(subject);
   var substringString = coerceToString(substring);
   var substringLength = substringString.length;
@@ -1113,6 +1113,34 @@ function countWhere(subject, predicate, context) {
   return reduce.call(subjectString, function (countTruthy, character, index) {
     return predicateWithContext(character, index, subjectString) ? countTruthy + 1 : countTruthy;
   }, 0);
+}
+
+/**
+ * Counts the number of words in `subject`.
+ *
+ * @function countWords
+ * @static
+ * @since 1.0.0
+ * @memberOf Count
+ * @param {string} [subject=''] The string to split into words.
+ * @param {string|RegExp} [pattern] The pattern to watch words. If `pattern` is not RegExp, it is transformed to `new RegExp(pattern, flags)`.
+ * @param {string} [flags=''] The regular expression flags. Applies when `pattern` is string type.
+ * @return {number} Returns the number of words.
+ * @example
+ * v.countWords('gravity can cross dimensions');
+ * // => 4
+ *
+ * v.countWords('GravityCanCrossDimensions');
+ * // => 4
+ *
+ * v.countWords('Gravity - can cross dimensions!');
+ * // => 4
+ *
+ * v.words('Earth gravity', /[^\s]+/g);
+ * // => 2
+ */
+function countWords(subject, pattern, flags) {
+  return words(subject, pattern, flags).length;
 }
 
 /**
@@ -3132,9 +3160,10 @@ var functions = {
   upperCase: upperCase,
 
   count: count,
-  countGrapheme: countGrapheme,
-  countSubstring: countSubstring,
+  countGraphemes: countGrapheme,
+  countSubstrings: countSubstrings,
   countWhere: countWhere,
+  countWords: countWords,
 
   escapeHtml: escapeHtml,
   escapeRegExp: escapeRegExp,
@@ -4156,30 +4185,30 @@ describe('count', function () {
   });
 });
 
-describe('countGrapheme', function () {
+describe('countGraphemes', function () {
 
   it('should return the number of characters in a string', function () {
-    chai.expect(Voca.countGrapheme('rain')).to.be.equal(4);
-    chai.expect(Voca.countGrapheme('')).to.be.equal(0);
-    chai.expect(Voca.countGrapheme('rainbow')).to.be.equal(7);
-    chai.expect(Voca.countGrapheme('\u00E9\u20DD')).to.be.equal(1);
-    chai.expect(Voca.countGrapheme('\uD835\uDC00\uD835\uDC01')).to.be.equal(2);
-    chai.expect(Voca.countGrapheme('man\u0303ana')).to.be.equal(6);
-    chai.expect(Voca.countGrapheme('cafe\u0301')).to.be.equal(4);
-    chai.expect(Voca.countGrapheme('foo\u0303\u035C\u035D\u035Ebar')).to.be.equal(6);
-    chai.expect(Voca.countGrapheme('foo\uD834\uDF06\u0303\u035C\u035D\u035Ebar')).to.be.equal(7);
-    chai.expect(Voca.countGrapheme(PRINTABLE_ASCII)).to.be.equal(PRINTABLE_ASCII.length);
+    chai.expect(Voca.countGraphemes('rain')).to.be.equal(4);
+    chai.expect(Voca.countGraphemes('')).to.be.equal(0);
+    chai.expect(Voca.countGraphemes('rainbow')).to.be.equal(7);
+    chai.expect(Voca.countGraphemes('\u00E9\u20DD')).to.be.equal(1);
+    chai.expect(Voca.countGraphemes('\uD835\uDC00\uD835\uDC01')).to.be.equal(2);
+    chai.expect(Voca.countGraphemes('man\u0303ana')).to.be.equal(6);
+    chai.expect(Voca.countGraphemes('cafe\u0301')).to.be.equal(4);
+    chai.expect(Voca.countGraphemes('foo\u0303\u035C\u035D\u035Ebar')).to.be.equal(6);
+    chai.expect(Voca.countGraphemes('foo\uD834\uDF06\u0303\u035C\u035D\u035Ebar')).to.be.equal(7);
+    chai.expect(Voca.countGraphemes(PRINTABLE_ASCII)).to.be.equal(PRINTABLE_ASCII.length);
   });
 
   it('should return the number of characters in a number', function () {
-    chai.expect(Voca.countGrapheme(123)).to.be.equal(3);
-    chai.expect(Voca.countGrapheme(0)).to.be.equal(1);
-    chai.expect(Voca.countGrapheme(-1.5)).to.be.equal(4);
+    chai.expect(Voca.countGraphemes(123)).to.be.equal(3);
+    chai.expect(Voca.countGraphemes(0)).to.be.equal(1);
+    chai.expect(Voca.countGraphemes(-1.5)).to.be.equal(4);
   });
 
   it('should return the number of characters in a string representation of an object', function () {
-    chai.expect(Voca.countGrapheme(['droplet'])).to.be.equal(7);
-    chai.expect(Voca.countGrapheme({
+    chai.expect(Voca.countGraphemes(['droplet'])).to.be.equal(7);
+    chai.expect(Voca.countGraphemes({
       toString: function () {
         return 'rainfall';
       }
@@ -4187,38 +4216,38 @@ describe('countGrapheme', function () {
   });
 
   it('should return zero for undefined or null', function () {
-    chai.expect(Voca.countGrapheme()).to.be.equal(0);
-    chai.expect(Voca.countGrapheme(null)).to.be.equal(0);
-    chai.expect(Voca.countGrapheme(undefined)).to.be.equal(0);
+    chai.expect(Voca.countGraphemes()).to.be.equal(0);
+    chai.expect(Voca.countGraphemes(null)).to.be.equal(0);
+    chai.expect(Voca.countGraphemes(undefined)).to.be.equal(0);
   });
 });
 
-describe('countSubstring', function () {
+describe('countSubstrings', function () {
 
   it('should return the number of substring appearances in a string', function () {
-    chai.expect(Voca.countSubstring('Hey man where-where-where\'s your cup holder?', 'where')).to.be.equal(3);
-    chai.expect(Voca.countSubstring('And some Skittles', 'Skittles')).to.be.equal(1);
-    chai.expect(Voca.countSubstring('And some Skittles', 'chocolate')).to.be.equal(0);
-    chai.expect(Voca.countSubstring('******', '*')).to.be.equal(6);
-    chai.expect(Voca.countSubstring('*******', '**')).to.be.equal(3);
-    chai.expect(Voca.countSubstring('*******', '**-')).to.be.equal(0);
-    chai.expect(Voca.countSubstring('*******', '***')).to.be.equal(2);
-    chai.expect(Voca.countSubstring('*******', '****')).to.be.equal(1);
-    chai.expect(Voca.countSubstring('*******', '********')).to.be.equal(0);
-    chai.expect(Voca.countSubstring('*-*-*', '**')).to.be.equal(0);
-    chai.expect(Voca.countSubstring('', '')).to.be.equal(0);
-    chai.expect(Voca.countSubstring(PRINTABLE_ASCII, '#')).to.be.equal(1);
+    chai.expect(Voca.countSubstrings('Hey man where-where-where\'s your cup holder?', 'where')).to.be.equal(3);
+    chai.expect(Voca.countSubstrings('And some Skittles', 'Skittles')).to.be.equal(1);
+    chai.expect(Voca.countSubstrings('And some Skittles', 'chocolate')).to.be.equal(0);
+    chai.expect(Voca.countSubstrings('******', '*')).to.be.equal(6);
+    chai.expect(Voca.countSubstrings('*******', '**')).to.be.equal(3);
+    chai.expect(Voca.countSubstrings('*******', '**-')).to.be.equal(0);
+    chai.expect(Voca.countSubstrings('*******', '***')).to.be.equal(2);
+    chai.expect(Voca.countSubstrings('*******', '****')).to.be.equal(1);
+    chai.expect(Voca.countSubstrings('*******', '********')).to.be.equal(0);
+    chai.expect(Voca.countSubstrings('*-*-*', '**')).to.be.equal(0);
+    chai.expect(Voca.countSubstrings('', '')).to.be.equal(0);
+    chai.expect(Voca.countSubstrings(PRINTABLE_ASCII, '#')).to.be.equal(1);
   });
 
   it('should return the number of appearances of a number in a number', function () {
-    chai.expect(Voca.countSubstring(111222, 1)).to.be.equal(3);
-    chai.expect(Voca.countSubstring(0, 0)).to.be.equal(1);
-    chai.expect(Voca.countSubstring(15, 16)).to.be.equal(0);
+    chai.expect(Voca.countSubstrings(111222, 1)).to.be.equal(3);
+    chai.expect(Voca.countSubstrings(0, 0)).to.be.equal(1);
+    chai.expect(Voca.countSubstrings(15, 16)).to.be.equal(0);
   });
 
   it('should return the number of substring appearances in a string representation of an object', function () {
-    chai.expect(Voca.countSubstring(['where-where-where'], 'where')).to.be.equal(3);
-    chai.expect(Voca.countSubstring({
+    chai.expect(Voca.countSubstrings(['where-where-where'], 'where')).to.be.equal(3);
+    chai.expect(Voca.countSubstrings({
       toString: function () {
         return 'where-where-where';
       }
@@ -4226,11 +4255,11 @@ describe('countSubstring', function () {
   });
 
   it('should return zero for undefined or null', function () {
-    chai.expect(Voca.countSubstring()).to.be.equal(0);
-    chai.expect(Voca.countSubstring(undefined)).to.be.equal(0);
-    chai.expect(Voca.countSubstring(null)).to.be.equal(0);
-    chai.expect(Voca.countSubstring(undefined, undefined)).to.be.equal(0);
-    chai.expect(Voca.countSubstring(null, null)).to.be.equal(0);
+    chai.expect(Voca.countSubstrings()).to.be.equal(0);
+    chai.expect(Voca.countSubstrings(undefined)).to.be.equal(0);
+    chai.expect(Voca.countSubstrings(null)).to.be.equal(0);
+    chai.expect(Voca.countSubstrings(undefined, undefined)).to.be.equal(0);
+    chai.expect(Voca.countSubstrings(null, null)).to.be.equal(0);
   });
 });
 
@@ -4285,6 +4314,75 @@ describe('countWhere', function () {
     chai.expect(Voca.countWhere('africa', 'africa')).to.be.equal(0);
     chai.expect(Voca.countWhere('africa', 0)).to.be.equal(0);
     chai.expect(Voca.countWhere()).to.be.equal(0);
+  });
+});
+
+describe('countcountWords', function () {
+
+  it('should the words in a string', function () {
+    chai.expect(Voca.countWords('123')).to.equal(1);
+    chai.expect(Voca.countWords('15+20=35')).to.equal(3);
+    chai.expect(Voca.countWords('hello')).to.equal(1);
+    chai.expect(Voca.countWords('  hello   ')).to.equal(1);
+    chai.expect(Voca.countWords('hello world')).to.equal(2);
+    chai.expect(Voca.countWords('12+14-18*400')).to.equal(4);
+    chai.expect(Voca.countWords('gravity can cross dimensions')).to.equal(4);
+    chai.expect(Voca.countWords('-gravity-can-cross-dimensions-')).to.equal(4);
+    chai.expect(Voca.countWords('gravity_can_cross_dimensions')).to.equal(4);
+    chai.expect(Voca.countWords('*gravity***can****cross&&dimensions++')).to.equal(4);
+    chai.expect(Voca.countWords('GravityCanCrossDimensions')).to.equal(4);
+    chai.expect(Voca.countWords('GRAVITYCan')).to.equal(2);
+    chai.expect(Voca.countWords('GravityCan')).to.equal(2);
+    chai.expect(Voca.countWords('GravityCANAttract')).to.equal(3);
+    chai.expect(Voca.countWords('gravityCan')).to.equal(2);
+    chai.expect(Voca.countWords('Gravity-Can11Cross **Dimensions1Foo')).to.equal(6);
+    chai.expect(Voca.countWords('Cooper... Cooper... Come in, Cooper.')).to.equal(5);
+    chai.expect(Voca.countWords('Newton\'s third law')).to.equal(4);
+    chai.expect(Voca.countWords('Newton\'s thIrd lAw')).to.equal(6);
+    chai.expect(Voca.countWords(PRINTABLE_ASCII)).to.equal(3);
+    chai.expect(Voca.countWords('')).to.equal(0);
+    chai.expect(Voca.countWords()).to.equal(0);
+    chai.expect(Voca.countWords(' ')).to.equal(0);
+    chai.expect(Voca.countWords('     ')).to.equal(0);
+    chai.expect(Voca.countWords('\n')).to.equal(0);
+    chai.expect(Voca.countWords('***')).to.equal(0);
+    chai.expect(Voca.countWords('***---')).to.equal(0);
+    chai.expect(Voca.countWords('***---')).to.equal(0);
+    chai.expect(Voca.countWords('man\u0303ana')).to.equal(1);
+    chai.expect(Voca.countWords('maN\u0303ana')).to.equal(2);
+    chai.expect(Voca.countWords('foo\u0303\u035C\u035D\u035E bar')).to.equal(2);
+    chai.expect(Voca.countWords('fo-O-O\u0303\u035C\u035D\u035E-bar')).to.equal(4);
+  });
+
+  it('should count the words in a string with diacritics', function () {
+    chai.expect(Voca.countWords('clasificación biológica.')).to.equal(1);
+    chai.expect(Voca.countWords('BunăZiua')).to.equal(2);
+    chai.expect(Voca.countWords('Bună1ZiUa!')).to.equal(4);
+    chai.expect(Voca.countWords('Język /polski wywodzi się z` języka` praindoeuropejskiego za**pośrednictwem+języka-prasłowiańskiego.')).to.equal(11);
+    chai.expect(Voca.countWords('Гравитация притягивает все')).to.equal(3);
+    chai.expect(Voca.countWords('Гравитация-Притягивает-ВСЕ!!')).to.equal(3);
+    chai.expect(Voca.countWords('Στις--αρχές** (του) 21ου, αιώνα!')).to.equal(6);
+  });
+
+  it('should count the countWords in a string representation of an object', function () {
+    chai.expect(Voca.countWords(['GravityCanCrossDimensions'])).to.equal(4);
+    chai.expect(Voca.countWords({
+      toString: function () {
+        return 'Gr4v1ty';
+      }
+    })).to.equal(5);
+  });
+
+  it('should count the words in a string into countWords using a pattern', function () {
+    chai.expect(Voca.countWords('1234567890', /\d/g)).to.equal(10);
+    chai.expect(Voca.countWords('gravity', /\w{1,2}/g)).to.equal(4);
+    chai.expect(Voca.countWords('gravity can cross dimensions', '\\w+(?=\\s?)', 'g')).to.equal(4);
+    chai.expect(Voca.countWords('1234567890', /\s/g)).to.equal(0);
+  });
+
+  it('should count the words in a string with default pattern for null and undefined', function () {
+    chai.expect(Voca.countWords('gravity_can_cross_dimensions', null)).to.equal(4);
+    chai.expect(Voca.countWords('gravity_can_cross_dimensions', undefined)).to.equal(4);
   });
 });
 

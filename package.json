@@ -18,7 +18,8 @@
     "slugify",
     "latinise",
     "escape",
-    "words"
+    "words",
+    "case"
   ],
   "repository": {
     "type": "git",

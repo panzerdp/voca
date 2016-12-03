@@ -4,20 +4,20 @@
 
 [![travis build](https://img.shields.io/travis/panzerdp/voca.svg)](https://travis-ci.org/panzerdp/voca)
 [![code coverage](https://img.shields.io/codecov/c/github/panzerdp/voca.svg)](https://codecov.io/github/panzerdp/voca)
-[![sauce test status](https://saucelabs.com/buildstatus/panzerdp)](https://saucelabs.com/u/panzerdp)
 [![dependencies](https://david-dm.org/panzerdp/voca.svg)](https://david-dm.org/panzerdp/voca)
+[![npm package](https://img.shields.io/npm/v/voca.svg)](https://www.npmjs.com/package/voca)
 
 Voca is a JavaScript library for manipulating strings.  
 
-The Voca library offers helpful functions to make string manipulations comfortable: *change case, trim, pad, slugifly,  
+The Voca library offers helpful functions to make string manipulations comfortable: *change case, trim, pad, slugifly,
 latinise, sprintf'y, truncate, escape* and much more.  The *modular design* allows to load the entire library, or individual  
-functions to minimize the application builds. The library is *fully tested*, *well documented* and *long-term supported*. 
- 
+functions to minimize the application builds. The library is *fully tested*, *well documented* and *long-term supported*.
+
 ## Features
 
 *  Provides the complete set of functions to manipulate, chop, format, escape and query strings
 *  Includes detailed, easy to read and searchable [documentation](https://vocajs.com)
-*  Supports a wide range of environments: Node.js 0.10+, Chrome, Firefox, Safari 7+, Edge 13+, IE 9+
+*  [Supports](https://saucelabs.com/u/panzerdp) a wide range of environments: Node.js 0.10+, Chrome, Firefox, Safari 7+, Edge 13+, IE 9+
 *  100% code coverage
 *  No dependencies
 

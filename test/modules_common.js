@@ -98,14 +98,14 @@ describe('CommonJS modules', function() {
     expect(count('rainbow')).to.be.equal(7);
   });
 
-  it('should require countGrapheme()', function() {
-    const countGrapheme = require('../dist_mod/count_grapheme');
-    expect(countGrapheme('\uD835\uDC00\uD835\uDC01')).to.be.equal(2);
+  it('should require countGraphemes()', function() {
+    const countGraphemes = require('../dist_mod/count_graphemes');
+    expect(countGraphemes('\uD835\uDC00\uD835\uDC01')).to.be.equal(2);
   });
 
-  it('should require countSubstring()', function() {
-    const countSubstring = require('../dist_mod/count_substring');
-    expect(countSubstring('Hey man where-where-where\'s your cup holder?', 'where')).to.be.equal(3);
+  it('should require countSubstrings()', function() {
+    const countSubstrings = require('../dist_mod/count_substrings');
+    expect(countSubstrings('Hey man where-where-where\'s your cup holder?', 'where')).to.be.equal(3);
   });
 
   it('should require countWhere()', function() {
@@ -113,6 +113,11 @@ describe('CommonJS modules', function() {
     expect(countWhere('****--**--**', function(character) {
       return character === '*';
     })).to.be.equal(8);
+  });
+
+  it('should require countWords()', function() {
+    const countWords = require('../dist_mod/count_words');
+    expect(countWords('Stand by me')).to.be.equal(3);
   });
 
   // Escape

@@ -37,9 +37,10 @@ import substring from './chop/substring';
  * @namespace Count
  */
 import count from './count/count';
-import countGrapheme from './count/count_grapheme';
-import countSubstring from './count/count_substring';
+import countGraphemes from './count/count_graphemes';
+import countSubstrings from './count/count_substrings';
 import countWhere from './count/count_where';
+import countWords from './count/count_words';
 
 /**
  * Functions to format
@@ -129,9 +130,10 @@ export default {
   upperCase,
 
   count,
-  countGrapheme,
-  countSubstring,
+  countGraphemes,
+  countSubstrings,
   countWhere,
+  countWords,
 
   escapeHtml,
   escapeRegExp,

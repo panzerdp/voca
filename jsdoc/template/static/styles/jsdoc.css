@@ -119,6 +119,10 @@ pre code {
   margin-right: 4px;
 }
 
+.introduction-message {
+  max-width: 55em;
+}
+
 #main {
   float: right;
   min-width: 360px;

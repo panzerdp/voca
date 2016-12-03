@@ -20,13 +20,13 @@ import toString from 'helper/string/to_string';
  * // => ['gravity', 'can', 'cross', 'dimensions']
  *
  * v.words('GravityCanCrossDimensions');
- * // => ["Gravity", "Can", "Cross", "Dimensions"]
+ * // => ['Gravity', 'Can', 'Cross', 'Dimensions']
  *
  * v.words('Gravity - can cross dimensions!');
- * // => ["Gravity", "can", "cross", "dimensions"]
+ * // => ['Gravity', 'can', 'cross', 'dimensions']
  *
- * v.words('gravity', /\w{1,2}/g);
- * // => ['gr', 'av', 'it', 'y']
+ * v.words('Earth gravity', /[^\s]+/g);
+ * // => ['Earth', 'gravity']
  */
 export default function words(subject, pattern, flags) {
   const subjectString = coerceToString(subject);
