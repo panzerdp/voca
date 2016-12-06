@@ -18,7 +18,8 @@
     "slugify",
     "latinise",
     "escape",
-    "words",
+    "word",
+    "wrap",
     "case"
   ],
   "repository": {

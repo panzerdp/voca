@@ -64,6 +64,7 @@ import './manipulate/splice';
 import './manipulate/trim';
 import './manipulate/trim_left';
 import './manipulate/trim_right';
+import './manipulate/word_wrap';
 
 //query
 import './query/ends_with';

@@ -84,6 +84,7 @@ import splice from './manipulate/splice';
 import trim from './manipulate/trim';
 import trimLeft from './manipulate/trim_left';
 import trimRight from './manipulate/trim_right';
+import wordWrap from './manipulate/word_wrap';
 
 /**
  * Functions to query a string
@@ -172,6 +173,7 @@ export default {
   trim,
   trimLeft,
   trimRight,
+  wordWrap,
 
   endsWith,
   includes,
