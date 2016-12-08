@@ -2679,11 +2679,24 @@ var OPTION_CUT = 'cut';
  *
  * @return {string} Returns wrapped string.
  * @example
- * v.countSubstrings('bad boys, bad boys whatcha gonna do?', 'boys');
- * // => 2
+ * v.wordWrap('Hello world', {
+ *   width: 5
+ * });
+ * // => 'Hello\nworld'
  *
- * v.countSubstrings('every dog has its day', 'cat');
- * // => 0
+ * v.wordWrap('Hello world', {
+ *   width: 5,
+ *   newLine: '<br/>',
+ *   indent: '__'
+ * });
+ * // => '__Hello<br/>__world'
+ *
+ * v.wordWrap('Wonderful world', {
+ *   width: 5,
+ *   cut: true
+ * });
+ * // => 'Wonde\nrful\nworld'
+ *
  */
 function wordWrap(subject, options) {
   var subjectString = coerceToString(subject);

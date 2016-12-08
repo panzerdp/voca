@@ -2677,7 +2677,7 @@ var OPTION_CUT = 'cut';
  *   width: 5,
  *   cut: true
  * });
- * // => 'Wonde\nerful\nworld'
+ * // => 'Wonde\nrful\nworld'
  *
  */
 function wordWrap(subject, options) {
