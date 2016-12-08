@@ -66,6 +66,7 @@ import splice from '../dist_mod/splice';
 import trim from '../dist_mod/trim';
 import trimLeft from '../dist_mod/trim_left';
 import trimRight from '../dist_mod/trim_right';
+import wordWrap from '../dist_mod/word_wrap';
 
 // Query
 
@@ -291,6 +292,12 @@ describe('CommonJS modules', function() {
 
   it('should require trimRight()', function() {
     expect(trimRight('Yes. The fire rises.\n\f\t ')).to.be.equal('Yes. The fire rises.');
+  });
+
+  it('should require wordWrap()', function() {
+    expect(wordWrap('Wonderful world', {
+      width: 5
+    })).to.be.equal('Wonderful\nworld');
   });
 
   // Query

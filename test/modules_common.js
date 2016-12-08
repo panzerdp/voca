@@ -243,6 +243,13 @@ describe('CommonJS modules', function() {
     expect(trimRight('Yes. The fire rises.\n\f\t ')).to.be.equal('Yes. The fire rises.');
   });
 
+  it('should require wordWrap()', function() {
+    const wordWrap = require('../dist_mod/word_wrap');
+    expect(wordWrap('Wonderful world', {
+      width: 5
+    })).to.be.equal('Wonderful\nworld');
+  });
+
   // Query
 
   it('should require endsWith()', function() {

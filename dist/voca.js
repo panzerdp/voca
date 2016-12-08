@@ -2639,6 +2639,94 @@ function trim(subject, whitespace) {
   return trimRight(trimLeft(subjectString, whitespaceString), whitespaceString);
 }
 
+var OPTION_WIDTH = 'width';
+var OPTION_NEW_LINE = 'newLine';
+var OPTION_INDENT = 'indent';
+var OPTION_CUT = 'cut';
+
+/**
+ * Wraps `subject` to a given number of characters using a string break character.
+ *
+ * @function wordWrap
+ * @static
+ * @since 1.0.0
+ * @memberOf Manipulate
+ * @param  {string} [subject=''] The string to wrap.
+ * @param  {Object} [options={}] The wrap options.
+ * @param  {number} [options.width=75] The number of characters at which to wrap.
+ * @param  {string} [options.newLine='\n'] The string to add at the end of line.
+ * @param  {string} [options.indent='']  The string to intend the line.
+ * @param  {boolean} [options.cut=false] When `false` (default) does not split the word even if word length is bigger than `width`. <br/>
+ *                                       When `true` breaks the word that has length bigger than `width`.
+ *
+ * @return {string} Returns wrapped string.
+ * @example
+ * v.wordWrap('Hello world', {
+ *   width: 5
+ * });
+ * // => 'Hello\nworld'
+ *
+ * v.wordWrap('Hello world', {
+ *   width: 5,
+ *   newLine: '<br/>',
+ *   indent: '__'
+ * });
+ * // => '__Hello<br/>__world'
+ *
+ * v.wordWrap('Wonderful world', {
+ *   width: 5,
+ *   cut: true
+ * });
+ * // => 'Wonde\nerful\nworld'
+ *
+ */
+function wordWrap(subject, options) {
+  var subjectString = coerceToString(subject);
+  options = nilDefault(options, {});
+  var width = coerceToNumber(options[OPTION_WIDTH], 75);
+  var newLine = coerceToString(options[OPTION_NEW_LINE], '\n');
+  var indent = coerceToString(options[OPTION_INDENT], '');
+  var cut = coerceToBoolean(options[OPTION_CUT], false);
+
+  if (subjectString === '' || width <= 0) {
+    return indent;
+  }
+
+  var subjectLength = subjectString.length;
+  var offset = 0;
+  var wrappedLine = '';
+
+  while (subjectLength - offset > width) {
+    if (subjectString[offset] === ' ') {
+      offset++;
+      continue;
+    }
+    var spaceToWrapAt = subjectString.lastIndexOf(' ', width + offset);
+    if (spaceToWrapAt >= offset) {
+      wrappedLine += indent + subjectString.substring(offset, spaceToWrapAt) + newLine;
+      offset = spaceToWrapAt + 1;
+    } else {
+      if (cut) {
+        wrappedLine += indent + subjectString.substring(offset, width + offset) + newLine;
+        offset += width;
+      } else {
+        spaceToWrapAt = subjectString.indexOf(' ', width + offset);
+        if (spaceToWrapAt >= 0) {
+          wrappedLine += indent + subjectString.substring(offset, spaceToWrapAt) + newLine;
+          offset = spaceToWrapAt + 1;
+        } else {
+          wrappedLine += indent + subjectString.substring(offset);
+          offset = subjectLength;
+        }
+      }
+    }
+  }
+  if (offset < subjectLength) {
+    wrappedLine += indent + subjectString.substring(offset);
+  }
+  return wrappedLine;
+}
+
 /**
  * Checks whether `subject` ends with `end`.
  *
@@ -3184,6 +3272,7 @@ var functions = {
   trim: trim,
   trimLeft: trimLeft,
   trimRight: trimRight,
+  wordWrap: wordWrap,
 
   endsWith: endsWith,
   includes: includes,

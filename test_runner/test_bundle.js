@@ -2657,6 +2657,81 @@ function trim(subject, whitespace) {
   return trimRight(trimLeft(subjectString, whitespaceString), whitespaceString);
 }
 
+var OPTION_WIDTH = 'width';
+var OPTION_NEW_LINE = 'newLine';
+var OPTION_INDENT = 'indent';
+var OPTION_CUT = 'cut';
+
+/**
+ * Wraps `subject` to a given number of characters using a string break character.
+ *
+ * @function wordWrap
+ * @static
+ * @since 1.0.0
+ * @memberOf Manipulate
+ * @param  {string} [subject=''] The string to wrap.
+ * @param  {Object} [options={}] The wrap options.
+ * @param  {number} [options.width=75] The number of characters at which to wrap.
+ * @param  {string} [options.newLine='\n'] The string to add at the end of line.
+ * @param  {string} [options.indent='']  The string to intend the line.
+ * @param  {boolean} [options.cut=false] When `false` (default) does not split the word even if word length is bigger than `width`. <br/>
+ *                                       When `true` breaks the word that has length bigger than `width`.
+ *
+ * @return {string} Returns wrapped string.
+ * @example
+ * v.countSubstrings('bad boys, bad boys whatcha gonna do?', 'boys');
+ * // => 2
+ *
+ * v.countSubstrings('every dog has its day', 'cat');
+ * // => 0
+ */
+function wordWrap(subject, options) {
+  var subjectString = coerceToString(subject);
+  options = nilDefault(options, {});
+  var width = coerceToNumber(options[OPTION_WIDTH], 75);
+  var newLine = coerceToString(options[OPTION_NEW_LINE], '\n');
+  var indent = coerceToString(options[OPTION_INDENT], '');
+  var cut = coerceToBoolean(options[OPTION_CUT], false);
+
+  if (subjectString === '' || width <= 0) {
+    return indent;
+  }
+
+  var subjectLength = subjectString.length;
+  var offset = 0;
+  var wrappedLine = '';
+
+  while (subjectLength - offset > width) {
+    if (subjectString[offset] === ' ') {
+      offset++;
+      continue;
+    }
+    var spaceToWrapAt = subjectString.lastIndexOf(' ', width + offset);
+    if (spaceToWrapAt >= offset) {
+      wrappedLine += indent + subjectString.substring(offset, spaceToWrapAt) + newLine;
+      offset = spaceToWrapAt + 1;
+    } else {
+      if (cut) {
+        wrappedLine += indent + subjectString.substring(offset, width + offset) + newLine;
+        offset += width;
+      } else {
+        spaceToWrapAt = subjectString.indexOf(' ', width + offset);
+        if (spaceToWrapAt >= 0) {
+          wrappedLine += indent + subjectString.substring(offset, spaceToWrapAt) + newLine;
+          offset = spaceToWrapAt + 1;
+        } else {
+          wrappedLine += indent + subjectString.substring(offset);
+          offset = subjectLength;
+        }
+      }
+    }
+  }
+  if (offset < subjectLength) {
+    wrappedLine += indent + subjectString.substring(offset);
+  }
+  return wrappedLine;
+}
+
 /**
  * Checks whether `subject` ends with `end`.
  *
@@ -3202,6 +3277,7 @@ var functions = {
   trim: trim,
   trimLeft: trimLeft,
   trimRight: trimRight,
+  wordWrap: wordWrap,
 
   endsWith: endsWith,
   includes: includes,
@@ -4335,7 +4411,7 @@ describe('countcountWords', function () {
     chai.expect(Voca.countWords('GravityCan')).to.equal(2);
     chai.expect(Voca.countWords('GravityCANAttract')).to.equal(3);
     chai.expect(Voca.countWords('gravityCan')).to.equal(2);
-    chai.expect(Voca.countWords('Gravity-Can11Cross **Dimensions1Foo')).to.equal(6);
+    chai.expect(Voca.countWords('Gravity-Can11Cross **Dimensions1Foo')).to.equal(7);
     chai.expect(Voca.countWords('Cooper... Cooper... Come in, Cooper.')).to.equal(5);
     chai.expect(Voca.countWords('Newton\'s third law')).to.equal(4);
     chai.expect(Voca.countWords('Newton\'s thIrd lAw')).to.equal(6);
@@ -4355,7 +4431,7 @@ describe('countcountWords', function () {
   });
 
   it('should count the words in a string with diacritics', function () {
-    chai.expect(Voca.countWords('clasificación biológica.')).to.equal(1);
+    chai.expect(Voca.countWords('clasificación biológica.')).to.equal(2);
     chai.expect(Voca.countWords('BunăZiua')).to.equal(2);
     chai.expect(Voca.countWords('Bună1ZiUa!')).to.equal(4);
     chai.expect(Voca.countWords('Język /polski wywodzi się z` języka` praindoeuropejskiego za**pośrednictwem+języka-prasłowiańskiego.')).to.equal(11);
@@ -5618,6 +5694,93 @@ describe('trimRight', function () {
     chai.expect(Voca.trimRight(undefined)).to.be.equal('');
     chai.expect(Voca.trimRight(undefined, '*')).to.be.equal('');
     chai.expect(Voca.trimRight(undefined, undefined)).to.be.equal('');
+  });
+});
+
+describe('wordWrap', function () {
+
+  it('should wrap the string with default parameters', function () {
+    chai.expect(Voca.wordWrap('')).to.be.equal('');
+    chai.expect(Voca.wordWrap('Yes. The fire rises. ')).to.be.equal('Yes. The fire rises. ');
+    chai.expect(Voca.wordWrap('Theatricality and deception are powerful agents to the uninitiated... but we are initiated, aren\'t ' + 'we Bruce? Members of the League of Shadows!')).to.be.equal('Theatricality and deception are powerful agents to the uninitiated... but' + '\n' + 'we are initiated, aren\'t we Bruce? Members of the League of Shadows!');
+    chai.expect(Voca.wordWrap('Theatricality-and-deception-are-powerful-agents-to-the-uninitiated...-but-we-are-initiated')).to.be.equal('Theatricality-and-deception-are-powerful-agents-to-the-uninitiated...-but-we-are-initiated');
+  });
+
+  it('should wrap the string for a specific width', function () {
+    chai.expect(Voca.wordWrap('Hello', {
+      width: 4
+    })).to.be.equal('Hello');
+    chai.expect(Voca.wordWrap('  Hello  ', {
+      width: 4
+    })).to.be.equal('Hello\n ');
+    chai.expect(Voca.wordWrap('Hello World', {
+      width: 4
+    })).to.be.equal('Hello\nWorld');
+    chai.expect(Voca.wordWrap('Yes. The fire rises.', {
+      width: 4
+    })).to.be.equal('Yes.\nThe\nfire\nrises.');
+    chai.expect(Voca.wordWrap('And I think to myself what a wonderful world.', {
+      width: 10
+    })).to.be.equal('And I\nthink to\nmyself\nwhat a\nwonderful\nworld.');
+    chai.expect(Voca.wordWrap('Hello World', {
+      width: 0
+    })).to.be.equal('');
+    chai.expect(Voca.wordWrap('Hello World', {
+      width: -5
+    })).to.be.equal('');
+  });
+
+  it('should wrap the string with indent', function () {
+    chai.expect(Voca.wordWrap('Hello', {
+      width: 4,
+      indent: '***'
+    })).to.be.equal('***Hello');
+    chai.expect(Voca.wordWrap('Hello World', {
+      width: 4,
+      indent: '  '
+    })).to.be.equal('  Hello\n  World');
+    chai.expect(Voca.wordWrap('Yes. The fire rises.', {
+      width: 4,
+      indent: '**'
+    })).to.be.equal('**Yes.\n**The\n**fire\n**rises.');
+    chai.expect(Voca.wordWrap('', {
+      width: 5,
+      indent: '000'
+    })).to.be.equal('000');
+    chai.expect(Voca.wordWrap('Wonderful world', {
+      width: 0,
+      indent: '000'
+    })).to.be.equal('000');
+  });
+
+  it('should wrap the string with a custom newline character', function () {
+    chai.expect(Voca.wordWrap('What A Wonderful World', {
+      width: 10,
+      indent: '  ',
+      newLine: '+'
+    })).to.be.equal('  What A+  Wonderful+  World');
+    chai.expect(Voca.wordWrap('I hear babies crying, I watch them grow', {
+      width: 5,
+      indent: '-',
+      newLine: '<br/>'
+    })).to.be.equal('-I<br/>-hear<br/>-babies<br/>-crying,<br/>-I<br/>-watch<br/>-them<br/>-grow');
+  });
+
+  it('should wrap the string with breaking long words', function () {
+    chai.expect(Voca.wordWrap('Hello', {
+      width: 4,
+      cut: true
+    })).to.be.equal('Hell\no');
+    chai.expect(Voca.wordWrap('I hear babies crying, I watch them grow', {
+      width: 5,
+      cut: true
+    })).to.be.equal('I\nhear\nbabie\ns\ncryin\ng, I\nwatch\nthem\ngrow');
+  });
+
+  it('should return empty string for null or undefined', function () {
+    chai.expect(Voca.wordWrap()).to.be.equal('');
+    chai.expect(Voca.wordWrap(undefined)).to.be.equal('');
+    chai.expect(Voca.wordWrap(null)).to.be.equal('');
   });
 });
 
