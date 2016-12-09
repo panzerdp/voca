@@ -1,18 +1,18 @@
 Welcome to Voca's GitHub repo!  
 
-### Expected behavior
+### Expected behavior :smile_cat:
 
 (Please describe here the expected behavior)
 
-### Actual behavior
+### Actual behavior :crying_cat_face:
 
 (Please describe here the actual behavior)
 
-### Steps to reproduce behavior
+### Steps to reproduce behavior :construction_worker:
 
 (Please describe a scenario how to reproduce)
 
-### Technical details:
+### Technical details: :wrench:
 
-Browser/OS type: 
+Browser/OS type:  
 Node version:

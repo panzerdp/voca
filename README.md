@@ -1,6 +1,6 @@
 ![Image](https://github.com/panzerdp/voca/raw/master/jsdoc/template/static/images/voca-logo250px.png)
 
-**The ultimate JavaScript string library** [https://vocajs.com](voca)
+**The ultimate JavaScript string library** [https://vocajs.com][voca]
 
 [![travis build](https://img.shields.io/travis/panzerdp/voca.svg)](https://travis-ci.org/panzerdp/voca)
 [![code coverage](https://img.shields.io/codecov/c/github/panzerdp/voca.svg)](https://codecov.io/github/panzerdp/voca)
@@ -22,14 +22,14 @@ functions to minimize the application builds. The library is *fully tested*, *we
 ## Features
 
 *  Provides the complete set of functions to manipulate, chop, format, escape and query strings
-*  Includes detailed, easy to read and searchable [documentation](voca)
+*  Includes detailed, easy to read and searchable [documentation][voca]
 *  [Supports](https://saucelabs.com/u/panzerdp) a wide range of environments: Node.js 0.10+, Chrome, Firefox, Safari 7+, Edge 13+, IE 9+
 *  100% code coverage
 *  No dependencies
 
 ## Documentation
 
-See the complete documentation at [https://vocajs.com](voca)
+See the complete documentation at [https://vocajs.com][voca]
 
 ## Usage
 Voca can be used in various environments.
@@ -65,8 +65,8 @@ slugify('café latté');
 #### Browser
 Load the UMD builds directly into browser's web page:
 
-* [`dist/voca.min.js`](voca.min.js) minified production-ready 
-* [`dist/voca.js`](voca.js) uncompressed with comments 
+* [`dist/voca.min.js`][voca_min_js] minified production-ready 
+* [`dist/voca.js`][voca_js] uncompressed with comments 
 
 ```html
 <script src="voca.js" type="text/javascript"></script>
@@ -95,13 +95,16 @@ Contribution is welcome!
 * Create a pull request containing bug fixes or new features. Include unit tests and keep the code coverage report near 100% 😎
 * [Propose](https://github.com/panzerdp/voca/issues) new functions, improvements, better documentation
 
-See more details in [Contributing guide](CONTRIBUTING).
+See more details in [Contributing guide][CONTRIBUTING].
 
-Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT). By participating in this project you agree to abide by its terms.
+Please note that this project is released with a Contributor [Code of Conduct][CODE_OF_CONDUCT]. By participating in this project you agree to abide by its terms.
 
 ## Author
 
-[Dmitri Pavlutin](https://rainsoft.io/about-me/)
+| ![Dmitri Pavlutin](https://s.gravatar.com/avatar/7be6b604e5d3c6a82ed933dd90ed68dc?s=100) |
+| :-: |
+| [Dmitri Pavlutin](https://rainsoft.io/about-me/) |
+| [dmitri@rainsoft.io](mailto:dmitri@rainsoft.io) |
 
 ## License
 
@@ -109,6 +112,6 @@ Licensed under [MIT](https://github.com/panzerdp/voca/blob/master/LICENSE.md)
 
 [CODE_OF_CONDUCT]: https://github.com/panzerdp/voca/blob/master/CODE_OF_CONDUCT.md
 [CONTRIBUTING]: https://github.com/panzerdp/voca/blob/master/.github/CONTRIBUTING.md
-[voca.min.js]: https://raw.githubusercontent.com/panzerdp/voca/1.0.0-alpha.2/dist/voca.min.js
-[voca.js]: https://raw.githubusercontent.com/panzerdp/voca/1.0.0-alpha.2/dist/voca.js
+[voca_min_js]: https://raw.githubusercontent.com/panzerdp/voca/1.0.0-alpha.2/dist/voca.min.js
+[voca_js]: https://raw.githubusercontent.com/panzerdp/voca/1.0.0-alpha.2/dist/voca.js
 [voca]: https://vocajs.com

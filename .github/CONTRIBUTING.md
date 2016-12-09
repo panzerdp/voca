@@ -33,12 +33,12 @@ When submitting the request please be sure:
 
 # Voca development
 
-Voca codebase stands on the principles of modularity, [small specialized functions](small-functions) and meaningful naming.
+Voca codebase stands on the principles of modularity, [small specialized functions](small-functions) and meaningful naming.  
 Testing is an inseparable part of the library, so every function must be tested in details and have almost 100% code coverage.
 
 ### Requirements
 
-The library development environment requires Node **version 4** and above.
+The library development environment requires Node **version 4** and above.  
 [nvm](https://github.com/creationix/nvm) is a great tool to manage Node versions.
 
 ### Configuring dev environment
@@ -77,13 +77,16 @@ The command generates the following bundles:
 Voca uses Mocha test framework.
 
 The library authors consider detailed testing very important. Every function or part of the library must be tested
-with basic and advanced scenarios.
+with basic and advanced scenarios.  
 Tests must keep the same useful rules of modularity and clean code.
 
 Run the library over the unit tests:
 ```bash
 npm test
 ```
+
+The library must be fully compatible with reasonable older browser versions. The continuous integration build [verifies](https://saucelabs.com/u/panzerdp)
+the compatibility with Chrome, Firefox, Edge 13+, IE 9+ and Safari 7+.
 
 To verify the code coverage run the command:
 ```bash
@@ -92,7 +95,7 @@ npm run coverage
 
 ### Linting
 
-Ease comes from readability. Readability comes from code quality and standards.
+Ease comes from readability. Readability comes from keeping the code quality and standards.  
 To maintain the coding style, before any commit the code is automatically linted. The library uses many style
 ideas from [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript).
 
