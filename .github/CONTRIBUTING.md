@@ -33,7 +33,7 @@ When submitting the request please be sure:
 
 # Voca development
 
-Voca codebase stands on the principles of modularity, [small specialized functions](small-functions) and meaningful naming.  
+Voca codebase stands on the principles of modularity, [small specialized functions][small-functions] and meaningful naming.  
 Testing is an inseparable part of the library, so every function must be tested in details and have almost 100% code coverage.
 
 ### Requirements
