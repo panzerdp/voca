@@ -1,4 +1,4 @@
-![Image](https://github.com/panzerdp/voca/raw/master/jsdoc/template/static/images/voca-logo250px.png)
+# ![Image](https://github.com/panzerdp/voca/raw/master/jsdoc/template/static/images/voca-logo250px.png)
 
 [![travis build](https://img.shields.io/travis/panzerdp/voca.svg)](https://travis-ci.org/panzerdp/voca)
 [![code coverage](https://img.shields.io/codecov/c/github/panzerdp/voca.svg)](https://codecov.io/github/panzerdp/voca)
@@ -14,8 +14,8 @@ v.slugify('What a wonderful world');           // => 'what-a-wonderful-world'
 ```
 
 The Voca library offers helpful functions to make string manipulations comfortable: *change case, trim, pad, slugifly,
-latinise, sprintf'y, truncate, escape* and much more.  The *modular design* allows to load the entire library, or individual  
-functions to minimize the application builds. The library is *fully tested*, *well documented* and *long-term supported*.
+latinise, sprintf'y, truncate, escape* and much more.  The *modular design* allows to load the entire library, or
+individual functions to minimize the application builds. The library is *fully tested*, *well documented* and *long-term supported*.
 
 ## Features
 
@@ -32,7 +32,7 @@ See the complete documentation at [https://vocajs.com][voca]
 ## Usage
 Voca can be used in various environments.
 
-#### Node.js, Rollup, Browserify
+### Node.js, Rollup, Webpack, Browserify
 Install the library with npm into your local modules directory:
 
 ```bash
@@ -60,7 +60,7 @@ slugify('café latté');
 // => 'caffe-latte'
 ```
 
-#### Browser
+### Browser
 Load the UMD builds directly into browser's web page:
 
 * [`dist/voca.min.js`][voca_min_js] minified production-ready 
@@ -110,6 +110,6 @@ Licensed under [MIT](https://github.com/panzerdp/voca/blob/master/LICENSE.md)
 
 [CODE_OF_CONDUCT]: https://github.com/panzerdp/voca/blob/master/CODE_OF_CONDUCT.md
 [CONTRIBUTING]: https://github.com/panzerdp/voca/blob/master/.github/CONTRIBUTING.md
-[voca_min_js]: https://raw.githubusercontent.com/panzerdp/voca/1.0.0-alpha.2/dist/voca.min.js
-[voca_js]: https://raw.githubusercontent.com/panzerdp/voca/1.0.0-alpha.2/dist/voca.js
+[voca_min_js]: https://raw.githubusercontent.com/panzerdp/voca/1.0.0-alpha.3/dist/voca.min.js
+[voca_js]: https://raw.githubusercontent.com/panzerdp/voca/1.0.0-alpha.3/dist/voca.js
 [voca]: https://vocajs.com
