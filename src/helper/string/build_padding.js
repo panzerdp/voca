@@ -1,5 +1,5 @@
 import repeat from 'manipulate/repeat';
-import toInteger from '../number/to_integer';
+import toInteger from 'helper/number/to_integer';
 
 /**
  * Creates the padding string.
@@ -9,8 +9,8 @@ import toInteger from '../number/to_integer';
  * @param {number} length The padding string length.
  * @return {string} The padding string.
  */
-export default function(padCharacters, length) {
-  var padStringRepeat = toInteger(length / padCharacters.length),
-    padStringRest = length % padCharacters.length;
+export default function buildPadding(padCharacters, length) {
+  const padStringRepeat = toInteger(length / padCharacters.length);
+  const padStringRest = length % padCharacters.length;
   return repeat(padCharacters, padStringRepeat + padStringRest).substr(0, length);
 }

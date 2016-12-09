@@ -6,6 +6,7 @@ describe('words', function() {
 
   it('should split the string into words', function() {
     expect(v.words('123')).to.eql(['123']);
+    expect(v.words('15+20=35')).to.eql(['15', '20', '35']);
     expect(v.words('hello')).to.eql(['hello']);
     expect(v.words('  hello   ')).to.eql(['hello']);
     expect(v.words('hello world')).to.eql(['hello', 'world']);
@@ -38,11 +39,15 @@ describe('words', function() {
     expect(v.words('fo-O-O\u0303\u035C\u035D\u035E-bar')).to.eql(['fo', 'O', 'O\u0303\u035C\u035D\u035E', 'bar']);
   });
 
-  it('should split the string with diacritics and non-latin characters into words', function() {
-    expect(v.words('Στις αρχές του 21ου αιώνα')).to.eql(['Στις', 'αρχές', 'του', '21', 'ου', 'αιώνα']);
-    expect(v.words('Гравитация притягивает все')).to.eql(['Гравитация', 'притягивает', 'все']);
-    expect(v.words('ГравитацияПритягиваетВСЕ')).to.eql(['Гравитация', 'Притягивает', 'ВСЕ']);
+  it('should split the string with diacritics into words', function() {
     expect(v.words('clasificación biológica.')).to.eql(['clasificación', 'biológica']);
+    expect(v.words('BunăZiua')).to.eql(['Bună', 'Ziua']);
+    expect(v.words('Bună1ZiUa!')).to.eql(['Bună', '1', 'Zi', 'Ua']);
+    expect(v.words('Język /polski wywodzi się z` języka` praindoeuropejskiego za**pośrednictwem+języka-prasłowiańskiego.'))
+      .to.eql(['Język', 'polski', 'wywodzi', 'się', 'z', 'języka', 'praindoeuropejskiego', 'za', 'pośrednictwem', 'języka', 'prasłowiańskiego']);
+    expect(v.words('Гравитация притягивает все')).to.eql(['Гравитация', 'притягивает', 'все']);
+    expect(v.words('Гравитация-Притягивает-ВСЕ!!')).to.eql(['Гравитация', 'Притягивает', 'ВСЕ']);
+    expect(v.words('Στις--αρχές** (του) 21ου, αιώνα!')).to.eql(['Στις', 'αρχές', 'του', '21', 'ου', 'αιώνα']);
   });
 
   it('should split the string representation of an object', function() {

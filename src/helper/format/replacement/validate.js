@@ -10,7 +10,7 @@ import isNil from 'helper/object/is_nil';
  * @param  {ConversionSpecification} conversion The conversion specification object.
  * @return {undefined}
  */
-export default function(index, replacementsLength, conversion) {
+export default function validate(index, replacementsLength, conversion) {
   if (isNil(conversion.typeSpecifier)) {
     throw new Error('sprintf(): Unknown type specifier');
   }

@@ -26,9 +26,9 @@ import coerceToString from 'helper/string/coerce_to_string';
  * // => 'new day'
  */
 export default function splice(subject, start, deleteCount, toAdd) {
-  var subjectString = coerceToString(subject);
-  var startPosition = coerceToNumber(start);
-  var toAddString = coerceToString(toAdd);
+  const subjectString = coerceToString(subject);
+  const toAddString = coerceToString(toAdd);
+  let startPosition = coerceToNumber(start);
   if (startPosition < 0) {
     startPosition = subjectString.length + startPosition;
     if (startPosition < 0) {
@@ -37,7 +37,7 @@ export default function splice(subject, start, deleteCount, toAdd) {
   } else if (startPosition > subjectString.length) {
     startPosition = subjectString.length;
   }
-  var deleteCountNumber = coerceToNumber(deleteCount, subjectString.length - startPosition);
+  let deleteCountNumber = coerceToNumber(deleteCount, subjectString.length - startPosition);
   if (deleteCountNumber < 0) {
     deleteCountNumber = 0;
   }

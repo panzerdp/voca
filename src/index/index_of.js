@@ -19,6 +19,6 @@ import coerceToString from 'helper/string/coerce_to_string';
  * // => -1
  */
 export default function indexOf(subject, search, fromIndex) {
-  var subjectString = coerceToString(subject);
+  const subjectString = coerceToString(subject);
   return subjectString.indexOf(search, fromIndex);
 }

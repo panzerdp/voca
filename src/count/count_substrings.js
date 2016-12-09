@@ -3,7 +3,7 @@ import coerceToString from 'helper/string/coerce_to_string';
 /**
  * Counts the number of `substring` appearances in `subject`.
  *
- * @function countSubstring
+ * @function countSubstrings
  * @static
  * @since 1.0.0
  * @memberOf Count
@@ -11,18 +11,18 @@ import coerceToString from 'helper/string/coerce_to_string';
  * @param  {string} substring    The substring to be counted.
  * @return {number}              Returns the number of `substring` appearances.
  * @example
- * v.countSubstring('bad boys, bad boys whatcha gonna do?', 'boys');
+ * v.countSubstrings('bad boys, bad boys whatcha gonna do?', 'boys');
  * // => 2
  *
- * v.countSubstring('every dog has its day', 'cat');
+ * v.countSubstrings('every dog has its day', 'cat');
  * // => 0
  */
-export default function countSubstring(subject, substring) {
-  var subjectString = coerceToString(subject),
-    substringString = coerceToString(substring),
-    count = 0,
-    matchIndex = 0,
-    substringLength = substringString.length;
+export default function countSubstrings(subject, substring) {
+  const subjectString = coerceToString(subject);
+  const substringString = coerceToString(substring);
+  const substringLength = substringString.length;
+  let count = 0;
+  let matchIndex = 0;
   if (subjectString === '' || substringString === '') {
     return count;
   }

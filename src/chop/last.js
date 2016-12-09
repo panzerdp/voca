@@ -25,8 +25,8 @@ import toInteger from 'helper/number/to_integer';
  * // => 'car'
  */
 export default function last(subject, length) {
-  var subjectString = coerceToString(subject),
-    lengthInt = isNil(length) ? 1 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
+  const subjectString = coerceToString(subject);
+  const lengthInt = isNil(length) ? 1 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
   if (subjectString.length <= lengthInt) {
     return subjectString;
   }

@@ -1,4 +1,4 @@
-import { REGEXP_FLAGS } from './const';
+import { REGEXP_FLAGS } from 'helper/reg_exp/const';
 
 /**
  * Get the flags string from a regular expression object.
@@ -7,6 +7,6 @@ import { REGEXP_FLAGS } from './const';
  * @param {RegExp} regExp The regular expression object.
  * @return {string} Returns the string with flags chars.
  */
-export default function(regExp) {
+export default function getRegExpFlags(regExp) {
   return regExp.toString().match(REGEXP_FLAGS)[0];
 }

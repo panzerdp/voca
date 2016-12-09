@@ -22,9 +22,9 @@ import toInteger from 'helper/number/to_integer';
  * // => ''
  */
 export default function repeat(subject, times) {
-  var subjectString = coerceToString(subject),
-    timesInt = isNil(times) ? 1 : clipNumber(toInteger(times), 0, MAX_SAFE_INTEGER);
-  var repeatString = '';
+  let subjectString = coerceToString(subject);
+  let timesInt = isNil(times) ? 1 : clipNumber(toInteger(times), 0, MAX_SAFE_INTEGER);
+  let repeatString = '';
   while (timesInt) {
     if (timesInt & 1) {
       repeatString += subjectString;

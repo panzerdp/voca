@@ -1,4 +1,4 @@
-import isNil from '../object/is_nil';
+import isNil from 'helper/object/is_nil';
 
 /**
  * Converts the `value` to a boolean. If `value` is `undefined` or `null`, returns `defaultValue`.
@@ -9,7 +9,7 @@ import isNil from '../object/is_nil';
  * @param {boolean} [defaultValue=false] The default value.
  * @return {boolean} Returns the coercion to boolean.
  */
-export default function(value, defaultValue = false) {
+export default function coerceToBoolean(value, defaultValue = false) {
   if (isNil(value)) {
     return defaultValue;
   }

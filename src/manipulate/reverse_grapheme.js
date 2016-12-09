@@ -20,7 +20,7 @@ import coerceToString from 'helper/string/coerce_to_string';
  * // => 'anañam anañam rab 𝌆'
  */
 export default function reverseGrapheme(subject) {
-  var subjectString = coerceToString(subject);
+  let subjectString = coerceToString(subject);
   /**
    * @see https://github.com/mathiasbynens/esrever
    */
@@ -29,8 +29,8 @@ export default function reverseGrapheme(subject) {
       return reverseGrapheme($2) + $1;
     })
     .replace(REGEXP_SURROGATE_PAIRS, '$2$1');
-  var reversedString = '',
-    index = subjectString.length;
+  let reversedString = '';
+  let index = subjectString.length;
   while (index--) {
     reversedString += subjectString.charAt(index);
   }

@@ -22,8 +22,8 @@ import escapeRegExp from 'escape/escape_reg_exp';
  *
  */
 export default function replaceAll(subject, pattern, replacement) {
-  var subjectString = coerceToString(subject),
-    regExp = pattern;
+  const subjectString = coerceToString(subject);
+  let regExp = pattern;
   if (!(pattern instanceof RegExp)) {
     regExp = new RegExp(escapeRegExp(pattern), 'g');
   } else if (!pattern.global) {

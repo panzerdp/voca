@@ -13,13 +13,13 @@ import toString from 'helper/string/coerce_to_string';
  * @return {string} Returns the formatted string.
  */
 
-export default function(replacement, conversion) {
-  var replacementNumber = parseFloat(replacement),
-    formattedReplacement;
+export default function float(replacement, conversion) {
+  let replacementNumber = parseFloat(replacement);
+  let formattedReplacement;
   if (isNaN(replacementNumber)) {
     replacementNumber = 0;
   }
-  var precision = coerceToNumber(conversion.precision, 6);
+  const precision = coerceToNumber(conversion.precision, 6);
   switch (conversion.typeSpecifier) {
     case Const.TYPE_FLOAT:
       formattedReplacement = replacementNumber.toFixed(precision);
@@ -52,8 +52,8 @@ function formatFloatAsShort(replacementNumber, precision, conversion) {
   if (replacementNumber === 0) {
     return '0';
   }
-  var nonZeroPrecision = precision === 0 ? 1 : precision;
-  var formattedReplacement = replacementNumber
+  const nonZeroPrecision = precision === 0 ? 1 : precision;
+  let formattedReplacement = replacementNumber
     .toPrecision(nonZeroPrecision)
     .replace(REGEXP_TRAILING_ZEROS, '');
   if (conversion.typeSpecifier === Const.TYPE_FLOAT_SHORT_UPPERCASE) {

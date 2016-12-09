@@ -23,10 +23,10 @@ import { REGEXP_UNICODE_CHARACTER } from 'helper/reg_exp/const';
  * // => 'é'
  */
 export default function graphemeAt(subject, position) {
-  var subjectString = coerceToString(subject),
-    positionNumber = coerceToNumber(position),
-    graphemeMatch,
-    graphemeMatchIndex = 0;
+  const subjectString = coerceToString(subject);
+  let positionNumber = coerceToNumber(position);
+  let  graphemeMatch;
+  let graphemeMatchIndex = 0;
   positionNumber = nanDefault(positionNumber, 0);
   while ((graphemeMatch = REGEXP_UNICODE_CHARACTER.exec(subjectString)) !== null) {
     if (graphemeMatchIndex === positionNumber) {

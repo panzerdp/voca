@@ -1,7 +1,6 @@
-coverage
-dist
-docs
-jsdoc
-test_runner
-dist_mod
-config/transform.js
+coverage/*
+dist/*
+docs/*
+jsdoc/*
+test_runner/*
+dist_mod/*

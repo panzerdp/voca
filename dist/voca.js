@@ -25,14 +25,14 @@ function isNil(value) {
  * @param {boolean} [defaultValue=false] The default value.
  * @return {boolean} Returns the coercion to boolean.
  */
-var coerceToBoolean = function (value) {
+function coerceToBoolean(value) {
   var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
   if (isNil(value)) {
     return defaultValue;
   }
   return Boolean(value);
-};
+}
 
 /**
  * Checks whether `subject` is a string primitive type.
@@ -66,7 +66,7 @@ function isString(subject) {
  * @return {string|null}        Returns the string representation of `value`. Returns `defaultValue` if `value` is
  *                              `null` or `undefined`.
  */
-var coerceToString = function (value) {
+function coerceToString(value) {
   var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 
   if (isNil(value)) {
@@ -76,7 +76,7 @@ var coerceToString = function (value) {
     return value;
   }
   return String(value);
-};
+}
 
 /**
  * Converts the first character of `subject` to upper case. If `restToLower` is `true`, convert the rest of
@@ -97,8 +97,8 @@ var coerceToString = function (value) {
  * // => 'Apple'
  */
 function capitalize(subject, restToLower) {
-  var subjectString = coerceToString(subject),
-      restToLowerCaseBoolean = coerceToBoolean(restToLower);
+  var subjectString = coerceToString(subject);
+  var restToLowerCaseBoolean = coerceToBoolean(restToLower);
   if (subjectString === '') {
     return '';
   }
@@ -125,22 +125,6 @@ function lowerCase(subject) {
   var subjectString = coerceToString(subject, '');
   return subjectString.toLowerCase();
 }
-
-/**
- * A regular expression string that matches upper letter (upper case + title case)
- *
- * @type {string}
- * @ignore
- */
-var upLetter = '\\u0041-\\u005a\\u00c0-\\u00d6\\u00d8-\\u00de\\u0100\\u0102\\u0104\\u0106\\u0108\\u010a\\u010c\\u010e\\u0110\\u0112\\u0114\\u0116\\u0118\\u011a\\u011c\\u011e\\u0120\\u0122\\u0124\\u0126\\u0128\\u012a\\u012c\\u012e\\u0130\\u0132\\u0134\\u0136\\u0139\\u013b\\u013d\\u013f\\u0141\\u0143\\u0145\\u0147\\u014a\\u014c\\u014e\\u0150\\u0152\\u0154\\u0156\\u0158\\u015a\\u015c\\u015e\\u0160\\u0162\\u0164\\u0166\\u0168\\u016a\\u016c\\u016e\\u0170\\u0172\\u0174\\u0176\\u0178\\u0179\\u017b\\u017d\\u0181\\u0182\\u0184\\u0186\\u0187\\u0189-\\u018b\\u018e-\\u0191\\u0193\\u0194\\u0196-\\u0198\\u019c\\u019d\\u019f\\u01a0\\u01a2\\u01a4\\u01a6\\u01a7\\u01a9\\u01ac\\u01ae\\u01af\\u01b1-\\u01b3\\u01b5\\u01b7\\u01b8\\u01bc\\u01c4\\u01c5\\u01c7\\u01c8\\u01ca\\u01cb\\u01cd\\u01cf\\u01d1\\u01d3\\u01d5\\u01d7\\u01d9\\u01db\\u01de\\u01e0\\u01e2\\u01e4\\u01e6\\u01e8\\u01ea\\u01ec\\u01ee\\u01f1\\u01f2\\u01f4\\u01f6-\\u01f8\\u01fa\\u01fc\\u01fe\\u0200\\u0202\\u0204\\u0206\\u0208\\u020a\\u020c\\u020e\\u0210\\u0212\\u0214\\u0216\\u0218\\u021a\\u021c\\u021e\\u0220\\u0222\\u0224\\u0226\\u0228\\u022a\\u022c\\u022e\\u0230\\u0232\\u023a\\u023b\\u023d\\u023e\\u0241\\u0243-\\u0246\\u0248\\u024a\\u024c\\u024e\\u0370\\u0372\\u0376\\u037f\\u0386\\u0388-\\u038a\\u038c\\u038e\\u038f\\u0391-\\u03a1\\u03a3-\\u03ab\\u03cf\\u03d2-\\u03d4\\u03d8\\u03da\\u03dc\\u03de\\u03e0\\u03e2\\u03e4\\u03e6\\u03e8\\u03ea\\u03ec\\u03ee\\u03f4\\u03f7\\u03f9\\u03fa\\u03fd-\\u042f\\u0460\\u0462\\u0464\\u0466\\u0468\\u046a\\u046c\\u046e\\u0470\\u0472\\u0474\\u0476\\u0478\\u047a\\u047c\\u047e\\u0480\\u048a\\u048c\\u048e\\u0490\\u0492\\u0494\\u0496\\u0498\\u049a\\u049c\\u049e\\u04a0\\u04a2\\u04a4\\u04a6\\u04a8\\u04aa\\u04ac\\u04ae\\u04b0\\u04b2\\u04b4\\u04b6\\u04b8\\u04ba\\u04bc\\u04be\\u04c0\\u04c1\\u04c3\\u04c5\\u04c7\\u04c9\\u04cb\\u04cd\\u04d0\\u04d2\\u04d4\\u04d6\\u04d8\\u04da\\u04dc\\u04de\\u04e0\\u04e2\\u04e4\\u04e6\\u04e8\\u04ea\\u04ec\\u04ee\\u04f0\\u04f2\\u04f4\\u04f6\\u04f8\\u04fa\\u04fc\\u04fe\\u0500\\u0502\\u0504\\u0506\\u0508\\u050a\\u050c\\u050e\\u0510\\u0512\\u0514\\u0516\\u0518\\u051a\\u051c\\u051e\\u0520\\u0522\\u0524\\u0526\\u0528\\u052a\\u052c\\u052e\\u0531-\\u0556\\u10a0-\\u10c5\\u10c7\\u10cd\\u13a0-\\u13f5\\u1e00\\u1e02\\u1e04\\u1e06\\u1e08\\u1e0a\\u1e0c\\u1e0e\\u1e10\\u1e12\\u1e14\\u1e16\\u1e18\\u1e1a\\u1e1c\\u1e1e\\u1e20\\u1e22\\u1e24\\u1e26\\u1e28\\u1e2a\\u1e2c\\u1e2e\\u1e30\\u1e32\\u1e34\\u1e36\\u1e38\\u1e3a\\u1e3c\\u1e3e\\u1e40\\u1e42\\u1e44\\u1e46\\u1e48\\u1e4a\\u1e4c\\u1e4e\\u1e50\\u1e52\\u1e54\\u1e56\\u1e58\\u1e5a\\u1e5c\\u1e5e\\u1e60\\u1e62\\u1e64\\u1e66\\u1e68\\u1e6a\\u1e6c\\u1e6e\\u1e70\\u1e72\\u1e74\\u1e76\\u1e78\\u1e7a\\u1e7c\\u1e7e\\u1e80\\u1e82\\u1e84\\u1e86\\u1e88\\u1e8a\\u1e8c\\u1e8e\\u1e90\\u1e92\\u1e94\\u1e9e\\u1ea0\\u1ea2\\u1ea4\\u1ea6\\u1ea8\\u1eaa\\u1eac\\u1eae\\u1eb0\\u1eb2\\u1eb4\\u1eb6\\u1eb8\\u1eba\\u1ebc\\u1ebe\\u1ec0\\u1ec2\\u1ec4\\u1ec6\\u1ec8\\u1eca\\u1ecc\\u1ece\\u1ed0\\u1ed2\\u1ed4\\u1ed6\\u1ed8\\u1eda\\u1edc\\u1ede\\u1ee0\\u1ee2\\u1ee4\\u1ee6\\u1ee8\\u1eea\\u1eec\\u1eee\\u1ef0\\u1ef2\\u1ef4\\u1ef6\\u1ef8\\u1efa\\u1efc\\u1efe\\u1f08-\\u1f0f\\u1f18-\\u1f1d\\u1f28-\\u1f2f\\u1f38-\\u1f3f\\u1f48-\\u1f4d\\u1f59\\u1f5b\\u1f5d\\u1f5f\\u1f68-\\u1f6f\\u1f88-\\u1f8f\\u1f98-\\u1f9f\\u1fa8-\\u1faf\\u1fb8-\\u1fbc\\u1fc8-\\u1fcc\\u1fd8-\\u1fdb\\u1fe8-\\u1fec\\u1ff8-\\u1ffc\\u2102\\u2107\\u210b-\\u210d\\u2110-\\u2112\\u2115\\u2119-\\u211d\\u2124\\u2126\\u2128\\u212a-\\u212d\\u2130-\\u2133\\u213e\\u213f\\u2145\\u2183\\u2c00-\\u2c2e\\u2c60\\u2c62-\\u2c64\\u2c67\\u2c69\\u2c6b\\u2c6d-\\u2c70\\u2c72\\u2c75\\u2c7e-\\u2c80\\u2c82\\u2c84\\u2c86\\u2c88\\u2c8a\\u2c8c\\u2c8e\\u2c90\\u2c92\\u2c94\\u2c96\\u2c98\\u2c9a\\u2c9c\\u2c9e\\u2ca0\\u2ca2\\u2ca4\\u2ca6\\u2ca8\\u2caa\\u2cac\\u2cae\\u2cb0\\u2cb2\\u2cb4\\u2cb6\\u2cb8\\u2cba\\u2cbc\\u2cbe\\u2cc0\\u2cc2\\u2cc4\\u2cc6\\u2cc8\\u2cca\\u2ccc\\u2cce\\u2cd0\\u2cd2\\u2cd4\\u2cd6\\u2cd8\\u2cda\\u2cdc\\u2cde\\u2ce0\\u2ce2\\u2ceb\\u2ced\\u2cf2\\ua640\\ua642\\ua644\\ua646\\ua648\\ua64a\\ua64c\\ua64e\\ua650\\ua652\\ua654\\ua656\\ua658\\ua65a\\ua65c\\ua65e\\ua660\\ua662\\ua664\\ua666\\ua668\\ua66a\\ua66c\\ua680\\ua682\\ua684\\ua686\\ua688\\ua68a\\ua68c\\ua68e\\ua690\\ua692\\ua694\\ua696\\ua698\\ua69a\\ua722\\ua724\\ua726\\ua728\\ua72a\\ua72c\\ua72e\\ua732\\ua734\\ua736\\ua738\\ua73a\\ua73c\\ua73e\\ua740\\ua742\\ua744\\ua746\\ua748\\ua74a\\ua74c\\ua74e\\ua750\\ua752\\ua754\\ua756\\ua758\\ua75a\\ua75c\\ua75e\\ua760\\ua762\\ua764\\ua766\\ua768\\ua76a\\ua76c\\ua76e\\ua779\\ua77b\\ua77d\\ua77e\\ua780\\ua782\\ua784\\ua786\\ua78b\\ua78d\\ua790\\ua792\\ua796\\ua798\\ua79a\\ua79c\\ua79e\\ua7a0\\ua7a2\\ua7a4\\ua7a6\\ua7a8\\ua7aa-\\ua7ad\\ua7b0-\\ua7b4\\ua7b6\\uff21-\\uff3a';
-
-/**
- * A regular expression string that matches non letter chars. A negative list is used because it includes less characters than letters list itself.
- *
- * @type {string}
- * @ignore
- */
-var nonLetter = '\\u0000-\\u0040\\u005b-\\u0060\\u007b-\\u00a9\\u00ab-\\u00b4\\u00b6-\\u00b9\\u00bb-\\u00bf\\u00d7\\u00f7\\u02c2-\\u02c5\\u02d2-\\u02df\\u02e5-\\u02eb\\u02ed\\u02ef-\\u036f\\u0375\\u0378\\u0379\\u037e\\u0380-\\u0385\\u0387\\u038b\\u038d\\u03a2\\u03f6\\u0482-\\u0489\\u0530\\u0557\\u0558\\u055a-\\u0560\\u0588-\\u05cf\\u05eb-\\u05ef\\u05f3-\\u061f\\u064b-\\u066d\\u0670\\u06d4\\u06d6-\\u06e4\\u06e7-\\u06ed\\u06f0-\\u06f9\\u06fd\\u06fe\\u0700-\\u070f\\u0711\\u0730-\\u074c\\u07a6-\\u07b0\\u07b2-\\u07c9\\u07eb-\\u07f3\\u07f6-\\u07f9\\u07fb-\\u07ff\\u0816-\\u0819\\u081b-\\u0823\\u0825-\\u0827\\u0829-\\u083f\\u0859-\\u089f\\u08b5-\\u0903\\u093a-\\u093c\\u093e-\\u094f\\u0951-\\u0957\\u0962-\\u0970\\u0981-\\u0984\\u098d\\u098e\\u0991\\u0992\\u09a9\\u09b1\\u09b3-\\u09b5\\u09ba-\\u09bc\\u09be-\\u09cd\\u09cf-\\u09db\\u09de\\u09e2-\\u09ef\\u09f2-\\u0a04\\u0a0b-\\u0a0e\\u0a11\\u0a12\\u0a29\\u0a31\\u0a34\\u0a37\\u0a3a-\\u0a58\\u0a5d\\u0a5f-\\u0a71\\u0a75-\\u0a84\\u0a8e\\u0a92\\u0aa9\\u0ab1\\u0ab4\\u0aba-\\u0abc\\u0abe-\\u0acf\\u0ad1-\\u0adf\\u0ae2-\\u0af8\\u0afa-\\u0b04\\u0b0d\\u0b0e\\u0b11\\u0b12\\u0b29\\u0b31\\u0b34\\u0b3a-\\u0b3c\\u0b3e-\\u0b5b\\u0b5e\\u0b62-\\u0b70\\u0b72-\\u0b82\\u0b84\\u0b8b-\\u0b8d\\u0b91\\u0b96-\\u0b98\\u0b9b\\u0b9d\\u0ba0-\\u0ba2\\u0ba5-\\u0ba7\\u0bab-\\u0bad\\u0bba-\\u0bcf\\u0bd1-\\u0c04\\u0c0d\\u0c11\\u0c29\\u0c3a-\\u0c3c\\u0c3e-\\u0c57\\u0c5b-\\u0c5f\\u0c62-\\u0c84\\u0c8d\\u0c91\\u0ca9\\u0cb4\\u0cba-\\u0cbc\\u0cbe-\\u0cdd\\u0cdf\\u0ce2-\\u0cf0\\u0cf3-\\u0d04\\u0d0d\\u0d11\\u0d3b\\u0d3c\\u0d3e-\\u0d4d\\u0d4f-\\u0d5e\\u0d62-\\u0d79\\u0d80-\\u0d84\\u0d97-\\u0d99\\u0db2\\u0dbc\\u0dbe\\u0dbf\\u0dc7-\\u0e00\\u0e31\\u0e34-\\u0e3f\\u0e47-\\u0e80\\u0e83\\u0e85\\u0e86\\u0e89\\u0e8b\\u0e8c\\u0e8e-\\u0e93\\u0e98\\u0ea0\\u0ea4\\u0ea6\\u0ea8\\u0ea9\\u0eac\\u0eb1\\u0eb4-\\u0ebc\\u0ebe\\u0ebf\\u0ec5\\u0ec7-\\u0edb\\u0ee0-\\u0eff\\u0f01-\\u0f3f\\u0f48\\u0f6d-\\u0f87\\u0f8d-\\u0fff\\u102b-\\u103e\\u1040-\\u104f\\u1056-\\u1059\\u105e-\\u1060\\u1062-\\u1064\\u1067-\\u106d\\u1071-\\u1074\\u1082-\\u108d\\u108f-\\u109f\\u10c6\\u10c8-\\u10cc\\u10ce\\u10cf\\u10fb\\u1249\\u124e\\u124f\\u1257\\u1259\\u125e\\u125f\\u1289\\u128e\\u128f\\u12b1\\u12b6\\u12b7\\u12bf\\u12c1\\u12c6\\u12c7\\u12d7\\u1311\\u1316\\u1317\\u135b-\\u137f\\u1390-\\u139f\\u13f6\\u13f7\\u13fe-\\u1400\\u166d\\u166e\\u1680\\u169b-\\u169f\\u16eb-\\u16f0\\u16f9-\\u16ff\\u170d\\u1712-\\u171f\\u1732-\\u173f\\u1752-\\u175f\\u176d\\u1771-\\u177f\\u17b4-\\u17d6\\u17d8-\\u17db\\u17dd-\\u181f\\u1878-\\u187f\\u18a9\\u18ab-\\u18af\\u18f6-\\u18ff\\u191f-\\u194f\\u196e\\u196f\\u1975-\\u197f\\u19ac-\\u19af\\u19ca-\\u19ff\\u1a17-\\u1a1f\\u1a55-\\u1aa6\\u1aa8-\\u1b04\\u1b34-\\u1b44\\u1b4c-\\u1b82\\u1ba1-\\u1bad\\u1bb0-\\u1bb9\\u1be6-\\u1bff\\u1c24-\\u1c4c\\u1c50-\\u1c59\\u1c7e-\\u1ce8\\u1ced\\u1cf2-\\u1cf4\\u1cf7-\\u1cff\\u1dc0-\\u1dff\\u1f16\\u1f17\\u1f1e\\u1f1f\\u1f46\\u1f47\\u1f4e\\u1f4f\\u1f58\\u1f5a\\u1f5c\\u1f5e\\u1f7e\\u1f7f\\u1fb5\\u1fbd\\u1fbf-\\u1fc1\\u1fc5\\u1fcd-\\u1fcf\\u1fd4\\u1fd5\\u1fdc-\\u1fdf\\u1fed-\\u1ff1\\u1ff5\\u1ffd-\\u2070\\u2072-\\u207e\\u2080-\\u208f\\u209d-\\u2101\\u2103-\\u2106\\u2108\\u2109\\u2114\\u2116-\\u2118\\u211e-\\u2123\\u2125\\u2127\\u2129\\u212e\\u213a\\u213b\\u2140-\\u2144\\u214a-\\u214d\\u214f-\\u2182\\u2185-\\u2bff\\u2c2f\\u2c5f\\u2ce5-\\u2cea\\u2cef-\\u2cf1\\u2cf4-\\u2cff\\u2d26\\u2d28-\\u2d2c\\u2d2e\\u2d2f\\u2d68-\\u2d6e\\u2d70-\\u2d7f\\u2d97-\\u2d9f\\u2da7\\u2daf\\u2db7\\u2dbf\\u2dc7\\u2dcf\\u2dd7\\u2ddf-\\u2e2e\\u2e30-\\u3004\\u3007-\\u3030\\u3036-\\u303a\\u303d-\\u3040\\u3097-\\u309c\\u30a0\\u30fb\\u3100-\\u3104\\u312e-\\u3130\\u318f-\\u319f\\u31bb-\\u31ef\\u3200-\\u33ff\\u4db6-\\u4dff\\u9fd6-\\u9fff\\ua48d-\\ua4cf\\ua4fe\\ua4ff\\ua60d-\\ua60f\\ua620-\\ua629\\ua62c-\\ua63f\\ua66f-\\ua67e\\ua69e\\ua69f\\ua6e6-\\ua716\\ua720\\ua721\\ua789\\ua78a\\ua7ae\\ua7af\\ua7b8-\\ua7f6\\ua802\\ua806\\ua80b\\ua823-\\ua83f\\ua874-\\ua881\\ua8b4-\\ua8f1\\ua8f8-\\ua8fa\\ua8fc\\ua8fe-\\ua909\\ua926-\\ua92f\\ua947-\\ua95f\\ua97d-\\ua983\\ua9b3-\\ua9ce\\ua9d0-\\ua9df\\ua9e5\\ua9f0-\\ua9f9\\ua9ff\\uaa29-\\uaa3f\\uaa43\\uaa4c-\\uaa5f\\uaa77-\\uaa79\\uaa7b-\\uaa7d\\uaab0\\uaab2-\\uaab4\\uaab7\\uaab8\\uaabe\\uaabf\\uaac1\\uaac3-\\uaada\\uaade\\uaadf\\uaaeb-\\uaaf1\\uaaf5-\\uab00\\uab07\\uab08\\uab0f\\uab10\\uab17-\\uab1f\\uab27\\uab2f\\uab5b\\uab66-\\uab6f\\uabe3-\\uabff\\ud7a4-\\ud7af\\ud7c7-\\ud7ca\\ud7fc-\\uf8ff\\ufa6e\\ufa6f\\ufada-\\ufaff\\ufb07-\\ufb12\\ufb18-\\ufb1c\\ufb1e\\ufb29\\ufb37\\ufb3d\\ufb3f\\ufb42\\ufb45\\ufbb2-\\ufbd2\\ufd3e-\\ufd4f\\ufd90\\ufd91\\ufdc8-\\ufdef\\ufdfc-\\ufe6f\\ufe75\\ufefd-\\uff20\\uff3b-\\uff40\\uff5b-\\uff65\\uffbf-\\uffc1\\uffc8\\uffc9\\uffd0\\uffd1\\uffd8\\uffd9\\uffdd-\\uffff';
 
 /**
  * A regular expression string matching digits
@@ -183,13 +167,21 @@ var lowSurrogate = '\\uDC00-\\uDFFF';
 var diacriticalMark = '\\u0300-\\u036F\\u1AB0-\\u1AFF\\u1DC0-\\u1DFF\\u20D0-\\u20FF\\uFE20-\\uFE2F';
 
 /**
+ * A regular expression to match the base character for a combining mark
+ *
+ * @type {string}
+ * @ignore
+ */
+var base = '\\0-\\u02FF\\u0370-\\u1AAF\\u1B00-\\u1DBF\\u1E00-\\u20CF\\u2100-\\uD7FF\\uE000-\\uFE1F\\uFE30-\\uFFFF';
+
+/**
  * Regular expression to match combining marks
  *
  * @see http://unicode.org/faq/char_combmark.html
  * @type {RegExp}
  * @ignore
  */
-var REGEXP_COMBINING_MARKS = new RegExp('([\\0-\\u02FF\\u0370-\\u1AAF\\u1B00-\\u1DBF\\u1E00-\\u20CF\\u2100-\\uD7FF\\uE000-\\uFE1F\\uFE30-\\uFFFF]|[' + highSurrogate + '][' + lowSurrogate + ']|[' + highSurrogate + '](?![' + lowSurrogate + '])|(?:[^' + highSurrogate + ']|^)[' + lowSurrogate + '])([' + diacriticalMark + ']+)', 'g');
+var REGEXP_COMBINING_MARKS = new RegExp('([' + base + ']|[' + highSurrogate + '][' + lowSurrogate + ']|[' + highSurrogate + '](?![' + lowSurrogate + '])|(?:[^' + highSurrogate + ']|^)[' + lowSurrogate + '])([' + diacriticalMark + ']+)', 'g');
 
 /**
  * Regular expression to match surrogate pairs
@@ -206,7 +198,7 @@ var REGEXP_SURROGATE_PAIRS = new RegExp('([' + highSurrogate + '])([' + lowSurro
  * @type {RegExp}
  * @ignore
  */
-var REGEXP_UNICODE_CHARACTER = new RegExp('((?:[\\0-\\u02FF\\u0370-\\u1AAF\\u1B00-\\u1DBF\\u1E00-\\u20CF\\u2100-\\uD7FF\\uE000-\\uFE1F\\uFE30-\\uFFFF]|[' + highSurrogate + '][' + lowSurrogate + ']|[' + highSurrogate + '](?![' + lowSurrogate + '])|(?:[^' + highSurrogate + ']|^)[' + lowSurrogate + '])(?:[' + diacriticalMark + ']+))|\
+var REGEXP_UNICODE_CHARACTER = new RegExp('((?:[' + base + ']|[' + highSurrogate + '][' + lowSurrogate + ']|[' + highSurrogate + '](?![' + lowSurrogate + '])|(?:[^' + highSurrogate + ']|^)[' + lowSurrogate + '])(?:[' + diacriticalMark + ']+))|\
 ([' + highSurrogate + '][' + lowSurrogate + '])|\
 ([\\n\\r\\u2028\\u2029])|\
 (.)', 'g');
@@ -228,24 +220,6 @@ var REGEXP_TRIM_LEFT = new RegExp('^[' + whitespace + ']+');
 var REGEXP_TRIM_RIGHT = new RegExp('[' + whitespace + ']+$');
 
 /**
- * Regular expression to match alpha characters
- *
- * @see http://stackoverflow.com/a/22075070/1894471
- * @type {RegExp}
- * @ignore
- */
-var REGEXP_ALPHA = new RegExp('^(?:[^' + nonLetter + '][' + diacriticalMark + ']*)+$');
-
-/**
- * Regular expression to match alpha and digit characters
- *
- * @see http://stackoverflow.com/a/22075070/1894471
- * @type {RegExp}
- * @ignore
- */
-var REGEXP_ALPHA_DIGIT = new RegExp('^((?:[^' + nonLetter + '][' + diacriticalMark + ']*)|[' + digit + '])+$');
-
-/**
  * Regular expression to match digit characters
  *
  * @type {RegExp}
@@ -254,46 +228,12 @@ var REGEXP_ALPHA_DIGIT = new RegExp('^((?:[^' + nonLetter + '][' + diacriticalMa
 var REGEXP_DIGIT = new RegExp('^' + digit + '+$');
 
 /**
- * Regular expression to match non basic latin characters
- *
- * @type {RegExp}
- * @ignore
- */
-var REGEXP_NON_BASIC_LATIN = /[^\u0000-\u007E]/g;
-
-/**
  * Regular expression to match regular expression special characters
  *
  * @type {RegExp}
  * @ignore
  */
-var REGEXP_SPECIAL_CHARACTERS = /[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g;
-
-/**
- * A regular expression string that matches a class of lower case letters.
- *
- * @type {string}
- * @ignore
- */
-var lowerCaseLetterClass = '(?![' + upLetter + '])[^' + nonLetter + ']';
-
-/**
- * Regular expression to match Unicode words
- *
- * @type {RegExp}
- * @ignore
- */
-var REGEXP_WORD = new RegExp('(?:(?:[' + upLetter + '][' + diacriticalMark + ']*)?(?:' + lowerCaseLetterClass + '[' + diacriticalMark + ']*)+)|\
-(?:(?:[' + upLetter + '][' + diacriticalMark + ']*)+(?!' + lowerCaseLetterClass + '))|\
-(?:[' + digit + ']+)', 'g');
-
-/**
- * Regular expression to match words from Basic Latin and Latin-1 Supplement blocks
- *
- * @type {RegExp}
- * @ignore
- */
-var REGEXP_LATIN_WORD = /(?:[A-Z\xC0-\xD6\xD8-\xDE]?[a-z\xDF-\xF6\xF8-\xFF]+)|(?:[A-Z\xC0-\xD6\xD8-\xDE]+(?![a-z\xDF-\xF6\xF8-\xFF]))|(?:\d+)/g;
+var REGEXP_SPECIAL_CHARACTERS = /[-[\]{}()*+!<=:?.\/\\^$|#,]/g;
 
 /**
  * Regular expression to match not latin characters
@@ -301,15 +241,7 @@ var REGEXP_LATIN_WORD = /(?:[A-Z\xC0-\xD6\xD8-\xDE]?[a-z\xDF-\xF6\xF8-\xFF]+)|(?
  * @type {RegExp}
  * @ignore
  */
-var REGEXP_NON_LATIN = /[\W]/g;
-
-/**
- * Regular expression to match Basic Latin and Latin-1 Supplement blocks
- *
- * @type {RegExp}
- * @ignore
- */
-var REGEXP_LATIN = /^[\x00-\xFF]*$/;
+var REGEXP_NON_LATIN = /[^A-Za-z0-9]/g;
 
 /**
  * Regular expression to match HTML special characters.
@@ -344,6 +276,92 @@ var REGEXP_TRAILING_ZEROS = /\.?0+$/g;
 var REGEXP_FLAGS = /[gimuy]*$/;
 
 /**
+ * A regular expression to match the General Punctuation Unicode block
+ *
+ * @type {string}
+ * @ignore
+ */
+var generalPunctuationBlock = '\\u2000-\\u206F';
+
+/**
+ * A regular expression to match non characters from from Basic Latin and Latin-1 Supplement Unicode blocks
+ *
+ * @type {string}
+ * @ignore
+ */
+var nonCharacter = '\\x00-\\x2F\\x3A-\\x40\\x5B-\\x60\\x7b-\\xBF\\xD7\\xF7';
+
+/**
+ * A regular expression to match the dingbat Unicode block
+ *
+ * @type {string}
+ * @ignore
+ */
+var dingbatBlock = '\\u2700-\\u27BF';
+
+/**
+ * A regular expression string that matches lower case letters: LATIN
+ *
+ * @type {string}
+ * @ignore
+ */
+var lowerCaseLetter = 'a-z\\xB5\\xDF-\\xF6\\xF8-\\xFF\\u0101\\u0103\\u0105\\u0107\\u0109\\u010B\\u010D\\u010F\\u0111\\u0113\\u0115\\u0117\\u0119\\u011B\\u011D\\u011F\\u0121\\u0123\\u0125\\u0127\\u0129\\u012B\\u012D\\u012F\\u0131\\u0133\\u0135\\u0137\\u0138\\u013A\\u013C\\u013E\\u0140\\u0142\\u0144\\u0146\\u0148\\u0149\\u014B\\u014D\\u014F\\u0151\\u0153\\u0155\\u0157\\u0159\\u015B\\u015D\\u015F\\u0161\\u0163\\u0165\\u0167\\u0169\\u016B\\u016D\\u016F\\u0171\\u0173\\u0175\\u0177\\u017A\\u017C\\u017E-\\u0180\\u0183\\u0185\\u0188\\u018C\\u018D\\u0192\\u0195\\u0199-\\u019B\\u019E\\u01A1\\u01A3\\u01A5\\u01A8\\u01AA\\u01AB\\u01AD\\u01B0\\u01B4\\u01B6\\u01B9\\u01BA\\u01BD-\\u01BF\\u01C6\\u01C9\\u01CC\\u01CE\\u01D0\\u01D2\\u01D4\\u01D6\\u01D8\\u01DA\\u01DC\\u01DD\\u01DF\\u01E1\\u01E3\\u01E5\\u01E7\\u01E9\\u01EB\\u01ED\\u01EF\\u01F0\\u01F3\\u01F5\\u01F9\\u01FB\\u01FD\\u01FF\\u0201\\u0203\\u0205\\u0207\\u0209\\u020B\\u020D\\u020F\\u0211\\u0213\\u0215\\u0217\\u0219\\u021B\\u021D\\u021F\\u0221\\u0223\\u0225\\u0227\\u0229\\u022B\\u022D\\u022F\\u0231\\u0233-\\u0239\\u023C\\u023F\\u0240\\u0242\\u0247\\u0249\\u024B\\u024D\\u024F';
+
+/**
+ * A regular expression string that matches upper case letters: LATIN
+ *
+ * @type {string}
+ * @ignore
+ */
+var upperCaseLetter = '\\x41-\\x5a\\xc0-\\xd6\\xd8-\\xde\\u0100\\u0102\\u0104\\u0106\\u0108\\u010a\\u010c\\u010e\\u0110\\u0112\\u0114\\u0116\\u0118\\u011a\\u011c\\u011e\\u0120\\u0122\\u0124\\u0126\\u0128\\u012a\\u012c\\u012e\\u0130\\u0132\\u0134\\u0136\\u0139\\u013b\\u013d\\u013f\\u0141\\u0143\\u0145\\u0147\\u014a\\u014c\\u014e\\u0150\\u0152\\u0154\\u0156\\u0158\\u015a\\u015c\\u015e\\u0160\\u0162\\u0164\\u0166\\u0168\\u016a\\u016c\\u016e\\u0170\\u0172\\u0174\\u0176\\u0178\\u0179\\u017b\\u017d\\u0181\\u0182\\u0184\\u0186\\u0187\\u0189-\\u018b\\u018e-\\u0191\\u0193\\u0194\\u0196-\\u0198\\u019c\\u019d\\u019f\\u01a0\\u01a2\\u01a4\\u01a6\\u01a7\\u01a9\\u01ac\\u01ae\\u01af\\u01b1-\\u01b3\\u01b5\\u01b7\\u01b8\\u01bc\\u01c4\\u01c5\\u01c7\\u01c8\\u01ca\\u01cb\\u01cd\\u01cf\\u01d1\\u01d3\\u01d5\\u01d7\\u01d9\\u01db\\u01de\\u01e0\\u01e2\\u01e4\\u01e6\\u01e8\\u01ea\\u01ec\\u01ee\\u01f1\\u01f2\\u01f4\\u01f6-\\u01f8\\u01fa\\u01fc\\u01fe\\u0200\\u0202\\u0204\\u0206\\u0208\\u020a\\u020c\\u020e\\u0210\\u0212\\u0214\\u0216\\u0218\\u021a\\u021c\\u021e\\u0220\\u0222\\u0224\\u0226\\u0228\\u022a\\u022c\\u022e\\u0230\\u0232\\u023a\\u023b\\u023d\\u023e\\u0241\\u0243-\\u0246\\u0248\\u024a\\u024c\\u024e';
+
+/**
+ * Regular expression to match Unicode words
+ *
+ * @type {RegExp}
+ * @ignore
+ */
+var REGEXP_WORD = new RegExp('(?:[' + upperCaseLetter + '][' + diacriticalMark + ']*)?(?:[' + lowerCaseLetter + '][' + diacriticalMark + ']*)+|\
+(?:[' + upperCaseLetter + '][' + diacriticalMark + ']*)+(?![' + lowerCaseLetter + '])|\
+[' + digit + ']+|\
+[' + dingbatBlock + ']|\
+[^' + nonCharacter + generalPunctuationBlock + whitespace + ']+', 'g');
+
+/**
+ * Regular expression to match words from Basic Latin and Latin-1 Supplement blocks
+ *
+ * @type {RegExp}
+ * @ignore
+ */
+var REGEXP_LATIN_WORD = /[A-Z\xC0-\xD6\xD8-\xDE]?[a-z\xDF-\xF6\xF8-\xFF]+|[A-Z\xC0-\xD6\xD8-\xDE]+(?![a-z\xDF-\xF6\xF8-\xFF])|\d+/g;
+
+/**
+ * Regular expression to match alpha characters
+ *
+ * @see http://stackoverflow.com/a/22075070/1894471
+ * @type {RegExp}
+ * @ignore
+ */
+var REGEXP_ALPHA = new RegExp('^(?:[' + lowerCaseLetter + upperCaseLetter + '][' + diacriticalMark + ']*)+$');
+
+/**
+ * Regular expression to match alpha and digit characters
+ *
+ * @see http://stackoverflow.com/a/22075070/1894471
+ * @type {RegExp}
+ * @ignore
+ */
+var REGEXP_ALPHA_DIGIT = new RegExp('^((?:[' + lowerCaseLetter + upperCaseLetter + '][' + diacriticalMark + ']*)|[' + digit + '])+$');
+
+/**
+ * Regular expression to match Extended ASCII characters, i.e. the first 255
+ *
+ * @type {RegExp}
+ * @ignore
+ */
+var REGEXP_EXTENDED_ASCII = /^[\x00-\xFF]*$/;
+
+/**
  * Verifies if `value` is `undefined` or `null` and returns `defaultValue`. In other case returns `value`.
  *
  * @ignore
@@ -352,9 +370,9 @@ var REGEXP_FLAGS = /[gimuy]*$/;
  * @param {*} defaultValue The default value.
  * @return {*} Returns `defaultValue` if `value` is `undefined` or `null`, otherwise `defaultValue`.
  */
-var nilDefault = function (value, defaultValue) {
+function nilDefault(value, defaultValue) {
   return value == null ? defaultValue : value;
-};
+}
 
 /**
  * Get the string representation of the `value`.
@@ -365,7 +383,7 @@ var nilDefault = function (value, defaultValue) {
  * @param {*} value             The value to convert.
  * @return {string|null}        Returns the string representation of `value`.
  */
-var toString = function (value) {
+function toString(value) {
   if (isNil(value)) {
     return null;
   }
@@ -373,7 +391,7 @@ var toString = function (value) {
     return value;
   }
   return String(value);
-};
+}
 
 /**
  * Splits `subject` into an array of words.
@@ -391,19 +409,19 @@ var toString = function (value) {
  * // => ['gravity', 'can', 'cross', 'dimensions']
  *
  * v.words('GravityCanCrossDimensions');
- * // => ["Gravity", "Can", "Cross", "Dimensions"]
+ * // => ['Gravity', 'Can', 'Cross', 'Dimensions']
  *
  * v.words('Gravity - can cross dimensions!');
- * // => ["Gravity", "can", "cross", "dimensions"]
+ * // => ['Gravity', 'can', 'cross', 'dimensions']
  *
- * v.words('gravity', /\w{1,2}/g);
- * // => ['gr', 'av', 'it', 'y']
+ * v.words('Earth gravity', /[^\s]+/g);
+ * // => ['Earth', 'gravity']
  */
 function words(subject, pattern, flags) {
-  var subjectString = coerceToString(subject),
-      patternRegExp;
+  var subjectString = coerceToString(subject);
+  var patternRegExp = void 0;
   if (isNil(pattern)) {
-    patternRegExp = REGEXP_LATIN.test(subjectString) ? REGEXP_LATIN_WORD : REGEXP_WORD;
+    patternRegExp = REGEXP_EXTENDED_ASCII.test(subjectString) ? REGEXP_LATIN_WORD : REGEXP_WORD;
   } else if (pattern instanceof RegExp) {
     patternRegExp = pattern;
   } else {
@@ -556,7 +574,7 @@ function upperCase(subject) {
  * @param {number} upLimit The upper limit
  * @return {number} The clipped number
  */
-var clipNumber = function (value, downLimit, upLimit) {
+function clipNumber(value, downLimit, upLimit) {
   if (value <= downLimit) {
     return downLimit;
   }
@@ -564,7 +582,7 @@ var clipNumber = function (value, downLimit, upLimit) {
     return upLimit;
   }
   return value;
-};
+}
 
 /**
  * Max save integer value
@@ -582,7 +600,7 @@ var MAX_SAFE_INTEGER = 0x1fffffffffffff;
  * @param {number} value The number to transform.
  * @returns {number} Returns the transformed integer.
  */
-var toInteger = function (value) {
+function toInteger(value) {
   if (value === Infinity) {
     return MAX_SAFE_INTEGER;
   }
@@ -590,7 +608,7 @@ var toInteger = function (value) {
     return -MAX_SAFE_INTEGER;
   }
   return ~~value;
-};
+}
 
 /**
  * Truncates `subject` to a new `length`.
@@ -614,9 +632,9 @@ var toInteger = function (value) {
  * // => 'Once upon'
  */
 function truncate(subject, length, end) {
-  var subjectString = coerceToString(subject),
-      lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
-      endString = coerceToString(end, '...');
+  var subjectString = coerceToString(subject);
+  var lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
+  var endString = coerceToString(end, '...');
   if (lengthInt >= subjectString.length) {
     return subjectString;
   }
@@ -696,7 +714,7 @@ function getAstralNumberFromSurrogatePair(highSurrogate, lowSurrogate) {
  * @return {number|null}        Returns the number representation of `value`. Returns `defaultValue` if `value` is
  *                              `null` or `undefined`.
  */
-var coerceToNumber = function (value) {
+function coerceToNumber(value) {
   var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
 
   if (isNil(value)) {
@@ -706,7 +724,7 @@ var coerceToNumber = function (value) {
     return value;
   }
   return Number(value);
-};
+}
 
 /**
  * If `value` is `NaN`, return `defaultValue`. In other case returns `value`.
@@ -717,9 +735,9 @@ var coerceToNumber = function (value) {
  * @param {*} defaultValue The default value.
  * @return {*} Returns `defaultValue` if `value` is `NaN`, otherwise `defaultValue`.
  */
-var nanDefault = function (value, defaultValue) {
+function nanDefault(value, defaultValue) {
   return value !== value ? defaultValue : value;
-};
+}
 
 /**
  * Get the Unicode code point value of the character at `position`. <br/>
@@ -743,15 +761,15 @@ var nanDefault = function (value, defaultValue) {
  * // => 128512, or 0x1F600
  */
 function codePointAt(subject, position) {
-  var subjectString = coerceToString(subject),
-      subjectStringLength = subjectString.length,
-      positionNumber = coerceToNumber(position);
+  var subjectString = coerceToString(subject);
+  var subjectStringLength = subjectString.length;
+  var positionNumber = coerceToNumber(position);
   positionNumber = nanDefault(positionNumber, 0);
   if (positionNumber < 0 || positionNumber >= subjectStringLength) {
     return undefined;
   }
-  var firstCodePoint = subjectString.charCodeAt(positionNumber),
-      secondCodePoint;
+  var firstCodePoint = subjectString.charCodeAt(positionNumber);
+  var secondCodePoint = void 0;
   if (isHighSurrogate(firstCodePoint) && subjectStringLength > positionNumber + 1) {
     secondCodePoint = subjectString.charCodeAt(positionNumber + 1);
     if (isLowSurrogate(secondCodePoint)) {
@@ -782,8 +800,8 @@ function codePointAt(subject, position) {
  * // => 'car'
  */
 function first(subject, length) {
-  var subjectString = coerceToString(subject),
-      lengthInt = isNil(length) ? 1 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
+  var subjectString = coerceToString(subject);
+  var lengthInt = isNil(length) ? 1 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
   if (subjectString.length <= lengthInt) {
     return subjectString;
   }
@@ -810,10 +828,10 @@ function first(subject, length) {
  * // => 'é'
  */
 function graphemeAt(subject, position) {
-  var subjectString = coerceToString(subject),
-      positionNumber = coerceToNumber(position),
-      graphemeMatch,
-      graphemeMatchIndex = 0;
+  var subjectString = coerceToString(subject);
+  var positionNumber = coerceToNumber(position);
+  var graphemeMatch = void 0;
+  var graphemeMatchIndex = 0;
   positionNumber = nanDefault(positionNumber, 0);
   while ((graphemeMatch = REGEXP_UNICODE_CHARACTER.exec(subjectString)) !== null) {
     if (graphemeMatchIndex === positionNumber) {
@@ -846,8 +864,8 @@ function graphemeAt(subject, position) {
  * // => 'car'
  */
 function last(subject, length) {
-  var subjectString = coerceToString(subject),
-      lengthInt = isNil(length) ? 1 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
+  var subjectString = coerceToString(subject);
+  var lengthInt = isNil(length) ? 1 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
   if (subjectString.length <= lengthInt) {
     return subjectString;
   }
@@ -877,14 +895,15 @@ function last(subject, length) {
  * // => 'Once upon'
  */
 function prune(subject, length, end) {
-  var subjectString = coerceToString(subject),
-      lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
-      endString = coerceToString(end, '...');
+  var subjectString = coerceToString(subject);
+  var lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
+  var endString = coerceToString(end, '...');
   if (lengthInt >= subjectString.length) {
     return subjectString;
   }
+  var pattern = REGEXP_EXTENDED_ASCII.test(subjectString) ? REGEXP_LATIN_WORD : REGEXP_WORD;
   var truncatedLength = 0;
-  subjectString.replace(REGEXP_WORD, function (word, offset) {
+  subjectString.replace(pattern, function (word, offset) {
     var wordInsertLength = offset + word.length;
     if (wordInsertLength <= lengthInt - endString.length) {
       truncatedLength = wordInsertLength;
@@ -989,20 +1008,20 @@ function count(subject) {
  * <a href="https://rainsoft.io/what-every-javascript-developer-should-know-about-unicode/#24surrogatepairs">surrogate pairs</a> and
  * <a href="https://rainsoft.io/what-every-javascript-developer-should-know-about-unicode/#25combiningmarks">combining marks</a>.
  *
- * @function  countGrapheme
+ * @function  countGraphemes
  * @static
  * @since 1.0.0
  * @memberOf Count
  * @param  {string} [subject=''] The string to count graphemes.
  * @return {number}              Returns the number of graphemes in `subject`.
  * @example
- * v.countGrapheme('cafe\u0301'); // or 'café'
+ * v.countGraphemes('cafe\u0301'); // or 'café'
  * // => 4
  *
- * v.countGrapheme('\uD835\uDC00\uD835\uDC01'); // or '𝐀𝐁'
+ * v.countGraphemes('\uD835\uDC00\uD835\uDC01'); // or '𝐀𝐁'
  * // => 2
  *
- * v.countGrapheme('rain');
+ * v.countGraphemes('rain');
  * // => 4
  */
 function countGrapheme(subject) {
@@ -1012,7 +1031,7 @@ function countGrapheme(subject) {
 /**
  * Counts the number of `substring` appearances in `subject`.
  *
- * @function countSubstring
+ * @function countSubstrings
  * @static
  * @since 1.0.0
  * @memberOf Count
@@ -1020,18 +1039,18 @@ function countGrapheme(subject) {
  * @param  {string} substring    The substring to be counted.
  * @return {number}              Returns the number of `substring` appearances.
  * @example
- * v.countSubstring('bad boys, bad boys whatcha gonna do?', 'boys');
+ * v.countSubstrings('bad boys, bad boys whatcha gonna do?', 'boys');
  * // => 2
  *
- * v.countSubstring('every dog has its day', 'cat');
+ * v.countSubstrings('every dog has its day', 'cat');
  * // => 0
  */
-function countSubstring(subject, substring) {
-  var subjectString = coerceToString(subject),
-      substringString = coerceToString(substring),
-      count = 0,
-      matchIndex = 0,
-      substringLength = substringString.length;
+function countSubstrings(subject, substring) {
+  var subjectString = coerceToString(subject);
+  var substringString = coerceToString(substring);
+  var substringLength = substringString.length;
+  var count = 0;
+  var matchIndex = 0;
   if (subjectString === '' || substringString === '') {
     return count;
   }
@@ -1076,6 +1095,34 @@ function countWhere(subject, predicate, context) {
   return reduce.call(subjectString, function (countTruthy, character, index) {
     return predicateWithContext(character, index, subjectString) ? countTruthy + 1 : countTruthy;
   }, 0);
+}
+
+/**
+ * Counts the number of words in `subject`.
+ *
+ * @function countWords
+ * @static
+ * @since 1.0.0
+ * @memberOf Count
+ * @param {string} [subject=''] The string to split into words.
+ * @param {string|RegExp} [pattern] The pattern to watch words. If `pattern` is not RegExp, it is transformed to `new RegExp(pattern, flags)`.
+ * @param {string} [flags=''] The regular expression flags. Applies when `pattern` is string type.
+ * @return {number} Returns the number of words.
+ * @example
+ * v.countWords('gravity can cross dimensions');
+ * // => 4
+ *
+ * v.countWords('GravityCanCrossDimensions');
+ * // => 4
+ *
+ * v.countWords('Gravity - can cross dimensions!');
+ * // => 4
+ *
+ * v.words('Earth gravity', /[^\s]+/g);
+ * // => 2
+ */
+function countWords(subject, pattern, flags) {
+  return words(subject, pattern, flags).length;
 }
 
 /**
@@ -1173,8 +1220,8 @@ var Const = Object.freeze({
  * // => ''
  */
 function repeat(subject, times) {
-  var subjectString = coerceToString(subject),
-      timesInt = isNil(times) ? 1 : clipNumber(toInteger(times), 0, MAX_SAFE_INTEGER);
+  var subjectString = coerceToString(subject);
+  var timesInt = isNil(times) ? 1 : clipNumber(toInteger(times), 0, MAX_SAFE_INTEGER);
   var repeatString = '';
   while (timesInt) {
     if (timesInt & 1) {
@@ -1196,11 +1243,11 @@ function repeat(subject, times) {
  * @param {number} length The padding string length.
  * @return {string} The padding string.
  */
-var buildPadding = function (padCharacters, length) {
-  var padStringRepeat = toInteger(length / padCharacters.length),
-      padStringRest = length % padCharacters.length;
+function buildPadding(padCharacters, length) {
+  var padStringRepeat = toInteger(length / padCharacters.length);
+  var padStringRest = length % padCharacters.length;
   return repeat(padCharacters, padStringRepeat + padStringRest).substr(0, length);
-};
+}
 
 /**
  * Pads `subject` from left to a new `length`.
@@ -1224,9 +1271,9 @@ var buildPadding = function (padCharacters, length) {
  * // => '-=-cat'
  */
 function padLeft(subject, length, pad) {
-  var subjectString = coerceToString(subject),
-      lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
-      padString = coerceToString(pad, ' ');
+  var subjectString = coerceToString(subject);
+  var lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
+  var padString = coerceToString(pad, ' ');
   if (lengthInt <= subjectString.length) {
     return subjectString;
   }
@@ -1255,9 +1302,9 @@ function padLeft(subject, length, pad) {
  * // => 'cat-=-'
  */
 function padRight(subject, length, pad) {
-  var subjectString = coerceToString(subject),
-      lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
-      padString = coerceToString(pad, ' ');
+  var subjectString = coerceToString(subject);
+  var lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
+  var padString = coerceToString(pad, ' ');
   if (lengthInt <= subjectString.length) {
     return subjectString;
   }
@@ -1272,14 +1319,14 @@ function padRight(subject, length, pad) {
  * @param {ConversionSpecification} conversion The conversion specification object.
  * @return {string} Returns the aligned and padded string.
  */
-var alignAndPad = function (subject, conversion) {
+function alignAndPad(subject, conversion) {
   var width = conversion.width;
   if (isNil(width) || subject.length >= width) {
     return subject;
   }
   var padType = conversion.alignmentSpecifier === Const.LITERAL_MINUS ? padRight : padLeft;
   return padType(subject, width, conversion.getPaddingCharacter());
-};
+}
 
 /**
  * Add sign to the formatted number.
@@ -1291,12 +1338,12 @@ var alignAndPad = function (subject, conversion) {
  * @param  {ConversionSpecification} conversion The conversion specification object.
  * @return {string} Returns the formatted number string with a sign.
  */
-var addSignToFormattedNumber = function (replacementNumber, formattedReplacement, conversion) {
+function addSignToFormattedNumber(replacementNumber, formattedReplacement, conversion) {
   if (conversion.signSpecifier === Const.LITERAL_PLUS && replacementNumber >= 0) {
     formattedReplacement = Const.LITERAL_PLUS + formattedReplacement;
   }
   return formattedReplacement;
-};
+}
 
 /**
  * Formats a float type according to specifiers.
@@ -1307,9 +1354,9 @@ var addSignToFormattedNumber = function (replacementNumber, formattedReplacement
  * @return {string} Returns the formatted string.
  */
 
-var formatFloat = function (replacement, conversion) {
-  var replacementNumber = parseFloat(replacement),
-      formattedReplacement;
+function float(replacement, conversion) {
+  var replacementNumber = parseFloat(replacement);
+  var formattedReplacement = void 0;
   if (isNaN(replacementNumber)) {
     replacementNumber = 0;
   }
@@ -1331,7 +1378,7 @@ var formatFloat = function (replacement, conversion) {
   }
   formattedReplacement = addSignToFormattedNumber(replacementNumber, formattedReplacement, conversion);
   return coerceToString(formattedReplacement);
-};
+}
 
 /**
  * Formats the short float.
@@ -1363,7 +1410,7 @@ function formatFloatAsShort(replacementNumber, precision, conversion) {
  * @return {string} Returns the formatted string.
  */
 
-var formatIntegerBase = function (replacement, conversion) {
+function integerBase(replacement, conversion) {
   var integer = parseInt(replacement);
   if (isNaN(integer)) {
     integer = 0;
@@ -1387,7 +1434,7 @@ var formatIntegerBase = function (replacement, conversion) {
       break;
   }
   return coerceToString(integer);
-};
+}
 
 /**
  * Formats a decimal integer type according to specifiers.
@@ -1398,13 +1445,13 @@ var formatIntegerBase = function (replacement, conversion) {
  * @return {string} Returns the formatted string.
  */
 
-var formatIntegerDecimal = function (replacement, conversion) {
+function integerDecimal(replacement, conversion) {
   var integer = parseInt(replacement);
   if (isNaN(integer)) {
     integer = 0;
   }
   return addSignToFormattedNumber(integer, toString(integer), conversion);
-};
+}
 
 /**
  * Formats a string type according to specifiers.
@@ -1414,14 +1461,14 @@ var formatIntegerDecimal = function (replacement, conversion) {
  * @param {ConversionSpecification} conversion The conversion specification object.
  * @return {string} Returns the formatted string.
  */
-var formatString = function (replacement, conversion) {
-  var formattedReplacement = replacement,
-      precision = conversion.precision;
+function stringFormat(replacement, conversion) {
+  var formattedReplacement = replacement;
+  var precision = conversion.precision;
   if (!isNil(precision) && formattedReplacement.length > precision) {
     formattedReplacement = truncate(formattedReplacement, precision, '');
   }
   return formattedReplacement;
-};
+}
 
 /**
  * Returns the computed string based on format specifiers.
@@ -1432,15 +1479,15 @@ var formatString = function (replacement, conversion) {
  * @param {ConversionSpecification} conversion The conversion specification object.
  * @return {string} Returns the computed string.
  */
-var computeReplacement = function (replacement, conversion) {
-  var formatFunction;
+function compute(replacement, conversion) {
+  var formatFunction = void 0;
   switch (conversion.typeSpecifier) {
     case Const.TYPE_STRING:
-      formatFunction = formatString;
+      formatFunction = stringFormat;
       break;
     case Const.TYPE_INTEGER_DECIMAL:
     case Const.TYPE_INTEGER:
-      formatFunction = formatIntegerDecimal;
+      formatFunction = integerDecimal;
       break;
     case Const.TYPE_INTEGER_ASCII_CHARACTER:
     case Const.TYPE_INTEGER_BINARY:
@@ -1448,19 +1495,19 @@ var computeReplacement = function (replacement, conversion) {
     case Const.TYPE_INTEGER_HEXADECIMAL:
     case Const.TYPE_INTEGER_HEXADECIMAL_UPPERCASE:
     case Const.TYPE_INTEGER_UNSIGNED_DECIMAL:
-      formatFunction = formatIntegerBase;
+      formatFunction = integerBase;
       break;
     case Const.TYPE_FLOAT:
     case Const.TYPE_FLOAT_SCIENTIFIC:
     case Const.TYPE_FLOAT_SCIENTIFIC_UPPERCASE:
     case Const.TYPE_FLOAT_SHORT:
     case Const.TYPE_FLOAT_SHORT_UPPERCASE:
-      formatFunction = formatFloat;
+      formatFunction = float;
       break;
   }
   var formattedString = formatFunction(replacement, conversion);
   return alignAndPad(formattedString, conversion);
-};
+}
 
 /**
  * Construct the new conversion specification object.
@@ -1569,7 +1616,7 @@ ConversionSpecification.prototype.getPaddingCharacter = function () {
  * @param  {ConversionSpecification} conversion The conversion specification object.
  * @return {undefined}
  */
-var validateReplacement = function (index, replacementsLength, conversion) {
+function validate(index, replacementsLength, conversion) {
   if (isNil(conversion.typeSpecifier)) {
     throw new Error('sprintf(): Unknown type specifier');
   }
@@ -1579,7 +1626,7 @@ var validateReplacement = function (index, replacementsLength, conversion) {
   if (index < 0) {
     throw new Error('sprintf(): Argument number must be greater than zero');
   }
-};
+}
 
 /**
  * Return the replacement for regular expression match of the conversion specification.
@@ -1599,7 +1646,7 @@ var validateReplacement = function (index, replacementsLength, conversion) {
  * @param {string} typeSpecifier The type specifier says what type the argument data should be treated as.
  * @return {string} Returns the computed replacement.
  */
-var replacementMatch = function (replacementIndex, replacements, conversionSpecification, percent, position, signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
+function match(replacementIndex, replacements, conversionSpecification, percent, position, signSpecifier, paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
   var conversion = new ConversionSpecification({
     percent: percent,
     signSpecifier: signSpecifier,
@@ -1614,9 +1661,9 @@ var replacementMatch = function (replacementIndex, replacements, conversionSpeci
   }
   var actualReplacementIndex = replacementIndex.getIndexByPosition(position);
   replacementIndex.incrementOnEmptyPosition(position);
-  validateReplacement(actualReplacementIndex, replacements.length, conversion);
-  return computeReplacement(replacements[actualReplacementIndex], conversion);
-};
+  validate(actualReplacementIndex, replacements.length, conversion);
+  return compute(replacements[actualReplacementIndex], conversion);
+}
 
 /**
  * Produces a string according to `format`.
@@ -1802,7 +1849,7 @@ function sprintf(format) {
     replacements[_key - 1] = arguments[_key];
   }
 
-  var boundReplacementMatch = replacementMatch.bind(undefined, new ReplacementIndex(), replacements);
+  var boundReplacementMatch = match.bind(undefined, new ReplacementIndex(), replacements);
   return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, boundReplacementMatch);
 }
 
@@ -1991,8 +2038,8 @@ function lastIndexOf(subject, search, fromIndex) {
  * // => -1
  */
 function search(subject, pattern, fromIndex) {
-  var subjectString = coerceToString(subject),
-      fromIndexNumber = isNil(fromIndex) ? 0 : clipNumber(toInteger(fromIndex), 0, subjectString.length);
+  var subjectString = coerceToString(subject);
+  var fromIndexNumber = isNil(fromIndex) ? 0 : clipNumber(toInteger(fromIndex), 0, subjectString.length);
   var matchIndex = subjectString.substr(fromIndexNumber).search(pattern);
   if (matchIndex !== -1 && !isNaN(fromIndexNumber)) {
     matchIndex += fromIndexNumber;
@@ -2019,10 +2066,10 @@ function search(subject, pattern, fromIndex) {
  * // => 'sunny day'
  */
 function insert(subject, toInsert, position) {
-  var subjectString = coerceToString(subject),
-      toInsertString = coerceToString(toInsert),
-      positionNumber = coerceToNumber(position);
-  if (positionNumber < 0 || positionNumber > subjectString.length || toInsertString == '') {
+  var subjectString = coerceToString(subject);
+  var toInsertString = coerceToString(toInsert);
+  var positionNumber = coerceToNumber(position);
+  if (positionNumber < 0 || positionNumber > subjectString.length || toInsertString === '') {
     return subjectString;
   }
   return subjectString.slice(0, positionNumber) + toInsertString + subjectString.slice(positionNumber);
@@ -2035,1031 +2082,128 @@ function insert(subject, toInsert, position) {
  * @type Object
  */
 
-var diacriticMap = {
-  "\u0041": "A",
-  "\u0042": "B",
-  "\u0043": "C",
-  "\u0044": "D",
-  "\u0045": "E",
-  "\u0046": "F",
-  "\u0047": "G",
-  "\u0048": "H",
-  "\u0049": "I",
-  "\u004a": "J",
-  "\u004b": "K",
-  "\u004c": "L",
-  "\u004d": "M",
-  "\u004e": "N",
-  "\u004f": "O",
-  "\u0050": "P",
-  "\u0051": "Q",
-  "\u0052": "R",
-  "\u0053": "S",
-  "\u0054": "T",
-  "\u0055": "U",
-  "\u0056": "V",
-  "\u0057": "W",
-  "\u0058": "X",
-  "\u0059": "Y",
-  "\u005a": "Z",
-  "\u0061": "a",
-  "\u0062": "b",
-  "\u0063": "c",
-  "\u0064": "d",
-  "\u0065": "e",
-  "\u0066": "f",
-  "\u0067": "g",
-  "\u0068": "h",
-  "\u0069": "i",
-  "\u006a": "j",
-  "\u006b": "k",
-  "\u006c": "l",
-  "\u006d": "m",
-  "\u006e": "n",
-  "\u006f": "o",
-  "\u0070": "p",
-  "\u0071": "q",
-  "\u0072": "r",
-  "\u0073": "s",
-  "\u0074": "t",
-  "\u0075": "u",
-  "\u0076": "v",
-  "\u0077": "w",
-  "\u0078": "x",
-  "\u0079": "y",
-  "\u007a": "z",
-  "\u008c": "OE",
-  "\u009c": "oe",
-  "\u00c0": "A",
-  "\u00c1": "A",
-  "\u00c2": "A",
-  "\u00c3": "A",
-  "\u00c4": "A",
-  "\u00c5": "A",
-  "\u00c6": "AE",
-  "\u00c7": "C",
-  "\u00c8": "E",
-  "\u00c9": "E",
-  "\u00ca": "E",
-  "\u00cb": "E",
-  "\u00cc": "I",
-  "\u00cd": "I",
-  "\u00ce": "I",
-  "\u00cf": "I",
-  "\u00d1": "N",
-  "\u00d2": "O",
-  "\u00d3": "O",
-  "\u00d4": "O",
-  "\u00d5": "O",
-  "\u00d6": "O",
-  "\u00d8": "O",
-  "\u00d9": "U",
-  "\u00da": "U",
-  "\u00db": "U",
-  "\u00dc": "U",
-  "\u00dd": "Y",
-  "\u00df": "s",
-  "\u00e0": "a",
-  "\u00e1": "a",
-  "\u00e2": "a",
-  "\u00e3": "a",
-  "\u00e4": "a",
-  "\u00e5": "a",
-  "\u00e6": "ae",
-  "\u00e7": "c",
-  "\u00e8": "e",
-  "\u00e9": "e",
-  "\u00ea": "e",
-  "\u00eb": "e",
-  "\u00ec": "i",
-  "\u00ed": "i",
-  "\u00ee": "i",
-  "\u00ef": "i",
-  "\u00f1": "n",
-  "\u00f2": "o",
-  "\u00f3": "o",
-  "\u00f4": "o",
-  "\u00f5": "o",
-  "\u00f6": "o",
-  "\u00f8": "o",
-  "\u00f9": "u",
-  "\u00fa": "u",
-  "\u00fb": "u",
-  "\u00fc": "u",
-  "\u00fd": "y",
-  "\u00ff": "y",
-  "\u0100": "A",
-  "\u0101": "a",
-  "\u0102": "A",
-  "\u0103": "a",
-  "\u0104": "A",
-  "\u0105": "a",
-  "\u0106": "C",
-  "\u0107": "c",
-  "\u0108": "C",
-  "\u0109": "c",
-  "\u010a": "C",
-  "\u010b": "c",
-  "\u010c": "C",
-  "\u010d": "c",
-  "\u010e": "D",
-  "\u010f": "d",
-  "\u0110": "D",
-  "\u0111": "d",
-  "\u0112": "E",
-  "\u0113": "e",
-  "\u0114": "E",
-  "\u0115": "e",
-  "\u0116": "E",
-  "\u0117": "e",
-  "\u0118": "E",
-  "\u0119": "e",
-  "\u011a": "E",
-  "\u011b": "e",
-  "\u011c": "G",
-  "\u011d": "g",
-  "\u011e": "G",
-  "\u011f": "g",
-  "\u0120": "G",
-  "\u0121": "g",
-  "\u0122": "G",
-  "\u0123": "g",
-  "\u0124": "H",
-  "\u0125": "h",
-  "\u0126": "H",
-  "\u0127": "h",
-  "\u0128": "I",
-  "\u0129": "i",
-  "\u012a": "I",
-  "\u012b": "i",
-  "\u012c": "I",
-  "\u012d": "i",
-  "\u012e": "I",
-  "\u012f": "i",
-  "\u0130": "I",
-  "\u0131": "i",
-  "\u0134": "J",
-  "\u0135": "j",
-  "\u0136": "K",
-  "\u0137": "k",
-  "\u0139": "L",
-  "\u013a": "l",
-  "\u013b": "L",
-  "\u013c": "l",
-  "\u013d": "L",
-  "\u013e": "l",
-  "\u013f": "L",
-  "\u0140": "l",
-  "\u0141": "L",
-  "\u0142": "l",
-  "\u0143": "N",
-  "\u0144": "n",
-  "\u0145": "N",
-  "\u0146": "n",
-  "\u0147": "N",
-  "\u0148": "n",
-  "\u0149": "n",
-  "\u014c": "O",
-  "\u014d": "o",
-  "\u014e": "O",
-  "\u014f": "o",
-  "\u0150": "O",
-  "\u0151": "o",
-  "\u0152": "OE",
-  "\u0153": "oe",
-  "\u0154": "R",
-  "\u0155": "r",
-  "\u0156": "R",
-  "\u0157": "r",
-  "\u0158": "R",
-  "\u0159": "r",
-  "\u015a": "S",
-  "\u015b": "s",
-  "\u015c": "S",
-  "\u015d": "s",
-  "\u015e": "S",
-  "\u015f": "s",
-  "\u0160": "S",
-  "\u0161": "s",
-  "\u0162": "T",
-  "\u0163": "t",
-  "\u0164": "T",
-  "\u0165": "t",
-  "\u0166": "T",
-  "\u0167": "t",
-  "\u0168": "U",
-  "\u0169": "u",
-  "\u016a": "U",
-  "\u016b": "u",
-  "\u016c": "U",
-  "\u016d": "u",
-  "\u016e": "U",
-  "\u016f": "u",
-  "\u0170": "U",
-  "\u0171": "u",
-  "\u0172": "U",
-  "\u0173": "u",
-  "\u0174": "W",
-  "\u0175": "w",
-  "\u0176": "Y",
-  "\u0177": "y",
-  "\u0178": "Y",
-  "\u0179": "Z",
-  "\u017a": "z",
-  "\u017b": "Z",
-  "\u017c": "z",
-  "\u017d": "Z",
-  "\u017e": "z",
-  "\u017f": "l",
-  "\u0180": "b",
-  "\u0181": "B",
-  "\u0182": "B",
-  "\u0183": "b",
-  "\u0186": "O",
-  "\u0187": "C",
-  "\u0188": "c",
-  "\u0189": "D",
-  "\u018a": "D",
-  "\u018b": "D",
-  "\u018c": "d",
-  "\u018e": "E",
-  "\u0190": "E",
-  "\u0191": "F",
-  "\u0192": "f",
-  "\u0193": "G",
-  "\u0195": "hv",
-  "\u0197": "I",
-  "\u0198": "K",
-  "\u0199": "k",
-  "\u019a": "l",
-  "\u019c": "M",
-  "\u019d": "N",
-  "\u019e": "n",
-  "\u019f": "O",
-  "\u01a0": "O",
-  "\u01a1": "o",
-  "\u01a2": "OI",
-  "\u01a3": "oi",
-  "\u01a4": "P",
-  "\u01a5": "p",
-  "\u01ac": "T",
-  "\u01ad": "t",
-  "\u01ae": "T",
-  "\u01af": "U",
-  "\u01b0": "u",
-  "\u01b2": "V",
-  "\u01b3": "Y",
-  "\u01b4": "y",
-  "\u01b5": "Z",
-  "\u01b6": "z",
-  "\u01c4": "DZ",
-  "\u01c5": "Dz",
-  "\u01c6": "dz",
-  "\u01c7": "LJ",
-  "\u01c8": "Lj",
-  "\u01c9": "lj",
-  "\u01ca": "NJ",
-  "\u01cb": "Nj",
-  "\u01cc": "nj",
-  "\u01cd": "A",
-  "\u01ce": "a",
-  "\u01cf": "I",
-  "\u01d0": "i",
-  "\u01d1": "O",
-  "\u01d2": "o",
-  "\u01d3": "U",
-  "\u01d4": "u",
-  "\u01d5": "U",
-  "\u01d6": "u",
-  "\u01d7": "U",
-  "\u01d8": "u",
-  "\u01d9": "U",
-  "\u01da": "u",
-  "\u01db": "U",
-  "\u01dc": "u",
-  "\u01dd": "e",
-  "\u01de": "A",
-  "\u01df": "a",
-  "\u01e0": "A",
-  "\u01e1": "a",
-  "\u01e2": "AE",
-  "\u01e3": "ae",
-  "\u01e4": "G",
-  "\u01e5": "g",
-  "\u01e6": "G",
-  "\u01e7": "g",
-  "\u01e8": "K",
-  "\u01e9": "k",
-  "\u01ea": "O",
-  "\u01eb": "o",
-  "\u01ec": "O",
-  "\u01ed": "o",
-  "\u01f0": "j",
-  "\u01f1": "DZ",
-  "\u01f2": "Dz",
-  "\u01f3": "dz",
-  "\u01f4": "G",
-  "\u01f5": "g",
-  "\u01f8": "N",
-  "\u01f9": "n",
-  "\u01fa": "A",
-  "\u01fb": "a",
-  "\u01fc": "AE",
-  "\u01fd": "ae",
-  "\u01fe": "O",
-  "\u01ff": "o",
-  "\u0200": "A",
-  "\u0201": "a",
-  "\u0202": "A",
-  "\u0203": "a",
-  "\u0204": "E",
-  "\u0205": "e",
-  "\u0206": "E",
-  "\u0207": "e",
-  "\u0208": "I",
-  "\u0209": "i",
-  "\u020a": "I",
-  "\u020b": "i",
-  "\u020c": "O",
-  "\u020d": "o",
-  "\u020e": "O",
-  "\u020f": "o",
-  "\u0210": "R",
-  "\u0211": "r",
-  "\u0212": "R",
-  "\u0213": "r",
-  "\u0214": "U",
-  "\u0215": "u",
-  "\u0216": "U",
-  "\u0217": "u",
-  "\u0218": "S",
-  "\u0219": "s",
-  "\u021a": "T",
-  "\u021b": "t",
-  "\u021e": "H",
-  "\u021f": "h",
-  "\u0220": "N",
-  "\u0222": "OU",
-  "\u0223": "ou",
-  "\u0224": "Z",
-  "\u0225": "z",
-  "\u0226": "A",
-  "\u0227": "a",
-  "\u0228": "E",
-  "\u0229": "e",
-  "\u022a": "O",
-  "\u022b": "o",
-  "\u022c": "O",
-  "\u022d": "o",
-  "\u022e": "O",
-  "\u022f": "o",
-  "\u0230": "O",
-  "\u0231": "o",
-  "\u0232": "Y",
-  "\u0233": "y",
-  "\u023a": "A",
-  "\u023b": "C",
-  "\u023c": "c",
-  "\u023d": "L",
-  "\u023e": "T",
-  "\u023f": "s",
-  "\u0240": "z",
-  "\u0243": "B",
-  "\u0244": "U",
-  "\u0245": "V",
-  "\u0247": "e",
-  "\u0248": "J",
-  "\u0249": "j",
-  "\u024a": "Q",
-  "\u024b": "q",
-  "\u024c": "R",
-  "\u024d": "r",
-  "\u024e": "Y",
-  "\u024f": "y",
-  "\u0250": "a",
-  "\u0253": "b",
-  "\u0254": "o",
-  "\u0256": "d",
-  "\u0257": "d",
-  "\u025b": "e",
-  "\u0260": "g",
-  "\u0265": "h",
-  "\u0268": "i",
-  "\u026b": "l",
-  "\u026f": "m",
-  "\u0271": "m",
-  "\u0272": "n",
-  "\u0275": "o",
-  "\u027d": "r",
-  "\u0288": "t",
-  "\u0289": "u",
-  "\u028b": "v",
-  "\u028c": "v",
-  "\u1d79": "g",
-  "\u1d7d": "p",
-  "\u1e00": "A",
-  "\u1e01": "a",
-  "\u1e02": "B",
-  "\u1e03": "b",
-  "\u1e04": "B",
-  "\u1e05": "b",
-  "\u1e06": "B",
-  "\u1e07": "b",
-  "\u1e08": "C",
-  "\u1e09": "c",
-  "\u1e0a": "D",
-  "\u1e0b": "d",
-  "\u1e0c": "D",
-  "\u1e0d": "d",
-  "\u1e0e": "D",
-  "\u1e0f": "d",
-  "\u1e10": "D",
-  "\u1e11": "d",
-  "\u1e12": "D",
-  "\u1e13": "d",
-  "\u1e14": "E",
-  "\u1e15": "e",
-  "\u1e16": "E",
-  "\u1e17": "e",
-  "\u1e18": "E",
-  "\u1e19": "e",
-  "\u1e1a": "E",
-  "\u1e1b": "e",
-  "\u1e1c": "E",
-  "\u1e1d": "e",
-  "\u1e1e": "F",
-  "\u1e1f": "f",
-  "\u1e20": "G",
-  "\u1e21": "g",
-  "\u1e22": "H",
-  "\u1e23": "h",
-  "\u1e24": "H",
-  "\u1e25": "h",
-  "\u1e26": "H",
-  "\u1e27": "h",
-  "\u1e28": "H",
-  "\u1e29": "h",
-  "\u1e2a": "H",
-  "\u1e2b": "h",
-  "\u1e2c": "I",
-  "\u1e2d": "i",
-  "\u1e2e": "I",
-  "\u1e2f": "i",
-  "\u1e30": "K",
-  "\u1e31": "k",
-  "\u1e32": "K",
-  "\u1e33": "k",
-  "\u1e34": "K",
-  "\u1e35": "k",
-  "\u1e36": "L",
-  "\u1e37": "l",
-  "\u1e38": "L",
-  "\u1e39": "l",
-  "\u1e3a": "L",
-  "\u1e3b": "l",
-  "\u1e3c": "L",
-  "\u1e3d": "l",
-  "\u1e3e": "M",
-  "\u1e3f": "m",
-  "\u1e40": "M",
-  "\u1e41": "m",
-  "\u1e42": "M",
-  "\u1e43": "m",
-  "\u1e44": "N",
-  "\u1e45": "n",
-  "\u1e46": "N",
-  "\u1e47": "n",
-  "\u1e48": "N",
-  "\u1e49": "n",
-  "\u1e4a": "N",
-  "\u1e4b": "n",
-  "\u1e4c": "O",
-  "\u1e4d": "o",
-  "\u1e4e": "O",
-  "\u1e4f": "o",
-  "\u1e50": "O",
-  "\u1e51": "o",
-  "\u1e52": "O",
-  "\u1e53": "o",
-  "\u1e54": "P",
-  "\u1e55": "p",
-  "\u1e56": "P",
-  "\u1e57": "p",
-  "\u1e58": "R",
-  "\u1e59": "r",
-  "\u1e5a": "R",
-  "\u1e5b": "r",
-  "\u1e5c": "R",
-  "\u1e5d": "r",
-  "\u1e5e": "R",
-  "\u1e5f": "r",
-  "\u1e60": "S",
-  "\u1e61": "s",
-  "\u1e62": "S",
-  "\u1e63": "s",
-  "\u1e64": "S",
-  "\u1e65": "s",
-  "\u1e66": "S",
-  "\u1e67": "s",
-  "\u1e68": "S",
-  "\u1e69": "s",
-  "\u1e6a": "T",
-  "\u1e6b": "t",
-  "\u1e6c": "T",
-  "\u1e6d": "t",
-  "\u1e6e": "T",
-  "\u1e6f": "t",
-  "\u1e70": "T",
-  "\u1e71": "t",
-  "\u1e72": "U",
-  "\u1e73": "u",
-  "\u1e74": "U",
-  "\u1e75": "u",
-  "\u1e76": "U",
-  "\u1e77": "u",
-  "\u1e78": "U",
-  "\u1e79": "u",
-  "\u1e7a": "U",
-  "\u1e7b": "u",
-  "\u1e7c": "V",
-  "\u1e7d": "v",
-  "\u1e7e": "V",
-  "\u1e7f": "v",
-  "\u1e80": "W",
-  "\u1e81": "w",
-  "\u1e82": "W",
-  "\u1e83": "w",
-  "\u1e84": "W",
-  "\u1e85": "w",
-  "\u1e86": "W",
-  "\u1e87": "w",
-  "\u1e88": "W",
-  "\u1e89": "w",
-  "\u1e8a": "X",
-  "\u1e8b": "x",
-  "\u1e8c": "X",
-  "\u1e8d": "x",
-  "\u1e8e": "Y",
-  "\u1e8f": "y",
-  "\u1e90": "Z",
-  "\u1e91": "z",
-  "\u1e92": "Z",
-  "\u1e93": "z",
-  "\u1e94": "Z",
-  "\u1e95": "z",
-  "\u1e96": "h",
-  "\u1e97": "t",
-  "\u1e98": "w",
-  "\u1e99": "y",
-  "\u1e9a": "a",
-  "\u1e9b": "s",
-  "\u1e9e": "S",
-  "\u1ea0": "A",
-  "\u1ea1": "a",
-  "\u1ea2": "A",
-  "\u1ea3": "a",
-  "\u1ea4": "A",
-  "\u1ea5": "a",
-  "\u1ea6": "A",
-  "\u1ea7": "a",
-  "\u1ea8": "A",
-  "\u1ea9": "a",
-  "\u1eaa": "A",
-  "\u1eab": "a",
-  "\u1eac": "A",
-  "\u1ead": "a",
-  "\u1eae": "A",
-  "\u1eaf": "a",
-  "\u1eb0": "A",
-  "\u1eb1": "a",
-  "\u1eb2": "A",
-  "\u1eb3": "a",
-  "\u1eb4": "A",
-  "\u1eb5": "a",
-  "\u1eb6": "A",
-  "\u1eb7": "a",
-  "\u1eb8": "E",
-  "\u1eb9": "e",
-  "\u1eba": "E",
-  "\u1ebb": "e",
-  "\u1ebc": "E",
-  "\u1ebd": "e",
-  "\u1ebe": "E",
-  "\u1ebf": "e",
-  "\u1ec0": "E",
-  "\u1ec1": "e",
-  "\u1ec2": "E",
-  "\u1ec3": "e",
-  "\u1ec4": "E",
-  "\u1ec5": "e",
-  "\u1ec6": "E",
-  "\u1ec7": "e",
-  "\u1ec8": "I",
-  "\u1ec9": "i",
-  "\u1eca": "I",
-  "\u1ecb": "i",
-  "\u1ecc": "O",
-  "\u1ecd": "o",
-  "\u1ece": "O",
-  "\u1ecf": "o",
-  "\u1ed0": "O",
-  "\u1ed1": "o",
-  "\u1ed2": "O",
-  "\u1ed3": "o",
-  "\u1ed4": "O",
-  "\u1ed5": "o",
-  "\u1ed6": "O",
-  "\u1ed7": "o",
-  "\u1ed8": "O",
-  "\u1ed9": "o",
-  "\u1eda": "O",
-  "\u1edb": "o",
-  "\u1edc": "O",
-  "\u1edd": "o",
-  "\u1ede": "O",
-  "\u1edf": "o",
-  "\u1ee0": "O",
-  "\u1ee1": "o",
-  "\u1ee2": "O",
-  "\u1ee3": "o",
-  "\u1ee4": "U",
-  "\u1ee5": "u",
-  "\u1ee6": "U",
-  "\u1ee7": "u",
-  "\u1ee8": "U",
-  "\u1ee9": "u",
-  "\u1eea": "U",
-  "\u1eeb": "u",
-  "\u1eec": "U",
-  "\u1eed": "u",
-  "\u1eee": "U",
-  "\u1eef": "u",
-  "\u1ef0": "U",
-  "\u1ef1": "u",
-  "\u1ef2": "Y",
-  "\u1ef3": "y",
-  "\u1ef4": "Y",
-  "\u1ef5": "y",
-  "\u1ef6": "Y",
-  "\u1ef7": "y",
-  "\u1ef8": "Y",
-  "\u1ef9": "y",
-  "\u1efe": "Y",
-  "\u1eff": "y",
-  "\u2184": "c",
-  "\u24b6": "A",
-  "\u24b7": "B",
-  "\u24b8": "C",
-  "\u24b9": "D",
-  "\u24ba": "E",
-  "\u24bb": "F",
-  "\u24bc": "G",
-  "\u24bd": "H",
-  "\u24be": "I",
-  "\u24bf": "J",
-  "\u24c0": "K",
-  "\u24c1": "L",
-  "\u24c2": "M",
-  "\u24c3": "N",
-  "\u24c4": "O",
-  "\u24c5": "P",
-  "\u24c6": "Q",
-  "\u24c7": "R",
-  "\u24c8": "S",
-  "\u24c9": "T",
-  "\u24ca": "U",
-  "\u24cb": "V",
-  "\u24cc": "W",
-  "\u24cd": "X",
-  "\u24ce": "Y",
-  "\u24cf": "Z",
-  "\u24d0": "a",
-  "\u24d1": "b",
-  "\u24d2": "c",
-  "\u24d3": "d",
-  "\u24d4": "e",
-  "\u24d5": "f",
-  "\u24d6": "g",
-  "\u24d7": "h",
-  "\u24d8": "i",
-  "\u24d9": "j",
-  "\u24da": "k",
-  "\u24db": "l",
-  "\u24dc": "m",
-  "\u24dd": "n",
-  "\u24de": "o",
-  "\u24df": "p",
-  "\u24e0": "q",
-  "\u24e1": "r",
-  "\u24e2": "s",
-  "\u24e3": "t",
-  "\u24e4": "u",
-  "\u24e5": "v",
-  "\u24e6": "w",
-  "\u24e7": "x",
-  "\u24e8": "y",
-  "\u24e9": "z",
-  "\u2c60": "L",
-  "\u2c61": "l",
-  "\u2c62": "L",
-  "\u2c63": "P",
-  "\u2c64": "R",
-  "\u2c65": "a",
-  "\u2c66": "t",
-  "\u2c67": "H",
-  "\u2c68": "h",
-  "\u2c69": "K",
-  "\u2c6a": "k",
-  "\u2c6b": "Z",
-  "\u2c6c": "z",
-  "\u2c6e": "M",
-  "\u2c6f": "A",
-  "\u2c72": "W",
-  "\u2c73": "w",
-  "\u2c75": "H",
-  "\u2c76": "h",
-  "\u2c7e": "S",
-  "\u2c7f": "Z",
-  "\ua728": "TZ",
-  "\ua729": "tz",
-  "\ua732": "AA",
-  "\ua733": "aa",
-  "\ua734": "AO",
-  "\ua735": "ao",
-  "\ua736": "AU",
-  "\ua737": "au",
-  "\ua738": "AV",
-  "\ua739": "av",
-  "\ua73a": "AV",
-  "\ua73b": "av",
-  "\ua73c": "AY",
-  "\ua73d": "ay",
-  "\ua73e": "C",
-  "\ua73f": "c",
-  "\ua740": "K",
-  "\ua741": "k",
-  "\ua742": "K",
-  "\ua743": "k",
-  "\ua744": "K",
-  "\ua745": "k",
-  "\ua746": "L",
-  "\ua747": "l",
-  "\ua748": "L",
-  "\ua749": "l",
-  "\ua74a": "O",
-  "\ua74b": "o",
-  "\ua74c": "O",
-  "\ua74d": "o",
-  "\ua74e": "OO",
-  "\ua74f": "oo",
-  "\ua750": "P",
-  "\ua751": "p",
-  "\ua752": "P",
-  "\ua753": "p",
-  "\ua754": "P",
-  "\ua755": "p",
-  "\ua756": "Q",
-  "\ua757": "q",
-  "\ua758": "Q",
-  "\ua759": "q",
-  "\ua75a": "R",
-  "\ua75b": "r",
-  "\ua75e": "V",
-  "\ua75f": "v",
-  "\ua760": "VY",
-  "\ua761": "vy",
-  "\ua762": "Z",
-  "\ua763": "z",
-  "\ua779": "D",
-  "\ua77a": "d",
-  "\ua77b": "F",
-  "\ua77c": "f",
-  "\ua77d": "G",
-  "\ua77e": "G",
-  "\ua77f": "g",
-  "\ua780": "L",
-  "\ua781": "l",
-  "\ua782": "R",
-  "\ua783": "r",
-  "\ua784": "S",
-  "\ua785": "s",
-  "\ua786": "T",
-  "\ua787": "t",
-  "\ua78d": "H",
-  "\ua790": "N",
-  "\ua791": "n",
-  "\ua7a0": "G",
-  "\ua7a1": "g",
-  "\ua7a2": "K",
-  "\ua7a3": "k",
-  "\ua7a4": "N",
-  "\ua7a5": "n",
-  "\ua7a6": "R",
-  "\ua7a7": "r",
-  "\ua7a8": "S",
-  "\ua7a9": "s",
-  "\uff21": "A",
-  "\uff22": "B",
-  "\uff23": "C",
-  "\uff24": "D",
-  "\uff25": "E",
-  "\uff26": "F",
-  "\uff27": "G",
-  "\uff28": "H",
-  "\uff29": "I",
-  "\uff2a": "J",
-  "\uff2b": "K",
-  "\uff2c": "L",
-  "\uff2d": "M",
-  "\uff2e": "N",
-  "\uff2f": "O",
-  "\uff30": "P",
-  "\uff31": "Q",
-  "\uff32": "R",
-  "\uff33": "S",
-  "\uff34": "T",
-  "\uff35": "U",
-  "\uff36": "V",
-  "\uff37": "W",
-  "\uff38": "X",
-  "\uff39": "Y",
-  "\uff3a": "Z",
-  "\uff41": "a",
-  "\uff42": "b",
-  "\uff43": "c",
-  "\uff44": "d",
-  "\uff45": "e",
-  "\uff46": "f",
-  "\uff47": "g",
-  "\uff48": "h",
-  "\uff49": "i",
-  "\uff4a": "j",
-  "\uff4b": "k",
-  "\uff4c": "l",
-  "\uff4d": "m",
-  "\uff4e": "n",
-  "\uff4f": "o",
-  "\uff50": "p",
-  "\uff51": "q",
-  "\uff52": "r",
-  "\uff53": "s",
-  "\uff54": "t",
-  "\uff55": "u",
-  "\uff56": "v",
-  "\uff57": "w",
-  "\uff58": "x",
-  "\uff59": "y",
-  "\uff5a": "z",
-
-  // Additional maps for russian, ukrainian and few other languages
-  "\u00d0": "D",
-  "\u00de": "TH",
-  "\u00f0": "d",
-  "\u00fe": "th",
-  "\u0386": "A",
-  "\u0388": "E",
-  "\u0389": "H",
-  "\u038a": "I",
-  "\u038c": "O",
-  "\u038e": "Y",
-  "\u038f": "W",
-  "\u0390": "i",
-  "\u0391": "A",
-  "\u0392": "B",
-  "\u0393": "G",
-  "\u0394": "D",
-  "\u0395": "E",
-  "\u0396": "Z",
-  "\u0397": "H",
-  "\u0398": "8",
-  "\u0399": "I",
-  "\u039a": "K",
-  "\u039b": "L",
-  "\u039c": "M",
-  "\u039d": "N",
-  "\u039e": "3",
-  "\u039f": "O",
-  "\u03a0": "P",
-  "\u03a1": "R",
-  "\u03a3": "S",
-  "\u03a4": "T",
-  "\u03a5": "Y",
-  "\u03a6": "F",
-  "\u03a7": "X",
-  "\u03a8": "PS",
-  "\u03a9": "W",
-  "\u03aa": "I",
-  "\u03ab": "Y",
-  "\u03ac": "a",
-  "\u03ad": "e",
-  "\u03ae": "h",
-  "\u03af": "i",
-  "\u03b0": "y",
-  "\u03b1": "a",
-  "\u03b2": "b",
-  "\u03b3": "g",
-  "\u03b4": "d",
-  "\u03b5": "e",
-  "\u03b6": "z",
-  "\u03b7": "h",
-  "\u03b8": "8",
-  "\u03b9": "i",
-  "\u03ba": "k",
-  "\u03bb": "l",
-  "\u03bc": "m",
-  "\u03bd": "n",
-  "\u03be": "3",
-  "\u03bf": "o",
-  "\u03c0": "p",
-  "\u03c1": "r",
-  "\u03c2": "s",
-  "\u03c3": "s",
-  "\u03c4": "t",
-  "\u03c5": "y",
-  "\u03c6": "f",
-  "\u03c7": "x",
-  "\u03c8": "ps",
-  "\u03c9": "w",
-  "\u03ca": "i",
-  "\u03cb": "y",
-  "\u03cc": "o",
-  "\u03cd": "y",
-  "\u03ce": "w",
-  "\u0401": "Yo",
-  "\u0404": "Ye",
-  "\u0406": "I",
-  "\u0407": "Yi",
-  "\u0410": "A",
-  "\u0411": "B",
-  "\u0412": "V",
-  "\u0413": "G",
-  "\u0414": "D",
-  "\u0415": "E",
-  "\u0416": "Zh",
-  "\u0417": "Z",
-  "\u0418": "I",
-  "\u0419": "J",
-  "\u041a": "K",
-  "\u041b": "L",
-  "\u041c": "M",
-  "\u041d": "N",
-  "\u041e": "O",
-  "\u041f": "P",
-  "\u0420": "R",
-  "\u0421": "S",
-  "\u0422": "T",
-  "\u0423": "U",
-  "\u0424": "F",
-  "\u0425": "H",
-  "\u0426": "C",
-  "\u0427": "Ch",
-  "\u0428": "Sh",
-  "\u0429": "Sh",
-  "\u042a": "U",
-  "\u042b": "Y",
-  "\u042c": "",
-  "\u042d": "E",
-  "\u042e": "Yu",
-  "\u042f": "Ya",
-  "\u0430": "a",
-  "\u0431": "b",
-  "\u0432": "v",
-  "\u0433": "g",
-  "\u0434": "d",
-  "\u0435": "e",
-  "\u0436": "zh",
-  "\u0437": "z",
-  "\u0438": "i",
-  "\u0439": "j",
-  "\u043a": "k",
-  "\u043b": "l",
-  "\u043c": "m",
-  "\u043d": "n",
-  "\u043e": "o",
-  "\u043f": "p",
-  "\u0440": "r",
-  "\u0441": "s",
-  "\u0442": "t",
-  "\u0443": "u",
-  "\u0444": "f",
-  "\u0445": "h",
-  "\u0446": "c",
-  "\u0447": "ch",
-  "\u0448": "sh",
-  "\u0449": "sh",
-  "\u044a": "u",
-  "\u044b": "y",
-  "\u044c": "",
-  "\u044d": "e",
-  "\u044e": "yu",
-  "\u044f": "ya",
-  "\u0451": "yo",
-  "\u0454": "ye",
-  "\u0456": "i",
-  "\u0457": "yi",
-  "\u0490": "G",
-  "\u0491": "g"
+var diacritics = {
+  "3": "\u039e\u03be",
+  "8": "\u0398\u03b8",
+  "A": "\x41\xc0\xc1\xc2\xc3\xc4\xc5\u0100\u0102\u0104\u01cd\u01de\u01e0\u01fa\u0200\u0202\u0226\u023a\u1e00\u1ea0\u1ea2\u1ea4\u1ea6\u1ea8\u1eaa\u1eac\u1eae\u1eb0\u1eb2\u1eb4\u1eb6\u24b6\u2c6f\uff21\u0386\u0391\u0410",
+  "B": "\x42\u0181\u0182\u0243\u1e02\u1e04\u1e06\u24b7\uff22\u0392\u0411",
+  "C": "\x43\xc7\u0106\u0108\u010a\u010c\u0187\u023b\u1e08\u24b8\ua73e\uff23\u0426",
+  "D": "\x44\u010e\u0110\u0189\u018a\u018b\u1e0a\u1e0c\u1e0e\u1e10\u1e12\u24b9\ua779\uff24\xd0\u0394\u0414",
+  "E": "\x45\xc8\xc9\xca\xcb\u0112\u0114\u0116\u0118\u011a\u018e\u0190\u0204\u0206\u0228\u1e14\u1e16\u1e18\u1e1a\u1e1c\u1eb8\u1eba\u1ebc\u1ebe\u1ec0\u1ec2\u1ec4\u1ec6\u24ba\uff25\u0388\u0395\u0415\u042d",
+  "F": "\x46\u0191\u1e1e\u24bb\ua77b\uff26\u03a6\u0424",
+  "G": "\x47\u011c\u011e\u0120\u0122\u0193\u01e4\u01e6\u01f4\u1e20\u24bc\ua77d\ua77e\ua7a0\uff27\u0393\u0413\u0490",
+  "H": "\x48\u0124\u0126\u021e\u1e22\u1e24\u1e26\u1e28\u1e2a\u24bd\u2c67\u2c75\ua78d\uff28\u0389\u0397\u0425",
+  "I": "\x49\xcc\xcd\xce\xcf\u0128\u012a\u012c\u012e\u0130\u0197\u01cf\u0208\u020a\u1e2c\u1e2e\u1ec8\u1eca\u24be\uff29\u038a\u0399\u03aa\u0406\u0418",
+  "J": "\x4a\u0134\u0248\u24bf\uff2a\u0419",
+  "K": "\x4b\u0136\u0198\u01e8\u1e30\u1e32\u1e34\u24c0\u2c69\ua740\ua742\ua744\ua7a2\uff2b\u039a\u041a",
+  "L": "\x4c\u0139\u013b\u013d\u013f\u0141\u023d\u1e36\u1e38\u1e3a\u1e3c\u24c1\u2c60\u2c62\ua746\ua748\ua780\uff2c\u039b\u041b",
+  "M": "\x4d\u019c\u1e3e\u1e40\u1e42\u24c2\u2c6e\uff2d\u039c\u041c",
+  "N": "\x4e\xd1\u0143\u0145\u0147\u019d\u01f8\u0220\u1e44\u1e46\u1e48\u1e4a\u24c3\ua790\ua7a4\uff2e\u039d\u041d",
+  "O": "\x4f\xd2\xd3\xd4\xd5\xd6\xd8\u014c\u014e\u0150\u0186\u019f\u01a0\u01d1\u01ea\u01ec\u01fe\u020c\u020e\u022a\u022c\u022e\u0230\u1e4c\u1e4e\u1e50\u1e52\u1ecc\u1ece\u1ed0\u1ed2\u1ed4\u1ed6\u1ed8\u1eda\u1edc\u1ede\u1ee0\u1ee2\u24c4\ua74a\ua74c\uff2f\u038c\u039f\u041e",
+  "P": "\x50\u01a4\u1e54\u1e56\u24c5\u2c63\ua750\ua752\ua754\uff30\u03a0\u041f",
+  "Q": "\x51\u024a\u24c6\ua756\ua758\uff31",
+  "R": "\x52\u0154\u0156\u0158\u0210\u0212\u024c\u1e58\u1e5a\u1e5c\u1e5e\u24c7\u2c64\ua75a\ua782\ua7a6\uff32\u03a1\u0420",
+  "S": "\x53\u015a\u015c\u015e\u0160\u0218\u1e60\u1e62\u1e64\u1e66\u1e68\u1e9e\u24c8\u2c7e\ua784\ua7a8\uff33\u03a3\u0421",
+  "T": "\x54\u0162\u0164\u0166\u01ac\u01ae\u021a\u023e\u1e6a\u1e6c\u1e6e\u1e70\u24c9\ua786\uff34\u03a4\u0422",
+  "U": "\x55\xd9\xda\xdb\xdc\u0168\u016a\u016c\u016e\u0170\u0172\u01af\u01d3\u01d5\u01d7\u01d9\u01db\u0214\u0216\u0244\u1e72\u1e74\u1e76\u1e78\u1e7a\u1ee4\u1ee6\u1ee8\u1eea\u1eec\u1eee\u1ef0\u24ca\uff35\u0423\u042a",
+  "V": "\x56\u01b2\u0245\u1e7c\u1e7e\u24cb\ua75e\uff36\u0412",
+  "W": "\x57\u0174\u1e80\u1e82\u1e84\u1e86\u1e88\u24cc\u2c72\uff37\u038f\u03a9",
+  "X": "\x58\u1e8a\u1e8c\u24cd\uff38\u03a7",
+  "Y": "\x59\xdd\u0176\u0178\u01b3\u0232\u024e\u1e8e\u1ef2\u1ef4\u1ef6\u1ef8\u1efe\u24ce\uff39\u038e\u03a5\u03ab\u042b",
+  "Z": "\x5a\u0179\u017b\u017d\u01b5\u0224\u1e90\u1e92\u1e94\u24cf\u2c6b\u2c7f\ua762\uff3a\u0396\u0417",
+  "a": "\x61\xe0\xe1\xe2\xe3\xe4\xe5\u0101\u0103\u0105\u01ce\u01df\u01e1\u01fb\u0201\u0203\u0227\u0250\u1e01\u1e9a\u1ea1\u1ea3\u1ea5\u1ea7\u1ea9\u1eab\u1ead\u1eaf\u1eb1\u1eb3\u1eb5\u1eb7\u24d0\u2c65\uff41\u03ac\u03b1\u0430",
+  "b": "\x62\u0180\u0183\u0253\u1e03\u1e05\u1e07\u24d1\uff42\u03b2\u0431",
+  "c": "\x63\xe7\u0107\u0109\u010b\u010d\u0188\u023c\u1e09\u2184\u24d2\ua73f\uff43\u0446",
+  "d": "\x64\u010f\u0111\u018c\u0256\u0257\u1e0b\u1e0d\u1e0f\u1e11\u1e13\u24d3\ua77a\uff44\xf0\u03b4\u0434",
+  "e": "\x65\xe8\xe9\xea\xeb\u0113\u0115\u0117\u0119\u011b\u01dd\u0205\u0207\u0229\u0247\u025b\u1e15\u1e17\u1e19\u1e1b\u1e1d\u1eb9\u1ebb\u1ebd\u1ebf\u1ec1\u1ec3\u1ec5\u1ec7\u24d4\uff45\u03ad\u03b5\u0435\u044d",
+  "f": "\x66\u0192\u1e1f\u24d5\ua77c\uff46\u03c6\u0444",
+  "g": "\x67\u011d\u011f\u0121\u0123\u01e5\u01e7\u01f5\u0260\u1d79\u1e21\u24d6\ua77f\ua7a1\uff47\u03b3\u0433\u0491",
+  "h": "\x68\u0125\u0127\u021f\u0265\u1e23\u1e25\u1e27\u1e29\u1e2b\u1e96\u24d7\u2c68\u2c76\uff48\u03ae\u03b7\u0445",
+  "i": "\x69\xec\xed\xee\xef\u0129\u012b\u012d\u012f\u0131\u01d0\u0209\u020b\u0268\u1e2d\u1e2f\u1ec9\u1ecb\u24d8\uff49\u0390\u03af\u03b9\u03ca\u0438\u0456",
+  "j": "\x6a\u0135\u01f0\u0249\u24d9\uff4a\u0439",
+  "k": "\x6b\u0137\u0199\u01e9\u1e31\u1e33\u1e35\u24da\u2c6a\ua741\ua743\ua745\ua7a3\uff4b\u03ba\u043a",
+  "l": "\x6c\u013a\u013c\u013e\u0140\u0142\u017f\u019a\u026b\u1e37\u1e39\u1e3b\u1e3d\u24db\u2c61\ua747\ua749\ua781\uff4c\u03bb\u043b",
+  "m": "\x6d\u026f\u0271\u1e3f\u1e41\u1e43\u24dc\uff4d\u03bc\u043c",
+  "n": "\x6e\xf1\u0144\u0146\u0148\u0149\u019e\u01f9\u0272\u1e45\u1e47\u1e49\u1e4b\u24dd\ua791\ua7a5\uff4e\u03bd\u043d",
+  "o": "\x6f\xf2\xf3\xf4\xf5\xf6\xf8\u014d\u014f\u0151\u01a1\u01d2\u01eb\u01ed\u01ff\u020d\u020f\u022b\u022d\u022f\u0231\u0254\u0275\u1e4d\u1e4f\u1e51\u1e53\u1ecd\u1ecf\u1ed1\u1ed3\u1ed5\u1ed7\u1ed9\u1edb\u1edd\u1edf\u1ee1\u1ee3\u24de\ua74b\ua74d\uff4f\u03bf\u03cc\u043e",
+  "p": "\x70\u01a5\u1d7d\u1e55\u1e57\u24df\ua751\ua753\ua755\uff50\u03c0\u043f",
+  "q": "\x71\u024b\u24e0\ua757\ua759\uff51",
+  "r": "\x72\u0155\u0157\u0159\u0211\u0213\u024d\u027d\u1e59\u1e5b\u1e5d\u1e5f\u24e1\ua75b\ua783\ua7a7\uff52\u03c1\u0440",
+  "s": "\x73\xdf\u015b\u015d\u015f\u0161\u0219\u023f\u1e61\u1e63\u1e65\u1e67\u1e69\u1e9b\u24e2\ua785\ua7a9\uff53\u03c2\u03c3\u0441",
+  "t": "\x74\u0163\u0165\u0167\u01ad\u021b\u0288\u1e6b\u1e6d\u1e6f\u1e71\u1e97\u24e3\u2c66\ua787\uff54\u03c4\u0442",
+  "u": "\x75\xf9\xfa\xfb\xfc\u0169\u016b\u016d\u016f\u0171\u0173\u01b0\u01d4\u01d6\u01d8\u01da\u01dc\u0215\u0217\u0289\u1e73\u1e75\u1e77\u1e79\u1e7b\u1ee5\u1ee7\u1ee9\u1eeb\u1eed\u1eef\u1ef1\u24e4\uff55\u0443\u044a",
+  "v": "\x76\u028b\u028c\u1e7d\u1e7f\u24e5\ua75f\uff56\u0432",
+  "w": "\x77\u0175\u1e81\u1e83\u1e85\u1e87\u1e89\u1e98\u24e6\u2c73\uff57\u03c9\u03ce",
+  "x": "\x78\u1e8b\u1e8d\u24e7\uff58\u03c7",
+  "y": "\x79\xfd\xff\u0177\u01b4\u0233\u024f\u1e8f\u1e99\u1ef3\u1ef5\u1ef7\u1ef9\u1eff\u24e8\uff59\u03b0\u03c5\u03cb\u03cd\u044b",
+  "z": "\x7a\u017a\u017c\u017e\u01b6\u0225\u0240\u1e91\u1e93\u1e95\u24e9\u2c6c\ua763\uff5a\u03b6\u0437",
+  "OE": "\x8c\u0152",
+  "oe": "\x9c\u0153",
+  "AE": "\xc6\u01e2\u01fc",
+  "ae": "\xe6\u01e3\u01fd",
+  "hv": "\u0195",
+  "OI": "\u01a2",
+  "oi": "\u01a3",
+  "DZ": "\u01c4\u01f1",
+  "Dz": "\u01c5\u01f2",
+  "dz": "\u01c6\u01f3",
+  "LJ": "\u01c7",
+  "Lj": "\u01c8",
+  "lj": "\u01c9",
+  "NJ": "\u01ca",
+  "Nj": "\u01cb",
+  "nj": "\u01cc",
+  "OU": "\u0222",
+  "ou": "\u0223",
+  "TZ": "\ua728",
+  "tz": "\ua729",
+  "AA": "\ua732",
+  "aa": "\ua733",
+  "AO": "\ua734",
+  "ao": "\ua735",
+  "AU": "\ua736",
+  "au": "\ua737",
+  "AV": "\ua738\ua73a",
+  "av": "\ua739\ua73b",
+  "AY": "\ua73c",
+  "ay": "\ua73d",
+  "OO": "\ua74e",
+  "oo": "\ua74f",
+  "VY": "\ua760",
+  "vy": "\ua761",
+  "TH": "\xde",
+  "th": "\xfe",
+  "PS": "\u03a8",
+  "ps": "\u03c8",
+  "Yo": "\u0401",
+  "Ye": "\u0404",
+  "Yi": "\u0407",
+  "Zh": "\u0416",
+  "Ch": "\u0427",
+  "Sh": "\u0428\u0429",
+  "": "\u042c\u044c",
+  "Yu": "\u042e",
+  "Ya": "\u042f",
+  "zh": "\u0436",
+  "ch": "\u0447",
+  "sh": "\u0448\u0449",
+  "yu": "\u044e",
+  "ya": "\u044f",
+  "yo": "\u0451",
+  "ye": "\u0454",
+  "yi": "\u0457"
 };
+
+var diacriticsMap = {};
+var index = void 0;
+
+Object.keys(diacritics).forEach(function (key) {
+  var characters = diacritics[key];
+  for (index = 0; index < characters.length; index++) {
+    var character = characters[index];
+    diacriticsMap[character] = key;
+  }
+});
 
 /**
  * Removes the diacritics from `character`.
@@ -3069,7 +2213,7 @@ var diacriticMap = {
  * @returns {string} Returns the character without diacritics.
  */
 function removeDiacritics(character) {
-  var characterWithoutDiacritic = diacriticMap[character];
+  var characterWithoutDiacritic = diacriticsMap[character];
   return characterWithoutDiacritic ? characterWithoutDiacritic : character;
 }
 
@@ -3108,7 +2252,7 @@ function latinise(subject) {
   if (subjectString === '') {
     return subjectString;
   }
-  return subjectString.replace(REGEXP_NON_BASIC_LATIN, removeDiacritics).replace(REGEXP_COMBINING_MARKS, removeCombiningMarks);
+  return subjectString.replace(REGEXP_NON_LATIN, removeDiacritics).replace(REGEXP_COMBINING_MARKS, removeCombiningMarks);
 }
 
 /**
@@ -3133,15 +2277,15 @@ function latinise(subject) {
  * // => '-cat-='
  */
 function pad(subject, length, pad) {
-  var subjectString = coerceToString(subject),
-      lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER),
-      padString = coerceToString(pad, ' ');
+  var subjectString = coerceToString(subject);
+  var lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
+  var padString = coerceToString(pad, ' ');
   if (lengthInt <= subjectString.length) {
     return subjectString;
   }
-  var paddingLength = lengthInt - subjectString.length,
-      paddingSideLength = toInteger(paddingLength / 2),
-      paddingSideRemainingLength = paddingLength % 2;
+  var paddingLength = lengthInt - subjectString.length;
+  var paddingSideLength = toInteger(paddingLength / 2);
+  var paddingSideRemainingLength = paddingLength % 2;
   return buildPadding(padString, paddingSideLength) + subjectString + buildPadding(padString, paddingSideLength + paddingSideRemainingLength);
 }
 
@@ -3181,9 +2325,9 @@ function replace(subject, pattern, replacement) {
  * @param {RegExp} regExp The regular expression object.
  * @return {string} Returns the string with flags chars.
  */
-var getRegExpFlags = function (regExp) {
+function getRegExpFlags(regExp) {
   return regExp.toString().match(REGEXP_FLAGS)[0];
-};
+}
 
 /**
  * Checks whether `subject` includes `search` starting from `position`.
@@ -3203,9 +2347,9 @@ var getRegExpFlags = function (regExp) {
  * v.includes('galaxy', 'g', 1);
  * // => false
  */
-var includes = function (subject, search, position) {
-  var subjectString = coerceToString(subject),
-      searchString = toString(search);
+function includes(subject, search, position) {
+  var subjectString = coerceToString(subject);
+  var searchString = toString(search);
   if (searchString === null) {
     return false;
   }
@@ -3214,7 +2358,7 @@ var includes = function (subject, search, position) {
   }
   position = isNil(position) ? 0 : clipNumber(toInteger(position), 0, subjectString.length);
   return subjectString.indexOf(searchString, position) !== -1;
-};
+}
 
 /**
  * Append flag to a regular expression.
@@ -3224,13 +2368,13 @@ var includes = function (subject, search, position) {
  * @param {string} appendFlag The flag to append to regular expression.
  * @return {RegExp} The regular expression with added flag.
  */
-var appendFlagToRegularExpression = function (pattern, appendFlag) {
+function appendFlagToRegExp(pattern, appendFlag) {
   var regularExpressionFlags = getRegExpFlags(pattern);
   if (!includes(regularExpressionFlags, appendFlag)) {
     return new RegExp(pattern.source, regularExpressionFlags + appendFlag);
   }
   return pattern;
-};
+}
 
 /**
  * Returns a new string where all matches of `pattern` are replaced with `replacement`. <br/>
@@ -3252,12 +2396,12 @@ var appendFlagToRegularExpression = function (pattern, appendFlag) {
  *
  */
 function replaceAll(subject, pattern, replacement) {
-  var subjectString = coerceToString(subject),
-      regExp = pattern;
+  var subjectString = coerceToString(subject);
+  var regExp = pattern;
   if (!(pattern instanceof RegExp)) {
     regExp = new RegExp(escapeRegExp(pattern), 'g');
   } else if (!pattern.global) {
-    regExp = appendFlagToRegularExpression(pattern, 'g');
+    regExp = appendFlagToRegExp(pattern, 'g');
   }
   return subjectString.replace(regExp, replacement);
 }
@@ -3306,8 +2450,8 @@ function reverseGrapheme(subject) {
   subjectString = subjectString.replace(REGEXP_COMBINING_MARKS, function ($0, $1, $2) {
     return reverseGrapheme($2) + $1;
   }).replace(REGEXP_SURROGATE_PAIRS, '$2$1');
-  var reversedString = '',
-      index = subjectString.length;
+  var reversedString = '';
+  var index = subjectString.length;
   while (index--) {
     reversedString += subjectString.charAt(index);
   }
@@ -3368,8 +2512,8 @@ function slugify(subject) {
  */
 function splice(subject, start, deleteCount, toAdd) {
   var subjectString = coerceToString(subject);
-  var startPosition = coerceToNumber(start);
   var toAddString = coerceToString(toAdd);
+  var startPosition = coerceToNumber(start);
   if (startPosition < 0) {
     startPosition = subjectString.length + startPosition;
     if (startPosition < 0) {
@@ -3402,18 +2546,18 @@ function splice(subject, start, deleteCount, toAdd) {
  * v.trimLeft('***Mobile Infantry', '*');
  * // => 'Mobile Infantry'
  */
-function trimLeft(subject, whitespace) {
+function trimLeft(subject, whitespace$$1) {
   var subjectString = coerceToString(subject);
-  if (whitespace === '' || subjectString === '') {
+  if (whitespace$$1 === '' || subjectString === '') {
     return subjectString;
   }
-  var whitespaceString = toString(whitespace);
+  var whitespaceString = toString(whitespace$$1);
   if (isNil(whitespaceString)) {
     return subjectString.replace(REGEXP_TRIM_LEFT, '');
   }
-  var matchWhitespace = true,
-      totalWhitespaceLength = 0,
-      whitespaceStringLength = whitespaceString.length;
+  var whitespaceStringLength = whitespaceString.length;
+  var matchWhitespace = true;
+  var totalWhitespaceLength = 0;
   while (matchWhitespace) {
     if (subjectString.indexOf(whitespaceString, totalWhitespaceLength) === totalWhitespaceLength) {
       totalWhitespaceLength += whitespaceStringLength;
@@ -3441,20 +2585,20 @@ function trimLeft(subject, whitespace) {
  * v.trimRight('do you feel in charge?!!!', '!');
  * // => 'do you feel in charge?'
  */
-function trimRight(subject, whitespace) {
+function trimRight(subject, whitespace$$1) {
   var subjectString = coerceToString(subject);
-  if (whitespace === '' || subjectString === '') {
+  if (whitespace$$1 === '' || subjectString === '') {
     return subjectString;
   }
-  var whitespaceString = toString(whitespace);
+  var whitespaceString = toString(whitespace$$1);
   if (isNil(whitespaceString)) {
     return subjectString.replace(REGEXP_TRIM_RIGHT, '');
   }
-  var matchWhitespace = true,
-      totalWhitespaceLength = 0,
-      whitespaceStringLength = whitespaceString.length,
-      valueStringLength = subjectString.length,
-      position;
+  var whitespaceStringLength = whitespaceString.length;
+  var valueStringLength = subjectString.length;
+  var matchWhitespace = true;
+  var totalWhitespaceLength = 0;
+  var position = void 0;
   while (matchWhitespace) {
     position = valueStringLength - totalWhitespaceLength - whitespaceStringLength;
     if (subjectString.indexOf(whitespaceString, position) === position) {
@@ -3495,6 +2639,94 @@ function trim(subject, whitespace) {
   return trimRight(trimLeft(subjectString, whitespaceString), whitespaceString);
 }
 
+var OPTION_WIDTH = 'width';
+var OPTION_NEW_LINE = 'newLine';
+var OPTION_INDENT = 'indent';
+var OPTION_CUT = 'cut';
+
+/**
+ * Wraps `subject` to a given number of characters using a string break character.
+ *
+ * @function wordWrap
+ * @static
+ * @since 1.0.0
+ * @memberOf Manipulate
+ * @param  {string} [subject=''] The string to wrap.
+ * @param  {Object} [options={}] The wrap options.
+ * @param  {number} [options.width=75] The number of characters at which to wrap.
+ * @param  {string} [options.newLine='\n'] The string to add at the end of line.
+ * @param  {string} [options.indent='']  The string to intend the line.
+ * @param  {boolean} [options.cut=false] When `false` (default) does not split the word even if word length is bigger than `width`. <br/>
+ *                                       When `true` breaks the word that has length bigger than `width`.
+ *
+ * @return {string} Returns wrapped string.
+ * @example
+ * v.wordWrap('Hello world', {
+ *   width: 5
+ * });
+ * // => 'Hello\nworld'
+ *
+ * v.wordWrap('Hello world', {
+ *   width: 5,
+ *   newLine: '<br/>',
+ *   indent: '__'
+ * });
+ * // => '__Hello<br/>__world'
+ *
+ * v.wordWrap('Wonderful world', {
+ *   width: 5,
+ *   cut: true
+ * });
+ * // => 'Wonde\nrful\nworld'
+ *
+ */
+function wordWrap(subject, options) {
+  var subjectString = coerceToString(subject);
+  options = nilDefault(options, {});
+  var width = coerceToNumber(options[OPTION_WIDTH], 75);
+  var newLine = coerceToString(options[OPTION_NEW_LINE], '\n');
+  var indent = coerceToString(options[OPTION_INDENT], '');
+  var cut = coerceToBoolean(options[OPTION_CUT], false);
+
+  if (subjectString === '' || width <= 0) {
+    return indent;
+  }
+
+  var subjectLength = subjectString.length;
+  var offset = 0;
+  var wrappedLine = '';
+
+  while (subjectLength - offset > width) {
+    if (subjectString[offset] === ' ') {
+      offset++;
+      continue;
+    }
+    var spaceToWrapAt = subjectString.lastIndexOf(' ', width + offset);
+    if (spaceToWrapAt >= offset) {
+      wrappedLine += indent + subjectString.substring(offset, spaceToWrapAt) + newLine;
+      offset = spaceToWrapAt + 1;
+    } else {
+      if (cut) {
+        wrappedLine += indent + subjectString.substring(offset, width + offset) + newLine;
+        offset += width;
+      } else {
+        spaceToWrapAt = subjectString.indexOf(' ', width + offset);
+        if (spaceToWrapAt >= 0) {
+          wrappedLine += indent + subjectString.substring(offset, spaceToWrapAt) + newLine;
+          offset = spaceToWrapAt + 1;
+        } else {
+          wrappedLine += indent + subjectString.substring(offset);
+          offset = subjectLength;
+        }
+      }
+    }
+  }
+  if (offset < subjectLength) {
+    wrappedLine += indent + subjectString.substring(offset);
+  }
+  return wrappedLine;
+}
+
 /**
  * Checks whether `subject` ends with `end`.
  *
@@ -3516,12 +2748,12 @@ function trim(subject, whitespace) {
  * v.endsWith('Murphy', 'ph', 5);
  * // => true
  */
-var endsWith = function (subject, end, position) {
+function endsWith(subject, end, position) {
   if (isNil(end)) {
     return false;
   }
-  var subjectString = coerceToString(subject),
-      endString = coerceToString(end);
+  var subjectString = coerceToString(subject);
+  var endString = coerceToString(end);
   if (endString === '') {
     return true;
   }
@@ -3529,7 +2761,7 @@ var endsWith = function (subject, end, position) {
   position -= endString.length;
   var lastIndex = subjectString.indexOf(endString, position);
   return lastIndex !== -1 && lastIndex === position;
-};
+}
 
 /**
  * Checks whether `subject` contains only alpha characters.
@@ -3550,10 +2782,10 @@ var endsWith = function (subject, end, position) {
  * v.isAlpha('lisa and bart');
  * // => false
  */
-var isAlpha = function (subject) {
+function isAlpha(subject) {
   var subjectString = coerceToString(subject);
   return REGEXP_ALPHA.test(subjectString);
-};
+}
 
 /**
  * Checks whether `subject` contains only alpha and digit characters.
@@ -3739,9 +2971,9 @@ function isUpperCase(subject) {
  * // => false
  */
 function matches(subject, pattern, flags) {
-  var subjectString = coerceToString(subject),
-      flagsString = coerceToString(flags),
-      patternString;
+  var subjectString = coerceToString(subject);
+  var flagsString = coerceToString(flags);
+  var patternString = void 0;
   if (!(pattern instanceof RegExp)) {
     patternString = toString(pattern);
     if (patternString === null) {
@@ -3774,8 +3006,8 @@ function matches(subject, pattern, flags) {
  * // => false
  */
 function startsWith(subject, start, position) {
-  var subjectString = coerceToString(subject),
-      startString = toString(start);
+  var subjectString = coerceToString(subject);
+  var startString = toString(start);
   if (startString === null) {
     return false;
   }
@@ -3823,11 +3055,11 @@ function chars(subject) {
  * //    [0x1F600, 0x20, 0x73, 0x6D, 0x69, 0x6C, 0x65]
  */
 function codePoints(subject) {
-  var subjectString = coerceToString(subject),
-      subjectStringLength = subjectString.length,
-      codePointArray = [],
-      index = 0,
-      codePointNumber;
+  var subjectString = coerceToString(subject);
+  var subjectStringLength = subjectString.length;
+  var codePointArray = [];
+  var index = 0;
+  var codePointNumber = void 0;
   while (index < subjectStringLength) {
     codePointNumber = codePointAt(subjectString, index);
     codePointArray.push(codePointNumber);
@@ -3998,9 +3230,10 @@ var functions = {
   upperCase: upperCase,
 
   count: count,
-  countGrapheme: countGrapheme,
-  countSubstring: countSubstring,
+  countGraphemes: countGrapheme,
+  countSubstrings: countSubstrings,
   countWhere: countWhere,
+  countWords: countWords,
 
   escapeHtml: escapeHtml,
   escapeRegExp: escapeRegExp,
@@ -4039,6 +3272,7 @@ var functions = {
   trim: trim,
   trimLeft: trimLeft,
   trimRight: trimRight,
+  wordWrap: wordWrap,
 
   endsWith: endsWith,
   includes: includes,

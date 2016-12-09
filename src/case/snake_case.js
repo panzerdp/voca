@@ -22,7 +22,7 @@ import words from 'split/words';
  * // => 'learning_to_fly'
  */
 export default function snakeCase(subject) {
-  var subjectString = coerceToString(subject);
+  const subjectString = coerceToString(subject);
   if (subjectString === '') {
     return '';
   }

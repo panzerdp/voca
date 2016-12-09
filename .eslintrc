@@ -19,6 +19,10 @@
     "space-before-blocks": ["error", { "functions": "always", "keywords": "always", "classes": "always" }],
     "semi": ["error", "always"],
     "no-undef": "error",
+    "no-var": "error",
+    "prefer-const": "error",
+    "no-const-assign": "error",
+    "one-var": ["error", "never"],
     "sort-imports": ["error", {
       "ignoreCase": true,
       "ignoreMemberSort": false,

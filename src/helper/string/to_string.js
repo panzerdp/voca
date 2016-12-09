@@ -1,4 +1,4 @@
-import isNil from '../object/is_nil';
+import isNil from 'helper/object/is_nil';
 import isString from 'query/is_string';
 
 /**
@@ -10,7 +10,7 @@ import isString from 'query/is_string';
  * @param {*} value             The value to convert.
  * @return {string|null}        Returns the string representation of `value`.
  */
-export default function(value) {
+export default function toString(value) {
   if (isNil(value)) {
     return null;
   }

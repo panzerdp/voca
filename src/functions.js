@@ -37,9 +37,10 @@ import substring from './chop/substring';
  * @namespace Count
  */
 import count from './count/count';
-import countGrapheme from './count/count_grapheme';
-import countSubstring from './count/count_substring';
+import countGraphemes from './count/count_graphemes';
+import countSubstrings from './count/count_substrings';
 import countWhere from './count/count_where';
+import countWords from './count/count_words';
 
 /**
  * Functions to format
@@ -83,6 +84,7 @@ import splice from './manipulate/splice';
 import trim from './manipulate/trim';
 import trimLeft from './manipulate/trim_left';
 import trimRight from './manipulate/trim_right';
+import wordWrap from './manipulate/word_wrap';
 
 /**
  * Functions to query a string
@@ -129,9 +131,10 @@ export default {
   upperCase,
 
   count,
-  countGrapheme,
-  countSubstring,
+  countGraphemes,
+  countSubstrings,
   countWhere,
+  countWords,
 
   escapeHtml,
   escapeRegExp,
@@ -170,6 +173,7 @@ export default {
   trim,
   trimLeft,
   trimRight,
+  wordWrap,
 
   endsWith,
   includes,

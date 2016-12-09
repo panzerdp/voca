@@ -1,6 +1,6 @@
 import coerceToString from 'helper/string/coerce_to_string';
 
-var reduce = Array.prototype.reduce;
+const reduce = Array.prototype.reduce;
 
 /**
  * Counts the characters in `subject` for which `predicate` returns truthy.
@@ -23,11 +23,11 @@ var reduce = Array.prototype.reduce;
  * // => 3
  */
 export default function countWhere(subject, predicate, context) {
-  var subjectString = coerceToString(subject);
+  const subjectString = coerceToString(subject);
   if (subjectString === '' || typeof predicate !== 'function') {
     return 0;
   }
-  var predicateWithContext = predicate.bind(context);
+  const predicateWithContext = predicate.bind(context);
   return reduce.call(subjectString, function(countTruthy, character, index) {
     return predicateWithContext(character, index, subjectString) ? countTruthy + 1 : countTruthy;
   }, 0);

@@ -1,5 +1,5 @@
 import coerceToString from 'helper/string/coerce_to_string';
-import { REGEXP_ALPHA_DIGIT } from 'helper/reg_exp/const';
+import { REGEXP_ALPHA_DIGIT } from 'helper/reg_exp/const_extended';
 
 /**
  * Checks whether `subject` contains only alpha and digit characters.
@@ -21,6 +21,6 @@ import { REGEXP_ALPHA_DIGIT } from 'helper/reg_exp/const';
  * // => false
  */
 export default function isAlphaDigit(subject) {
-  var subjectString = coerceToString(subject);
+  const subjectString = coerceToString(subject);
   return REGEXP_ALPHA_DIGIT.test(subjectString);
 }

@@ -24,17 +24,17 @@ import toInteger from 'helper/number/to_integer';
  * v.endsWith('Murphy', 'ph', 5);
  * // => true
  */
-export default function(subject, end, position) {
+export default function endsWith(subject, end, position) {
   if (isNil(end)) {
     return false;
   }
-  var subjectString = coerceToString(subject),
-    endString = coerceToString(end);
+  const subjectString = coerceToString(subject);
+  const endString = coerceToString(end);
   if (endString === '') {
     return true;
   }
   position = isNil(position) ? subjectString.length : clipNumber(toInteger(position), 0, subjectString.length);
   position -= endString.length;
-  var lastIndex = subjectString.indexOf(endString, position);
+  const lastIndex = subjectString.indexOf(endString, position);
   return lastIndex !== -1 && lastIndex === position;
 }

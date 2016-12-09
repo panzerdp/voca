@@ -9,9 +9,9 @@ import truncate from 'chop/truncate';
  * @param {ConversionSpecification} conversion The conversion specification object.
  * @return {string} Returns the formatted string.
  */
-export default function(replacement, conversion) {
-  var formattedReplacement = replacement,
-    precision = conversion.precision;
+export default function stringFormat(replacement, conversion) {
+  let formattedReplacement = replacement;
+  const precision = conversion.precision;
   if (!isNil(precision) && formattedReplacement.length > precision) {
     formattedReplacement = truncate(formattedReplacement, precision, '');
   }

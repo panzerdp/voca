@@ -18,9 +18,9 @@ describe('countWhere', function() {
   });
 
   it('should invoke the predicate with correct parameters and context', function() {
-    var verifyIndex = 0,
-      context = {},
-      verifyString = '0123456789';
+    let verifyIndex = 0;
+    const context = {};
+    const verifyString = '0123456789';
     expect(v.countWhere(verifyString, function(character, index, string) {
       expect(index).to.be.equal(verifyIndex);
       expect(this).to.be.equal(context);

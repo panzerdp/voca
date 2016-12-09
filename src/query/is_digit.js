@@ -21,6 +21,6 @@ import { REGEXP_DIGIT } from 'helper/reg_exp/const';
  * // => false
  */
 export default function isDigit(subject) {
-  var subjectString = coerceToString(subject);
+  const subjectString = coerceToString(subject);
   return REGEXP_DIGIT.test(subjectString);
 }

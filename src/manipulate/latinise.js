@@ -1,4 +1,4 @@
-import { REGEXP_COMBINING_MARKS, REGEXP_NON_BASIC_LATIN } from 'helper/reg_exp/const';
+import { REGEXP_COMBINING_MARKS, REGEXP_NON_LATIN } from 'helper/reg_exp/const';
 import coerceToString from 'helper/string/coerce_to_string';
 import diacriticMap from 'helper/string/diacritics_map';
 
@@ -10,7 +10,7 @@ import diacriticMap from 'helper/string/diacritics_map';
  * @returns {string} Returns the character without diacritics.
  */
 function removeDiacritics(character) {
-  var characterWithoutDiacritic = diacriticMap[character];
+  const characterWithoutDiacritic = diacriticMap[character];
   return characterWithoutDiacritic ? characterWithoutDiacritic : character;
 }
 
@@ -45,11 +45,11 @@ function removeCombiningMarks(character, cleanCharacter) {
  * // => 'kak prekrasen etot mir'
  */
 export default function latinise(subject) {
-  var subjectString = coerceToString(subject);
+  const subjectString = coerceToString(subject);
   if (subjectString === '') {
     return subjectString;
   }
   return subjectString
-    .replace(REGEXP_NON_BASIC_LATIN, removeDiacritics)
+    .replace(REGEXP_NON_LATIN, removeDiacritics)
     .replace(REGEXP_COMBINING_MARKS, removeCombiningMarks);
 }

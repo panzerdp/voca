@@ -17,6 +17,6 @@ import coerceToString from 'helper/string/coerce_to_string';
  * // => false
  */
 export default function isEmpty(subject) {
-  var subjectString = coerceToString(subject);
+  const subjectString = coerceToString(subject);
   return subjectString.length === 0;
 }

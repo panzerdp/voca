@@ -2,19 +2,11 @@ module.exports = function (grunt) {
   var browsers = [{
     browserName: 'chrome',
     platform: 'Windows 10',
-    version: '52'
-  }, {
-    browserName: 'chrome',
-    platform: 'Linux',
-    version: '48'
+    version: '54'
   }, {
     browserName: 'firefox',
     platform: 'Windows 10',
-    version: '47'
-  }, {
-    browserName: 'firefox',
-    platform: 'Windows 10',
-    version: '48'
+    version: '49'
   }, {
     browserName: 'internet explorer',
     platform: 'Windows 7',
@@ -30,7 +22,7 @@ module.exports = function (grunt) {
   }, {
     browserName: 'MicrosoftEdge',
     platform: 'Windows 10',
-    version: '13.10586'
+    version: '14'
   }, {
     browserName: 'safari',
     platform: 'OS X 10.9',
@@ -42,18 +34,14 @@ module.exports = function (grunt) {
   }, {
     browserName: 'safari',
     platform: 'OS X 10.11',
-    version: '9'
-  }, {
-    browserName: 'Android',
-    platform: 'Linux',
-    version: '5.1'
-  }, {
-    browserName: "iphone",
-    platform: "OS X 10.11",
-    version: "9.3"
+    version: '10'
   }];
 
-  var buildId = process.env.TRAVIS_JOB_ID ? process.env.TRAVIS_JOB_ID : Math.floor(Math.random() * 10000);
+  var buildId = '';
+  if (process.env.TRAVIS_JOB_ID) {
+    buildId += process.env.TRAVIS_JOB_ID;
+  }
+  buildId += '-' + Math.floor(Math.random() * 1000);
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),

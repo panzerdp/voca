@@ -20,7 +20,7 @@ import isNil from 'helper/object/is_nil';
  * // => false
  */
 export default function isNumeric(subject) {
-  var valueNumeric = typeof subject === 'object' && !isNil(subject) ? Number(subject) : subject;
+  const valueNumeric = typeof subject === 'object' && !isNil(subject) ? Number(subject) : subject;
   return (typeof valueNumeric === 'number' || typeof valueNumeric === 'string')
     && !isNaN(valueNumeric - parseFloat(valueNumeric));
 }

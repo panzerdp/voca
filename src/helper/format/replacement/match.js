@@ -21,9 +21,9 @@ import validateReplacement from 'helper/format/replacement/validate';
  * @param {string} typeSpecifier The type specifier says what type the argument data should be treated as.
  * @return {string} Returns the computed replacement.
  */
-export default function(replacementIndex, replacements, conversionSpecification, percent, position, signSpecifier,
+export default function match(replacementIndex, replacements, conversionSpecification, percent, position, signSpecifier,
                         paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
-  var conversion = new ConversionSpecification({
+  const conversion = new ConversionSpecification({
     percent,
     signSpecifier,
     paddingSpecifier,
@@ -35,7 +35,7 @@ export default function(replacementIndex, replacements, conversionSpecification,
   if (conversion.isPercentLiteral()) {
     return conversionSpecification.slice(1);
   }
-  var actualReplacementIndex = replacementIndex.getIndexByPosition(position);
+  const actualReplacementIndex = replacementIndex.getIndexByPosition(position);
   replacementIndex.incrementOnEmptyPosition(position);
   validateReplacement(actualReplacementIndex, replacements.length, conversion);
   return computeReplacement(replacements[actualReplacementIndex], conversion);

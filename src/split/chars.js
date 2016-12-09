@@ -14,6 +14,6 @@ import coerceToString from 'helper/string/coerce_to_string';
  * // => ['c', 'l', 'o', 'u', 'd']
  */
 export default function chars(subject) {
-  var subjectString = coerceToString(subject);
+  const subjectString = coerceToString(subject);
   return subjectString.split('');
 }

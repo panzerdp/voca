@@ -21,6 +21,6 @@ import isAlpha from 'query/is_alpha';
  * // => false
  */
 export default function isLowerCase(subject) {
-  var valueString = coerceToString(subject);
+  const valueString = coerceToString(subject);
   return isAlpha(valueString) && valueString.toLowerCase() === valueString;
 }

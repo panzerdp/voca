@@ -12,17 +12,6 @@ describe('isAlpha', function() {
     expect(v.isAlpha('foo\u0303\u035C\u035D\u035Ebar')).to.be.true;
   });
 
-  it('should return true for an alpha russian string', function() {
-    expect(v.isAlpha('ПриветМир')).to.be.true;
-    expect(v.isAlpha('ЯваСкрипт')).to.be.true;
-    expect(v.isAlpha('АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя')).to.be.true;
-  });
-
-  it('should return true for an alpha japanese string', function() {
-    expect(v.isAlpha('こんにちは世界')).to.be.true;
-    expect(v.isAlpha('ジャバスクリプト')).to.be.true;
-  });
-
   it('should return true for a string with diacritics', function() {
     expect(v.isAlpha('áéèêëíîïóôúûýàòüçäöâùÿãõñ')).to.be.true;
   });
@@ -34,7 +23,6 @@ describe('isAlpha', function() {
 
   it('should return true for an array with one alpha string item', function() {
     expect(v.isAlpha(['HelloWorld'])).to.be.true;
-    expect(v.isAlpha(['ПриветМир'])).to.be.true;
   });
 
   it('should return true for an alpha string representation of an object', function() {
@@ -45,7 +33,7 @@ describe('isAlpha', function() {
     })).to.be.true;
     expect(v.isAlpha({
       toString: function() {
-        return 'ПриветМир';
+        return 'HelloWorld';
       }
     })).to.be.true;
   });
@@ -72,20 +60,9 @@ describe('isAlpha', function() {
     expect(v.isAlpha(PRINTABLE_ASCII)).to.be.false;
   });
 
-  it('should return false for a non-alpha russian string', function() {
-    expect(v.isAlpha('Привет Мир!')).to.be.false;
-    expect(v.isAlpha('\nПривет Мир!\n')).to.be.false;
-    expect(v.isAlpha('ECMAScript версии 5.1 (ECMA-262)')).to.be.false;
-  });
-
-  it('should return false for a non-alpha japanese string', function() {
-    expect(v.isAlpha('こんにちは世界!')).to.be.false;
-    expect(v.isAlpha('ジャバスクリプト2015')).to.be.false;
-  });
 
   it('should return false for an array with a non-alpha string item', function() {
     expect(v.isAlpha(['Hello World!'])).to.be.false;
-    expect(v.isAlpha(['Привет Мир!'])).to.be.false;
   });
 
   it('should return false for a non-alpha string representation of an object', function() {
@@ -96,7 +73,7 @@ describe('isAlpha', function() {
     })).to.be.false;
     expect(v.isAlpha({
       toString: function() {
-        return 'Привет Мир!';
+        return 'Welcome!';
       }
     })).to.be.false;
   });

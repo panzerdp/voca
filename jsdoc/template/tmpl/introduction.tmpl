@@ -21,18 +21,30 @@
       <a class="no-decoration" href="https://travis-ci.org/panzerdp/voca">
         <img src="https://img.shields.io/travis/panzerdp/voca.svg" alt="Travis CI Build"/>
       </a>
-      <a class="no-decoration" href="https://saucelabs.com/u/panzerdp">
-        <img src="https://saucelabs.com/buildstatus/panzerdp" alt="Sauce Test Status"/>
-      </a>
       <a class="no-decoration" href="https://codecov.io/github/panzerdp/voca">
         <img src="https://img.shields.io/codecov/c/github/panzerdp/voca.svg" alt="Code Coverage Report"/>
       </a>
       <a class="no-decoration" href="https://david-dm.org/panzerdp/voca">
         <img src="https://david-dm.org/panzerdp/voca.svg" alt="Dependencies Status"/>
       </a>
+      <a class="no-decoration" href="https://www.npmjs.com/package/voca">
+        <img src="https://img.shields.io/npm/v/voca.svg" alt="Voca npm package"/>
+      </a>
     </p>
 
      <p>Voca is a JavaScript library for manipulating strings.</p>
+
+ <pre class="prettyprint"><code class="language-javascript">v.camelCase('skies of blue');                  // => 'skiesOfBlue'
+v.sprintf('I see %s of %s', 'trees', 'green'); // => 'I see trees of green'
+v.slugify('What a wonderful world');           // => 'what-a-wonderful-world'</code></pre>
+
+     <div class="introduction-message">
+       <p>
+       The Voca library offers helpful functions to make string manipulations comfortable: <i>change case, trim, pad, slugifly,
+       latinise, sprintf'y, truncate, escape</i> and much more.  The <i>modular design</i> allows to load the entire library, or individual
+       functions to minimize the application builds. The library is <i>fully tested</i>, <i>well documented</i> and <i>long-term supported</i>.
+       </p>
+     </div>
 
      <h3>Features</h3>
 
@@ -41,10 +53,10 @@
          Provides the complete set of functions to manipulate, chop, format, escape and query strings
        </li>
        <li>
-         Covered by detailed and comfortable documentation
+         Includes detailed, easy to read and searchable documentation
        </li>
        <li>
-         Supports a wide range of environments: Node.js 0.10+, Chrome, Firefox, Safari 7+, Edge 13+, IE 9+
+         <a href="https://saucelabs.com/u/panzerdp">Supports</a> a wide range of environments: Node.js 0.10+, Chrome, Firefox, Safari 7+, Edge 13+, IE 9+
        </li>
        <li>
          100% code coverage
@@ -76,40 +88,75 @@ v.sprintf('%s costs $%.2f', 'Coffee', 1.5);
 Or individual functions:
 <pre class="prettyprint"><code class="language-javascript">var words = require('voca/words');
 words('welcome to Earth');
-// => ['welcome', 'to', 'Earth']</code></pre>
+// => ['welcome', 'to', 'Earth']
+var slugify = require('voca/slugify');
+slugify('café latté');
+// => 'caffe-latte'</code></pre>
 
 <p><b>Browser</b></p>
 
-Use <code>dist/voca.min.js</code> (minified production-ready) or <code>dist/voca.js</code> builds to load the library directly into browser's web page:
+Load the UMD builds directly into browser's web page:
 
-<pre class="prettyprint"><code class="language-javascript">&lt;script src=&quot;path-to-scripts/voca.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</code></pre>
+<ul>
+  <li>
+    <a href="https://raw.githubusercontent.com/panzerdp/voca/1.0.0-alpha.2/dist/voca.min.js">voca.min.js</a> minified production-ready
+  </li>
+  <li>
+    <a href="https://raw.githubusercontent.com/panzerdp/voca/1.0.0-alpha.2/dist/voca.js">voca.js</a> uncompressed with comments
+  </li>
+</ul>
+
+<pre class="prettyprint"><code class="language-javascript">&lt;script src=&quot;voca.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</code></pre>
 
 Then a global variable <code>v</code> is exposed:
 
 <pre class="prettyprint">
 <code class="language-javascript">&lt;script type=&quot;text/javascript&quot;&gt;
-  v.isBlank(&apos;  &apos;);
-  // =&gt; true
+   v.last('wonderful world', 4);
+   // => 'world'
 &lt;/script&gt;</code></pre>
 
 <h3>See also</h3>
 
 <ul>
   <li>
-    <a href="https://github.com/panzerdp/voca">The GitHub repository</a>
+    <a href="https://github.com/panzerdp/voca">Voca repository on Github</a>
   </li>
   <li>
     <a href="https://github.com/panzerdp/voca/issues/new">Report an issue or suggest improvement</a>
+  </li>
+  <li>
+    <a href="https://github.com/panzerdp/voca/blob/master/.github/CONTRIBUTING.md">Contributing guide</a>
   </li>
 </ul>
 
 <h3>Author</h3>
 
-<p><a href="http://rainsoft.io/about-me/">Dmitri Pavlutin</a></p>
+<table class="author-details">
+  <thead>
+    <tr>
+     <th align="center">
+       <img src="https://s.gravatar.com/avatar/7be6b604e5d3c6a82ed933dd90ed68dc?s=100" alt="Dmitri Pavlutin Profile Image"/>
+     </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center">
+        <a href="https://rainsoft.io/about-me/">Dmitri Pavlutin</a>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <a href="mailto:dmitri@rainsoft.io">dmitri@rainsoft.io</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 <h3>License</h3>
 
-<p>Licensed under <a href="https://github.com/panzerdp/voca/blob/master/markdown/LICENSE">MIT</a></p>
+<p>Licensed under <a href="https://github.com/panzerdp/voca/blob/master/LICENSE.md">MIT</a></p>
 
 </div>
 </div>

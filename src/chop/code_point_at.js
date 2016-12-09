@@ -25,15 +25,15 @@ import nanDefault from 'helper/number/nan_default';
  * // => 128512, or 0x1F600
  */
 export default function codePointAt(subject, position) {
-  var subjectString = coerceToString(subject),
-    subjectStringLength = subjectString.length,
-    positionNumber = coerceToNumber(position);
+  const subjectString = coerceToString(subject);
+  const subjectStringLength = subjectString.length;
+  let positionNumber = coerceToNumber(position);
   positionNumber = nanDefault(positionNumber, 0);
   if (positionNumber < 0 || positionNumber >= subjectStringLength) {
     return undefined;
   }
-  var firstCodePoint = subjectString.charCodeAt(positionNumber),
-    secondCodePoint;
+  const firstCodePoint = subjectString.charCodeAt(positionNumber);
+  let secondCodePoint;
   if (isHighSurrogate(firstCodePoint) && subjectStringLength > positionNumber + 1) {
     secondCodePoint = subjectString.charCodeAt(positionNumber + 1);
     if (isLowSurrogate(secondCodePoint)) {

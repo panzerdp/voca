@@ -1,4 +1,4 @@
-import { MAX_SAFE_INTEGER } from './const';
+import { MAX_SAFE_INTEGER } from 'helper/number/const';
 
 /**
  * Transforms `value` to an integer.
@@ -8,7 +8,7 @@ import { MAX_SAFE_INTEGER } from './const';
  * @param {number} value The number to transform.
  * @returns {number} Returns the transformed integer.
  */
-export default function(value) {
+export default function toInteger(value) {
   if (value === Infinity) {
     return MAX_SAFE_INTEGER;
   }

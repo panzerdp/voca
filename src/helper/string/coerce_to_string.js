@@ -1,4 +1,4 @@
-import isNil from '../object/is_nil';
+import isNil from 'helper/object/is_nil';
 import isString from 'query/is_string';
 
 /**
@@ -13,7 +13,7 @@ import isString from 'query/is_string';
  * @return {string|null}        Returns the string representation of `value`. Returns `defaultValue` if `value` is
  *                              `null` or `undefined`.
  */
-export default function(value, defaultValue = '') {
+export default function coerceToString(value, defaultValue = '') {
   if (isNil(value)) {
     return defaultValue;
   }

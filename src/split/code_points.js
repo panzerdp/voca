@@ -20,11 +20,11 @@ import coerceToString from 'helper/string/coerce_to_string';
  * //    [0x1F600, 0x20, 0x73, 0x6D, 0x69, 0x6C, 0x65]
  */
 export default function codePoints(subject) {
-  var subjectString = coerceToString(subject),
-    subjectStringLength = subjectString.length,
-    codePointArray = [],
-    index = 0,
-    codePointNumber;
+  const subjectString = coerceToString(subject);
+  const subjectStringLength = subjectString.length;
+  const codePointArray = [];
+  let index = 0;
+  let codePointNumber;
   while (index < subjectStringLength) {
     codePointNumber = codePointAt(subjectString, index);
     codePointArray.push(codePointNumber);

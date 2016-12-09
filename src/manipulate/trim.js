@@ -22,11 +22,11 @@ import trimRight from 'manipulate/trim_right';
  * // => 'Earth'
  */
 export default function trim(subject, whitespace) {
-  var subjectString = coerceToString(subject);
+  const subjectString = coerceToString(subject);
   if (whitespace === '' || subjectString === '') {
     return subjectString;
   }
-  var whitespaceString = toString(whitespace);
+  const whitespaceString = toString(whitespace);
   if (isNil(whitespaceString)) {
     return subjectString.trim();
   }

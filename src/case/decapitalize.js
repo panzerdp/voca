@@ -14,7 +14,7 @@ import coerceToString from 'helper/string/coerce_to_string';
  * // => 'sun'
  */
 export default function decapitalize(subject) {
-  var subjectString = coerceToString(subject);
+  const subjectString = coerceToString(subject);
   if (subjectString === '') {
     return subjectString;
   }

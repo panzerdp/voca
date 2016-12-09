@@ -1,6 +1,6 @@
 {
   "name": "voca",
-  "version": "1.0.0alpha-0",
+  "version": "1.0.0-alpha.2",
   "description": "The ultimate JavaScript string library",
   "homepage": "https://vocajs.com",
   "author": {
@@ -10,10 +10,17 @@
   },
   "license": "MIT",
   "keywords": [
-    "voca",
     "string",
     "sprintf",
-    "util"
+    "trim",
+    "truncate",
+    "pad",
+    "slugify",
+    "latinise",
+    "escape",
+    "word",
+    "wrap",
+    "case"
   ],
   "repository": {
     "type": "git",
@@ -26,22 +33,30 @@
   "main": "index.js",
   "scripts": {
     "eslint": "eslint . --ext .js",
-    "build": "rollup -c config/rollup_dist.js && rollup -c config/rollup_dist_min.js && rollup -c config/rollup_test.js",
-    "build-mod": "rm -rf dist_mod && mkdir dist_mod && cp package.json README.md ./dist_mod && rollup -c config/rollup_dist_mod.js && npm run build-ind-mod",
-    "build-ind-mod": "babel src --out-dir dist_mod --ignore src/index.js,src/functions.js,src/chain/*.js",
+
+    "build": "npm run build-dist && npm run build-npm-package",
+      "build-dist": "rollup -c config/rollup_dist.js && rollup -c config/rollup_dist_min.js && rollup -c config/rollup_test.js",
+      "build-npm-package": "rm -rf dist_mod && mkdir dist_mod && cp package.json README.md ./dist_mod && rollup -c config/rollup_dist_mod.js && node config/transform.js",
+
     "test": "mocha test/index.js --reporter dot",
+    "test-npm-package": "mocha test/modules_common.js test/modules_es2015.js --reporter dot",
     "test-sl": "grunt --gruntfile ./test_runner/gruntfile.js --base .",
+
     "coverage": "istanbul cover _mocha -- test/index.js --reporter spec",
     "report-coverage": "cat ./coverage/lcov.info | codecov",
+
     "verify": "npm run eslint && npm run coverage",
+
     "jsdoc": "jsdoc --configure .jsdoc.json",
+
     "deploy": "rollup -c config/rollup_dist.js && cp dist/voca.js docs/scripts && scp -r docs/* rainishere:/home/rainishere/webapps/voca_docs"
   },
   "devDependencies": {
     "babel-cli": "6.18.0",
     "babel-core": "6.18.2",
-    "babel-eslint": "6.1.2",
-    "babel-plugin-module-resolver": "2.3.0",
+    "babel-eslint": "7.1.1",
+    "babel-plugin-add-module-exports": "0.2.1",
+    "babel-plugin-module-resolver": "2.4.0",
     "babel-plugin-transform-es2015-block-scoping": "6.18.0",
     "babel-plugin-transform-es2015-modules-commonjs": "6.18.0",
     "babel-plugin-transform-es2015-parameters": "6.18.0",
@@ -52,7 +67,7 @@
     "babel-root-import": "4.1.5",
     "chai": "3.5.0",
     "codecov.io": "0.1.6",
-    "eslint": "2.13.1",
+    "eslint": "3.11.1",
     "ghooks": "1.3.2",
     "glob": "7.1.1",
     "grunt": "1.0.1",
@@ -61,8 +76,8 @@
     "istanbul": "1.1.0-alpha.1",
     "jsdoc": "3.4.3",
     "mkdirp": "0.5.1",
-    "mocha": "3.1.2",
-    "rollup": "0.36.3",
+    "mocha": "3.2.0",
+    "rollup": "0.36.4",
     "rollup-plugin-babel": "2.6.1",
     "rollup-plugin-uglify": "1.0.1",
     "source-map-support": "0.4.6"

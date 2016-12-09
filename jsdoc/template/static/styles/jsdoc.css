@@ -119,6 +119,10 @@ pre code {
   margin-right: 4px;
 }
 
+.introduction-message {
+  max-width: 55em;
+}
+
 #main {
   float: right;
   min-width: 360px;
@@ -387,11 +391,30 @@ pre[class*="language-"] {
   margin: 1em 0;
 }
 
+.author-details, .author-details td, .author-details th {
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+
+}
+
+.author-details td, .author-details th {
+  padding: 0.3em;
+}
+
 .light-params {
   margin: 1em 0;
   font-size: 1em;
   width: 100%;
   border-collapse: collapse;
+}
+
+.light-params .light-params {
+  margin: 0;
+}
+
+.light-params .properties {
+  font-weight: bold;
+  margin-top: 0.5em;
 }
 
 .light-params tr > td:first-child {
