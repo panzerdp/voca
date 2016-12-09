@@ -76,8 +76,7 @@ The command generates the following bundles:
 
 Voca uses Mocha test framework.
 
-The library authors consider detailed testing very important. Every function or part of the library must be tested
-with basic and advanced scenarios.  
+The detailed testing is very important. Every function or part of the library must be tested with basic and advanced scenarios.  
 Tests must keep the same useful rules of modularity and clean code.
 
 Run the library over the unit tests:
@@ -85,8 +84,8 @@ Run the library over the unit tests:
 npm test
 ```
 
-The library must be fully compatible with reasonable older browser versions. The continuous integration build [verifies](https://saucelabs.com/u/panzerdp)
-the compatibility with Chrome, Firefox, Edge 13+, IE 9+ and Safari 7+.
+The library must be compatible with reasonable older browser. The CI build [verifies using SauceLabs](https://saucelabs.com/u/panzerdp)
+the compatibility with Chrome, Firefox, Edge 13+, IE 9+ and Safari 7+.  
 
 To verify the code coverage run the command:
 ```bash
@@ -95,9 +94,10 @@ npm run coverage
 
 ### Linting
 
-Ease comes from readability. Readability comes from keeping the code quality and standards.  
-To maintain the coding style, before any commit the code is automatically linted. The library uses many style
-ideas from [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript).
+Ease comes from readability. Readability comes from keeping the code quality and standards. The library uses many style 
+ideas from [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript).  
+
+To maintain the coding style, the pre-commit hook automatically is linting the code.   
 
 You can find the linting rules in [.eslintrc](eslintrc) file.
 

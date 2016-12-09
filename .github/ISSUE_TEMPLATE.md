@@ -8,7 +8,7 @@ Welcome to Voca's GitHub repo!
 
 (Please describe here the actual behavior)
 
-### Steps to reproduce behavior :construction_worker:
+### Steps to reproduce :construction_worker:
 
 (Please describe a scenario how to reproduce)
 

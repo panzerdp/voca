@@ -449,6 +449,16 @@ pre[class*="language-"] {
   margin: 1em 0;
 }
 
+.author-details, .author-details td, .author-details th {
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+
+}
+
+.author-details td, .author-details th {
+  padding: 0.3em;
+}
+
 .light-params {
   margin: 1em 0;
   font-size: 1em;
