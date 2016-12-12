@@ -1,5 +1,5 @@
 /*! 
- * Voca string library 1.0.0-alpha.3
+ * Voca string library 1.0.0-beta.1
  * https://vocajs.com
  *
  * Copyright Dmitri Pavlutin and other contributors
