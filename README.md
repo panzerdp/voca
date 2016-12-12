@@ -82,24 +82,24 @@ Then a global variable `v` is exposed for the entire library:
 
 ## Functions
 
-| Manipulate        | Query            | Chop              | Case           | Index          |
-| :---------------- | :--------------- | :---------------- | :------------- | :------------- |
-| v.insert          | v.endsWith       | v.charAt          | v.camelCase    | v.indexOf      |
-| v.latinise        | v.includes       | v.codePointAt     | v.capitalize   | v.lastIndexOf  |
-| v.pad             | v.isAlpha        | v.first           | v.decapitalize | v.search       |
-| v.padLeft         | v.isAlphaDigit   | v.graphemeAt      | v.kebabCase    | **Escape**     |
-| v.padRight        | v.isBlank        | v.last            | v.lowerCase    | v.escapeHtml   |
-| v.repeat          | v.isDigit        | v.prune           | v.snakeCase    | v.escapeRegExp |
-| v.replace         | v.isEmpty        | v.slice           | v.upperCase    | v.unescapeHtml |
-| v.replaceAll      | v.isLowerCase    | v.substr          | **Split**      |                | 
-| v.reverse         | v.isNumeric      | v.substring       | v.chars        |                |
-| v.reverseGrapheme | v.isString       | v.truncate        | v.codePoints   |                |
-| v.slugify         | v.isUpperCase    | **Count**         | v.graphemes    |                |
-| v.splice          | v.matches        | v.count           | v.split        |                |
-| v.trim            | v.startsWith     | v.countGraphemes  | v.words        |                |
-| v.trimLeft        | **Format**       | v.countSubstrings |                |                |
-| v.trimRight       | v.sprintf        | v.countWhere      |                |                |
-| v.wordWrap        | v.vprintf        | v.countWords      |                |                |
+| Manipulate                           | Query                          | Chop                                 | Case                           | Index                          |
+| :----------------------------------- | :----------------------------- | :----------------------------------- | :----------------------------- | :------------------------------|
+| [v.insert][insert]                   | [v.endsWith][endsWith]         | [v.charAt][charAt]                   | [v.camelCase][camelCase]       | [v.indexOf][indexOf]           |
+| [v.latinise][latinise]               | [v.includes][includes]         | [v.codePointAt][codePointAt]         | [v.capitalize][capitalize]     | [v.lastIndexOf][lastIndexOf]   |
+| [v.pad][pad]                         | [v.isAlpha][isAlpha]           | [v.first][first]                     | [v.decapitalize][decapitalize] | [v.search][search]             |
+| [v.padLeft][padLeft]                 | [v.isAlphaDigit][isAlphaDigit] | [v.graphemeAt][graphemeAt]           | [v.kebabCase][kebabCase]       | **Escape**                     |
+| [v.padRight][padRight]               | [v.isBlank][isBlank]           | [v.last][last]                       | [v.lowerCase][lowerCase]       | [v.escapeHtml][escapeHtml]     |
+| [v.repeat][repeat]                   | [v.isDigit][isDigit]           | [v.prune][prune]                     | [v.snakeCase][snakeCase]       | [v.escapeRegExp][escapeRegExp] |
+| [v.replace][replace]                 | [v.isEmpty][isEmpty]           | [v.slice][slice]                     | [v.upperCase][upperCase]       | [v.unescapeHtml][unescapeHtml] |
+| [v.replaceAll][replaceAll]           | [v.isLowerCase][isLowerCase]   | [v.substr][substr]                   | **Split**                      |                                | 
+| [v.reverse][reverse]                 | [v.isNumeric][isNumeric]       | [v.substring][substring]             | [v.chars][chars]               |                                |
+| [v.reverseGrapheme][reverseGrapheme] | [v.isString][isString]         | [v.truncate][truncate]               | [v.codePoints][codePoints]     |                                |
+| [v.slugify][slugify]                 | [v.isUpperCase][isUpperCase]   | **Count**                            | [v.graphemes][graphemes]       |                                |
+| [v.splice][splice]                   | [v.matches][matches]           | [v.count][count]                     | [v.split][split]               |                                |
+| [v.trim][trim]                       | [v.startsWith][startsWith]     | [v.countGraphemes][countGraphemes]   | [v.words][words]               |                                |
+| [v.trimLeft][trimLeft]               | **Format**                     | [v.countSubstrings][countSubstrings] |                                |                                |
+| [v.trimRight][trimRight]             | [v.sprintf][sprintf]           | [v.countWhere][countWhere]           |                                |                                |
+| [v.wordWrap][wordWrap]               | [v.vprintf][vprintf]           | [v.countWords][countWords]           |                                |                                |
 
 ## Bug reports
 
@@ -139,3 +139,76 @@ Licensed under [MIT](https://github.com/panzerdp/voca/blob/master/LICENSE.md)
 [logo]: https://github.com/panzerdp/voca/raw/master/jsdoc/template/static/images/voca-logo@300px.png
 [logo_commonjs]: https://github.com/panzerdp/voca/raw/master/jsdoc/template/static/images/commonjs@200px.png
 [logo_browsers]: https://github.com/panzerdp/voca/raw/master/jsdoc/template/static/images/browsers@200px.png
+
+[camelCase]: https://vocajs.com/#camelCase
+[capitalize]: https://vocajs.com/#capitalize
+[decapitalize]: https://vocajs.com/#decapitalize
+[kebabCase]: https://vocajs.com/#kebabCase
+[lowerCase]: https://vocajs.com/#lowerCase
+[snakeCase]: https://vocajs.com/#snakeCase
+[upperCase]: https://vocajs.com/#upperCase
+
+[charAt]: https://vocajs.com/#charAt
+[codePointAt]: https://vocajs.com/#codePointAt
+[first]: https://vocajs.com/#first
+[graphemeAt]: https://vocajs.com/#graphemeAt
+[last]: https://vocajs.com/#last
+[prune]: https://vocajs.com/#prune
+[slice]: https://vocajs.com/#slice
+[substr]: https://vocajs.com/#substr
+[substring]: https://vocajs.com/#substring
+[truncate]: https://vocajs.com/#truncate
+
+[count]: https://vocajs.com/#count
+[countGraphemes]: https://vocajs.com/#countGraphemes
+[countSubstrings]: https://vocajs.com/#countSubstrings
+[countWhere]: https://vocajs.com/#countWhere
+[countWords]: https://vocajs.com/#countWords
+
+[escapeHtml]: https://vocajs.com/#escapeHtml
+[escapeRegExp]: https://vocajs.com/#escapeRegExp
+[unescapeHtml]: https://vocajs.com/#unescapeHtml
+
+[sprintf]: https://vocajs.com/#sprintf
+[vprintf]: https://vocajs.com/#vprintf
+
+[indexOf]: https://vocajs.com/#indexOf
+[lastIndexOf]: https://vocajs.com/#lastIndexOf
+[search]: https://vocajs.com/#search
+
+[insert]: https://vocajs.com/#insert
+[latinise]: https://vocajs.com/#latinise
+[pad]: https://vocajs.com/#pad
+[padLeft]: https://vocajs.com/#padLeft
+[padRight]: https://vocajs.com/#padRight
+[repeat]: https://vocajs.com/#repeat
+[replace]: https://vocajs.com/#replace
+[replaceAll]: https://vocajs.com/#replaceAll
+[reverse]: https://vocajs.com/#reverse
+[reverseGrapheme]: https://vocajs.com/#reverseGrapheme
+[slugify]: https://vocajs.com/#slugify
+[splice]: https://vocajs.com/#splice
+[trim]: https://vocajs.com/#trim
+[trimLeft]: https://vocajs.com/#trimLeft
+[trimRight]: https://vocajs.com/#trimRight
+[wordWrap]: https://vocajs.com/#wordWrap
+
+[endsWith]: https://vocajs.com/#endsWith
+[includes]: https://vocajs.com/#includes
+[isAlpha]: https://vocajs.com/#isAlpha
+[isAlphaDigit]: https://vocajs.com/#isAlphaDigit
+[isBlank]: https://vocajs.com/#isBlank
+[isDigit]: https://vocajs.com/#isDigit
+[isEmpty]: https://vocajs.com/#isEmpty
+[isLowerCase]: https://vocajs.com/#isLowerCase
+[isNumeric]: https://vocajs.com/#isNumeric
+[isString]: https://vocajs.com/#isString
+[isUpperCase]: https://vocajs.com/#isUpperCase
+[matches]: https://vocajs.com/#matches
+[startsWith]: https://vocajs.com/#startsWith
+
+[chars]: https://vocajs.com/#chars
+[codePoints]: https://vocajs.com/#codePoints
+[graphemes]: https://vocajs.com/#graphemes
+[split]: https://vocajs.com/#split
+[words]: https://vocajs.com/#words
