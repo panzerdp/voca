@@ -34,9 +34,9 @@
 
     <p>Voca is a JavaScript library for manipulating strings.</p>
 
-    <pre class="prettyprint"><code class="language-javascript">v.camelCase('bird flight');                    // => 'birdFlight'
-v.sprintf('I see %s of %s', 'trees', 'green'); // => 'I see trees of green'
-v.slugify('What a wonderful world');           // => 'what-a-wonderful-world'</code></pre>
+    <pre class="prettyprint"><code class="language-javascript">v.camelCase('bird flight');              // => 'birdFlight'
+v.sprintf('%s costs $%.2f', 'Tea', 1.5); // => 'Tea costs $1.50'
+v.slugify('What a wonderful world');     // => 'what-a-wonderful-world'</code></pre>
 
     <div class="introduction-message">
       <p>
@@ -75,7 +75,7 @@ v.slugify('What a wonderful world');           // => 'what-a-wonderful-world'</c
     <h4>Node.js, Rollup, Webpack, Browserify</h4>
 
     <div class="commonjs-logo">
-      <img alt="Voca JavaScript library support Node.js, Rollup, Webpack, Browserify" src="images/commonjs@240px.png" />
+      <img alt="Voca JavaScript library support Node.js, Rollup, Webpack, Browserify" src="images/commonjs@200px.png" />
     </div>
 
     Install the library with npm into your local modules directory:
@@ -86,18 +86,14 @@ v.slugify('What a wonderful world');           // => 'what-a-wonderful-world'</c
     Then in your application import the entire library:
 
     <pre class="prettyprint"><code class="language-javascript">var v = require('voca');
-v.trim(' Hello World! ');
-// => 'Hello World'
-v.sprintf('%s costs $%.2f', 'Coffee', 1.5);
-// => 'Coffee costs $1.50'</code></pre>
+v.trim(' Hello World! ');            // => 'Hello World'
+v.sprintf('%d red %s', 3, 'apples'); // => '3 red apples'</code></pre>
 
     Or individual functions:
     <pre class="prettyprint"><code class="language-javascript">var words = require('voca/words');
-words('welcome to Earth');
-// => ['welcome', 'to', 'Earth']
 var slugify = require('voca/slugify');
-slugify('café latté');
-// => 'caffe-latte'</code></pre>
+words('welcome to Earth'); // => ['welcome', 'to', 'Earth']
+slugify('café latté');     // => 'caffe-latte'</code></pre>
 
     <h4>Browser</h4>
 
@@ -125,8 +121,7 @@ slugify('café latté');
 
     <pre class="prettyprint">
 <code class="language-javascript">&lt;script type=&quot;text/javascript&quot;&gt;
-   v.last('wonderful world', 4);
-   // => 'world'
+   v.last('wonderful world', 4); // => 'world'
 &lt;/script&gt;</code></pre>
 
     <h3>See also</h3>

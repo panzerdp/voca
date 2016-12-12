@@ -8,9 +8,9 @@
 Voca is a JavaScript library for manipulating strings. [https://vocajs.com][voca]
 
 ```javascript
-v.camelCase('bird flight');                    // => 'birdFlight'
-v.sprintf('I see %s of %s', 'trees', 'green'); // => 'I see trees of green'
-v.slugify('What a wonderful world');           // => 'what-a-wonderful-world'
+v.camelCase('bird flight');              // => 'birdFlight'
+v.sprintf('%s costs $%.2f', 'Tea', 1.5); // => 'Tea costs $1.50'
+v.slugify('What a wonderful world');     // => 'what-a-wonderful-world'
 ```
 
 The Voca library offers helpful functions to make string manipulations comfortable: *change case, trim, pad, slugifly,
@@ -46,21 +46,17 @@ Then in your application import the entire library:
 
 ```javascript
 var v = require('voca');
-v.trim(' Hello World! ');
-// => 'Hello World'
-v.sprintf('%s costs $%.2f', 'Coffee', 1.5);
-// => 'Coffee costs $1.50'
+v.trim(' Hello World! ');            // => 'Hello World'
+v.sprintf('%d red %s', 3, 'apples'); // => '3 red apples'
 ```
 
 Or individual functions:
 
 ```javascript
 var words = require('voca/words');
-words('welcome to Earth');
-// => ['welcome', 'to', 'Earth']
 var slugify = require('voca/slugify');
-slugify('café latté');
-// => 'caffe-latte'
+words('welcome to Earth'); // => ['welcome', 'to', 'Earth']
+slugify('café latté');     // => 'caffe-latte'
 ```
 
 ### Browser
@@ -80,8 +76,7 @@ Then a global variable `v` is exposed for the entire library:
 
 ```html
 <script type="text/javascript">
-  v.last('wonderful world', 4);
-  // => 'world'
+  v.last('wonderful world', 4); // => 'world'
 </script>
 ```
 
@@ -121,5 +116,5 @@ Licensed under [MIT](https://github.com/panzerdp/voca/blob/master/LICENSE.md)
 [voca_js]: https://raw.githubusercontent.com/panzerdp/voca/1.0.0-alpha.3/dist/voca.js
 [voca]: https://vocajs.com
 [logo]: https://github.com/panzerdp/voca/raw/master/jsdoc/template/static/images/voca-logo@300px.png
-[logo_commonjs]: https://github.com/panzerdp/voca/raw/master/jsdoc/template/static/images/commonjs@240px.png
+[logo_commonjs]: https://github.com/panzerdp/voca/raw/master/jsdoc/template/static/images/commonjs@200px.png
 [logo_browsers]: https://github.com/panzerdp/voca/raw/master/jsdoc/template/static/images/browsers@200px.png

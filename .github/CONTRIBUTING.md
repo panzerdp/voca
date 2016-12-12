@@ -2,7 +2,7 @@
 
 We love contributions from everyone. Thanks for your time and the will to improve Voca.
 
-Please note we have a [code of conduct](CODE_OF_CONDUCT), please follow it in all your interactions with the project.
+Please note we have a [code of conduct][CODE_OF_CONDUCT], please follow it in all your interactions with the project.
 
 ### Reporting an issue or suggest a feature
 
@@ -101,7 +101,7 @@ ideas from [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
 
 To maintain the coding style, the pre-commit hook automatically is linting the code.   
 
-You can find the linting rules in [.eslintrc](eslintrc) file.
+You can find the linting rules in [.eslintrc][eslintrc] file.
 
 To check the code using eslint tool run the command:
 ```bash
