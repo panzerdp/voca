@@ -80,6 +80,27 @@ Then a global variable `v` is exposed for the entire library:
 </script>
 ```
 
+## Functions
+
+| Manipulate        | Query            | Chop              | Case           | Index          |
+| :---------------- | :--------------- | :---------------- | :------------- | :------------- |
+| v.insert          | v.endsWith       | v.charAt          | v.camelCase    | v.indexOf      |
+| v.latinise        | v.includes       | v.codePointAt     | v.capitalize   | v.lastIndexOf  |
+| v.pad             | v.isAlpha        | v.first           | v.decapitalize | v.search       |
+| v.padLeft         | v.isAlphaDigit   | v.graphemeAt      | v.kebabCase    | **Escape**     |
+| v.padRight        | v.isBlank        | v.last            | v.lowerCase    | v.escapeHtml   |
+| v.repeat          | v.isDigit        | v.prune           | v.snakeCase    | v.escapeRegExp |
+| v.replace         | v.isEmpty        | v.slice           | v.upperCase    | v.unescapeHtml |
+| v.replaceAll      | v.isLowerCase    | v.substr          | **Split**      |                | 
+| v.reverse         | v.isNumeric      | v.substring       | v.chars        |                |
+| v.reverseGrapheme | v.isString       | v.truncate        | v.codePoints   |                |
+| v.slugify         | v.isUpperCase    | **Count**         | v.graphemes    |                |
+| v.splice          | v.matches        | v.count           | v.split        |                |
+| v.trim            | v.startsWith     | v.countGraphemes  | v.words        |                |
+| v.trimLeft        | **Format**       | v.countSubstrings |                |                |
+| v.trimRight       | v.sprintf        | v.countWhere      |                |                |
+| v.wordWrap        | v.vprintf        | v.countWords      |                |                |
+
 ## Bug reports
 
 For bug reports, documentation typos or feature requests feel free to create an [issue](https://github.com/panzerdp/voca/issues).  
