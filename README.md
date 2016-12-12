@@ -1,14 +1,14 @@
-# ![Image](https://github.com/panzerdp/voca/raw/master/jsdoc/template/static/images/voca-logo250px.png)
+# [![Voca JavaScript library logo][logo]][voca]
 
 [![travis build](https://img.shields.io/travis/panzerdp/voca.svg)](https://travis-ci.org/panzerdp/voca)
 [![code coverage](https://img.shields.io/codecov/c/github/panzerdp/voca.svg)](https://codecov.io/github/panzerdp/voca)
 [![dependencies](https://david-dm.org/panzerdp/voca.svg)](https://david-dm.org/panzerdp/voca)
 [![npm package](https://img.shields.io/npm/v/voca.svg)](https://www.npmjs.com/package/voca)
 
-Voca is a JavaScript library for manipulating strings.  
+Voca is a JavaScript library for manipulating strings. [https://vocajs.com][voca]
 
 ```javascript
-v.camelCase('skies of blue');                  // => 'skiesOfBlue'
+v.camelCase('bird flight');                    // => 'birdFlight'
 v.sprintf('I see %s of %s', 'trees', 'green'); // => 'I see trees of green'
 v.slugify('What a wonderful world');           // => 'what-a-wonderful-world'
 ```
@@ -33,6 +33,9 @@ See the complete documentation at [https://vocajs.com][voca]
 Voca can be used in various environments.
 
 ### Node.js, Rollup, Webpack, Browserify
+
+![Voca JavaScript library supports Node.js, Rollup, Webpack, Browserify][logo_commonjs]
+
 Install the library with npm into your local modules directory:
 
 ```bash
@@ -61,6 +64,9 @@ slugify('café latté');
 ```
 
 ### Browser
+
+![Voca JavaScript library supports Chrome, Firefox, Safari, Edge, Internet Explorer][logo_browsers]
+
 Load the UMD builds directly into browser's web page:
 
 * [`dist/voca.min.js`][voca_min_js] minified production-ready 
@@ -102,6 +108,7 @@ Please note that this project is released with a Contributor [Code of Conduct][C
 | ![Dmitri Pavlutin](https://s.gravatar.com/avatar/7be6b604e5d3c6a82ed933dd90ed68dc?s=100) |
 | :-: |
 | [Dmitri Pavlutin](https://rainsoft.io/about-me/) |
+| [@panzerdp](https://twitter.com/panzerdp) |
 | [dmitri@rainsoft.io](mailto:dmitri@rainsoft.io) |
 
 ## License
@@ -113,3 +120,6 @@ Licensed under [MIT](https://github.com/panzerdp/voca/blob/master/LICENSE.md)
 [voca_min_js]: https://raw.githubusercontent.com/panzerdp/voca/1.0.0-alpha.3/dist/voca.min.js
 [voca_js]: https://raw.githubusercontent.com/panzerdp/voca/1.0.0-alpha.3/dist/voca.js
 [voca]: https://vocajs.com
+[logo]: https://github.com/panzerdp/voca/raw/master/jsdoc/template/static/images/voca-logo@300px.png
+[logo_commonjs]: https://github.com/panzerdp/voca/raw/master/jsdoc/template/static/images/commonjs@240px.png
+[logo_browsers]: https://github.com/panzerdp/voca/raw/master/jsdoc/template/static/images/browsers@200px.png

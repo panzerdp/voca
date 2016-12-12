@@ -2,14 +2,15 @@
 
 We love contributions from everyone. Thanks for your time and the will to improve Voca.
 
-Please note we have a [code of conduct](CONTRIBUTING), please follow it in all your interactions with the project.
+Please note we have a [code of conduct](CODE_OF_CONDUCT), please follow it in all your interactions with the project.
 
 ### Reporting an issue or suggest a feature
 
 The GitHub issue tracker is the preferred channel for bug reports, change requests and submitting pull
 requests.
 
-Make sure to **search for existing issues**. Please check to see if someone has already reported your problem or requested your idea.
+Before submitting one, make sure to **search for existing issues**. Please check to see if someone has already 
+reported your problem or requested your idea.
 
 The bug report must provide at least the following information:
 
@@ -18,10 +19,11 @@ The bug report must provide at least the following information:
 * *Steps to reproduce:* a step by step scenario how to reproduce the problem
 * *Technical details:* useful info like browser type and version, Operating system, NodeJS version and other
 
-Suggesting new features is welcomed :clap:. In the meantime please provide detailed description what value it brings and possible use cases.
+Suggesting new features is welcomed :clap:. Additionally to your idea, please provide detailed description what value it 
+brings and possible use cases.
 
 ### Creating pull requests
-Pull requests are great :+1:.
+Pull requests are great :+1:.  
 When contributing to this repository, please **first discuss the change** you wish to make via issue, email to [dmitri@rainsoft.io](email),
 or any other method with the owners of this repository before making a change.
 
@@ -119,6 +121,7 @@ npm run jsdoc
 Then open in browser the documentation html file `./docs/index.html`.
 
 [CONTRIBUTING]: https://github.com/panzerdp/voca/blob/master/.github/CONTRIBUTING.md
+[CODE_OF_CONDUCT]: https://github.com/panzerdp/voca/blob/master/CODE_OF_CONDUCT.md
 [email]: mailto:dmitri@rainsoft.io
 [eslintrc]: https://github.com/panzerdp/voca/blob/master/.eslintrc
 [small-functions]: https://rainsoft.io/the-art-of-writing-small-and-plain-functions/
