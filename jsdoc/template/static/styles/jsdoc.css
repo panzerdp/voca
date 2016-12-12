@@ -155,6 +155,11 @@ section {
   margin-top: 10px;
 }
 
+.badges iframe {
+  width: 85px;
+  height: 20px;
+}
+
 .commonjs-logo img {
   width: 200px;
 }
