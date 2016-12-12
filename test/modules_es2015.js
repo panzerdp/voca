@@ -96,6 +96,10 @@ import words from '../dist_mod/words';
 
 import version from '../dist_mod/version';
 
+// Entire library
+
+import v from '../dist_mod/index.es2015';
+
 describe('CommonJS modules', function() {
 
   // Case
@@ -380,6 +384,12 @@ describe('CommonJS modules', function() {
 
   it('should require version()', function() {
     expect(version).to.be.a('string');
+  });
+
+  // Entire library
+
+  it('should require the entire library', function() {
+    expect(v.sprintf('%d yellow %s', 5, 'apples')).to.be.equal('5 yellow apples');
   });
 
 });

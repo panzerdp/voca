@@ -1,4 +1,5 @@
 import babelConfig from './babel_config';
+import banner from './banner';
 
 export default {
   entry: 'src/index.js',
@@ -7,8 +8,9 @@ export default {
   ],
   targets: [{
     dest: 'dist_mod/index.js',
-    format: 'cjs',
+    format: 'umd',
     moduleName: 'v',
-    sourceMap: false
+    sourceMap: false,
+    banner: banner
   }]
 };

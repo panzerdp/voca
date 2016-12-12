@@ -31,12 +31,14 @@
     "email": "dmitri@rainsoft.io"
   },
   "main": "index.js",
+  "jsnext:main": "index.es2015.js",
   "scripts": {
     "eslint": "eslint . --ext .js",
 
     "build": "npm run build-dist && npm run build-npm-package",
       "build-dist": "rollup -c config/rollup_dist.js && rollup -c config/rollup_dist_min.js && rollup -c config/rollup_test.js",
-      "build-npm-package": "rm -rf dist_mod && mkdir dist_mod && cp package.json README.md ./dist_mod && rollup -c config/rollup_dist_mod.js && node config/transform.js",
+      "build-npm-package": "npm run prepare-npm-package && rollup -c config/rollup_dist_mod.js && node config/transform.js && rollup -c config/rollup_dist_es.js",
+        "prepare-npm-package": "rm -rf dist_mod && mkdir dist_mod && cp package.json README.md LICENSE.md ./dist_mod",
 
     "test": "mocha test/index.js --reporter dot",
     "test-npm-package": "mocha test/modules_common.js test/modules_es2015.js --reporter dot",
@@ -53,11 +55,11 @@
   },
   "devDependencies": {
     "babel-cli": "6.18.0",
-    "babel-core": "6.18.2",
+    "babel-core": "6.20.0",
     "babel-eslint": "7.1.1",
     "babel-plugin-add-module-exports": "0.2.1",
     "babel-plugin-module-resolver": "2.4.0",
-    "babel-plugin-transform-es2015-block-scoping": "6.18.0",
+    "babel-plugin-transform-es2015-block-scoping": "6.20.0",
     "babel-plugin-transform-es2015-modules-commonjs": "6.18.0",
     "babel-plugin-transform-es2015-parameters": "6.18.0",
     "babel-plugin-transform-es2015-shorthand-properties": "6.18.0",
@@ -67,7 +69,7 @@
     "babel-root-import": "4.1.5",
     "chai": "3.5.0",
     "codecov.io": "0.1.6",
-    "eslint": "3.11.1",
+    "eslint": "3.12.0",
     "ghooks": "1.3.2",
     "glob": "7.1.1",
     "grunt": "1.0.1",

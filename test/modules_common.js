@@ -351,4 +351,11 @@ describe('CommonJS modules', function() {
     expect(version).to.be.a('string');
   });
 
+  // Entire library
+
+  it('should require the entire library', function() {
+    const v = require('../dist_mod/index');
+    expect(v.sprintf('%d yellow %s', 5, 'apples')).to.be.equal('5 yellow apples');
+  });
+
 });

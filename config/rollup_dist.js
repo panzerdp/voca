@@ -1,4 +1,5 @@
 import babelConfig from './babel_config';
+import banner from './banner';
 
 export default {
   entry: 'src/index.js',
@@ -9,6 +10,7 @@ export default {
     dest: 'dist/voca.js',
     format: 'umd',
     moduleName: 'v',
-    sourceMap: false
+    sourceMap: false,
+    banner: banner
   }]
 };

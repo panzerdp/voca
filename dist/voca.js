@@ -1,3 +1,10 @@
+/*! 
+ * Voca string library 1.0.0-alpha.3
+ * https://vocajs.com
+ *
+ * Copyright Dmitri Pavlutin and other contributors
+ * Released under the MIT license
+ */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
