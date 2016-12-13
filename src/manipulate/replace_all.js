@@ -17,7 +17,7 @@ import escapeRegExp from 'escape/escape_reg_exp';
  * @example
  * v.replaceAll('good morning', 'o', '*');
  * // => 'g**d m*rning'
- * v.replaceAll('evening', \n\, 's');
+ * v.replaceAll('evening', /n/, 's');
  * // => 'evesisg'
  *
  */
