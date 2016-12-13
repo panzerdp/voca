@@ -56,7 +56,7 @@ Or individual functions:
 var words = require('voca/words');
 var slugify = require('voca/slugify');
 words('welcome to Earth'); // => ['welcome', 'to', 'Earth']
-slugify('café latté');     // => 'caffe-latte'
+slugify('caffé latté');     // => 'caffe-latte'
 ```
 
 ### Browser
