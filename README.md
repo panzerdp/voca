@@ -65,8 +65,8 @@ slugify('café latté');     // => 'caffe-latte'
 
 Load the UMD builds directly into browser's web page:
 
-* [`dist/voca.min.js`][voca_min_js] minified production-ready 
-* [`dist/voca.js`][voca_js] uncompressed with comments 
+* [`dist/voca.min.js`][voca_min_js] minified production-ready, with [source map][source_map] 
+* [`dist/voca.js`][voca_js] uncompressed with comments
 
 ```html
 <script src="voca.js" type="text/javascript"></script>
@@ -113,7 +113,7 @@ For general usage questions please ask on [StackOverflow](http://stackoverflow.c
 Contribution is welcome!
 
 * Create a pull request containing bug fixes or new features. Include unit tests and keep the code coverage report near 100% 😎
-* [Propose](https://github.com/panzerdp/voca/issues) new functions, improvements, better documentation
+* [Propose](https://github.com/panzerdp/voca/issues/new) new functions, improvements, better documentation
 
 See more details in [Contributing guide][CONTRIBUTING].
 
@@ -133,8 +133,9 @@ Licensed under [MIT](https://github.com/panzerdp/voca/blob/master/LICENSE.md)
 
 [CODE_OF_CONDUCT]: https://github.com/panzerdp/voca/blob/master/CODE_OF_CONDUCT.md
 [CONTRIBUTING]: https://github.com/panzerdp/voca/blob/master/.github/CONTRIBUTING.md
-[voca_min_js]: https://raw.githubusercontent.com/panzerdp/voca/1.0.0-beta.2/dist/voca.min.js
-[voca_js]: https://raw.githubusercontent.com/panzerdp/voca/1.0.0-beta.2/dist/voca.js
+[voca_min_js]: https://raw.githubusercontent.com/panzerdp/voca/1.0.0/dist/voca.min.js
+[source_map]: https://raw.githubusercontent.com/panzerdp/voca/1.0.0/dist/voca.min.js.map
+[voca_js]: https://raw.githubusercontent.com/panzerdp/voca/1.0.0/dist/voca.js
 [voca]: https://vocajs.com
 [logo]: https://github.com/panzerdp/voca/raw/master/jsdoc/template/static/images/voca-logo@300px.png
 [logo_commonjs]: https://github.com/panzerdp/voca/raw/master/jsdoc/template/static/images/commonjs@200px.png

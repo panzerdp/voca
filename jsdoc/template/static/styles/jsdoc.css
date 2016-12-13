@@ -153,6 +153,37 @@ section {
 .introduction {
   padding: 0 0 0 30px;
   margin-top: 10px;
+  position: relative;
+}
+
+.github-corner-container {
+  position: absolute;
+  top: 0;
+  border: 0;
+  right: 0;
+  border-radius: 0 0.3em 0 0;
+  overflow: hidden;
+}
+
+.github-corner svg {
+  fill:#408BAA;
+  color:#fff;
+}
+
+.github-corner:hover .octo-arm {
+  animation: octocat-wave 560ms ease-in-out
+}
+
+@keyframes octocat-wave {
+  0%, 100% {
+    transform: rotate(0)
+  }
+  20%, 60% {
+    transform: rotate(-25deg)
+  }
+  40%, 80% {
+    transform: rotate(10deg)
+  }
 }
 
 .badges iframe {
@@ -233,6 +264,20 @@ nav .main-name {
   font-size: 1.8em;
   font-weight: normal;
   margin-top: 18px;
+}
+
+nav .main-name .voca-name,
+nav .main-name .voca-version {
+  width: 50%;
+  float: left;
+}
+
+nav .main-name .voca-version {
+  text-decoration: none;
+  font-size: 0.8em;
+  color: #717171 !important;
+  padding-right: 25px;
+  text-align: right;
 }
 
 nav li a {
@@ -757,6 +802,10 @@ span.param-type, .params td .param-type, .param-type dd {
   body {
     overflow-x: hidden;
     padding-left: 10px;
+  }
+
+  .github-corner-container {
+    display: none;
   }
 
   .logo {
