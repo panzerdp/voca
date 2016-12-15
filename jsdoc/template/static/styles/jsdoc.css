@@ -260,24 +260,35 @@ nav ul {
   list-style-type: none;
 }
 
+nav .header-name-table {
+  width: 100%;
+  margin-top: 18px;
+  margin-bottom: 16px;
+}
+
+nav .header-name-table td {
+  width: 50%;
+  vertical-align: baseline;
+}
+
+nav .header-name-table .voca-name {
+  text-align: left;
+}
+
+nav .header-name-table .voca-version {
+  text-align: right;
+}
+
 nav .main-name {
   font-size: 1.8em;
   font-weight: normal;
-  margin-top: 18px;
 }
 
-nav .main-name .voca-name,
-nav .main-name .voca-version {
-  width: 50%;
-  float: left;
-}
-
-nav .main-name .voca-version {
+nav .voca-version a {
   text-decoration: none;
-  font-size: 0.8em;
+  font-size: 1em;
   color: #717171 !important;
   padding-right: 25px;
-  text-align: right;
 }
 
 nav li a {

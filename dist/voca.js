@@ -2398,7 +2398,7 @@ function appendFlagToRegExp(pattern, appendFlag) {
  * @example
  * v.replaceAll('good morning', 'o', '*');
  * // => 'g**d m*rning'
- * v.replaceAll('evening', \n\, 's');
+ * v.replaceAll('evening', /n/, 's');
  * // => 'evesisg'
  *
  */
@@ -2537,7 +2537,7 @@ function splice(subject, start, deleteCount, toAdd) {
 }
 
 /**
- * Removes whitespaces from the left part of the `subject`.
+ * Removes whitespaces from the left side of the `subject`.
  *
  * @function trimLeft
  * @static
@@ -2576,7 +2576,7 @@ function trimLeft(subject, whitespace$$1) {
 }
 
 /**
- * Removes whitespaces from the right part of the `subject`.
+ * Removes whitespaces from the right side of the `subject`.
  *
  * @function trimRight
  * @static
@@ -2618,7 +2618,7 @@ function trimRight(subject, whitespace$$1) {
 }
 
 /**
- * Removes whitespaces from left and right parts of the `subject`.
+ * Removes whitespaces from left and right sides of the `subject`.
  *
  * @function trim
  * @static
