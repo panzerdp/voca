@@ -7,4 +7,5 @@ export default
  *
  * Copyright Dmitri Pavlutin and other contributors
  * Released under the MIT license
- */`;
+ */
+`;
