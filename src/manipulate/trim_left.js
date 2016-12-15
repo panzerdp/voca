@@ -4,7 +4,7 @@ import { REGEXP_TRIM_LEFT } from 'helper/reg_exp/const';
 import toString from 'helper/string/to_string';
 
 /**
- * Removes whitespaces from the left part of the `subject`.
+ * Removes whitespaces from the left side of the `subject`.
  *
  * @function trimLeft
  * @static
