@@ -12,6 +12,9 @@ import coerceToString from 'helper/string/coerce_to_string';
  * @example
  * v.decapitalize('Sun');
  * // => 'sun'
+ *
+ * v.decapitalize('moon');
+ * // => 'moon'
  */
 export default function decapitalize(subject) {
   const subjectString = coerceToString(subject);

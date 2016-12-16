@@ -16,7 +16,10 @@ import isNil from 'helper/object/is_nil';
  * v.isNumeric('-20.5');
  * // => true
  *
- * v.isNumeric('NaN');
+ * v.isNumeric('1.5E+2');
+ * // => true
+ *
+ * v.isNumeric('five');
  * // => false
  */
 export default function isNumeric(subject) {

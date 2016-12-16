@@ -15,6 +15,9 @@ import coerceToString from 'helper/string/coerce_to_string';
  *
  * v.isEmpty('  ');
  * // => false
+ *
+ * v.isEmpty('sun');
+ * // => false
  */
 export default function isEmpty(subject) {
   const subjectString = coerceToString(subject);
