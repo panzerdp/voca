@@ -5,6 +5,7 @@
  * Copyright Dmitri Pavlutin and other contributors
  * Released under the MIT license
  */
+
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -1272,7 +1273,7 @@ function buildPadding(padCharacters, length) {
  * // => '  dog'
  *
  * v.padLeft('bird', 6, '-');
- * // => '--bird-'
+ * // => '--bird'
  *
  * v.padLeft('cat', 6, '-=');
  * // => '-=-cat'

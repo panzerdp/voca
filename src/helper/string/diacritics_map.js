@@ -117,15 +117,25 @@ const diacritics = {
   "yi": "\u0457"
 };
 
-const diacriticsMap = {};
-let index;
+let diacriticsMap = null;
 
-Object.keys(diacritics).forEach(function(key) {
-  const characters = diacritics[key];
-  for (index = 0; index < characters.length; index++) {
-    const character = characters[index];
-    diacriticsMap[character] = key;
+/**
+ * @ignore
+ * Creates a map of the diacritics.
+ *
+ * @returns {Object} Returns the diacritics map.
+ */
+export default function getDiacriticsMap() {
+  if (diacriticsMap !== null) {
+    return diacriticsMap;
   }
-});
-
-export default diacriticsMap;
+  diacriticsMap = {};
+  Object.keys(diacritics).forEach(function(key) {
+    const characters = diacritics[key];
+    for (let index = 0; index < characters.length; index++) {
+      const character = characters[index];
+      diacriticsMap[character] = key;
+    }
+  });
+  return diacriticsMap;
+}

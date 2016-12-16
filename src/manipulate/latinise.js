@@ -1,6 +1,6 @@
 import { REGEXP_COMBINING_MARKS, REGEXP_NON_LATIN } from 'helper/reg_exp/const';
 import coerceToString from 'helper/string/coerce_to_string';
-import diacriticMap from 'helper/string/diacritics_map';
+import getDiacriticsMap from 'helper/string/diacritics_map';
 
 /**
  * Removes the diacritics from `character`.
@@ -10,7 +10,7 @@ import diacriticMap from 'helper/string/diacritics_map';
  * @returns {string} Returns the character without diacritics.
  */
 function removeDiacritics(character) {
-  const characterWithoutDiacritic = diacriticMap[character];
+  const characterWithoutDiacritic = getDiacriticsMap()[character];
   return characterWithoutDiacritic ? characterWithoutDiacritic : character;
 }
 

@@ -21,7 +21,7 @@ import toInteger from 'helper/number/to_integer';
  * // => '  dog'
  *
  * v.padLeft('bird', 6, '-');
- * // => '--bird-'
+ * // => '--bird'
  *
  * v.padLeft('cat', 6, '-=');
  * // => '-=-cat'
