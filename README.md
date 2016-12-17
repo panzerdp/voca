@@ -75,7 +75,7 @@ Then a global variable `v` is exposed for the entire library:
 
 ```html
 <script type="text/javascript">
-  v.last('wonderful world', 4); // => 'world'
+  v.last('wonderful world', 5); // => 'world'
 </script>
 ```
 
