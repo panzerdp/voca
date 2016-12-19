@@ -12,7 +12,7 @@ v.sprintf('%s costs $%.2f', 'Tea', 1.5); // => 'Tea costs $1.50'
 v.slugify('What a wonderful world');     // => 'what-a-wonderful-world'
 ```
 
-The Voca library offers helpful functions to make string manipulations comfortable: *change case, trim, pad, slugifly,
+The Voca library offers helpful functions to make string manipulations comfortable: *change case, trim, pad, slugify,
 latinise, sprintf'y, truncate, escape* and much more.  The *modular design* allows to load the entire library, or
 individual functions to minimize the application builds. The library is *fully tested*, *well documented* and *long-term supported*.
 
