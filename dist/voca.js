@@ -128,6 +128,9 @@ function capitalize(subject, restToLower) {
  * @example
  * v.lowerCase('Green');
  * // => 'green'
+ *
+ * v.lowerCase('BLUE');
+ * // => 'blue'
  */
 function lowerCase(subject) {
   var subjectString = coerceToString(subject, '');
@@ -490,6 +493,9 @@ function camelCase(subject) {
  * @example
  * v.decapitalize('Sun');
  * // => 'sun'
+ *
+ * v.decapitalize('moon');
+ * // => 'moon'
  */
 function decapitalize(subject) {
   var subjectString = coerceToString(subject);
@@ -2202,16 +2208,28 @@ var diacritics = {
   "yi": "\u0457"
 };
 
-var diacriticsMap = {};
-var index = void 0;
+var diacriticsMap = null;
 
-Object.keys(diacritics).forEach(function (key) {
-  var characters = diacritics[key];
-  for (index = 0; index < characters.length; index++) {
-    var character = characters[index];
-    diacriticsMap[character] = key;
+/**
+ * @ignore
+ * Creates a map of the diacritics.
+ *
+ * @returns {Object} Returns the diacritics map.
+ */
+function getDiacriticsMap() {
+  if (diacriticsMap !== null) {
+    return diacriticsMap;
   }
-});
+  diacriticsMap = {};
+  Object.keys(diacritics).forEach(function (key) {
+    var characters = diacritics[key];
+    for (var index = 0; index < characters.length; index++) {
+      var character = characters[index];
+      diacriticsMap[character] = key;
+    }
+  });
+  return diacriticsMap;
+}
 
 /**
  * Removes the diacritics from `character`.
@@ -2221,7 +2239,7 @@ Object.keys(diacritics).forEach(function (key) {
  * @returns {string} Returns the character without diacritics.
  */
 function removeDiacritics(character) {
-  var characterWithoutDiacritic = diacriticsMap[character];
+  var characterWithoutDiacritic = getDiacriticsMap()[character];
   return characterWithoutDiacritic ? characterWithoutDiacritic : character;
 }
 
@@ -2882,6 +2900,9 @@ function isDigit(subject) {
  *
  * v.isEmpty('  ');
  * // => false
+ *
+ * v.isEmpty('sun');
+ * // => false
  */
 function isEmpty(subject) {
   var subjectString = coerceToString(subject);
@@ -2928,7 +2949,10 @@ function isLowerCase(subject) {
  * v.isNumeric('-20.5');
  * // => true
  *
- * v.isNumeric('NaN');
+ * v.isNumeric('1.5E+2');
+ * // => true
+ *
+ * v.isNumeric('five');
  * // => false
  */
 function isNumeric(subject) {

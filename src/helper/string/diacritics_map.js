@@ -120,12 +120,12 @@ const diacritics = {
 let diacriticsMap = null;
 
 /**
- * @ignore
  * Creates a map of the diacritics.
  *
+ * @ignore
  * @returns {Object} Returns the diacritics map.
  */
-export default function getDiacriticsMap() {
+function getDiacriticsMap() {
   if (diacriticsMap !== null) {
     return diacriticsMap;
   }
@@ -138,4 +138,16 @@ export default function getDiacriticsMap() {
     }
   });
   return diacriticsMap;
+}
+
+/**
+ * Get the latin character from character with diacritics.
+ *
+ * @ignore
+ * @param   {string} character The character with diacritics.
+ * @returns {string}           Returns the character without diacritics.
+ */
+export function getLatinCharacter(character) {
+  const characterWithoutDiacritic = getDiacriticsMap()[character];
+  return characterWithoutDiacritic ? characterWithoutDiacritic : character;
 }

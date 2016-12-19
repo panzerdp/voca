@@ -1,21 +1,10 @@
 import { REGEXP_COMBINING_MARKS, REGEXP_NON_LATIN } from 'helper/reg_exp/const';
 import coerceToString from 'helper/string/coerce_to_string';
-import getDiacriticsMap from 'helper/string/diacritics_map';
-
-/**
- * Removes the diacritics from `character`.
- *
- * @ignore
- * @param {string} character The character with diacritics.
- * @returns {string} Returns the character without diacritics.
- */
-function removeDiacritics(character) {
-  const characterWithoutDiacritic = getDiacriticsMap()[character];
-  return characterWithoutDiacritic ? characterWithoutDiacritic : character;
-}
+import { getLatinCharacter } from 'helper/string/diacritics_map';
 
 /**
  * Returns the `cleanCharacter` from combining marks regular expression match.
+ *
  * @ignore
  * @param {string} character The character with combining marks
  * @param {string} cleanCharacter The character without combining marks.
@@ -50,6 +39,6 @@ export default function latinise(subject) {
     return subjectString;
   }
   return subjectString
-    .replace(REGEXP_NON_LATIN, removeDiacritics)
+    .replace(REGEXP_NON_LATIN, getLatinCharacter)
     .replace(REGEXP_COMBINING_MARKS, removeCombiningMarks);
 }
