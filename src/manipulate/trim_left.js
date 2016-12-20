@@ -29,12 +29,12 @@ export default function trimLeft(subject, whitespace) {
   if (isNil(whitespaceString)) {
     return subjectString.replace(REGEXP_TRIM_LEFT, '');
   }
-  const whitespaceStringLength = whitespaceString.length;
+  const whitespaceLength = whitespaceString.length;
   let matchWhitespace = true;
   let totalWhitespaceLength = 0;
-  while(matchWhitespace) {
+  while (matchWhitespace) {
     if (subjectString.indexOf(whitespaceString, totalWhitespaceLength) === totalWhitespaceLength) {
-      totalWhitespaceLength += whitespaceStringLength;
+      totalWhitespaceLength += whitespaceLength;
     } else {
       matchWhitespace = false;
     }

@@ -29,18 +29,18 @@ export default function trimRight(subject, whitespace) {
   if (isNil(whitespaceString)) {
     return subjectString.replace(REGEXP_TRIM_RIGHT, '');
   }
-  const whitespaceStringLength = whitespaceString.length;
-  const valueStringLength = subjectString.length;
+  const whitespaceLength = whitespaceString.length;
+  const subjectLength = subjectString.length;
   let matchWhitespace = true;
   let totalWhitespaceLength = 0;
   let position;
-  while(matchWhitespace) {
-    position = valueStringLength - totalWhitespaceLength - whitespaceStringLength;
+  while (matchWhitespace) {
+    position = subjectLength - totalWhitespaceLength - whitespaceLength;
     if (subjectString.indexOf(whitespaceString, position) === position) {
-      totalWhitespaceLength += whitespaceStringLength;
+      totalWhitespaceLength += whitespaceLength;
     } else {
       matchWhitespace = false;
     }
   }
-  return subjectString.substring(0, valueStringLength - totalWhitespaceLength);
+  return subjectString.substring(0, subjectLength - totalWhitespaceLength);
 }
