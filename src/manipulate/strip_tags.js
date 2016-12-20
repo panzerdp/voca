@@ -5,9 +5,6 @@ import toString from 'helper/string/to_string';
 import trimLeft from 'manipulate/trim_left';
 import trimRight from 'manipulate/trim_right';
 
-const STATE_OUTPUT = 0;
-const STATE_INSIDE_TAG = 1;
-
 /**
  * Strips HTML tags from `subject`.
  *
@@ -16,7 +13,8 @@ const STATE_INSIDE_TAG = 1;
  * @since 1.1.0
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to strip.
- * @param {string|string[]} [allowableTags] The array or string of tags that should not be stripped.
+ * @param {string|string[]} [allowableTags] The string or array of tags that should not be stripped.
+ * @param {string} [replacement=''] The string to replace the stripped tag.
  * @return {string} Returns the stripped string.
  * @example
  * v.trim(' Mother nature ');
@@ -25,6 +23,10 @@ const STATE_INSIDE_TAG = 1;
  * v.trim('--Earth--', '-');
  * // => 'Earth'
  */
-export default function trim(subject, allowableTags) {
+export default function trim(subject, allowableTags, replacement) {
+  let subjectString = coerceToString(subject);
+  let allowableTagsList;
+  //if ()
+  let replacementString = coerceToString(replacement);
   return '';
 }

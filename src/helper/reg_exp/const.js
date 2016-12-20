@@ -147,3 +147,13 @@ export const REGEXP_TRAILING_ZEROS = /\.?0+$/g;
  * @ignore
  */
 export const REGEXP_FLAGS = /[gimuy]*$/;
+
+/**
+ * Regular expression to match a list of tags.
+ *
+ * @see https://html.spec.whatwg.org/multipage/syntax.html#syntax-tag-name
+ * @type {RegExp}
+ * @ignore
+ */
+
+export const REGEXP_TAG_LIST = /<([A-Za-z0-9]+)>/g;
