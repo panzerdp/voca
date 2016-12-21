@@ -126,7 +126,7 @@ pre code {
 #main {
   float: right;
   min-width: 360px;
-  width: calc(100% - 240px);
+  width: calc(100% - 270px);
 }
 
 header {
@@ -139,7 +139,7 @@ header h2 {
 
 section {
   display: block;
-  padding: 0 0 0 30px;
+  padding: 0;
 }
 
 .method, .member {
@@ -151,7 +151,7 @@ section {
 }
 
 .introduction {
-  padding: 0 0 0 30px;
+  padding: 0;
   margin-top: 10px;
   position: relative;
 }
