@@ -15,5 +15,9 @@ import coerceToString from 'helper/string/coerce_to_string';
  */
 export default function reverse(subject) {
   const subjectString = coerceToString(subject);
-  return subjectString.split('').reverse().join('');
+  let reversedString = '';
+  for (let i = subjectString.length - 1; i >= 0; i--) {
+    reversedString += subjectString[i];
+  }
+  return reversedString;
 }
