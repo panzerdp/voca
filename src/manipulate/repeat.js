@@ -22,17 +22,7 @@ import toInteger from 'helper/number/to_integer';
  * // => ''
  */
 export default function repeat(subject, times) {
-  let subjectString = coerceToString(subject);
-  let timesInt = isNil(times) ? 1 : clipNumber(toInteger(times), 0, MAX_SAFE_INTEGER);
-  let repeatString = '';
-  while (timesInt) {
-    if (timesInt & 1) {
-      repeatString += subjectString;
-    }
-    if (timesInt > 1) {
-      subjectString += subjectString;
-    }
-    timesInt >>= 1;
-  }
-  return repeatString;
+  const subjectString = coerceToString(subject);
+  const timesInt = isNil(times) ? 1 : clipNumber(toInteger(times), 0, MAX_SAFE_INTEGER);
+  return subjectString.repeat(timesInt);
 }
