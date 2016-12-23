@@ -13,7 +13,7 @@ const previousV = globalObject.v;
  * @return {Object} Returns Voca library instance.
  * @example
  * var voca = v.noConflict();
- * voca.isAlhpa('Hello');
+ * voca.isAlpha('Hello');
  * // => true
  */
 export default function noConflict() {
