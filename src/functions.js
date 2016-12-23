@@ -81,7 +81,6 @@ import reverse from './manipulate/reverse';
 import reverseGrapheme from './manipulate/reverse_grapheme';
 import slugify from './manipulate/slugify';
 import splice from './manipulate/splice';
-import stripTags from './manipulate/strip_tags';
 import trim from './manipulate/trim';
 import trimLeft from './manipulate/trim_left';
 import trimRight from './manipulate/trim_right';
@@ -114,6 +113,12 @@ import codePoints from './split/code_points';
 import graphemes from './split/graphemes';
 import split from './split/split';
 import words from './split/words';
+
+/**
+ * Functions to strip a string
+ * @namespace Strip
+ */
+import stripTags from './strip/strip_tags';
 
 /**
  * Util functions and properties
@@ -171,7 +176,6 @@ export default {
   reverseGrapheme,
   slugify,
   splice,
-  stripTags,
   trim,
   trimLeft,
   trimRight,
@@ -196,6 +200,8 @@ export default {
   graphemes,
   split,
   words,
+
+  stripTags,
 
   noConflict,
   version

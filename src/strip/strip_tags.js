@@ -1,4 +1,5 @@
 /* eslint-disable */
+import parseTagList from 'helper/strip/tag/parse_tag_list';
 import coerceToString from 'helper/string/coerce_to_string';
 import isNil from 'helper/object/is_nil';
 import toString from 'helper/string/to_string';
@@ -11,9 +12,9 @@ import trimRight from 'manipulate/trim_right';
  * @function stripTags
  * @static
  * @since 1.1.0
- * @memberOf Manipulate
+ * @memberOf Strip
  * @param {string} [subject=''] The string to strip.
- * @param {string|string[]} [allowableTags] The string or array of tags that should not be stripped.
+ * @param {string|Array} [allowableTags] The string or array of tags that should not be stripped.
  * @param {string} [replacement=''] The string to replace the stripped tag.
  * @return {string} Returns the stripped string.
  * @example
@@ -24,9 +25,14 @@ import trimRight from 'manipulate/trim_right';
  * // => 'Earth'
  */
 export default function trim(subject, allowableTags, replacement) {
-  let subjectString = coerceToString(subject);
-  let allowableTagsList;
-  //if ()
-  let replacementString = coerceToString(replacement);
-  return '';
+  const subjectString = coerceToString(subject);
+  if (subjectString === '') {
+    return '';
+  }
+  if (!Array.isArray(allowableTags)) {
+    allowableTags = parseTagList(coerceToString(allowableTags))
+  }
+  const replacementString = coerceToString(replacement);
+
+
 }
