@@ -16,7 +16,7 @@ import { REGEXP_NON_LATIN } from 'helper/reg_exp/const';
  * v.slugify('Italian cappuccino drink');
  * // => 'italian-cappuccino-drink'
  *
- * v.slugify('café latté');
+ * v.slugify('caffé latté');
  * // => 'caffe-latte'
  *
  * v.slugify('хорошая погода');

@@ -38,6 +38,7 @@ import './escape/unescape_html';
 import './helper/boolean/coerce_to_boolean';
 import './helper/number/coerce_to_number';
 import './helper/reg_exp/append_flag_to_reg_exp';
+import './helper/strip/parse_tag_name';
 
 //format
 import './format/sprintf';
@@ -61,7 +62,6 @@ import './manipulate/reverse';
 import './manipulate/reverse_grapheme';
 import './manipulate/slugify';
 import './manipulate/splice';
-import './manipulate/strip_tags';
 import './manipulate/trim';
 import './manipulate/trim_left';
 import './manipulate/trim_right';
@@ -88,6 +88,9 @@ import './split/code_points';
 import './split/graphemes';
 import './split/split';
 import './split/words';
+
+//strip
+import './strip/strip_tags';
 
 //util
 import './util/no_conflict';

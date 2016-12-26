@@ -10,9 +10,9 @@ import sprintf from 'format/sprintf';
  * @static
  * @since 1.0.0
  * @memberOf Format
- * @param  {string}                [format='']  The format string.
- * @param  {Array.<number|string>} replacements The array of replacements to produce the string.
- * @return {string}                             Returns the produced string.
+ * @param  {string} format='']  The format string.
+ * @param  {Array} replacements The array of replacements to produce the string.
+ * @return {string}             Returns the produced string.
  * @example
  * v.vprintf('%s', ['Welcome'])
  * // => 'Welcome'

@@ -138,6 +138,9 @@ function capitalize(subject, restToLower) {
  * @example
  * v.lowerCase('Green');
  * // => 'green'
+ *
+ * v.lowerCase('BLUE');
+ * // => 'blue'
  */
 function lowerCase(subject) {
   var subjectString = coerceToString(subject, '');
@@ -222,6 +225,14 @@ var REGEXP_UNICODE_CHARACTER = new RegExp('((?:[' + base + ']|[' + highSurrogate
 (.)', 'g');
 
 /**
+ * Regular expression to match whitespaces
+ *
+ * @type {RegExp}
+ * @ignore
+ */
+var REGEXP_WHITESPACE = new RegExp('[' + whitespace + ']');
+
+/**
  * Regular expression to match whitespaces from the left side
  *
  * @type {RegExp}
@@ -292,6 +303,16 @@ var REGEXP_TRAILING_ZEROS = /\.?0+$/g;
  * @ignore
  */
 var REGEXP_FLAGS = /[gimuy]*$/;
+
+/**
+ * Regular expression to match a list of tags.
+ *
+ * @see https://html.spec.whatwg.org/multipage/syntax.html#syntax-tag-name
+ * @type {RegExp}
+ * @ignore
+ */
+
+var REGEXP_TAG_LIST = /<([A-Za-z0-9]+)>/g;
 
 /**
  * A regular expression to match the General Punctuation Unicode block
@@ -500,6 +521,9 @@ function camelCase(subject) {
  * @example
  * v.decapitalize('Sun');
  * // => 'sun'
+ *
+ * v.decapitalize('moon');
+ * // => 'moon'
  */
 function decapitalize(subject) {
   var subjectString = coerceToString(subject);
@@ -1283,7 +1307,7 @@ function buildPadding(padCharacters, length) {
  * // => '  dog'
  *
  * v.padLeft('bird', 6, '-');
- * // => '--bird-'
+ * // => '--bird'
  *
  * v.padLeft('cat', 6, '-=');
  * // => '-=-cat'
@@ -1882,9 +1906,9 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
  * @static
  * @since 1.0.0
  * @memberOf Format
- * @param  {string}                [format='']  The format string.
- * @param  {Array.<number|string>} replacements The array of replacements to produce the string.
- * @return {string}                             Returns the produced string.
+ * @param  {string} format='']  The format string.
+ * @param  {Array} replacements The array of replacements to produce the string.
+ * @return {string}             Returns the produced string.
  * @example
  * v.vprintf('%s', ['Welcome'])
  * // => 'Welcome'
@@ -2212,31 +2236,44 @@ var diacritics = {
   "yi": "\u0457"
 };
 
-var diacriticsMap = {};
-var index = void 0;
-
-Object.keys(diacritics).forEach(function (key) {
-  var characters = diacritics[key];
-  for (index = 0; index < characters.length; index++) {
-    var character = characters[index];
-    diacriticsMap[character] = key;
-  }
-});
+var diacriticsMap = null;
 
 /**
- * Removes the diacritics from `character`.
+ * Creates a map of the diacritics.
  *
  * @ignore
- * @param {string} character The character with diacritics.
- * @returns {string} Returns the character without diacritics.
+ * @returns {Object} Returns the diacritics map.
  */
-function removeDiacritics(character) {
-  var characterWithoutDiacritic = diacriticsMap[character];
+function getDiacriticsMap() {
+  if (diacriticsMap !== null) {
+    return diacriticsMap;
+  }
+  diacriticsMap = {};
+  Object.keys(diacritics).forEach(function (key) {
+    var characters = diacritics[key];
+    for (var index = 0; index < characters.length; index++) {
+      var character = characters[index];
+      diacriticsMap[character] = key;
+    }
+  });
+  return diacriticsMap;
+}
+
+/**
+ * Get the latin character from character with diacritics.
+ *
+ * @ignore
+ * @param   {string} character The character with diacritics.
+ * @returns {string}           Returns the character without diacritics.
+ */
+function getLatinCharacter(character) {
+  var characterWithoutDiacritic = getDiacriticsMap()[character];
   return characterWithoutDiacritic ? characterWithoutDiacritic : character;
 }
 
 /**
  * Returns the `cleanCharacter` from combining marks regular expression match.
+ *
  * @ignore
  * @param {string} character The character with combining marks
  * @param {string} cleanCharacter The character without combining marks.
@@ -2270,7 +2307,7 @@ function latinise(subject) {
   if (subjectString === '') {
     return subjectString;
   }
-  return subjectString.replace(REGEXP_NON_LATIN, removeDiacritics).replace(REGEXP_COMBINING_MARKS, removeCombiningMarks);
+  return subjectString.replace(REGEXP_NON_LATIN, getLatinCharacter).replace(REGEXP_COMBINING_MARKS, removeCombiningMarks);
 }
 
 /**
@@ -2409,7 +2446,7 @@ function appendFlagToRegExp(pattern, appendFlag) {
  * @example
  * v.replaceAll('good morning', 'o', '*');
  * // => 'g**d m*rning'
- * v.replaceAll('evening', \n\, 's');
+ * v.replaceAll('evening', /n/, 's');
  * // => 'evesisg'
  *
  */
@@ -2489,7 +2526,7 @@ function reverseGrapheme(subject) {
  * v.slugify('Italian cappuccino drink');
  * // => 'italian-cappuccino-drink'
  *
- * v.slugify('café latté');
+ * v.slugify('caffé latté');
  * // => 'caffe-latte'
  *
  * v.slugify('хорошая погода');
@@ -2548,7 +2585,7 @@ function splice(subject, start, deleteCount, toAdd) {
 }
 
 /**
- * Removes whitespaces from the left part of the `subject`.
+ * Removes whitespaces from the left side of the `subject`.
  *
  * @function trimLeft
  * @static
@@ -2573,12 +2610,12 @@ function trimLeft(subject, whitespace$$1) {
   if (isNil(whitespaceString)) {
     return subjectString.replace(REGEXP_TRIM_LEFT, '');
   }
-  var whitespaceStringLength = whitespaceString.length;
+  var whitespaceLength = whitespaceString.length;
   var matchWhitespace = true;
   var totalWhitespaceLength = 0;
   while (matchWhitespace) {
     if (subjectString.indexOf(whitespaceString, totalWhitespaceLength) === totalWhitespaceLength) {
-      totalWhitespaceLength += whitespaceStringLength;
+      totalWhitespaceLength += whitespaceLength;
     } else {
       matchWhitespace = false;
     }
@@ -2587,7 +2624,7 @@ function trimLeft(subject, whitespace$$1) {
 }
 
 /**
- * Removes whitespaces from the right part of the `subject`.
+ * Removes whitespaces from the right side of the `subject`.
  *
  * @function trimRight
  * @static
@@ -2612,24 +2649,24 @@ function trimRight(subject, whitespace$$1) {
   if (isNil(whitespaceString)) {
     return subjectString.replace(REGEXP_TRIM_RIGHT, '');
   }
-  var whitespaceStringLength = whitespaceString.length;
-  var valueStringLength = subjectString.length;
+  var whitespaceLength = whitespaceString.length;
+  var subjectLength = subjectString.length;
   var matchWhitespace = true;
   var totalWhitespaceLength = 0;
   var position = void 0;
   while (matchWhitespace) {
-    position = valueStringLength - totalWhitespaceLength - whitespaceStringLength;
+    position = subjectLength - totalWhitespaceLength - whitespaceLength;
     if (subjectString.indexOf(whitespaceString, position) === position) {
-      totalWhitespaceLength += whitespaceStringLength;
+      totalWhitespaceLength += whitespaceLength;
     } else {
       matchWhitespace = false;
     }
   }
-  return subjectString.substring(0, valueStringLength - totalWhitespaceLength);
+  return subjectString.substring(0, subjectLength - totalWhitespaceLength);
 }
 
 /**
- * Removes whitespaces from left and right parts of the `subject`.
+ * Removes whitespaces from left and right sides of the `subject`.
  *
  * @function trim
  * @static
@@ -2661,6 +2698,22 @@ var OPTION_WIDTH = 'width';
 var OPTION_NEW_LINE = 'newLine';
 var OPTION_INDENT = 'indent';
 var OPTION_CUT = 'cut';
+
+/**
+ * Determine the word wrap options. The missing values are filled with defaults.
+ *
+ * @param  {Object} options  The options object.
+ * @return {Object}          The word wrap options, with default settings if necessary.
+ * @ignore
+ */
+function determineOptions(options) {
+  return {
+    width: coerceToNumber(options[OPTION_WIDTH], 75),
+    newLine: coerceToString(options[OPTION_NEW_LINE], '\n'),
+    indent: coerceToString(options[OPTION_INDENT], ''),
+    cut: coerceToBoolean(options[OPTION_CUT], false)
+  };
+}
 
 /**
  * Wraps `subject` to a given number of characters using a string break character.
@@ -2698,22 +2751,24 @@ var OPTION_CUT = 'cut';
  * // => 'Wonde\nrful\nworld'
  *
  */
-function wordWrap(subject, options) {
+function wordWrap(subject) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
   var subjectString = coerceToString(subject);
-  options = nilDefault(options, {});
-  var width = coerceToNumber(options[OPTION_WIDTH], 75);
-  var newLine = coerceToString(options[OPTION_NEW_LINE], '\n');
-  var indent = coerceToString(options[OPTION_INDENT], '');
-  var cut = coerceToBoolean(options[OPTION_CUT], false);
+
+  var _determineOptions = determineOptions(options),
+      width = _determineOptions.width,
+      newLine = _determineOptions.newLine,
+      indent = _determineOptions.indent,
+      cut = _determineOptions.cut;
 
   if (subjectString === '' || width <= 0) {
     return indent;
   }
-
   var subjectLength = subjectString.length;
+  var substring = subjectString.substring.bind(subjectString);
   var offset = 0;
   var wrappedLine = '';
-
   while (subjectLength - offset > width) {
     if (subjectString[offset] === ' ') {
       offset++;
@@ -2721,26 +2776,26 @@ function wordWrap(subject, options) {
     }
     var spaceToWrapAt = subjectString.lastIndexOf(' ', width + offset);
     if (spaceToWrapAt >= offset) {
-      wrappedLine += indent + subjectString.substring(offset, spaceToWrapAt) + newLine;
+      wrappedLine += indent + substring(offset, spaceToWrapAt) + newLine;
       offset = spaceToWrapAt + 1;
     } else {
       if (cut) {
-        wrappedLine += indent + subjectString.substring(offset, width + offset) + newLine;
+        wrappedLine += indent + substring(offset, width + offset) + newLine;
         offset += width;
       } else {
         spaceToWrapAt = subjectString.indexOf(' ', width + offset);
         if (spaceToWrapAt >= 0) {
-          wrappedLine += indent + subjectString.substring(offset, spaceToWrapAt) + newLine;
+          wrappedLine += indent + substring(offset, spaceToWrapAt) + newLine;
           offset = spaceToWrapAt + 1;
         } else {
-          wrappedLine += indent + subjectString.substring(offset);
+          wrappedLine += indent + substring(offset);
           offset = subjectLength;
         }
       }
     }
   }
   if (offset < subjectLength) {
-    wrappedLine += indent + subjectString.substring(offset);
+    wrappedLine += indent + substring(offset);
   }
   return wrappedLine;
 }
@@ -2892,6 +2947,9 @@ function isDigit(subject) {
  *
  * v.isEmpty('  ');
  * // => false
+ *
+ * v.isEmpty('sun');
+ * // => false
  */
 function isEmpty(subject) {
   var subjectString = coerceToString(subject);
@@ -2938,7 +2996,10 @@ function isLowerCase(subject) {
  * v.isNumeric('-20.5');
  * // => true
  *
- * v.isNumeric('NaN');
+ * v.isNumeric('1.5E+2');
+ * // => true
+ *
+ * v.isNumeric('five');
  * // => false
  */
 function isNumeric(subject) {
@@ -3134,6 +3195,233 @@ function split(subject, separator, limit) {
   return subjectString.split(separator, limit);
 }
 
+/**
+ * Checks whether `subject` contains substring at specific `index`.
+ *
+ * @ignore
+ * @param {string} subject The subject to search in.
+ * @param {string} substring The substring to search/
+ * @param {number} index The index to search substring.
+ * @param {boolean} lookBehind Whether to look behind (true) or ahead (false).
+ * @return {boolean} Returns a boolean whether the substring exists.
+ */
+function hasSubstringAtIndex(subject, substring, index) {
+  var lookBehind = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+
+  var indexOffset = 0;
+  if (lookBehind) {
+    indexOffset = -substring.length + 1;
+  }
+  var extractedSubstring = subject.substr(index + indexOffset, substring.length);
+  return extractedSubstring.toLowerCase() === substring;
+}
+
+/**
+ * Parses the tags from the string '<tag1><tag2>...<tagN>'.
+ *
+ * @ignore
+ * @param {string} tags The string that contains the tags.
+ * @return {string[]} Returns the array of tag names.
+ */
+function parseTagList(tags) {
+  var tagsList = [];
+  var match = void 0;
+  while ((match = REGEXP_TAG_LIST.exec(tags)) !== null) {
+    tagsList.push(match[1]);
+  }
+  return tagsList;
+}
+
+var STATE_START_TAG = 0;
+var STATE_NON_WHITESPACE = 1;
+var STATE_DONE = 2;
+
+/**
+ * Parses the tag name from html content
+ *
+ * @param {string} tagContent The tag content
+ * @return {string} Returns the tag name
+ */
+function parseTagName(tagContent) {
+  var state = STATE_START_TAG;
+  var tagName = '';
+  var index = 0;
+  while (state !== STATE_DONE) {
+    var char = tagContent[index++].toLowerCase();
+    switch (char) {
+      case '<':
+        break;
+      case '>':
+        state = STATE_DONE;
+        break;
+      default:
+        if (REGEXP_WHITESPACE.test(char)) {
+          if (state === STATE_NON_WHITESPACE) {
+            state = STATE_DONE;
+          }
+        } else {
+          if (state === STATE_START_TAG) {
+            state = STATE_NON_WHITESPACE;
+          }
+          if (char !== '/') {
+            tagName += char;
+          }
+        }
+        break;
+    }
+  }
+  return tagName;
+}
+
+/* eslint-disable */
+var STATE_OUTPUT = 0;
+var STATE_HTML = 1;
+var STATE_EXCLAMATION = 2;
+var STATE_COMMENT = 3;
+
+/**
+ * Strips subject tags from `subject`.
+ *
+ * @function stripTags
+ * @static
+ * @since 1.1.0
+ * @memberOf Strip
+ * @param {string} [subject=''] The string to strip.
+ * @param {string|Array} [allowableTags] The string or array of tags that should not be stripped.
+ * @param {string} [replacement=''] The string to replace the stripped tag.
+ * @return {string} Returns the stripped string.
+ * @example
+ * v.trim(' Mother nature ');
+ * // => 'Mother nature'
+ *
+ * v.trim('--Earth--', '-');
+ * // => 'Earth'
+ */
+function trim$1(subject, allowableTags, replacement) {
+  subject = coerceToString(subject);
+  if (subject === '') {
+    return '';
+  }
+  if (!Array.isArray(allowableTags)) {
+    var allowableTagsString = coerceToString(allowableTags);
+    allowableTags = allowableTagsString === '' ? [] : parseTagList(allowableTagsString);
+  }
+  var replacementString = coerceToString(replacement);
+  var length = subject.length;
+  var hasAllowableTags = allowableTags.length > 0;
+  var hasSubstring = hasSubstringAtIndex.bind(null, subject);
+  var state = STATE_OUTPUT;
+  var depth = 0;
+  var output = '';
+  var tagContent = '';
+  var quote = null;
+  for (var index = 0; index < length; index++) {
+    var char = subject[index];
+    var advance = false;
+    switch (char) {
+      case '<':
+        if (quote) {
+          break;
+        }
+        if (hasSubstring('< ', index, false)) {
+          advance = true;
+          break;
+        }
+        if (state === STATE_OUTPUT) {
+          advance = true;
+          state = STATE_HTML;
+          break;
+        }
+        if (state === STATE_HTML) {
+          depth++;
+          break;
+        }
+        advance = true;
+        break;
+      case '!':
+        if (state === STATE_HTML && hasSubstring('<!', index)) {
+          state = STATE_EXCLAMATION;
+          break;
+        }
+        advance = true;
+        break;
+      case '-':
+        if (state === STATE_EXCLAMATION && hasSubstring('!--', index)) {
+          state = STATE_COMMENT;
+          break;
+        }
+        advance = true;
+        break;
+      case '"':
+      case "'":
+        if (state === STATE_HTML) {
+          if (quote === char) {
+            quote = null;
+          } else if (!quote) {
+            quote = char;
+          }
+        }
+        advance = true;
+        break;
+      case 'E':
+      case 'e':
+        if (state === STATE_EXCLAMATION && hasSubstring('doctype', index)) {
+          state = STATE_HTML;
+          break;
+        }
+        advance = true;
+        break;
+      case '>':
+        if (depth > 0) {
+          depth--;
+          break;
+        }
+        if (quote) {
+          break;
+        }
+        if (state === STATE_HTML) {
+          quote = null;
+          state = STATE_OUTPUT;
+          if (hasAllowableTags) {
+            tagContent += '>';
+            var tagName = parseTagName(tagContent);
+            if (allowableTags.indexOf(tagName.toLowerCase()) !== -1) {
+              output += tagContent;
+            }
+            tagContent = '';
+          } else {
+            tagContent += replacementString;
+          }
+          break;
+        }
+        if (state === STATE_EXCLAMATION || state === STATE_COMMENT && hasSubstring('-->', index)) {
+          quote = null;
+          state = STATE_OUTPUT;
+          tagContent = '';
+          break;
+        }
+        advance = true;
+        break;
+      default:
+        advance = true;
+    }
+    if (advance) {
+      switch (state) {
+        case STATE_OUTPUT:
+          output += char;
+          break;
+        case STATE_HTML:
+          if (hasAllowableTags) {
+            tagContent += char;
+          }
+          break;
+      }
+    }
+  }
+
+  return output;
+}
+
 var globalObject$1 = null;
 
 function getGlobalObject() {
@@ -3235,6 +3523,10 @@ var version = '1.0.0';
  * @namespace Split
  */
 /**
+ * Functions to strip a string
+ * @namespace Strip
+ */
+/**
  * Util functions and properties
  * @namespace Util
  */
@@ -3311,6 +3603,8 @@ var functions = {
   graphemes: graphemes,
   split: split,
   words: words,
+
+  stripTags: trim$1,
 
   noConflict: noConflict,
   version: version
@@ -4592,6 +4886,14 @@ describe('coerceToRegularExpression', function () {
     var regexp2 = appendFlagToRegExp(/.*/, 'g');
     chai.expect(regexp2).to.be.instanceof(RegExp);
     chai.expect(regexp2.toString()).to.be.equal('/.*/g');
+  });
+});
+
+describe('parseTagName', function () {
+
+  it('should parse the tag name from markup', function () {
+    chai.expect(parseTagName("<img title=\"foo 'bar'\"/>")).to.be.equal('img');
+    chai.expect(parseTagName("<  b>Wonderful world</b>")).to.be.equal('b');
   });
 });
 
@@ -7027,6 +7329,83 @@ describe('words', function () {
   });
 });
 
+/* eslint-disable */
+describe('stripTags', function () {
+
+  it('should strip tags', function () {
+    chai.expect(Voca.stripTags('<b>Hello world!</b>')).to.be.equal('Hello world!');
+    chai.expect(Voca.stripTags('<b>Hello world!</b>')).to.be.equal('Hello world!');
+    chai.expect(Voca.stripTags('<span class="italic">Hello world!</span>')).to.be.equal('Hello world!');
+    chai.expect(Voca.stripTags('<span class="<italic>">Hello world!</span>')).to.be.equal('Hello world!');
+    chai.expect(Voca.stripTags('<span class="italic"><b>Hello world!</b></span>')).to.be.equal('Hello world!');
+    chai.expect(Voca.stripTags('<html>hello</html>')).to.be.equal('hello');
+    chai.expect(Voca.stripTags('<script language=\"PHP\"> echo hello </script>')).to.be.equal(' echo hello ');
+    chai.expect(Voca.stripTags('<html><b>hello</b><p>world</p></html>')).to.be.equal('helloworld');
+  });
+
+  it('should strip tags which attributes contain < or > ', function () {
+    var helloWorld = 'hello  world';
+    chai.expect(Voca.stripTags('hello <img title="<"> world')).to.be.equal(helloWorld);
+    chai.expect(Voca.stripTags('hello <img title=">"> world')).to.be.equal(helloWorld);
+    chai.expect(Voca.stripTags('hello <img title=">_<"> world')).to.be.equal(helloWorld);
+    chai.expect(Voca.stripTags("hello <img title='>_<'> world")).to.be.equal(helloWorld);
+    chai.expect(Voca.stripTags("hello <img title=\"foo 'bar'\"> world")).to.be.equal(helloWorld);
+  });
+
+  it('should strip tags on multiple lines', function () {
+    var multilineHtml = `<html>This's a string with quotes:</html>
+"strings in double quote";
+'strings in single quote';
+<html>this\line is single quoted /with\slashes </html>`;
+    chai.expect(Voca.stripTags(multilineHtml, '<html>')).to.be.equal(multilineHtml);
+  });
+
+  it('should strip comments and doctype', function () {
+    chai.expect(Voca.stripTags('<html><!-- COMMENT --></html>')).to.be.equal('');
+    chai.expect(Voca.stripTags('<b>Hello world!</b><!-- Just some information -->')).to.be.equal('Hello world!');
+    chai.expect(Voca.stripTags('<span class="italic">Hello world!<!-- Just some information --></span>')).to.be.equal('Hello world!');
+    chai.expect(Voca.stripTags('<!-- Small<>comment --><span class="italic"><!-- Just some information --><b>Hello world!</b></span>')).to.be.equal('Hello world!');
+    chai.expect(Voca.stripTags('<!doctype html><span class="italic"><!-- Just some information --><b>Hello world!</b></span>')).to.be.equal('Hello world!');
+  });
+
+  it('should not strip allowable tags', function () {
+    chai.expect(Voca.stripTags('<b>Hello world!</b>', ['b'])).to.be.equal('<b>Hello world!</b>');
+    chai.expect(Voca.stripTags('<b class="red">Hello world!</b>', ['b'])).to.be.equal('<b class="red">Hello world!</b>');
+    chai.expect(Voca.stripTags('<b class="red">Hello</b> <span>world!</span>', '<b><a>')).to.be.equal('<b class="red">Hello</b> world!');
+    var helloWorldHtml = '<html><p>hello</p><b>world</b><a href="#fragment">Other text</a></html>';
+    chai.expect(Voca.stripTags(helloWorldHtml, '<html>')).to.be.equal('<html>helloworldOther text</html>');
+    chai.expect(Voca.stripTags(helloWorldHtml, ['p'])).to.be.equal('<p>hello</p>worldOther text');
+    chai.expect(Voca.stripTags(helloWorldHtml, '<a>')).to.be.equal('helloworld<a href="#fragment">Other text</a>');
+    chai.expect(Voca.stripTags(helloWorldHtml, ['html', 'p', 'a', 'b'])).to.be.equal(helloWorldHtml);
+  });
+
+  it('should not modify a string without tags', function () {
+    chai.expect(Voca.stripTags('Hello world!')).to.be.equal('Hello world!');
+    chai.expect(Voca.stripTags('  ')).to.be.equal('  ');
+    chai.expect(Voca.stripTags('')).to.be.equal('');
+  });
+
+  it('should treat especially broken or invalid tags', function () {
+    chai.expect(Voca.stripTags('< html >')).to.be.equal('< html >');
+    chai.expect(Voca.stripTags('<<>>')).to.be.equal('');
+    var allowableTags = '<p><a><html>';
+    chai.expect(Voca.stripTags('<<htmL>>hello<</htmL>>', allowableTags)).to.be.equal('<htmL>hello</htmL>');
+    chai.expect(Voca.stripTags('<a.>HtMl text</.a>', allowableTags)).to.be.equal('HtMl text');
+    chai.expect(Voca.stripTags('<nnn>I am a quoted (\") string with special chars like \$,\!,\@,\%,\&</nnn>', allowableTags)).to.be.equal('I am a quoted (\") string with special chars like \$,\!,\@,\%,\&');
+    chai.expect(Voca.stripTags('<abc>hello</abc> \t\tworld... <ppp>strip_tags_test</ppp>', allowableTags)).to.be.equal('hello \t\tworld... strip_tags_test');
+  });
+
+  it('should strip tags from a string representation of an object', function () {});
+
+  it('should return empty string for null or undefined', function () {
+    chai.expect(Voca.stripTags(null)).to.be.equal('');
+    chai.expect(Voca.stripTags(null, null)).to.be.equal('');
+    chai.expect(Voca.stripTags(undefined)).to.be.equal('');
+    chai.expect(Voca.stripTags(undefined, '<a>')).to.be.equal('');
+    chai.expect(Voca.stripTags(undefined, undefined)).to.be.equal('');
+  });
+});
+
 describe('noConflict', function () {
 
   it('should return Voca library instance and restore v global variable', function () {
@@ -7063,6 +7442,7 @@ describe('version', function () {
 //manipulate
 //query
 //split
+//strip
 //util
 
 }(chai));
