@@ -77,6 +77,14 @@ export const REGEXP_UNICODE_CHARACTER = new RegExp(
 (.)', 'g');
 
 /**
+ * Regular expression to match whitespaces
+ *
+ * @type {RegExp}
+ * @ignore
+ */
+export const REGEXP_WHITESPACE = new RegExp('[' + whitespace + ']');
+
+/**
  * Regular expression to match whitespaces from the left side
  *
  * @type {RegExp}

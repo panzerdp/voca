@@ -344,6 +344,13 @@ describe('CommonJS modules', function() {
     expect(words('*gravity***can****cross&&dimensions++')).to.eql(['gravity', 'can', 'cross', 'dimensions']);
   });
 
+  // Strip
+
+  it('should require stripTags()', function() {
+    const stripTags = require('../dist_mod/strip_tags');
+    expect(stripTags('<b>Welcome</b>')).to.equal('Welcome');
+  });
+
   // Util
 
   it('should require version()', function() {

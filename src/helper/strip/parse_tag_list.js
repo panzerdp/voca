@@ -11,7 +11,7 @@ export default function parseTagList(tags) {
   const tagsList = [];
   let match;
   while ((match = REGEXP_TAG_LIST.exec(tags)) !== null) {
-    tagsList.push(match[0]);
+    tagsList.push(match[1]);
   }
   return tagsList;
 }

@@ -92,6 +92,10 @@ import graphemes from '../dist_mod/graphemes';
 import split from '../dist_mod/split';
 import words from '../dist_mod/words';
 
+// Strip
+
+import stripTags from '../dist_mod/strip_tags';
+
 // Util
 
 import version from '../dist_mod/version';
@@ -378,6 +382,10 @@ describe('CommonJS modules', function() {
 
   it('should require words()', function() {
     expect(words('*gravity***can****cross&&dimensions++')).to.eql(['gravity', 'can', 'cross', 'dimensions']);
+  });
+
+  it('should require stripTags()', function() {
+    expect(stripTags('<b>Welcome</b>')).to.equal('Welcome');
   });
 
   // Util
