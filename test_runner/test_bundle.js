@@ -3273,7 +3273,6 @@ function parseTagName(tagContent) {
   return tagName;
 }
 
-/* eslint-disable */
 var STATE_OUTPUT = 0;
 var STATE_HTML = 1;
 var STATE_EXCLAMATION = 2;
@@ -3286,16 +3285,20 @@ var STATE_COMMENT = 3;
  * @static
  * @since 1.1.0
  * @memberOf Strip
- * @param {string} [subject=''] The string to strip.
- * @param {string|Array} [allowableTags] The string or array of tags that should not be stripped.
+ * @param {string} [subject=''] The string to strip from.
+ * @param {string|Array} [allowableTags] The string `'<tag1><tag2>'` or array `['tag1', 'tag2']` of tags that should not be stripped.
  * @param {string} [replacement=''] The string to replace the stripped tag.
  * @return {string} Returns the stripped string.
  * @example
- * v.trim(' Mother nature ');
- * // => 'Mother nature'
  *
- * v.trim('--Earth--', '-');
- * // => 'Earth'
+ * v.stripTags('<span><a href="#">Summer</a> is nice</span>');
+ * // => 'Summer is nice'
+ *
+ * v.stripTags('<span><i>Winter</i> is <b>cold</b></span>', ['b', 'i']);
+ * // => '<i>Winter</i> is <b>cold</b>'
+ *
+ * v.stripTags('Sun<br/>set', '', '-');
+ * // => 'Sun-set'
  */
 function trim$1(subject, allowableTags, replacement) {
   subject = coerceToString(subject);
@@ -3387,10 +3390,12 @@ function trim$1(subject, allowableTags, replacement) {
             var tagName = parseTagName(tagContent);
             if (allowableTags.indexOf(tagName.toLowerCase()) !== -1) {
               output += tagContent;
+            } else {
+              output += replacementString;
             }
             tagContent = '';
           } else {
-            tagContent += replacementString;
+            output += replacementString;
           }
           break;
         }
@@ -3456,7 +3461,7 @@ var previousV = globalObject.v;
  * @return {Object} Returns Voca library instance.
  * @example
  * var voca = v.noConflict();
- * voca.isAlhpa('Hello');
+ * voca.isAlpha('Hello');
  * // => true
  */
 function noConflict() {
@@ -3475,9 +3480,9 @@ function noConflict() {
  * @type string
  * @example
  * v.version
- * // => '1.0.0'
+ * // => '1.1.0'
  */
-var version = '1.0.0';
+var version = '1.1.0';
 
 /* eslint sort-imports: "off" */
 
@@ -7329,7 +7334,6 @@ describe('words', function () {
   });
 });
 
-/* eslint-disable */
 describe('stripTags', function () {
 
   it('should strip tags', function () {
@@ -7343,6 +7347,29 @@ describe('stripTags', function () {
     chai.expect(Voca.stripTags('<html><b>hello</b><p>world</p></html>')).to.be.equal('helloworld');
   });
 
+  it('should strip potential xss tags', function () {
+    /**
+     * @see https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet
+     */
+    chai.expect(Voca.stripTags('<script>evil();</script>')).to.be.equal('evil();');
+    chai.expect(Voca.stripTags('<SCRIPT SRC=http://xss.rocks/xss.js></SCRIPT>')).to.be.equal('');
+    chai.expect(Voca.stripTags('<IMG """><SCRIPT>alert("XSS")</SCRIPT>">')).to.be.equal('');
+    chai.expect(Voca.stripTags('<SCRIPT/XSS SRC="http://xss.rocks/xss.js"></SCRIPT>')).to.be.equal('');
+    chai.expect(Voca.stripTags('<BODY onload!#$%&()*~+-_.,:;?@[/|\]^`=alert("XSS")>')).to.be.equal('');
+    chai.expect(Voca.stripTags('<SCRIPT/SRC="http://xss.rocks/xss.js"></SCRIPT>')).to.be.equal('');
+    chai.expect(Voca.stripTags('<<SCRIPT>alert("XSS");//<</SCRIPT>')).to.be.equal('');
+    chai.expect(Voca.stripTags('<SCRIPT SRC=http://xss.rocks/xss.js?< B >')).to.be.equal('');
+    chai.expect(Voca.stripTags('<SCRIPT SRC=//xss.rocks/.j>')).to.be.equal('');
+    chai.expect(Voca.stripTags('<IMG SRC="javascript:alert(\'XSS\')"')).to.be.equal('');
+    chai.expect(Voca.stripTags('<SCRIPT a=">" SRC="httx://xss.rocks/xss.js"></SCRIPT>')).to.be.equal('');
+    chai.expect(Voca.stripTags('<SCRIPT =">" SRC="httx://xss.rocks/xss.js"></SCRIPT>')).to.be.equal('');
+    chai.expect(Voca.stripTags('<SCRIPT a=">" \'\' SRC="httx://xss.rocks/xss.js"></SCRIPT>')).to.be.equal('');
+    chai.expect(Voca.stripTags('<SCRIPT "a=\'>\'" SRC="httx://xss.rocks/xss.js"></SCRIPT>')).to.be.equal('');
+    chai.expect(Voca.stripTags('<SCRIPT a=`>` SRC="httx://xss.rocks/xss.js"></SCRIPT>')).to.be.equal('` SRC="httx://xss.rocks/xss.js">');
+    chai.expect(Voca.stripTags('<SCRIPT a=">\'>" SRC="httx://xss.rocks/xss.js"></SCRIPT>')).to.be.equal('');
+    chai.expect(Voca.stripTags('<SCRIPT>document.write("<SCRI");</SCRIPT>PT SRC="httx://xss.rocks/xss.js"></SCRIPT>')).to.be.equal('document.write("');
+  });
+
   it('should strip tags which attributes contain < or > ', function () {
     var helloWorld = 'hello  world';
     chai.expect(Voca.stripTags('hello <img title="<"> world')).to.be.equal(helloWorld);
@@ -7353,10 +7380,7 @@ describe('stripTags', function () {
   });
 
   it('should strip tags on multiple lines', function () {
-    var multilineHtml = `<html>This's a string with quotes:</html>
-"strings in double quote";
-'strings in single quote';
-<html>this\line is single quoted /with\slashes </html>`;
+    var multilineHtml = '<html>This\'s a string with quotes:</html>\n"strings in double quote";\n\'strings in single quote\';\n<html>this\line is single quoted /with\slashes </html>';
     chai.expect(Voca.stripTags(multilineHtml, '<html>')).to.be.equal(multilineHtml);
   });
 
@@ -7385,6 +7409,12 @@ describe('stripTags', function () {
     chai.expect(Voca.stripTags('')).to.be.equal('');
   });
 
+  it('should add instead of stripped tags a special string', function () {
+    chai.expect(Voca.stripTags('<li><b><a href="#" title="Title">Recently improved articles</a></b></li>', '', '*')).to.be.equal('***Recently improved articles***');
+    chai.expect(Voca.stripTags('<b>Hello</b><i>World</i>', '<a>', ' ')).to.be.equal(' Hello  World ');
+    chai.expect(Voca.stripTags('Line<br/>break', ['i'], ' ')).to.be.equal('Line break');
+  });
+
   it('should treat especially broken or invalid tags', function () {
     chai.expect(Voca.stripTags('< html >')).to.be.equal('< html >');
     chai.expect(Voca.stripTags('<<>>')).to.be.equal('');
@@ -7395,7 +7425,14 @@ describe('stripTags', function () {
     chai.expect(Voca.stripTags('<abc>hello</abc> \t\tworld... <ppp>strip_tags_test</ppp>', allowableTags)).to.be.equal('hello \t\tworld... strip_tags_test');
   });
 
-  it('should strip tags from a string representation of an object', function () {});
+  it('should strip tags from a string representation of an object', function () {
+    chai.expect(Voca.stripTags('<a href="#">Hello</a>')).to.equal('Hello');
+    chai.expect(Voca.stripTags({
+      toString: function () {
+        return '<a href="#">Hello</a>';
+      }
+    }, '<a>')).to.equal('<a href="#">Hello</a>');
+  });
 
   it('should return empty string for null or undefined', function () {
     chai.expect(Voca.stripTags(null)).to.be.equal('');
@@ -7446,4 +7483,3 @@ describe('version', function () {
 //util
 
 }(chai));
-//# sourceMappingURL=test_bundle.js.map

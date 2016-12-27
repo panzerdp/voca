@@ -1,5 +1,5 @@
 /*! 
- * Voca string library 1.0.0
+ * Voca string library 1.1.0
  * https://vocajs.com
  *
  * Copyright Dmitri Pavlutin and other contributors
@@ -3263,7 +3263,6 @@ function parseTagName(tagContent) {
   return tagName;
 }
 
-/* eslint-disable */
 var STATE_OUTPUT = 0;
 var STATE_HTML = 1;
 var STATE_EXCLAMATION = 2;
@@ -3276,16 +3275,20 @@ var STATE_COMMENT = 3;
  * @static
  * @since 1.1.0
  * @memberOf Strip
- * @param {string} [subject=''] The string to strip.
- * @param {string|Array} [allowableTags] The string or array of tags that should not be stripped.
+ * @param {string} [subject=''] The string to strip from.
+ * @param {string|Array} [allowableTags] The string `'<tag1><tag2>'` or array `['tag1', 'tag2']` of tags that should not be stripped.
  * @param {string} [replacement=''] The string to replace the stripped tag.
  * @return {string} Returns the stripped string.
  * @example
- * v.trim(' Mother nature ');
- * // => 'Mother nature'
  *
- * v.trim('--Earth--', '-');
- * // => 'Earth'
+ * v.stripTags('<span><a href="#">Summer</a> is nice</span>');
+ * // => 'Summer is nice'
+ *
+ * v.stripTags('<span><i>Winter</i> is <b>cold</b></span>', ['b', 'i']);
+ * // => '<i>Winter</i> is <b>cold</b>'
+ *
+ * v.stripTags('Sun<br/>set', '', '-');
+ * // => 'Sun-set'
  */
 function trim$1(subject, allowableTags, replacement) {
   subject = coerceToString(subject);
@@ -3377,10 +3380,12 @@ function trim$1(subject, allowableTags, replacement) {
             var tagName = parseTagName(tagContent);
             if (allowableTags.indexOf(tagName.toLowerCase()) !== -1) {
               output += tagContent;
+            } else {
+              output += replacementString;
             }
             tagContent = '';
           } else {
-            tagContent += replacementString;
+            output += replacementString;
           }
           break;
         }
@@ -3446,7 +3451,7 @@ var previousV = globalObject.v;
  * @return {Object} Returns Voca library instance.
  * @example
  * var voca = v.noConflict();
- * voca.isAlhpa('Hello');
+ * voca.isAlpha('Hello');
  * // => true
  */
 function noConflict() {
@@ -3465,9 +3470,9 @@ function noConflict() {
  * @type string
  * @example
  * v.version
- * // => '1.0.0'
+ * // => '1.1.0'
  */
-var version = '1.0.0';
+var version = '1.1.0';
 
 /* eslint sort-imports: "off" */
 

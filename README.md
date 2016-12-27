@@ -96,8 +96,8 @@ Then a global variable `v` is exposed for the entire library:
 | [v.slugify][slugify]                 | [v.isUpperCase][isUpperCase]   | **Count**                            | [v.graphemes][graphemes]       |                                |
 | [v.splice][splice]                   | [v.matches][matches]           | [v.count][count]                     | [v.split][split]               |                                |
 | [v.trim][trim]                       | [v.startsWith][startsWith]     | [v.countGraphemes][countGraphemes]   | [v.words][words]               |                                |
-| [v.trimLeft][trimLeft]               | **Format**                     | [v.countSubstrings][countSubstrings] |                                |                                |
-| [v.trimRight][trimRight]             | [v.sprintf][sprintf]           | [v.countWhere][countWhere]           |                                |                                |
+| [v.trimLeft][trimLeft]               | **Format**                     | [v.countSubstrings][countSubstrings] | **Strip**                      |                                |
+| [v.trimRight][trimRight]             | [v.sprintf][sprintf]           | [v.countWhere][countWhere]           | [v.stripTags][stripTags]       |                                |
 | [v.wordWrap][wordWrap]               | [v.vprintf][vprintf]           | [v.countWords][countWords]           |                                |                                |
 
 ## Bug reports
@@ -132,9 +132,9 @@ Licensed under [MIT](https://github.com/panzerdp/voca/blob/master/LICENSE.md)
 
 [CODE_OF_CONDUCT]: https://github.com/panzerdp/voca/blob/master/CODE_OF_CONDUCT.md
 [CONTRIBUTING]: https://github.com/panzerdp/voca/blob/master/.github/CONTRIBUTING.md
-[voca_min_js]: https://raw.githubusercontent.com/panzerdp/voca/1.0.0/dist/voca.min.js
-[source_map]: https://raw.githubusercontent.com/panzerdp/voca/1.0.0/dist/voca.min.js.map
-[voca_js]: https://raw.githubusercontent.com/panzerdp/voca/1.0.0/dist/voca.js
+[voca_min_js]: https://raw.githubusercontent.com/panzerdp/voca/1.1.0/dist/voca.min.js
+[source_map]: https://raw.githubusercontent.com/panzerdp/voca/1.1.0/dist/voca.min.js.map
+[voca_js]: https://raw.githubusercontent.com/panzerdp/voca/1.1.0/dist/voca.js
 [voca]: https://vocajs.com
 [logo]: https://github.com/panzerdp/voca/raw/master/jsdoc/template/static/images/voca-logo@300px.png
 [logo_commonjs]: https://github.com/panzerdp/voca/raw/master/jsdoc/template/static/images/commonjs@200px.png
@@ -212,3 +212,5 @@ Licensed under [MIT](https://github.com/panzerdp/voca/blob/master/LICENSE.md)
 [graphemes]: https://vocajs.com/#graphemes
 [split]: https://vocajs.com/#split
 [words]: https://vocajs.com/#words
+
+[stripTags]: https://vocajs.com/#stripTags
