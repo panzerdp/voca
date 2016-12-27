@@ -15,16 +15,20 @@ const STATE_COMMENT = 3;
  * @static
  * @since 1.1.0
  * @memberOf Strip
- * @param {string} [subject=''] The string to strip.
- * @param {string|Array} [allowableTags] The string or array of tags that should not be stripped.
+ * @param {string} [subject=''] The string to strip from.
+ * @param {string|Array} [allowableTags] The string `'<tag1><tag2>'` or array `['tag1', 'tag2']` of tags that should not be stripped.
  * @param {string} [replacement=''] The string to replace the stripped tag.
  * @return {string} Returns the stripped string.
  * @example
- * v.trim(' Mother nature ');
- * // => 'Mother nature'
  *
- * v.trim('--Earth--', '-');
- * // => 'Earth'
+ * v.stripTags('<span><a href="#">Summer</a> is nice</span>');
+ * // => 'Summer is nice'
+ *
+ * v.stripTags('<span><i>Winter</i> is <b>cold</b></span>', ['b', 'i']);
+ * // => '<i>Winter</i> is <b>cold</b>'
+ *
+ * v.stripTags('Sun<br/>set', '', '-');
+ * // => 'Sun-set'
  */
 export default function trim(subject, allowableTags, replacement) {
   subject = coerceToString(subject);
@@ -116,10 +120,12 @@ export default function trim(subject, allowableTags, replacement) {
             const tagName = parseTagName(tagContent);
             if (allowableTags.indexOf(tagName.toLowerCase()) !== -1) {
               output += tagContent;
+            } else {
+              output += replacementString;
             }
             tagContent = '';
           } else {
-            tagContent += replacementString;
+            output += replacementString;
           }
           break;
         }

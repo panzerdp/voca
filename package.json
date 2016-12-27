@@ -20,7 +20,8 @@
     "escape",
     "word",
     "wrap",
-    "case"
+    "case",
+    "strip"
   ],
   "repository": {
     "type": "git",
@@ -45,7 +46,8 @@
     "report-coverage": "cat ./coverage/lcov.info | codecov",
     "verify": "npm run eslint && npm run coverage",
     "jsdoc": "jsdoc --configure .jsdoc.json",
-    "deploy": "rollup -c config/rollup_dist.js && cp dist/voca.js docs/scripts && scp -r docs/* rainishere:/home/rainishere/webapps/voca_docs"
+    "deploy": "rollup -c config/rollup_dist.js && cp dist/voca.js docs/scripts && scp -r docs/* rainishere:/home/rainishere/webapps/voca_docs",
+    "precommit": "npm run eslint && npm run test"
   },
   "devDependencies": {
     "babel-cli": "6.18.0",
@@ -65,11 +67,11 @@
     "chai": "3.5.0",
     "codecov.io": "0.1.6",
     "eslint": "3.12.2",
-    "ghooks": "2.0.0",
     "glob": "7.1.1",
     "grunt": "1.0.1",
     "grunt-contrib-connect": "1.0.2",
     "grunt-saucelabs": "9.0.0",
+    "husky": "0.12.0",
     "istanbul": "1.1.0-alpha.1",
     "jsdoc": "3.4.3",
     "mkdirp": "0.5.1",
@@ -79,10 +81,5 @@
     "rollup-plugin-uglify": "1.0.1",
     "source-map-support": "0.4.8"
   },
-  "dependencies": {},
-  "config": {
-    "ghooks": {
-      "pre-commit": "npm run eslint && npm run test"
-    }
-  }
+  "dependencies": {}
 }

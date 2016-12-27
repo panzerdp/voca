@@ -14,6 +14,30 @@ describe('stripTags', function() {
     expect(v.stripTags('<html><b>hello</b><p>world</p></html>')).to.be.equal('helloworld');
   });
 
+  it('should strip potential xss tags', function() {
+    /**
+     * @see https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet
+     */
+    expect(v.stripTags('<script>evil();</script>')).to.be.equal('evil();');
+    expect(v.stripTags('<SCRIPT SRC=http://xss.rocks/xss.js></SCRIPT>')).to.be.equal('');
+    expect(v.stripTags('<IMG """><SCRIPT>alert("XSS")</SCRIPT>">')).to.be.equal('');
+    expect(v.stripTags('<SCRIPT/XSS SRC="http://xss.rocks/xss.js"></SCRIPT>')).to.be.equal('');
+    expect(v.stripTags('<BODY onload!#$%&()*~+-_.,:;?@[/|\]^`=alert("XSS")>')).to.be.equal('');
+    expect(v.stripTags('<SCRIPT/SRC="http://xss.rocks/xss.js"></SCRIPT>')).to.be.equal('');
+    expect(v.stripTags('<<SCRIPT>alert("XSS");//<</SCRIPT>')).to.be.equal('');
+    expect(v.stripTags('<SCRIPT SRC=http://xss.rocks/xss.js?< B >')).to.be.equal('');
+    expect(v.stripTags('<SCRIPT SRC=//xss.rocks/.j>')).to.be.equal('');
+    expect(v.stripTags('<IMG SRC="javascript:alert(\'XSS\')"')).to.be.equal('');
+    expect(v.stripTags('<SCRIPT a=">" SRC="httx://xss.rocks/xss.js"></SCRIPT>')).to.be.equal('');
+    expect(v.stripTags('<SCRIPT =">" SRC="httx://xss.rocks/xss.js"></SCRIPT>')).to.be.equal('');
+    expect(v.stripTags('<SCRIPT a=">" \'\' SRC="httx://xss.rocks/xss.js"></SCRIPT>')).to.be.equal('');
+    expect(v.stripTags('<SCRIPT "a=\'>\'" SRC="httx://xss.rocks/xss.js"></SCRIPT>')).to.be.equal('');
+    expect(v.stripTags('<SCRIPT a=`>` SRC="httx://xss.rocks/xss.js"></SCRIPT>')).to.be.equal('` SRC="httx://xss.rocks/xss.js">');
+    expect(v.stripTags('<SCRIPT a=">\'>" SRC="httx://xss.rocks/xss.js"></SCRIPT>')).to.be.equal('');
+    expect(v.stripTags('<SCRIPT>document.write("<SCRI");</SCRIPT>PT SRC="httx://xss.rocks/xss.js"></SCRIPT>')).to.be.equal('document.write("');
+
+  });
+
   it('should strip tags which attributes contain < or > ', function() {
     const helloWorld = 'hello  world';
     expect(v.stripTags('hello <img title="<"> world')).to.be.equal(helloWorld);
@@ -24,11 +48,7 @@ describe('stripTags', function() {
   });
 
   it('should strip tags on multiple lines', function() {
-    const multilineHtml =
-`<html>This's a string with quotes:</html>
-"strings in double quote";
-'strings in single quote';
-<html>this\line is single quoted /with\slashes </html>`;
+    const multilineHtml = '<html>This\'s a string with quotes:</html>\n"strings in double quote";\n\'strings in single quote\';\n<html>this\line is single quoted /with\slashes </html>';
     expect(v.stripTags(multilineHtml, '<html>')).to.be.equal(multilineHtml);
   });
 
@@ -59,6 +79,14 @@ describe('stripTags', function() {
     expect(v.stripTags('')).to.be.equal('');
   });
 
+  it('should add instead of stripped tags a special string', function() {
+    expect(v.stripTags('<li><b><a href="#" title="Title">Recently improved articles</a></b></li>', '', '*'))
+      .to.be.equal('***Recently improved articles***');
+    expect(v.stripTags('<b>Hello</b><i>World</i>', '<a>', ' ')).to.be.equal(' Hello  World ');
+    expect(v.stripTags('Line<br/>break', ['i'], ' ')).to.be.equal('Line break');
+  });
+
+
   it('should treat especially broken or invalid tags', function() {
     expect(v.stripTags('< html >')).to.be.equal('< html >');
     expect(v.stripTags('<<>>')).to.be.equal('');
@@ -72,6 +100,12 @@ describe('stripTags', function() {
   });
 
   it('should strip tags from a string representation of an object', function() {
+    expect(v.stripTags('<a href="#">Hello</a>')).to.equal('Hello');
+    expect(v.stripTags({
+      toString: function() {
+        return '<a href="#">Hello</a>';
+      }
+    }, '<a>')).to.equal('<a href="#">Hello</a>');
   });
 
   it('should return empty string for null or undefined', function() {
