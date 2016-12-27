@@ -64,6 +64,8 @@ module.exports = function (grunt) {
           build: buildId,
           testname: 'mocha tests',
           throttled: 2,
+          statusCheckAttempts: 90,
+          pollInterval: 4000,
           sauceConfig: {
             'video-upload-on-pass': false,
             'idle-timeout': 180
