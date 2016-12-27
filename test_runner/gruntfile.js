@@ -63,9 +63,10 @@ module.exports = function (grunt) {
           browsers: browsers,
           build: buildId,
           testname: 'mocha tests',
-          throttled: 3,
+          throttled: 2,
           sauceConfig: {
-            'video-upload-on-pass': false
+            'video-upload-on-pass': false,
+            'idle-timeout': 180
           }
         }
       }

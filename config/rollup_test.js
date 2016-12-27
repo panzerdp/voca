@@ -8,6 +8,6 @@ export default {
   targets: [{
     dest: 'test_runner/test_bundle.js',
     format: 'iife',
-    sourceMap: true
+    sourceMap: false
   }]
 };
