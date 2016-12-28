@@ -9,7 +9,7 @@ const STATE_EXCLAMATION = 2;
 const STATE_COMMENT = 3;
 
 /**
- * Strips subject tags from `subject`.
+ * Strips HTML tags from `subject`.
  *
  * @function stripTags
  * @static
