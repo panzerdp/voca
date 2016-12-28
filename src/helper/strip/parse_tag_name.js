@@ -5,10 +5,11 @@ const STATE_NON_WHITESPACE = 1;
 const STATE_DONE = 2;
 
 /**
- * Parses the tag name from html content
+ * Parses the tag name from html content.
  *
- * @param {string} tagContent The tag content
- * @return {string} Returns the tag name
+ * @ignore
+ * @param {string} tagContent The tag content.
+ * @return {string} Returns the tag name.
  */
 export default function parseTagName(tagContent) {
   let state = STATE_START_TAG;
