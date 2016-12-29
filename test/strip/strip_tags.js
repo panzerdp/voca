@@ -35,7 +35,6 @@ describe('stripTags', function() {
     expect(v.stripTags('<SCRIPT a=`>` SRC="httx://xss.rocks/xss.js"></SCRIPT>')).to.be.equal('` SRC="httx://xss.rocks/xss.js">');
     expect(v.stripTags('<SCRIPT a=">\'>" SRC="httx://xss.rocks/xss.js"></SCRIPT>')).to.be.equal('');
     expect(v.stripTags('<SCRIPT>document.write("<SCRI");</SCRIPT>PT SRC="httx://xss.rocks/xss.js"></SCRIPT>')).to.be.equal('document.write("');
-
   });
 
   it('should strip tags which attributes contain < or > ', function() {
@@ -86,7 +85,6 @@ describe('stripTags', function() {
     expect(v.stripTags('Line<br/>break', ['i'], ' ')).to.be.equal('Line break');
   });
 
-
   it('should treat especially broken or invalid tags', function() {
     expect(v.stripTags('< html >')).to.be.equal('< html >');
     expect(v.stripTags('<<>>')).to.be.equal('');
@@ -115,5 +113,4 @@ describe('stripTags', function() {
     expect(v.stripTags(undefined, '<a>')).to.be.equal('');
     expect(v.stripTags(undefined, undefined)).to.be.equal('');
   });
-
 });

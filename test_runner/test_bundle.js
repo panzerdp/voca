@@ -3237,10 +3237,11 @@ var STATE_NON_WHITESPACE = 1;
 var STATE_DONE = 2;
 
 /**
- * Parses the tag name from html content
+ * Parses the tag name from html content.
  *
- * @param {string} tagContent The tag content
- * @return {string} Returns the tag name
+ * @ignore
+ * @param {string} tagContent The tag content.
+ * @return {string} Returns the tag name.
  */
 function parseTagName(tagContent) {
   var state = STATE_START_TAG;
@@ -3279,7 +3280,7 @@ var STATE_EXCLAMATION = 2;
 var STATE_COMMENT = 3;
 
 /**
- * Strips subject tags from `subject`.
+ * Strips HTML tags from `subject`.
  *
  * @function stripTags
  * @static

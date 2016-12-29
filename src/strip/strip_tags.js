@@ -153,6 +153,5 @@ export default function trim(subject, allowableTags, replacement) {
       }
     }
   }
-
   return output;
 }
