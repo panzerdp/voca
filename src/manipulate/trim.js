@@ -12,7 +12,7 @@ import trimRight from 'manipulate/trim_right';
  * @since 1.0.0
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to trim.
- * @param {string} [whitespace=whitespace] The whitespace characters to trim.
+ * @param {string} [whitespace=whitespace] The whitespace characters to trim. List all characters that you want to be stripped.
  * @return {string} Returns the trimmed string.
  * @example
  * v.trim(' Mother nature ');

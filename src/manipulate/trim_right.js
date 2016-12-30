@@ -1,7 +1,10 @@
 import coerceToString from 'helper/string/coerce_to_string';
+import includes from 'query/includes';
 import isNil from 'helper/object/is_nil';
 import { REGEXP_TRIM_RIGHT } from 'helper/reg_exp/const';
 import toString from 'helper/string/to_string';
+
+const reduceRight = Array.prototype.reduceRight;
 
 /**
  * Removes whitespaces from the right side of the `subject`.
@@ -11,7 +14,7 @@ import toString from 'helper/string/to_string';
  * @since 1.0.0
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to trim.
- * @param {string} [whitespace=whitespace] The whitespace characters to trim.
+ * @param {string} [whitespace=whitespace] The whitespace characters to trim. List all characters that you want to be stripped.
  * @return {string} Returns the trimmed string.
  * @example
  * v.trimRight('the fire rises   ');
@@ -29,18 +32,12 @@ export default function trimRight(subject, whitespace) {
   if (isNil(whitespaceString)) {
     return subjectString.replace(REGEXP_TRIM_RIGHT, '');
   }
-  const whitespaceLength = whitespaceString.length;
-  const subjectLength = subjectString.length;
   let matchWhitespace = true;
-  let totalWhitespaceLength = 0;
-  let position;
-  while (matchWhitespace) {
-    position = subjectLength - totalWhitespaceLength - whitespaceLength;
-    if (subjectString.indexOf(whitespaceString, position) === position) {
-      totalWhitespaceLength += whitespaceLength;
-    } else {
-      matchWhitespace = false;
+  return reduceRight.call(subjectString, function(trimmed, character) {
+    if (matchWhitespace && includes(whitespaceString, character)) {
+      return trimmed;
     }
-  }
-  return subjectString.substring(0, subjectLength - totalWhitespaceLength);
+    matchWhitespace = false;
+    return character + trimmed;
+  }, '');
 }

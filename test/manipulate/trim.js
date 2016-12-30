@@ -20,8 +20,8 @@ describe('trim', function() {
     expect(v.trim('---Do-you-*feel*-in-charge?---', '-')).to.be.equal('Do-you-*feel*-in-charge?');
     expect(v.trim('Do you *feel* in charge?___', '_')).to.be.equal('Do you *feel* in charge?');
     expect(v.trim('<-Do you *feel* in charge?', '<-')).to.be.equal('Do you *feel* in charge?');
-    expect(v.trim('***Do you *feel* in charge?***', '**')).to.be.equal('*Do you *feel* in charge?*');
-    expect(v.trim('Do you *feel* in charge?', 'Do you *feel* in charge?')).to.be.equal('');
+    expect(v.trim('***Do you *feel* in charge?***', '*-')).to.be.equal('Do you *feel* in charge?');
+    expect(v.trim('Do you *feel* in charge?', 'Doe?')).to.be.equal(' you *feel* in charg');
     expect(v.trim('\n\nDo you *feel* in charge?', '\n')).to.be.equal('Do you *feel* in charge?');
   });
 
@@ -43,7 +43,7 @@ describe('trim', function() {
   it('should return the trimmed string for numbers', function() {
     expect(v.trim(100, 1)).to.be.equal('00');
     expect(v.trim(6780, 6780)).to.be.equal('');
-    expect(v.trim(-115, -1)).to.be.equal('15');
+    expect(v.trim(-115, -1)).to.be.equal('5');
     expect(v.trim(1111, 1)).to.be.equal('');
     expect(v.trim(8998, 8)).to.be.equal('99');
   });

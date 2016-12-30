@@ -21,8 +21,8 @@ describe('trimRight', function() {
     expect(v.trimRight('___Do you *feel* in charge?', '_')).to.be.equal('___Do you *feel* in charge?');
     expect(v.trimRight('Do you *feel* in charge?___', '_')).to.be.equal('Do you *feel* in charge?');
     expect(v.trimRight('Do you *feel* in charge?<-', '<-')).to.be.equal('Do you *feel* in charge?');
-    expect(v.trimRight('***Do you *feel* in charge?***', '**')).to.be.equal('***Do you *feel* in charge?*');
-    expect(v.trimRight('Do you *feel* in charge?', 'Do you *feel* in charge?')).to.be.equal('');
+    expect(v.trimRight('***Do you *feel* in charge?***', '**')).to.be.equal('***Do you *feel* in charge?');
+    expect(v.trimRight('Do you *feel* in charge?', 'charge?')).to.be.equal('Do you *feel* in ');
     expect(v.trimRight('Do you *feel* in charge?\n\n', '\n')).to.be.equal('Do you *feel* in charge?');
   });
 
@@ -44,7 +44,7 @@ describe('trimRight', function() {
   it('should return the right trimmed string for numbers', function() {
     expect(v.trimRight(100, 0)).to.be.equal('1');
     expect(v.trimRight(6780, 6780)).to.be.equal('');
-    expect(v.trimRight(-115, 15)).to.be.equal('-1');
+    expect(v.trimRight(-115, 15)).to.be.equal('-');
   });
 
   it('should return empty string for null or undefined', function() {

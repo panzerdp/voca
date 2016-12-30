@@ -1,7 +1,10 @@
 import coerceToString from 'helper/string/coerce_to_string';
+import includes from 'query/includes';
 import isNil from 'helper/object/is_nil';
 import { REGEXP_TRIM_LEFT } from 'helper/reg_exp/const';
 import toString from 'helper/string/to_string';
+
+const reduce = Array.prototype.reduce;
 
 /**
  * Removes whitespaces from the left side of the `subject`.
@@ -11,7 +14,7 @@ import toString from 'helper/string/to_string';
  * @since 1.0.0
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to trim.
- * @param {string} [whitespace=whitespace] The whitespace characters to trim.
+ * @param {string} [whitespace=whitespace] The whitespace characters to trim. List all characters that you want to be stripped.
  * @return {string} Returns the trimmed string.
  * @example
  * v.trimLeft('  Starship Troopers');
@@ -29,15 +32,12 @@ export default function trimLeft(subject, whitespace) {
   if (isNil(whitespaceString)) {
     return subjectString.replace(REGEXP_TRIM_LEFT, '');
   }
-  const whitespaceLength = whitespaceString.length;
   let matchWhitespace = true;
-  let totalWhitespaceLength = 0;
-  while (matchWhitespace) {
-    if (subjectString.indexOf(whitespaceString, totalWhitespaceLength) === totalWhitespaceLength) {
-      totalWhitespaceLength += whitespaceLength;
-    } else {
-      matchWhitespace = false;
+  return reduce.call(subjectString, function(trimmed, character) {
+    if (matchWhitespace && includes(whitespaceString, character)) {
+      return trimmed;
     }
-  }
-  return subjectString.substring(totalWhitespaceLength);
+    matchWhitespace = false;
+    return trimmed + character;
+  }, '');
 }

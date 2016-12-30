@@ -21,8 +21,8 @@ describe('trimLeft', function() {
     expect(v.trimLeft('Do you *feel* in charge?___', '_')).to.be.equal('Do you *feel* in charge?___');
     expect(v.trimLeft('___Do you *feel* in charge?', '_')).to.be.equal('Do you *feel* in charge?');
     expect(v.trimLeft('<-Do you *feel* in charge?', '<-')).to.be.equal('Do you *feel* in charge?');
-    expect(v.trimLeft('***Do you *feel* in charge?***', '**')).to.be.equal('*Do you *feel* in charge?***');
-    expect(v.trimLeft('Do you *feel* in charge?', 'Do you *feel* in charge?')).to.be.equal('');
+    expect(v.trimLeft('***Do you *feel* in charge?***', '*')).to.be.equal('Do you *feel* in charge?***');
+    expect(v.trimLeft('Do you *feel* in charge?', 'Doy')).to.be.equal(' you *feel* in charge?');
     expect(v.trimLeft('\n\nDo you *feel* in charge?', '\n')).to.be.equal('Do you *feel* in charge?');
   });
 
@@ -44,7 +44,7 @@ describe('trimLeft', function() {
   it('should return the left trimmed string for numbers', function() {
     expect(v.trimLeft(100, 1)).to.be.equal('00');
     expect(v.trimLeft(6780, 6780)).to.be.equal('');
-    expect(v.trimLeft(-115, -1)).to.be.equal('15');
+    expect(v.trimLeft(-115, -1)).to.be.equal('5');
   });
 
   it('should return empty string for null or undefined', function() {
