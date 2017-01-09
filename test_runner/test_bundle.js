@@ -607,6 +607,34 @@ function upperCase(subject) {
 }
 
 /**
+ * Converts the subject to title case.
+ *
+ * @function titleCase
+ * @static
+ * @since 1.1.0
+ * @memberOf Case
+ * @param  {string} [subject=''] The string to convert to title case.
+ * @param  {Array} [ignoreWords] The words that should not be capitalized.
+ * @return {string}              Returns the title cased string.
+ * @example
+ * v.titleCase('learning to fly');
+ * // => 'Learning To Fly'
+ *
+ * v.titleCase('another brick in the wall', ['in', 'the']);
+ * // => 'Another Brick in the Wall'
+ *
+ */
+function titleCase(subject, ignoreWords) {
+  var subjectString = coerceToString(subject);
+  var ignoreWordsArray = Array.isArray(ignoreWords) ? ignoreWords : [];
+  var wordsRegExp = REGEXP_EXTENDED_ASCII.test(subjectString) ? REGEXP_LATIN_WORD : REGEXP_WORD;
+  return subjectString.replace(wordsRegExp, function (word) {
+    var lowerCaseWord = word.toLowerCase();
+    return ignoreWordsArray.indexOf(lowerCaseWord) !== -1 ? lowerCaseWord : capitalize(lowerCaseWord, true);
+  });
+}
+
+/**
  * Clip the number to interval `downLimit` to `upLimit`.
  *
  * @ignore
@@ -2584,6 +2612,8 @@ function splice(subject, start, deleteCount, toAdd) {
   return subjectString.slice(0, startPosition) + toAddString + subjectString.slice(startPosition + deleteCountNumber);
 }
 
+var reduce$1 = Array.prototype.reduce;
+
 /**
  * Removes whitespaces from the left side of the `subject`.
  *
@@ -2592,7 +2622,7 @@ function splice(subject, start, deleteCount, toAdd) {
  * @since 1.0.0
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to trim.
- * @param {string} [whitespace=whitespace] The whitespace characters to trim.
+ * @param {string} [whitespace=whitespace] The whitespace characters to trim. List all characters that you want to be stripped.
  * @return {string} Returns the trimmed string.
  * @example
  * v.trimLeft('  Starship Troopers');
@@ -2610,18 +2640,17 @@ function trimLeft(subject, whitespace$$1) {
   if (isNil(whitespaceString)) {
     return subjectString.replace(REGEXP_TRIM_LEFT, '');
   }
-  var whitespaceLength = whitespaceString.length;
   var matchWhitespace = true;
-  var totalWhitespaceLength = 0;
-  while (matchWhitespace) {
-    if (subjectString.indexOf(whitespaceString, totalWhitespaceLength) === totalWhitespaceLength) {
-      totalWhitespaceLength += whitespaceLength;
-    } else {
-      matchWhitespace = false;
+  return reduce$1.call(subjectString, function (trimmed, character) {
+    if (matchWhitespace && includes(whitespaceString, character)) {
+      return trimmed;
     }
-  }
-  return subjectString.substring(totalWhitespaceLength);
+    matchWhitespace = false;
+    return trimmed + character;
+  }, '');
 }
+
+var reduceRight = Array.prototype.reduceRight;
 
 /**
  * Removes whitespaces from the right side of the `subject`.
@@ -2631,7 +2660,7 @@ function trimLeft(subject, whitespace$$1) {
  * @since 1.0.0
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to trim.
- * @param {string} [whitespace=whitespace] The whitespace characters to trim.
+ * @param {string} [whitespace=whitespace] The whitespace characters to trim. List all characters that you want to be stripped.
  * @return {string} Returns the trimmed string.
  * @example
  * v.trimRight('the fire rises   ');
@@ -2649,20 +2678,14 @@ function trimRight(subject, whitespace$$1) {
   if (isNil(whitespaceString)) {
     return subjectString.replace(REGEXP_TRIM_RIGHT, '');
   }
-  var whitespaceLength = whitespaceString.length;
-  var subjectLength = subjectString.length;
   var matchWhitespace = true;
-  var totalWhitespaceLength = 0;
-  var position = void 0;
-  while (matchWhitespace) {
-    position = subjectLength - totalWhitespaceLength - whitespaceLength;
-    if (subjectString.indexOf(whitespaceString, position) === position) {
-      totalWhitespaceLength += whitespaceLength;
-    } else {
-      matchWhitespace = false;
+  return reduceRight.call(subjectString, function (trimmed, character) {
+    if (matchWhitespace && includes(whitespaceString, character)) {
+      return trimmed;
     }
-  }
-  return subjectString.substring(0, subjectLength - totalWhitespaceLength);
+    matchWhitespace = false;
+    return character + trimmed;
+  }, '');
 }
 
 /**
@@ -2673,7 +2696,7 @@ function trimRight(subject, whitespace$$1) {
  * @since 1.0.0
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to trim.
- * @param {string} [whitespace=whitespace] The whitespace characters to trim.
+ * @param {string} [whitespace=whitespace] The whitespace characters to trim. List all characters that you want to be stripped.
  * @return {string} Returns the trimmed string.
  * @example
  * v.trim(' Mother nature ');
@@ -3424,7 +3447,6 @@ function trim$1(subject, allowableTags, replacement) {
       }
     }
   }
-
   return output;
 }
 
@@ -3543,6 +3565,7 @@ var functions = {
   kebabCase: kebabCase,
   lowerCase: lowerCase,
   snakeCase: snakeCase,
+  titleCase: titleCase,
   upperCase: upperCase,
 
   count: count,
@@ -4051,7 +4074,6 @@ describe('snakeCase', function () {
     chai.expect(Voca.snakeCase('/home/dmitri/projects/voca')).to.be.equal('home_dmitri_projects_voca');
     chai.expect(Voca.snakeCase(PRINTABLE_ASCII)).to.be.equal('0123456789_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz');
     chai.expect(Voca.snakeCase('****')).to.be.equal('');
-    chai.expect(Voca.snakeCase('****')).to.be.equal('');
     chai.expect(Voca.snakeCase('-----')).to.be.equal('');
     chai.expect(Voca.snakeCase('     ')).to.be.equal('');
     chai.expect(Voca.snakeCase('\n\n\n\n   ***\t\t')).to.be.equal('');
@@ -4084,6 +4106,69 @@ describe('snakeCase', function () {
     chai.expect(Voca.snakeCase()).to.be.equal('');
     chai.expect(Voca.snakeCase(undefined)).to.be.equal('');
     chai.expect(Voca.snakeCase(null)).to.be.equal('');
+  });
+});
+
+describe('titleCase', function () {
+
+  it('should return the title case of a string', function () {
+    chai.expect(Voca.titleCase('hello world')).to.be.equal('Hello World');
+    chai.expect(Voca.titleCase('Hello world')).to.be.equal('Hello World');
+    chai.expect(Voca.titleCase('hello World')).to.be.equal('Hello World');
+    chai.expect(Voca.titleCase('Hello World')).to.be.equal('Hello World');
+    chai.expect(Voca.titleCase('HELLO WORLD')).to.be.equal('Hello World');
+    chai.expect(Voca.titleCase('bird')).to.be.equal('Bird');
+    chai.expect(Voca.titleCase('BIRD')).to.be.equal('Bird');
+    chai.expect(Voca.titleCase('bird-flight')).to.be.equal('Bird-Flight');
+    chai.expect(Voca.titleCase('bird flight')).to.be.equal('Bird Flight');
+    chai.expect(Voca.titleCase('san diego zoo safari park')).to.be.equal('San Diego Zoo Safari Park');
+    chai.expect(Voca.titleCase('Who wants to try next?')).to.be.equal('Who Wants To Try Next?');
+    chai.expect(Voca.titleCase('WHO WANTS TO TRY NEXT?')).to.be.equal('Who Wants To Try Next?');
+    chai.expect(Voca.titleCase('-BIRD-FLIGHT-')).to.be.equal('-Bird-Flight-');
+    chai.expect(Voca.titleCase('__BIRD___FLIGHT___')).to.be.equal('__Bird___Flight___');
+    chai.expect(Voca.titleCase('Restless flycatcher')).to.be.equal('Restless Flycatcher');
+    chai.expect(Voca.titleCase('XMLHttpRequest')).to.be.equal('XmlHttpRequest');
+    chai.expect(Voca.titleCase('weight of up to 12 kg')).to.be.equal('Weight Of Up To 12 Kg');
+    chai.expect(Voca.titleCase('/home/dmitri/projects/voca')).to.be.equal('/Home/Dmitri/Projects/Voca');
+    chai.expect(Voca.titleCase('****')).to.be.equal('****');
+    chai.expect(Voca.titleCase('-----')).to.be.equal('-----');
+    chai.expect(Voca.titleCase('     ')).to.be.equal('     ');
+    chai.expect(Voca.titleCase('\n\n\n\n   ***\t\t')).to.be.equal('\n\n\n\n   ***\t\t');
+    chai.expect(Voca.titleCase('')).to.be.equal('');
+  });
+
+  it('should return the title case of a non-latin string', function () {
+    chai.expect(Voca.titleCase('zborul păsării')).to.be.equal('Zborul Păsării');
+    chai.expect(Voca.titleCase('полет птицы')).to.be.equal('Полет Птицы');
+    chai.expect(Voca.titleCase('fuerza de sustentación')).to.be.equal('Fuerza De Sustentación');
+    chai.expect(Voca.titleCase('skrzydło ptaka składa się')).to.be.equal('Skrzydło Ptaka Składa Się');
+  });
+
+  it('should return the title case and not capitalize specific words', function () {
+    chai.expect(Voca.titleCase('Who wants to try next?', ['to'])).to.be.equal('Who Wants to Try Next?');
+    chai.expect(Voca.titleCase('WHO WANTS TO TRY NEXT?', ['to'])).to.be.equal('Who Wants to Try Next?');
+    chai.expect(Voca.titleCase('Well, congratulations! You got yourself caught! Now what\'s the next step in your master plan?', ["s", 'the', 'in'])).to.be.equal('Well, Congratulations! You Got Yourself Caught! Now What\'s the Next Step in Your Master Plan?');
+  });
+
+  it('should not modify numbers', function () {
+    chai.expect(Voca.titleCase(0)).to.be.equal('0');
+    chai.expect(Voca.titleCase(1200)).to.be.equal('1200');
+    chai.expect(Voca.titleCase('8965')).to.be.equal('8965');
+  });
+
+  it('should return the title case of a string representation of an object', function () {
+    chai.expect(Voca.titleCase(['bird flight'])).to.be.equal('Bird Flight');
+    chai.expect(Voca.titleCase({
+      toString: function () {
+        return 'bird flight';
+      }
+    })).to.be.equal('Bird Flight');
+  });
+
+  it('should return empty string for null or undefined', function () {
+    chai.expect(Voca.titleCase()).to.be.equal('');
+    chai.expect(Voca.titleCase(undefined)).to.be.equal('');
+    chai.expect(Voca.titleCase(null)).to.be.equal('');
   });
 });
 
@@ -5870,8 +5955,8 @@ describe('trim', function () {
     chai.expect(Voca.trim('---Do-you-*feel*-in-charge?---', '-')).to.be.equal('Do-you-*feel*-in-charge?');
     chai.expect(Voca.trim('Do you *feel* in charge?___', '_')).to.be.equal('Do you *feel* in charge?');
     chai.expect(Voca.trim('<-Do you *feel* in charge?', '<-')).to.be.equal('Do you *feel* in charge?');
-    chai.expect(Voca.trim('***Do you *feel* in charge?***', '**')).to.be.equal('*Do you *feel* in charge?*');
-    chai.expect(Voca.trim('Do you *feel* in charge?', 'Do you *feel* in charge?')).to.be.equal('');
+    chai.expect(Voca.trim('***Do you *feel* in charge?***', '*-')).to.be.equal('Do you *feel* in charge?');
+    chai.expect(Voca.trim('Do you *feel* in charge?', 'Doe?')).to.be.equal(' you *feel* in charg');
     chai.expect(Voca.trim('\n\nDo you *feel* in charge?', '\n')).to.be.equal('Do you *feel* in charge?');
   });
 
@@ -5893,7 +5978,7 @@ describe('trim', function () {
   it('should return the trimmed string for numbers', function () {
     chai.expect(Voca.trim(100, 1)).to.be.equal('00');
     chai.expect(Voca.trim(6780, 6780)).to.be.equal('');
-    chai.expect(Voca.trim(-115, -1)).to.be.equal('15');
+    chai.expect(Voca.trim(-115, -1)).to.be.equal('5');
     chai.expect(Voca.trim(1111, 1)).to.be.equal('');
     chai.expect(Voca.trim(8998, 8)).to.be.equal('99');
   });
@@ -5927,8 +6012,8 @@ describe('trimLeft', function () {
     chai.expect(Voca.trimLeft('Do you *feel* in charge?___', '_')).to.be.equal('Do you *feel* in charge?___');
     chai.expect(Voca.trimLeft('___Do you *feel* in charge?', '_')).to.be.equal('Do you *feel* in charge?');
     chai.expect(Voca.trimLeft('<-Do you *feel* in charge?', '<-')).to.be.equal('Do you *feel* in charge?');
-    chai.expect(Voca.trimLeft('***Do you *feel* in charge?***', '**')).to.be.equal('*Do you *feel* in charge?***');
-    chai.expect(Voca.trimLeft('Do you *feel* in charge?', 'Do you *feel* in charge?')).to.be.equal('');
+    chai.expect(Voca.trimLeft('***Do you *feel* in charge?***', '*')).to.be.equal('Do you *feel* in charge?***');
+    chai.expect(Voca.trimLeft('Do you *feel* in charge?', 'Doy')).to.be.equal(' you *feel* in charge?');
     chai.expect(Voca.trimLeft('\n\nDo you *feel* in charge?', '\n')).to.be.equal('Do you *feel* in charge?');
   });
 
@@ -5950,7 +6035,7 @@ describe('trimLeft', function () {
   it('should return the left trimmed string for numbers', function () {
     chai.expect(Voca.trimLeft(100, 1)).to.be.equal('00');
     chai.expect(Voca.trimLeft(6780, 6780)).to.be.equal('');
-    chai.expect(Voca.trimLeft(-115, -1)).to.be.equal('15');
+    chai.expect(Voca.trimLeft(-115, -1)).to.be.equal('5');
   });
 
   it('should return empty string for null or undefined', function () {
@@ -5982,8 +6067,8 @@ describe('trimRight', function () {
     chai.expect(Voca.trimRight('___Do you *feel* in charge?', '_')).to.be.equal('___Do you *feel* in charge?');
     chai.expect(Voca.trimRight('Do you *feel* in charge?___', '_')).to.be.equal('Do you *feel* in charge?');
     chai.expect(Voca.trimRight('Do you *feel* in charge?<-', '<-')).to.be.equal('Do you *feel* in charge?');
-    chai.expect(Voca.trimRight('***Do you *feel* in charge?***', '**')).to.be.equal('***Do you *feel* in charge?*');
-    chai.expect(Voca.trimRight('Do you *feel* in charge?', 'Do you *feel* in charge?')).to.be.equal('');
+    chai.expect(Voca.trimRight('***Do you *feel* in charge?***', '**')).to.be.equal('***Do you *feel* in charge?');
+    chai.expect(Voca.trimRight('Do you *feel* in charge?', 'charge?')).to.be.equal('Do you *feel* in ');
     chai.expect(Voca.trimRight('Do you *feel* in charge?\n\n', '\n')).to.be.equal('Do you *feel* in charge?');
   });
 
@@ -6005,7 +6090,7 @@ describe('trimRight', function () {
   it('should return the right trimmed string for numbers', function () {
     chai.expect(Voca.trimRight(100, 0)).to.be.equal('1');
     chai.expect(Voca.trimRight(6780, 6780)).to.be.equal('');
-    chai.expect(Voca.trimRight(-115, 15)).to.be.equal('-1');
+    chai.expect(Voca.trimRight(-115, 15)).to.be.equal('-');
   });
 
   it('should return empty string for null or undefined', function () {

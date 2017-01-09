@@ -18,7 +18,6 @@ describe('snakeCase', function() {
     expect(v.snakeCase('/home/dmitri/projects/voca')).to.be.equal('home_dmitri_projects_voca');
     expect(v.snakeCase(PRINTABLE_ASCII)).to.be.equal('0123456789_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz');
     expect(v.snakeCase('****')).to.be.equal('');
-    expect(v.snakeCase('****')).to.be.equal('');
     expect(v.snakeCase('-----')).to.be.equal('');
     expect(v.snakeCase('     ')).to.be.equal('');
     expect(v.snakeCase('\n\n\n\n   ***\t\t')).to.be.equal('');

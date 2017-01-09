@@ -8,6 +8,7 @@ import capitalize from '../dist_mod/capitalize';
 import decapitalize from '../dist_mod/decapitalize';
 import kebabCase from '../dist_mod/kebab_case';
 import lowerCase from '../dist_mod/lower_case';
+import titleCase from '../dist_mod/title_case';
 import snakeCase from '../dist_mod/snake_case';
 
 // Chop
@@ -130,6 +131,10 @@ describe('CommonJS modules', function() {
 
   it('should require snakeCase()', function() {
     expect(snakeCase('-BIRD-FLIGHT-')).to.be.equal('bird_flight');
+  });
+
+  it('should require titleCase()', function() {
+    expect(titleCase('BIRD FLIGHT')).to.be.equal('Bird Flight');
   });
 
   it('should require upperCase()', function() {

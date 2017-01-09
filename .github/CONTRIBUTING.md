@@ -24,7 +24,7 @@ brings and possible use cases.
 
 ### Creating pull requests
 Pull requests are great :+1:.  
-When contributing to this repository, please **first discuss the change** you wish to make via issue, email to [dmitri@rainsoft.io](email),
+When contributing to this repository, please **first discuss the change** you wish to make via issue, email to [dmitri@rainsoft.io][email],
 or any other method with the owners of this repository before making a change.
 
 When submitting the request please be sure:
