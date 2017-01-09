@@ -11,14 +11,13 @@ import coerceToString from 'helper/string/coerce_to_string';
  * @memberOf Case
  * @param  {string} [subject=''] The string to convert to title case.
  * @param  {Array} [ignoreWords] The words that should not be capitalized.
- * @return {string}              Returns the title cased string.
+ * @return {string}              Returns the title case string.
  * @example
  * v.titleCase('learning to fly');
  * // => 'Learning To Fly'
  *
  * v.titleCase('another brick in the wall', ['in', 'the']);
  * // => 'Another Brick in the Wall'
- *
  */
 export default function titleCase(subject, ignoreWords) {
   const subjectString = coerceToString(subject);
