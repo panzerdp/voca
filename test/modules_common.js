@@ -352,6 +352,11 @@ describe('CommonJS modules', function() {
 
   // Strip
 
+  it('should require stripBom()', function() {
+    const stripBom = require('../dist_mod/strip_bom');
+    expect(stripBom('\uFEFFHello world!')).to.equal('Hello world!');
+  });
+
   it('should require stripTags()', function() {
     const stripTags = require('../dist_mod/strip_tags');
     expect(stripTags('<b>Welcome</b>')).to.equal('Welcome');

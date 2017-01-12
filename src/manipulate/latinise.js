@@ -36,7 +36,7 @@ function removeCombiningMarks(character, cleanCharacter) {
 export default function latinise(subject) {
   const subjectString = coerceToString(subject);
   if (subjectString === '') {
-    return subjectString;
+    return '';
   }
   return subjectString
     .replace(REGEXP_NON_LATIN, getLatinCharacter)

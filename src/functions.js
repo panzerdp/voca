@@ -119,6 +119,7 @@ import words from './split/words';
  * Functions to strip a string
  * @namespace Strip
  */
+import stripBom from './strip/strip_bom';
 import stripTags from './strip/strip_tags';
 
 /**
@@ -203,6 +204,7 @@ export default {
   split,
   words,
 
+  stripBom,
   stripTags,
 
   noConflict,

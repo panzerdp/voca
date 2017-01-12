@@ -91,6 +91,7 @@ import './split/split';
 import './split/words';
 
 //strip
+import './strip/strip_bom';
 import './strip/strip_tags';
 
 //util

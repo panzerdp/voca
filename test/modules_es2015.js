@@ -95,6 +95,7 @@ import words from '../dist_mod/words';
 
 // Strip
 
+import stripBom from '../dist_mod/strip_bom';
 import stripTags from '../dist_mod/strip_tags';
 
 // Util
@@ -387,6 +388,12 @@ describe('CommonJS modules', function() {
 
   it('should require words()', function() {
     expect(words('*gravity***can****cross&&dimensions++')).to.eql(['gravity', 'can', 'cross', 'dimensions']);
+  });
+
+  // Strip
+
+  it('should require stripBom()', function() {
+    expect(stripBom('\uFEFFHello world!')).to.equal('Hello world!');
   });
 
   it('should require stripTags()', function() {

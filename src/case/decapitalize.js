@@ -19,7 +19,7 @@ import coerceToString from 'helper/string/coerce_to_string';
 export default function decapitalize(subject) {
   const subjectString = coerceToString(subject);
   if (subjectString === '') {
-    return subjectString;
+    return '';
   }
   return subjectString.substr(0, 1).toLowerCase() + subjectString.substr(1);
 }
