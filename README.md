@@ -89,15 +89,15 @@ Then a global variable `v` is exposed for the entire library:
 | [v.padLeft][padLeft]                 | [v.isAlphaDigit][isAlphaDigit] | [v.graphemeAt][graphemeAt]           | [v.kebabCase][kebabCase]       | **Escape**                     |
 | [v.padRight][padRight]               | [v.isBlank][isBlank]           | [v.last][last]                       | [v.lowerCase][lowerCase]       | [v.escapeHtml][escapeHtml]     |
 | [v.repeat][repeat]                   | [v.isDigit][isDigit]           | [v.prune][prune]                     | [v.snakeCase][snakeCase]       | [v.escapeRegExp][escapeRegExp] |
-| [v.replace][replace]                 | [v.isEmpty][isEmpty]           | [v.slice][slice]                     | [v.upperCase][upperCase]       | [v.unescapeHtml][unescapeHtml] |
-| [v.replaceAll][replaceAll]           | [v.isLowerCase][isLowerCase]   | [v.substr][substr]                   | **Split**                      |                                | 
-| [v.reverse][reverse]                 | [v.isNumeric][isNumeric]       | [v.substring][substring]             | [v.chars][chars]               |                                |
-| [v.reverseGrapheme][reverseGrapheme] | [v.isString][isString]         | [v.truncate][truncate]               | [v.codePoints][codePoints]     |                                |
-| [v.slugify][slugify]                 | [v.isUpperCase][isUpperCase]   | **Count**                            | [v.graphemes][graphemes]       |                                |
-| [v.splice][splice]                   | [v.matches][matches]           | [v.count][count]                     | [v.split][split]               |                                |
-| [v.trim][trim]                       | [v.startsWith][startsWith]     | [v.countGraphemes][countGraphemes]   | [v.words][words]               |                                |
-| [v.trimLeft][trimLeft]               | **Format**                     | [v.countSubstrings][countSubstrings] | **Strip**                      |                                |
-| [v.trimRight][trimRight]             | [v.sprintf][sprintf]           | [v.countWhere][countWhere]           | [v.stripTags][stripTags]       |                                |
+| [v.replace][replace]                 | [v.isEmpty][isEmpty]           | [v.slice][slice]                     | [v.titleCase][titleCase]       | [v.unescapeHtml][unescapeHtml] |
+| [v.replaceAll][replaceAll]           | [v.isLowerCase][isLowerCase]   | [v.substr][substr]                   | [v.upperCase][upperCase]       | **Strip**                      | 
+| [v.reverse][reverse]                 | [v.isNumeric][isNumeric]       | [v.substring][substring]             | **Split**                      |  [v.stripBom][stripBom]        |
+| [v.reverseGrapheme][reverseGrapheme] | [v.isString][isString]         | [v.truncate][truncate]               | [v.chars][chars]               |  [v.stripTags][stripTags]      |
+| [v.slugify][slugify]                 | [v.isUpperCase][isUpperCase]   | **Count**                            | [v.codePoints][codePoints]     |                                |
+| [v.splice][splice]                   | [v.matches][matches]           | [v.count][count]                     | [v.graphemes][graphemes]       |                                |
+| [v.trim][trim]                       | [v.startsWith][startsWith]     | [v.countGraphemes][countGraphemes]   | [v.split][split]               |                                |
+| [v.trimLeft][trimLeft]               | **Format**                     | [v.countSubstrings][countSubstrings] | [v.words][words]               |                                |
+| [v.trimRight][trimRight]             | [v.sprintf][sprintf]           | [v.countWhere][countWhere]           |                                |                                |
 | [v.wordWrap][wordWrap]               | [v.vprintf][vprintf]           | [v.countWords][countWords]           |                                |                                |
 
 ## Bug reports
@@ -132,9 +132,9 @@ Licensed under [MIT](https://github.com/panzerdp/voca/blob/master/LICENSE.md)
 
 [CODE_OF_CONDUCT]: https://github.com/panzerdp/voca/blob/master/CODE_OF_CONDUCT.md
 [CONTRIBUTING]: https://github.com/panzerdp/voca/blob/master/.github/CONTRIBUTING.md
-[voca_min_js]: https://raw.githubusercontent.com/panzerdp/voca/1.1.0/dist/voca.min.js
-[source_map]: https://raw.githubusercontent.com/panzerdp/voca/1.1.0/dist/voca.min.js.map
-[voca_js]: https://raw.githubusercontent.com/panzerdp/voca/1.1.0/dist/voca.js
+[voca_min_js]: https://raw.githubusercontent.com/panzerdp/voca/1.2.0/dist/voca.min.js
+[source_map]: https://raw.githubusercontent.com/panzerdp/voca/1.2.0/dist/voca.min.js.map
+[voca_js]: https://raw.githubusercontent.com/panzerdp/voca/1.2.0/dist/voca.js
 [voca]: https://vocajs.com
 [logo]: https://github.com/panzerdp/voca/raw/master/jsdoc/template/static/images/voca-logo@300px.png
 [logo_commonjs]: https://github.com/panzerdp/voca/raw/master/jsdoc/template/static/images/commonjs@200px.png
@@ -146,6 +146,7 @@ Licensed under [MIT](https://github.com/panzerdp/voca/blob/master/LICENSE.md)
 [kebabCase]: https://vocajs.com/#kebabCase
 [lowerCase]: https://vocajs.com/#lowerCase
 [snakeCase]: https://vocajs.com/#snakeCase
+[titleCase]: https://vocajs.com/#titleCase
 [upperCase]: https://vocajs.com/#upperCase
 
 [charAt]: https://vocajs.com/#charAt
@@ -214,3 +215,4 @@ Licensed under [MIT](https://github.com/panzerdp/voca/blob/master/LICENSE.md)
 [words]: https://vocajs.com/#words
 
 [stripTags]: https://vocajs.com/#stripTags
+[stripBom]: https://vocajs.com/#stripBom

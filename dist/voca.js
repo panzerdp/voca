@@ -1,5 +1,5 @@
 /*! 
- * Voca string library 1.1.0
+ * Voca string library 1.2.0
  * https://vocajs.com
  *
  * Copyright Dmitri Pavlutin and other contributors
@@ -518,7 +518,7 @@ function camelCase(subject) {
 function decapitalize(subject) {
   var subjectString = coerceToString(subject);
   if (subjectString === '') {
-    return subjectString;
+    return '';
   }
   return subjectString.substr(0, 1).toLowerCase() + subjectString.substr(1);
 }
@@ -594,6 +594,33 @@ function snakeCase(subject) {
 function upperCase(subject) {
   var subjectString = coerceToString(subject);
   return subjectString.toUpperCase();
+}
+
+/**
+ * Converts the subject to title case.
+ *
+ * @function titleCase
+ * @static
+ * @since 1.2.0
+ * @memberOf Case
+ * @param  {string} [subject=''] The string to convert to title case.
+ * @param  {Array} [ignoreWords] The words that should not be capitalized.
+ * @return {string}              Returns the title case string.
+ * @example
+ * v.titleCase('learning to fly');
+ * // => 'Learning To Fly'
+ *
+ * v.titleCase('another brick in the wall', ['in', 'the']);
+ * // => 'Another Brick in the Wall'
+ */
+function titleCase(subject, ignoreWords) {
+  var subjectString = coerceToString(subject);
+  var ignoreWordsArray = Array.isArray(ignoreWords) ? ignoreWords : [];
+  var wordsRegExp = REGEXP_EXTENDED_ASCII.test(subjectString) ? REGEXP_LATIN_WORD : REGEXP_WORD;
+  return subjectString.replace(wordsRegExp, function (word) {
+    var lowerCaseWord = word.toLowerCase();
+    return ignoreWordsArray.indexOf(lowerCaseWord) !== -1 ? lowerCaseWord : capitalize(lowerCaseWord, true);
+  });
 }
 
 /**
@@ -2295,7 +2322,7 @@ function removeCombiningMarks(character, cleanCharacter) {
 function latinise(subject) {
   var subjectString = coerceToString(subject);
   if (subjectString === '') {
-    return subjectString;
+    return '';
   }
   return subjectString.replace(REGEXP_NON_LATIN, getLatinCharacter).replace(REGEXP_COMBINING_MARKS, removeCombiningMarks);
 }
@@ -2574,6 +2601,8 @@ function splice(subject, start, deleteCount, toAdd) {
   return subjectString.slice(0, startPosition) + toAddString + subjectString.slice(startPosition + deleteCountNumber);
 }
 
+var reduce$1 = Array.prototype.reduce;
+
 /**
  * Removes whitespaces from the left side of the `subject`.
  *
@@ -2582,7 +2611,7 @@ function splice(subject, start, deleteCount, toAdd) {
  * @since 1.0.0
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to trim.
- * @param {string} [whitespace=whitespace] The whitespace characters to trim.
+ * @param {string} [whitespace=whitespace] The whitespace characters to trim. List all characters that you want to be stripped.
  * @return {string} Returns the trimmed string.
  * @example
  * v.trimLeft('  Starship Troopers');
@@ -2600,18 +2629,17 @@ function trimLeft(subject, whitespace$$1) {
   if (isNil(whitespaceString)) {
     return subjectString.replace(REGEXP_TRIM_LEFT, '');
   }
-  var whitespaceLength = whitespaceString.length;
   var matchWhitespace = true;
-  var totalWhitespaceLength = 0;
-  while (matchWhitespace) {
-    if (subjectString.indexOf(whitespaceString, totalWhitespaceLength) === totalWhitespaceLength) {
-      totalWhitespaceLength += whitespaceLength;
-    } else {
-      matchWhitespace = false;
+  return reduce$1.call(subjectString, function (trimmed, character) {
+    if (matchWhitespace && includes(whitespaceString, character)) {
+      return trimmed;
     }
-  }
-  return subjectString.substring(totalWhitespaceLength);
+    matchWhitespace = false;
+    return trimmed + character;
+  }, '');
 }
+
+var reduceRight = Array.prototype.reduceRight;
 
 /**
  * Removes whitespaces from the right side of the `subject`.
@@ -2621,7 +2649,7 @@ function trimLeft(subject, whitespace$$1) {
  * @since 1.0.0
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to trim.
- * @param {string} [whitespace=whitespace] The whitespace characters to trim.
+ * @param {string} [whitespace=whitespace] The whitespace characters to trim. List all characters that you want to be stripped.
  * @return {string} Returns the trimmed string.
  * @example
  * v.trimRight('the fire rises   ');
@@ -2639,20 +2667,14 @@ function trimRight(subject, whitespace$$1) {
   if (isNil(whitespaceString)) {
     return subjectString.replace(REGEXP_TRIM_RIGHT, '');
   }
-  var whitespaceLength = whitespaceString.length;
-  var subjectLength = subjectString.length;
   var matchWhitespace = true;
-  var totalWhitespaceLength = 0;
-  var position = void 0;
-  while (matchWhitespace) {
-    position = subjectLength - totalWhitespaceLength - whitespaceLength;
-    if (subjectString.indexOf(whitespaceString, position) === position) {
-      totalWhitespaceLength += whitespaceLength;
-    } else {
-      matchWhitespace = false;
+  return reduceRight.call(subjectString, function (trimmed, character) {
+    if (matchWhitespace && includes(whitespaceString, character)) {
+      return trimmed;
     }
-  }
-  return subjectString.substring(0, subjectLength - totalWhitespaceLength);
+    matchWhitespace = false;
+    return character + trimmed;
+  }, '');
 }
 
 /**
@@ -2663,7 +2685,7 @@ function trimRight(subject, whitespace$$1) {
  * @since 1.0.0
  * @memberOf Manipulate
  * @param {string} [subject=''] The string to trim.
- * @param {string} [whitespace=whitespace] The whitespace characters to trim.
+ * @param {string} [whitespace=whitespace] The whitespace characters to trim. List all characters that you want to be stripped.
  * @return {string} Returns the trimmed string.
  * @example
  * v.trim(' Mother nature ');
@@ -3185,6 +3207,37 @@ function split(subject, separator, limit) {
   return subjectString.split(separator, limit);
 }
 
+var BYRE_ORDER_MARK = '\uFEFF';
+
+/**
+ * Strips the byte order mark (BOM) from the beginning of `subject`.
+ *
+ * @function stripBom
+ * @static
+ * @since 1.2.0
+ * @memberOf Strip
+ * @param {string} [subject=''] The string to strip from.
+ * @return {string} Returns the stripped string.
+ * @example
+ *
+ * v.stripBom('\uFEFFsummertime sadness');
+ * // => 'summertime sadness'
+ *
+ * v.stripBom('summertime happiness');
+ * // => 'summertime happiness'
+ *
+ */
+function trim$1(subject) {
+  var subjectString = coerceToString(subject);
+  if (subjectString === '') {
+    return '';
+  }
+  if (subjectString[0] === BYRE_ORDER_MARK) {
+    return subjectString.substring(1);
+  }
+  return subjectString;
+}
+
 /**
  * Checks whether `subject` contains substring at specific `index`.
  *
@@ -3227,10 +3280,11 @@ var STATE_NON_WHITESPACE = 1;
 var STATE_DONE = 2;
 
 /**
- * Parses the tag name from html content
+ * Parses the tag name from html content.
  *
- * @param {string} tagContent The tag content
- * @return {string} Returns the tag name
+ * @ignore
+ * @param {string} tagContent The tag content.
+ * @return {string} Returns the tag name.
  */
 function parseTagName(tagContent) {
   var state = STATE_START_TAG;
@@ -3290,7 +3344,7 @@ var STATE_COMMENT = 3;
  * v.stripTags('Sun<br/>set', '', '-');
  * // => 'Sun-set'
  */
-function trim$1(subject, allowableTags, replacement) {
+function trim$2(subject, allowableTags, replacement) {
   subject = coerceToString(subject);
   if (subject === '') {
     return '';
@@ -3413,7 +3467,6 @@ function trim$1(subject, allowableTags, replacement) {
       }
     }
   }
-
   return output;
 }
 
@@ -3532,6 +3585,7 @@ var functions = {
   kebabCase: kebabCase,
   lowerCase: lowerCase,
   snakeCase: snakeCase,
+  titleCase: titleCase,
   upperCase: upperCase,
 
   count: count,
@@ -3599,7 +3653,8 @@ var functions = {
   split: split,
   words: words,
 
-  stripTags: trim$1,
+  stripBom: trim$1,
+  stripTags: trim$2,
 
   noConflict: noConflict,
   version: version

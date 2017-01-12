@@ -528,7 +528,7 @@ function camelCase(subject) {
 function decapitalize(subject) {
   var subjectString = coerceToString(subject);
   if (subjectString === '') {
-    return subjectString;
+    return '';
   }
   return subjectString.substr(0, 1).toLowerCase() + subjectString.substr(1);
 }
@@ -611,18 +611,17 @@ function upperCase(subject) {
  *
  * @function titleCase
  * @static
- * @since 1.1.0
+ * @since 1.2.0
  * @memberOf Case
  * @param  {string} [subject=''] The string to convert to title case.
  * @param  {Array} [ignoreWords] The words that should not be capitalized.
- * @return {string}              Returns the title cased string.
+ * @return {string}              Returns the title case string.
  * @example
  * v.titleCase('learning to fly');
  * // => 'Learning To Fly'
  *
  * v.titleCase('another brick in the wall', ['in', 'the']);
  * // => 'Another Brick in the Wall'
- *
  */
 function titleCase(subject, ignoreWords) {
   var subjectString = coerceToString(subject);
@@ -2333,7 +2332,7 @@ function removeCombiningMarks(character, cleanCharacter) {
 function latinise(subject) {
   var subjectString = coerceToString(subject);
   if (subjectString === '') {
-    return subjectString;
+    return '';
   }
   return subjectString.replace(REGEXP_NON_LATIN, getLatinCharacter).replace(REGEXP_COMBINING_MARKS, removeCombiningMarks);
 }
@@ -3218,6 +3217,37 @@ function split(subject, separator, limit) {
   return subjectString.split(separator, limit);
 }
 
+var BYRE_ORDER_MARK = '\uFEFF';
+
+/**
+ * Strips the byte order mark (BOM) from the beginning of `subject`.
+ *
+ * @function stripBom
+ * @static
+ * @since 1.2.0
+ * @memberOf Strip
+ * @param {string} [subject=''] The string to strip from.
+ * @return {string} Returns the stripped string.
+ * @example
+ *
+ * v.stripBom('\uFEFFsummertime sadness');
+ * // => 'summertime sadness'
+ *
+ * v.stripBom('summertime happiness');
+ * // => 'summertime happiness'
+ *
+ */
+function trim$1(subject) {
+  var subjectString = coerceToString(subject);
+  if (subjectString === '') {
+    return '';
+  }
+  if (subjectString[0] === BYRE_ORDER_MARK) {
+    return subjectString.substring(1);
+  }
+  return subjectString;
+}
+
 /**
  * Checks whether `subject` contains substring at specific `index`.
  *
@@ -3324,7 +3354,7 @@ var STATE_COMMENT = 3;
  * v.stripTags('Sun<br/>set', '', '-');
  * // => 'Sun-set'
  */
-function trim$1(subject, allowableTags, replacement) {
+function trim$2(subject, allowableTags, replacement) {
   subject = coerceToString(subject);
   if (subject === '') {
     return '';
@@ -3633,7 +3663,8 @@ var functions = {
   split: split,
   words: words,
 
-  stripTags: trim$1,
+  stripBom: trim$1,
+  stripTags: trim$2,
 
   noConflict: noConflict,
   version: version
@@ -7417,6 +7448,38 @@ describe('words', function () {
   it('should split the string with default pattern for null and undefined', function () {
     chai.expect(Voca.words('gravity_can_cross_dimensions', null)).to.eql(['gravity', 'can', 'cross', 'dimensions']);
     chai.expect(Voca.words('gravity_can_cross_dimensions', undefined)).to.eql(['gravity', 'can', 'cross', 'dimensions']);
+  });
+});
+
+describe('stripBom', function () {
+
+  it('should strip BOM from the beginning of the string', function () {
+    chai.expect(Voca.stripBom('\uFEFF')).to.be.equal('');
+    chai.expect(Voca.stripBom('\uFEFFHello world!')).to.be.equal('Hello world!');
+    chai.expect(Voca.stripBom('\uFEFF\n\tWelcome')).to.be.equal('\n\tWelcome');
+  });
+
+  it('should not affect strings that do not start with BOM', function () {
+    chai.expect(Voca.stripBom('')).to.be.equal('');
+    chai.expect(Voca.stripBom('Hello world!')).to.be.equal('Hello world!');
+    chai.expect(Voca.stripBom('Hello\uFEFFworld!')).to.be.equal('Hello\uFEFFworld!');
+    chai.expect(Voca.stripBom(PRINTABLE_ASCII)).to.be.equal(PRINTABLE_ASCII);
+    chai.expect(Voca.stripBom('\\uFEFF')).to.be.equal('\\uFEFF');
+  });
+
+  it('should strip BOM from a string representation of an object', function () {
+    chai.expect(Voca.stripBom('\uFEFFHello world!')).to.equal('Hello world!');
+    chai.expect(Voca.stripBom({
+      toString: function () {
+        return '\uFEFFHello world!';
+      }
+    })).to.equal('Hello world!');
+  });
+
+  it('should return empty string for null or undefined', function () {
+    chai.expect(Voca.stripBom(null)).to.be.equal('');
+    chai.expect(Voca.stripBom(undefined)).to.be.equal('');
+    chai.expect(Voca.stripBom()).to.be.equal('');
   });
 });
 
