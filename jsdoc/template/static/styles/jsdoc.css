@@ -212,6 +212,7 @@ section {
 .logo .logo-message {
   color: #408BAA;
   font-weight: bold;
+  font-size: 1em;
 }
 
 .warning {

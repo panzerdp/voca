@@ -6,3 +6,4 @@ docs
 /index.js
 .tern-project
 dist_mod
+.vscode

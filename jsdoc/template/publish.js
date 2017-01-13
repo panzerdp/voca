@@ -615,7 +615,8 @@ exports.publish = function (taffyData, opts, tutorials) {
   view.tutoriallink = tutoriallink;
   view.htmlsafe = htmlsafe;
   view.outputSourceFiles = outputSourceFiles;
-
+  view.version = require('../../package.json').version;
+  
   // once for all
   view.nav = buildNav(members);
   attachModuleSymbols(find({longname: {left: 'module:'}}), members.modules);
