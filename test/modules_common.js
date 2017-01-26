@@ -34,11 +34,15 @@ describe('CommonJS modules', function() {
     expect(snakeCase('-BIRD-FLIGHT-')).to.be.equal('bird_flight');
   });
 
+  it('should require swapCase()', function() {
+    const swapCase = require('../dist_mod/swap_case');
+    expect(swapCase('Bird Flight')).to.be.equal('bIRD fLIGHT');
+  });
+
   it('should require titleCase()', function() {
     const titleCase = require('../dist_mod/title_case');
     expect(titleCase('BIRD FLIGHT')).to.be.equal('Bird Flight');
   });
-
 
   it('should require upperCase()', function() {
     const upperCase = require('../dist_mod/upper_case');

@@ -11,6 +11,7 @@ import kebabCase from './case/kebab_case';
 import lowerCase from './case/lower_case';
 import snakeCase from './case/snake_case';
 import upperCase from './case/upper_case';
+import swapCase from './case/swap_case';
 import titleCase from './case/title_case';
 import truncate from './chop/truncate';
 
@@ -136,6 +137,7 @@ export default {
   kebabCase,
   lowerCase,
   snakeCase,
+  swapCase,
   titleCase,
   upperCase,
 

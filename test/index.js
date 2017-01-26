@@ -6,6 +6,7 @@ import './case/kebab_case';
 import './case/lower_case';
 import './case/snake_case';
 import './case/title_case';
+import './case/swap_case';
 import './case/upper_case';
 
 //chain

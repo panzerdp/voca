@@ -7,9 +7,9 @@
  */
 
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define(factory) :
-  (global.v = factory());
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+	typeof define === 'function' && define.amd ? define(factory) :
+	(global.v = factory());
 }(this, (function () { 'use strict';
 
 /**
@@ -594,6 +594,34 @@ function snakeCase(subject) {
 function upperCase(subject) {
   var subjectString = coerceToString(subject);
   return subjectString.toUpperCase();
+}
+
+/**
+ * Converts the uppercase alpha caracters of `subject` to lowercase and lowercase 
+ * characters to uppercase.
+ *
+ * @function swapCase
+ * @static
+ * @since 1.3.0
+ * @memberOf Case
+ * @param  {string} [subject=''] The string to swap the case.
+ * @return {string}              Returns the converted string.
+ * @example
+ * v.swapCase('League of Shadows');
+ * // => 'lEAGE OF sHADOWS'
+ *
+ * v.swapCase('2 Bees');
+ * // => '2 bEES'
+ */
+function swapCase(subject) {
+  var subjectString = coerceToString(subject);
+  return subjectString.split('').reduce(swapAndConcat, '');
+}
+
+function swapAndConcat(swapped, character) {
+  var lowerCase = character.toLowerCase();
+  var upperCase = character.toUpperCase();
+  return swapped + (character === lowerCase ? upperCase : lowerCase);
 }
 
 /**
@@ -3585,6 +3613,7 @@ var functions = {
   kebabCase: kebabCase,
   lowerCase: lowerCase,
   snakeCase: snakeCase,
+  swapCase: swapCase,
   titleCase: titleCase,
   upperCase: upperCase,
 

@@ -607,6 +607,34 @@ function upperCase(subject) {
 }
 
 /**
+ * Converts the uppercase alpha caracters of `subject` to lowercase and lowercase 
+ * characters to uppercase.
+ *
+ * @function swapCase
+ * @static
+ * @since 1.3.0
+ * @memberOf Case
+ * @param  {string} [subject=''] The string to swap the case.
+ * @return {string}              Returns the converted string.
+ * @example
+ * v.swapCase('League of Shadows');
+ * // => 'lEAGE OF sHADOWS'
+ *
+ * v.swapCase('2 Bees');
+ * // => '2 bEES'
+ */
+function swapCase(subject) {
+  var subjectString = coerceToString(subject);
+  return subjectString.split('').reduce(swapAndConcat, '');
+}
+
+function swapAndConcat(swapped, character) {
+  var lowerCase = character.toLowerCase();
+  var upperCase = character.toUpperCase();
+  return swapped + (character === lowerCase ? upperCase : lowerCase);
+}
+
+/**
  * Converts the subject to title case.
  *
  * @function titleCase
@@ -3595,6 +3623,7 @@ var functions = {
   kebabCase: kebabCase,
   lowerCase: lowerCase,
   snakeCase: snakeCase,
+  swapCase: swapCase,
   titleCase: titleCase,
   upperCase: upperCase,
 
@@ -4200,6 +4229,63 @@ describe('titleCase', function () {
     chai.expect(Voca.titleCase()).to.be.equal('');
     chai.expect(Voca.titleCase(undefined)).to.be.equal('');
     chai.expect(Voca.titleCase(null)).to.be.equal('');
+  });
+});
+
+describe('swapCase', function () {
+
+  it('should return the swapped case of a string', function () {
+    chai.expect(Voca.swapCase('hello world')).to.be.equal('HELLO WORLD');
+    chai.expect(Voca.swapCase('Hello world')).to.be.equal('hELLO WORLD');
+    chai.expect(Voca.swapCase('hello World')).to.be.equal('HELLO wORLD');
+    chai.expect(Voca.swapCase('Hello World')).to.be.equal('hELLO wORLD');
+    chai.expect(Voca.swapCase('HELLO WORLD')).to.be.equal('hello world');
+    chai.expect(Voca.swapCase('bird')).to.be.equal('BIRD');
+    chai.expect(Voca.swapCase('BIRD')).to.be.equal('bird');
+    chai.expect(Voca.swapCase('bird-flight')).to.be.equal('BIRD-FLIGHT');
+    chai.expect(Voca.swapCase('bird flight')).to.be.equal('BIRD FLIGHT');
+    chai.expect(Voca.swapCase('san diego zoo safari park')).to.be.equal('SAN DIEGO ZOO SAFARI PARK');
+    chai.expect(Voca.swapCase('Who wants to try next?')).to.be.equal('wHO WANTS TO TRY NEXT?');
+    chai.expect(Voca.swapCase('WHO WANTS TO TRY NEXT?')).to.be.equal('who wants to try next?');
+    chai.expect(Voca.swapCase('-BIRD-FLIGHT-')).to.be.equal('-bird-flight-');
+    chai.expect(Voca.swapCase('__BIRD___FLIGHT___')).to.be.equal('__bird___flight___');
+    chai.expect(Voca.swapCase('Restless flycatcher')).to.be.equal('rESTLESS FLYCATCHER');
+    chai.expect(Voca.swapCase('XMLHttpRequest')).to.be.equal('xmlhTTPrEQUEST');
+    chai.expect(Voca.swapCase('weight of up to 12 kg')).to.be.equal('WEIGHT OF UP TO 12 KG');
+    chai.expect(Voca.swapCase('/home/dmitri/projects/voca')).to.be.equal('/HOME/DMITRI/PROJECTS/VOCA');
+    chai.expect(Voca.swapCase('****')).to.be.equal('****');
+    chai.expect(Voca.swapCase('-----')).to.be.equal('-----');
+    chai.expect(Voca.swapCase('     ')).to.be.equal('     ');
+    chai.expect(Voca.swapCase('\n\n\n\n   ***\t\t')).to.be.equal('\n\n\n\n   ***\t\t');
+    chai.expect(Voca.swapCase('')).to.be.equal('');
+  });
+
+  it('should return the swapped case of a non-latin string', function () {
+    chai.expect(Voca.swapCase('zborul păsării')).to.be.equal('ZBORUL PĂSĂRII');
+    chai.expect(Voca.swapCase('полет птицы')).to.be.equal('ПОЛЕТ ПТИЦЫ');
+    chai.expect(Voca.swapCase('fuerza de sustentación')).to.be.equal('FUERZA DE SUSTENTACIÓN');
+    chai.expect(Voca.swapCase('Skrzydło Ptaka Składa Się')).to.be.equal('sKRZYDŁO pTAKA sKŁADA sIĘ');
+  });
+
+  it('should not modify numbers', function () {
+    chai.expect(Voca.swapCase(0)).to.be.equal('0');
+    chai.expect(Voca.swapCase(1200)).to.be.equal('1200');
+    chai.expect(Voca.swapCase('8965')).to.be.equal('8965');
+  });
+
+  it('should return the swapped case of a string representation of an object', function () {
+    chai.expect(Voca.swapCase(['bird flight'])).to.be.equal('BIRD FLIGHT');
+    chai.expect(Voca.swapCase({
+      toString: function () {
+        return 'bird flight';
+      }
+    })).to.be.equal('BIRD FLIGHT');
+  });
+
+  it('should return empty string for null or undefined', function () {
+    chai.expect(Voca.swapCase()).to.be.equal('');
+    chai.expect(Voca.swapCase(undefined)).to.be.equal('');
+    chai.expect(Voca.swapCase(null)).to.be.equal('');
   });
 });
 

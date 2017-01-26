@@ -8,12 +8,13 @@ import capitalize from '../dist_mod/capitalize';
 import decapitalize from '../dist_mod/decapitalize';
 import kebabCase from '../dist_mod/kebab_case';
 import lowerCase from '../dist_mod/lower_case';
-import titleCase from '../dist_mod/title_case';
 import snakeCase from '../dist_mod/snake_case';
+import swapCase from '../dist_mod/swap_case';
+import titleCase from '../dist_mod/title_case';
+import upperCase from '../dist_mod/upper_case';
 
 // Chop
 
-import upperCase from '../dist_mod/upper_case';
 import charAt from '../dist_mod/char_at';
 import codePointAt from '../dist_mod/code_point_at';
 import first from '../dist_mod/first';
@@ -132,6 +133,10 @@ describe('CommonJS modules', function() {
 
   it('should require snakeCase()', function() {
     expect(snakeCase('-BIRD-FLIGHT-')).to.be.equal('bird_flight');
+  });
+
+  it('should require swapCase()', function() {
+    expect(swapCase('Bird Flight')).to.be.equal('bIRD fLIGHT');
   });
 
   it('should require titleCase()', function() {
