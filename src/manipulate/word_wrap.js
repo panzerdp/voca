@@ -8,22 +8,6 @@ const OPTION_INDENT = 'indent';
 const OPTION_CUT = 'cut';
 
 /**
- * Determine the word wrap options. The missing values are filled with defaults.
- *
- * @param  {Object} options  The options object.
- * @return {Object}          The word wrap options, with default settings if necessary.
- * @ignore
- */
-function determineOptions(options) {
-  return {
-    width: coerceToNumber(options[OPTION_WIDTH], 75),
-    newLine: coerceToString(options[OPTION_NEW_LINE], '\n'),
-    indent: coerceToString(options[OPTION_INDENT], ''),
-    cut: coerceToBoolean(options[OPTION_CUT], false)
-  };
-}
-
-/**
  * Wraps `subject` to a given number of characters using a string break character.
  *
  * @function wordWrap
@@ -98,4 +82,20 @@ export default function wordWrap(subject, options = {}) {
     wrappedLine += indent + substring(offset);
   }
   return wrappedLine;
+}
+
+/**
+ * Determine the word wrap options. The missing values are filled with defaults.
+ *
+ * @param  {Object} options  The options object.
+ * @return {Object}          The word wrap options, with default settings if necessary.
+ * @ignore
+ */
+function determineOptions(options) {
+  return {
+    width: coerceToNumber(options[OPTION_WIDTH], 75),
+    newLine: coerceToString(options[OPTION_NEW_LINE], '\n'),
+    indent: coerceToString(options[OPTION_INDENT], ''),
+    cut: coerceToBoolean(options[OPTION_CUT], false)
+  };
 }
