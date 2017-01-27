@@ -5,7 +5,6 @@ describe('stripTags', function() {
 
   it('should strip tags', function() {
     expect(v.stripTags('<b>Hello world!</b>')).to.be.equal('Hello world!');
-    expect(v.stripTags('<b>Hello world!</b>')).to.be.equal('Hello world!');
     expect(v.stripTags('<span class="italic">Hello world!</span>')).to.be.equal('Hello world!');
     expect(v.stripTags('<span class="<italic>">Hello world!</span>')).to.be.equal('Hello world!');
     expect(v.stripTags('<span class="italic"><b>Hello world!</b></span>')).to.be.equal('Hello world!');
