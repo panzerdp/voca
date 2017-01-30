@@ -3,7 +3,7 @@ import coerceToString from 'helper/string/coerce_to_string';
 import escapeRegExp from 'escape/escape_reg_exp';
 
 /**
- * Returns a new string where all matches of `pattern` are replaced with `replacement`. <br/>
+ * Replaces all matches of `pattern` with `replacement`. <br/>
  *
  * @function replaceAll
  * @static

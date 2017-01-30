@@ -1,7 +1,7 @@
 import coerceToString from 'helper/string/coerce_to_string';
 
 /**
- * Returns a new string where the matches of `pattern` are replaced with `replacement`. <br/>
+ * Replaces the matches of `pattern` with `replacement`. <br/>
  *
  * @function replace
  * @static
