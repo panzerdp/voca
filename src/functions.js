@@ -83,6 +83,7 @@ import reverse from './manipulate/reverse';
 import reverseGrapheme from './manipulate/reverse_grapheme';
 import slugify from './manipulate/slugify';
 import splice from './manipulate/splice';
+import tr from './manipulate/tr';
 import trim from './manipulate/trim';
 import trimLeft from './manipulate/trim_left';
 import trimRight from './manipulate/trim_right';
@@ -181,6 +182,7 @@ export default {
   reverseGrapheme,
   slugify,
   splice,
+  tr,
   trim,
   trimLeft,
   trimRight,

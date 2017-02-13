@@ -64,6 +64,7 @@ import './manipulate/reverse';
 import './manipulate/reverse_grapheme';
 import './manipulate/slugify';
 import './manipulate/splice';
+import './manipulate/tr';
 import './manipulate/trim';
 import './manipulate/trim_left';
 import './manipulate/trim_right';
