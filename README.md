@@ -107,16 +107,17 @@ Then a global variable `v` is exposed for the entire library:
 | [v.padLeft][padLeft]                 | [v.isAlphaDigit][isAlphaDigit] | [v.graphemeAt][graphemeAt]           | [v.kebabCase][kebabCase]       | **Escape**                     |
 | [v.padRight][padRight]               | [v.isBlank][isBlank]           | [v.last][last]                       | [v.lowerCase][lowerCase]       | [v.escapeHtml][escapeHtml]     |
 | [v.repeat][repeat]                   | [v.isDigit][isDigit]           | [v.prune][prune]                     | [v.snakeCase][snakeCase]       | [v.escapeRegExp][escapeRegExp] |
-| [v.replace][replace]                 | [v.isEmpty][isEmpty]           | [v.slice][slice]                     | [v.titleCase][titleCase]       | [v.unescapeHtml][unescapeHtml] |
-| [v.replaceAll][replaceAll]           | [v.isLowerCase][isLowerCase]   | [v.substr][substr]                   | [v.upperCase][upperCase]       | **Strip**                      | 
-| [v.reverse][reverse]                 | [v.isNumeric][isNumeric]       | [v.substring][substring]             | **Split**                      |  [v.stripBom][stripBom]        |
-| [v.reverseGrapheme][reverseGrapheme] | [v.isString][isString]         | [v.truncate][truncate]               | [v.chars][chars]               |  [v.stripTags][stripTags]      |
-| [v.slugify][slugify]                 | [v.isUpperCase][isUpperCase]   | **Count**                            | [v.codePoints][codePoints]     |                                |
-| [v.splice][splice]                   | [v.matches][matches]           | [v.count][count]                     | [v.graphemes][graphemes]       |                                |
-| [v.trim][trim]                       | [v.startsWith][startsWith]     | [v.countGraphemes][countGraphemes]   | [v.split][split]               |                                |
-| [v.trimLeft][trimLeft]               | **Format**                     | [v.countSubstrings][countSubstrings] | [v.words][words]               |                                |
-| [v.trimRight][trimRight]             | [v.sprintf][sprintf]           | [v.countWhere][countWhere]           |                                |                                |
-| [v.wordWrap][wordWrap]               | [v.vprintf][vprintf]           | [v.countWords][countWords]           |                                |                                |
+| [v.replace][replace]                 | [v.isEmpty][isEmpty]           | [v.slice][slice]                     | [v.swapCase][swapCase]         | [v.unescapeHtml][unescapeHtml] |
+| [v.replaceAll][replaceAll]           | [v.isLowerCase][isLowerCase]   | [v.substr][substr]                   | [v.titleCase][titleCase]       | **Strip**                      | 
+| [v.reverse][reverse]                 | [v.isNumeric][isNumeric]       | [v.substring][substring]             | [v.upperCase][upperCase]       |  [v.stripBom][stripBom]        |
+| [v.reverseGrapheme][reverseGrapheme] | [v.isString][isString]         | [v.truncate][truncate]               | **Split**                      |  [v.stripTags][stripTags]      |
+| [v.slugify][slugify]                 | [v.isUpperCase][isUpperCase]   | **Count**                            | [v.chars][chars]               |                                |
+| [v.splice][splice]                   | [v.matches][matches]           | [v.count][count]                     | [v.codePoints][codePoints]     |                                |
+| [v.tr][tr]                           | [v.startsWith][startsWith]     | [v.countGraphemes][countGraphemes]   | [v.graphemes][graphemes]       |                                |
+| [v.trim][trim]                       | **Format**                     | [v.countSubstrings][countSubstrings] | [v.split][split]               |                                |
+| [v.trimLeft][trimLeft]               | [v.sprintf][sprintf]           | [v.countWhere][countWhere]           | [v.words][words]               |                                |
+| [v.trimRight][trimRight]             | [v.vprintf][vprintf]           | [v.countWords][countWords]           |                                |                                |
+| [v.wordWrap][wordWrap]               |                                |                                      |                                |                                |
 
 ## Bug reports
 
@@ -164,6 +165,7 @@ Licensed under [MIT](https://github.com/panzerdp/voca/blob/master/LICENSE.md)
 [kebabCase]: https://vocajs.com/#kebabCase
 [lowerCase]: https://vocajs.com/#lowerCase
 [snakeCase]: https://vocajs.com/#snakeCase
+[swapCase]: https://vocajs.com/#swapCase
 [titleCase]: https://vocajs.com/#titleCase
 [upperCase]: https://vocajs.com/#upperCase
 
@@ -207,6 +209,7 @@ Licensed under [MIT](https://github.com/panzerdp/voca/blob/master/LICENSE.md)
 [reverseGrapheme]: https://vocajs.com/#reverseGrapheme
 [slugify]: https://vocajs.com/#slugify
 [splice]: https://vocajs.com/#splice
+[tr]: https://vocajs.com/#tr
 [trim]: https://vocajs.com/#trim
 [trimLeft]: https://vocajs.com/#trimLeft
 [trimRight]: https://vocajs.com/#trimRight
