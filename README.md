@@ -150,9 +150,9 @@ Licensed under [MIT](https://github.com/panzerdp/voca/blob/master/LICENSE.md)
 
 [CODE_OF_CONDUCT]: https://github.com/panzerdp/voca/blob/master/CODE_OF_CONDUCT.md
 [CONTRIBUTING]: https://github.com/panzerdp/voca/blob/master/.github/CONTRIBUTING.md
-[voca_min_js]: https://raw.githubusercontent.com/panzerdp/voca/1.2.0/dist/voca.min.js
-[source_map]: https://raw.githubusercontent.com/panzerdp/voca/1.2.0/dist/voca.min.js.map
-[voca_js]: https://raw.githubusercontent.com/panzerdp/voca/1.2.0/dist/voca.js
+[voca_min_js]: https://raw.githubusercontent.com/panzerdp/voca/1.3.0/dist/voca.min.js
+[source_map]: https://raw.githubusercontent.com/panzerdp/voca/1.3.0/dist/voca.min.js.map
+[voca_js]: https://raw.githubusercontent.com/panzerdp/voca/1.3.0/dist/voca.js
 [voca]: https://vocajs.com
 [logo]: https://github.com/panzerdp/voca/raw/master/jsdoc/template/static/images/voca-logo@300px.png
 [logo_commonjs]: https://github.com/panzerdp/voca/raw/master/jsdoc/template/static/images/commonjs@200px.png

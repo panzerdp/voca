@@ -1,5 +1,5 @@
 /*! 
- * Voca string library 1.2.0
+ * Voca string library 1.3.0
  * https://vocajs.com
  *
  * Copyright Dmitri Pavlutin and other contributors
@@ -3637,9 +3637,9 @@ function noConflict() {
  * @type string
  * @example
  * v.version
- * // => '1.1.0'
+ * // => '1.3.0'
  */
-var version = '1.1.0';
+var version = '1.3.0';
 
 /* eslint sort-imports: "off" */
 

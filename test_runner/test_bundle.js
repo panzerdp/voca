@@ -3647,9 +3647,9 @@ function noConflict() {
  * @type string
  * @example
  * v.version
- * // => '1.1.0'
+ * // => '1.3.0'
  */
-var version = '1.1.0';
+var version = '1.3.0';
 
 /* eslint sort-imports: "off" */
 
