@@ -1,6 +1,6 @@
 import coerceToString from 'helper/string/coerce_to_string';
 import { REGEXP_CONVERSION_SPECIFICATION } from 'helper/reg_exp/const';
-import ReplacementIndex from 'helper/format/replacement/index';
+import ReplacementIndex from 'helper/format/replacement/index.js';
 import replacementMatch from 'helper/format/replacement/match';
 
 /**

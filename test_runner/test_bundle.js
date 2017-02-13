@@ -2400,7 +2400,7 @@ function pad(subject, length, pad) {
 }
 
 /**
- * Returns a new string where the matches of `pattern` are replaced with `replacement`. <br/>
+ * Replaces the matches of `pattern` with `replacement`. <br/>
  *
  * @function replace
  * @static
@@ -2487,7 +2487,7 @@ function appendFlagToRegExp(pattern, appendFlag) {
 }
 
 /**
- * Returns a new string where all matches of `pattern` are replaced with `replacement`. <br/>
+ * Replaces all matches of `pattern` with `replacement`. <br/>
  *
  * @function replaceAll
  * @static
@@ -2639,6 +2639,82 @@ function splice(subject, start, deleteCount, toAdd) {
   return subjectString.slice(0, startPosition) + toAddString + subjectString.slice(startPosition + deleteCountNumber);
 }
 
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+/**
+ * Translates characters or replaces substrings in `subject`.
+ *
+ * @function tr
+ * @static
+ * @since 1.3.0
+ * @memberOf Manipulate
+ * @param  {string} [subject=''] The string to translate.
+ * @param  {string|Object} from The string of characters to translate from. Or an object, then the object keys are replaced with corresponding values (longest keys are tried first).
+ * @param  {string} to The string of characters to translate to. Ignored when `from` is an object.
+ * @return {string} Returns the translated string.
+ * @example
+ * v.tr('hello', 'el', 'ip');
+ * // => 'hippo'
+ * 
+ * v.tr(':where is the birthplace of :what', {
+ *   ':where': 'Africa',
+ *   ':what': 'Humanity'
+ * });
+ * // => 'Africa is the birthplace of Humanity'
+ */
+function tr(subject, from, to) {
+  var subjectString = coerceToString(subject);
+  var keys = void 0;
+  var values = void 0;
+  if (isString(from) && isString(to)) {
+    keys = from.split('');
+    values = to.split('');
+  } else {
+    var _extractKeysAndValues = extractKeysAndValues(nilDefault(from, {}));
+
+    var _extractKeysAndValues2 = _slicedToArray(_extractKeysAndValues, 2);
+
+    keys = _extractKeysAndValues2[0];
+    values = _extractKeysAndValues2[1];
+  }
+  if (keys.length === 0) {
+    return subjectString;
+  }
+  var result = '';
+  var valuesLength = values.length;
+  var keysLength = keys.length;
+  for (var index = 0; index < subjectString.length; index++) {
+    var isMatch = false;
+    var matchValue = void 0;
+    for (var keyIndex = 0; keyIndex < keysLength && keyIndex < valuesLength; keyIndex++) {
+      var key = keys[keyIndex];
+      if (subjectString.substr(index, key.length) === key) {
+        isMatch = true;
+        matchValue = values[keyIndex];
+        index = index + key.length - 1;
+        break;
+      }
+    }
+    result += isMatch ? matchValue : subjectString[index];
+  }
+  return result;
+}
+
+function extractKeysAndValues(object) {
+  var keys = Object.keys(object);
+  var values = keys.sort(sortStringByLength).map(function (key) {
+    return object[key];
+  });
+  return [keys, values];
+}
+
+function sortStringByLength(str1, str2) {
+  if (str1.length === str2.length) {
+    return 0;
+  }
+  return str1.length < str2.length ? 1 : -1;
+}
+
 var reduce$1 = Array.prototype.reduce;
 
 /**
@@ -2750,22 +2826,6 @@ var OPTION_INDENT = 'indent';
 var OPTION_CUT = 'cut';
 
 /**
- * Determine the word wrap options. The missing values are filled with defaults.
- *
- * @param  {Object} options  The options object.
- * @return {Object}          The word wrap options, with default settings if necessary.
- * @ignore
- */
-function determineOptions(options) {
-  return {
-    width: coerceToNumber(options[OPTION_WIDTH], 75),
-    newLine: coerceToString(options[OPTION_NEW_LINE], '\n'),
-    indent: coerceToString(options[OPTION_INDENT], ''),
-    cut: coerceToBoolean(options[OPTION_CUT], false)
-  };
-}
-
-/**
  * Wraps `subject` to a given number of characters using a string break character.
  *
  * @function wordWrap
@@ -2848,6 +2908,22 @@ function wordWrap(subject) {
     wrappedLine += indent + substring(offset);
   }
   return wrappedLine;
+}
+
+/**
+ * Determine the word wrap options. The missing values are filled with defaults.
+ *
+ * @param  {Object} options  The options object.
+ * @return {Object}          The word wrap options, with default settings if necessary.
+ * @ignore
+ */
+function determineOptions(options) {
+  return {
+    width: coerceToNumber(options[OPTION_WIDTH], 75),
+    newLine: coerceToString(options[OPTION_NEW_LINE], '\n'),
+    indent: coerceToString(options[OPTION_INDENT], ''),
+    cut: coerceToBoolean(options[OPTION_CUT], false)
+  };
 }
 
 /**
@@ -3667,6 +3743,7 @@ var functions = {
   reverseGrapheme: reverseGrapheme,
   slugify: slugify,
   splice: splice,
+  tr: tr,
   trim: trim,
   trimLeft: trimLeft,
   trimRight: trimRight,
@@ -6054,6 +6131,89 @@ describe('splice', function () {
   });
 });
 
+describe('tr', function () {
+
+  it('should translate the string from characters to characters', function () {
+    chai.expect(Voca.tr('abc', 'a', 'b')).to.be.equal('bbc');
+    chai.expect(Voca.tr('hello', 'el', 'ip')).to.be.equal('hippo');
+    chai.expect(Voca.tr('test strtr', 't', 'T')).to.be.equal('TesT sTrTr');
+    chai.expect(Voca.tr('test strtr', 'test', 'TEST')).to.be.equal('TEST STrTr');
+    var from0 = "123abc";
+    var to0 = "abc123";
+    chai.expect(Voca.tr('123', from0, to0)).to.be.equal('abc');
+    chai.expect(Voca.tr('abc', from0, to0)).to.be.equal('123');
+    chai.expect(Voca.tr('1a2b3c', from0, to0)).to.be.equal('a1b2c3');
+    var from1 = "\n\r\t\\";
+    var to1 = "TEST";
+    chai.expect(Voca.tr('\tes\t\\stt\r', from1, to1)).to.be.equal('SesSTsttE');
+    chai.expect(Voca.tr('\\test\\\strtr', from1, to1)).to.be.equal('TtestTstrtr');
+    chai.expect(Voca.tr('\ntest\r\nstrtr', from1, to1)).to.be.equal('TtestETstrtr');
+    chai.expect(Voca.tr('\$variable', from1, to1)).to.be.equal('$variable');
+    chai.expect(Voca.tr('\"quotes', from1, to1)).to.be.equal('"quotes');
+  });
+
+  it('should ignore the extra characters from keys and values', function () {
+    chai.expect(Voca.tr('test strtr', 'test', 'TESTz')).to.be.equal('TEST STrTr');
+    chai.expect(Voca.tr('test strtr', 'testz', 'TEST')).to.be.equal('TEST STrTr');
+  });
+
+  it('should translate the string from a map object', function () {
+    var map0 = {
+      't': 'T',
+      'e': 'E',
+      'st': 'ST'
+    };
+    chai.expect(Voca.tr('test strtr', map0)).to.be.equal('TEST STrTr');
+    var map1 = {
+      'hello': 'hi',
+      'hi': 'hello',
+      'a': 'A',
+      'world': 'planet'
+    };
+    chai.expect(Voca.tr('# hi all, I said hello world! #', map1)).to.be.equal('# hello All, I sAid hi planet! #');
+    var map2 = {
+      "1": "a",
+      "a": 1,
+      "2b3c": "b2c3",
+      "b2c3": "3c2b"
+    };
+    chai.expect(Voca.tr('123', map2)).to.be.equal('a23');
+    chai.expect(Voca.tr('abc', map2)).to.be.equal('1bc');
+    chai.expect(Voca.tr('1a2b3c', map2)).to.be.equal('a1b2c3');
+    chai.expect(Voca.tr(':where is the birthplace of :what', {
+      ':where': 'Africa',
+      ':what': 'Humanity'
+    })).to.be.equal('Africa is the birthplace of Humanity');
+    chai.expect(Voca.tr('where is the birthplace of what', {
+      'where': '',
+      'what': '',
+      'is': ''
+    })).to.be.equal('  the birthplace of ');
+    chai.expect(Voca.tr('My name is :name, not :name2.', {
+      ':name': 'Dave',
+      'Dave': ':name2 or :password',
+      ':name2': 'Steve',
+      ':pass': '7hf2348'
+    })).to.be.equal('My name is Dave, not Steve.');
+  });
+
+  it('should translate the string representation of an object', function () {
+    chai.expect(Voca.tr(['paradise'], 'pa', 'P8')).to.be.equal('P8r8dise');
+    chai.expect(Voca.tr({
+      toString: function () {
+        return 'paradise';
+      }
+    }, { 'p': 'P', 'a': '8' })).to.be.equal('P8r8dise');
+  });
+
+  it('should not modify the string when translate arguments are not provided', function () {
+    chai.expect(Voca.tr('champion')).to.be.equal('champion');
+    chai.expect(Voca.tr('champion', undefined, null)).to.be.equal('champion');
+    chai.expect(Voca.tr('champion', null, null)).to.be.equal('champion');
+    chai.expect(Voca.tr()).to.be.equal('');
+  });
+});
+
 describe('trim', function () {
 
   it('should return the trimmed string with default whitespaces', function () {
@@ -7572,7 +7732,6 @@ describe('stripBom', function () {
 describe('stripTags', function () {
 
   it('should strip tags', function () {
-    chai.expect(Voca.stripTags('<b>Hello world!</b>')).to.be.equal('Hello world!');
     chai.expect(Voca.stripTags('<b>Hello world!</b>')).to.be.equal('Hello world!');
     chai.expect(Voca.stripTags('<span class="italic">Hello world!</span>')).to.be.equal('Hello world!');
     chai.expect(Voca.stripTags('<span class="<italic>">Hello world!</span>')).to.be.equal('Hello world!');
