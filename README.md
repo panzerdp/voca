@@ -41,7 +41,9 @@ Install the library with npm into your local modules directory:
 npm install voca
 ```
 
-Then in your application import the entire library:
+### CommonJS modules
+
+Then in your application require the entire library:
 
 ```javascript
 var v = require('voca');
@@ -49,13 +51,29 @@ v.trim(' Hello World! ');            // => 'Hello World'
 v.sprintf('%d red %s', 3, 'apples'); // => '3 red apples'
 ```
 
-Or individual functions:
+Or require individual functions:
 
 ```javascript
 var words = require('voca/words');
 var slugify = require('voca/slugify');
 words('welcome to Earth'); // => ['welcome', 'to', 'Earth']
 slugify('caffé latté');    // => 'caffe-latte'
+```
+
+### ES2015 modules
+
+Voca is compatible with ES2015 modules to import the entire library:
+
+```javascript
+import voca from 'voca';
+v.kebabCase('goodbye blue sky'); // => 'goodbye-blue-sky'
+```
+
+Or import individual functions:
+
+```javascript
+import last from 'voca/last';
+last('sun rises', 5); // => 'rises'
 ```
 
 ### Browser

@@ -90,18 +90,31 @@ v.slugify('What a wonderful world');     // => 'what-a-wonderful-world'</code></
 
     <pre class="prettyprint"><code class="language-javascript">npm install voca</code></pre>
 
+    <h4>CommonJS modules</h4>
 
-    Then in your application import the entire library:
+    Then in your application require the entire library:
 
     <pre class="prettyprint"><code class="language-javascript">var v = require('voca');
 v.trim(' Hello World! ');            // => 'Hello World'
 v.sprintf('%d red %s', 3, 'apples'); // => '3 red apples'</code></pre>
 
-    Or individual functions:
+    Or require individual functions:
     <pre class="prettyprint"><code class="language-javascript">var words = require('voca/words');
 var slugify = require('voca/slugify');
 words('welcome to Earth'); // => ['welcome', 'to', 'Earth']
 slugify('caffé latté');    // => 'caffe-latte'</code></pre>
+
+    <h4>ES2015 modules</h4>
+
+    Voca is compatible with ES2015 modules to import the entire library:
+
+<pre class="prettyprint"><code class="language-javascript">import voca from 'voca';
+voca.kebabCase('goodbye blue sky'); // => 'goodbye-blue-sky'</code></pre>
+
+    Or import individual functions:
+
+<pre class="prettyprint"><code class="language-javascript">import last from 'voca/last';
+last('sun rises', 5); // => 'rises'</code></pre>
 
     <h4>Browser</h4>
 

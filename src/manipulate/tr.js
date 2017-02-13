@@ -17,11 +17,21 @@ import nilDefault from 'helper/undefined/nil_default';
  * v.tr('hello', 'el', 'ip');
  * // => 'hippo'
  * 
+ * v.tr('légèreté', 'éè', 'ee');
+ * // => 'legerete'
+ * 
+ * v.tr('Yes. The fire rises.', {
+ *   'Yes': 'Awesome',
+ *   'fire': 'flame'
+ * })
+ * // => 'Awesome. The flame rises.'
+ * 
  * v.tr(':where is the birthplace of :what', {
  *   ':where': 'Africa',
  *   ':what': 'Humanity'
  * });
  * // => 'Africa is the birthplace of Humanity'
+ * 
  */
 export default function tr(subject, from, to) {
   const subjectString = coerceToString(subject);

@@ -65,6 +65,7 @@ import reverse from '../dist_mod/reverse';
 import reverseGrapheme from '../dist_mod/reverse_grapheme';
 import slugify from '../dist_mod/slugify';
 import splice from '../dist_mod/splice';
+import tr from '../dist_mod/tr';
 import trim from '../dist_mod/trim';
 import trimLeft from '../dist_mod/trim_left';
 import trimRight from '../dist_mod/trim_right';
@@ -299,6 +300,10 @@ describe('CommonJS modules', function() {
 
   it('should require splice()', function() {
     expect(splice('sting like a bee', 6, 4, 'as')).to.be.equal('sting as a bee');
+  });
+
+  it('should require tr()', function() {
+    expect(tr('Yes. The fire rises.', { Yes: 'Great' })).to.be.equal('Great. The fire rises.');
   });
 
   it('should require trim()', function() {

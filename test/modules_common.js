@@ -238,6 +238,11 @@ describe('CommonJS modules', function() {
     expect(splice('sting like a bee', 6, 4, 'as')).to.be.equal('sting as a bee');
   });
 
+  it('should require tr()', function() {
+    const tr = require('../dist_mod/tr');
+    expect(tr('Yes. The fire rises.', { Yes: 'Great' })).to.be.equal('Great. The fire rises.');
+  });
+
   it('should require trim()', function() {
     const trim = require('../dist_mod/trim');
     expect(trim('   Yes. The fire rises.    ')).to.be.equal('Yes. The fire rises.');
