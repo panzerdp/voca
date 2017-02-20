@@ -12,7 +12,7 @@ import coerceToString from 'helper/string/coerce_to_string';
  * @return {string}              Returns the converted string.
  * @example
  * v.swapCase('League of Shadows');
- * // => 'lEAGE OF sHADOWS'
+ * // => 'lEAGUE OF sHADOWS'
  *
  * v.swapCase('2 Bees');
  * // => '2 bEES'
