@@ -43,12 +43,12 @@ export default function tr(subject, from, to) {
   } else {
     [keys, values] = extractKeysAndValues(nilDefault(from, {}));
   }
-  if (keys.length === 0) {
+  const keysLength = keys.length;
+  if (keysLength === 0) {
     return subjectString;
   }
   let result = '';
   const valuesLength = values.length;
-  const keysLength = keys.length;
   for (let index = 0; index < subjectString.length; index++) {
     let isMatch = false;
     let matchValue;
