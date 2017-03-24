@@ -1,10 +1,10 @@
 # [![Voca JavaScript library logo][logo]][voca]
 
-[![OpenCollective Backers](https://opencollective.com/voca/backers/badge.svg)](#backers)
-[![OpenCollective Sponsors](https://opencollective.com/voca/sponsors/badge.svg)](#sponsors)
 [![travis build](https://img.shields.io/travis/panzerdp/voca.svg)](https://travis-ci.org/panzerdp/voca)
 [![code coverage](https://img.shields.io/codecov/c/github/panzerdp/voca.svg)](https://codecov.io/github/panzerdp/voca)
 [![npm package](https://img.shields.io/npm/v/voca.svg)](https://www.npmjs.com/package/voca)
+[![OpenCollective Backers](https://opencollective.com/voca/backers/badge.svg)](#backers)
+[![OpenCollective Sponsors](https://opencollective.com/voca/sponsors/badge.svg)](#sponsors)
 
 Voca is a JavaScript library for manipulating strings. [https://vocajs.com][voca]
 

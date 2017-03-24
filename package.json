@@ -52,8 +52,7 @@
     "verify": "npm run eslint && npm run coverage",
     "jsdoc": "jsdoc --configure .jsdoc.json",
     "deploy": "rollup -c config/rollup_dist.js && cp dist/voca.js docs/scripts && scp -r docs/* rainishere:/home/rainishere/webapps/voca_docs",
-    "precommit": "npm run eslint && npm run test",
-    "postinstall": "./node_modules/.bin/opencollective-postinstall || exit 0"
+    "precommit": "npm run eslint && npm run test"
   },
   "devDependencies": {
     "babel-cli": "6.23.0",
@@ -82,7 +81,6 @@
     "jsdoc": "3.4.3",
     "mkdirp": "0.5.1",
     "mocha": "3.2.0",
-    "opencollective-postinstall": "1.0.12",
     "rollup": "0.41.5",
     "rollup-plugin-babel": "2.7.1",
     "rollup-plugin-uglify": "1.0.1",
