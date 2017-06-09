@@ -68,7 +68,7 @@ Voca is compatible with ES2015 modules to import the entire library:
 
 ```javascript
 import voca from 'voca';
-v.kebabCase('goodbye blue sky'); // => 'goodbye-blue-sky'
+voca.kebabCase('goodbye blue sky'); // => 'goodbye-blue-sky'
 ```
 
 Or import individual functions:
