@@ -4,21 +4,16 @@ branches:
     - master
 notifications:
   email: false
-node_js:
-  - "6"
-env:
-  global:
-    - DETAILED=false
-  matrix:
-    - DETAILED=true
 matrix:
   include:
+    - node_js: "6"
+      env: DETAILED=true
     - node_js: "4"
-      env:
+      env: DETAILED=false
     - node_js: "5"
-      env:
+      env: DETAILED=false
     - node_js: "7"
-      env:
+      env: DETAILED=false
 before_script:
   - npm prune
 script:
