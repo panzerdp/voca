@@ -33,4 +33,8 @@ describe('reverse', function() {
     expect(v.reverse(undefined)).to.be.equal('');
   });
 
+  it('should reverse a string containing unicode characters', function() {
+    expect(v.reverse('foo 𝌆 bar')).to.be.equal('rab 𝌆 oof');
+  });
+
 });
