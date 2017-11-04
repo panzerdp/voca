@@ -20,7 +20,7 @@ export default function reverse(subject) {
   let result = '';
   let index = subjectString.length;
   while (index--) {
-      result += subjectString.charAt(index);
+    result += subjectString.charAt(index);
   }
   return result;
 }
