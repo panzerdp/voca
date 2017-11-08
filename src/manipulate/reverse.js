@@ -17,10 +17,10 @@ export default function reverse(subject) {
   const regexSurrogatePair = /([\uD800-\uDBFF])([\uDC00-\uDFFF])/g;
   const subjectString = coerceToString(subject).replace(regexSurrogatePair, '$2$1');
 
-  let result = '';
+  let reversedString = '';
   let index = subjectString.length;
   while (index--) {
-    result += subjectString.charAt(index);
+    reversedString += subjectString.charAt(index);
   }
-  return result;
+  return reversedString;
 }
