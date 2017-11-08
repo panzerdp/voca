@@ -14,6 +14,13 @@ import coerceToString from 'helper/string/coerce_to_string';
  * // => 'retniw'
  */
 export default function reverse(subject) {
-  const subjectString = coerceToString(subject);
-  return subjectString.split('').reverse().join('');
+  const regexSurrogatePair = /([\uD800-\uDBFF])([\uDC00-\uDFFF])/g;
+  const subjectString = coerceToString(subject).replace(regexSurrogatePair, '$2$1');
+
+  let reversedString = '';
+  let index = subjectString.length;
+  while (index--) {
+    reversedString += subjectString.charAt(index);
+  }
+  return reversedString;
 }
