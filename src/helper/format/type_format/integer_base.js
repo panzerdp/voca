@@ -1,4 +1,13 @@
-import Const from 'helper/format/const';
+import {
+  RADIX_BINARY,
+  RADIX_HEXADECIMAL,
+  RADIX_OCTAL,
+  TYPE_INTEGER_ASCII_CHARACTER,
+  TYPE_INTEGER_BINARY,
+  TYPE_INTEGER_HEXADECIMAL,
+  TYPE_INTEGER_HEXADECIMAL_UPPERCASE,
+  TYPE_INTEGER_OCTAL
+} from 'helper/format/const';
 import toString from 'helper/string/coerce_to_string';
 
 /**
@@ -17,20 +26,20 @@ export default function integerBase(replacement, conversion) {
   }
   integer = integer >>> 0;
   switch (conversion.typeSpecifier) {
-    case Const.TYPE_INTEGER_ASCII_CHARACTER:
+    case TYPE_INTEGER_ASCII_CHARACTER:
       integer = String.fromCharCode(integer);
       break;
-    case Const.TYPE_INTEGER_BINARY:
-      integer = integer.toString(Const.RADIX_BINARY);
+    case TYPE_INTEGER_BINARY:
+      integer = integer.toString(RADIX_BINARY);
       break;
-    case Const.TYPE_INTEGER_OCTAL:
-      integer = integer.toString(Const.RADIX_OCTAL);
+    case TYPE_INTEGER_OCTAL:
+      integer = integer.toString(RADIX_OCTAL);
       break;
-    case Const.TYPE_INTEGER_HEXADECIMAL:
-      integer = integer.toString(Const.RADIX_HEXADECIMAL);
+    case TYPE_INTEGER_HEXADECIMAL:
+      integer = integer.toString(RADIX_HEXADECIMAL);
       break;
-    case Const.TYPE_INTEGER_HEXADECIMAL_UPPERCASE:
-      integer = integer.toString(Const.RADIX_HEXADECIMAL).toUpperCase();
+    case TYPE_INTEGER_HEXADECIMAL_UPPERCASE:
+      integer = integer.toString(RADIX_HEXADECIMAL).toUpperCase();
       break;
   }
   return toString(integer);

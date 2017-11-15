@@ -1,4 +1,4 @@
-import Const from 'helper/format/const';
+import { LITERAL_PERCENT_SPECIFIER, LITERAL_SINGLE_QUOTE } from 'helper/format/const';
 import nilDefault from 'helper/undefined/nil_default';
 
 /**
@@ -82,7 +82,7 @@ function ConversionSpecification(properties) {
  * @return {boolean} Returns true if the conversion is a percent literal, false otherwise.
  */
 ConversionSpecification.prototype.isPercentLiteral = function() {
-  return Const.LITERAL_PERCENT_SPECIFIER === this.percent;
+  return LITERAL_PERCENT_SPECIFIER === this.percent;
 };
 
 /**
@@ -93,7 +93,7 @@ ConversionSpecification.prototype.isPercentLiteral = function() {
  */
 ConversionSpecification.prototype.getPaddingCharacter = function() {
   let paddingCharacter = nilDefault(this.paddingSpecifier, ' ');
-  if (paddingCharacter.length === 2 && paddingCharacter[0] === Const.LITERAL_SINGLE_QUOTE) {
+  if (paddingCharacter.length === 2 && paddingCharacter[0] === LITERAL_SINGLE_QUOTE) {
     paddingCharacter = paddingCharacter[1];
   }
   return paddingCharacter;

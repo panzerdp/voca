@@ -3,7 +3,9 @@ node_modules
 coverage
 npm-debug.log
 docs
-/index.js
+index.js
 .tern-project
-dist_mod
+dist_mod/
 .vscode
+dist/
+test_runner/test_bundle.js

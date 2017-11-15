@@ -1,5 +1,20 @@
+import {
+  TYPE_FLOAT,
+  TYPE_FLOAT_SCIENTIFIC,
+  TYPE_FLOAT_SCIENTIFIC_UPPERCASE,
+  TYPE_FLOAT_SHORT,
+  TYPE_FLOAT_SHORT_UPPERCASE,
+  TYPE_INTEGER,
+  TYPE_INTEGER_ASCII_CHARACTER,
+  TYPE_INTEGER_BINARY,
+  TYPE_INTEGER_DECIMAL,
+  TYPE_INTEGER_HEXADECIMAL,
+  TYPE_INTEGER_HEXADECIMAL_UPPERCASE,
+  TYPE_INTEGER_OCTAL,
+  TYPE_INTEGER_UNSIGNED_DECIMAL,
+  TYPE_STRING
+} from 'helper/format/const';
 import alignAndPad from 'helper/format/align_and_pad';
-import Const from 'helper/format/const';
 import formatFloat from 'helper/format/type_format/float';
 import formatIntegerBase from 'helper/format/type_format/integer_base';
 import formatIntegerDecimal from 'helper/format/type_format/integer_decimal';
@@ -17,26 +32,26 @@ import formatString from 'helper/format/type_format/string';
 export default function compute(replacement, conversion) {
   let formatFunction;
   switch (conversion.typeSpecifier) {
-    case Const.TYPE_STRING:
+    case TYPE_STRING:
       formatFunction = formatString;
       break;
-    case Const.TYPE_INTEGER_DECIMAL:
-    case Const.TYPE_INTEGER:
+    case TYPE_INTEGER_DECIMAL:
+    case TYPE_INTEGER:
       formatFunction = formatIntegerDecimal;
       break;
-    case Const.TYPE_INTEGER_ASCII_CHARACTER:
-    case Const.TYPE_INTEGER_BINARY:
-    case Const.TYPE_INTEGER_OCTAL:
-    case Const.TYPE_INTEGER_HEXADECIMAL:
-    case Const.TYPE_INTEGER_HEXADECIMAL_UPPERCASE:
-    case Const.TYPE_INTEGER_UNSIGNED_DECIMAL:
+    case TYPE_INTEGER_ASCII_CHARACTER:
+    case TYPE_INTEGER_BINARY:
+    case TYPE_INTEGER_OCTAL:
+    case TYPE_INTEGER_HEXADECIMAL:
+    case TYPE_INTEGER_HEXADECIMAL_UPPERCASE:
+    case TYPE_INTEGER_UNSIGNED_DECIMAL:
       formatFunction = formatIntegerBase;
       break;
-    case Const.TYPE_FLOAT:
-    case Const.TYPE_FLOAT_SCIENTIFIC:
-    case Const.TYPE_FLOAT_SCIENTIFIC_UPPERCASE:
-    case Const.TYPE_FLOAT_SHORT:
-    case Const.TYPE_FLOAT_SHORT_UPPERCASE:
+    case TYPE_FLOAT:
+    case TYPE_FLOAT_SCIENTIFIC:
+    case TYPE_FLOAT_SCIENTIFIC_UPPERCASE:
+    case TYPE_FLOAT_SHORT:
+    case TYPE_FLOAT_SHORT_UPPERCASE:
       formatFunction = formatFloat;
       break;
   }

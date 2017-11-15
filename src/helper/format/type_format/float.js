@@ -1,6 +1,12 @@
+import {
+  TYPE_FLOAT,
+  TYPE_FLOAT_SCIENTIFIC,
+  TYPE_FLOAT_SCIENTIFIC_UPPERCASE,
+  TYPE_FLOAT_SHORT,
+  TYPE_FLOAT_SHORT_UPPERCASE
+} from 'helper/format/const';
 import addSignToFormattedNumber from 'helper/format/type_format/add_sign_to_formatted_number';
 import coerceToNumber from 'helper/number/coerce_to_number';
-import Const from 'helper/format/const';
 import { REGEXP_TRAILING_ZEROS } from 'helper/reg_exp/const';
 import toString from 'helper/string/coerce_to_string';
 
@@ -21,17 +27,17 @@ export default function float(replacement, conversion) {
   }
   const precision = coerceToNumber(conversion.precision, 6);
   switch (conversion.typeSpecifier) {
-    case Const.TYPE_FLOAT:
+    case TYPE_FLOAT:
       formattedReplacement = replacementNumber.toFixed(precision);
       break;
-    case Const.TYPE_FLOAT_SCIENTIFIC:
+    case TYPE_FLOAT_SCIENTIFIC:
       formattedReplacement = replacementNumber.toExponential(precision);
       break;
-    case Const.TYPE_FLOAT_SCIENTIFIC_UPPERCASE:
+    case TYPE_FLOAT_SCIENTIFIC_UPPERCASE:
       formattedReplacement = replacementNumber.toExponential(precision).toUpperCase();
       break;
-    case Const.TYPE_FLOAT_SHORT:
-    case Const.TYPE_FLOAT_SHORT_UPPERCASE:
+    case TYPE_FLOAT_SHORT:
+    case TYPE_FLOAT_SHORT_UPPERCASE:
       formattedReplacement = formatFloatAsShort(replacementNumber, precision, conversion);
       break;
   }
@@ -56,7 +62,7 @@ function formatFloatAsShort(replacementNumber, precision, conversion) {
   let formattedReplacement = replacementNumber
     .toPrecision(nonZeroPrecision)
     .replace(REGEXP_TRAILING_ZEROS, '');
-  if (conversion.typeSpecifier === Const.TYPE_FLOAT_SHORT_UPPERCASE) {
+  if (conversion.typeSpecifier === TYPE_FLOAT_SHORT_UPPERCASE) {
     formattedReplacement = formattedReplacement.toUpperCase();
   }
   return formattedReplacement;

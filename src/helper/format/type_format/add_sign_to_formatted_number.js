@@ -1,4 +1,4 @@
-import Const from 'helper/format/const';
+import { LITERAL_PLUS } from 'helper/format/const';
 
 /**
  * Add sign to the formatted number.
@@ -11,8 +11,8 @@ import Const from 'helper/format/const';
  * @return {string} Returns the formatted number string with a sign.
  */
 export default function addSignToFormattedNumber(replacementNumber, formattedReplacement, conversion) {
-  if (conversion.signSpecifier === Const.LITERAL_PLUS && replacementNumber >= 0) {
-    formattedReplacement = Const.LITERAL_PLUS + formattedReplacement;
+  if (conversion.signSpecifier === LITERAL_PLUS && replacementNumber >= 0) {
+    formattedReplacement = LITERAL_PLUS + formattedReplacement;
   }
   return formattedReplacement;
 }

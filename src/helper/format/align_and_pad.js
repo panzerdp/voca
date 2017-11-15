@@ -1,5 +1,5 @@
-import Const from 'helper/format/const';
 import isNil from 'helper/object/is_nil';
+import { LITERAL_MINUS } from 'helper/format/const';
 import padLeft from 'manipulate/pad_left';
 import padRight from 'manipulate/pad_right';
 
@@ -16,6 +16,6 @@ export default function alignAndPad(subject, conversion) {
   if (isNil(width) || subject.length >= width) {
     return subject;
   }
-  const padType = conversion.alignmentSpecifier === Const.LITERAL_MINUS ? padRight : padLeft;
+  const padType = conversion.alignmentSpecifier === LITERAL_MINUS ? padRight : padLeft;
   return padType(subject, width, conversion.getPaddingCharacter());
 }
