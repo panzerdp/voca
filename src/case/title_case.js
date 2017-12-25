@@ -7,24 +7,24 @@ import coerceToString from 'helper/string/coerce_to_string';
  *
  * @function titleCase
  * @static
- * @since 1.2.0
+ * @since 1.4.0
  * @memberOf Case
  * @param  {string} [subject=''] The string to convert to title case.
- * @param  {Array} [ignoreWords] The words that should not be capitalized.
+ * @param  {Array}  [noSplit]    Do not split words at the specified characters.
  * @return {string}              Returns the title case string.
  * @example
  * v.titleCase('learning to fly');
  * // => 'Learning To Fly'
  *
- * v.titleCase('another brick in the wall', ['in', 'the']);
- * // => 'Another Brick in the Wall'
+ * v.titleCase('jean-luc is good-looking', ['-']);
+ * // => 'Jean-luc Is Good-looking'
  */
-export default function titleCase(subject, ignoreWords) {
+export default function titleCase(subject, noSplit) {
   const subjectString = coerceToString(subject);
-  const ignoreWordsArray = Array.isArray(ignoreWords) ? ignoreWords : [];
+  const noSplitArray = Array.isArray(noSplit) ? noSplit : [];
   const wordsRegExp = REGEXP_EXTENDED_ASCII.test(subjectString) ? REGEXP_LATIN_WORD : REGEXP_WORD;
-  return subjectString.replace(wordsRegExp, function(word) {
-    const lowerCaseWord = word.toLowerCase();
-    return ignoreWordsArray.indexOf(lowerCaseWord) !== -1 ? lowerCaseWord : capitalize(lowerCaseWord, true);
+  return subjectString.replace(wordsRegExp, function(word, index) {
+    const isNoSplit = index > 0 && noSplitArray.indexOf(subjectString[index - 1]) >= 0;
+    return isNoSplit ? word.toLowerCase() : capitalize(word, true);
   });
 }

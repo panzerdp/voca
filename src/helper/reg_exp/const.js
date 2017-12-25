@@ -65,7 +65,7 @@ export const REGEXP_COMBINING_MARKS = new RegExp('([' + base + ']|[' + highSurro
 export const REGEXP_SURROGATE_PAIRS = new RegExp('([' + highSurrogate + '])([' + lowSurrogate + '])', 'g');
 
 /**
- * Regular expression to match an unicode character
+ * Regular expression to match a unicode character
  *
  * @type {RegExp}
  * @ignore

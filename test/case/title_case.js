@@ -36,11 +36,13 @@ describe('titleCase', function() {
     expect(v.titleCase('skrzydło ptaka składa się')).to.be.equal('Skrzydło Ptaka Składa Się');
   });
 
-  it('should return the title case and not capitalize specific words', function() {
-    expect(v.titleCase('Who wants to try next?', ['to'])).to.be.equal('Who Wants to Try Next?');
-    expect(v.titleCase('WHO WANTS TO TRY NEXT?', ['to'])).to.be.equal('Who Wants to Try Next?');
-    expect(v.titleCase('Well, congratulations! You got yourself caught! Now what\'s the next step in your master plan?', ["s", 'the', 'in']))
-      .to.be.equal('Well, Congratulations! You Got Yourself Caught! Now What\'s the Next Step in Your Master Plan?');
+  it('should return the title case and not capitalize at specific characters', function() {
+    expect(v.titleCase('jean-luc is good-looking', ['-'])).to.be.equal('Jean-luc Is Good-looking');
+    expect(v.titleCase('Un·e déput·é·e', ['·'])).to.be.equal('Un·e Déput·é·e');
+    expect(v.titleCase('Who*wants to-try*next?', ['-', '*'])).to.be.equal('Who*wants To-try*next?');
+    expect(v.titleCase('WHO*WANTS*TO*TRY*NEXT?', ['*'])).to.be.equal('Who*wants*to*try*next?');
+    expect(v.titleCase('Well, congratulations! You got yourself caught! Now what\'s the next step in your master plan?', ["'"]))
+      .to.be.equal('Well, Congratulations! You Got Yourself Caught! Now What\'s The Next Step In Your Master Plan?');
   });
 
   it('should not modify numbers', function() {
