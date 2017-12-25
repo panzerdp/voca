@@ -1,13 +1,13 @@
 import babelConfig from './babel_config';
 
 export default {
-  entry: 'test/index.js',
+  input: 'test/index.js',
   plugins: [
     babelConfig
   ],
-  targets: [{
-    dest: 'test_runner/test_bundle.js',
+  output: [{
+    file: 'test_runner/test_bundle.js',
     format: 'iife',
-    sourceMap: false
+    sourcemap: false
   }]
 };

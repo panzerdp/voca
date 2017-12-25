@@ -2,15 +2,15 @@ import babelConfig from './babel_config';
 import banner from './banner';
 
 export default {
-  entry: 'src/index.js',
+  input: 'src/index.js',
   plugins: [
     babelConfig,
   ],
-  targets: [{
-    dest: 'dist_mod/index.es2015.js',
+  output: [{
+    file: 'dist_mod/index.es2015.js',
     format: 'es',
-    moduleName: 'v',
-    sourceMap: false,
+    name: 'v',
+    sourcemap: false,
     banner: banner
   }]
 };

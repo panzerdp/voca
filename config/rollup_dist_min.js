@@ -3,7 +3,7 @@ import banner from './banner';
 import uglify from 'rollup-plugin-uglify';
 
 export default {
-  entry: 'src/index.js',
+  input: 'src/index.js',
   plugins: [
     babelConfig,
     uglify({
@@ -12,11 +12,11 @@ export default {
       }
     })
   ],
-  targets: [{
-    dest: 'dist/voca.min.js',
+  output: [{
+    file: 'dist/voca.min.js',
     format: 'umd',
-    moduleName: 'v',
-    sourceMap: true,
+    name: 'v',
+    sourcemap: true,
     banner: banner
   }]
 };

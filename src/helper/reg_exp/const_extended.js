@@ -85,4 +85,4 @@ export const REGEXP_ALPHA_DIGIT = new RegExp('^((?:[' + lowerCaseLetter + upperC
  * @type {RegExp}
  * @ignore
  */
-export const REGEXP_EXTENDED_ASCII = /^[\x00-\xFF]*$/;
+export const REGEXP_EXTENDED_ASCII = /^[\x01-\xFF]*$/;

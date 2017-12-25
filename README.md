@@ -3,8 +3,6 @@
 [![travis build](https://img.shields.io/travis/panzerdp/voca.svg)](https://travis-ci.org/panzerdp/voca)
 [![code coverage](https://img.shields.io/codecov/c/github/panzerdp/voca.svg)](https://codecov.io/github/panzerdp/voca)
 [![npm package](https://img.shields.io/npm/v/voca.svg)](https://www.npmjs.com/package/voca)
-[![OpenCollective Backers](https://opencollective.com/voca/backers/badge.svg)](#backers)
-[![OpenCollective Sponsors](https://opencollective.com/voca/sponsors/badge.svg)](#sponsors)
 
 Voca is a JavaScript library for manipulating strings. [https://vocajs.com][voca]
 
@@ -143,81 +141,7 @@ Please note that this project is released with a Contributor [Code of Conduct][C
 
 | ![Dmitri Pavlutin](https://s.gravatar.com/avatar/7be6b604e5d3c6a82ed933dd90ed68dc?s=100) |
 | :-: |
-| [Dmitri Pavlutin](https://rainsoft.io/about-me/) |
-| [@panzerdp](https://twitter.com/panzerdp) |
-| [dmitri@rainsoft.io](mailto:dmitri@rainsoft.io) |
-
-
-## Backers
-
-Support us with a monthly donation and help us continue our activities. [[Become a backer](https://opencollective.com/voca#backer)]
-
-<a href="https://opencollective.com/voca/backer/0/website" target="_blank"><img src="https://opencollective.com/voca/backer/0/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/1/website" target="_blank"><img src="https://opencollective.com/voca/backer/1/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/2/website" target="_blank"><img src="https://opencollective.com/voca/backer/2/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/3/website" target="_blank"><img src="https://opencollective.com/voca/backer/3/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/4/website" target="_blank"><img src="https://opencollective.com/voca/backer/4/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/5/website" target="_blank"><img src="https://opencollective.com/voca/backer/5/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/6/website" target="_blank"><img src="https://opencollective.com/voca/backer/6/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/7/website" target="_blank"><img src="https://opencollective.com/voca/backer/7/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/8/website" target="_blank"><img src="https://opencollective.com/voca/backer/8/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/9/website" target="_blank"><img src="https://opencollective.com/voca/backer/9/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/10/website" target="_blank"><img src="https://opencollective.com/voca/backer/10/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/11/website" target="_blank"><img src="https://opencollective.com/voca/backer/11/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/12/website" target="_blank"><img src="https://opencollective.com/voca/backer/12/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/13/website" target="_blank"><img src="https://opencollective.com/voca/backer/13/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/14/website" target="_blank"><img src="https://opencollective.com/voca/backer/14/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/15/website" target="_blank"><img src="https://opencollective.com/voca/backer/15/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/16/website" target="_blank"><img src="https://opencollective.com/voca/backer/16/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/17/website" target="_blank"><img src="https://opencollective.com/voca/backer/17/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/18/website" target="_blank"><img src="https://opencollective.com/voca/backer/18/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/19/website" target="_blank"><img src="https://opencollective.com/voca/backer/19/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/20/website" target="_blank"><img src="https://opencollective.com/voca/backer/20/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/21/website" target="_blank"><img src="https://opencollective.com/voca/backer/21/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/22/website" target="_blank"><img src="https://opencollective.com/voca/backer/22/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/23/website" target="_blank"><img src="https://opencollective.com/voca/backer/23/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/24/website" target="_blank"><img src="https://opencollective.com/voca/backer/24/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/25/website" target="_blank"><img src="https://opencollective.com/voca/backer/25/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/26/website" target="_blank"><img src="https://opencollective.com/voca/backer/26/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/27/website" target="_blank"><img src="https://opencollective.com/voca/backer/27/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/28/website" target="_blank"><img src="https://opencollective.com/voca/backer/28/avatar.svg"></a>
-<a href="https://opencollective.com/voca/backer/29/website" target="_blank"><img src="https://opencollective.com/voca/backer/29/avatar.svg"></a>
-
-
-## Sponsors
-
-Become a sponsor and get your logo on our README on Github with a link to your site. [[Become a sponsor](https://opencollective.com/voca#sponsor)]
-
-<a href="https://opencollective.com/voca/sponsor/0/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/0/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/1/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/1/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/2/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/2/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/3/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/3/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/4/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/4/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/5/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/5/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/6/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/6/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/7/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/7/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/8/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/8/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/9/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/9/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/10/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/10/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/11/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/11/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/12/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/12/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/13/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/13/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/14/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/14/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/15/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/15/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/16/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/16/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/17/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/17/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/18/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/18/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/19/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/19/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/20/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/20/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/21/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/21/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/22/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/22/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/23/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/23/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/24/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/24/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/25/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/25/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/26/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/26/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/27/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/27/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/28/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/28/avatar.svg"></a>
-<a href="https://opencollective.com/voca/sponsor/29/website" target="_blank"><img src="https://opencollective.com/voca/sponsor/29/avatar.svg"></a>
+| [@panzerdp](https://twitter.com/panzerdp) 
 
 
 ## License

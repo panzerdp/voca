@@ -14,14 +14,14 @@ export const TYPE_FLOAT_SHORT                   = 'g';
 export const TYPE_FLOAT_SHORT_UPPERCASE         = 'G';
 export const TYPE_STRING                        = 's';
 
-  // Simple literals
+// Simple literals
 export const LITERAL_PERCENT           = '%';
 export const LITERAL_SINGLE_QUOTE      = "'";
 export const LITERAL_PLUS              = '+';
 export const LITERAL_MINUS             = '-';
 export const LITERAL_PERCENT_SPECIFIER = '%%';
 
-  // Radix constants to format numbers
+// Radix constants to format numbers
 export const RADIX_BINARY      = 2;
 export const RADIX_OCTAL       = 8;
 export const RADIX_DECIMAL     = 10;

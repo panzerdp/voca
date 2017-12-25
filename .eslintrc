@@ -27,6 +27,7 @@
       "ignoreCase": true,
       "ignoreMemberSort": false,
       "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
-    }]
+    }],
+    "no-control-regex": "off"
   }
 }
