@@ -71,7 +71,7 @@ export const REGEXP_SURROGATE_PAIRS = new RegExp('([' + highSurrogate + '])([' +
  * @ignore
  */
 export const REGEXP_UNICODE_CHARACTER = new RegExp(
-'((?:[' + base + ']|[' + highSurrogate + '][' + lowSurrogate + ']|[' + highSurrogate + '](?![' + lowSurrogate + '])|(?:[^' + highSurrogate + ']|^)[' + lowSurrogate + '])(?:[' + diacriticalMark + ']+))|\
+  '((?:[' + base + ']|[' + highSurrogate + '][' + lowSurrogate + ']|[' + highSurrogate + '](?![' + lowSurrogate + '])|(?:[^' + highSurrogate + ']|^)[' + lowSurrogate + '])(?:[' + diacriticalMark + ']+))|\
 ([' + highSurrogate + '][' + lowSurrogate + '])|\
 ([\\n\\r\\u2028\\u2029])|\
 (.)', 'g');
@@ -114,7 +114,7 @@ export const REGEXP_DIGIT = new RegExp('^' + digit + '+$');
  * @type {RegExp}
  * @ignore
  */
-export const REGEXP_SPECIAL_CHARACTERS = /[-[\]{}()*+!<=:?.\/\\^$|#,]/g;
+export const REGEXP_SPECIAL_CHARACTERS = /[-[\]{}()*+!<=:?./\\^$|#,]/g;
 
 /**
  * Regular expression to match not latin characters

@@ -22,7 +22,7 @@ import validateReplacement from 'helper/format/replacement/validate';
  * @return {string} Returns the computed replacement.
  */
 export default function match(replacementIndex, replacements, conversionSpecification, percent, position, signSpecifier,
-                        paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
+  paddingSpecifier, alignmentSpecifier, widthSpecifier, precisionSpecifier, typeSpecifier) {
   const conversion = new ConversionSpecification({
     percent,
     signSpecifier,
