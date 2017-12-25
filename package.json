@@ -1,12 +1,12 @@
 {
   "name": "voca",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "description": "The ultimate JavaScript string library",
   "homepage": "https://vocajs.com",
   "author": {
     "name": "Dmitri Pavlutin",
     "email": "dmitri@rainsoft.io",
-    "url": "https://rainsoft.io/about-me/"
+    "url": "https://dmitripavlutin.com/about-me/"
   },
   "license": "MIT",
   "keywords": [
@@ -23,11 +23,6 @@
     "case",
     "strip"
   ],
-  "collective": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/voca",
-    "logo": "https://opencollective.com/voca/logo.txt"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/panzerdp/voca.git"

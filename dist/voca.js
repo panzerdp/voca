@@ -1,5 +1,5 @@
 /*! 
- * Voca string library 1.3.1
+ * Voca string library 1.4.0
  * https://vocajs.com
  *
  * Copyright Dmitri Pavlutin and other contributors
@@ -204,7 +204,7 @@ var REGEXP_COMBINING_MARKS = new RegExp('([' + base + ']|[' + highSurrogate + ']
 var REGEXP_SURROGATE_PAIRS = new RegExp('([' + highSurrogate + '])([' + lowSurrogate + '])', 'g');
 
 /**
- * Regular expression to match an unicode character
+ * Regular expression to match a unicode character
  *
  * @type {RegExp}
  * @ignore
@@ -252,7 +252,7 @@ var REGEXP_DIGIT = new RegExp('^' + digit + '+$');
  * @type {RegExp}
  * @ignore
  */
-var REGEXP_SPECIAL_CHARACTERS = /[-[\]{}()*+!<=:?.\/\\^$|#,]/g;
+var REGEXP_SPECIAL_CHARACTERS = /[-[\]{}()*+!<=:?./\\^$|#,]/g;
 
 /**
  * Regular expression to match not latin characters
@@ -388,7 +388,7 @@ var REGEXP_ALPHA_DIGIT = new RegExp('^((?:[' + lowerCaseLetter + upperCaseLetter
  * @type {RegExp}
  * @ignore
  */
-var REGEXP_EXTENDED_ASCII = /^[\x00-\xFF]*$/;
+var REGEXP_EXTENDED_ASCII = /^[\x01-\xFF]*$/;
 
 /**
  * Verifies if `value` is `undefined` or `null` and returns `defaultValue`. In other case returns `value`.
@@ -629,25 +629,25 @@ function swapAndConcat(swapped, character) {
  *
  * @function titleCase
  * @static
- * @since 1.2.0
+ * @since 1.4.0
  * @memberOf Case
  * @param  {string} [subject=''] The string to convert to title case.
- * @param  {Array} [ignoreWords] The words that should not be capitalized.
+ * @param  {Array}  [noSplit]    Do not split words at the specified characters.
  * @return {string}              Returns the title case string.
  * @example
  * v.titleCase('learning to fly');
  * // => 'Learning To Fly'
  *
- * v.titleCase('another brick in the wall', ['in', 'the']);
- * // => 'Another Brick in the Wall'
+ * v.titleCase('jean-luc is good-looking', ['-']);
+ * // => 'Jean-luc Is Good-looking'
  */
-function titleCase(subject, ignoreWords) {
+function titleCase(subject, noSplit) {
   var subjectString = coerceToString(subject);
-  var ignoreWordsArray = Array.isArray(ignoreWords) ? ignoreWords : [];
+  var noSplitArray = Array.isArray(noSplit) ? noSplit : [];
   var wordsRegExp = REGEXP_EXTENDED_ASCII.test(subjectString) ? REGEXP_LATIN_WORD : REGEXP_WORD;
-  return subjectString.replace(wordsRegExp, function (word) {
-    var lowerCaseWord = word.toLowerCase();
-    return ignoreWordsArray.indexOf(lowerCaseWord) !== -1 ? lowerCaseWord : capitalize(lowerCaseWord, true);
+  return subjectString.replace(wordsRegExp, function (word, index) {
+    var isNoSplit = index > 0 && noSplitArray.indexOf(subjectString[index - 1]) >= 0;
+    return isNoSplit ? word.toLowerCase() : capitalize(word, true);
   });
 }
 
@@ -3635,9 +3635,9 @@ function noConflict() {
  * @type string
  * @example
  * v.version
- * // => '1.3.1'
+ * // => '1.4.0'
  */
-var version = '1.3.1';
+var version = '1.4.0';
 
 /* eslint sort-imports: "off" */
 
