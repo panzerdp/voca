@@ -1,4 +1,4 @@
-import appendFlagToRegularExpression from 'helper/reg_exp/append_flag_to_reg_exp';
+import appendFlag from 'helper/reg_exp/append_flag';
 import coerceToString from 'helper/string/coerce_to_string';
 import escapeRegExp from 'escape/escape_reg_exp';
 
@@ -27,7 +27,7 @@ export default function replaceAll(subject, pattern, replacement) {
   if (!(pattern instanceof RegExp)) {
     regExp = new RegExp(escapeRegExp(pattern), 'g');
   } else if (!pattern.global) {
-    regExp = appendFlagToRegularExpression(pattern, 'g');
+    regExp = appendFlag(pattern, 'g');
   }
   return subjectString.replace(regExp, replacement);
 }

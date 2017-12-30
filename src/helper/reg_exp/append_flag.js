@@ -1,4 +1,4 @@
-import getRegExpFlags from 'helper/reg_exp/get_reg_exp_flags';
+import getFlags from 'helper/reg_exp/get_flags';
 import includes from 'query/includes';
 
 /**
@@ -10,7 +10,7 @@ import includes from 'query/includes';
  * @return {RegExp} The regular expression with added flag.
  */
 export default function appendFlagToRegExp(pattern, appendFlag) {
-  const regularExpressionFlags = getRegExpFlags(pattern);
+  const regularExpressionFlags = getFlags(pattern);
   if (!includes(regularExpressionFlags, appendFlag)) {
     return new RegExp(pattern.source, regularExpressionFlags + appendFlag);
   }
