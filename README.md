@@ -110,14 +110,15 @@ Then a global variable `v` is exposed for the entire library:
 | [v.replace][replace]                 | [v.isEmpty][isEmpty]           | [v.slice][slice]                     | [v.swapCase][swapCase]         | [v.unescapeHtml][unescapeHtml] |
 | [v.replaceAll][replaceAll]           | [v.isLowerCase][isLowerCase]   | [v.substr][substr]                   | [v.titleCase][titleCase]       | **Strip**                      | 
 | [v.reverse][reverse]                 | [v.isNumeric][isNumeric]       | [v.substring][substring]             | [v.upperCase][upperCase]       |  [v.stripBom][stripBom]        |
-| [v.reverseGrapheme][reverseGrapheme] | [v.isString][isString]         | [v.truncate][truncate]               | **Split**                      |  [v.stripTags][stripTags]      |
-| [v.slugify][slugify]                 | [v.isUpperCase][isUpperCase]   | **Count**                            | [v.chars][chars]               |                                |
-| [v.splice][splice]                   | [v.matches][matches]           | [v.count][count]                     | [v.codePoints][codePoints]     |                                |
-| [v.tr][tr]                           | [v.startsWith][startsWith]     | [v.countGraphemes][countGraphemes]   | [v.graphemes][graphemes]       |                                |
-| [v.trim][trim]                       | **Format**                     | [v.countSubstrings][countSubstrings] | [v.split][split]               |                                |
-| [v.trimLeft][trimLeft]               | [v.sprintf][sprintf]           | [v.countWhere][countWhere]           | [v.words][words]               |                                |
-| [v.trimRight][trimRight]             | [v.vprintf][vprintf]           | [v.countWords][countWords]           |                                |                                |
-| [v.wordWrap][wordWrap]               |                                |                                      |                                |                                |
+| [v.reverseGrapheme][reverseGrapheme] | [v.isPalindrome][isPalindrome] | [v.truncate][truncate]               | **Split**                      |  [v.stripTags][stripTags]      |
+| [v.slugify][slugify]                 | [v.isString][isString]         | **Count**                            | [v.chars][chars]               |                                |
+| [v.splice][splice]                   | [v.isUpperCase][isUpperCase]   | [v.count][count]                     | [v.codePoints][codePoints]     |                                |
+| [v.tr][tr]                           | [v.matches][matches]           | [v.countGraphemes][countGraphemes]   | [v.graphemes][graphemes]       |                                |
+| [v.trim][trim]                       | [v.startsWith][startsWith]     | [v.countSubstrings][countSubstrings] | [v.split][split]               |                                |
+| [v.trimLeft][trimLeft]               | **Format**                     | [v.countWhere][countWhere]           | [v.words][words]               |                                |
+| [v.trimRight][trimRight]             | [v.sprintf][sprintf]           | [v.countWords][countWords]           |                                |                                |
+| [v.wordWrap][wordWrap]               | [v.vprintf][vprintf]
+
 
 ## Bug reports
 
@@ -223,6 +224,7 @@ Licensed under [MIT](https://github.com/panzerdp/voca/blob/master/LICENSE.md)
 [isEmpty]: https://vocajs.com/#isEmpty
 [isLowerCase]: https://vocajs.com/#isLowerCase
 [isNumeric]: https://vocajs.com/#isNumeric
+[isPalindrome]: https://vocajs.com/#isPalindrome
 [isString]: https://vocajs.com/#isString
 [isUpperCase]: https://vocajs.com/#isUpperCase
 [matches]: https://vocajs.com/#matches

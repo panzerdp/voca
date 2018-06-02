@@ -3132,6 +3132,36 @@ function isNumeric(subject) {
 }
 
 /**
+ * Checks whether `subject` is palindrome.
+ *
+ * @function isPalindrome
+ * @static
+ * @since 1.5.0
+ * @memberOf Query
+ * @param {string} [subject=''] The string to verify.
+ * @return {boolean} Returns `true` if `subject` is palindrome or `false` otherwise.
+ * @example
+ * v.isPalindrome('Madam');
+ * // => true
+ *
+ * v.isPalindrome('I do, do I?');
+ * // => true
+ *
+ * v.isPalindrome('Rotator!');
+ * // => true
+ *
+ * v.isPalindrome('I am not palindrome, am I?');
+ * // => false
+ */
+function isPalindrome(subject) {
+  if (subject == null) {
+    return false;
+  }
+  var subjectStandardized = toString(subject).replace(/[^A-Z0-9]/ig, '').toLowerCase();
+  return subjectStandardized.split('').reverse().join('') === subjectStandardized;
+}
+
+/**
  * Checks whether `subject` contains only upper case characters.
  *
  * @function isUpperCase
@@ -3756,6 +3786,7 @@ var functions = {
   isEmpty: isEmpty,
   isLowerCase: isLowerCase,
   isNumeric: isNumeric,
+  isPalindrome: isPalindrome,
   isString: isString,
   isUpperCase: isUpperCase,
   matches: matches,

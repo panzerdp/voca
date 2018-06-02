@@ -102,6 +102,7 @@ import isDigit from './query/is_digit';
 import isEmpty from './query/is_empty';
 import isLowerCase from './query/is_lower_case';
 import isNumeric from './query/is_numeric';
+import isPalindrome from './query/is_palindrome';
 import isString from './query/is_string';
 import isUpperCase from './query/is_upper_case';
 import matches from './query/matches';
@@ -197,6 +198,7 @@ export default {
   isEmpty,
   isLowerCase,
   isNumeric,
+  isPalindrome,
   isString,
   isUpperCase,
   matches,
