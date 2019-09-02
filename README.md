@@ -141,7 +141,7 @@ Please note that this project is released with a Contributor [Code of Conduct][C
 
 | ![Dmitri Pavlutin](https://s.gravatar.com/avatar/7be6b604e5d3c6a82ed933dd90ed68dc?s=100) |
 | :-: |
-| [@panzerdp](https://twitter.com/panzerdp) 
+| [Dmitri Pavlutin](https://dmitripavlutin.com) 
 
 
 ## License
