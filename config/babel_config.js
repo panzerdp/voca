@@ -1,16 +1,19 @@
 import babel from 'rollup-plugin-babel';
 
 export default babel({
-  "plugins": [
-    "transform-object-assign",
-    "transform-es2015-block-scoping",
-    "transform-es2015-parameters",
-    "transform-es2015-shorthand-properties",
-    "transform-es2015-spread",
-    "transform-es2015-destructuring",
-    ["module-resolver", {
-      "root": ["./src"]
-    }]
+  plugins: [
+    '@babel/plugin-transform-object-assign',
+    '@babel/plugin-transform-block-scoping',
+    '@babel/plugin-transform-parameters',
+    '@babel/plugin-transform-shorthand-properties',
+    '@babel/plugin-transform-spread',
+    '@babel/plugin-transform-destructuring',
+    [
+      'module-resolver',
+      {
+        root: ['./src']
+      }
+    ]
   ],
-  "babelrc": false
+  babelrc: false
 });

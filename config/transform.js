@@ -1,4 +1,4 @@
-const babel = require('babel-core');
+const babel = require('@babel/core');
 const glob = require('glob');
 const fs = require('fs');
 const path = require('path');
@@ -13,19 +13,32 @@ compileHelpers();
 function compileFunctions() {
   getFunctionFiles().forEach(function(file) {
     const destinationFile = DIRECTORY_DIST + path.basename(file);
-    babel.transformFile(file, {
-      resolveModuleSource: resolveModuleSource
-    }, handleFunctionsCompilation.bind(null, destinationFile));
+    babel.transformFile(
+      file,
+      {
+        resolvePath: resolveModuleSource
+      },
+      handleFunctionsCompilation.bind(null, destinationFile)
+    );
   });
 }
 
 function compileHelpers() {
   getHelperFiles().forEach(function(file) {
-    const destinationFile = DIRECTORY_DIST + file.split(path.sep).slice(1).join(path.sep);
+    const destinationFile =
+      DIRECTORY_DIST +
+      file
+        .split(path.sep)
+        .slice(1)
+        .join(path.sep);
     mkdirp.sync(path.dirname(destinationFile));
-    babel.transformFile(file, {
-      resolveModuleSource: resolveHelperModuleSource
-    }, handleFunctionsCompilation.bind(null, destinationFile));
+    babel.transformFile(
+      file,
+      {
+        resolvePath: resolveHelperModuleSource
+      },
+      handleFunctionsCompilation.bind(null, destinationFile)
+    );
   });
 }
 
@@ -36,7 +49,7 @@ function getFunctionFiles() {
       DIRECTORY_SRC + 'helper/**/*.js',
       DIRECTORY_SRC + 'util/no_conflict.js',
       DIRECTORY_SRC + 'functions.js',
-      DIRECTORY_SRC + 'index.js',
+      DIRECTORY_SRC + 'index.js'
     ]
   });
 }
