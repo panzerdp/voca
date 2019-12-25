@@ -1,15 +1,16 @@
 {
   "plugins": [
-    "add-module-exports",
-    "transform-object-assign",
-    "transform-es2015-block-scoping",
-    "transform-es2015-modules-commonjs",
-    "transform-es2015-parameters",
-    "transform-es2015-shorthand-properties",
-    "transform-es2015-spread",
-    "transform-es2015-destructuring",
-    ["module-resolver", {
-      "root": ["./src"]
-    }]
+    "@babel/plugin-transform-object-assign",
+    "@babel/plugin-transform-block-scoping",
+    "@babel/plugin-transform-parameters",
+    "@babel/plugin-transform-shorthand-properties",
+    "@babel/plugin-transform-spread",
+    "@babel/plugin-transform-destructuring",
+    [
+      "module-resolver",
+      {
+        "root": ["./src"]
+      }
+    ]
   ]
 }

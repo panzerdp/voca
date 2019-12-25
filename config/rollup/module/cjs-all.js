@@ -1,4 +1,4 @@
-import babelConfig from './babel_config';
+import babel from 'rollup-plugin-babel';
 import glob from 'glob';
 
 const DIRECTORY_SRC = 'src/';
@@ -19,7 +19,7 @@ function modulesPaths() {
 
 export default {
   input: modulesPaths(),
-  plugins: [babelConfig],
+  plugins: [babel()],
   output: {
     dir: DIRECTORY_DIST,
     format: 'cjs'
