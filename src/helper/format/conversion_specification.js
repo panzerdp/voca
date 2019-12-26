@@ -9,7 +9,6 @@ import nilDefault from 'helper/undefined/nil_default';
  * @return {ConversionSpecification} ConversionSpecification instance.
  */
 function ConversionSpecification(properties) {
-
   /**
    * The percent characters from conversion specification.
    *
@@ -73,7 +72,6 @@ function ConversionSpecification(properties) {
    */
   this.typeSpecifier = properties.typeSpecifier;
 }
-
 
 /**
  * Check if the conversion specification is a percent literal "%%".

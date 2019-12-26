@@ -15,7 +15,7 @@ describe('isLowerCase', function() {
       v.isLowerCase({
         toString: function() {
           return 'batman';
-        }
+        },
       })
     ).toBe(true);
   });
@@ -32,9 +32,7 @@ describe('isLowerCase', function() {
 
   it('should return false for a string containing characters different than lower case', function() {
     expect(v.isLowerCase('hello world!')).toBe(false);
-    expect(
-      v.isLowerCase('No one cared who I was until I put on the mask.')
-    ).toBe(false);
+    expect(v.isLowerCase('No one cared who I was until I put on the mask.')).toBe(false);
     expect(v.isLowerCase('\n')).toBe(false);
     expect(v.isLowerCase('\t')).toBe(false);
     expect(v.isLowerCase(' ')).toBe(false);
@@ -48,7 +46,7 @@ describe('isLowerCase', function() {
       v.isLowerCase({
         toString: function() {
           return 'Batman';
-        }
+        },
       })
     ).toBe(false);
   });

@@ -36,6 +36,9 @@ export default function pad(subject, length, pad) {
   const paddingLength = lengthInt - subjectString.length;
   const paddingSideLength = toInteger(paddingLength / 2);
   const paddingSideRemainingLength = paddingLength % 2;
-  return buildPadding(padString, paddingSideLength) + subjectString +
-      buildPadding(padString, paddingSideLength + paddingSideRemainingLength);
+  return (
+    buildPadding(padString, paddingSideLength) +
+    subjectString +
+    buildPadding(padString, paddingSideLength + paddingSideRemainingLength)
+  );
 }

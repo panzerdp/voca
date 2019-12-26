@@ -6,7 +6,7 @@ const unescapeCharactersMap = {
   '&': /(&amp;)|(&#x0*26;)|(&#0*38;)/gi,
   '"': /(&quot;)|(&#x0*22;)|(&#0*34;)/gi,
   "'": /(&#x0*27;)|(&#0*39;)/gi,
-  '`': /(&#x0*60;)|(&#0*96;)/gi
+  '`': /(&#x0*60;)|(&#0*96;)/gi,
 };
 const characters = Object.keys(unescapeCharactersMap);
 

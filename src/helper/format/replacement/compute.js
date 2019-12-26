@@ -12,7 +12,7 @@ import {
   TYPE_INTEGER_HEXADECIMAL_UPPERCASE,
   TYPE_INTEGER_OCTAL,
   TYPE_INTEGER_UNSIGNED_DECIMAL,
-  TYPE_STRING
+  TYPE_STRING,
 } from 'helper/format/const';
 import alignAndPad from 'helper/format/align_and_pad';
 import formatFloat from 'helper/format/type_format/float';

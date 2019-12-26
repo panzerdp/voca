@@ -3,26 +3,11 @@ import v from '../voca';
 
 describe('chars', function() {
   it('should split a string into characters', function() {
-    expect(v.chars('stellar bomb')).toEqual([
-      's',
-      't',
-      'e',
-      'l',
-      'l',
-      'a',
-      'r',
-      ' ',
-      'b',
-      'o',
-      'm',
-      'b'
-    ]);
+    expect(v.chars('stellar bomb')).toEqual(['s', 't', 'e', 'l', 'l', 'a', 'r', ' ', 'b', 'o', 'm', 'b']);
     expect(v.chars('   ')).toEqual([' ', ' ', ' ']);
     expect(v.chars('\n\t')).toEqual(['\n', '\t']);
     expect(v.chars('')).toEqual([]);
-    expect(v.chars(PRINTABLE_ASCII)).toEqual(
-      Array.prototype.slice.call(PRINTABLE_ASCII, 0)
-    );
+    expect(v.chars(PRINTABLE_ASCII)).toEqual(Array.prototype.slice.call(PRINTABLE_ASCII, 0));
   });
 
   it('should split a number into characters', function() {
@@ -37,7 +22,7 @@ describe('chars', function() {
       v.chars({
         toString: function() {
           return 'Capa';
-        }
+        },
       })
     ).toEqual(['C', 'a', 'p', 'a']);
   });

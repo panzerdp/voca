@@ -24,7 +24,7 @@ import toInteger from 'helper/number/to_integer';
 export default function search(subject, pattern, fromIndex) {
   const subjectString = coerceToString(subject);
   const fromIndexNumber = isNil(fromIndex) ? 0 : clipNumber(toInteger(fromIndex), 0, subjectString.length);
-  let matchIndex  = subjectString.substr(fromIndexNumber).search(pattern);
+  let matchIndex = subjectString.substr(fromIndexNumber).search(pattern);
   if (matchIndex !== -1 && !isNaN(fromIndexNumber)) {
     matchIndex += fromIndexNumber;
   }

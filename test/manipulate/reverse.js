@@ -3,7 +3,6 @@ import { PRINTABLE_ASCII, REVERSED_PRINTABLE_ASCII } from '../const';
 import v from '../voca';
 
 describe('reverse', function() {
-
   it('should reverse a string', function() {
     expect(v.reverse('green tree')).toBe('eert neerg');
     expect(v.reverse('o')).toBe('o');
@@ -20,11 +19,13 @@ describe('reverse', function() {
 
   it('should reverse a string representation of an object', function() {
     expect(v.reverse(['flower'])).toBe('rewolf');
-    expect(v.reverse({
-      toString: function() {
-        return 'flower';
-      }
-    })).toBe('rewolf');
+    expect(
+      v.reverse({
+        toString: function() {
+          return 'flower';
+        },
+      })
+    ).toBe('rewolf');
   });
 
   it('should return an empty string for null or undefined', function() {
@@ -32,5 +33,4 @@ describe('reverse', function() {
     expect(v.reverse(null)).toBe('');
     expect(v.reverse(undefined)).toBe('');
   });
-
 });

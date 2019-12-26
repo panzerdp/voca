@@ -32,7 +32,7 @@ describe('includes', function() {
         {
           toString: function() {
             return 'mobile infantry';
-          }
+          },
         },
         'infantry'
       )
@@ -70,7 +70,7 @@ describe('includes', function() {
         {
           toString: function() {
             return 'mobile infantry';
-          }
+          },
         },
         'motorized infantry'
       )

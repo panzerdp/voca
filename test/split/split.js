@@ -23,7 +23,7 @@ describe('split', function() {
         {
           toString: function() {
             return 'rising-star';
-          }
+          },
         },
         /\-/
       )

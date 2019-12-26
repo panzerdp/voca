@@ -1,9 +1,7 @@
-
 import { PRINTABLE_ASCII } from '../const';
 import v from '../voca';
 
 describe('count', function() {
-
   it('should return the number of characters in a string', function() {
     expect(v.count('rain')).toBe(4);
     expect(v.count('')).toBe(0);
@@ -19,11 +17,13 @@ describe('count', function() {
 
   it('should return the number of characters in a string representation of an object', function() {
     expect(v.count(['droplet'])).toBe(7);
-    expect(v.count({
-      toString: function() {
-        return 'rainfall';
-      }
-    })).toBe(8);
+    expect(
+      v.count({
+        toString: function() {
+          return 'rainfall';
+        },
+      })
+    ).toBe(8);
   });
 
   it('should return zero for undefined or null', function() {
@@ -31,5 +31,4 @@ describe('count', function() {
     expect(v.count(null)).toBe(0);
     expect(v.count(undefined)).toBe(0);
   });
-
 });

@@ -14,7 +14,7 @@ describe('codePoints', function() {
       0x62,
       0x6f,
       0x6d,
-      0x62
+      0x62,
     ]);
     expect(v.codePoints('   ')).toEqual([0x20, 0x20, 0x20]);
     expect(v.codePoints('\n\t')).toEqual([0xa, 0x9]);
@@ -22,20 +22,9 @@ describe('codePoints', function() {
   });
 
   it('should split a string with surrogate pairs and diacritical marks characters into code point numbers', function() {
-    expect(v.codePoints('man\u0303ana')).toEqual([
-      0x6d,
-      0x61,
-      0x6e,
-      0x303,
-      0x61,
-      0x6e,
-      0x61
-    ]);
+    expect(v.codePoints('man\u0303ana')).toEqual([0x6d, 0x61, 0x6e, 0x303, 0x61, 0x6e, 0x61]);
     expect(v.codePoints('\u00E9\u20DD')).toEqual([0xe9, 0x20dd]);
-    expect(v.codePoints('\uD835\uDC00\uD835\uDC01')).toEqual([
-      0x1d400,
-      0x1d401
-    ]);
+    expect(v.codePoints('\uD835\uDC00\uD835\uDC01')).toEqual([0x1d400, 0x1d401]);
     expect(v.codePoints('cafe\u0301')).toEqual([0x63, 0x61, 0x66, 0x65, 0x301]);
     expect(v.codePoints('foo\u0303\u035C\u035D\u035Ebar')).toEqual([
       0x66,
@@ -47,7 +36,7 @@ describe('codePoints', function() {
       0x35e,
       0x62,
       0x61,
-      0x72
+      0x72,
     ]);
     expect(v.codePoints('foo\uD834\uDF06\u0303\u035C\u035D\u035Ebar')).toEqual([
       0x66,
@@ -60,7 +49,7 @@ describe('codePoints', function() {
       0x35e,
       0x62,
       0x61,
-      0x72
+      0x72,
     ]);
   });
 
@@ -76,7 +65,7 @@ describe('codePoints', function() {
       v.codePoints({
         toString: function() {
           return 'Capa';
-        }
+        },
       })
     ).toEqual([0x43, 0x61, 0x70, 0x61]);
   });

@@ -1,7 +1,7 @@
-const HIGH_SURROGATE_START = 0xD800;
-const HIGH_SURROGATE_END = 0xDBFF;
-const LOW_SURROGATE_START = 0xDC00;
-const LOW_SURROGATE_END = 0xDFFF;
+const HIGH_SURROGATE_START = 0xd800;
+const HIGH_SURROGATE_END = 0xdbff;
+const LOW_SURROGATE_START = 0xdc00;
+const LOW_SURROGATE_END = 0xdfff;
 
 /**
  * Checks if `codePoint` is a high-surrogate number from range 0xD800 to 0xDBFF.

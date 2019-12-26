@@ -16,24 +16,9 @@ describe('codePointAt', function() {
     expect(v.codePointAt('cafe\u0301', 3)).toBe(0x0065);
     expect(v.codePointAt('cafe\u0301', 4)).toBe(0x0301);
     expect(v.codePointAt('foo\u0303\u035C\u035D\u035Ebar', 2)).toBe(0x006f);
-    expect(
-      v.codePointAt(
-        'foo\uD834\uDF06\u0303\u035C\u035D\u035Ebar\uD834\uDF06\u0303\u035C\u035D',
-        3
-      )
-    ).toBe(0x1d306);
-    expect(
-      v.codePointAt(
-        'foo\uD834\uDF06\u0303\u035C\u035D\u035Ebar\uD834\uDF06\u0303\u035C\u035D',
-        12
-      )
-    ).toBe(0x1d306);
-    expect(
-      v.codePointAt(
-        'foo\uD834\uDF06\u0303\u035C\u035D\u035Ebar\uD834\uDF06\u0303\u035C\u035D',
-        13
-      )
-    ).toBe(0xdf06);
+    expect(v.codePointAt('foo\uD834\uDF06\u0303\u035C\u035D\u035Ebar\uD834\uDF06\u0303\u035C\u035D', 3)).toBe(0x1d306);
+    expect(v.codePointAt('foo\uD834\uDF06\u0303\u035C\u035D\u035Ebar\uD834\uDF06\u0303\u035C\u035D', 12)).toBe(0x1d306);
+    expect(v.codePointAt('foo\uD834\uDF06\u0303\u035C\u035D\u035Ebar\uD834\uDF06\u0303\u035C\u035D', 13)).toBe(0xdf06);
     expect(v.codePointAt('Good day')).toBe(0x0047);
     expect(v.codePointAt('Good day', undefined)).toBe(0x0047);
     expect(v.codePointAt('Good day', null)).toBe(0x0047);
@@ -56,7 +41,7 @@ describe('codePointAt', function() {
         {
           toString: function() {
             return 'Morning';
-          }
+          },
         },
         1
       )

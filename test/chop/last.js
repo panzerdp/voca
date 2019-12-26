@@ -1,9 +1,7 @@
-
 import { PRINTABLE_ASCII } from '../const';
 import v from '../voca';
 
 describe('last', function() {
-
   it('should return the last part of a string', function() {
     expect(v.last('Good day', -1)).toBe('');
     expect(v.last('Good day', 0)).toBe('');
@@ -21,11 +19,16 @@ describe('last', function() {
 
   it('should return the last part of a string representation of an object', function() {
     expect(v.last(['Good evening'], 5)).toBe('ening');
-    expect(v.last({
-      toString: function() {
-        return 'Morning';
-      }
-    }, 2)).toBe('ng');
+    expect(
+      v.last(
+        {
+          toString: function() {
+            return 'Morning';
+          },
+        },
+        2
+      )
+    ).toBe('ng');
   });
 
   it('should return an empty string for null or undefined', function() {
@@ -35,5 +38,4 @@ describe('last', function() {
     expect(v.last(null, null)).toBe('');
     expect(v.last(undefined, undefined)).toBe('');
   });
-
 });

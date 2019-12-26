@@ -1,12 +1,10 @@
-
 import { PRINTABLE_ASCII } from '../const';
 import v from '../voca';
 
 describe('prune', function() {
-
   it('should prune a string', function() {
     expect(v.prune('Once upon a time there lived in a certain village a little country girl', 7)).toBe('Once...');
-    expect(v.prune('I\'ll go this way and go you that', 19, ' (read more)')).toBe('I\'ll go (read more)');
+    expect(v.prune("I'll go this way and go you that", 19, ' (read more)')).toBe("I'll go (read more)");
     expect(v.prune('Little Red Riding Hood', 6, '...')).toBe('...');
     expect(v.prune('Little Red Riding Hood', 9, '...')).toBe('Little...');
     expect(v.prune('Little Red Riding Hood', 11, '...')).toBe('Little...');
@@ -32,11 +30,17 @@ describe('prune', function() {
 
   it('should prune a string representation of an object', function() {
     expect(v.prune(['Welcome'], 4)).toBe('...');
-    expect(v.prune({
-      toString: function() {
-        return 'Have a nice day';
-      }
-    }, 6, '..')).toBe('Have..');
+    expect(
+      v.prune(
+        {
+          toString: function() {
+            return 'Have a nice day';
+          },
+        },
+        6,
+        '..'
+      )
+    ).toBe('Have..');
   });
 
   it('should return an empty string for null or undefined', function() {
@@ -44,5 +48,4 @@ describe('prune', function() {
     expect(v.prune(undefined)).toBe('');
     expect(v.prune(null)).toBe('');
   });
-
 });

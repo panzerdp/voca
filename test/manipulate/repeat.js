@@ -1,9 +1,7 @@
-
 import { PRINTABLE_ASCII } from '../const';
 import v from '../voca';
 
 describe('repeat', function() {
-
   it('should repeat a string', function() {
     expect(v.repeat('paradise', 2)).toBe('paradiseparadise');
     expect(v.repeat('w', 3)).toBe('www');
@@ -31,11 +29,16 @@ describe('repeat', function() {
 
   it('should repeat a string representation of an object', function() {
     expect(v.repeat(['paradise'], 2)).toBe('paradiseparadise');
-    expect(v.repeat({
-      toString: function() {
-        return 'Tony';
-      }
-    }, 2)).toBe('TonyTony');
+    expect(
+      v.repeat(
+        {
+          toString: function() {
+            return 'Tony';
+          },
+        },
+        2
+      )
+    ).toBe('TonyTony');
   });
 
   it('should return an empty string for null or undefined string to be repeated', function() {
@@ -44,5 +47,4 @@ describe('repeat', function() {
     expect(v.repeat(undefined)).toBe('');
     expect(v.repeat(undefined, 10)).toBe('');
   });
-
 });

@@ -33,11 +33,15 @@ export default function trimLeft(subject, whitespace) {
     return subjectString.replace(REGEXP_TRIM_LEFT, '');
   }
   let matchWhitespace = true;
-  return reduce.call(subjectString, function(trimmed, character) {
-    if (matchWhitespace && includes(whitespaceString, character)) {
-      return trimmed;
-    }
-    matchWhitespace = false;
-    return trimmed + character;
-  }, '');
+  return reduce.call(
+    subjectString,
+    function(trimmed, character) {
+      if (matchWhitespace && includes(whitespaceString, character)) {
+        return trimmed;
+      }
+      matchWhitespace = false;
+      return trimmed + character;
+    },
+    ''
+  );
 }

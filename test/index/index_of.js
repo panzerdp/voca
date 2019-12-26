@@ -1,9 +1,7 @@
-
 import { PRINTABLE_ASCII } from '../const';
 import v from '../voca';
 
 describe('indexOf', function() {
-
   it('should return the index of a searched string', function() {
     expect(v.indexOf('we have a mission', 'mission')).toBe(10);
     expect(v.indexOf('we have a mission', 'a')).toBe(4);
@@ -25,11 +23,16 @@ describe('indexOf', function() {
 
   it('should return the index of a searched string in a string representation of an object', function() {
     expect(v.indexOf(['we have a mission'], 'a')).toBe(4);
-    expect(v.indexOf({
-      toString: function() {
-        return 'we have a mission';
-      }
-    }, 'we')).toBe(0);
+    expect(
+      v.indexOf(
+        {
+          toString: function() {
+            return 'we have a mission';
+          },
+        },
+        'we'
+      )
+    ).toBe(0);
   });
 
   it('should return -1 for an invalid ending string and position', function() {
@@ -46,5 +49,4 @@ describe('indexOf', function() {
     expect(v.indexOf('we have a mission', undefined)).toBe(-1);
     expect(v.indexOf('we have a mission', null)).toBe(-1);
   });
-
 });

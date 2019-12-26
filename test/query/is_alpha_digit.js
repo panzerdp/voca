@@ -6,14 +6,8 @@ describe('isAlphaDigit', function() {
     expect(v.isAlphaDigit('HelloWorld')).toBe(true);
     expect(v.isAlphaDigit('HelloWorld007')).toBe(true);
     expect(v.isAlphaDigit('JavaScript6')).toBe(true);
-    expect(
-      v.isAlphaDigit('AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz')
-    ).toBe(true);
-    expect(
-      v.isAlphaDigit(
-        'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789'
-      )
-    ).toBe(true);
+    expect(v.isAlphaDigit('AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz')).toBe(true);
+    expect(v.isAlphaDigit('AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789')).toBe(true);
     expect(v.isAlphaDigit('man\u0303ana')).toBe(true);
     expect(v.isAlphaDigit('foo\u0303\u035C\u035D\u035Ebar')).toBe(true);
   });
@@ -33,28 +27,28 @@ describe('isAlphaDigit', function() {
       v.isAlphaDigit({
         toString: function() {
           return 'HelloWorld';
-        }
+        },
       })
     ).toBe(true);
     expect(
       v.isAlphaDigit({
         toString: function() {
           return 'Welcome';
-        }
+        },
       })
     ).toBe(true);
     expect(
       v.isAlphaDigit({
         toString: function() {
           return 'JavaScript2016';
-        }
+        },
       })
     ).toBe(true);
     expect(
       v.isAlphaDigit({
         toString: function() {
           return 'Welcome';
-        }
+        },
       })
     ).toBe(true);
   });
@@ -91,14 +85,14 @@ describe('isAlphaDigit', function() {
       v.isAlphaDigit({
         toString: function() {
           return 'Hello World! How are you?';
-        }
+        },
       })
     ).toBe(false);
     expect(
       v.isAlphaDigit({
         toString: function() {
           return 'Hello World! How are you?';
-        }
+        },
       })
     ).toBe(false);
   });

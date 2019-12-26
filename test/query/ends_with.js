@@ -22,42 +22,18 @@ describe('endsWith', function() {
 
   it('should return true for valid ending string and position', function() {
     expect(v.endsWith('Hello World!', '', 'Hello World'.length)).toBe(true);
-    expect(
-      v.endsWith('Hello World!', 'Hello World!', 'Hello World!'.length)
-    ).toBe(true);
-    expect(
-      v.endsWith('Hello World!', 'Hello World', 'Hello World!'.length - 1)
-    ).toBe(true);
-    expect(
-      v.endsWith('Hello World!', 'Hello Worl', 'Hello World!'.length - 2)
-    ).toBe(true);
-    expect(
-      v.endsWith('Hello World!', 'Hello Wor', 'Hello World!'.length - 3)
-    ).toBe(true);
-    expect(
-      v.endsWith('Hello World!', 'Hello Wo', 'Hello World!'.length - 4)
-    ).toBe(true);
-    expect(
-      v.endsWith('Hello World!', 'Hello W', 'Hello World!'.length - 5)
-    ).toBe(true);
-    expect(
-      v.endsWith('Hello World!', 'Hello ', 'Hello World!'.length - 6)
-    ).toBe(true);
-    expect(v.endsWith('Hello World!', 'Hello', 'Hello World!'.length - 7)).toBe(
-      true
-    );
-    expect(v.endsWith('Hello World!', 'Hell', 'Hello World!'.length - 8)).toBe(
-      true
-    );
-    expect(v.endsWith('Hello World!', 'Hel', 'Hello World!'.length - 9)).toBe(
-      true
-    );
-    expect(v.endsWith('Hello World!', 'He', 'Hello World!'.length - 10)).toBe(
-      true
-    );
-    expect(v.endsWith('Hello World!', 'H', 'Hello World!'.length - 11)).toBe(
-      true
-    );
+    expect(v.endsWith('Hello World!', 'Hello World!', 'Hello World!'.length)).toBe(true);
+    expect(v.endsWith('Hello World!', 'Hello World', 'Hello World!'.length - 1)).toBe(true);
+    expect(v.endsWith('Hello World!', 'Hello Worl', 'Hello World!'.length - 2)).toBe(true);
+    expect(v.endsWith('Hello World!', 'Hello Wor', 'Hello World!'.length - 3)).toBe(true);
+    expect(v.endsWith('Hello World!', 'Hello Wo', 'Hello World!'.length - 4)).toBe(true);
+    expect(v.endsWith('Hello World!', 'Hello W', 'Hello World!'.length - 5)).toBe(true);
+    expect(v.endsWith('Hello World!', 'Hello ', 'Hello World!'.length - 6)).toBe(true);
+    expect(v.endsWith('Hello World!', 'Hello', 'Hello World!'.length - 7)).toBe(true);
+    expect(v.endsWith('Hello World!', 'Hell', 'Hello World!'.length - 8)).toBe(true);
+    expect(v.endsWith('Hello World!', 'Hel', 'Hello World!'.length - 9)).toBe(true);
+    expect(v.endsWith('Hello World!', 'He', 'Hello World!'.length - 10)).toBe(true);
+    expect(v.endsWith('Hello World!', 'H', 'Hello World!'.length - 11)).toBe(true);
     expect(v.endsWith('', '', 0)).toBe(true);
   });
 
@@ -87,7 +63,7 @@ describe('endsWith', function() {
         {
           toString: function() {
             return 'Let us not stand on ceremony, Mr. Wayne.';
-          }
+          },
         },
         ['Mr. Wayne'],
         'Let us not stand on ceremony, Mr. Wayne.'.length - 1
@@ -96,41 +72,18 @@ describe('endsWith', function() {
   });
 
   it('should return false for an invalid ending string', function() {
-    expect(
-      v.endsWith(
-        'The shadows betray you, because they belong to me!',
-        'The shadows'
-      )
-    ).toBe(false);
-    expect(
-      v.endsWith('The shadows betray you, because they belong to me!', 'to me')
-    ).toBe(false);
+    expect(v.endsWith('The shadows betray you, because they belong to me!', 'The shadows')).toBe(false);
+    expect(v.endsWith('The shadows betray you, because they belong to me!', 'to me')).toBe(false);
     expect(v.endsWith('They belong to me!', 'They belong to me')).toBe(false);
     expect(v.endsWith('They belong to me!', 'belong')).toBe(false);
     expect(v.endsWith('', 'The shadows')).toBe(false);
   });
 
   it('should return false for an invalid ending string and position', function() {
-    expect(
-      v.endsWith(
-        'The shadows betray you, because they belong to me!',
-        'they belong to me!',
-        5
-      )
-    ).toBe(false);
-    expect(
-      v.endsWith(
-        'They belong to me!',
-        'They belong to me!',
-        'They belong to me!'.length - 1
-      )
-    ).toBe(false);
-    expect(
-      v.endsWith('They belong to me!', 'They', 'They belong to me!'.length)
-    ).toBe(false);
-    expect(
-      v.endsWith('They belong to me!', 'belong', 'They belong to me!'.length)
-    ).toBe(false);
+    expect(v.endsWith('The shadows betray you, because they belong to me!', 'they belong to me!', 5)).toBe(false);
+    expect(v.endsWith('They belong to me!', 'They belong to me!', 'They belong to me!'.length - 1)).toBe(false);
+    expect(v.endsWith('They belong to me!', 'They', 'They belong to me!'.length)).toBe(false);
+    expect(v.endsWith('They belong to me!', 'belong', 'They belong to me!'.length)).toBe(false);
     expect(v.endsWith('They belong to me!', 'to me!', 0)).toBe(false);
     expect(v.endsWith('They belong to me!', 'belong to me!', -100)).toBe(false);
   });

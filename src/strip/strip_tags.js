@@ -129,7 +129,7 @@ export default function trim(subject, allowableTags, replacement) {
           }
           break;
         }
-        if (state === STATE_EXCLAMATION || state === STATE_COMMENT && hasSubstring('-->', index)) {
+        if (state === STATE_EXCLAMATION || (state === STATE_COMMENT && hasSubstring('-->', index))) {
           quote = null;
           state = STATE_OUTPUT;
           tagContent = '';

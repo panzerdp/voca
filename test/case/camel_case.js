@@ -7,24 +7,14 @@ describe('camelCase', function() {
     expect(v.camelCase('BIRD')).toBe('bird');
     expect(v.camelCase('BirdFlight')).toBe('birdFlight');
     expect(v.camelCase('bird flight')).toBe('birdFlight');
-    expect(v.camelCase('San Diego Zoo Safari Park')).toBe(
-      'sanDiegoZooSafariPark'
-    );
+    expect(v.camelCase('San Diego Zoo Safari Park')).toBe('sanDiegoZooSafariPark');
     expect(v.camelCase('-BIRD-FLIGHT-')).toBe('birdFlight');
     expect(v.camelCase('__BIRD___FLIGHT___')).toBe('birdFlight');
-    expect(v.camelCase('Restless flycatcher')).toBe(
-      'restlessFlycatcher'
-    );
+    expect(v.camelCase('Restless flycatcher')).toBe('restlessFlycatcher');
     expect(v.camelCase('XMLHttpRequest')).toBe('xmlHttpRequest');
-    expect(v.camelCase('weight of up to 12 kg')).toBe(
-      'weightOfUpTo12Kg'
-    );
-    expect(v.camelCase('/home/dmitri/projects/voca')).toBe(
-      'homeDmitriProjectsVoca'
-    );
-    expect(v.camelCase(PRINTABLE_ASCII)).toBe(
-      '0123456789AbcdefghijklmnopqrstuvwxyzAbcdefghijklmnopqrstuvwxyz'
-    );
+    expect(v.camelCase('weight of up to 12 kg')).toBe('weightOfUpTo12Kg');
+    expect(v.camelCase('/home/dmitri/projects/voca')).toBe('homeDmitriProjectsVoca');
+    expect(v.camelCase(PRINTABLE_ASCII)).toBe('0123456789AbcdefghijklmnopqrstuvwxyzAbcdefghijklmnopqrstuvwxyz');
     expect(v.camelCase('****')).toBe('');
     expect(v.camelCase('****')).toBe('');
     expect(v.camelCase('-----')).toBe('');
@@ -36,12 +26,8 @@ describe('camelCase', function() {
   it('should return the camel case of a non-latin string', function() {
     expect(v.camelCase('zborul păsării')).toBe('zborulPăsării');
     expect(v.camelCase('полет птицы')).toBe('полетПтицы');
-    expect(v.camelCase('fuerza de sustentación')).toBe(
-      'fuerzaDeSustentación'
-    );
-    expect(v.camelCase('skrzydło ptaka składa się')).toBe(
-      'skrzydłoPtakaSkładaSię'
-    );
+    expect(v.camelCase('fuerza de sustentación')).toBe('fuerzaDeSustentación');
+    expect(v.camelCase('skrzydło ptaka składa się')).toBe('skrzydłoPtakaSkładaSię');
   });
 
   it('should not modify numbers', function() {
@@ -56,7 +42,7 @@ describe('camelCase', function() {
       v.camelCase({
         toString: function() {
           return 'bird flight';
-        }
+        },
       })
     ).toBe('birdFlight');
   });

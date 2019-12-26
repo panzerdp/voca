@@ -39,5 +39,7 @@ export default function camelCase(subject) {
   if (subjectString === '') {
     return '';
   }
-  return words(subjectString).map(wordToCamel).join('');
+  return words(subjectString)
+    .map(wordToCamel)
+    .join('');
 }

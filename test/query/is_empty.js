@@ -28,7 +28,7 @@ describe('isEmpty', function() {
       v.isEmpty({
         toString: function() {
           return ' ';
-        }
+        },
       })
     ).toBe(false);
   });

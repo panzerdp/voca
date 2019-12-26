@@ -15,7 +15,7 @@ describe('isUpperCase', function() {
       v.isUpperCase({
         toString: function() {
           return 'BATMAN';
-        }
+        },
       })
     ).toBe(true);
   });
@@ -32,9 +32,7 @@ describe('isUpperCase', function() {
 
   it('should return false for a string containing characters different than upper case', function() {
     expect(v.isUpperCase('hello world!')).toBe(false);
-    expect(
-      v.isUpperCase('No one cared who I was until I put on the mask.')
-    ).toBe(false);
+    expect(v.isUpperCase('No one cared who I was until I put on the mask.')).toBe(false);
     expect(v.isUpperCase('\n')).toBe(false);
     expect(v.isUpperCase('\t')).toBe(false);
     expect(v.isUpperCase(' ')).toBe(false);
@@ -48,7 +46,7 @@ describe('isUpperCase', function() {
       v.isUpperCase({
         toString: function() {
           return 'Batman';
-        }
+        },
       })
     ).toBe(false);
   });

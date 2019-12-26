@@ -1,8 +1,6 @@
-
 import v from '../voca';
 
 describe('lowerCase', function() {
-
   it('should return the lower case of a string', function() {
     expect(v.lowerCase('Saturn')).toBe('saturn');
     expect(v.lowerCase('EARTH')).toBe('earth');
@@ -12,11 +10,13 @@ describe('lowerCase', function() {
 
   it('should return the lower case of a string representation of an object', function() {
     expect(v.lowerCase(['Venus'])).toBe('venus');
-    expect(v.lowerCase({
-      toString: function() {
-        return 'Venus';
-      }
-    })).toBe('venus');
+    expect(
+      v.lowerCase({
+        toString: function() {
+          return 'Venus';
+        },
+      })
+    ).toBe('venus');
   });
 
   it('should return empty string for null or undefined', function() {
@@ -24,5 +24,4 @@ describe('lowerCase', function() {
     expect(v.lowerCase(undefined)).toBe('');
     expect(v.lowerCase(null)).toBe('');
   });
-
 });

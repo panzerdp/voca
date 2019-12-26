@@ -1,9 +1,7 @@
-
 import { PRINTABLE_ASCII } from '../const';
 import v from '../voca';
 
 describe('snakeCase', function() {
-
   it('should return the snake case of a string', function() {
     expect(v.snakeCase('bird')).toBe('bird');
     expect(v.snakeCase('BIRD')).toBe('bird');
@@ -39,11 +37,13 @@ describe('snakeCase', function() {
 
   it('should return the snake case of a string representation of an object', function() {
     expect(v.snakeCase(['bird flight'])).toBe('bird_flight');
-    expect(v.snakeCase({
-      toString: function() {
-        return 'bird flight';
-      }
-    })).toBe('bird_flight');
+    expect(
+      v.snakeCase({
+        toString: function() {
+          return 'bird flight';
+        },
+      })
+    ).toBe('bird_flight');
   });
 
   it('should return empty string for null or undefined', function() {
@@ -51,5 +51,4 @@ describe('snakeCase', function() {
     expect(v.snakeCase(undefined)).toBe('');
     expect(v.snakeCase(null)).toBe('');
   });
-
 });

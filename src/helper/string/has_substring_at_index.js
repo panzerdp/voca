@@ -11,7 +11,7 @@
 export default function hasSubstringAtIndex(subject, substring, index, lookBehind = true) {
   let indexOffset = 0;
   if (lookBehind) {
-    indexOffset = - substring.length + 1;
+    indexOffset = -substring.length + 1;
   }
   const extractedSubstring = subject.substr(index + indexOffset, substring.length);
   return extractedSubstring.toLowerCase() === substring;

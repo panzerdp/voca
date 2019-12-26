@@ -1,9 +1,7 @@
-
 import { PRINTABLE_ASCII } from '../const';
 import v from '../voca';
 
 describe('slugify', function() {
-
   it('should slugify the string', function() {
     expect(v.slugify('bird')).toBe('bird');
     expect(v.slugify('BIRD')).toBe('bird');
@@ -29,8 +27,9 @@ describe('slugify', function() {
     expect(v.slugify('zborul păsării')).toBe('zborul-pasarii');
     expect(v.slugify('fuerza de sustentación')).toBe('fuerza-de-sustentacion');
     expect(v.slugify('skrzydło ptaka składa się')).toBe('skrzydlo-ptaka-sklada-sie');
-    expect(v.slugify('Україна розташована в південно-східній частині Європи'))
-      .toBe('ukrayina-roztashovana-v-pivdenno-shidnij-chastini-yevropi');
+    expect(v.slugify('Україна розташована в південно-східній частині Європи')).toBe(
+      'ukrayina-roztashovana-v-pivdenno-shidnij-chastini-yevropi'
+    );
     expect(v.slugify('man\u0303ana')).toBe('manana');
     expect(v.slugify('foo\u0303\u035C\u035D\u035E bar')).toBe('foo-bar');
   });
@@ -43,11 +42,13 @@ describe('slugify', function() {
 
   it('should slugify the string representation of an object', function() {
     expect(v.slugify(['bird flight'])).toBe('bird-flight');
-    expect(v.slugify({
-      toString: function() {
-        return 'bird flight';
-      }
-    })).toBe('bird-flight');
+    expect(
+      v.slugify({
+        toString: function() {
+          return 'bird flight';
+        },
+      })
+    ).toBe('bird-flight');
   });
 
   it('should return empty string for null or undefined', function() {
@@ -55,5 +56,4 @@ describe('slugify', function() {
     expect(v.slugify(undefined)).toBe('');
     expect(v.slugify(null)).toBe('');
   });
-
 });

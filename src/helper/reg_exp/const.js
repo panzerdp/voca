@@ -44,7 +44,8 @@ export const diacriticalMark = '\\u0300-\\u036F\\u1AB0-\\u1AFF\\u1DC0-\\u1DFF\\u
  * @type {string}
  * @ignore
  */
-export const base = '\\0-\\u02FF\\u0370-\\u1AAF\\u1B00-\\u1DBF\\u1E00-\\u20CF\\u2100-\\uD7FF\\uE000-\\uFE1F\\uFE30-\\uFFFF';
+export const base =
+  '\\0-\\u02FF\\u0370-\\u1AAF\\u1B00-\\u1DBF\\u1E00-\\u20CF\\u2100-\\uD7FF\\uE000-\\uFE1F\\uFE30-\\uFFFF';
 
 /**
  * Regular expression to match combining marks
@@ -53,7 +54,26 @@ export const base = '\\0-\\u02FF\\u0370-\\u1AAF\\u1B00-\\u1DBF\\u1E00-\\u20CF\\u
  * @type {RegExp}
  * @ignore
  */
-export const REGEXP_COMBINING_MARKS = new RegExp('([' + base + ']|[' + highSurrogate + '][' + lowSurrogate + ']|[' + highSurrogate + '](?![' + lowSurrogate + '])|(?:[^' + highSurrogate + ']|^)[' + lowSurrogate + '])([' + diacriticalMark + ']+)', 'g');
+export const REGEXP_COMBINING_MARKS = new RegExp(
+  '([' +
+    base +
+    ']|[' +
+    highSurrogate +
+    '][' +
+    lowSurrogate +
+    ']|[' +
+    highSurrogate +
+    '](?![' +
+    lowSurrogate +
+    '])|(?:[^' +
+    highSurrogate +
+    ']|^)[' +
+    lowSurrogate +
+    '])([' +
+    diacriticalMark +
+    ']+)',
+  'g'
+);
 
 /**
  * Regular expression to match surrogate pairs
@@ -71,10 +91,32 @@ export const REGEXP_SURROGATE_PAIRS = new RegExp('([' + highSurrogate + '])([' +
  * @ignore
  */
 export const REGEXP_UNICODE_CHARACTER = new RegExp(
-  '((?:[' + base + ']|[' + highSurrogate + '][' + lowSurrogate + ']|[' + highSurrogate + '](?![' + lowSurrogate + '])|(?:[^' + highSurrogate + ']|^)[' + lowSurrogate + '])(?:[' + diacriticalMark + ']+))|\
-([' + highSurrogate + '][' + lowSurrogate + '])|\
+  '((?:[' +
+    base +
+    ']|[' +
+    highSurrogate +
+    '][' +
+    lowSurrogate +
+    ']|[' +
+    highSurrogate +
+    '](?![' +
+    lowSurrogate +
+    '])|(?:[^' +
+    highSurrogate +
+    ']|^)[' +
+    lowSurrogate +
+    '])(?:[' +
+    diacriticalMark +
+    ']+))|\
+([' +
+    highSurrogate +
+    '][' +
+    lowSurrogate +
+    '])|\
 ([\\n\\r\\u2028\\u2029])|\
-(.)', 'g');
+(.)',
+  'g'
+);
 
 /**
  * Regular expression to match whitespaces

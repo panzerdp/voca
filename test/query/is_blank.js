@@ -14,7 +14,7 @@ describe('isBlank', function() {
       v.isBlank({
         toString: function() {
           return 'Welcome to New York';
-        }
+        },
       })
     ).toBe(false);
   });
@@ -47,7 +47,7 @@ describe('isBlank', function() {
       v.isBlank({
         toString: function() {
           return ' ';
-        }
+        },
       })
     ).toBe(true);
   });

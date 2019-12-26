@@ -1,6 +1,5 @@
 import functions from 'functions';
 
-
 /**
  * The chain wrapper constructor.
  *
@@ -155,6 +154,5 @@ function makeFunctionChainable(functionInstance) {
 Object.keys(functions).forEach(function(name) {
   ChainWrapper.prototype[name] = makeFunctionChainable(functions[name]);
 });
-
 
 export default ChainWrapper;

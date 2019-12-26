@@ -1,9 +1,7 @@
-
 import { PRINTABLE_ASCII } from '../const';
 import v from '../voca';
 
 describe('substring', function() {
-
   it('should substring a string', function() {
     expect(v.substring('infinite loop', 9)).toBe('loop');
     expect(v.substring('infinite loop', 0)).toBe('infinite loop');
@@ -20,11 +18,17 @@ describe('substring', function() {
 
   it('should substring a string representation of an object', function() {
     expect(v.substring(['infinite loop'], 10)).toBe('oop');
-    expect(v.substring({
-      toString: function() {
-        return 'loop';
-      }
-    }, 0, 3)).toBe('loo');
+    expect(
+      v.substring(
+        {
+          toString: function() {
+            return 'loop';
+          },
+        },
+        0,
+        3
+      )
+    ).toBe('loo');
   });
 
   it('should substring a string from a number', function() {

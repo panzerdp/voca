@@ -1,9 +1,7 @@
-
 import { PRINTABLE_ASCII } from '../const';
 import v from '../voca';
 
 describe('countGraphemes', function() {
-
   it('should return the number of characters in a string', function() {
     expect(v.countGraphemes('rain')).toBe(4);
     expect(v.countGraphemes('')).toBe(0);
@@ -25,11 +23,13 @@ describe('countGraphemes', function() {
 
   it('should return the number of characters in a string representation of an object', function() {
     expect(v.countGraphemes(['droplet'])).toBe(7);
-    expect(v.countGraphemes({
-      toString: function() {
-        return 'rainfall';
-      }
-    })).toBe(8);
+    expect(
+      v.countGraphemes({
+        toString: function() {
+          return 'rainfall';
+        },
+      })
+    ).toBe(8);
   });
 
   it('should return zero for undefined or null', function() {
@@ -37,5 +37,4 @@ describe('countGraphemes', function() {
     expect(v.countGraphemes(null)).toBe(0);
     expect(v.countGraphemes(undefined)).toBe(0);
   });
-
 });

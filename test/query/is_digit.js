@@ -20,21 +20,21 @@ describe('isDigit', function() {
       v.isDigit({
         toString: function() {
           return '123';
-        }
+        },
       })
     ).toBe(true);
     expect(
       v.isDigit({
         toString: function() {
           return '567';
-        }
+        },
       })
     ).toBe(true);
     expect(
       v.isDigit({
         toString: function() {
           return '00';
-        }
+        },
       })
     ).toBe(true);
   });
@@ -73,14 +73,14 @@ describe('isDigit', function() {
       v.isDigit({
         toString: function() {
           return 'Hello World! 007';
-        }
+        },
       })
     ).toBe(false);
     expect(
       v.isDigit({
         toString: function() {
           return 'Ява Скрипт, привет 0!';
-        }
+        },
       })
     ).toBe(false);
   });

@@ -22,7 +22,7 @@ describe('stripBom', function() {
       v.stripBom({
         toString: function() {
           return '\uFEFFHello world!';
-        }
+        },
       })
     ).toBe('Hello world!');
   });

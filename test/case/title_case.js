@@ -1,8 +1,6 @@
-
 import v from '../voca';
 
 describe('titleCase', function() {
-
   it('should return the title case of a string', function() {
     expect(v.titleCase('hello world')).toBe('Hello World');
     expect(v.titleCase('Hello world')).toBe('Hello World');
@@ -41,8 +39,11 @@ describe('titleCase', function() {
     expect(v.titleCase('Un·e déput·é·e', ['·'])).toBe('Un·e Déput·é·e');
     expect(v.titleCase('Who*wants to-try*next?', ['-', '*'])).toBe('Who*wants To-try*next?');
     expect(v.titleCase('WHO*WANTS*TO*TRY*NEXT?', ['*'])).toBe('Who*wants*to*try*next?');
-    expect(v.titleCase('Well, congratulations! You got yourself caught! Now what\'s the next step in your master plan?', ["'"]))
-      .toBe('Well, Congratulations! You Got Yourself Caught! Now What\'s The Next Step In Your Master Plan?');
+    expect(
+      v.titleCase("Well, congratulations! You got yourself caught! Now what's the next step in your master plan?", [
+        "'",
+      ])
+    ).toBe("Well, Congratulations! You Got Yourself Caught! Now What's The Next Step In Your Master Plan?");
   });
 
   it('should not modify numbers', function() {
@@ -53,11 +54,13 @@ describe('titleCase', function() {
 
   it('should return the title case of a string representation of an object', function() {
     expect(v.titleCase(['bird flight'])).toBe('Bird Flight');
-    expect(v.titleCase({
-      toString: function() {
-        return 'bird flight';
-      }
-    })).toBe('Bird Flight');
+    expect(
+      v.titleCase({
+        toString: function() {
+          return 'bird flight';
+        },
+      })
+    ).toBe('Bird Flight');
   });
 
   it('should return empty string for null or undefined', function() {
@@ -65,5 +68,4 @@ describe('titleCase', function() {
     expect(v.titleCase(undefined)).toBe('');
     expect(v.titleCase(null)).toBe('');
   });
-
 });

@@ -4,9 +4,7 @@ import v from '../voca';
 describe('escapeHtml', function() {
   it('should return the escaped string', function() {
     expect(v.escapeHtml('<>&"\'`')).toBe('&lt;&gt;&amp;&quot;&#x27;&#x60;');
-    expect(v.escapeHtml('<p>wonderful world</p>')).toBe(
-      '&lt;p&gt;wonderful world&lt;/p&gt;'
-    );
+    expect(v.escapeHtml('<p>wonderful world</p>')).toBe('&lt;p&gt;wonderful world&lt;/p&gt;');
     expect(v.escapeHtml(PRINTABLE_ASCII)).toBe(
       ' !&quot;#$%&amp;&#x27;()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_&#x60;abcdefghijklmnopqrstuvwxyz{|}~'
     );
@@ -18,7 +16,7 @@ describe('escapeHtml', function() {
       v.escapeHtml({
         toString: function() {
           return '<script>';
-        }
+        },
       })
     ).toBe('&lt;script&gt;');
   });

@@ -212,5 +212,5 @@ export default {
   stripTags,
 
   noConflict,
-  version
+  version,
 };

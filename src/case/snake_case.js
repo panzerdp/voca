@@ -26,5 +26,7 @@ export default function snakeCase(subject) {
   if (subjectString === '') {
     return '';
   }
-  return words(subjectString).map(lowerCase).join('_');
+  return words(subjectString)
+    .map(lowerCase)
+    .join('_');
 }

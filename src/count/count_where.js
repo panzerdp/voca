@@ -28,7 +28,11 @@ export default function countWhere(subject, predicate, context) {
     return 0;
   }
   const predicateWithContext = predicate.bind(context);
-  return reduce.call(subjectString, function(countTruthy, character, index) {
-    return predicateWithContext(character, index, subjectString) ? countTruthy + 1 : countTruthy;
-  }, 0);
+  return reduce.call(
+    subjectString,
+    function(countTruthy, character, index) {
+      return predicateWithContext(character, index, subjectString) ? countTruthy + 1 : countTruthy;
+    },
+    0
+  );
 }

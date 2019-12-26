@@ -1,9 +1,7 @@
-
 import { PRINTABLE_ASCII } from '../const';
 import v from '../voca';
 
 describe('padRight', function() {
-
   it('should right pad a string', function() {
     expect(v.padRight('FF', 4, '0')).toBe('FF00');
     expect(v.padRight('00FF', 4, '0')).toBe('00FF');
@@ -29,11 +27,17 @@ describe('padRight', function() {
 
   it('should right pad a string representation of an object', function() {
     expect(v.padRight(['Welcome'], 9)).toBe('Welcome  ');
-    expect(v.padRight({
-      toString: function() {
-        return 'great';
-      }
-    }, 10, '-')).toBe('great-----');
+    expect(
+      v.padRight(
+        {
+          toString: function() {
+            return 'great';
+          },
+        },
+        10,
+        '-'
+      )
+    ).toBe('great-----');
   });
 
   it('should return an empty string for null or undefined', function() {
@@ -41,5 +45,4 @@ describe('padRight', function() {
     expect(v.padRight(undefined)).toBe('');
     expect(v.padRight(null)).toBe('');
   });
-
 });

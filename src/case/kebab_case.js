@@ -27,5 +27,7 @@ export default function kebabCase(subject) {
   if (subjectString === '') {
     return '';
   }
-  return words(subjectString).map(lowerCase).join('-');
+  return words(subjectString)
+    .map(lowerCase)
+    .join('-');
 }

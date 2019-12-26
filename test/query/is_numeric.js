@@ -35,7 +35,7 @@ describe('isNumeric', function() {
       v.isNumeric({
         toString: function() {
           return '100';
-        }
+        },
       })
     ).toBe(true);
   });
@@ -58,7 +58,7 @@ describe('isNumeric', function() {
       v.isNumeric({
         toString: function() {
           return 'NaN';
-        }
+        },
       })
     ).toBe(false);
   });

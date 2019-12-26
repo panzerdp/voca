@@ -28,7 +28,7 @@ export default function codePoints(subject) {
   while (index < subjectStringLength) {
     codePointNumber = codePointAt(subjectString, index);
     codePointArray.push(codePointNumber);
-    index += codePointNumber > 0xFFFF ? 2 : 1;
+    index += codePointNumber > 0xffff ? 2 : 1;
   }
   return codePointArray;
 }

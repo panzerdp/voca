@@ -1,9 +1,7 @@
-
 import { PRINTABLE_ASCII } from '../const';
 import v from '../voca';
 
 describe('first', function() {
-
   it('should return the first part of a string', function() {
     expect(v.first('Good day', -1)).toBe('');
     expect(v.first('Good day', 0)).toBe('');
@@ -21,11 +19,16 @@ describe('first', function() {
 
   it('should return the first part of a string representation of an object', function() {
     expect(v.first(['Good evening'], 5)).toBe('Good ');
-    expect(v.first({
-      toString: function() {
-        return 'Morning';
-      }
-    }, 2)).toBe('Mo');
+    expect(
+      v.first(
+        {
+          toString: function() {
+            return 'Morning';
+          },
+        },
+        2
+      )
+    ).toBe('Mo');
   });
 
   it('should return an empty string for null or undefined', function() {
@@ -35,5 +38,4 @@ describe('first', function() {
     expect(v.first(null, null)).toBe('');
     expect(v.first(undefined, undefined)).toBe('');
   });
-
 });

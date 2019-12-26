@@ -25,6 +25,5 @@ import coerceToString from 'helper/string/coerce_to_string';
 export default function countGrapheme(subject) {
   return coerceToString(subject)
     .replace(REGEXP_COMBINING_MARKS, '*')
-    .replace(REGEXP_SURROGATE_PAIRS, '*')
-    .length;
+    .replace(REGEXP_SURROGATE_PAIRS, '*').length;
 }

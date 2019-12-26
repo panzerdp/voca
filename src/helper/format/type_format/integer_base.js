@@ -6,7 +6,7 @@ import {
   TYPE_INTEGER_BINARY,
   TYPE_INTEGER_HEXADECIMAL,
   TYPE_INTEGER_HEXADECIMAL_UPPERCASE,
-  TYPE_INTEGER_OCTAL
+  TYPE_INTEGER_OCTAL,
 } from 'helper/format/const';
 import toString from 'helper/string/coerce_to_string';
 

@@ -57,7 +57,7 @@ describe('countcountWords', function() {
       v.countWords({
         toString: function() {
           return 'Gr4v1ty';
-        }
+        },
       })
     ).toBe(5);
   });
@@ -65,9 +65,7 @@ describe('countcountWords', function() {
   it('should count the words in a string into countWords using a pattern', function() {
     expect(v.countWords('1234567890', /\d/g)).toBe(10);
     expect(v.countWords('gravity', /\w{1,2}/g)).toBe(4);
-    expect(
-      v.countWords('gravity can cross dimensions', '\\w+(?=\\s?)', 'g')
-    ).toBe(4);
+    expect(v.countWords('gravity can cross dimensions', '\\w+(?=\\s?)', 'g')).toBe(4);
     expect(v.countWords('1234567890', /\s/g)).toBe(0);
   });
 

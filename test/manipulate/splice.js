@@ -1,8 +1,6 @@
-
 import v from '../voca';
 
 describe('splice', function() {
-
   it('should splice the string at a given position, number of characters and addition string', function() {
     expect(v.splice('sting like a bee', 0, 0, 'you should ')).toBe('you should sting like a bee');
     expect(v.splice('sting like a bee', 0, 5, 'fly')).toBe('fly like a bee');
@@ -39,11 +37,18 @@ describe('splice', function() {
 
   it('should splice the string representation of an object', function() {
     expect(v.splice(['paradise'], 0, 0, 'this is ')).toBe('this is paradise');
-    expect(v.splice({
-      toString: function() {
-        return 'paradise';
-      }
-    }, 5, 1, 'I')).toBe('paradIse');
+    expect(
+      v.splice(
+        {
+          toString: function() {
+            return 'paradise';
+          },
+        },
+        5,
+        1,
+        'I'
+      )
+    ).toBe('paradIse');
   });
 
   it('should clear the string for null or undefined arguments', function() {
@@ -52,5 +57,4 @@ describe('splice', function() {
     expect(v.splice('champion', null, null, null)).toBe('');
     expect(v.splice()).toBe('');
   });
-
 });

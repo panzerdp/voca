@@ -1,8 +1,6 @@
-
 import v from '../voca';
 
 describe('swapCase', function() {
-
   it('should return the swapped case of a string', function() {
     expect(v.swapCase('hello world')).toBe('HELLO WORLD');
     expect(v.swapCase('Hello world')).toBe('hELLO WORLD');
@@ -44,11 +42,13 @@ describe('swapCase', function() {
 
   it('should return the swapped case of a string representation of an object', function() {
     expect(v.swapCase(['bird flight'])).toBe('BIRD FLIGHT');
-    expect(v.swapCase({
-      toString: function() {
-        return 'bird flight';
-      }
-    })).toBe('BIRD FLIGHT');
+    expect(
+      v.swapCase({
+        toString: function() {
+          return 'bird flight';
+        },
+      })
+    ).toBe('BIRD FLIGHT');
   });
 
   it('should return empty string for null or undefined', function() {
@@ -56,5 +56,4 @@ describe('swapCase', function() {
     expect(v.swapCase(undefined)).toBe('');
     expect(v.swapCase(null)).toBe('');
   });
-
 });

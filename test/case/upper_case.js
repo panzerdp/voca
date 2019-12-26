@@ -1,8 +1,6 @@
-
 import v from '../voca';
 
 describe('upperCase', function() {
-
   it('should return the upper case of a string', function() {
     expect(v.upperCase('Saturn')).toBe('SATURN');
     expect(v.upperCase('Earth')).toBe('EARTH');
@@ -12,11 +10,13 @@ describe('upperCase', function() {
 
   it('should return the upper case of a string representation of an object', function() {
     expect(v.upperCase(['Venus'])).toBe('VENUS');
-    expect(v.upperCase({
-      toString: function() {
-        return 'Venus';
-      }
-    })).toBe('VENUS');
+    expect(
+      v.upperCase({
+        toString: function() {
+          return 'Venus';
+        },
+      })
+    ).toBe('VENUS');
   });
 
   it('should return empty string for null or undefined', function() {
@@ -24,5 +24,4 @@ describe('upperCase', function() {
     expect(v.upperCase(undefined)).toBe('');
     expect(v.upperCase(null)).toBe('');
   });
-
 });

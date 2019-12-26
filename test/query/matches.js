@@ -27,7 +27,7 @@ describe('matches', function() {
         {
           toString: function() {
             return 'pacific ocean';
-          }
+          },
         },
         'PACIFIC',
         'i'

@@ -1,9 +1,7 @@
-
 import { PRINTABLE_ASCII } from '../const';
 import v from '../voca';
 
 describe('kebabCase', function() {
-
   it('should return the kebab case of a string', function() {
     expect(v.kebabCase('bird')).toBe('bird');
     expect(v.kebabCase('BIRD')).toBe('bird');
@@ -40,11 +38,13 @@ describe('kebabCase', function() {
 
   it('should return the kebab case of a string representation of an object', function() {
     expect(v.kebabCase(['bird flight'])).toBe('bird-flight');
-    expect(v.kebabCase({
-      toString: function() {
-        return 'bird flight';
-      }
-    })).toBe('bird-flight');
+    expect(
+      v.kebabCase({
+        toString: function() {
+          return 'bird flight';
+        },
+      })
+    ).toBe('bird-flight');
   });
 
   it('should return empty string for null or undefined', function() {
@@ -52,5 +52,4 @@ describe('kebabCase', function() {
     expect(v.kebabCase(undefined)).toBe('');
     expect(v.kebabCase(null)).toBe('');
   });
-
 });

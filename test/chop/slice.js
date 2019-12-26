@@ -1,9 +1,7 @@
-
 import { PRINTABLE_ASCII } from '../const';
 import v from '../voca';
 
 describe('slice', function() {
-
   it('should slice a string', function() {
     expect(v.slice('infinite loop', 9)).toBe('loop');
     expect(v.slice('infinite loop', 0)).toBe('infinite loop');
@@ -22,11 +20,17 @@ describe('slice', function() {
 
   it('should slice a string representation of an object', function() {
     expect(v.slice(['infinite loop'], 10)).toBe('oop');
-    expect(v.slice({
-      toString: function() {
-        return 'loop';
-      }
-    }, 0, 3)).toBe('loo');
+    expect(
+      v.slice(
+        {
+          toString: function() {
+            return 'loop';
+          },
+        },
+        0,
+        3
+      )
+    ).toBe('loo');
   });
 
   it('should slice a string from a number', function() {

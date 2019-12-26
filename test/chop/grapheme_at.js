@@ -11,21 +11,13 @@ describe('graphemeAt', function() {
     expect(v.graphemeAt('\u00E9\u20DD', 0)).toBe('\u00E9\u20DD');
     expect(v.graphemeAt('\uD835\uDC00\uD835\uDC01', 1)).toBe('\uD835\uDC01');
     expect(v.graphemeAt('cafe\u0301', 3)).toBe('e\u0301');
-    expect(v.graphemeAt('foo\u0303\u035C\u035D\u035Ebar', 2)).toBe(
-      'o\u0303\u035C\u035D\u035E'
+    expect(v.graphemeAt('foo\u0303\u035C\u035D\u035Ebar', 2)).toBe('o\u0303\u035C\u035D\u035E');
+    expect(v.graphemeAt('foo\uD834\uDF06\u0303\u035C\u035D\u035Ebar\uD834\uDF06\u0303\u035C\u035D', 3)).toBe(
+      '\uD834\uDF06\u0303\u035C\u035D\u035E'
     );
-    expect(
-      v.graphemeAt(
-        'foo\uD834\uDF06\u0303\u035C\u035D\u035Ebar\uD834\uDF06\u0303\u035C\u035D',
-        3
-      )
-    ).toBe('\uD834\uDF06\u0303\u035C\u035D\u035E');
-    expect(
-      v.graphemeAt(
-        'foo\uD834\uDF06\u0303\u035C\u035D\u035Ebar\uD834\uDF06\u0303\u035C\u035D',
-        7
-      )
-    ).toBe('\uD834\uDF06\u0303\u035C\u035D');
+    expect(v.graphemeAt('foo\uD834\uDF06\u0303\u035C\u035D\u035Ebar\uD834\uDF06\u0303\u035C\u035D', 7)).toBe(
+      '\uD834\uDF06\u0303\u035C\u035D'
+    );
     expect(v.graphemeAt('', 0)).toBe('');
     expect(v.graphemeAt('Good day')).toBe('G');
     expect(v.graphemeAt('Good day', undefined)).toBe('G');
@@ -46,7 +38,7 @@ describe('graphemeAt', function() {
         {
           toString: function() {
             return 'Morning';
-          }
+          },
         },
         1
       )

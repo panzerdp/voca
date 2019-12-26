@@ -175,7 +175,7 @@ import replacementMatch from 'helper/format/replacement/match';
  *
  * v.sprintf('%.2e %g', 100.5, 0.455);
  * // => '1.01e+2 0.455'
- * 
+ *
  */
 export default function sprintf(format, ...replacements) {
   const formatString = coerceToString(format);

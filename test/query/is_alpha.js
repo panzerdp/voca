@@ -5,9 +5,7 @@ describe('isAlpha', function() {
   it('should return true for an alpha string', function() {
     expect(v.isAlpha('HelloWorld')).toBe(true);
     expect(v.isAlpha('JavaScript')).toBe(true);
-    expect(
-      v.isAlpha('AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz')
-    ).toBe(true);
+    expect(v.isAlpha('AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz')).toBe(true);
     expect(v.isAlpha('man\u0303ana')).toBe(true);
     expect(v.isAlpha('foo\u0303\u035C\u035D\u035Ebar')).toBe(true);
   });
@@ -30,14 +28,14 @@ describe('isAlpha', function() {
       v.isAlpha({
         toString: function() {
           return 'HelloWorld';
-        }
+        },
       })
     ).toBe(true);
     expect(
       v.isAlpha({
         toString: function() {
           return 'HelloWorld';
-        }
+        },
       })
     ).toBe(true);
   });
@@ -73,14 +71,14 @@ describe('isAlpha', function() {
       v.isAlpha({
         toString: function() {
           return 'Hello World!';
-        }
+        },
       })
     ).toBe(false);
     expect(
       v.isAlpha({
         toString: function() {
           return 'Welcome!';
-        }
+        },
       })
     ).toBe(false);
   });

@@ -23,39 +23,17 @@ describe('startsWith', function() {
 
   it('should return true for a valid starting string and position', function() {
     expect(v.startsWith('Hello World!', '', 0)).toBe(true);
-    expect(v.startsWith('Hello World!', '!', 'Hello World!'.length - 1)).toBe(
-      true
-    );
-    expect(v.startsWith('Hello World!', 'd!', 'Hello World!'.length - 2)).toBe(
-      true
-    );
-    expect(v.startsWith('Hello World!', 'ld!', 'Hello World!'.length - 3)).toBe(
-      true
-    );
-    expect(
-      v.startsWith('Hello World!', 'rld!', 'Hello World!'.length - 4)
-    ).toBe(true);
-    expect(
-      v.startsWith('Hello World!', 'orld!', 'Hello World!'.length - 5)
-    ).toBe(true);
-    expect(
-      v.startsWith('Hello World!', 'World!', 'Hello World!'.length - 6)
-    ).toBe(true);
-    expect(
-      v.startsWith('Hello World!', ' World!', 'Hello World!'.length - 7)
-    ).toBe(true);
-    expect(
-      v.startsWith('Hello World!', 'o World!', 'Hello World!'.length - 8)
-    ).toBe(true);
-    expect(
-      v.startsWith('Hello World!', 'lo World!', 'Hello World!'.length - 9)
-    ).toBe(true);
-    expect(
-      v.startsWith('Hello World!', 'llo World!', 'Hello World!'.length - 10)
-    ).toBe(true);
-    expect(
-      v.startsWith('Hello World!', 'ello World!', 'Hello World!'.length - 11)
-    ).toBe(true);
+    expect(v.startsWith('Hello World!', '!', 'Hello World!'.length - 1)).toBe(true);
+    expect(v.startsWith('Hello World!', 'd!', 'Hello World!'.length - 2)).toBe(true);
+    expect(v.startsWith('Hello World!', 'ld!', 'Hello World!'.length - 3)).toBe(true);
+    expect(v.startsWith('Hello World!', 'rld!', 'Hello World!'.length - 4)).toBe(true);
+    expect(v.startsWith('Hello World!', 'orld!', 'Hello World!'.length - 5)).toBe(true);
+    expect(v.startsWith('Hello World!', 'World!', 'Hello World!'.length - 6)).toBe(true);
+    expect(v.startsWith('Hello World!', ' World!', 'Hello World!'.length - 7)).toBe(true);
+    expect(v.startsWith('Hello World!', 'o World!', 'Hello World!'.length - 8)).toBe(true);
+    expect(v.startsWith('Hello World!', 'lo World!', 'Hello World!'.length - 9)).toBe(true);
+    expect(v.startsWith('Hello World!', 'llo World!', 'Hello World!'.length - 10)).toBe(true);
+    expect(v.startsWith('Hello World!', 'ello World!', 'Hello World!'.length - 11)).toBe(true);
     expect(v.startsWith('Hello World!', 'Hello World!', 0)).toBe(true);
     expect(v.startsWith('', '', 0)).toBe(true);
     expect(v.startsWith('Hello World!', 'Hello', NaN)).toBe(true);
@@ -87,7 +65,7 @@ describe('startsWith', function() {
         {
           toString: function() {
             return 'Let us not stand on ceremony, Mr. Wayne.';
-          }
+          },
         },
         ['Let us not stand on ceremony']
       )
@@ -95,34 +73,16 @@ describe('startsWith', function() {
   });
 
   it('should return false for an invalid starting string', function() {
-    expect(
-      v.startsWith(
-        'The shadows betray you, because they belong to me!',
-        'belong to me!'
-      )
-    ).toBe(false);
-    expect(
-      v.startsWith(
-        'The shadows betray you, because they belong to me!',
-        'he shadows'
-      )
-    ).toBe(false);
+    expect(v.startsWith('The shadows betray you, because they belong to me!', 'belong to me!')).toBe(false);
+    expect(v.startsWith('The shadows betray you, because they belong to me!', 'he shadows')).toBe(false);
     expect(v.startsWith('They belong to me!', 'hey belong to me!')).toBe(false);
     expect(v.startsWith('They belong to me!', 'belong')).toBe(false);
     expect(v.startsWith('', 'The shadows')).toBe(false);
   });
 
   it('should return false for an invalid starting string and position', function() {
-    expect(
-      v.startsWith(
-        'The shadows betray you, because they belong to me!',
-        'The shadows betray you',
-        1
-      )
-    ).toBe(false);
-    expect(v.startsWith('They belong to me!', 'They belong to me!', 1)).toBe(
-      false
-    );
+    expect(v.startsWith('The shadows betray you, because they belong to me!', 'The shadows betray you', 1)).toBe(false);
+    expect(v.startsWith('They belong to me!', 'They belong to me!', 1)).toBe(false);
     expect(v.startsWith('They belong to me!', 'They', 1)).toBe(false);
     expect(v.startsWith('They belong to me!', 'belong', 2)).toBe(false);
     expect(v.startsWith('They belong to me!', 'to me!', 3)).toBe(false);

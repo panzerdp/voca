@@ -3,42 +3,17 @@ import v from '../voca';
 
 describe('graphemes', function() {
   it('should split a string into characters', function() {
-    expect(v.graphemes('stellar bomb')).toEqual([
-      's',
-      't',
-      'e',
-      'l',
-      'l',
-      'a',
-      'r',
-      ' ',
-      'b',
-      'o',
-      'm',
-      'b'
-    ]);
+    expect(v.graphemes('stellar bomb')).toEqual(['s', 't', 'e', 'l', 'l', 'a', 'r', ' ', 'b', 'o', 'm', 'b']);
     expect(v.graphemes('   ')).toEqual([' ', ' ', ' ']);
     expect(v.graphemes('\n\t')).toEqual(['\n', '\t']);
     expect(v.graphemes('')).toEqual([]);
-    expect(v.graphemes(PRINTABLE_ASCII)).toEqual(
-      Array.prototype.slice.call(PRINTABLE_ASCII, 0)
-    );
+    expect(v.graphemes(PRINTABLE_ASCII)).toEqual(Array.prototype.slice.call(PRINTABLE_ASCII, 0));
   });
 
   it('should split a string into surrogate pairs and diacritical marks characters', function() {
-    expect(v.graphemes('man\u0303ana')).toEqual([
-      'm',
-      'a',
-      'n\u0303',
-      'a',
-      'n',
-      'a'
-    ]);
+    expect(v.graphemes('man\u0303ana')).toEqual(['m', 'a', 'n\u0303', 'a', 'n', 'a']);
     expect(v.graphemes('\u00E9\u20DD')).toEqual(['\u00E9\u20DD']);
-    expect(v.graphemes('\uD835\uDC00\uD835\uDC01')).toEqual([
-      '\uD835\uDC00',
-      '\uD835\uDC01'
-    ]);
+    expect(v.graphemes('\uD835\uDC00\uD835\uDC01')).toEqual(['\uD835\uDC00', '\uD835\uDC01']);
     expect(v.graphemes('cafe\u0301')).toEqual(['c', 'a', 'f', 'e\u0301']);
     expect(v.graphemes('foo\u0303\u035C\u035D\u035Ebar')).toEqual([
       'f',
@@ -46,7 +21,7 @@ describe('graphemes', function() {
       'o\u0303\u035C\u035D\u035E',
       'b',
       'a',
-      'r'
+      'r',
     ]);
     expect(v.graphemes('foo\uD834\uDF06\u0303\u035C\u035D\u035Ebar')).toEqual([
       'f',
@@ -55,7 +30,7 @@ describe('graphemes', function() {
       '\uD834\uDF06\u0303\u035C\u035D\u035E',
       'b',
       'a',
-      'r'
+      'r',
     ]);
   });
 
@@ -71,7 +46,7 @@ describe('graphemes', function() {
       v.graphemes({
         toString: function() {
           return 'Capa';
-        }
+        },
       })
     ).toEqual(['C', 'a', 'p', 'a']);
   });

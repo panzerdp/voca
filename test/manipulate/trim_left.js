@@ -1,9 +1,7 @@
-
 import { PRINTABLE_ASCII } from '../const';
 import v from '../voca';
 
 describe('trimLeft', function() {
-
   it('should return the left trimmed string with default whitespaces', function() {
     expect(v.trimLeft(' Yes. The fire rises.')).toBe('Yes. The fire rises.');
     expect(v.trimLeft('   Yes. The fire rises.')).toBe('Yes. The fire rises.');
@@ -27,18 +25,20 @@ describe('trimLeft', function() {
   });
 
   it('should not modify the string for an empty string whitespace', function() {
-    expect(v.trimLeft('I\'m *necessary* evil!', '')).toBe('I\'m *necessary* evil!');
+    expect(v.trimLeft("I'm *necessary* evil!", '')).toBe("I'm *necessary* evil!");
     expect(v.trimLeft('', '')).toBe('');
   });
 
   it('should return the left trimmed string representation of an object', function() {
     expect(v.trimLeft([' Yes. The fire rises.'])).toBe('Yes. The fire rises.');
-    expect(v.trimLeft({
-      toString: function() {
-        return '\n\nYes. The fire rises.';
-      }
-    })).toBe('Yes. The fire rises.');
-    expect(v.trimLeft(['****You\'re a big guy!'], ['*'])).toBe('You\'re a big guy!');
+    expect(
+      v.trimLeft({
+        toString: function() {
+          return '\n\nYes. The fire rises.';
+        },
+      })
+    ).toBe('Yes. The fire rises.');
+    expect(v.trimLeft(["****You're a big guy!"], ['*'])).toBe("You're a big guy!");
   });
 
   it('should return the left trimmed string for numbers', function() {
@@ -55,5 +55,4 @@ describe('trimLeft', function() {
     expect(v.trimLeft(undefined, '*')).toBe('');
     expect(v.trimLeft(undefined, undefined)).toBe('');
   });
-
 });

@@ -1,9 +1,7 @@
-
 import { PRINTABLE_ASCII } from '../const';
 import v from '../voca';
 
 describe('capitalize', function() {
-
   it('should capitalize the first character in a string', function() {
     expect(v.capitalize('APPLE')).toBe('APPLE');
     expect(v.capitalize('apple')).toBe('Apple');
@@ -26,11 +24,16 @@ describe('capitalize', function() {
 
   it('should capitalize the first character in a string representation of an object', function() {
     expect(v.capitalize(['grape'])).toBe('Grape');
-    expect(v.capitalize({
-      toString: function() {
-        return 'oRaNgE';
-      }
-    }, false)).toBe('ORaNgE');
+    expect(
+      v.capitalize(
+        {
+          toString: function() {
+            return 'oRaNgE';
+          },
+        },
+        false
+      )
+    ).toBe('ORaNgE');
   });
 
   it('should not modify numbers', function() {
@@ -45,5 +48,4 @@ describe('capitalize', function() {
     expect(v.capitalize(undefined, true)).toBe('');
     expect(v.capitalize(undefined, false)).toBe('');
   });
-
 });

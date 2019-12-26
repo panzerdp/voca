@@ -13,7 +13,7 @@ export default function toInteger(value) {
     return MAX_SAFE_INTEGER;
   }
   if (value === -Infinity) {
-    return - MAX_SAFE_INTEGER;
+    return -MAX_SAFE_INTEGER;
   }
   return ~~value;
 }

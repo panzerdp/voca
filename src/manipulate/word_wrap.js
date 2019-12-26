@@ -53,7 +53,7 @@ export default function wordWrap(subject, options = {}) {
   const substring = subjectString.substring.bind(subjectString);
   let offset = 0;
   let wrappedLine = '';
-  while ((subjectLength - offset) > width) {
+  while (subjectLength - offset > width) {
     if (subjectString[offset] === ' ') {
       offset++;
       continue;
@@ -96,6 +96,6 @@ function determineOptions(options) {
     width: coerceToNumber(options[OPTION_WIDTH], 75),
     newLine: coerceToString(options[OPTION_NEW_LINE], '\n'),
     indent: coerceToString(options[OPTION_INDENT], ''),
-    cut: coerceToBoolean(options[OPTION_CUT], false)
+    cut: coerceToBoolean(options[OPTION_CUT], false),
   };
 }

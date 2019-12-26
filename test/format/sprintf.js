@@ -10,45 +10,23 @@ describe('sprintf', function() {
     expect(v.sprintf('Hello %5s!', 'World')).toBe('Hello World!');
     expect(v.sprintf('Hello %3s!', 'World')).toBe('Hello World!');
     expect(v.sprintf('Hello %8s!', 'World')).toBe('Hello    World!');
-    expect(v.sprintf('%s%s%s%s%s', 'Alexander', ' ', 'the', ' ', 'Great')).toBe(
-      'Alexander the Great'
-    );
-    expect(v.sprintf('Alexander the %08s', 'Great')).toBe(
-      'Alexander the 000Great'
-    );
-    expect(v.sprintf('Alexander the % 8s', 'Great')).toBe(
-      'Alexander the    Great'
-    );
-    expect(v.sprintf("%'-10s the %s", 'Alexander', 'Great')).toBe(
-      '-Alexander the Great'
-    );
-    expect(v.sprintf("%'.12s the %09s", 'Alexander', 'Great')).toBe(
-      '...Alexander the 0000Great'
-    );
+    expect(v.sprintf('%s%s%s%s%s', 'Alexander', ' ', 'the', ' ', 'Great')).toBe('Alexander the Great');
+    expect(v.sprintf('Alexander the %08s', 'Great')).toBe('Alexander the 000Great');
+    expect(v.sprintf('Alexander the % 8s', 'Great')).toBe('Alexander the    Great');
+    expect(v.sprintf("%'-10s the %s", 'Alexander', 'Great')).toBe('-Alexander the Great');
+    expect(v.sprintf("%'.12s the %09s", 'Alexander', 'Great')).toBe('...Alexander the 0000Great');
     expect(v.sprintf('%-12s', 'Alexander')).toBe('Alexander   ');
     expect(v.sprintf('%+-12s', 'Alexander')).toBe('Alexander   ');
     expect(v.sprintf('%.4s the Great', 'Alexander')).toBe('Alex the Great');
-    expect(v.sprintf('%.9s the Great', 'Alexander')).toBe(
-      'Alexander the Great'
-    );
+    expect(v.sprintf('%.9s the Great', 'Alexander')).toBe('Alexander the Great');
     expect(v.sprintf('%.0s the Great', 'Alexander')).toBe(' the Great');
-    expect(v.sprintf('%10.8s the Great', 'Alexander')).toBe(
-      '  Alexande the Great'
-    );
-    expect(v.sprintf("%'-10.6s %'1-12.4s", 'Persian', 'Empire')).toBe(
-      '----Persia Empi11111111'
-    );
-    expect(v.sprintf('%2$s the %1$s', 'Great', 'Alexander')).toBe(
-      'Alexander the Great'
-    );
+    expect(v.sprintf('%10.8s the Great', 'Alexander')).toBe('  Alexande the Great');
+    expect(v.sprintf("%'-10.6s %'1-12.4s", 'Persian', 'Empire')).toBe('----Persia Empi11111111');
+    expect(v.sprintf('%2$s the %1$s', 'Great', 'Alexander')).toBe('Alexander the Great');
     expect(v.sprintf('%2$s', 'Great', 'Alexander')).toBe('Alexander');
-    expect(v.sprintf("%2$'012s the %1$.4s", 'Great', 'Alexander')).toBe(
-      '000Alexander the Grea'
-    );
+    expect(v.sprintf("%2$'012s the %1$.4s", 'Great', 'Alexander')).toBe('000Alexander the Grea');
     expect(v.sprintf("%%%1$'q-12.4s%%s", 'Alexander')).toBe('%Alexqqqqqqqq%s');
-    expect(v.sprintf('%2$s the %s', 'Great', 'Alexander')).toBe(
-      'Alexander the Great'
-    );
+    expect(v.sprintf('%2$s the %s', 'Great', 'Alexander')).toBe('Alexander the Great');
     expect(v.sprintf('%1$s the %s', 'Great')).toBe('Great the Great');
   });
 
@@ -89,9 +67,7 @@ describe('sprintf', function() {
     expect(v.sprintf('%b', 'NN15')).toBe('0');
     expect(v.sprintf('%b %b', '', 15)).toBe('0 1111');
     expect(v.sprintf('%b', '+')).toBe('0');
-    expect(v.sprintf('%b %b', -1, -10)).toBe(
-      '11111111111111111111111111111111 11111111111111111111111111110110'
-    );
+    expect(v.sprintf('%b %b', -1, -10)).toBe('11111111111111111111111111111111 11111111111111111111111111110110');
   });
 
   it('should return a string according to octal integer type formatting', function() {
@@ -173,48 +149,28 @@ describe('sprintf', function() {
     expect(v.sprintf("%+'s-15.10f", 9.7654321)).toBe('+9.7654321000ss');
     expect(v.sprintf('%06.2f', 8)).toBe('008.00');
     expect(v.sprintf('%f %.1f', '34.111', '-15.67')).toBe('34.111000 -15.7');
-    expect(v.sprintf('%.3f %.2f', '1.123456e+0', '1.3E+2')).toBe(
-      '1.123 130.00'
-    );
+    expect(v.sprintf('%.3f %.2f', '1.123456e+0', '1.3E+2')).toBe('1.123 130.00');
     expect(v.sprintf('%.3f', '-567.123456e+6')).toBe('-567123456.000');
-    expect(v.sprintf('%f %f %f', '1FF', '-15.67TUU', '.1')).toBe(
-      '1.000000 -15.670000 0.100000'
-    );
-    expect(v.sprintf('%f %f %f', 'FF', '', '+')).toBe(
-      '0.000000 0.000000 0.000000'
-    );
+    expect(v.sprintf('%f %f %f', '1FF', '-15.67TUU', '.1')).toBe('1.000000 -15.670000 0.100000');
+    expect(v.sprintf('%f %f %f', 'FF', '', '+')).toBe('0.000000 0.000000 0.000000');
   });
 
   it('should return a string according to scientific float type formatting', function() {
-    expect(v.sprintf('%e %e %E', 100, 0, 0.1)).toBe(
-      '1.000000e+2 0.000000e+0 1.000000E-1'
-    );
-    expect(v.sprintf('%+e+%+e', 50.123456789, 0)).toBe(
-      '+5.012346e+1++0.000000e+0'
-    );
+    expect(v.sprintf('%e %e %E', 100, 0, 0.1)).toBe('1.000000e+2 0.000000e+0 1.000000E-1');
+    expect(v.sprintf('%+e+%+e', 50.123456789, 0)).toBe('+5.012346e+1++0.000000e+0');
     expect(v.sprintf('%1$.0e %1$.1e %1$.2e', 1.57)).toBe('2e+0 1.6e+0 1.57e+0');
     expect(v.sprintf('%.2e %0.2e', 0, 0)).toBe('0.00e+0 0.00e+0');
     expect(v.sprintf('%.0e %.0e', 0, 15.7)).toBe('0e+0 2e+1');
-    expect(v.sprintf('%4e %08.2e', -15.789, 1.27)).toBe(
-      '-1.578900e+1 01.27e+0'
-    );
+    expect(v.sprintf('%4e %08.2e', -15.789, 1.27)).toBe('-1.578900e+1 01.27e+0');
     expect(v.sprintf("%'f15e", 0.105)).toBe('ffff1.050000e-1');
     expect(v.sprintf('%+-14e', 101.101)).toBe('+1.011010e+2  ');
     expect(v.sprintf("%+'s-20.10e", 0.097654321)).toBe('+9.7654321000e-2ssss');
     expect(v.sprintf('%08.2e', 8)).toBe('08.00e+0');
-    expect(v.sprintf('%e %.1e', '34.111', '-15.67')).toBe(
-      '3.411100e+1 -1.6e+1'
-    );
-    expect(v.sprintf('%.3E %.2E', '1.123456e+0', '1.3E+2')).toBe(
-      '1.123E+0 1.30E+2'
-    );
+    expect(v.sprintf('%e %.1e', '34.111', '-15.67')).toBe('3.411100e+1 -1.6e+1');
+    expect(v.sprintf('%.3E %.2E', '1.123456e+0', '1.3E+2')).toBe('1.123E+0 1.30E+2');
     expect(v.sprintf('%.4e', '-567.123456e+6')).toBe('-5.6712e+8');
-    expect(v.sprintf('%e %e %e', '1FF', '-15.67TUU', '.1')).toBe(
-      '1.000000e+0 -1.567000e+1 1.000000e-1'
-    );
-    expect(v.sprintf('%e %e %e', 'FF', '', '+')).toBe(
-      '0.000000e+0 0.000000e+0 0.000000e+0'
-    );
+    expect(v.sprintf('%e %e %e', '1FF', '-15.67TUU', '.1')).toBe('1.000000e+0 -1.567000e+1 1.000000e-1');
+    expect(v.sprintf('%e %e %e', 'FF', '', '+')).toBe('0.000000e+0 0.000000e+0 0.000000e+0');
   });
 
   it('should return a string according to short float type formatting', function() {
@@ -231,13 +187,9 @@ describe('sprintf', function() {
     expect(v.sprintf("%+'s-20.8g", 0.0976543216)).toBe('+0.097654322ssssssss');
     expect(v.sprintf('%08.2g', 8)).toBe('00000008');
     expect(v.sprintf('%g %.1G', '34.111', '-15.67')).toBe('34.111 -2E+1');
-    expect(v.sprintf('_%.3G_%.2G_!1234567890*', '1.123456e+0', '1.3E+2')).toBe(
-      '_1.12_1.3E+2_!1234567890*'
-    );
+    expect(v.sprintf('_%.3G_%.2G_!1234567890*', '1.123456e+0', '1.3E+2')).toBe('_1.12_1.3E+2_!1234567890*');
     expect(v.sprintf('%.4g', '-567.123456e+6')).toBe('-5.671e+8');
-    expect(v.sprintf('%g %G %g', '1FF', '-15.67TUU', '.1')).toBe(
-      '1 -15.67 0.1'
-    );
+    expect(v.sprintf('%g %G %g', '1FF', '-15.67TUU', '.1')).toBe('1 -15.67 0.1');
     expect(v.sprintf('%g %G %g', 'FF', '', '+')).toBe('0 0 0');
   });
 
@@ -259,9 +211,7 @@ describe('sprintf', function() {
         50.12,
         10.123456789
       )
-    ).toBe(
-      'Full format: ****string +18 -5 0100 A 10 401 FF 9 5.012000e+1 10.1235 %'
-    );
+    ).toBe('Full format: ****string +18 -5 0100 A 10 401 FF 9 5.012000e+1 10.1235 %');
     expect(v.sprintf('%s%d%%%s', 'word', 10, 'word')).toBe('word10%word');
   });
 
@@ -273,39 +223,17 @@ describe('sprintf', function() {
   });
 
   it('should throw exceptions when the formatter is not valid or not enough arguments', function() {
-    expect(v.sprintf.bind(v, '%s')).toThrowError(
-      'sprintf(): Too few arguments'
-    );
-    expect(v.sprintf.bind(v, '%s %s')).toThrowError(
-      'sprintf(): Too few arguments'
-    );
-    expect(v.sprintf.bind(v, '%s %s', 'Alexander')).toThrowError(
-      'sprintf(): Too few arguments'
-    );
-    expect(v.sprintf.bind(v, '%2$s %1$s', 'Alexander')).toThrowError(
-      'sprintf(): Too few arguments'
-    );
-    expect(v.sprintf.bind(v, '%2$s %1$s', 'Alexander')).toThrowError(
-      'sprintf(): Too few arguments'
-    );
-    expect(v.sprintf.bind(v, '%a', 'Alexander')).toThrowError(
-      'sprintf(): Unknown type specifier'
-    );
-    expect(v.sprintf.bind(v, PRINTABLE_ASCII, 'Alexander')).toThrowError(
-      'sprintf(): Unknown type specifier'
-    );
-    expect(v.sprintf.bind(v, '%s the %y', 'Alexander', 'Great')).toThrowError(
-      'sprintf(): Unknown type specifier'
-    );
-    expect(v.sprintf.bind(v, '%', 'Alexander')).toThrowError(
-      'sprintf(): Unknown type specifier'
-    );
-    expect(v.sprintf.bind(v, '%%%%% %%', 'Alexander')).toThrowError(
-      'sprintf(): Unknown type specifier'
-    );
-    expect(v.sprintf.bind(v, '%0$s', 'Alexander')).toThrowError(
-      'sprintf(): Argument number must be greater than zero'
-    );
+    expect(v.sprintf.bind(v, '%s')).toThrowError('sprintf(): Too few arguments');
+    expect(v.sprintf.bind(v, '%s %s')).toThrowError('sprintf(): Too few arguments');
+    expect(v.sprintf.bind(v, '%s %s', 'Alexander')).toThrowError('sprintf(): Too few arguments');
+    expect(v.sprintf.bind(v, '%2$s %1$s', 'Alexander')).toThrowError('sprintf(): Too few arguments');
+    expect(v.sprintf.bind(v, '%2$s %1$s', 'Alexander')).toThrowError('sprintf(): Too few arguments');
+    expect(v.sprintf.bind(v, '%a', 'Alexander')).toThrowError('sprintf(): Unknown type specifier');
+    expect(v.sprintf.bind(v, PRINTABLE_ASCII, 'Alexander')).toThrowError('sprintf(): Unknown type specifier');
+    expect(v.sprintf.bind(v, '%s the %y', 'Alexander', 'Great')).toThrowError('sprintf(): Unknown type specifier');
+    expect(v.sprintf.bind(v, '%', 'Alexander')).toThrowError('sprintf(): Unknown type specifier');
+    expect(v.sprintf.bind(v, '%%%%% %%', 'Alexander')).toThrowError('sprintf(): Unknown type specifier');
+    expect(v.sprintf.bind(v, '%0$s', 'Alexander')).toThrowError('sprintf(): Argument number must be greater than zero');
   });
 
   it('should return an unmodified string for missing formatting specifiers', function() {

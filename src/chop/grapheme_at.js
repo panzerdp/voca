@@ -25,7 +25,7 @@ import { REGEXP_UNICODE_CHARACTER } from 'helper/reg_exp/const';
 export default function graphemeAt(subject, position) {
   const subjectString = coerceToString(subject);
   let positionNumber = coerceToNumber(position);
-  let  graphemeMatch;
+  let graphemeMatch;
   let graphemeMatchIndex = 0;
   positionNumber = nanDefault(positionNumber, 0);
   while ((graphemeMatch = REGEXP_UNICODE_CHARACTER.exec(subjectString)) !== null) {

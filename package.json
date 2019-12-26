@@ -44,7 +44,7 @@
     "verify": "npm run eslint && npm run coverage",
     "jsdoc": "jsdoc --configure .jsdoc.json",
     "deploy": "rollup -c config/rollup_dist.js && cp dist/voca.js docs/scripts && scp -r docs/* rainishere:/home/rainishere/webapps/voca_docs",
-    "precommit": "npm run eslint && jest --onlyChanged"
+    "precommit": "npm run eslint && jest --onlyChanged && prettier --write '{src,test}/**/*.js'"
   },
   "devDependencies": {
     "@babel/core": "7.7.7",

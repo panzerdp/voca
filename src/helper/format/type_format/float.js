@@ -3,7 +3,7 @@ import {
   TYPE_FLOAT_SCIENTIFIC,
   TYPE_FLOAT_SCIENTIFIC_UPPERCASE,
   TYPE_FLOAT_SHORT,
-  TYPE_FLOAT_SHORT_UPPERCASE
+  TYPE_FLOAT_SHORT_UPPERCASE,
 } from 'helper/format/const';
 import addSignToFormattedNumber from 'helper/format/type_format/add_sign_to_formatted_number';
 import coerceToNumber from 'helper/number/coerce_to_number';
@@ -59,9 +59,7 @@ function formatFloatAsShort(replacementNumber, precision, conversion) {
     return '0';
   }
   const nonZeroPrecision = precision === 0 ? 1 : precision;
-  let formattedReplacement = replacementNumber
-    .toPrecision(nonZeroPrecision)
-    .replace(REGEXP_TRAILING_ZEROS, '');
+  let formattedReplacement = replacementNumber.toPrecision(nonZeroPrecision).replace(REGEXP_TRAILING_ZEROS, '');
   if (conversion.typeSpecifier === TYPE_FLOAT_SHORT_UPPERCASE) {
     formattedReplacement = formattedReplacement.toUpperCase();
   }
