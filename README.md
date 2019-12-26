@@ -46,7 +46,7 @@ npm install voca
 Then in your application require the entire library:
 
 ```javascript
-var v = require('voca');
+const v = require('voca');
 v.trim(' Hello World! ');            // => 'Hello World'
 v.sprintf('%d red %s', 3, 'apples'); // => '3 red apples'
 ```
@@ -54,8 +54,8 @@ v.sprintf('%d red %s', 3, 'apples'); // => '3 red apples'
 Or require individual functions:
 
 ```javascript
-var words = require('voca/words');
-var slugify = require('voca/slugify');
+const words = require('voca/words');
+const slugify = require('voca/slugify');
 words('welcome to Earth'); // => ['welcome', 'to', 'Earth']
 slugify('caffé latté');    // => 'caffe-latte'
 ```
@@ -139,10 +139,11 @@ Please note that this project is released with a Contributor [Code of Conduct][C
 
 ## Author
 
-| ![Dmitri Pavlutin](https://s.gravatar.com/avatar/7be6b604e5d3c6a82ed933dd90ed68dc?s=100) |
+| ![Dmitri Pavlutin](https://s.gravatar.com/avatar/0d57a57d8807ebc70e24b46f6d9e3a36?s=100) |
 | :-: |
-| [Dmitri Pavlutin](https://dmitripavlutin.com) 
-
+| Dmitri Pavlutin
+| [Personal blog](https://dmitripavlutin.com)
+| [Email](mailto:dmitripavlutin@gmail.com)
 
 ## License
 
