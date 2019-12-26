@@ -6,13 +6,11 @@ notifications:
   email: false
 matrix:
   include:
-    - node_js: "6"
+    - node_js: '7'
       env: DETAILED=false
-    - node_js: "7"
-      env: DETAILED=false
-    - node_js: "8"
+    - node_js: '10'
       env: DETAILED=true
-    - node_js: "9"
+    - node_js: '12'
       env: DETAILED=false
 before_script:
   - npm prune
@@ -21,4 +19,4 @@ script:
   - npm run build
   - npm run coverage
 after_success:
-  - "[ $DETAILED == false ] || [ $TRAVIS_PULL_REQUEST == true] || npm run report-coverage"
+  - '[ $DETAILED == false ] || [ $TRAVIS_PULL_REQUEST == true] || npm run report-coverage'
