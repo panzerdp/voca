@@ -7,14 +7,11 @@ notifications:
 matrix:
   include:
     - node_js: '10'
-      env: DETAILED=true
-    - node_js: '12'
-      env: DETAILED=false
 before_script:
   - npm prune
 script:
   - npm run coverage
+  - npm run eslint
+  - npm run build
 after_success:
-  - '[ $DETAILED == false ] || [ $TRAVIS_PULL_REQUEST == true] || npm run eslint'
-  - '[ $DETAILED == false ] || [ $TRAVIS_PULL_REQUEST == true] || npm run build'
-  - '[ $DETAILED == false ] || [ $TRAVIS_PULL_REQUEST == true] || npm run report-coverage'
+  - bash <(curl -s https://codecov.io/bash)

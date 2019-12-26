@@ -41,11 +41,10 @@
     "prepare-npm-package": "rm -rf dist_mod && mkdir dist_mod && cp package.json README.md LICENSE.md ./dist_mod",
     "test": "jest",
     "coverage": "jest --coverage",
-    "report-coverage": "bash <(curl -s https://codecov.io/bash)",
     "verify": "npm run eslint && npm run coverage",
     "jsdoc": "jsdoc --configure .jsdoc.json",
     "deploy": "rollup -c config/rollup_dist.js && cp dist/voca.js docs/scripts && scp -r docs/* rainishere:/home/rainishere/webapps/voca_docs",
-    "precommit": "npm run eslint && npm run test"
+    "precommit": "npm run eslint && jest --onlyChanged"
   },
   "devDependencies": {
     "@babel/core": "7.7.7",
