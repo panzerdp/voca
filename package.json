@@ -44,7 +44,7 @@
     "verify": "npm run eslint && npm run coverage",
     "jsdoc": "jsdoc --configure .jsdoc.json",
     "deploy": "rollup -c config/rollup_dist.js && cp dist/voca.js docs/scripts && scp -r docs/* rainishere:/home/rainishere/webapps/voca_docs",
-    "precommit": "npm run eslint && jest --onlyChanged && prettier --write '{src,test}/**/*.js'"
+    "precommit": "lint-staged && jest --onlyChanged"
   },
   "devDependencies": {
     "@babel/core": "7.7.7",
@@ -63,11 +63,19 @@
     "husky": "3.1.0",
     "jest": "24.9.0",
     "jsdoc": "3.6.3",
+    "lint-staged": "9.5.0",
     "prettier": "1.19.1",
     "rollup": "1.27.14",
     "rollup-plugin-babel": "4.3.3",
     "rollup-plugin-uglify": "6.0.4",
     "source-map-support": "0.5.16"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "lint-staged": {
+    "*.{js}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  }
 }
