@@ -6,7 +6,7 @@ notifications:
   email: false
 matrix:
   include:
-    - node_js: '7'
+    - node_js: '6'
       env: DETAILED=false
     - node_js: '10'
       env: DETAILED=true
@@ -15,8 +15,8 @@ matrix:
 before_script:
   - npm prune
 script:
-  - npm run eslint
-  - npm run build
   - npm run coverage
 after_success:
+  - '[ $DETAILED == false ] || [ $TRAVIS_PULL_REQUEST == true] || npm run eslint'
+  - '[ $DETAILED == false ] || [ $TRAVIS_PULL_REQUEST == true] || npm run build'
   - '[ $DETAILED == false ] || [ $TRAVIS_PULL_REQUEST == true] || npm run report-coverage'
