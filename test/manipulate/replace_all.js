@@ -28,18 +28,18 @@ describe('replaceAll', function() {
   });
 
   it('should return the replace result with a RegExp pattern', function() {
-    expect(v.replaceAll('duck duck', /duck/, 'swan')).toBe('swan swan');
-    expect(v.replaceAll('duck DUCK', /duck/, 'swan')).toBe('swan DUCK');
-    expect(v.replaceAll('duck DUCK', /DUCK/i, 'swan')).toBe('swan swan');
-    expect(v.replaceAll('duck', /duck/, '')).toBe('');
-    expect(v.replaceAll('duck', /d/, '')).toBe('uck');
+    expect(v.replaceAll('duck duck', /duck/g, 'swan')).toBe('swan swan');
+    expect(v.replaceAll('duck DUCK', /duck/g, 'swan')).toBe('swan DUCK');
+    expect(v.replaceAll('duck DUCK', /DUCK/gi, 'swan')).toBe('swan swan');
+    expect(v.replaceAll('duck', /duck/g, '')).toBe('');
+    expect(v.replaceAll('duck', /d/g, '')).toBe('uck');
     expect(
-      v.replaceAll('duck duck', /u/, function() {
+      v.replaceAll('duck duck', /u/g, function() {
         return 'a';
       })
     ).toBe('dack dack');
     expect(
-      v.replaceAll('hello world', /(hello)\s(world)/, function(match, hello, world) {
+      v.replaceAll('hello world', /(hello)\s(world)/g, function(match, hello, world) {
         return world + ', ' + hello;
       })
     ).toBe('world, hello');
@@ -54,7 +54,7 @@ describe('replaceAll', function() {
             return 'mandarin duck';
           },
         },
-        /mandarin\s/,
+        /mandarin\s/g,
         ''
       )
     ).toBe('duck');
@@ -63,16 +63,16 @@ describe('replaceAll', function() {
   it('should return the replace result from a number', function() {
     expect(v.replaceAll(1500, '0', '1')).toBe('1511');
     expect(v.replaceAll(6475, /\d/g, '*')).toBe('****');
-    expect(v.replaceAll(6475, /\d/, '*')).toBe('****');
+    expect(v.replaceAll(6475, /\d/g, '*')).toBe('****');
   });
 
   it('should return the original string on failed match', function() {
     expect(v.replaceAll('duck', 'dack', 'swan')).toBe('duck');
-    expect(v.replaceAll('duck', /dack/, '')).toBe('duck');
+    expect(v.replaceAll('duck', /dack/g, '')).toBe('duck');
   });
 
   it('should return the an empty string for an undefined or null', function() {
-    expect(v.replaceAll(undefined, /./, '1')).toBe('');
-    expect(v.replaceAll(null, /./, '1')).toBe('');
+    expect(v.replaceAll(undefined, /./g, '1')).toBe('');
+    expect(v.replaceAll(null, /./g, '1')).toBe('');
   });
 });
