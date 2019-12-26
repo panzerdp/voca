@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+
 import getGlobalObject from '../../src/helper/object/get_global';
 import vocaLibrary from '../voca';
 
@@ -8,15 +8,15 @@ describe('noConflict', function() {
     const globalObject = getGlobalObject();
     globalObject.v = vocaLibrary;
     const voca = vocaLibrary.noConflict();
-    expect(voca).to.be.equal(vocaLibrary);
-    expect(globalObject.v).to.be.equal(undefined);
+    expect(voca).toBe(vocaLibrary);
+    expect(globalObject.v).toBe(undefined);
   });
 
   it('should return Voca library instance and not modify v global variable', function() {
     const globalObject = getGlobalObject();
     const voca = vocaLibrary.noConflict();
-    expect(voca).to.be.equal(vocaLibrary);
-    expect(globalObject.v).to.be.equal(undefined);
+    expect(voca).toBe(vocaLibrary);
+    expect(globalObject.v).toBe(undefined);
   });
 
 });
