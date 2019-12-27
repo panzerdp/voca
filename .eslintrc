@@ -24,15 +24,9 @@
     "prefer-const": "error",
     "no-const-assign": "error",
     "one-var": ["error", "never"],
-    "sort-imports": [
-      "error",
-      {
-        "ignoreCase": true,
-        "ignoreMemberSort": false,
-        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
-      }
-    ],
+    "sort-imports": "off",
     "no-control-regex": "off",
     "no-misleading-character-class": "off"
-  }
+  },
+  "ignorePatterns": ["node_modules/", "dist/", "dist_mod/"],
 }

@@ -32,12 +32,12 @@
     "email": "dmitripavlutin@gmail.com"
   },
   "main": "index.js",
-  "jsnext:main": "index.es2015.js",
+  "module": "es/index.js",
   "scripts": {
     "eslint": "eslint ./src --ext .js --fix",
-    "build": "npm run build-dist && npm run build-npm-package",
-    "build-dist": "rollup -c config/rollup/dist/umd-min.js && rollup -c config/rollup/dist/umd.js",
-    "build-npm-package": "rollup -c config/rollup/module/cjs-all.js && rollup -c config/rollup/module/es.js && rollup -c config/rollup/module/umd.js",
+    "build": "npm run build-universal && npm run build-module",
+    "build-universal": "rollup -c config/rollup/dist/umd-min.js && rollup -c config/rollup/dist/umd.js",
+    "build-module": "rollup -c config/rollup/module/cjs-all.js && rollup -c config/rollup/module/umd.js && rollup -c config/rollup/module/es.js && rollup -c config/rollup/module/es-all.js",
     "prepare-npm-package": "rm -rf dist_mod && mkdir dist_mod && cp package.json README.md LICENSE.md ./dist_mod",
     "test": "jest",
     "coverage": "jest --coverage",
