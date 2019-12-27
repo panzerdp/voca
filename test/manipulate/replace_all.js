@@ -22,6 +22,7 @@ describe('replaceAll', function() {
     expect(v.replaceAll('*.*.', '*.', '*')).toBe('**');
     expect(v.replaceAll('\u0061 \u0061 b \u0061', '\u0061', '\u0062')).toBe('b b b b');
     expect(v.replaceAll('', '', '')).toBe('');
+    expect(v.replaceAll('hello', '', '1')).toBe('1h1e1l1l1o1');
     expect(v.replaceAll('duck', '', '')).toBe('duck');
     expect(v.replaceAll(PRINTABLE_ASCII, PRINTABLE_ASCII, PRINTABLE_ASCII)).toBe(PRINTABLE_ASCII);
     expect(v.replaceAll(PRINTABLE_ASCII, PRINTABLE_ASCII, 'duck')).toBe('duck');
@@ -74,5 +75,17 @@ describe('replaceAll', function() {
   it('should return the an empty string for an undefined or null', function() {
     expect(v.replaceAll(undefined, /./g, '1')).toBe('');
     expect(v.replaceAll(null, /./g, '1')).toBe('');
+  });
+
+  it('should throw a type error when the search pattern is non-global', function() {
+    expect(() => {
+      v.replaceAll('hello', /hello/, 'hi');
+    }).toThrow('search argument is a non-global regular expression');
+    expect(() => {
+      v.replaceAll('hello', /hello/i, 'hi');
+    }).toThrow('search argument is a non-global regular expression');
+    expect(() => {
+      v.replaceAll('hello', /hello/g, 'hi');
+    }).not.toThrow('search argument is a non-global regular expression');
   });
 });

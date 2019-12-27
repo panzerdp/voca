@@ -20,13 +20,10 @@ import coerceToString from 'helper/string/coerce_to_string';
  *
  */
 export default function replaceAll(subject, search, replace) {
-  debugger;
   const subjectString = coerceToString(subject);
   if (search instanceof RegExp) {
     if (search.flags.indexOf('g') === -1) {
-      throw new TypeError(
-        'search argument is a non-global regular expression. Add "g" to make the regular expression global.'
-      );
+      throw new TypeError('search argument is a non-global regular expression');
     }
     return subjectString.replace(search, replace);
   }

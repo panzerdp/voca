@@ -223,17 +223,39 @@ describe('sprintf', function() {
   });
 
   it('should throw exceptions when the formatter is not valid or not enough arguments', function() {
-    expect(v.sprintf.bind(v, '%s')).toThrowError('sprintf(): Too few arguments');
-    expect(v.sprintf.bind(v, '%s %s')).toThrowError('sprintf(): Too few arguments');
-    expect(v.sprintf.bind(v, '%s %s', 'Alexander')).toThrowError('sprintf(): Too few arguments');
-    expect(v.sprintf.bind(v, '%2$s %1$s', 'Alexander')).toThrowError('sprintf(): Too few arguments');
-    expect(v.sprintf.bind(v, '%2$s %1$s', 'Alexander')).toThrowError('sprintf(): Too few arguments');
-    expect(v.sprintf.bind(v, '%a', 'Alexander')).toThrowError('sprintf(): Unknown type specifier');
-    expect(v.sprintf.bind(v, PRINTABLE_ASCII, 'Alexander')).toThrowError('sprintf(): Unknown type specifier');
-    expect(v.sprintf.bind(v, '%s the %y', 'Alexander', 'Great')).toThrowError('sprintf(): Unknown type specifier');
-    expect(v.sprintf.bind(v, '%', 'Alexander')).toThrowError('sprintf(): Unknown type specifier');
-    expect(v.sprintf.bind(v, '%%%%% %%', 'Alexander')).toThrowError('sprintf(): Unknown type specifier');
-    expect(v.sprintf.bind(v, '%0$s', 'Alexander')).toThrowError('sprintf(): Argument number must be greater than zero');
+    expect(function() {
+      v.sprintf('%s');
+    }).toThrowError('sprintf(): Too few arguments');
+    expect(function() {
+      v.sprintf('%s %s');
+    }).toThrowError('sprintf(): Too few arguments');
+    expect(function() {
+      v.sprintf('%s %s', 'Alexander');
+    }).toThrowError('sprintf(): Too few arguments');
+    expect(function() {
+      v.sprintf('%2$s %1$s', 'Alexander');
+    }).toThrowError('sprintf(): Too few arguments');
+    expect(function() {
+      v.sprintf('%2$s %1$s', 'Alexander');
+    }).toThrowError('sprintf(): Too few arguments');
+    expect(function() {
+      v.sprintf('%a', 'Alexander');
+    }).toThrowError('sprintf(): Unknown type specifier');
+    expect(function() {
+      v.sprintf(PRINTABLE_ASCII, 'Alexander');
+    }).toThrowError('sprintf(): Unknown type specifier');
+    expect(function() {
+      v.sprintf('%s the %y', 'Alexander', 'Great');
+    }).toThrowError('sprintf(): Unknown type specifier');
+    expect(function() {
+      v.sprintf('%', 'Alexander');
+    }).toThrowError('sprintf(): Unknown type specifier');
+    expect(function() {
+      v.sprintf('%%%%% %%', 'Alexander');
+    }).toThrowError('sprintf(): Unknown type specifier');
+    expect(function() {
+      v.sprintf('%0$s', 'Alexander');
+    }).toThrowError('sprintf(): Argument number must be greater than zero');
   });
 
   it('should return an unmodified string for missing formatting specifiers', function() {
