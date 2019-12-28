@@ -38,7 +38,7 @@
     "build": "npm run build-universal && npm run build-module",
     "build-universal": "rollup -c config/rollup/dist/umd-min.js && rollup -c config/rollup/dist/umd.js",
     "build-module": "rollup -c config/rollup/module/cjs-all.js && rollup -c config/rollup/module/umd.js && rollup -c config/rollup/module/es.js && rollup -c config/rollup/module/es-all.js",
-    "prepare-npm-package": "rm -rf dist_mod && mkdir dist_mod && cp package.json README.md LICENSE.md ./dist_mod",
+    "prepare-npm-package": "rm -rf dist_mod && mkdir dist_mod && cp package.json README.md LICENSE.md ./dist_mod && npm run build",
     "test": "jest",
     "coverage": "jest --coverage",
     "verify": "npm run eslint && npm run coverage",
