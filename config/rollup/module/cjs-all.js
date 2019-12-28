@@ -22,5 +22,6 @@ export default {
   output: {
     dir: DIST_MODULE_CJS,
     format: 'cjs',
+    chunkFileNames: 'internal/[name].js',
   },
 };

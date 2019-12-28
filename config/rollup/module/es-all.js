@@ -19,8 +19,10 @@ function modulesPaths() {
 export default {
   input: modulesPaths(),
   plugins: [babel()],
+
   output: {
     dir: DIST_MODULE_ES,
     format: 'es',
+    chunkFileNames: 'internal/[name].js',
   },
 };

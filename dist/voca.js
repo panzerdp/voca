@@ -19,10 +19,10 @@
     _extends =
       Object.assign ||
       function(target) {
-        for (let i = 1; i < arguments.length; i++) {
-          const source = arguments[i];
+        for (var i = 1; i < arguments.length; i++) {
+          var source = arguments[i];
 
-          for (const key in source) {
+          for (var key in source) {
             if (Object.prototype.hasOwnProperty.call(source, key)) {
               target[key] = source[key];
             }
@@ -65,10 +65,10 @@
       return;
     }
 
-    const _arr = [];
-    let _n = true;
-    let _d = false;
-    let _e = undefined;
+    var _arr = [];
+    var _n = true;
+    var _d = false;
+    var _e = undefined;
 
     try {
       for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
@@ -121,7 +121,7 @@
    */
 
   function coerceToBoolean(value) {
-    const defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+    var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
     if (isNil(value)) {
       return defaultValue;
@@ -164,7 +164,7 @@
    */
 
   function coerceToString(value) {
-    const defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+    var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 
     if (isNil(value)) {
       return defaultValue;
@@ -197,8 +197,8 @@
    */
 
   function capitalize(subject, restToLower) {
-    let subjectString = coerceToString(subject);
-    const restToLowerCaseBoolean = coerceToBoolean(restToLower);
+    var subjectString = coerceToString(subject);
+    var restToLowerCaseBoolean = coerceToBoolean(restToLower);
 
     if (subjectString === '') {
       return '';
@@ -229,7 +229,7 @@
    */
 
   function lowerCase(subject) {
-    const subjectString = coerceToString(subject, '');
+    var subjectString = coerceToString(subject, '');
     return subjectString.toLowerCase();
   }
 
@@ -239,7 +239,7 @@
    * @type {string}
    * @ignore
    */
-  const digit = '\\d';
+  var digit = '\\d';
   /**
    * A regular expression string matching whitespace
    *
@@ -247,7 +247,7 @@
    * @ignore
    */
 
-  const whitespace = '\\s\\uFEFF\\xA0';
+  var whitespace = '\\s\\uFEFF\\xA0';
   /**
    * A regular expression string matching high surrogate
    *
@@ -255,7 +255,7 @@
    * @ignore
    */
 
-  const highSurrogate = '\\uD800-\\uDBFF';
+  var highSurrogate = '\\uD800-\\uDBFF';
   /**
    * A regular expression string matching low surrogate
    *
@@ -263,7 +263,7 @@
    * @ignore
    */
 
-  const lowSurrogate = '\\uDC00-\\uDFFF';
+  var lowSurrogate = '\\uDC00-\\uDFFF';
   /**
    * A regular expression string matching diacritical mark
    *
@@ -271,7 +271,7 @@
    * @ignore
    */
 
-  const diacriticalMark = '\\u0300-\\u036F\\u1AB0-\\u1AFF\\u1DC0-\\u1DFF\\u20D0-\\u20FF\\uFE20-\\uFE2F';
+  var diacriticalMark = '\\u0300-\\u036F\\u1AB0-\\u1AFF\\u1DC0-\\u1DFF\\u20D0-\\u20FF\\uFE20-\\uFE2F';
   /**
    * A regular expression to match the base character for a combining mark
    *
@@ -279,7 +279,7 @@
    * @ignore
    */
 
-  const base = '\\0-\\u02FF\\u0370-\\u1AAF\\u1B00-\\u1DBF\\u1E00-\\u20CF\\u2100-\\uD7FF\\uE000-\\uFE1F\\uFE30-\\uFFFF';
+  var base = '\\0-\\u02FF\\u0370-\\u1AAF\\u1B00-\\u1DBF\\u1E00-\\u20CF\\u2100-\\uD7FF\\uE000-\\uFE1F\\uFE30-\\uFFFF';
   /**
    * Regular expression to match combining marks
    *
@@ -288,7 +288,7 @@
    * @ignore
    */
 
-  const REGEXP_COMBINING_MARKS = new RegExp(
+  var REGEXP_COMBINING_MARKS = new RegExp(
     '([' +
       base +
       ']|[' +
@@ -316,7 +316,7 @@
    * @ignore
    */
 
-  const REGEXP_SURROGATE_PAIRS = new RegExp('([' + highSurrogate + '])([' + lowSurrogate + '])', 'g');
+  var REGEXP_SURROGATE_PAIRS = new RegExp('([' + highSurrogate + '])([' + lowSurrogate + '])', 'g');
   /**
    * Regular expression to match a unicode character
    *
@@ -324,7 +324,7 @@
    * @ignore
    */
 
-  const REGEXP_UNICODE_CHARACTER = new RegExp(
+  var REGEXP_UNICODE_CHARACTER = new RegExp(
     '((?:[' +
       base +
       ']|[' +
@@ -358,7 +358,7 @@
    * @ignore
    */
 
-  const REGEXP_WHITESPACE = new RegExp('[' + whitespace + ']');
+  var REGEXP_WHITESPACE = new RegExp('[' + whitespace + ']');
   /**
    * Regular expression to match whitespaces from the left side
    *
@@ -366,7 +366,7 @@
    * @ignore
    */
 
-  const REGEXP_TRIM_LEFT = new RegExp('^[' + whitespace + ']+');
+  var REGEXP_TRIM_LEFT = new RegExp('^[' + whitespace + ']+');
   /**
    * Regular expression to match whitespaces from the right side
    *
@@ -374,7 +374,7 @@
    * @ignore
    */
 
-  const REGEXP_TRIM_RIGHT = new RegExp('[' + whitespace + ']+$');
+  var REGEXP_TRIM_RIGHT = new RegExp('[' + whitespace + ']+$');
   /**
    * Regular expression to match digit characters
    *
@@ -382,7 +382,7 @@
    * @ignore
    */
 
-  const REGEXP_DIGIT = new RegExp('^' + digit + '+$');
+  var REGEXP_DIGIT = new RegExp('^' + digit + '+$');
   /**
    * Regular expression to match regular expression special characters
    *
@@ -390,7 +390,7 @@
    * @ignore
    */
 
-  const REGEXP_SPECIAL_CHARACTERS = /[-[\]{}()*+!<=:?./\\^$|#,]/g;
+  var REGEXP_SPECIAL_CHARACTERS = /[-[\]{}()*+!<=:?./\\^$|#,]/g;
   /**
    * Regular expression to match not latin characters
    *
@@ -398,7 +398,7 @@
    * @ignore
    */
 
-  const REGEXP_NON_LATIN = /[^A-Za-z0-9]/g;
+  var REGEXP_NON_LATIN = /[^A-Za-z0-9]/g;
   /**
    * Regular expression to match HTML special characters.
    *
@@ -406,7 +406,7 @@
    * @ignore
    */
 
-  const REGEXP_HTML_SPECIAL_CHARACTERS = /[<>&"'`]/g;
+  var REGEXP_HTML_SPECIAL_CHARACTERS = /[<>&"'`]/g;
   /**
    * Regular expression to match sprintf format string
    *
@@ -414,7 +414,7 @@
    * @ignore
    */
 
-  const REGEXP_CONVERSION_SPECIFICATION = /(%{1,2})(?:(\d+)\$)?(\+)?([ 0]|'.{1})?(-)?(\d+)?(?:\.(\d+))?([bcdiouxXeEfgGs])?/g;
+  var REGEXP_CONVERSION_SPECIFICATION = /(%{1,2})(?:(\d+)\$)?(\+)?([ 0]|'.{1})?(-)?(\d+)?(?:\.(\d+))?([bcdiouxXeEfgGs])?/g;
   /**
    * Regular expression to match trailing zeros in a number
    *
@@ -422,7 +422,7 @@
    * @ignore
    */
 
-  const REGEXP_TRAILING_ZEROS = /\.?0+$/g;
+  var REGEXP_TRAILING_ZEROS = /\.?0+$/g;
   /**
    * Regular expression to match a list of tags.
    *
@@ -431,7 +431,7 @@
    * @ignore
    */
 
-  const REGEXP_TAG_LIST = /<([A-Za-z0-9]+)>/g;
+  var REGEXP_TAG_LIST = /<([A-Za-z0-9]+)>/g;
 
   /**
    * A regular expression to match the General Punctuation Unicode block
@@ -440,7 +440,7 @@
    * @ignore
    */
 
-  const generalPunctuationBlock = '\\u2000-\\u206F';
+  var generalPunctuationBlock = '\\u2000-\\u206F';
   /**
    * A regular expression to match non characters from from Basic Latin and Latin-1 Supplement Unicode blocks
    *
@@ -448,7 +448,7 @@
    * @ignore
    */
 
-  const nonCharacter = '\\x00-\\x2F\\x3A-\\x40\\x5B-\\x60\\x7b-\\xBF\\xD7\\xF7';
+  var nonCharacter = '\\x00-\\x2F\\x3A-\\x40\\x5B-\\x60\\x7b-\\xBF\\xD7\\xF7';
   /**
    * A regular expression to match the dingbat Unicode block
    *
@@ -456,7 +456,7 @@
    * @ignore
    */
 
-  const dingbatBlock = '\\u2700-\\u27BF';
+  var dingbatBlock = '\\u2700-\\u27BF';
   /**
    * A regular expression string that matches lower case letters: LATIN
    *
@@ -464,7 +464,7 @@
    * @ignore
    */
 
-  const lowerCaseLetter =
+  var lowerCaseLetter =
     'a-z\\xB5\\xDF-\\xF6\\xF8-\\xFF\\u0101\\u0103\\u0105\\u0107\\u0109\\u010B\\u010D\\u010F\\u0111\\u0113\\u0115\\u0117\\u0119\\u011B\\u011D\\u011F\\u0121\\u0123\\u0125\\u0127\\u0129\\u012B\\u012D\\u012F\\u0131\\u0133\\u0135\\u0137\\u0138\\u013A\\u013C\\u013E\\u0140\\u0142\\u0144\\u0146\\u0148\\u0149\\u014B\\u014D\\u014F\\u0151\\u0153\\u0155\\u0157\\u0159\\u015B\\u015D\\u015F\\u0161\\u0163\\u0165\\u0167\\u0169\\u016B\\u016D\\u016F\\u0171\\u0173\\u0175\\u0177\\u017A\\u017C\\u017E-\\u0180\\u0183\\u0185\\u0188\\u018C\\u018D\\u0192\\u0195\\u0199-\\u019B\\u019E\\u01A1\\u01A3\\u01A5\\u01A8\\u01AA\\u01AB\\u01AD\\u01B0\\u01B4\\u01B6\\u01B9\\u01BA\\u01BD-\\u01BF\\u01C6\\u01C9\\u01CC\\u01CE\\u01D0\\u01D2\\u01D4\\u01D6\\u01D8\\u01DA\\u01DC\\u01DD\\u01DF\\u01E1\\u01E3\\u01E5\\u01E7\\u01E9\\u01EB\\u01ED\\u01EF\\u01F0\\u01F3\\u01F5\\u01F9\\u01FB\\u01FD\\u01FF\\u0201\\u0203\\u0205\\u0207\\u0209\\u020B\\u020D\\u020F\\u0211\\u0213\\u0215\\u0217\\u0219\\u021B\\u021D\\u021F\\u0221\\u0223\\u0225\\u0227\\u0229\\u022B\\u022D\\u022F\\u0231\\u0233-\\u0239\\u023C\\u023F\\u0240\\u0242\\u0247\\u0249\\u024B\\u024D\\u024F';
   /**
    * A regular expression string that matches upper case letters: LATIN
@@ -473,7 +473,7 @@
    * @ignore
    */
 
-  const upperCaseLetter =
+  var upperCaseLetter =
     '\\x41-\\x5a\\xc0-\\xd6\\xd8-\\xde\\u0100\\u0102\\u0104\\u0106\\u0108\\u010a\\u010c\\u010e\\u0110\\u0112\\u0114\\u0116\\u0118\\u011a\\u011c\\u011e\\u0120\\u0122\\u0124\\u0126\\u0128\\u012a\\u012c\\u012e\\u0130\\u0132\\u0134\\u0136\\u0139\\u013b\\u013d\\u013f\\u0141\\u0143\\u0145\\u0147\\u014a\\u014c\\u014e\\u0150\\u0152\\u0154\\u0156\\u0158\\u015a\\u015c\\u015e\\u0160\\u0162\\u0164\\u0166\\u0168\\u016a\\u016c\\u016e\\u0170\\u0172\\u0174\\u0176\\u0178\\u0179\\u017b\\u017d\\u0181\\u0182\\u0184\\u0186\\u0187\\u0189-\\u018b\\u018e-\\u0191\\u0193\\u0194\\u0196-\\u0198\\u019c\\u019d\\u019f\\u01a0\\u01a2\\u01a4\\u01a6\\u01a7\\u01a9\\u01ac\\u01ae\\u01af\\u01b1-\\u01b3\\u01b5\\u01b7\\u01b8\\u01bc\\u01c4\\u01c5\\u01c7\\u01c8\\u01ca\\u01cb\\u01cd\\u01cf\\u01d1\\u01d3\\u01d5\\u01d7\\u01d9\\u01db\\u01de\\u01e0\\u01e2\\u01e4\\u01e6\\u01e8\\u01ea\\u01ec\\u01ee\\u01f1\\u01f2\\u01f4\\u01f6-\\u01f8\\u01fa\\u01fc\\u01fe\\u0200\\u0202\\u0204\\u0206\\u0208\\u020a\\u020c\\u020e\\u0210\\u0212\\u0214\\u0216\\u0218\\u021a\\u021c\\u021e\\u0220\\u0222\\u0224\\u0226\\u0228\\u022a\\u022c\\u022e\\u0230\\u0232\\u023a\\u023b\\u023d\\u023e\\u0241\\u0243-\\u0246\\u0248\\u024a\\u024c\\u024e';
   /**
    * Regular expression to match Unicode words
@@ -482,7 +482,7 @@
    * @ignore
    */
 
-  const REGEXP_WORD = new RegExp(
+  var REGEXP_WORD = new RegExp(
     '(?:[' +
       upperCaseLetter +
       '][' +
@@ -519,7 +519,7 @@
    * @ignore
    */
 
-  const REGEXP_LATIN_WORD = /[A-Z\xC0-\xD6\xD8-\xDE]?[a-z\xDF-\xF6\xF8-\xFF]+|[A-Z\xC0-\xD6\xD8-\xDE]+(?![a-z\xDF-\xF6\xF8-\xFF])|\d+/g;
+  var REGEXP_LATIN_WORD = /[A-Z\xC0-\xD6\xD8-\xDE]?[a-z\xDF-\xF6\xF8-\xFF]+|[A-Z\xC0-\xD6\xD8-\xDE]+(?![a-z\xDF-\xF6\xF8-\xFF])|\d+/g;
   /**
    * Regular expression to match alpha characters
    *
@@ -528,7 +528,7 @@
    * @ignore
    */
 
-  const REGEXP_ALPHA = new RegExp('^(?:[' + lowerCaseLetter + upperCaseLetter + '][' + diacriticalMark + ']*)+$');
+  var REGEXP_ALPHA = new RegExp('^(?:[' + lowerCaseLetter + upperCaseLetter + '][' + diacriticalMark + ']*)+$');
   /**
    * Regular expression to match alpha and digit characters
    *
@@ -537,7 +537,7 @@
    * @ignore
    */
 
-  const REGEXP_ALPHA_DIGIT = new RegExp(
+  var REGEXP_ALPHA_DIGIT = new RegExp(
     '^((?:[' + lowerCaseLetter + upperCaseLetter + '][' + diacriticalMark + ']*)|[' + digit + '])+$'
   );
   /**
@@ -547,7 +547,7 @@
    * @ignore
    */
 
-  const REGEXP_EXTENDED_ASCII = /^[\x01-\xFF]*$/;
+  var REGEXP_EXTENDED_ASCII = /^[\x01-\xFF]*$/;
 
   /**
    * Verifies if `value` is `undefined` or `null` and returns `defaultValue`. In other case returns `value`.
@@ -610,15 +610,15 @@
    */
 
   function words(subject, pattern, flags) {
-    const subjectString = coerceToString(subject);
-    let patternRegExp;
+    var subjectString = coerceToString(subject);
+    var patternRegExp;
 
     if (isNil(pattern)) {
       patternRegExp = REGEXP_EXTENDED_ASCII.test(subjectString) ? REGEXP_LATIN_WORD : REGEXP_WORD;
     } else if (pattern instanceof RegExp) {
       patternRegExp = pattern;
     } else {
-      const flagsString = toString(nilDefault(flags, ''));
+      var flagsString = toString(nilDefault(flags, ''));
       patternRegExp = new RegExp(toString(pattern), flagsString);
     }
 
@@ -658,7 +658,7 @@
    */
 
   function camelCase(subject) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
 
     if (subjectString === '') {
       return '';
@@ -687,7 +687,7 @@
    */
 
   function decapitalize(subject) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
 
     if (subjectString === '') {
       return '';
@@ -718,7 +718,7 @@
    */
 
   function kebabCase(subject) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
 
     if (subjectString === '') {
       return '';
@@ -750,7 +750,7 @@
    */
 
   function snakeCase(subject) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
 
     if (subjectString === '') {
       return '';
@@ -776,7 +776,7 @@
    */
 
   function upperCase(subject) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
     return subjectString.toUpperCase();
   }
 
@@ -799,13 +799,13 @@
    */
 
   function swapCase(subject) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
     return subjectString.split('').reduce(swapAndConcat, '');
   }
 
   function swapAndConcat(swapped, character) {
-    const lowerCase = character.toLowerCase();
-    const upperCase = character.toUpperCase();
+    var lowerCase = character.toLowerCase();
+    var upperCase = character.toUpperCase();
     return swapped + (character === lowerCase ? upperCase : lowerCase);
   }
 
@@ -828,11 +828,11 @@
    */
 
   function titleCase(subject, noSplit) {
-    const subjectString = coerceToString(subject);
-    const noSplitArray = Array.isArray(noSplit) ? noSplit : [];
-    const wordsRegExp = REGEXP_EXTENDED_ASCII.test(subjectString) ? REGEXP_LATIN_WORD : REGEXP_WORD;
+    var subjectString = coerceToString(subject);
+    var noSplitArray = Array.isArray(noSplit) ? noSplit : [];
+    var wordsRegExp = REGEXP_EXTENDED_ASCII.test(subjectString) ? REGEXP_LATIN_WORD : REGEXP_WORD;
     return subjectString.replace(wordsRegExp, function(word, index) {
-      const isNoSplit = index > 0 && noSplitArray.indexOf(subjectString[index - 1]) >= 0;
+      var isNoSplit = index > 0 && noSplitArray.indexOf(subjectString[index - 1]) >= 0;
       return isNoSplit ? word.toLowerCase() : capitalize(word, true);
     });
   }
@@ -865,7 +865,7 @@
    * @ignore
    * @type {number}
    */
-  const MAX_SAFE_INTEGER = 0x1fffffffffffff;
+  var MAX_SAFE_INTEGER = 0x1fffffffffffff;
 
   /**
    * Transforms `value` to an integer.
@@ -911,9 +911,9 @@
    */
 
   function truncate(subject, length, end) {
-    const subjectString = coerceToString(subject);
-    const lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
-    const endString = coerceToString(end, '...');
+    var subjectString = coerceToString(subject);
+    var lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
+    var endString = coerceToString(end, '...');
 
     if (lengthInt >= subjectString.length) {
       return subjectString;
@@ -941,14 +941,14 @@
    */
 
   function charAt(subject, position) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
     return subjectString.charAt(position);
   }
 
-  const HIGH_SURROGATE_START = 0xd800;
-  const HIGH_SURROGATE_END = 0xdbff;
-  const LOW_SURROGATE_START = 0xdc00;
-  const LOW_SURROGATE_END = 0xdfff;
+  var HIGH_SURROGATE_START = 0xd800;
+  var HIGH_SURROGATE_END = 0xdbff;
+  var LOW_SURROGATE_START = 0xdc00;
+  var LOW_SURROGATE_END = 0xdfff;
   /**
    * Checks if `codePoint` is a high-surrogate number from range 0xD800 to 0xDBFF.
    *
@@ -998,7 +998,7 @@
    */
 
   function coerceToNumber(value) {
-    const defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+    var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
 
     if (isNil(value)) {
       return defaultValue;
@@ -1047,17 +1047,17 @@
    */
 
   function codePointAt(subject, position) {
-    const subjectString = coerceToString(subject);
-    const subjectStringLength = subjectString.length;
-    let positionNumber = coerceToNumber(position);
+    var subjectString = coerceToString(subject);
+    var subjectStringLength = subjectString.length;
+    var positionNumber = coerceToNumber(position);
     positionNumber = nanDefault(positionNumber, 0);
 
     if (positionNumber < 0 || positionNumber >= subjectStringLength) {
       return undefined;
     }
 
-    const firstCodePoint = subjectString.charCodeAt(positionNumber);
-    let secondCodePoint;
+    var firstCodePoint = subjectString.charCodeAt(positionNumber);
+    var secondCodePoint;
 
     if (isHighSurrogate(firstCodePoint) && subjectStringLength > positionNumber + 1) {
       secondCodePoint = subjectString.charCodeAt(positionNumber + 1);
@@ -1092,8 +1092,8 @@
    */
 
   function first(subject, length) {
-    const subjectString = coerceToString(subject);
-    const lengthInt = isNil(length) ? 1 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
+    var subjectString = coerceToString(subject);
+    var lengthInt = isNil(length) ? 1 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
 
     if (subjectString.length <= lengthInt) {
       return subjectString;
@@ -1123,10 +1123,10 @@
    */
 
   function graphemeAt(subject, position) {
-    const subjectString = coerceToString(subject);
-    let positionNumber = coerceToNumber(position);
-    let graphemeMatch;
-    let graphemeMatchIndex = 0;
+    var subjectString = coerceToString(subject);
+    var positionNumber = coerceToNumber(position);
+    var graphemeMatch;
+    var graphemeMatchIndex = 0;
     positionNumber = nanDefault(positionNumber, 0);
 
     while ((graphemeMatch = REGEXP_UNICODE_CHARACTER.exec(subjectString)) !== null) {
@@ -1163,8 +1163,8 @@
    */
 
   function last(subject, length) {
-    const subjectString = coerceToString(subject);
-    const lengthInt = isNil(length) ? 1 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
+    var subjectString = coerceToString(subject);
+    var lengthInt = isNil(length) ? 1 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
 
     if (subjectString.length <= lengthInt) {
       return subjectString;
@@ -1197,18 +1197,18 @@
    */
 
   function prune(subject, length, end) {
-    const subjectString = coerceToString(subject);
-    const lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
-    const endString = coerceToString(end, '...');
+    var subjectString = coerceToString(subject);
+    var lengthInt = isNil(length) ? subjectString.length : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
+    var endString = coerceToString(end, '...');
 
     if (lengthInt >= subjectString.length) {
       return subjectString;
     }
 
-    const pattern = REGEXP_EXTENDED_ASCII.test(subjectString) ? REGEXP_LATIN_WORD : REGEXP_WORD;
-    let truncatedLength = 0;
+    var pattern = REGEXP_EXTENDED_ASCII.test(subjectString) ? REGEXP_LATIN_WORD : REGEXP_WORD;
+    var truncatedLength = 0;
     subjectString.replace(pattern, function(word, offset) {
-      const wordInsertLength = offset + word.length;
+      var wordInsertLength = offset + word.length;
 
       if (wordInsertLength <= lengthInt - endString.length) {
         truncatedLength = wordInsertLength;
@@ -1359,11 +1359,11 @@
    */
 
   function countSubstrings(subject, substring) {
-    const subjectString = coerceToString(subject);
-    const substringString = coerceToString(substring);
-    const substringLength = substringString.length;
-    let count = 0;
-    let matchIndex = 0;
+    var subjectString = coerceToString(subject);
+    var substringString = coerceToString(substring);
+    var substringLength = substringString.length;
+    var count = 0;
+    var matchIndex = 0;
 
     if (subjectString === '' || substringString === '') {
       return count;
@@ -1381,7 +1381,7 @@
     return count;
   }
 
-  const reduce = Array.prototype.reduce;
+  var reduce = Array.prototype.reduce;
   /**
    * Counts the characters in `subject` for which `predicate` returns truthy.
    *
@@ -1404,13 +1404,13 @@
    */
 
   function countWhere(subject, predicate, context) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
 
     if (subjectString === '' || typeof predicate !== 'function') {
       return 0;
     }
 
-    const predicateWithContext = predicate.bind(context);
+    var predicateWithContext = predicate.bind(context);
     return reduce.call(
       subjectString,
       function(countTruthy, character, index) {
@@ -1497,28 +1497,28 @@
   };
 
   // Type specifiers
-  const TYPE_INTEGER = 'i';
-  const TYPE_INTEGER_BINARY = 'b';
-  const TYPE_INTEGER_ASCII_CHARACTER = 'c';
-  const TYPE_INTEGER_DECIMAL = 'd';
-  const TYPE_INTEGER_OCTAL = 'o';
-  const TYPE_INTEGER_UNSIGNED_DECIMAL = 'u';
-  const TYPE_INTEGER_HEXADECIMAL = 'x';
-  const TYPE_INTEGER_HEXADECIMAL_UPPERCASE = 'X';
-  const TYPE_FLOAT_SCIENTIFIC = 'e';
-  const TYPE_FLOAT_SCIENTIFIC_UPPERCASE = 'E';
-  const TYPE_FLOAT = 'f';
-  const TYPE_FLOAT_SHORT = 'g';
-  const TYPE_FLOAT_SHORT_UPPERCASE = 'G';
-  const TYPE_STRING = 's'; // Simple literals
-  const LITERAL_SINGLE_QUOTE = "'";
-  const LITERAL_PLUS = '+';
-  const LITERAL_MINUS = '-';
-  const LITERAL_PERCENT_SPECIFIER = '%%'; // Radix constants to format numbers
+  var TYPE_INTEGER = 'i';
+  var TYPE_INTEGER_BINARY = 'b';
+  var TYPE_INTEGER_ASCII_CHARACTER = 'c';
+  var TYPE_INTEGER_DECIMAL = 'd';
+  var TYPE_INTEGER_OCTAL = 'o';
+  var TYPE_INTEGER_UNSIGNED_DECIMAL = 'u';
+  var TYPE_INTEGER_HEXADECIMAL = 'x';
+  var TYPE_INTEGER_HEXADECIMAL_UPPERCASE = 'X';
+  var TYPE_FLOAT_SCIENTIFIC = 'e';
+  var TYPE_FLOAT_SCIENTIFIC_UPPERCASE = 'E';
+  var TYPE_FLOAT = 'f';
+  var TYPE_FLOAT_SHORT = 'g';
+  var TYPE_FLOAT_SHORT_UPPERCASE = 'G';
+  var TYPE_STRING = 's'; // Simple literals
+  var LITERAL_SINGLE_QUOTE = "'";
+  var LITERAL_PLUS = '+';
+  var LITERAL_MINUS = '-';
+  var LITERAL_PERCENT_SPECIFIER = '%%'; // Radix constants to format numbers
 
-  const RADIX_BINARY = 2;
-  const RADIX_OCTAL = 8;
-  const RADIX_HEXADECIMAL = 16;
+  var RADIX_BINARY = 2;
+  var RADIX_OCTAL = 8;
+  var RADIX_HEXADECIMAL = 16;
 
   /**
    * Repeats the `subject` number of `times`.
@@ -1539,9 +1539,9 @@
    */
 
   function repeat(subject, times) {
-    let subjectString = coerceToString(subject);
-    let timesInt = isNil(times) ? 1 : clipNumber(toInteger(times), 0, MAX_SAFE_INTEGER);
-    let repeatString = '';
+    var subjectString = coerceToString(subject);
+    var timesInt = isNil(times) ? 1 : clipNumber(toInteger(times), 0, MAX_SAFE_INTEGER);
+    var repeatString = '';
 
     while (timesInt) {
       if (timesInt & 1) {
@@ -1568,8 +1568,8 @@
    */
 
   function buildPadding(padCharacters, length) {
-    const padStringRepeat = toInteger(length / padCharacters.length);
-    const padStringRest = length % padCharacters.length;
+    var padStringRepeat = toInteger(length / padCharacters.length);
+    var padStringRest = length % padCharacters.length;
     return repeat(padCharacters, padStringRepeat + padStringRest).substr(0, length);
   }
 
@@ -1596,9 +1596,9 @@
    */
 
   function padLeft(subject, length, pad) {
-    const subjectString = coerceToString(subject);
-    const lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
-    const padString = coerceToString(pad, ' ');
+    var subjectString = coerceToString(subject);
+    var lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
+    var padString = coerceToString(pad, ' ');
 
     if (lengthInt <= subjectString.length) {
       return subjectString;
@@ -1630,9 +1630,9 @@
    */
 
   function padRight(subject, length, pad) {
-    const subjectString = coerceToString(subject);
-    const lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
-    const padString = coerceToString(pad, ' ');
+    var subjectString = coerceToString(subject);
+    var lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
+    var padString = coerceToString(pad, ' ');
 
     if (lengthInt <= subjectString.length) {
       return subjectString;
@@ -1651,13 +1651,13 @@
    */
 
   function alignAndPad(subject, conversion) {
-    const width = conversion.width;
+    var width = conversion.width;
 
     if (isNil(width) || subject.length >= width) {
       return subject;
     }
 
-    const padType = conversion.alignmentSpecifier === LITERAL_MINUS ? padRight : padLeft;
+    var padType = conversion.alignmentSpecifier === LITERAL_MINUS ? padRight : padLeft;
     return padType(subject, width, conversion.getPaddingCharacter());
   }
 
@@ -1690,14 +1690,14 @@
    */
 
   function float(replacement, conversion) {
-    let replacementNumber = parseFloat(replacement);
-    let formattedReplacement;
+    var replacementNumber = parseFloat(replacement);
+    var formattedReplacement;
 
     if (isNaN(replacementNumber)) {
       replacementNumber = 0;
     }
 
-    const precision = coerceToNumber(conversion.precision, 6);
+    var precision = coerceToNumber(conversion.precision, 6);
 
     switch (conversion.typeSpecifier) {
       case TYPE_FLOAT:
@@ -1736,8 +1736,8 @@
       return '0';
     }
 
-    const nonZeroPrecision = precision === 0 ? 1 : precision;
-    let formattedReplacement = replacementNumber.toPrecision(nonZeroPrecision).replace(REGEXP_TRAILING_ZEROS, '');
+    var nonZeroPrecision = precision === 0 ? 1 : precision;
+    var formattedReplacement = replacementNumber.toPrecision(nonZeroPrecision).replace(REGEXP_TRAILING_ZEROS, '');
 
     if (conversion.typeSpecifier === TYPE_FLOAT_SHORT_UPPERCASE) {
       formattedReplacement = formattedReplacement.toUpperCase();
@@ -1756,7 +1756,7 @@
    */
 
   function integerBase(replacement, conversion) {
-    let integer = parseInt(replacement);
+    var integer = parseInt(replacement);
 
     if (isNaN(integer)) {
       integer = 0;
@@ -1799,7 +1799,7 @@
    */
 
   function integerDecimal(replacement, conversion) {
-    let integer = parseInt(replacement);
+    var integer = parseInt(replacement);
 
     if (isNaN(integer)) {
       integer = 0;
@@ -1818,8 +1818,8 @@
    */
 
   function stringFormat(replacement, conversion) {
-    let formattedReplacement = replacement;
-    const precision = conversion.precision;
+    var formattedReplacement = replacement;
+    var precision = conversion.precision;
 
     if (!isNil(precision) && formattedReplacement.length > precision) {
       formattedReplacement = truncate(formattedReplacement, precision, '');
@@ -1839,7 +1839,7 @@
    */
 
   function compute(replacement, conversion) {
-    let formatFunction;
+    var formatFunction;
 
     switch (conversion.typeSpecifier) {
       case TYPE_STRING:
@@ -1869,7 +1869,7 @@
         break;
     }
 
-    const formattedString = formatFunction(replacement, conversion);
+    var formattedString = formatFunction(replacement, conversion);
     return alignAndPad(formattedString, conversion);
   }
 
@@ -1963,7 +1963,7 @@
    */
 
   ConversionSpecification.prototype.getPaddingCharacter = function() {
-    let paddingCharacter = nilDefault(this.paddingSpecifier, ' ');
+    var paddingCharacter = nilDefault(this.paddingSpecifier, ' ');
 
     if (paddingCharacter.length === 2 && paddingCharacter[0] === LITERAL_SINGLE_QUOTE) {
       paddingCharacter = paddingCharacter[1];
@@ -2029,7 +2029,7 @@
     precisionSpecifier,
     typeSpecifier
   ) {
-    const conversion = new ConversionSpecification({
+    var conversion = new ConversionSpecification({
       percent: percent,
       signSpecifier: signSpecifier,
       paddingSpecifier: paddingSpecifier,
@@ -2043,7 +2043,7 @@
       return conversionSpecification.slice(1);
     }
 
-    const actualReplacementIndex = replacementIndex.getIndexByPosition(position);
+    var actualReplacementIndex = replacementIndex.getIndexByPosition(position);
     replacementIndex.incrementOnEmptyPosition(position);
     validate(actualReplacementIndex, replacements.length, conversion);
     return compute(replacements[actualReplacementIndex], conversion);
@@ -2225,7 +2225,7 @@
    */
 
   function sprintf(format) {
-    const formatString = coerceToString(format);
+    var formatString = coerceToString(format);
 
     if (formatString === '') {
       return formatString;
@@ -2239,7 +2239,7 @@
       replacements[_key - 1] = arguments[_key];
     }
 
-    const boundReplacementMatch = match.bind(undefined, new ReplacementIndex(), replacements);
+    var boundReplacementMatch = match.bind(undefined, new ReplacementIndex(), replacements);
     return formatString.replace(REGEXP_CONVERSION_SPECIFICATION, boundReplacementMatch);
   }
 
@@ -2267,7 +2267,7 @@
     return sprintf.apply(void 0, [format].concat(_toConsumableArray(nilDefault(replacements, []))));
   }
 
-  const escapeCharactersMap = {
+  var escapeCharactersMap = {
     '<': '&lt;',
     '>': '&gt;',
     '&': '&amp;',
@@ -2322,7 +2322,7 @@
     return coerceToString(subject).replace(REGEXP_SPECIAL_CHARACTERS, '\\$&');
   }
 
-  const unescapeCharactersMap = {
+  var unescapeCharactersMap = {
     '<': /(&lt;)|(&#x0*3c;)|(&#0*60;)/gi,
     '>': /(&gt;)|(&#x0*3e;)|(&#0*62;)/gi,
     '&': /(&amp;)|(&#x0*26;)|(&#0*38;)/gi,
@@ -2330,7 +2330,7 @@
     "'": /(&#x0*27;)|(&#0*39;)/gi,
     '`': /(&#x0*60;)|(&#0*96;)/gi,
   };
-  const characters = Object.keys(unescapeCharactersMap);
+  var characters = Object.keys(unescapeCharactersMap);
   /**
    * Replaces the HTML entities with corresponding characters.
    *
@@ -2359,7 +2359,7 @@
    */
 
   function unescapeHtml(subject) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
     return characters.reduce(reduceUnescapedString, subjectString);
   }
 
@@ -2383,7 +2383,7 @@
    */
 
   function indexOf(subject, search, fromIndex) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
     return subjectString.indexOf(search, fromIndex);
   }
 
@@ -2407,7 +2407,7 @@
    */
 
   function lastIndexOf(subject, search, fromIndex) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
     return subjectString.lastIndexOf(search, fromIndex);
   }
 
@@ -2431,9 +2431,9 @@
    */
 
   function search(subject, pattern, fromIndex) {
-    const subjectString = coerceToString(subject);
-    const fromIndexNumber = isNil(fromIndex) ? 0 : clipNumber(toInteger(fromIndex), 0, subjectString.length);
-    let matchIndex = subjectString.substr(fromIndexNumber).search(pattern);
+    var subjectString = coerceToString(subject);
+    var fromIndexNumber = isNil(fromIndex) ? 0 : clipNumber(toInteger(fromIndex), 0, subjectString.length);
+    var matchIndex = subjectString.substr(fromIndexNumber).search(pattern);
 
     if (matchIndex !== -1 && !isNaN(fromIndexNumber)) {
       matchIndex += fromIndexNumber;
@@ -2462,9 +2462,9 @@
    */
 
   function insert(subject, toInsert, position) {
-    const subjectString = coerceToString(subject);
-    const toInsertString = coerceToString(toInsert);
-    const positionNumber = coerceToNumber(position);
+    var subjectString = coerceToString(subject);
+    var toInsertString = coerceToString(toInsert);
+    var positionNumber = coerceToNumber(position);
 
     if (positionNumber < 0 || positionNumber > subjectString.length || toInsertString === '') {
       return subjectString;
@@ -2478,7 +2478,7 @@
    * @ignore
    * @type Object
    */
-  const diacritics = {
+  var diacritics = {
     '3': '\u039e\u03be',
     '8': '\u0398\u03b8',
     A:
@@ -2579,7 +2579,7 @@
     ye: '\u0454',
     yi: '\u0457',
   };
-  let diacriticsMap = null;
+  var diacriticsMap = null;
   /**
    * Creates a map of the diacritics.
    *
@@ -2594,10 +2594,10 @@
 
     diacriticsMap = {};
     Object.keys(diacritics).forEach(function(key) {
-      const characters = diacritics[key];
+      var characters = diacritics[key];
 
-      for (let index = 0; index < characters.length; index++) {
-        const character = characters[index];
+      for (var index = 0; index < characters.length; index++) {
+        var character = characters[index];
         diacriticsMap[character] = key;
       }
     });
@@ -2612,7 +2612,7 @@
    */
 
   function getLatinCharacter(character) {
-    const characterWithoutDiacritic = getDiacriticsMap()[character];
+    var characterWithoutDiacritic = getDiacriticsMap()[character];
     return characterWithoutDiacritic ? characterWithoutDiacritic : character;
   }
 
@@ -2649,7 +2649,7 @@
    */
 
   function latinise(subject) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
 
     if (subjectString === '') {
       return '';
@@ -2683,17 +2683,17 @@
    */
 
   function pad(subject, length, pad) {
-    const subjectString = coerceToString(subject);
-    const lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
-    const padString = coerceToString(pad, ' ');
+    var subjectString = coerceToString(subject);
+    var lengthInt = isNil(length) ? 0 : clipNumber(toInteger(length), 0, MAX_SAFE_INTEGER);
+    var padString = coerceToString(pad, ' ');
 
     if (lengthInt <= subjectString.length) {
       return subjectString;
     }
 
-    const paddingLength = lengthInt - subjectString.length;
-    const paddingSideLength = toInteger(paddingLength / 2);
-    const paddingSideRemainingLength = paddingLength % 2;
+    var paddingLength = lengthInt - subjectString.length;
+    var paddingSideLength = toInteger(paddingLength / 2);
+    var paddingSideRemainingLength = paddingLength % 2;
     return (
       buildPadding(padString, paddingSideLength) +
       subjectString +
@@ -2727,7 +2727,7 @@
    */
 
   function replace(subject, search, replace) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
     return subjectString.replace(search, replace);
   }
 
@@ -2752,7 +2752,7 @@
    */
 
   function replaceAll(subject, search, replace) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
 
     if (search instanceof RegExp) {
       if (search.flags.indexOf('g') === -1) {
@@ -2762,34 +2762,34 @@
       return subjectString.replace(search, replace);
     }
 
-    const searchString = coerceToString(search);
-    const isFunctionalReplace = typeof replace === 'function';
+    var searchString = coerceToString(search);
+    var isFunctionalReplace = typeof replace === 'function';
 
     if (!isFunctionalReplace) {
       replace = coerceToString(replace);
     }
 
-    const searchLength = searchString.length;
+    var searchLength = searchString.length;
 
     if (searchLength === 0) {
       return replaceAll(subject, /(?:)/g, replace);
     }
 
-    const advanceBy = searchLength > 1 ? searchLength : 1;
-    const matchPositions = [];
-    let position = subjectString.indexOf(searchString, 0);
+    var advanceBy = searchLength > 1 ? searchLength : 1;
+    var matchPositions = [];
+    var position = subjectString.indexOf(searchString, 0);
 
     while (position !== -1) {
       matchPositions.push(position);
       position = subjectString.indexOf(searchString, position + advanceBy);
     }
 
-    let endOfLastMatch = 0;
-    let result = '';
+    var endOfLastMatch = 0;
+    var result = '';
 
-    for (let i = 0; i < matchPositions.length; i++) {
-      const _position = matchPositions[i];
-      let replacement = replace;
+    for (var i = 0; i < matchPositions.length; i++) {
+      var _position = matchPositions[i];
+      var replacement = replace;
 
       if (isFunctionalReplace) {
         replacement = coerceToString(replace.call(undefined, searchString, _position, subjectString));
@@ -2821,7 +2821,7 @@
    */
 
   function reverse(subject) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
     return subjectString
       .split('')
       .reverse()
@@ -2848,7 +2848,7 @@
    */
 
   function reverseGrapheme(subject) {
-    let subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
     /**
      * @see https://github.com/mathiasbynens/esrever
      */
@@ -2858,8 +2858,8 @@
         return reverseGrapheme($2) + $1;
       })
       .replace(REGEXP_SURROGATE_PAIRS, '$2$1');
-    let reversedString = '';
-    let index = subjectString.length;
+    var reversedString = '';
+    var index = subjectString.length;
 
     while (index--) {
       reversedString += subjectString.charAt(index);
@@ -2889,13 +2889,13 @@
    */
 
   function slugify(subject) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
 
     if (subjectString === '') {
       return '';
     }
 
-    const cleanSubjectString = latinise(subjectString).replace(REGEXP_NON_LATIN, '-');
+    var cleanSubjectString = latinise(subjectString).replace(REGEXP_NON_LATIN, '-');
     return kebabCase(cleanSubjectString);
   }
 
@@ -2925,9 +2925,9 @@
    */
 
   function splice(subject, start, deleteCount, toAdd) {
-    const subjectString = coerceToString(subject);
-    const toAddString = coerceToString(toAdd);
-    let startPosition = coerceToNumber(start);
+    var subjectString = coerceToString(subject);
+    var toAddString = coerceToString(toAdd);
+    var startPosition = coerceToNumber(start);
 
     if (startPosition < 0) {
       startPosition = subjectString.length + startPosition;
@@ -2939,7 +2939,7 @@
       startPosition = subjectString.length;
     }
 
-    let deleteCountNumber = coerceToNumber(deleteCount, subjectString.length - startPosition);
+    var deleteCountNumber = coerceToNumber(deleteCount, subjectString.length - startPosition);
 
     if (deleteCountNumber < 0) {
       deleteCountNumber = 0;
@@ -2981,37 +2981,37 @@
    */
 
   function tr(subject, from, to) {
-    const subjectString = coerceToString(subject);
-    let keys;
-    let values;
+    var subjectString = coerceToString(subject);
+    var keys;
+    var values;
 
     if (isString(from) && isString(to)) {
       keys = from.split('');
       values = to.split('');
     } else {
-      const _extractKeysAndValues = extractKeysAndValues(nilDefault(from, {}));
+      var _extractKeysAndValues = extractKeysAndValues(nilDefault(from, {}));
 
-      const _extractKeysAndValues2 = _slicedToArray(_extractKeysAndValues, 2);
+      var _extractKeysAndValues2 = _slicedToArray(_extractKeysAndValues, 2);
 
       keys = _extractKeysAndValues2[0];
       values = _extractKeysAndValues2[1];
     }
 
-    const keysLength = keys.length;
+    var keysLength = keys.length;
 
     if (keysLength === 0) {
       return subjectString;
     }
 
-    let result = '';
-    const valuesLength = values.length;
+    var result = '';
+    var valuesLength = values.length;
 
-    for (let index = 0; index < subjectString.length; index++) {
-      let isMatch = false;
-      let matchValue = void 0;
+    for (var index = 0; index < subjectString.length; index++) {
+      var isMatch = false;
+      var matchValue = void 0;
 
-      for (let keyIndex = 0; keyIndex < keysLength && keyIndex < valuesLength; keyIndex++) {
-        const key = keys[keyIndex];
+      for (var keyIndex = 0; keyIndex < keysLength && keyIndex < valuesLength; keyIndex++) {
+        var key = keys[keyIndex];
 
         if (subjectString.substr(index, key.length) === key) {
           isMatch = true;
@@ -3028,8 +3028,8 @@
   }
 
   function extractKeysAndValues(object) {
-    const keys = Object.keys(object);
-    const values = keys.sort(sortStringByLength).map(function(key) {
+    var keys = Object.keys(object);
+    var values = keys.sort(sortStringByLength).map(function(key) {
       return object[key];
     });
     return [keys, values];
@@ -3063,8 +3063,8 @@
    */
 
   function includes(subject, search, position) {
-    const subjectString = coerceToString(subject);
-    const searchString = toString(search);
+    var subjectString = coerceToString(subject);
+    var searchString = toString(search);
 
     if (searchString === null) {
       return false;
@@ -3078,7 +3078,7 @@
     return subjectString.indexOf(searchString, position) !== -1;
   }
 
-  const reduce$1 = Array.prototype.reduce;
+  var reduce$1 = Array.prototype.reduce;
   /**
    * Removes whitespaces from the left side of the `subject`.
    *
@@ -3098,19 +3098,19 @@
    */
 
   function trimLeft(subject, whitespace) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
 
     if (whitespace === '' || subjectString === '') {
       return subjectString;
     }
 
-    const whitespaceString = toString(whitespace);
+    var whitespaceString = toString(whitespace);
 
     if (isNil(whitespaceString)) {
       return subjectString.replace(REGEXP_TRIM_LEFT, '');
     }
 
-    let matchWhitespace = true;
+    var matchWhitespace = true;
     return reduce$1.call(
       subjectString,
       function(trimmed, character) {
@@ -3125,7 +3125,7 @@
     );
   }
 
-  const reduceRight = Array.prototype.reduceRight;
+  var reduceRight = Array.prototype.reduceRight;
   /**
    * Removes whitespaces from the right side of the `subject`.
    *
@@ -3145,19 +3145,19 @@
    */
 
   function trimRight(subject, whitespace) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
 
     if (whitespace === '' || subjectString === '') {
       return subjectString;
     }
 
-    const whitespaceString = toString(whitespace);
+    var whitespaceString = toString(whitespace);
 
     if (isNil(whitespaceString)) {
       return subjectString.replace(REGEXP_TRIM_RIGHT, '');
     }
 
-    let matchWhitespace = true;
+    var matchWhitespace = true;
     return reduceRight.call(
       subjectString,
       function(trimmed, character) {
@@ -3191,13 +3191,13 @@
    */
 
   function trim(subject, whitespace) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
 
     if (whitespace === '' || subjectString === '') {
       return subjectString;
     }
 
-    const whitespaceString = toString(whitespace);
+    var whitespaceString = toString(whitespace);
 
     if (isNil(whitespaceString)) {
       return subjectString.trim();
@@ -3206,10 +3206,10 @@
     return trimRight(trimLeft(subjectString, whitespaceString), whitespaceString);
   }
 
-  const OPTION_WIDTH = 'width';
-  const OPTION_NEW_LINE = 'newLine';
-  const OPTION_INDENT = 'indent';
-  const OPTION_CUT = 'cut';
+  var OPTION_WIDTH = 'width';
+  var OPTION_NEW_LINE = 'newLine';
+  var OPTION_INDENT = 'indent';
+  var OPTION_CUT = 'cut';
   /**
    * Wraps `subject` to a given number of characters using a string break character.
    *
@@ -3248,23 +3248,23 @@
    */
 
   function wordWrap(subject) {
-    const options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    const subjectString = coerceToString(subject);
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var subjectString = coerceToString(subject);
 
-    const _determineOptions = determineOptions(options);
-    const width = _determineOptions.width;
-    const newLine = _determineOptions.newLine;
-    const indent = _determineOptions.indent;
-    const cut = _determineOptions.cut;
+    var _determineOptions = determineOptions(options),
+      width = _determineOptions.width,
+      newLine = _determineOptions.newLine,
+      indent = _determineOptions.indent,
+      cut = _determineOptions.cut;
 
     if (subjectString === '' || width <= 0) {
       return indent;
     }
 
-    const subjectLength = subjectString.length;
-    const substring = subjectString.substring.bind(subjectString);
-    let offset = 0;
-    let wrappedLine = '';
+    var subjectLength = subjectString.length;
+    var substring = subjectString.substring.bind(subjectString);
+    var offset = 0;
+    var wrappedLine = '';
 
     while (subjectLength - offset > width) {
       if (subjectString[offset] === ' ') {
@@ -3272,7 +3272,7 @@
         continue;
       }
 
-      let spaceToWrapAt = subjectString.lastIndexOf(' ', width + offset);
+      var spaceToWrapAt = subjectString.lastIndexOf(' ', width + offset);
 
       if (spaceToWrapAt >= offset) {
         wrappedLine += indent + substring(offset, spaceToWrapAt) + newLine;
@@ -3345,8 +3345,8 @@
       return false;
     }
 
-    const subjectString = coerceToString(subject);
-    const endString = coerceToString(end);
+    var subjectString = coerceToString(subject);
+    var endString = coerceToString(end);
 
     if (endString === '') {
       return true;
@@ -3354,7 +3354,7 @@
 
     position = isNil(position) ? subjectString.length : clipNumber(toInteger(position), 0, subjectString.length);
     position -= endString.length;
-    const lastIndex = subjectString.indexOf(endString, position);
+    var lastIndex = subjectString.indexOf(endString, position);
     return lastIndex !== -1 && lastIndex === position;
   }
 
@@ -3379,7 +3379,7 @@
    */
 
   function isAlpha(subject) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
     return REGEXP_ALPHA.test(subjectString);
   }
 
@@ -3404,7 +3404,7 @@
    */
 
   function isAlphaDigit(subject) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
     return REGEXP_ALPHA_DIGIT.test(subjectString);
   }
 
@@ -3429,7 +3429,7 @@
    */
 
   function isBlank(subject) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
     return subjectString.trim().length === 0;
   }
 
@@ -3454,7 +3454,7 @@
    */
 
   function isDigit(subject) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
     return REGEXP_DIGIT.test(subjectString);
   }
 
@@ -3479,7 +3479,7 @@
    */
 
   function isEmpty(subject) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
     return subjectString.length === 0;
   }
 
@@ -3504,7 +3504,7 @@
    */
 
   function isLowerCase(subject) {
-    const valueString = coerceToString(subject);
+    var valueString = coerceToString(subject);
     return isAlpha(valueString) && valueString.toLowerCase() === valueString;
   }
 
@@ -3532,7 +3532,7 @@
    */
 
   function isNumeric(subject) {
-    const valueNumeric = typeof subject === 'object' && !isNil(subject) ? Number(subject) : subject;
+    var valueNumeric = typeof subject === 'object' && !isNil(subject) ? Number(subject) : subject;
     return (
       (typeof valueNumeric === 'number' || typeof valueNumeric === 'string') &&
       !isNaN(valueNumeric - parseFloat(valueNumeric))
@@ -3557,7 +3557,7 @@
    */
 
   function isUpperCase(subject) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
     return isAlpha(subjectString) && subjectString.toUpperCase() === subjectString;
   }
 
@@ -3584,9 +3584,9 @@
    */
 
   function matches(subject, pattern, flags) {
-    const subjectString = coerceToString(subject);
-    const flagsString = coerceToString(flags);
-    let patternString;
+    var subjectString = coerceToString(subject);
+    var flagsString = coerceToString(flags);
+    var patternString;
 
     if (!(pattern instanceof RegExp)) {
       patternString = toString(pattern);
@@ -3624,8 +3624,8 @@
    */
 
   function startsWith(subject, start, position) {
-    const subjectString = coerceToString(subject);
-    const startString = toString(start);
+    var subjectString = coerceToString(subject);
+    var startString = toString(start);
 
     if (startString === null) {
       return false;
@@ -3654,7 +3654,7 @@
    */
 
   function chars(subject) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
     return subjectString.split('');
   }
 
@@ -3678,11 +3678,11 @@
    */
 
   function codePoints(subject) {
-    const subjectString = coerceToString(subject);
-    const subjectStringLength = subjectString.length;
-    const codePointArray = [];
-    let index = 0;
-    let codePointNumber;
+    var subjectString = coerceToString(subject);
+    var subjectStringLength = subjectString.length;
+    var codePointArray = [];
+    var index = 0;
+    var codePointNumber;
 
     while (index < subjectStringLength) {
       codePointNumber = codePointAt(subjectString, index);
@@ -3715,7 +3715,7 @@
    */
 
   function graphemes(subject) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
     return nilDefault(subjectString.match(REGEXP_UNICODE_CHARACTER), []);
   }
 
@@ -3739,11 +3739,11 @@
    */
 
   function split(subject, separator, limit) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
     return subjectString.split(separator, limit);
   }
 
-  const BYRE_ORDER_MARK = '\uFEFF';
+  var BYRE_ORDER_MARK = '\uFEFF';
   /**
    * Strips the byte order mark (BOM) from the beginning of `subject`.
    *
@@ -3764,7 +3764,7 @@
    */
 
   function trim$1(subject) {
-    const subjectString = coerceToString(subject);
+    var subjectString = coerceToString(subject);
 
     if (subjectString === '') {
       return '';
@@ -3788,14 +3788,14 @@
    * @return {boolean} Returns a boolean whether the substring exists.
    */
   function hasSubstringAtIndex(subject, substring, index) {
-    const lookBehind = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
-    let indexOffset = 0;
+    var lookBehind = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+    var indexOffset = 0;
 
     if (lookBehind) {
       indexOffset = -substring.length + 1;
     }
 
-    const extractedSubstring = subject.substr(index + indexOffset, substring.length);
+    var extractedSubstring = subject.substr(index + indexOffset, substring.length);
     return extractedSubstring.toLowerCase() === substring;
   }
 
@@ -3808,8 +3808,8 @@
    */
 
   function parseTagList(tags) {
-    const tagsList = [];
-    let match;
+    var tagsList = [];
+    var match;
 
     while ((match = REGEXP_TAG_LIST.exec(tags)) !== null) {
       tagsList.push(match[1]);
@@ -3818,9 +3818,9 @@
     return tagsList;
   }
 
-  const STATE_START_TAG = 0;
-  const STATE_NON_WHITESPACE = 1;
-  const STATE_DONE = 2;
+  var STATE_START_TAG = 0;
+  var STATE_NON_WHITESPACE = 1;
+  var STATE_DONE = 2;
   /**
    * Parses the tag name from html content.
    *
@@ -3830,12 +3830,12 @@
    */
 
   function parseTagName(tagContent) {
-    let state = STATE_START_TAG;
-    let tagName = '';
-    let index = 0;
+    var state = STATE_START_TAG;
+    var tagName = '';
+    var index = 0;
 
     while (state !== STATE_DONE) {
-      const char = tagContent[index++].toLowerCase();
+      var char = tagContent[index++].toLowerCase();
 
       switch (char) {
         case '<':
@@ -3867,10 +3867,10 @@
     return tagName;
   }
 
-  const STATE_OUTPUT = 0;
-  const STATE_HTML = 1;
-  const STATE_EXCLAMATION = 2;
-  const STATE_COMMENT = 3;
+  var STATE_OUTPUT = 0;
+  var STATE_HTML = 1;
+  var STATE_EXCLAMATION = 2;
+  var STATE_COMMENT = 3;
   /**
    * Strips HTML tags from `subject`.
    *
@@ -3902,23 +3902,23 @@
     }
 
     if (!Array.isArray(allowableTags)) {
-      const allowableTagsString = coerceToString(allowableTags);
+      var allowableTagsString = coerceToString(allowableTags);
       allowableTags = allowableTagsString === '' ? [] : parseTagList(allowableTagsString);
     }
 
-    const replacementString = coerceToString(replacement);
-    const length = subject.length;
-    const hasAllowableTags = allowableTags.length > 0;
-    const hasSubstring = hasSubstringAtIndex.bind(null, subject);
-    let state = STATE_OUTPUT;
-    let depth = 0;
-    let output = '';
-    let tagContent = '';
-    let quote = null;
+    var replacementString = coerceToString(replacement);
+    var length = subject.length;
+    var hasAllowableTags = allowableTags.length > 0;
+    var hasSubstring = hasSubstringAtIndex.bind(null, subject);
+    var state = STATE_OUTPUT;
+    var depth = 0;
+    var output = '';
+    var tagContent = '';
+    var quote = null;
 
-    for (let index = 0; index < length; index++) {
-      const char = subject[index];
-      let advance = false;
+    for (var index = 0; index < length; index++) {
+      var char = subject[index];
+      var advance = false;
 
       switch (char) {
         case '<':
@@ -4002,7 +4002,7 @@
 
             if (hasAllowableTags) {
               tagContent += '>';
-              const tagName = parseTagName(tagContent);
+              var tagName = parseTagName(tagContent);
 
               if (allowableTags.indexOf(tagName.toLowerCase()) !== -1) {
                 output += tagContent;
@@ -4051,7 +4051,7 @@
     return output;
   }
 
-  let globalObject = null;
+  var globalObject = null;
 
   function getGlobalObject() {
     if (globalObject !== null) {
@@ -4074,8 +4074,8 @@
     return globalObject;
   }
 
-  const globalObject$1 = getGlobalObject();
-  const previousV = globalObject$1.v;
+  var globalObject$1 = getGlobalObject();
+  var previousV = globalObject$1.v;
   /**
    * Restores `v` variable to previous value and returns Voca library instance.
    *
@@ -4109,10 +4109,10 @@
    * v.version
    * // => '1.4.0'
    */
-  const version = '1.4.0';
+  var version = '1.4.0';
 
   /* eslint sort-imports: "off" */
-  const functions = {
+  var functions = {
     camelCase: camelCase,
     capitalize: capitalize,
     decapitalize: decapitalize,
@@ -4334,7 +4334,7 @@
         args[_key] = arguments[_key];
       }
 
-      const result = functionInstance.apply(void 0, [this._wrappedValue].concat(args));
+      var result = functionInstance.apply(void 0, [this._wrappedValue].concat(args));
 
       if (this._explicitChain || typeof result === 'string') {
         return new ChainWrapper(result, this._explicitChain);
