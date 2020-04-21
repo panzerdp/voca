@@ -1,7 +1,7 @@
 import coerceToString from 'helper/string/coerce_to_string';
 
 /**
- * Converts the uppercase alpha caracters of `subject` to lowercase and lowercase
+ * Converts the uppercase alpha characters of `subject` to lowercase and lowercase
  * characters to uppercase.
  *
  * @function swapCase
