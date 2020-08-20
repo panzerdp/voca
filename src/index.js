@@ -29,7 +29,7 @@ function Voca(subject) {
 }
 
 Object.assign(Voca, functions, {
-  chain: chain,
+  chain
 });
 
 export default Voca;
