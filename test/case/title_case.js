@@ -68,4 +68,30 @@ describe('titleCase', function() {
     expect(v.titleCase(undefined)).toBe('');
     expect(v.titleCase(null)).toBe('');
   });
+
+  it('should return the title case of a string while preserving upper cases', function() {
+    expect(v.titleCase('hello world', [], true)).toBe('Hello World');
+    expect(v.titleCase('Hello world', [], true)).toBe('Hello World');
+    expect(v.titleCase('hello World', [], true)).toBe('Hello World');
+    expect(v.titleCase('Hello World', [], true)).toBe('Hello World');
+    expect(v.titleCase('HELLO WORLD', [], true)).toBe('HELLO WORLD');
+    expect(v.titleCase('bird', [], true)).toBe('Bird');
+    expect(v.titleCase('BIRD', [], true)).toBe('BIRD');
+    expect(v.titleCase('bird-flight', [], true)).toBe('Bird-Flight');
+    expect(v.titleCase('bird flight', [], true)).toBe('Bird Flight');
+    expect(v.titleCase('san diego zoo safari park', [], true)).toBe('San Diego Zoo Safari Park');
+    expect(v.titleCase('Who wants to try next?', [], true)).toBe('Who Wants To Try Next?');
+    expect(v.titleCase('WHO WANTS TO TRY NEXT?', [], true)).toBe('WHO WANTS TO TRY NEXT?');
+    expect(v.titleCase('-BIRD-FLIGHT-', [], true)).toBe('-BIRD-FLIGHT-');
+    expect(v.titleCase('__BIRD___FLIGHT___', [], true)).toBe('__BIRD___FLIGHT___');
+    expect(v.titleCase('Restless flycatcher', [], true)).toBe('Restless Flycatcher');
+    expect(v.titleCase('XMLHttpRequest', [], true)).toBe('XMLHttpRequest');
+    expect(v.titleCase('weight of up to 12 kg', [], true)).toBe('Weight Of Up To 12 Kg');
+    expect(v.titleCase('/home/dmitri/projects/voca', [], true)).toBe('/Home/Dmitri/Projects/Voca');
+    expect(v.titleCase('****', [], true)).toBe('****');
+    expect(v.titleCase('-----', [], true)).toBe('-----');
+    expect(v.titleCase('     ', [], true)).toBe('     ');
+    expect(v.titleCase('\n\n\n\n   ***\t\t', [], true)).toBe('\n\n\n\n   ***\t\t');
+    expect(v.titleCase('', [], true)).toBe('');
+  });
 });
