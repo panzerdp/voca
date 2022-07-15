@@ -781,7 +781,7 @@
   }
 
   /**
-   * Converts the uppercase alpha caracters of `subject` to lowercase and lowercase
+   * Converts the uppercase alpha characters of `subject` to lowercase and lowercase
    * characters to uppercase.
    *
    * @function swapCase
@@ -818,22 +818,27 @@
    * @memberOf Case
    * @param  {string} [subject=''] The string to convert to title case.
    * @param  {Array}  [noSplit]    Do not split words at the specified characters.
+   * @param  {boolean} [preserveUpperCase=false] preserve uppercases.
    * @return {string}              Returns the title case string.
    * @example
    * v.titleCase('learning to fly');
    * // => 'Learning To Fly'
    *
+   * v.titleCase('XMLHttpRequest', preserveUpperCase=true);
+   * // => 'XMLHttpRequest'
+   *
    * v.titleCase('jean-luc is good-looking', ['-']);
    * // => 'Jean-luc Is Good-looking'
    */
 
-  function titleCase(subject, noSplit) {
+  function titleCase(subject, noSplit, preserveUpperCase) {
     var subjectString = coerceToString(subject);
     var noSplitArray = Array.isArray(noSplit) ? noSplit : [];
+    var preserveUpperCaseBoolean = coerceToBoolean(preserveUpperCase);
     var wordsRegExp = REGEXP_EXTENDED_ASCII.test(subjectString) ? REGEXP_LATIN_WORD : REGEXP_WORD;
     return subjectString.replace(wordsRegExp, function(word, index) {
       var isNoSplit = index > 0 && noSplitArray.indexOf(subjectString[index - 1]) >= 0;
-      return isNoSplit ? word.toLowerCase() : capitalize(word, true);
+      return isNoSplit ? word.toLowerCase() : capitalize(word, !preserveUpperCaseBoolean);
     });
   }
 
