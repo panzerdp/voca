@@ -18,7 +18,7 @@ import coerceToBoolean from 'helper/boolean/coerce_to_boolean';
  * v.titleCase('learning to fly');
  * // => 'Learning To Fly'
  *
- * v.titleCase('XMLHttpRequest', preserveUpperCase=true);
+ * v.titleCase('XMLHttpRequest', true);
  * // => 'XMLHttpRequest'
  *
  * v.titleCase('jean-luc is good-looking', ['-']);
