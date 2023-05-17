@@ -1,5 +1,5 @@
 /*!
- * Voca string library 1.4.0
+ * Voca string library 1.4.1
  * https://vocajs.pages.dev
  *
  * Copyright Dmitri Pavlutin and other contributors
@@ -781,7 +781,7 @@
   }
 
   /**
-   * Converts the uppercase alpha caracters of `subject` to lowercase and lowercase
+   * Converts the uppercase alpha characters of `subject` to lowercase and lowercase
    * characters to uppercase.
    *
    * @function swapCase
