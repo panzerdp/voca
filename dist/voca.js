@@ -1,6 +1,6 @@
 /*!
  * Voca string library 1.4.0
- * https://vocajs.com
+ * https://vocajs.pages.dev
  *
  * Copyright Dmitri Pavlutin and other contributors
  * Released under the MIT license

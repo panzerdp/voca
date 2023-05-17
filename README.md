@@ -4,7 +4,7 @@
 [![code coverage](https://img.shields.io/codecov/c/github/panzerdp/voca.svg)](https://codecov.io/github/panzerdp/voca)
 [![npm package](https://img.shields.io/npm/v/voca.svg)](https://www.npmjs.com/package/voca)
 
-Voca is a JavaScript library for manipulating strings. [https://vocajs.com][voca]
+Voca is a JavaScript library for manipulating strings. [https://vocajs.pages.dev][voca]
 
 ```javascript
 v.camelCase('bird flight');              // => 'birdFlight'
@@ -26,7 +26,7 @@ individual functions to minimize the application builds. The library is *fully t
 
 ## Documentation
 
-See the complete documentation at [https://vocajs.com][voca]
+See the complete documentation at [https://vocajs.pages.dev][voca]
 
 ## Usage
 Voca can be used in various environments.
@@ -154,86 +154,86 @@ Licensed under [MIT](https://github.com/panzerdp/voca/blob/master/LICENSE.md)
 [voca_min_js]: https://raw.githubusercontent.com/panzerdp/voca/v1.4.0/dist/voca.min.js
 [source_map]: https://raw.githubusercontent.com/panzerdp/voca/v1.4.0/dist/voca.min.js.map
 [voca_js]: https://raw.githubusercontent.com/panzerdp/voca/v1.4.0/dist/voca.js
-[voca]: https://vocajs.com
+[voca]: https://vocajs.pages.dev
 [logo]: https://github.com/panzerdp/voca/raw/master/jsdoc/template/static/images/voca-logo@300px.png
 [logo_commonjs]: https://github.com/panzerdp/voca/raw/master/jsdoc/template/static/images/commonjs@200px.png
 [logo_browsers]: https://github.com/panzerdp/voca/raw/master/jsdoc/template/static/images/browsers@200px.png
 
-[camelCase]: https://vocajs.com/#camelCase
-[capitalize]: https://vocajs.com/#capitalize
-[decapitalize]: https://vocajs.com/#decapitalize
-[kebabCase]: https://vocajs.com/#kebabCase
-[lowerCase]: https://vocajs.com/#lowerCase
-[snakeCase]: https://vocajs.com/#snakeCase
-[swapCase]: https://vocajs.com/#swapCase
-[titleCase]: https://vocajs.com/#titleCase
-[upperCase]: https://vocajs.com/#upperCase
+[camelCase]: https://vocajs.pages.dev/#camelCase
+[capitalize]: https://vocajs.pages.dev/#capitalize
+[decapitalize]: https://vocajs.pages.dev/#decapitalize
+[kebabCase]: https://vocajs.pages.dev/#kebabCase
+[lowerCase]: https://vocajs.pages.dev/#lowerCase
+[snakeCase]: https://vocajs.pages.dev/#snakeCase
+[swapCase]: https://vocajs.pages.dev/#swapCase
+[titleCase]: https://vocajs.pages.dev/#titleCase
+[upperCase]: https://vocajs.pages.dev/#upperCase
 
-[charAt]: https://vocajs.com/#charAt
-[codePointAt]: https://vocajs.com/#codePointAt
-[first]: https://vocajs.com/#first
-[graphemeAt]: https://vocajs.com/#graphemeAt
-[last]: https://vocajs.com/#last
-[prune]: https://vocajs.com/#prune
-[slice]: https://vocajs.com/#slice
-[substr]: https://vocajs.com/#substr
-[substring]: https://vocajs.com/#substring
-[truncate]: https://vocajs.com/#truncate
+[charAt]: https://vocajs.pages.dev/#charAt
+[codePointAt]: https://vocajs.pages.dev/#codePointAt
+[first]: https://vocajs.pages.dev/#first
+[graphemeAt]: https://vocajs.pages.dev/#graphemeAt
+[last]: https://vocajs.pages.dev/#last
+[prune]: https://vocajs.pages.dev/#prune
+[slice]: https://vocajs.pages.dev/#slice
+[substr]: https://vocajs.pages.dev/#substr
+[substring]: https://vocajs.pages.dev/#substring
+[truncate]: https://vocajs.pages.dev/#truncate
 
-[count]: https://vocajs.com/#count
-[countGraphemes]: https://vocajs.com/#countGraphemes
-[countSubstrings]: https://vocajs.com/#countSubstrings
-[countWhere]: https://vocajs.com/#countWhere
-[countWords]: https://vocajs.com/#countWords
+[count]: https://vocajs.pages.dev/#count
+[countGraphemes]: https://vocajs.pages.dev/#countGraphemes
+[countSubstrings]: https://vocajs.pages.dev/#countSubstrings
+[countWhere]: https://vocajs.pages.dev/#countWhere
+[countWords]: https://vocajs.pages.dev/#countWords
 
-[escapeHtml]: https://vocajs.com/#escapeHtml
-[escapeRegExp]: https://vocajs.com/#escapeRegExp
-[unescapeHtml]: https://vocajs.com/#unescapeHtml
+[escapeHtml]: https://vocajs.pages.dev/#escapeHtml
+[escapeRegExp]: https://vocajs.pages.dev/#escapeRegExp
+[unescapeHtml]: https://vocajs.pages.dev/#unescapeHtml
 
-[sprintf]: https://vocajs.com/#sprintf
-[vprintf]: https://vocajs.com/#vprintf
+[sprintf]: https://vocajs.pages.dev/#sprintf
+[vprintf]: https://vocajs.pages.dev/#vprintf
 
-[indexOf]: https://vocajs.com/#indexOf
-[lastIndexOf]: https://vocajs.com/#lastIndexOf
-[search]: https://vocajs.com/#search
+[indexOf]: https://vocajs.pages.dev/#indexOf
+[lastIndexOf]: https://vocajs.pages.dev/#lastIndexOf
+[search]: https://vocajs.pages.dev/#search
 
-[insert]: https://vocajs.com/#insert
-[latinise]: https://vocajs.com/#latinise
-[pad]: https://vocajs.com/#pad
-[padLeft]: https://vocajs.com/#padLeft
-[padRight]: https://vocajs.com/#padRight
-[repeat]: https://vocajs.com/#repeat
-[replace]: https://vocajs.com/#replace
-[replaceAll]: https://vocajs.com/#replaceAll
-[reverse]: https://vocajs.com/#reverse
-[reverseGrapheme]: https://vocajs.com/#reverseGrapheme
-[slugify]: https://vocajs.com/#slugify
-[splice]: https://vocajs.com/#splice
-[tr]: https://vocajs.com/#tr
-[trim]: https://vocajs.com/#trim
-[trimLeft]: https://vocajs.com/#trimLeft
-[trimRight]: https://vocajs.com/#trimRight
-[wordWrap]: https://vocajs.com/#wordWrap
+[insert]: https://vocajs.pages.dev/#insert
+[latinise]: https://vocajs.pages.dev/#latinise
+[pad]: https://vocajs.pages.dev/#pad
+[padLeft]: https://vocajs.pages.dev/#padLeft
+[padRight]: https://vocajs.pages.dev/#padRight
+[repeat]: https://vocajs.pages.dev/#repeat
+[replace]: https://vocajs.pages.dev/#replace
+[replaceAll]: https://vocajs.pages.dev/#replaceAll
+[reverse]: https://vocajs.pages.dev/#reverse
+[reverseGrapheme]: https://vocajs.pages.dev/#reverseGrapheme
+[slugify]: https://vocajs.pages.dev/#slugify
+[splice]: https://vocajs.pages.dev/#splice
+[tr]: https://vocajs.pages.dev/#tr
+[trim]: https://vocajs.pages.dev/#trim
+[trimLeft]: https://vocajs.pages.dev/#trimLeft
+[trimRight]: https://vocajs.pages.dev/#trimRight
+[wordWrap]: https://vocajs.pages.dev/#wordWrap
 
-[endsWith]: https://vocajs.com/#endsWith
-[includes]: https://vocajs.com/#includes
-[isAlpha]: https://vocajs.com/#isAlpha
-[isAlphaDigit]: https://vocajs.com/#isAlphaDigit
-[isBlank]: https://vocajs.com/#isBlank
-[isDigit]: https://vocajs.com/#isDigit
-[isEmpty]: https://vocajs.com/#isEmpty
-[isLowerCase]: https://vocajs.com/#isLowerCase
-[isNumeric]: https://vocajs.com/#isNumeric
-[isString]: https://vocajs.com/#isString
-[isUpperCase]: https://vocajs.com/#isUpperCase
-[matches]: https://vocajs.com/#matches
-[startsWith]: https://vocajs.com/#startsWith
+[endsWith]: https://vocajs.pages.dev/#endsWith
+[includes]: https://vocajs.pages.dev/#includes
+[isAlpha]: https://vocajs.pages.dev/#isAlpha
+[isAlphaDigit]: https://vocajs.pages.dev/#isAlphaDigit
+[isBlank]: https://vocajs.pages.dev/#isBlank
+[isDigit]: https://vocajs.pages.dev/#isDigit
+[isEmpty]: https://vocajs.pages.dev/#isEmpty
+[isLowerCase]: https://vocajs.pages.dev/#isLowerCase
+[isNumeric]: https://vocajs.pages.dev/#isNumeric
+[isString]: https://vocajs.pages.dev/#isString
+[isUpperCase]: https://vocajs.pages.dev/#isUpperCase
+[matches]: https://vocajs.pages.dev/#matches
+[startsWith]: https://vocajs.pages.dev/#startsWith
 
-[chars]: https://vocajs.com/#chars
-[codePoints]: https://vocajs.com/#codePoints
-[graphemes]: https://vocajs.com/#graphemes
-[split]: https://vocajs.com/#split
-[words]: https://vocajs.com/#words
+[chars]: https://vocajs.pages.dev/#chars
+[codePoints]: https://vocajs.pages.dev/#codePoints
+[graphemes]: https://vocajs.pages.dev/#graphemes
+[split]: https://vocajs.pages.dev/#split
+[words]: https://vocajs.pages.dev/#words
 
-[stripTags]: https://vocajs.com/#stripTags
-[stripBom]: https://vocajs.com/#stripBom
+[stripTags]: https://vocajs.pages.dev/#stripTags
+[stripBom]: https://vocajs.pages.dev/#stripBom
