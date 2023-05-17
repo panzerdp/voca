@@ -1,5 +1,5 @@
 /**
- * Max save integer value
+ * Max safe integer value
  *
  * @ignore
  * @type {number}
